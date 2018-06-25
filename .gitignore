@@ -34,3 +34,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# For IDE
+.idea/*
+Assets/Plugins/*
+Assets/Plugins.meta
