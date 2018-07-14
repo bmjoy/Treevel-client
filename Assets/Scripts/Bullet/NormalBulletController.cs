@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalBulletController : MonoBehaviour {
+public class NormalBulletController : MonoBehaviour, BulletController{
 
 	// Use this for initialization
 	void Start () {
