@@ -28,7 +28,7 @@ public class BulletGenerator : MonoBehaviour {
             // normalBulletPrefabのGameObjectを作成
             GameObject bullet = Instantiate(normalBulletPrefab) as GameObject;
             // 座標を指定
-            bullet.transform.position = new Vector3(x, y, 0);
+            bullet.transform.position = new Vector2(x, y);
             // 一定時間(interval)待つ
             yield return new WaitForSeconds(interval);
         }
