@@ -37,7 +37,7 @@ public class BulletGenerator : MonoBehaviour {
             // 座標を指定
             bullet.transform.position = position;
             // 変数の初期設定
-            CartridgeController b = bullet.GetComponent<NormalBulletController>();
+            NormalBulletController b = bullet.GetComponent<NormalBulletController>();
             b.initialize(motion_vector);
             // 一定時間(interval)待つ
             yield return new WaitForSeconds(interval);
