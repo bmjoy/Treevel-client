@@ -16,4 +16,9 @@ public class BulletController : MonoBehaviour {
     {
 
     }
+
+    protected virtual void FixedUpdate()
+    {
+        
+    }
 }

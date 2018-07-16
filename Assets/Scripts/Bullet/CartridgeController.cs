@@ -13,7 +13,12 @@ public class CartridgeController : BulletController {
     // Update is called once per frame
     protected override void Update()
     {
+        
+    }
 
+    protected override void FixedUpdate()
+    {
+        transform.Translate(motion_vector * speed);
     }
 
     // コンストラクタがわりのメソッド

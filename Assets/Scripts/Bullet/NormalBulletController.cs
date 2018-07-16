@@ -12,6 +12,11 @@ public class NormalBulletController : CartridgeController {
 		base.Update();
 	}
 
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
     // コンストラクタがわりのメソッド
     public override void initialize(Vector2 motion_vector)
     {
