@@ -17,7 +17,7 @@ public class CartridgeController : BulletController {
     }
 
     // コンストラクタがわりのメソッド
-    protected virtual void initialize(Vector2 motion_vector)
+    public virtual void initialize(Vector2 motion_vector)
     {
         this.motion_vector = motion_vector;
     }

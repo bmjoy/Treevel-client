@@ -13,7 +13,7 @@ public class NormalBulletController : CartridgeController {
 	}
 
     // コンストラクタがわりのメソッド
-    protected override void initialize(Vector2 motion_vector)
+    public override void initialize(Vector2 motion_vector)
     {
         base.initialize(motion_vector);
         this.speed = 1.0f;
