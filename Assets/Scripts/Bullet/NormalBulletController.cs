@@ -1,4 +1,5 @@
-﻿
+﻿using UnityEngine;
+
 public class NormalBulletController : CartridgeController {
 
 	protected override void Start()
@@ -10,4 +11,11 @@ public class NormalBulletController : CartridgeController {
 	{
 		base.Update();
 	}
+
+    // コンストラクタがわりのメソッド
+    protected override void initialize(Vector2 motion_vector)
+    {
+        base.initialize(motion_vector);
+        this.speed = 1.0f;
+    }
 }
