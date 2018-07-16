@@ -21,6 +21,6 @@ public class NormalBulletController : CartridgeController {
     public override void initialize(Vector2 motion_vector)
     {
         base.initialize(motion_vector);
-        this.speed = 1.0f;
+        this.speed = 0.1f;
     }
 }
