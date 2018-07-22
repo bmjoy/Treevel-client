@@ -4,7 +4,7 @@ namespace Bullet
 {
     public class CartridgeController : BulletController
     {
-        Vector2 motion_vector;
+        Vector2 motionVector;
         protected float speed;
 
         // Use this for initialization
@@ -19,13 +19,13 @@ namespace Bullet
 
         protected override void FixedUpdate()
         {
-            transform.Translate(motion_vector * speed);
+            transform.Translate(motionVector * speed);
         }
 
         // コンストラクタがわりのメソッド
-        public virtual void initialize(Vector2 motion_vector)
+        public virtual void Initialize(Vector2 motionVector)
         {
-            this.motion_vector = motion_vector;
+            this.motionVector = motionVector;
         }
     }
 }

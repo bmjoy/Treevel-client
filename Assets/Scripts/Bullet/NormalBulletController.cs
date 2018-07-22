@@ -20,9 +20,9 @@ namespace Bullet
         }
 
         // コンストラクタがわりのメソッド
-        public override void initialize(Vector2 motion_vector)
+        public override void Initialize(Vector2 motionVector)
         {
-            base.initialize(motion_vector);
+            base.Initialize(motionVector);
             this.speed = 0.1f;
         }
     }
