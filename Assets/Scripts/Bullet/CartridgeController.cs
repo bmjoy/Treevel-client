@@ -4,7 +4,7 @@ namespace Bullet
 {
     public class CartridgeController : BulletController
     {
-        Vector2 motionVector;
+        private Vector2 motionVector;
         protected float speed;
 
         // Use this for initialization

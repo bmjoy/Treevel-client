@@ -9,7 +9,7 @@ namespace Bullet
         public GameObject normalBulletPrefab;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             // 銃弾の初期位置
             Vector2 position = new Vector2(3.5f, 1.0f);
@@ -23,12 +23,12 @@ namespace Bullet
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
         }
 
         // 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-        IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float interval)
+        private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float interval)
         {
             while (true)
             {
