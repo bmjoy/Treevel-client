@@ -11,7 +11,7 @@ namespace Data
         public const float BRANK_HEIGHT = 0;
     }
 
-    public static class Tile
+    public static class TileSize
     {
         public const float WIDTH = WindowSize.WIDTH * 0.24f;
 
