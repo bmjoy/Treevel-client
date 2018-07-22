@@ -16,9 +16,9 @@ namespace Bullet
             // 銃弾の移動ベクトル
             Vector2 motionVector = new Vector2(-1.0f, 0.0f);
             // 銃弾を作るインターバル
-            float createInterval = 1.0f;
+            const float createInterval = 1.0f;
             // coroutineの開始
-            var coroutine = CreateBullet(position, motionVector, createInterval);
+            IEnumerator coroutine = CreateBullet(position, motionVector, createInterval);
             StartCoroutine(coroutine);
         }
 
