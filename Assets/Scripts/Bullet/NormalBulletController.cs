@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
 
-public class NormalBulletController : CartridgeController
+namespace Bullet
 {
-    protected override void Start()
+    public class NormalBulletController : CartridgeController
     {
-        base.Start();
-    }
+        protected override void Start()
+        {
+            base.Start();
+        }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
+        protected override void Update()
+        {
+            base.Update();
+        }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
 
-    // コンストラクタがわりのメソッド
-    public override void initialize(Vector2 motion_vector)
-    {
-        base.initialize(motion_vector);
-        this.speed = 0.1f;
+        // コンストラクタがわりのメソッド
+        public override void initialize(Vector2 motion_vector)
+        {
+            base.initialize(motion_vector);
+            this.speed = 0.1f;
+        }
     }
 }

@@ -1,28 +1,31 @@
 ﻿using UnityEngine;
 
-public class CartridgeController : BulletController
+namespace Bullet
 {
-    Vector2 motion_vector;
-    protected float speed;
-
-    // Use this for initialization
-    protected override void Start()
+    public class CartridgeController : BulletController
     {
-    }
+        Vector2 motion_vector;
+        protected float speed;
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-    }
+        // Use this for initialization
+        protected override void Start()
+        {
+        }
 
-    protected override void FixedUpdate()
-    {
-        transform.Translate(motion_vector * speed);
-    }
+        // Update is called once per frame
+        protected override void Update()
+        {
+        }
 
-    // コンストラクタがわりのメソッド
-    public virtual void initialize(Vector2 motion_vector)
-    {
-        this.motion_vector = motion_vector;
+        protected override void FixedUpdate()
+        {
+            transform.Translate(motion_vector * speed);
+        }
+
+        // コンストラクタがわりのメソッド
+        public virtual void initialize(Vector2 motion_vector)
+        {
+            this.motion_vector = motion_vector;
+        }
     }
 }
