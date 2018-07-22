@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-public class NormalBulletController : CartridgeController {
+public class NormalBulletController : CartridgeController
+{
+    protected override void Start()
+    {
+        base.Start();
+    }
 
-	protected override void Start()
-	{
-		base.Start();
-	}
-
-	protected override void Update()
-	{
-		base.Update();
-	}
+    protected override void Update()
+    {
+        base.Update();
+    }
 
     protected override void FixedUpdate()
     {

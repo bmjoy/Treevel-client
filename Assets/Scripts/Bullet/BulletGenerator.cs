@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletGenerator : MonoBehaviour {
-
+public class BulletGenerator : MonoBehaviour
+{
     // normalBullerのPrefab
     public GameObject normalBulletPrefab;
 
-	// Use this for initialization
-    void Start ()
+    // Use this for initialization
+    void Start()
     {
         // 銃弾の初期位置
         Vector2 position = new Vector2(3.5f, 1.0f);
@@ -19,18 +19,17 @@ public class BulletGenerator : MonoBehaviour {
         // coroutineの開始
         var coroutine = createBullet(position, motion_vector, createInterval);
         StartCoroutine(coroutine);
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+    }
 
     // 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
     IEnumerator createBullet(Vector2 position, Vector2 motion_vector, float interval)
     {
-        while(true)
+        while (true)
         {
             // normalBulletPrefabのGameObjectを作成
             GameObject bullet = Instantiate(normalBulletPrefab) as GameObject;
