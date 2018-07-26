@@ -17,6 +17,14 @@ namespace Bullet
         // Update is called once per frame
         protected override void Update()
         {
+            // Check if bullet goes out of window
+            if (this.transform.position.x < -WindowSize.WIDTH - width / 2 ||
+                this.transform.position.x > WindowSize.WIDTH + width / 2 ||
+                this.transform.position.y < -WindowSize.HEIGHT - height / 2 ||
+                this.transform.position.y > WindowSize.HEIGHT + height / 2)
+            {
+                Destroy(gameObject);
+            }
         }
 
         protected override void FixedUpdate()
