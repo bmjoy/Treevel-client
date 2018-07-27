@@ -24,6 +24,9 @@ namespace Bullet
         {
             base.Initialize(motionVector);
             this.speed = 0.1f;
+            width = (float) (WindowSize.WIDTH * 0.15);
+            height = width;
+            this.transform.localScale = new Vector3(width, height, 0);
         }
     }
 }

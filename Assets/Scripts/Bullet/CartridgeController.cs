@@ -6,8 +6,8 @@ namespace Bullet
     {
         private Vector2 motionVector;
         protected float speed;
-        private float width;
-        private float height;
+        protected float width;
+        protected float height;
 
         // Use this for initialization
         protected override void Start()
@@ -36,9 +36,6 @@ namespace Bullet
         public virtual void Initialize(Vector2 motionVector)
         {
             this.motionVector = motionVector;
-            width = (float) (WindowSize.WIDTH * 0.15);
-            height = width;
-            this.transform.localScale = new Vector3(width, height, 0);
         }
     }
 }
