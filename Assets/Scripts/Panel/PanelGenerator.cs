@@ -18,13 +18,13 @@ namespace Panel
         private void CreatePanels()
         {
             CreateOnePanel(GameObject.Find("Tile0"), 0);
-            CreateOnePanel(GameObject.Find("Tile2"), 2);
-            CreateOnePanel(GameObject.Find("Tile4"), 4);
-            CreateOnePanel(GameObject.Find("Tile5"), 5);
-            CreateOnePanel(GameObject.Find("Tile7"), 7);
-            CreateOnePanel(GameObject.Find("Tile10"), 10);
-            CreateOnePanel(GameObject.Find("Tile12"), 12);
-            CreateOnePanel(GameObject.Find("Tile14"), 14);
+            CreateOnePanel(GameObject.Find("Tile2"), 1);
+            CreateOnePanel(GameObject.Find("Tile4"), 2);
+            CreateOnePanel(GameObject.Find("Tile5"), 3);
+            CreateOnePanel(GameObject.Find("Tile7"), 4);
+            CreateOnePanel(GameObject.Find("Tile10"), 5);
+            CreateOnePanel(GameObject.Find("Tile12"), 6);
+            CreateOnePanel(GameObject.Find("Tile14"), 7);
         }
 
         private void CreateOnePanel(GameObject tile, int panelNum)
