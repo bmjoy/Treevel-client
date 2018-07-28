@@ -28,18 +28,18 @@ namespace Tile
                     var positionX = TileSize.WIDTH * column;
                     var positionY = topTilePositionY - TileSize.HEIGHT * row;
                     // 15枚のタイルに0-14の名前を付ける
-                    CreateOneTile(new Vector2(positionX, positionY), tileNum.ToString());
+                    CreateOneTile(new Vector2(positionX, positionY), tileNum);
                     tileNum++;
                 }
             }
         }
 
-        private void CreateOneTile(Vector2 position, string tileNum)
+        private void CreateOneTile(Vector2 position, int tileNum)
         {
             GameObject tile = Instantiate(normalTilePrefab) as GameObject;
             tile.transform.localScale = new Vector2(TileSize.WIDTH * 0.5f, TileSize.HEIGHT * 0.5f);
             tile.transform.position = position;
-            tile.name = "Tile" + tileNum;
+            tile.name = "Tile" + tileNum.ToString();
         }
     }
 }
