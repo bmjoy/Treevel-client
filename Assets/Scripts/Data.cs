@@ -10,9 +10,14 @@
 public static class TileSize
 {
     public const float WIDTH = WindowSize.WIDTH * 0.24f;
-
     public const float HEIGHT = WIDTH;
 
     // タイル群の上端位置を指定
     public const float MARGIN_TOP = WindowSize.HEIGHT * 0.15f;
+}
+
+public static class PanelSize
+{
+    public const float WIDTH = TileSize.WIDTH * 0.95f;
+    public const float HEIGHT = WIDTH;
 }
