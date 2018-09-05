@@ -34,6 +34,7 @@ namespace Panel
             panel.transform.parent = tile.transform;
             panel.transform.position =  tile.transform.position;
             panel.name = "Panel" + panelNum.ToString();
+            panel.GetComponent<Renderer>().sortingLayerName = "Panel";
         }
     }
 }

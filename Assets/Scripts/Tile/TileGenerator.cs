@@ -40,6 +40,7 @@ namespace Tile
             tile.transform.localScale = new Vector2(TileSize.WIDTH * 0.5f, TileSize.HEIGHT * 0.5f);
             tile.transform.position = position;
             tile.name = "Tile" + tileNum.ToString();
+            tile.GetComponent<Renderer>().sortingLayerName = "Tile";
         }
     }
 }
