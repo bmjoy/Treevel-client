@@ -36,6 +36,8 @@ namespace Bullet
                 GameObject bullet = Instantiate(normalBulletPrefab) as GameObject;
                 // 座標を指定
                 bullet.transform.position = position;
+                // SortingLayerを指定
+                bullet.GetComponent<Renderer>().sortingLayerName = "Bullet";
                 // 変数の初期設定
                 NormalBulletController b = bullet.GetComponent<NormalBulletController>();
                 b.Initialize(motionVector);
