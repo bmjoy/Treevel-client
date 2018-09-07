@@ -37,15 +37,17 @@ namespace Bullet
         public virtual void Initialize(Vector2 motionVector)
         {
             this.motionVector = motionVector;
+            // Calculate rotation angle
             var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
             angle = (float) (Mathf.Acos(angle) * 180 / Math.PI);
             angle *= (-1)*Mathf.Sign(motionVector.y);
 
+            // Check if a bullet should be flipped vertically
             if (motionVector.x > 0)
             {
-                var temp = transform.localScale;
-                temp.y *= (-1);
-                transform.localScale = temp;
+                var tempLocalScale = transform.localScale;
+                tempLocalScale.y *= (-1);
+                transform.localScale = tempLocalScale;
             }
 
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
