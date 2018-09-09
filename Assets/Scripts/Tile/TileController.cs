@@ -5,10 +5,10 @@ namespace Tile
 {
     public class TileController : MonoBehaviour
     {
-        [CanBeNull] private GameObject rightTile;
-        [CanBeNull] private GameObject leftTile;
-        [CanBeNull] private GameObject upperTile;
-        [CanBeNull] private GameObject lowerTile;
+        [CanBeNull] public GameObject rightTile;
+        [CanBeNull] public GameObject leftTile;
+        [CanBeNull] public GameObject upperTile;
+        [CanBeNull] public GameObject lowerTile;
 
         // Use this for initialization
         void Start ()
