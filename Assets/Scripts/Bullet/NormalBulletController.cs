@@ -26,7 +26,7 @@ namespace Bullet
             this.speed = 0.1f;
             width = (float) (WindowSize.WIDTH * 0.15);
             height = width;
-            this.transform.localScale = new Vector2(width, height);
+            this.transform.localScale *= new Vector2(width, height);
         }
     }
 }

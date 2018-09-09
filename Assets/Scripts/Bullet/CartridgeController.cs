@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Bullet
 {
@@ -29,13 +30,27 @@ namespace Bullet
 
         protected override void FixedUpdate()
         {
-            transform.Translate(motionVector * speed);
+            transform.Translate(motionVector * speed, Space.World);
         }
 
         // コンストラクタがわりのメソッド
         public virtual void Initialize(Vector2 motionVector)
         {
             this.motionVector = motionVector;
+            // Calculate rotation angle
+            var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
+            angle = (float) (Mathf.Acos(angle) * 180 / Math.PI);
+            angle *= (-1)*Mathf.Sign(motionVector.y);
+
+            // Check if a bullet should be flipped vertically
+            if (motionVector.x > 0)
+            {
+                var tempLocalScale = transform.localScale;
+                tempLocalScale.y *= (-1);
+                transform.localScale = tempLocalScale;
+            }
+
+            transform.Rotate(new Vector3(0, 0, angle), Space.World);
         }
     }
 }
