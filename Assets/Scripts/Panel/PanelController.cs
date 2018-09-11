@@ -16,8 +16,8 @@ namespace Panel
         {
             GetComponent<FlickGesture>().Flicked += HandleFlick;
             // フリックの検知感度を変えたい際に変更可能
-            GetComponent<FlickGesture>().MinDistance = 1f;
-            GetComponent<FlickGesture>().FlickTime = 0.3f;
+            GetComponent<FlickGesture>().MinDistance = 0.01f;
+            GetComponent<FlickGesture>().FlickTime = 0.5f;
         }
 
         private void HandleFlick(object sender, System.EventArgs e)
