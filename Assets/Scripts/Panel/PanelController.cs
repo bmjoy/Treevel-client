@@ -10,14 +10,14 @@ namespace Panel
         private void OnEnable()
         {
             GetComponent<FlickGesture>().StateChanged += HandleFlick;
+            // フリックの検知感度を変えたい際に変更可能
+            GetComponent<FlickGesture>().MinDistance = 0.5f;
+            GetComponent<FlickGesture>().FlickTime = 0.5f;
         }
 
         private void OnDisable()
         {
-            GetComponent<FlickGesture>().Flicked += HandleFlick;
-            // フリックの検知感度を変えたい際に変更可能
-            GetComponent<FlickGesture>().MinDistance = 0.01f;
-            GetComponent<FlickGesture>().FlickTime = 0.5f;
+            GetComponent<FlickGesture>().Flicked -= HandleFlick;
         }
 
         private void HandleFlick(object sender, System.EventArgs e)
@@ -33,25 +33,25 @@ namespace Panel
             var y = gesture.ScreenFlickVector.y;
 
             // 方向検知に加えて，上下と左右の変化量を比べることで，検知精度をあげる
-            if (x > 0 && Math.Abs(x) > Math.Abs(y))
+            if (x > 0 && Math.Abs(x) >= Math.Abs(y))
             {
                 // 右
                 GameObject rightTile = parentTile.rightTile;
                 Move(rightTile);
             }
-            else if (x < 0 && Math.Abs(x) > Math.Abs(y))
+            else if (x < 0 && Math.Abs(x) >= Math.Abs(y))
             {
                 // 左
                 GameObject leftTile = parentTile.leftTile;
                 Move(leftTile);
             }
-            else if (y > 0 && Math.Abs(y) > Math.Abs(x))
+            else if (y > 0 && Math.Abs(y) >= Math.Abs(x))
             {
                 // 上
                 GameObject upperTile = parentTile.upperTile;
                 Move(upperTile);
             }
-            else if (y < 0 && Math.Abs(y) > Math.Abs(x))
+            else if (y < 0 && Math.Abs(y) >= Math.Abs(x))
             {
                 // 下
                 GameObject lowerTile = parentTile.lowerTile;
