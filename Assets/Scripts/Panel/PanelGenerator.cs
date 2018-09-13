@@ -25,6 +25,8 @@ namespace Panel
             CreateOnePanel(GameObject.Find("Tile10"), 5);
             CreateOnePanel(GameObject.Find("Tile12"), 6);
             CreateOnePanel(GameObject.Find("Tile14"), 7);
+
+            Destroy(gameObject);
         }
 
         private void CreateOnePanel(GameObject tile, int panelNum)
