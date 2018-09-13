@@ -7,6 +7,14 @@ namespace Panel
 {
     public class PanelController : MonoBehaviour
     {
+        private void Start()
+        {
+            // 当たり判定をパネルサイズと同等にする
+            Vector2 panelSize = transform.localScale * 2f;
+            BoxCollider2D collider = GetComponent<BoxCollider2D> ();
+            collider.size = panelSize;
+        }
+
         private void OnEnable()
         {
             GetComponent<FlickGesture>().StateChanged += HandleFlick;
