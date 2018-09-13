@@ -15,16 +15,19 @@ namespace Bullet
             Vector2 position = new Vector2(3.5f, 1.0f);
             // 銃弾の移動ベクトル
             Vector2 motionVector = new Vector2(-1.0f, 0.0f);
+            // １つ目の銃弾の出現時刻
+            var appearanceTiming = 1.0f;
             // 銃弾を作るインターバル
             var createInterval = 1.0f;
             // coroutineの開始
-            IEnumerator coroutine = CreateBullet(position, motionVector, createInterval);
+            IEnumerator coroutine = CreateBullet(position, motionVector, createInterval, appearanceTiming);
             StartCoroutine(coroutine);
 
             position = new Vector2(-2.0f, -2.0f);
             motionVector = new Vector2(1.0f, 1.0f);
-            createInterval = 1.0f;
-            coroutine = CreateBullet(position, motionVector, createInterval);
+            createInterval = 3.0f;
+            appearanceTiming = 2.0f;
+            coroutine = CreateBullet(position, motionVector, createInterval, appearanceTiming);
             StartCoroutine(coroutine);
         }
 
@@ -34,8 +37,10 @@ namespace Bullet
         }
 
         // 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-        private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float interval)
+        private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float interval, float appearanceTiming)
         {
+            yield return new WaitForSeconds(appearanceTiming);
+
             while (true)
             {
                 // normalBulletPrefabのGameObjectを作成
