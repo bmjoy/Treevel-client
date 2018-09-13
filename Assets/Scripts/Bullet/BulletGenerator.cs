@@ -23,11 +23,7 @@ namespace Bullet
             IEnumerator coroutine = CreateBullet(position, motionVector, createInterval, appearanceTiming);
             StartCoroutine(coroutine);
 
-            position = new Vector2(-2.0f, -2.0f);
-            motionVector = new Vector2(1.0f, 1.0f);
-            createInterval = 3.0f;
-            appearanceTiming = 2.0f;
-            coroutine = CreateBullet(position, motionVector, createInterval, appearanceTiming);
+            coroutine = CreateBullet(new Vector2(-2.0f, -2.0f), new Vector2(1.0f, 1.0f), 3.0f, 2.0f);
             StartCoroutine(coroutine);
         }
 
