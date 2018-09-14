@@ -20,10 +20,11 @@ namespace Bullet
             // 銃弾を作るインターバル
             var createInterval = 1.0f;
             // coroutineの開始
-            IEnumerator coroutine = CreateBullet(position, motionVector, createInterval, appearanceTiming);
+            IEnumerator coroutine = CreateBullet(position, motionVector, appearanceTiming, createInterval);
             StartCoroutine(coroutine);
 
-            coroutine = CreateBullet(new Vector2(-2.0f, -2.0f), new Vector2(1.0f, 1.0f), 3.0f, 2.0f);
+            coroutine = CreateBullet(position: new Vector2(-2.0f, -2.0f), motionVector: new Vector2(1.0f, 1.0f),
+                appearanceTiming: 2.0f, interval:3.0f);
             StartCoroutine(coroutine);
         }
 
@@ -33,7 +34,7 @@ namespace Bullet
         }
 
         // 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-        private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float interval, float appearanceTiming)
+        private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float appearanceTiming, float interval)
         {
             yield return new WaitForSeconds(appearanceTiming);
 
