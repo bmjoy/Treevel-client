@@ -7,6 +7,8 @@ namespace Panel
 {
     public class PanelController : MonoBehaviour
     {
+        private float speed = 0.5f;
+
         private void Start()
         {
             // 当たり判定をパネルサイズと同等にする
@@ -45,29 +47,29 @@ namespace Panel
             {
                 // 右
                 GameObject rightTile = parentTile.rightTile;
-                Move(rightTile);
+                updateTIle(rightTile);
             }
             else if (x < 0 && Math.Abs(x) >= Math.Abs(y))
             {
                 // 左
                 GameObject leftTile = parentTile.leftTile;
-                Move(leftTile);
+                updateTIle(leftTile);
             }
             else if (y > 0 && Math.Abs(y) >= Math.Abs(x))
             {
                 // 上
                 GameObject upperTile = parentTile.upperTile;
-                Move(upperTile);
+                updateTIle(upperTile);
             }
             else if (y < 0 && Math.Abs(y) >= Math.Abs(x))
             {
                 // 下
                 GameObject lowerTile = parentTile.lowerTile;
-                Move(lowerTile);
+                updateTIle(lowerTile);
             }
         }
 
-        private void Move(GameObject targetTile)
+        private void updateTIle(GameObject targetTile)
         {
             // 移動先にタイルがなければ何もしない
             if (targetTile == null) return;
@@ -75,8 +77,16 @@ namespace Panel
             if (targetTile.transform.childCount != 0) return;
             // 親タイルの更新
             transform.parent = targetTile.transform;
-            // 移動
-            transform.position = Vector2.MoveTowards(transform.position, targetTile.transform.position, 2.5f);
+        }
+
+        private void Update()
+        {
+            transform.position = Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            speed = 0;
         }
     }
 }

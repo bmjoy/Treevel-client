@@ -52,5 +52,11 @@ namespace Bullet
 
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            speed = 0;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        }
     }
 }
