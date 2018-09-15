@@ -40,7 +40,7 @@ namespace Bullet
             // Calculate rotation angle
             var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
             angle = (float) (Mathf.Acos(angle) * 180 / Math.PI);
-            angle *= (-1)*Mathf.Sign(motionVector.y);
+            angle *= (-1) * Mathf.Sign(motionVector.y);
 
             // Check if a bullet should be flipped vertically
             if (motionVector.x > 0)

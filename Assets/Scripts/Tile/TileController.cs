@@ -11,12 +11,12 @@ namespace Tile
         [CanBeNull] public GameObject lowerTile;
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
         }
 
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
         }
 

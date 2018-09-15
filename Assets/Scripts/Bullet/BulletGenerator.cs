@@ -8,6 +8,7 @@ namespace Bullet
     {
         // normalBullerのPrefab
         public GameObject normalBulletPrefab;
+
         // Generatorが作成された時刻
         public float startTime;
 
@@ -46,7 +47,7 @@ namespace Bullet
         private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float appearanceTiming, float interval)
         {
             var currentTime = Time.time;
-            yield return new WaitForSeconds(appearanceTiming-(currentTime-startTime));
+            yield return new WaitForSeconds(appearanceTiming - (currentTime - startTime));
 
             // 出現させた銃弾の個数
             var sum = 1;
@@ -64,7 +65,7 @@ namespace Bullet
 
                 currentTime = Time.time;
                 // 一定時間(interval)待つ
-                yield return new WaitForSeconds(appearanceTiming+interval*sum-(currentTime-startTime));
+                yield return new WaitForSeconds(appearanceTiming + interval * sum - (currentTime - startTime));
                 sum++;
             }
         }

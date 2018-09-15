@@ -34,7 +34,7 @@ namespace Panel
             GameObject panel = Instantiate(normalPanelPrefab) as GameObject;
             panel.transform.localScale = new Vector2(PanelSize.WIDTH * 0.5f, PanelSize.HEIGHT * 0.5f);
             panel.transform.parent = tile.transform;
-            panel.transform.position =  tile.transform.position;
+            panel.transform.position = tile.transform.position;
             panel.name = "Panel" + panelNum.ToString();
             panel.GetComponent<Renderer>().sortingLayerName = "Panel";
         }
