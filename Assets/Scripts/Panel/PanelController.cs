@@ -86,6 +86,8 @@ namespace Panel
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            // 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
+            if (!other.gameObject.CompareTag("Bullet")) return;
             speed = 0;
         }
     }

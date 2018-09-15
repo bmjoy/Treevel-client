@@ -56,7 +56,7 @@ namespace Bullet
         private void OnTriggerEnter2D(Collider2D other)
         {
             // パネルとの衝突以外は考えない
-            if (other.gameObject.GetComponent<Renderer>().sortingLayerName != "Panel") return;
+            if (!other.gameObject.CompareTag("Panel")) return;
             speed = 0;
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
