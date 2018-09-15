@@ -37,6 +37,8 @@ namespace Tile
 
             // タイルの位置関係を作成する
             MakeRelations(tiles);
+
+            Destroy(gameObject);
         }
 
         private GameObject CreateOneTile(Vector2 position, int tileNum)

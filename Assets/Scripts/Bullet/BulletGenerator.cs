@@ -8,6 +8,7 @@ namespace Bullet
     {
         // normalBullerのPrefab
         public GameObject normalBulletPrefab;
+
         // Generatorが作成された時刻
         public float startTime;
 
@@ -16,7 +17,7 @@ namespace Bullet
         {
             startTime = Time.time;
             // 銃弾の初期位置
-            Vector2 position = new Vector2(3.5f, 1.0f);
+            Vector2 position = new Vector2(6.5f, 1.0f);
             // 銃弾の移動ベクトル
             Vector2 motionVector = new Vector2(-1.0f, 0.0f);
             // 銃弾の出現時刻
@@ -27,14 +28,8 @@ namespace Bullet
             var coroutines = new List<IEnumerator>
             {
                 CreateBullet(position, motionVector, appearanceTiming, createInterval),
-                CreateBullet(position: new Vector2(3.5f, 2.0f), motionVector: new Vector2(-1.0f, 0.0f),
+                CreateBullet(position: new Vector2(-6.5f, 4.0f), motionVector: new Vector2(1.0f, 0.0f),
                     appearanceTiming: 2.0f, interval: 1.0f),
-                CreateBullet(position: new Vector2(3.5f, 0.0f), motionVector: new Vector2(-1.0f, 0.0f),
-                    appearanceTiming: 3.0f, interval: 1.0f),
-                CreateBullet(position: new Vector2(3.5f, 3.0f), motionVector: new Vector2(-1.0f, 0.0f),
-                    appearanceTiming: 4.0f, interval: 1.0f),
-                CreateBullet(position: new Vector2(3.5f, -1.0f), motionVector: new Vector2(-1.0f, 0.0f),
-                    appearanceTiming: 5.0f, interval: 1.0f)
             };
 
             foreach (IEnumerator coroutine in coroutines)
@@ -52,7 +47,7 @@ namespace Bullet
         private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float appearanceTiming, float interval)
         {
             var currentTime = Time.time;
-            yield return new WaitForSeconds(appearanceTiming-(currentTime-startTime));
+            yield return new WaitForSeconds(appearanceTiming - (currentTime - startTime));
 
             // 出現させた銃弾の個数
             var sum = 1;
@@ -70,7 +65,7 @@ namespace Bullet
 
                 currentTime = Time.time;
                 // 一定時間(interval)待つ
-                yield return new WaitForSeconds(appearanceTiming+interval*sum-(currentTime-startTime));
+                yield return new WaitForSeconds(appearanceTiming + interval * sum - (currentTime - startTime));
                 sum++;
             }
         }

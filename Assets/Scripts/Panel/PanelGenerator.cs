@@ -25,6 +25,8 @@ namespace Panel
             CreateOnePanel(GameObject.Find("Tile10"), 5);
             CreateOnePanel(GameObject.Find("Tile12"), 6);
             CreateOnePanel(GameObject.Find("Tile14"), 7);
+
+            Destroy(gameObject);
         }
 
         private void CreateOnePanel(GameObject tile, int panelNum)
@@ -32,7 +34,7 @@ namespace Panel
             GameObject panel = Instantiate(normalPanelPrefab) as GameObject;
             panel.transform.localScale = new Vector2(PanelSize.WIDTH * 0.5f, PanelSize.HEIGHT * 0.5f);
             panel.transform.parent = tile.transform;
-            panel.transform.position =  tile.transform.position;
+            panel.transform.position = tile.transform.position;
             panel.name = "Panel" + panelNum.ToString();
             panel.GetComponent<Renderer>().sortingLayerName = "Panel";
         }

@@ -40,7 +40,7 @@ namespace Bullet
             // Calculate rotation angle
             var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
             angle = (float) (Mathf.Acos(angle) * 180 / Math.PI);
-            angle *= (-1)*Mathf.Sign(motionVector.y);
+            angle *= (-1) * Mathf.Sign(motionVector.y);
 
             // Check if a bullet should be flipped vertically
             if (motionVector.x > 0)
@@ -51,6 +51,14 @@ namespace Bullet
             }
 
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            // パネルとの衝突以外は考えない
+            if (!other.gameObject.CompareTag("Panel")) return;
+            speed = 0;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 }
