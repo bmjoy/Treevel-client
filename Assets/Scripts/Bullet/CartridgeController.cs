@@ -1,4 +1,5 @@
 ﻿using System;
+using Directors;
 using UnityEngine;
 
 namespace Bullet
@@ -10,11 +11,6 @@ namespace Bullet
         protected float width;
         protected float height;
 
-        // Use this for initialization
-        protected override void Start()
-        {
-        }
-
         // Update is called once per frame
         protected override void Update()
         {
@@ -25,6 +21,11 @@ namespace Bullet
                 this.transform.position.y > WindowSize.HEIGHT + height / 2)
             {
                 Destroy(gameObject);
+            }
+
+            if (gamePlayDirector.currentState == GamePlayDirector.GameState.Failure)
+            {
+                speed = 0;
             }
         }
 
@@ -57,7 +58,6 @@ namespace Bullet
         {
             // パネルとの衝突以外は考えない
             if (!other.gameObject.CompareTag("Panel")) return;
-            speed = 0;
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
