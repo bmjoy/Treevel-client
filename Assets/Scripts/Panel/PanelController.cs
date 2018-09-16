@@ -1,4 +1,5 @@
 ﻿using System;
+using Directors;
 using Tile;
 using TouchScript.Gestures;
 using UnityEngine;
@@ -8,9 +9,11 @@ namespace Panel
     public class PanelController : MonoBehaviour
     {
         private float speed = 0.5f;
+        private GamePlayDirector gamePlayDirector;
 
         private void Start()
         {
+            gamePlayDirector = GameObject.Find("GamePlayDirector").GetComponent<GamePlayDirector>();
             // 当たり判定をパネルサイズと同等にする
             Vector2 panelSize = transform.localScale * 2f;
             BoxCollider2D collider = GetComponent<BoxCollider2D>();
@@ -32,6 +35,9 @@ namespace Panel
 
         private void HandleFlick(object sender, System.EventArgs e)
         {
+            // ゲームプレイ状態でなければ，フリックを無視する
+            if (gamePlayDirector.currentState != GamePlayDirector.GameState.Playing) return;
+
             FlickGesture gesture = sender as FlickGesture;
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
@@ -89,6 +95,9 @@ namespace Panel
             // 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
             if (!other.gameObject.CompareTag("Bullet")) return;
             speed = 0;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+            // 失敗状態に移行する
+            gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
         }
     }
 }
