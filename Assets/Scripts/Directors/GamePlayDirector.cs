@@ -11,7 +11,8 @@ namespace Directors
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        public enum GameState{
+        public enum GameState
+        {
             Opening,
             Playing,
             Failure
@@ -42,12 +43,13 @@ namespace Directors
 
         // 状態による振り分け処理
 
-        public void Dispatch (GameState state)
+        public void Dispatch(GameState state)
         {
             currentState = state;
-            switch (state) {
+            switch (state)
+            {
                 case GameState.Opening:
-                    GameOpening ();
+                    GameOpening();
                     break;
                 case GameState.Playing:
                     break;
@@ -57,7 +59,6 @@ namespace Directors
                 default:
                     throw new ArgumentOutOfRangeException("state", state, null);
             }
-
         }
 
         private void GameOpening()
