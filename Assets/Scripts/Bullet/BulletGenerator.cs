@@ -13,7 +13,7 @@ namespace Bullet
         public float startTime;
 
         // Use this for initialization
-        private void Start()
+        public void CreateBullets()
         {
             startTime = Time.time;
             // 銃弾の初期位置
