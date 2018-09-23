@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Bullet
 {
     // Bulletに共通したフィールド、メソッドの定義
-    public class BulletController : MonoBehaviour
+    public abstract class BulletController : MonoBehaviour
     {
         protected GamePlayDirector gamePlayDirector;
 

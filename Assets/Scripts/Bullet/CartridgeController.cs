@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bullet
 {
-    public class CartridgeController : BulletController
+    public abstract class CartridgeController : BulletController
     {
         private Vector2 motionVector;
         protected float speed;
