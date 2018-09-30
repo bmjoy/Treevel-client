@@ -421,6 +421,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalBulletPrefab: {fileID: 1336118223516990, guid: 5c3345c91aa904fb3b34b886dbba2c82,
     type: 2}
+  normalBulletWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
+    type: 2}
   startTime: 0
 --- !u!4 &896036188
 Transform:
