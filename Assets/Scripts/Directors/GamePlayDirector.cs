@@ -3,6 +3,7 @@ using Bullet;
 using Panel;
 using Tile;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Directors
 {
@@ -27,11 +28,16 @@ namespace Directors
 
         private GameObject bulletGenerator;
 
+        private GameObject resultText;
+
         private void Start()
         {
             tileGenerator = GameObject.Find("TileGenerator");
             panelGenerator = GameObject.Find("PanelGenerator");
             bulletGenerator = GameObject.Find("BulletGenerator");
+
+            resultText = GameObject.Find("Result");
+            resultText.SetActive(false);
 
             Dispatch(GameState.Opening);
         }
@@ -76,6 +82,8 @@ namespace Directors
 
         private void GameFail()
         {
+            resultText.SetActive(true);
+            resultText.GetComponent<Text>().text = "失敗！";
             if (OnFail != null) OnFail();
             Destroy(bulletGenerator);
         }
