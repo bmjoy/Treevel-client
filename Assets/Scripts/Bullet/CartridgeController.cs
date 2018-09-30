@@ -11,6 +11,16 @@ namespace Bullet
         protected float width;
         protected float height;
 
+        private void OnEnable()
+        {
+            GamePlayDirector.OnFail += OnFail;
+        }
+
+        private void OnDisable()
+        {
+            GamePlayDirector.OnFail -= OnFail;
+        }
+
         // Update is called once per frame
         protected override void Update()
         {
@@ -21,11 +31,6 @@ namespace Bullet
                 this.transform.position.y > WindowSize.HEIGHT + height / 2)
             {
                 Destroy(gameObject);
-            }
-
-            if (gamePlayDirector.currentState == GamePlayDirector.GameState.Failure)
-            {
-                speed = 0;
             }
         }
 
@@ -59,6 +64,11 @@ namespace Bullet
             // パネルとの衝突以外は考えない
             if (!other.gameObject.CompareTag("Panel")) return;
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+
+        private void OnFail()
+        {
+            speed = 0;
         }
     }
 }

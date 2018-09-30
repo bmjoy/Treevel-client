@@ -9,11 +9,10 @@ namespace Panel
     public class NormalPanelController : PanelController
     {
         private float speed = 0.5f;
-        private GamePlayDirector gamePlayDirector;
 
-        private void Start()
+        protected override void Start()
         {
-            gamePlayDirector = GameObject.Find("GamePlayDirector").GetComponent<GamePlayDirector>();
+            base.Start();
             // 当たり判定をパネルサイズと同等にする
             Vector2 panelSize = transform.localScale * 2f;
             BoxCollider2D collider = GetComponent<BoxCollider2D>();
@@ -22,22 +21,21 @@ namespace Panel
 
         private void OnEnable()
         {
-            GetComponent<FlickGesture>().StateChanged += HandleFlick;
+            GetComponent<FlickGesture>().Flicked += HandleFlick;
             // フリックの検知感度を変えたい際に変更可能
             GetComponent<FlickGesture>().MinDistance = 0.5f;
             GetComponent<FlickGesture>().FlickTime = 0.5f;
+            GamePlayDirector.OnFail += OnFail;
         }
 
         private void OnDisable()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            GamePlayDirector.OnFail -= OnFail;
         }
 
         private void HandleFlick(object sender, System.EventArgs e)
         {
-            // ゲームプレイ状態でなければ，フリックを無視する
-            if (gamePlayDirector.currentState != GamePlayDirector.GameState.Playing) return;
-
             FlickGesture gesture = sender as FlickGesture;
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
@@ -87,7 +85,9 @@ namespace Panel
 
         private void Update()
         {
-            transform.position = Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
+            if (transform.position != transform.parent.transform.position)
+                transform.position =
+                    Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -98,6 +98,11 @@ namespace Panel
             gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
             // 失敗状態に移行する
             gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+        }
+
+        private void OnFail()
+        {
+            GetComponent<FlickGesture>().Flicked -= HandleFlick;
         }
     }
 }

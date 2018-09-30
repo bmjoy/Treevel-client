@@ -11,6 +11,10 @@ namespace Directors
 {
     public class GamePlayDirector : MonoBehaviour
     {
+        public delegate void FailureAction();
+
+        public static event FailureAction OnFail;
+
         public enum GameState
         {
             Opening,
@@ -78,6 +82,7 @@ namespace Directors
 
         private void GameFail()
         {
+            if (OnFail != null) OnFail();
             Destroy(bulletGenerator);
         }
     }
