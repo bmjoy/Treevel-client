@@ -6,13 +6,8 @@ namespace Tile
     {
         public GameObject normalTilePrefab;
 
-        private void Start()
-        {
-            CreateTiles();
-        }
-
         // 現段階では5行3列のタイル群
-        private void CreateTiles()
+        public void CreateTiles()
         {
             // 最上タイルのy座標
             var topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
@@ -37,8 +32,6 @@ namespace Tile
 
             // タイルの位置関係を作成する
             MakeRelations(tiles);
-
-            Destroy(gameObject);
         }
 
         private GameObject CreateOneTile(Vector2 position, int tileNum)

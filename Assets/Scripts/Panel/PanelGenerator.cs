@@ -6,16 +6,8 @@ namespace Panel
     {
         public GameObject normalPanelPrefab;
 
-        // Awake: 初期化処理，他オブジェクトの参照はNG．
-        // Start: 他オブジェクトの参照をしたい場合．
-        // Tileオブジェクトを参照するため，Startを用いるが，きちんとした調査が必要．
-        private void Start()
-        {
-            CreatePanels();
-        }
-
         // 現段階では8枚のパネル群
-        private void CreatePanels()
+        public void CreatePanels()
         {
             CreateOnePanel(GameObject.Find("Tile0"), 0);
             CreateOnePanel(GameObject.Find("Tile2"), 1);
@@ -25,8 +17,6 @@ namespace Panel
             CreateOnePanel(GameObject.Find("Tile10"), 5);
             CreateOnePanel(GameObject.Find("Tile12"), 6);
             CreateOnePanel(GameObject.Find("Tile14"), 7);
-
-            Destroy(gameObject);
         }
 
         private void CreateOnePanel(GameObject tile, int panelNum)

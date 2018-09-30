@@ -1,17 +1,91 @@
-﻿using UnityEngine;
+﻿using System;
+using Bullet;
+using Panel;
+using Tile;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Directors
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        // Use this for initialization
+        public delegate void FailureAction();
+
+        public static event FailureAction OnFail;
+
+        public enum GameState
+        {
+            Opening,
+            Playing,
+            Failure
+        }
+
+        public GameState currentState;
+
+        private GameObject tileGenerator;
+
+        private GameObject panelGenerator;
+
+        private GameObject bulletGenerator;
+
+        private GameObject resultText;
+
         private void Start()
+        {
+            tileGenerator = GameObject.Find("TileGenerator");
+            panelGenerator = GameObject.Find("PanelGenerator");
+            bulletGenerator = GameObject.Find("BulletGenerator");
+
+            resultText = GameObject.Find("Result");
+            resultText.SetActive(false);
+
+            Dispatch(GameState.Opening);
+        }
+
+        private void Update()
         {
         }
 
-        // Update is called once per frame
-        private void Update()
+        // 状態による振り分け処理
+        public void Dispatch(GameState state)
         {
+            currentState = state;
+            switch (state)
+            {
+                case GameState.Opening:
+                    GameOpening();
+                    break;
+                case GameState.Playing:
+                    break;
+                case GameState.Failure:
+                    GameFail();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("state", state, null);
+            }
+        }
+
+        private void GameOpening()
+        {
+            // タイル作成スクリプトを起動
+            tileGenerator.GetComponent<TileGenerator>().CreateTiles();
+            // パネル作成スクリプトを起動
+            panelGenerator.GetComponent<PanelGenerator>().CreatePanels();
+            // 銃弾作成スクリプトを起動
+            bulletGenerator.GetComponent<BulletGenerator>().CreateBullets();
+
+            Destroy(tileGenerator);
+            Destroy(panelGenerator);
+            // 状態を変更する
+            Dispatch(GameState.Playing);
+        }
+
+        private void GameFail()
+        {
+            resultText.SetActive(true);
+            resultText.GetComponent<Text>().text = "失敗！";
+            if (OnFail != null) OnFail();
+            Destroy(bulletGenerator);
         }
     }
 }
