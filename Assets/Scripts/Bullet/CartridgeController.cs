@@ -8,8 +8,8 @@ namespace Bullet
     {
         private Vector2 motionVector;
         protected float speed;
-        protected float width;
-        protected float height;
+        public float width;
+        public float height;
 
         protected override void Update()
         {

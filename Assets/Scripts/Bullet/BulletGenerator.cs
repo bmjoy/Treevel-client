@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Warning;
 
 namespace Bullet
 {
@@ -8,6 +9,7 @@ namespace Bullet
     {
         // normalBullerのPrefab
         public GameObject normalBulletPrefab;
+        public GameObject normalBulletWarningPrefab;
 
         // Generatorが作成された時刻
         public float startTime;
@@ -23,12 +25,12 @@ namespace Bullet
             var appearanceTiming = 1.0f;
             // 銃弾を作るインターバル
             var createInterval = 1.0f;
-            // coroutineのリスト（テスト用の銃弾）
+            // coroutineのリスト
             var coroutines = new List<IEnumerator>
             {
-                // CreateBullet(position, motionVector, appearanceTiming, createInterval),
-                CreateBullet(position: new Vector2(-6.5f, 6.0f), motionVector: new Vector2(1.0f, 0.0f),
-                    appearanceTiming: 2.0f, interval: 1.0f),
+                CreateBullet(position, motionVector, appearanceTiming, createInterval),
+                CreateBullet(position: new Vector2(-6.5f, 4.0f), motionVector: new Vector2(1.0f, 0.0f),
+                    appearanceTiming: 2.0f, interval: 4.0f),
             };
 
             foreach (IEnumerator coroutine in coroutines)
@@ -56,6 +58,13 @@ namespace Bullet
                 // 変数の初期設定
                 NormalBulletController b = bullet.GetComponent<NormalBulletController>();
                 b.Initialize(motionVector);
+
+                // 警告画像の表示
+                GameObject warning = Instantiate(normalBulletWarningPrefab) as GameObject;
+                warning.transform.position = position + Vector2.Scale(motionVector, new Vector2(b.width, b.height));
+                NormalBulletWarningController warningScript = warning.GetComponent<NormalBulletWarningController>();
+                warningScript.Initialize();
+                warningScript.deleteWarning();
 
                 currentTime = Time.time;
                 // 一定時間(interval)待つ
