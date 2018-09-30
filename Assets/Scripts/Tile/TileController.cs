@@ -10,16 +10,6 @@ namespace Tile
         [CanBeNull] public GameObject upperTile;
         [CanBeNull] public GameObject lowerTile;
 
-        // Use this for initialization
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        }
-
         // 自身タイルの上下左右のタイルへの参照を入れる
         public void MakeRelation(GameObject rightTile, GameObject leftTile, GameObject upperTile, GameObject lowerTile)
         {

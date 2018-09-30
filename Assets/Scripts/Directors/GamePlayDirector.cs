@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using Bullet;
 using Panel;
 using Tile;
-using TouchScript.Gestures;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 namespace Directors
 {
@@ -30,7 +27,6 @@ namespace Directors
 
         private GameObject bulletGenerator;
 
-        // Use this for initialization
         private void Start()
         {
             tileGenerator = GameObject.Find("TileGenerator");
@@ -40,13 +36,11 @@ namespace Directors
             Dispatch(GameState.Opening);
         }
 
-        // Update is called once per frame
         private void Update()
         {
         }
 
         // 状態による振り分け処理
-
         public void Dispatch(GameState state)
         {
             currentState = state;

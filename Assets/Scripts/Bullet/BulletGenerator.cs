@@ -12,7 +12,6 @@ namespace Bullet
         // Generatorが作成された時刻
         public float startTime;
 
-        // Use this for initialization
         public void CreateBullets()
         {
             startTime = Time.time;
@@ -36,11 +35,6 @@ namespace Bullet
             {
                 StartCoroutine(coroutine);
             }
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
         }
 
         // 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド

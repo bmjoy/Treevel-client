@@ -11,17 +11,6 @@ namespace Bullet
         protected float width;
         protected float height;
 
-        private void OnEnable()
-        {
-            GamePlayDirector.OnFail += OnFail;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.OnFail -= OnFail;
-        }
-
-        // Update is called once per frame
         protected override void Update()
         {
             // Check if bullet goes out of window
@@ -32,6 +21,16 @@ namespace Bullet
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void OnEnable()
+        {
+            GamePlayDirector.OnFail += OnFail;
+        }
+
+        private void OnDisable()
+        {
+            GamePlayDirector.OnFail -= OnFail;
         }
 
         protected override void FixedUpdate()
@@ -51,7 +50,7 @@ namespace Bullet
             // Check if a bullet should be flipped vertically
             if (motionVector.x > 0)
             {
-                var tempLocalScale = transform.localScale;
+                Vector3 tempLocalScale = transform.localScale;
                 tempLocalScale.y *= (-1);
                 transform.localScale = tempLocalScale;
             }
@@ -63,6 +62,7 @@ namespace Bullet
         {
             // パネルとの衝突以外は考えない
             if (!other.gameObject.CompareTag("Panel")) return;
+            // 衝突したオブジェクトは赤色に変える
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
 

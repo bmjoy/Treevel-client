@@ -11,5 +11,9 @@ namespace Panel
         {
             gamePlayDirector = FindObjectOfType<GamePlayDirector>();
         }
+
+        protected virtual void Update()
+        {
+        }
     }
 }

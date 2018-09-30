@@ -8,7 +8,7 @@ namespace Panel
 {
     public class NormalPanelController : PanelController
     {
-        private float speed = 0.5f;
+        private float speed = 0.2f;
 
         protected override void Start()
         {
@@ -17,6 +17,13 @@ namespace Panel
             Vector2 panelSize = transform.localScale * 2f;
             BoxCollider2D collider = GetComponent<BoxCollider2D>();
             collider.size = panelSize;
+        }
+
+        protected override void Update()
+        {
+            if (transform.position != transform.parent.transform.position)
+                transform.position =
+                    Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
         }
 
         private void OnEnable()
@@ -51,29 +58,29 @@ namespace Panel
             {
                 // 右
                 GameObject rightTile = parentTile.rightTile;
-                updateTIle(rightTile);
+                UpdateTIle(rightTile);
             }
             else if (x < 0 && Math.Abs(x) >= Math.Abs(y))
             {
                 // 左
                 GameObject leftTile = parentTile.leftTile;
-                updateTIle(leftTile);
+                UpdateTIle(leftTile);
             }
             else if (y > 0 && Math.Abs(y) >= Math.Abs(x))
             {
                 // 上
                 GameObject upperTile = parentTile.upperTile;
-                updateTIle(upperTile);
+                UpdateTIle(upperTile);
             }
             else if (y < 0 && Math.Abs(y) >= Math.Abs(x))
             {
                 // 下
                 GameObject lowerTile = parentTile.lowerTile;
-                updateTIle(lowerTile);
+                UpdateTIle(lowerTile);
             }
         }
 
-        private void updateTIle(GameObject targetTile)
+        private void UpdateTIle(GameObject targetTile)
         {
             // 移動先にタイルがなければ何もしない
             if (targetTile == null) return;
@@ -81,13 +88,6 @@ namespace Panel
             if (targetTile.transform.childCount != 0) return;
             // 親タイルの更新
             transform.parent = targetTile.transform;
-        }
-
-        private void Update()
-        {
-            if (transform.position != transform.parent.transform.position)
-                transform.position =
-                    Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

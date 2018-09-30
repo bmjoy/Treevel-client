@@ -4,21 +4,6 @@ namespace Bullet
 {
     public class NormalBulletController : CartridgeController
     {
-        protected override void Start()
-        {
-            base.Start();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-        }
-
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
-
         // コンストラクタがわりのメソッド
         public override void Initialize(Vector2 motionVector)
         {
