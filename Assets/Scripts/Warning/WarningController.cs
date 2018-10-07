@@ -9,7 +9,7 @@ namespace Warning
 
         }
 
-        public virtual void deleteWarning()
+        public virtual void deleteWarning(GameObject bullet)
         {
 
         }

@@ -8,19 +8,20 @@ namespace Warning
     {
         public override void Initialize()
         {
-            width = (float) (WindowSize.WIDTH * 0.15);
-            height = width;
-            this.transform.localScale *= new Vector2(width, height);
+            localScale = (float) (WindowSize.WIDTH * 0.15);
+            this.transform.localScale *= new Vector2(localScale, localScale);
         }
 
-        public override void deleteWarning()
+        public override void deleteWarning(GameObject bullet)
         {
-            StartCoroutine(delete());
+            bullet.active = false;
+            StartCoroutine(delete(bullet));
         }
 
-        private IEnumerator delete()
+        private IEnumerator delete(GameObject bullet)
         {
             yield return new WaitForSeconds(1.0f);
+            bullet.active = true;
             Destroy(gameObject);
         }
     }

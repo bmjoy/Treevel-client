@@ -4,8 +4,7 @@ namespace Warning
 {
     public class CartridgeWarningController : WarningController
     {
-        protected float width;
-        protected float height;
+        public float localScale;
 
         public override void Initialize()
         {
