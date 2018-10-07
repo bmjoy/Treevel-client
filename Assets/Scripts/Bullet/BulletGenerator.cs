@@ -43,28 +43,28 @@ namespace Bullet
         private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float appearanceTiming, float interval)
         {
             var currentTime = Time.time;
-            yield return new WaitForSeconds(appearanceTiming - (currentTime - startTime));
+            yield return new WaitForSeconds(appearanceTiming - 1.0f - (currentTime - startTime));
 
             // 出現させた銃弾の個数
             var sum = 1;
+
             while (true)
             {
                 // normalBulletPrefabのGameObjectを作成
                 GameObject bullet = Instantiate(normalBulletPrefab) as GameObject;
-                // 座標を指定
-                bullet.transform.position = position;
                 // SortingLayerを指定
                 bullet.GetComponent<Renderer>().sortingLayerName = "Bullet";
                 // 変数の初期設定
-                NormalBulletController b = bullet.GetComponent<NormalBulletController>();
-                b.Initialize(motionVector);
+                NormalBulletController bulletScript = bullet.GetComponent<NormalBulletController>();
+                bulletScript.Initialize(position, motionVector);
 
                 // 警告画像の表示
                 GameObject warning = Instantiate(normalBulletWarningPrefab) as GameObject;
-                warning.transform.position = position + Vector2.Scale(motionVector, new Vector2(b.width, b.height));
+                warning.GetComponent<Renderer>().sortingLayerName = "Warning";
                 NormalBulletWarningController warningScript = warning.GetComponent<NormalBulletWarningController>();
                 warningScript.Initialize();
-                warningScript.deleteWarning();
+                warning.transform.position = (Vector2)bullet.transform.position + Vector2.Scale(motionVector, new Vector2((bulletScript.localScale+warningScript.localScale)/2, (bulletScript.localScale+warningScript.localScale)/2));
+                warningScript.deleteWarning(bullet);
 
                 currentTime = Time.time;
                 // 一定時間(interval)待つ
