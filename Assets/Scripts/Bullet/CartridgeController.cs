@@ -8,16 +8,15 @@ namespace Bullet
     {
         private Vector2 motionVector;
         protected float speed;
-        public float width;
-        public float height;
+        public float localScale;
 
         protected override void Update()
         {
             // Check if bullet goes out of window
-            if (this.transform.position.x < -WindowSize.WIDTH - width / 2 ||
-                this.transform.position.x > WindowSize.WIDTH + width / 2 ||
-                this.transform.position.y < -WindowSize.HEIGHT - height / 2 ||
-                this.transform.position.y > WindowSize.HEIGHT + height / 2)
+            if (this.transform.position.x < -(WindowSize.WIDTH + localScale) / 2 ||
+                this.transform.position.x > (WindowSize.WIDTH + localScale) / 2 ||
+                this.transform.position.y < -(WindowSize.HEIGHT + localScale) / 2 ||
+                this.transform.position.y > (WindowSize.HEIGHT + localScale) / 2)
             {
                 Destroy(gameObject);
             }
@@ -48,14 +47,6 @@ namespace Bullet
             var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
             angle = (float) (Mathf.Acos(angle) * 180 / Math.PI);
             angle *= (-1) * Mathf.Sign(motionVector.y);
-
-            // Check if a bullet should be flipped vertically
-            if (motionVector.x > 0)
-            {
-                Vector3 tempLocalScale = transform.localScale;
-                tempLocalScale.y *= (-1);
-                transform.localScale = tempLocalScale;
-            }
 
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
         }
