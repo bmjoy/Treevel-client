@@ -9,14 +9,16 @@ namespace Directors
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        public delegate void FailureAction();
+        public delegate void ChangeAction();
 
-        public static event FailureAction OnFail;
+        public static event ChangeAction OnFail;
+        public static event ChangeAction OnSucceed;
 
         public enum GameState
         {
             Opening,
             Playing,
+            Success,
             Failure
         }
 
@@ -44,6 +46,8 @@ namespace Directors
 
         private void Update()
         {
+            // 成功判定検出をする
+            // Dispatch(GameState.Success);
         }
 
         // 状態による振り分け処理
@@ -56,6 +60,9 @@ namespace Directors
                     GameOpening();
                     break;
                 case GameState.Playing:
+                    break;
+                case GameState.Success:
+                    GameSucceed();
                     break;
                 case GameState.Failure:
                     GameFail();
@@ -78,6 +85,14 @@ namespace Directors
             Destroy(panelGenerator);
             // 状態を変更する
             Dispatch(GameState.Playing);
+        }
+
+        private void GameSucceed()
+        {
+            resultText.SetActive(true);
+            resultText.GetComponent<Text>().text = "成功！";
+            if (OnSucceed != null) OnSucceed();
+            Destroy(bulletGenerator);
         }
 
         private void GameFail()

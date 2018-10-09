@@ -32,12 +32,14 @@ namespace Panel
             // フリックの検知感度を変えたい際に変更可能
             GetComponent<FlickGesture>().MinDistance = 0.5f;
             GetComponent<FlickGesture>().FlickTime = 0.5f;
+            GamePlayDirector.OnSucceed += OnSucceed;
             GamePlayDirector.OnFail += OnFail;
         }
 
         private void OnDisable()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            GamePlayDirector.OnSucceed -= OnSucceed;
             GamePlayDirector.OnFail -= OnFail;
         }
 
@@ -98,6 +100,11 @@ namespace Panel
             gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
             // 失敗状態に移行する
             gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+        }
+
+        private void OnSucceed()
+        {
+            GetComponent<FlickGesture>().Flicked -= HandleFlick;
         }
 
         private void OnFail()
