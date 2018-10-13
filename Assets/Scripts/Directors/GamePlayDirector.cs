@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Bullet;
 using Panel;
 using Tile;
@@ -46,8 +47,17 @@ namespace Directors
 
         private void Update()
         {
-            // 成功判定検出をする
-            // Dispatch(GameState.Success);
+        }
+
+        public void CheckClear()
+        {
+            GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");
+            // 全てのパネルが最終位置にいたら，成功状態に遷移
+            if (panels.Any(panel => panel.GetComponent<NormalPanelController>().adapted == false))
+            {
+                return;
+            }
+            Dispatch(GameState.Success);
         }
 
         // 状態による振り分け処理
