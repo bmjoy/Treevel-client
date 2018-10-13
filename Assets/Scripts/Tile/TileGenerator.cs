@@ -11,8 +11,8 @@ namespace Tile
         {
             // 最上タイルのy座標
             var topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
-            // タイルの識別番号
-            var tileNum = 0;
+            // タイルの識別番号（分かりやすさのため1から振り分け）
+            var tileNum = 1;
             // タイルを格納する配列
             GameObject[,] tiles = new GameObject[5, 3];
 

@@ -8,6 +8,11 @@ namespace Panel
 {
     public class NormalPanelController : PanelController
     {
+        // 最終タイル
+        private GameObject finalTile;
+        // パネルが最終タイルにいるかどうかの状態
+        public bool adapted = false;
+        // フリック時のパネルの移動速度
         private float speed = 0.2f;
 
         protected override void Start()
@@ -26,8 +31,16 @@ namespace Panel
                     Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
         }
 
+        public override void Initialize(GameObject finalTile)
+        {
+            this.finalTile = finalTile;
+        }
+
         private void OnEnable()
         {
+            // 当たり判定と，フリック検知のアタッチ（いちいちUIで設定したくない）
+            gameObject.AddComponent<BoxCollider2D>();
+            gameObject.AddComponent<FlickGesture>();
             GetComponent<FlickGesture>().Flicked += HandleFlick;
             // フリックの検知感度を変えたい際に変更可能
             GetComponent<FlickGesture>().MinDistance = 0.5f;
@@ -90,6 +103,9 @@ namespace Panel
             if (targetTile.transform.childCount != 0) return;
             // 親タイルの更新
             transform.parent = targetTile.transform;
+            // 最終タイルにいるかどうかで状態を変える
+            adapted = transform.parent.gameObject == finalTile;
+            gamePlayDirector.CheckClear();
         }
 
         private void OnTriggerEnter2D(Collider2D other)

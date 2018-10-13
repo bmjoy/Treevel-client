@@ -15,5 +15,7 @@ namespace Panel
         protected virtual void Update()
         {
         }
+
+        public abstract void Initialize(GameObject finalTile);
     }
 }
