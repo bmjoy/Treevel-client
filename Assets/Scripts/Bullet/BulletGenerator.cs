@@ -23,11 +23,11 @@ namespace Bullet
             var appearanceTiming = 1.0f;
             // 銃弾を作るインターバル
             var createInterval = 1.0f;
-            // coroutineのリスト
+            // coroutineのリスト（テスト用の銃弾）
             var coroutines = new List<IEnumerator>
             {
-                CreateBullet(position, motionVector, appearanceTiming, createInterval),
-                CreateBullet(position: new Vector2(-6.5f, 4.0f), motionVector: new Vector2(1.0f, 0.0f),
+                // CreateBullet(position, motionVector, appearanceTiming, createInterval),
+                CreateBullet(position: new Vector2(-6.5f, 6.0f), motionVector: new Vector2(1.0f, 0.0f),
                     appearanceTiming: 2.0f, interval: 1.0f),
             };
 
