@@ -10,8 +10,10 @@ namespace Panel
     {
         // 最終タイル
         private GameObject finalTile;
+
         // パネルが最終タイルにいるかどうかの状態
         public bool adapted = false;
+
         // フリック時のパネルの移動速度
         private float speed = 0.2f;
 

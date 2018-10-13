@@ -57,6 +57,7 @@ namespace Directors
             {
                 return;
             }
+
             Dispatch(GameState.Success);
         }
 
