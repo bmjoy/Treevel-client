@@ -593,6 +593,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalPanelPrefab: {fileID: 1667971508019858, guid: d16fddeae14184ddf8c14eba3f866b67,
     type: 2}
+  numberPanel1Prefab: {fileID: 1556909149041080, guid: 3cbdb3aba45c048d381ec09975dfb843,
+    type: 2}
+  numberPanel2Prefab: {fileID: 1740829354581646, guid: dbd25ee4b364c4271a584fca923352db,
+    type: 2}
+  numberPanel3Prefab: {fileID: 1821297137846638, guid: 489fd281dd9ed4639a4f30419568d561,
+    type: 2}
+  numberPanel4Prefab: {fileID: 1666121162928382, guid: 67d1f410b60704677bb6c0826bb03b2d,
+    type: 2}
+  numberPanel5Prefab: {fileID: 1811378126833426, guid: 1e949b301bba840c78ca39af39293320,
+    type: 2}
+  numberPanel6Prefab: {fileID: 1534627393435266, guid: 43b466b59451544b081a6b1c95a36a63,
+    type: 2}
+  numberPanel7Prefab: {fileID: 1523037386814182, guid: d57e96bd849524229ae9cf4f96056123,
+    type: 2}
+  numberPanel8Prefab: {fileID: 1353637230828172, guid: 4a225671eee6844d8945c6357a1c0958,
+    type: 2}
 --- !u!4 &1797629530
 Transform:
   m_ObjectHideFlags: 0

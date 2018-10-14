@@ -25,11 +25,13 @@ namespace Bullet
 
         private void OnEnable()
         {
+            GamePlayDirector.OnSucceed += OnSucceed;
             GamePlayDirector.OnFail += OnFail;
         }
 
         private void OnDisable()
         {
+            GamePlayDirector.OnSucceed -= OnSucceed;
             GamePlayDirector.OnFail -= OnFail;
         }
 
@@ -69,6 +71,11 @@ namespace Bullet
         private void OnFail()
         {
             speed = 0;
+        }
+
+        private void OnSucceed()
+        {
+            Destroy(gameObject);
         }
     }
 }

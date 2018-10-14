@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Bullet;
 using Panel;
 using Tile;
@@ -9,14 +10,16 @@ namespace Directors
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        public delegate void FailureAction();
+        public delegate void ChangeAction();
 
-        public static event FailureAction OnFail;
+        public static event ChangeAction OnFail;
+        public static event ChangeAction OnSucceed;
 
         public enum GameState
         {
             Opening,
             Playing,
+            Success,
             Failure
         }
 
@@ -46,6 +49,18 @@ namespace Directors
         {
         }
 
+        public void CheckClear()
+        {
+            GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");
+            // 全てのパネルが最終位置にいたら，成功状態に遷移
+            if (panels.Any(panel => panel.GetComponent<NormalPanelController>().adapted == false))
+            {
+                return;
+            }
+
+            Dispatch(GameState.Success);
+        }
+
         // 状態による振り分け処理
         public void Dispatch(GameState state)
         {
@@ -56,6 +71,9 @@ namespace Directors
                     GameOpening();
                     break;
                 case GameState.Playing:
+                    break;
+                case GameState.Success:
+                    GameSucceed();
                     break;
                 case GameState.Failure:
                     GameFail();
@@ -78,6 +96,14 @@ namespace Directors
             Destroy(panelGenerator);
             // 状態を変更する
             Dispatch(GameState.Playing);
+        }
+
+        private void GameSucceed()
+        {
+            resultText.SetActive(true);
+            resultText.GetComponent<Text>().text = "成功！";
+            if (OnSucceed != null) OnSucceed();
+            Destroy(bulletGenerator);
         }
 
         private void GameFail()
