@@ -14,6 +14,9 @@ namespace Panel
         // パネルが最終タイルにいるかどうかの状態
         public bool adapted;
 
+        // パネルが移動中かどうかの状態
+        private bool moving;
+
         // フリック時のパネルの移動速度
         private float speed = 0.2f;
 
@@ -30,9 +33,21 @@ namespace Panel
 
         protected override void Update()
         {
+            // 親タイルへの移動
             if (transform.position != transform.parent.transform.position)
+            {
                 transform.position =
                     Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
+                // 移動中にする
+                moving = true;
+            }
+            else
+            {
+                // 移動が完了した場合には，成功判定を行う
+                if (!moving) return;
+                gamePlayDirector.CheckClear();
+                moving = false;
+            }
         }
 
         public override void Initialize(GameObject finalTile)
@@ -109,7 +124,6 @@ namespace Panel
             transform.parent = targetTile.transform;
             // 最終タイルにいるかどうかで状態を変える
             adapted = transform.parent.gameObject == finalTile;
-            gamePlayDirector.CheckClear();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
