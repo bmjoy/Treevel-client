@@ -52,3 +52,6 @@ TagManager:
   - name: Bullet
     uniqueID: 1957745791
     locked: 0
+  - name: Warning
+    uniqueID: 3424068687
+    locked: 0
