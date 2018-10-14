@@ -18,7 +18,7 @@ namespace Bullet
         {
             startTime = Time.time;
             // 銃弾の初期位置
-            Vector2 position = new Vector2(6.5f, 1.0f);
+            Vector2 position = new Vector2(6.5f, 6.0f);
             // 銃弾の移動ベクトル
             Vector2 motionVector = new Vector2(-1.0f, 0.0f);
             // 銃弾の出現時刻
@@ -29,7 +29,7 @@ namespace Bullet
             List<IEnumerator> coroutines = new List<IEnumerator>
             {
                 CreateBullet(position, motionVector, appearanceTiming, createInterval),
-                CreateBullet(position: new Vector2(-6.5f, 4.0f), motionVector: new Vector2(1.0f, 0.0f),
+                CreateBullet(position: new Vector2(-6.5f, 6.0f), motionVector: new Vector2(1.0f, 0.0f),
                     appearanceTiming: 2.0f, interval: 4.0f)
             };
 
