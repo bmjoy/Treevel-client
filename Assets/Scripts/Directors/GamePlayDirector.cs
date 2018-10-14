@@ -102,16 +102,16 @@ namespace Directors
         {
             resultText.SetActive(true);
             resultText.GetComponent<Text>().text = "成功！";
-            if (OnSucceed != null) OnSucceed();
             Destroy(bulletGenerator);
+            if (OnSucceed != null) OnSucceed();
         }
 
         private void GameFail()
         {
             resultText.SetActive(true);
             resultText.GetComponent<Text>().text = "失敗！";
-            if (OnFail != null) OnFail();
             Destroy(bulletGenerator);
+            if (OnFail != null) OnFail();
         }
     }
 }
