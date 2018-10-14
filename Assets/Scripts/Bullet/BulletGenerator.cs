@@ -26,17 +26,14 @@ namespace Bullet
             // 銃弾を作るインターバル
             var createInterval = 1.0f;
             // coroutineのリスト
-            var coroutines = new List<IEnumerator>
+            List<IEnumerator> coroutines = new List<IEnumerator>
             {
                 CreateBullet(position, motionVector, appearanceTiming, createInterval),
                 CreateBullet(position: new Vector2(-6.5f, 4.0f), motionVector: new Vector2(1.0f, 0.0f),
-                    appearanceTiming: 2.0f, interval: 4.0f),
+                    appearanceTiming: 2.0f, interval: 4.0f)
             };
 
-            foreach (IEnumerator coroutine in coroutines)
-            {
-                StartCoroutine(coroutine);
-            }
+            foreach (IEnumerator coroutine in coroutines) StartCoroutine(coroutine);
         }
 
         // 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
@@ -55,7 +52,7 @@ namespace Bullet
             {
                 sum++;
                 // normalBulletPrefabのGameObjectを作成
-                GameObject bullet = Instantiate(normalBulletPrefab) as GameObject;
+                GameObject bullet = Instantiate(normalBulletPrefab);
                 // SortingLayerを指定
                 bullet.GetComponent<Renderer>().sortingLayerName = "Bullet";
                 // 変数の初期設定
@@ -63,10 +60,11 @@ namespace Bullet
                 bulletScript.Initialize(position, motionVector);
 
                 // emerge a bullet warning
-                GameObject warning = Instantiate(normalBulletWarningPrefab) as GameObject;
+                GameObject warning = Instantiate(normalBulletWarningPrefab);
                 warning.GetComponent<Renderer>().sortingLayerName = "Warning";
                 NormalBulletWarningController warningScript = warning.GetComponent<NormalBulletWarningController>();
-                warningScript.Initialize((Vector2)bullet.transform.position, bulletScript.motionVector, bulletScript.localScale);
+                warningScript.Initialize(bullet.transform.position, bulletScript.motionVector,
+                    bulletScript.localScale);
 
                 // delete the bullet warning
                 warningScript.deleteWarning(bullet);

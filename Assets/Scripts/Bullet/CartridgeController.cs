@@ -6,20 +6,18 @@ namespace Bullet
 {
     public abstract class CartridgeController : BulletController
     {
+        public float localScale;
         public Vector2 motionVector;
         protected float speed;
-        public float localScale;
 
         protected override void Update()
         {
             // Check if bullet goes out of window
-            if (this.transform.position.x < -(WindowSize.WIDTH + localScale) / 2 ||
-                this.transform.position.x > (WindowSize.WIDTH + localScale) / 2 ||
-                this.transform.position.y < -(WindowSize.HEIGHT + localScale) / 2 ||
-                this.transform.position.y > (WindowSize.HEIGHT + localScale) / 2)
-            {
+            if (transform.position.x < -(WindowSize.WIDTH + localScale) / 2 ||
+                transform.position.x > (WindowSize.WIDTH + localScale) / 2 ||
+                transform.position.y < -(WindowSize.HEIGHT + localScale) / 2 ||
+                transform.position.y > (WindowSize.HEIGHT + localScale) / 2)
                 Destroy(gameObject);
-            }
         }
 
         private void OnEnable()
@@ -46,7 +44,7 @@ namespace Bullet
             // Calculate rotation angle
             var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
             angle = (float) (Mathf.Acos(angle) * 180 / Math.PI);
-            angle *= (-1) * Mathf.Sign(motionVector.y);
+            angle *= -1 * Mathf.Sign(motionVector.y);
 
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
         }
