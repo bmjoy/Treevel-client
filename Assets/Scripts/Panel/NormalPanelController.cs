@@ -12,7 +12,7 @@ namespace Panel
         private GameObject finalTile;
 
         // パネルが最終タイルにいるかどうかの状態
-        public bool adapted = false;
+        public bool adapted;
 
         // フリック時のパネルの移動速度
         private float speed = 0.2f;
@@ -24,6 +24,8 @@ namespace Panel
             Vector2 panelSize = transform.localScale * 2f;
             BoxCollider2D collider = GetComponent<BoxCollider2D>();
             collider.size = panelSize;
+            // 初期状態で最終タイルにいるかどうかの状態を変える
+            adapted = transform.parent.gameObject == finalTile;
         }
 
         protected override void Update()
