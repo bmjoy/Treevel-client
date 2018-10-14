@@ -6,9 +6,8 @@ namespace Warning
     {
         public float localScale;
 
-        public override void Initialize()
+        public override void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale)
         {
-
         }
     }
 }

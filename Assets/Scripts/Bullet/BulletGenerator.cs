@@ -43,13 +43,17 @@ namespace Bullet
         private IEnumerator CreateBullet(Vector2 position, Vector2 motionVector, float appearanceTiming, float interval)
         {
             var currentTime = Time.time;
+
+            // wait by the time the first bullet warning emerge
+            // 1.0f equals to the period which the bullet warning is emerging
             yield return new WaitForSeconds(appearanceTiming - 1.0f - (currentTime - startTime));
 
-            // 出現させた銃弾の個数
-            var sum = 1;
+            // the number of bullets which have emerged
+            var sum = 0;
 
             while (true)
             {
+                sum++;
                 // normalBulletPrefabのGameObjectを作成
                 GameObject bullet = Instantiate(normalBulletPrefab) as GameObject;
                 // SortingLayerを指定
@@ -58,18 +62,18 @@ namespace Bullet
                 NormalBulletController bulletScript = bullet.GetComponent<NormalBulletController>();
                 bulletScript.Initialize(position, motionVector);
 
-                // 警告画像の表示
+                // emerge a bullet warning
                 GameObject warning = Instantiate(normalBulletWarningPrefab) as GameObject;
                 warning.GetComponent<Renderer>().sortingLayerName = "Warning";
                 NormalBulletWarningController warningScript = warning.GetComponent<NormalBulletWarningController>();
-                warningScript.Initialize();
-                warning.transform.position = (Vector2)bullet.transform.position + Vector2.Scale(motionVector, new Vector2((bulletScript.localScale+warningScript.localScale)/2, (bulletScript.localScale+warningScript.localScale)/2));
+                warningScript.Initialize((Vector2)bullet.transform.position, bulletScript.motionVector, bulletScript.localScale);
+
+                // delete the bullet warning
                 warningScript.deleteWarning(bullet);
 
                 currentTime = Time.time;
                 // 一定時間(interval)待つ
                 yield return new WaitForSeconds(appearanceTiming + interval * sum - (currentTime - startTime));
-                sum++;
             }
         }
     }

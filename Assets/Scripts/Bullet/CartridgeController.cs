@@ -6,7 +6,7 @@ namespace Bullet
 {
     public abstract class CartridgeController : BulletController
     {
-        private Vector2 motionVector;
+        public Vector2 motionVector;
         protected float speed;
         public float localScale;
 
@@ -40,7 +40,7 @@ namespace Bullet
         }
 
         // コンストラクタがわりのメソッド
-        public virtual void Initialize(Vector2 motionVector)
+        protected void Initialize(Vector2 motionVector)
         {
             this.motionVector = motionVector;
             // Calculate rotation angle
