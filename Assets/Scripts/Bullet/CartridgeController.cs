@@ -9,6 +9,8 @@ namespace Bullet
         public float localScale;
         public Vector2 motionVector;
         public float speed;
+
+        // 元画像のサイズ
         public float originalWidth;
         public float originalHeight;
 
