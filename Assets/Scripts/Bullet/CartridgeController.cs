@@ -8,15 +8,18 @@ namespace Bullet
     {
         public float localScale;
         public Vector2 motionVector;
-        protected float speed;
+        public float speed;
+        public float originalWidth;
+        public float originalHeight;
+
 
         protected override void Update()
         {
             // Check if bullet goes out of window
-            if (transform.position.x < -(WindowSize.WIDTH + localScale) / 2 ||
-                transform.position.x > (WindowSize.WIDTH + localScale) / 2 ||
-                transform.position.y < -(WindowSize.HEIGHT + localScale) / 2 ||
-                transform.position.y > (WindowSize.HEIGHT + localScale) / 2)
+            if (transform.position.x < -(WindowSize.WIDTH + localScale * originalWidth) / 2 - 0.00001f ||
+                transform.position.x > (WindowSize.WIDTH + localScale * originalWidth) / 2 + 0.00001f ||
+                transform.position.y < -(WindowSize.HEIGHT + localScale * originalHeight) / 2 - 0.00001f ||
+                transform.position.y > (WindowSize.HEIGHT + localScale * originalHeight) / 2 + 0.00001f)
                 Destroy(gameObject);
         }
 
