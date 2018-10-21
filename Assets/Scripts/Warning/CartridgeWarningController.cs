@@ -38,6 +38,7 @@ namespace Warning
         public void deleteWarning(GameObject bullet)
         {
             var tempSpeed = bullet.GetComponent<CartridgeController>().speed;
+            // the bullet does not move while warning is existing
             bullet.GetComponent<CartridgeController>().speed = 0.0f;
             StartCoroutine(delete(bullet, tempSpeed));
         }

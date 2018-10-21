@@ -8,8 +8,8 @@ namespace Warning
             float bulletWidth, float bulletHeight)
         {
             localScale = (float) (WindowSize.WIDTH * 0.15);
-            originalWidth = 1.82f;
-            originalHeight = 1.52f;
+            originalWidth = GetComponent<Renderer>().bounds.size.x;
+            originalHeight = GetComponent<Renderer>().bounds.size.y;
             transform.localScale *= new Vector2(localScale, localScale);
             transform.position = bulletPosition + Vector2.Scale(bulletMotionVector,
                                      new Vector2((bulletLocalScale * bulletWidth + localScale * originalWidth) / 2,

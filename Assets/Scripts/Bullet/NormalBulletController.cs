@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Bullet
 {
@@ -9,9 +10,10 @@ namespace Bullet
         {
             Initialize(motionVector);
             speed = 0.1f;
-            originalWidth = 1.5f;
-            originalHeight = 0.5f;
+            originalWidth = GetComponent<Renderer>().bounds.size.x;
+            originalHeight = GetComponent<Renderer>().bounds.size.y;
             localScale = (float) (WindowSize.WIDTH * 0.15);
+
             if (motionVector.Equals(Vector2.right))
                 transform.position = new Vector2((float) (-(WindowSize.WIDTH + localScale * originalWidth) / 2),
                     position.y);
