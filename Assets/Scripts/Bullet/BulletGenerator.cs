@@ -64,7 +64,7 @@ namespace Bullet
                 warning.GetComponent<Renderer>().sortingLayerName = "Warning";
                 NormalBulletWarningController warningScript = warning.GetComponent<NormalBulletWarningController>();
                 warningScript.Initialize(bullet.transform.position, bulletScript.motionVector,
-                    bulletScript.localScale);
+                    bulletScript.localScale, bulletScript.originalWidth, bulletScript.originalHeight);
 
                 // delete the bullet warning
                 warningScript.deleteWarning(bullet);
