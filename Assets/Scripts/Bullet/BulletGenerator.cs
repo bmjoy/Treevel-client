@@ -18,7 +18,7 @@ namespace Bullet
         {
             startTime = Time.time;
             // 銃弾の初期位置
-            Vector2 position = new Vector2(6.5f, 6.0f);
+            Vector2 position = new Vector2(6.5f, 4.0f);
             // 銃弾の移動ベクトル
             Vector2 motionVector = new Vector2(-1.0f, 0.0f);
             // 銃弾の出現時刻
