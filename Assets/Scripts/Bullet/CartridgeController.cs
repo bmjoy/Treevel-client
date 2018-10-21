@@ -6,17 +6,23 @@ namespace Bullet
 {
     public abstract class CartridgeController : BulletController
     {
+        public float additionalMargin = 0.00001f;
         public float localScale;
         public Vector2 motionVector;
-        protected float speed;
+        public float speed;
+
+        // 元画像のサイズ
+        public float originalWidth;
+        public float originalHeight;
+
 
         protected override void Update()
         {
             // Check if bullet goes out of window
-            if (transform.position.x < -(WindowSize.WIDTH + localScale) / 2 ||
-                transform.position.x > (WindowSize.WIDTH + localScale) / 2 ||
-                transform.position.y < -(WindowSize.HEIGHT + localScale) / 2 ||
-                transform.position.y > (WindowSize.HEIGHT + localScale) / 2)
+            if (transform.position.x < -((WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin) ||
+                transform.position.x > (WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin ||
+                transform.position.y < -((WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin) ||
+                transform.position.y > (WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin)
                 Destroy(gameObject);
         }
 
