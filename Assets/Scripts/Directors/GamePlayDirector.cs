@@ -24,6 +24,11 @@ namespace Directors
             Failure
         }
 
+        // 型がstringなのかintなのか
+        // 1-2のように"-"区切りにするか（変数を"1"と"2"で分けるか）
+        // 上記のように，ステージが増えた際に決めること多数有り
+        public static string stageNum = "";
+
         public GameState currentState;
 
         private GameObject tileGenerator;
