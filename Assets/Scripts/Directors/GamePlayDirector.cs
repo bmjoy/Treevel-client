@@ -131,5 +131,11 @@ namespace Directors
             // Sceneの読み直し
             SceneManager.LoadScene(loadScene.name);
         }
+
+        public void BackButtonDown()
+        {
+            // StageSelectSceneに戻る
+            SceneManager.LoadScene("StageSelectScene");
+        }
     }
 }
