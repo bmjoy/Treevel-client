@@ -24,6 +24,11 @@ namespace Directors
             Failure
         }
 
+        // 型がstringなのかintなのか
+        // 1-2のように"-"区切りにするか（変数を"1"と"2"で分けるか）
+        // 上記のように，ステージが増えた際に決めること多数有り
+        public static string stageNum = "";
+
         public GameState currentState;
 
         private GameObject tileGenerator;
@@ -36,6 +41,8 @@ namespace Directors
 
         private GameObject resultText;
 
+        private GameObject stageNumberText;
+
         private void Start()
         {
             tileGenerator = GameObject.Find("TileGenerator");
@@ -46,6 +53,9 @@ namespace Directors
             resultWindow.SetActive(false);
 
             resultText = resultWindow.transform.Find("Result").gameObject;
+            stageNumberText = GameObject.Find("StageNumberText");
+            // 現在のステージ番号を格納
+            stageNumberText.GetComponent<Text>().text = stageNum;
 
             Dispatch(GameState.Opening);
         }
@@ -91,11 +101,11 @@ namespace Directors
         private void GameOpening()
         {
             // タイル作成スクリプトを起動
-            tileGenerator.GetComponent<TileGenerator>().CreateTiles();
+            tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageNum);
             // パネル作成スクリプトを起動
-            panelGenerator.GetComponent<PanelGenerator>().CreatePanels();
+            panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageNum);
             // 銃弾作成スクリプトを起動
-            bulletGenerator.GetComponent<BulletGenerator>().CreateBullets();
+            bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageNum);
 
             Destroy(tileGenerator);
             Destroy(panelGenerator);
@@ -125,6 +135,12 @@ namespace Directors
             Scene loadScene = SceneManager.GetActiveScene();
             // Sceneの読み直し
             SceneManager.LoadScene(loadScene.name);
+        }
+
+        public void BackButtonDown()
+        {
+            // StageSelectSceneに戻る
+            SceneManager.LoadScene("StageSelectScene");
         }
     }
 }
