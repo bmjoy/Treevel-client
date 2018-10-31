@@ -16,11 +16,11 @@ namespace Bullet
 
         public void CreateBullets(string stageNum)
         {
-            List<IEnumerator> coroutines;
+            List<IEnumerator> coroutines = new List<IEnumerator>();
+            startTime = Time.time;
             switch (stageNum)
             {
                 case "1":
-                    startTime = Time.time;
                     // 銃弾の初期位置
                     Vector2 position = new Vector2(6.5f, 4.0f);
                     // 銃弾の移動ベクトル
@@ -30,25 +30,19 @@ namespace Bullet
                     // 銃弾を作るインターバル
                     var createInterval = 1.0f;
                     // coroutineのリスト
-                    coroutines = new List<IEnumerator>
-                    {
-                        CreateBullet(position, motionVector, appearanceTiming, createInterval),
-                        CreateBullet(position: new Vector2(-6.5f, 6.0f), motionVector: new Vector2(1.0f, 0.0f),
-                            appearanceTiming: 2.0f, interval: 4.0f)
-                    };
-
-                    foreach (IEnumerator coroutine in coroutines) StartCoroutine(coroutine);
+                    coroutines.Add(CreateBullet(position, motionVector, appearanceTiming, createInterval));
+                    coroutines.Add(CreateBullet(position: new Vector2(-6.5f, 6.0f),
+                        motionVector: new Vector2(1.0f, 0.0f),
+                        appearanceTiming: 2.0f, interval: 4.0f));
                     break;
                 case "2":
-                    coroutines = new List<IEnumerator>
-                    {
-                        CreateBullet(position: new Vector2(-6.5f, 6.0f), motionVector: new Vector2(1.0f, 0.0f),
-                            appearanceTiming: 2.0f, interval: 4.0f)
-                    };
-
-                    foreach (IEnumerator coroutine in coroutines) StartCoroutine(coroutine);
+                    coroutines.Add(CreateBullet(position: new Vector2(-6.5f, 6.0f),
+                        motionVector: new Vector2(1.0f, 0.0f),
+                        appearanceTiming: 2.0f, interval: 4.0f));
                     break;
             }
+
+            foreach (IEnumerator coroutine in coroutines) StartCoroutine(coroutine);
         }
 
         // 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
