@@ -7,7 +7,8 @@ namespace Tile
         public GameObject normalTilePrefab;
 
         // 現段階では5行3列のタイル群
-        public void CreateTiles()
+        // 現段階ではステージ番号に依存しない
+        public void CreateTiles(string stageNum)
         {
             // 最上タイルのy座標
             var topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);

@@ -15,16 +15,31 @@ namespace Panel
         public GameObject numberPanel8Prefab;
 
         // 現段階では8枚のパネル群
-        public void CreatePanels()
+        public void CreatePanels(string stageNum)
         {
-            CreateOnePanel(initialTileNum: "1", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
-            CreateOnePanel(initialTileNum: "3", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
-            CreateOnePanel(initialTileNum: "5", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
-            CreateOnePanel(initialTileNum: "6", finalTileNum: "7", panelPrefab: numberPanel4Prefab);
-            CreateOnePanel(initialTileNum: "8", finalTileNum: "8", panelPrefab: numberPanel5Prefab);
-            CreateOnePanel(initialTileNum: "11", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
-            CreateOnePanel(initialTileNum: "13", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
-            CreateOnePanel(initialTileNum: "15", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
+            switch (stageNum)
+            {
+                case "1":
+                    CreateOnePanel(initialTileNum: "4", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
+                    CreateOnePanel(initialTileNum: "5", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
+                    CreateOnePanel(initialTileNum: "6", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
+                    CreateOnePanel(initialTileNum: "7", finalTileNum: "7", panelPrefab: numberPanel4Prefab);
+                    CreateOnePanel(initialTileNum: "8", finalTileNum: "8", panelPrefab: numberPanel5Prefab);
+                    CreateOnePanel(initialTileNum: "9", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
+                    CreateOnePanel(initialTileNum: "10", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
+                    CreateOnePanel(initialTileNum: "14", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
+                    break;
+                case "2":
+                    CreateOnePanel(initialTileNum: "1", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
+                    CreateOnePanel(initialTileNum: "3", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
+                    CreateOnePanel(initialTileNum: "5", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
+                    CreateOnePanel(initialTileNum: "6", finalTileNum: "7", panelPrefab: numberPanel4Prefab);
+                    CreateOnePanel(initialTileNum: "8", finalTileNum: "8", panelPrefab: numberPanel5Prefab);
+                    CreateOnePanel(initialTileNum: "11", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
+                    CreateOnePanel(initialTileNum: "13", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
+                    CreateOnePanel(initialTileNum: "15", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
+                    break;
+            }
         }
 
         private static void CreateOnePanel(string initialTileNum, string finalTileNum, GameObject panelPrefab)
