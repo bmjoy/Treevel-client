@@ -41,6 +41,8 @@ namespace Directors
 
         private GameObject resultText;
 
+        private GameObject warningText;
+
         private GameObject stageNumberText;
 
         private void Start()
@@ -53,11 +55,25 @@ namespace Directors
             resultWindow.SetActive(false);
 
             resultText = resultWindow.transform.Find("Result").gameObject;
+            warningText = resultWindow.transform.Find("Warning").gameObject;
             stageNumberText = GameObject.Find("StageNumberText");
             // 現在のステージ番号を格納
             stageNumberText.GetComponent<Text>().text = stageNum;
 
             Dispatch(GameState.Opening);
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            if (pauseStatus)    // アプリがバックグラウンドに移動した時
+            {
+                Dispatch(GameState.Failure);
+                warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
+            }
+            else     // アプリを復帰させた時
+            {
+
+            }
         }
 
         private void Update()
