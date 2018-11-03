@@ -70,10 +70,6 @@ namespace Directors
                 Dispatch(GameState.Failure);
                 warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
             }
-            else     // アプリを復帰させた時
-            {
-
-            }
         }
 
         private void Update()
