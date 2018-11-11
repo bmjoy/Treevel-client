@@ -77,6 +77,9 @@ namespace Panel
 
         private void HandleFlick(object sender, System.EventArgs e)
         {
+            // パネル移動中はフリックを無視する
+            if (moving) return;
+
             FlickGesture gesture = sender as FlickGesture;
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
