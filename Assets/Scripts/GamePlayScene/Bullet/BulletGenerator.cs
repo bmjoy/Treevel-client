@@ -76,7 +76,7 @@ namespace GamePlayScene.Bullet
                     cartridgeScript.localScale, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
 
                 // delete the bullet warning
-                warningScript.deleteWarning(bullet);
+                warningScript.DeleteWarning(bullet);
 
                 currentTime = Time.time;
                 // 一定時間(interval)待つ

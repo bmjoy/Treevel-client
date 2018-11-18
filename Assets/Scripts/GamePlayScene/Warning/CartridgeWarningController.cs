@@ -35,15 +35,15 @@ namespace GamePlayScene.Warning
         }
 
 
-        public void deleteWarning(GameObject bullet)
+        public void DeleteWarning(GameObject bullet)
         {
             var tempSpeed = bullet.GetComponent<CartridgeController>().speed;
             // the bullet does not move while warning is existing
             bullet.GetComponent<CartridgeController>().speed = 0.0f;
-            StartCoroutine(delete(bullet, tempSpeed));
+            StartCoroutine(Delete(bullet, tempSpeed));
         }
 
-        private IEnumerator delete(GameObject bullet, float speed)
+        private IEnumerator Delete(GameObject bullet, float speed)
         {
             yield return new WaitForSeconds(1.0f);
             bullet.GetComponent<CartridgeController>().speed = speed;
