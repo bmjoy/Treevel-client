@@ -2,7 +2,7 @@
 
 namespace GamePlayScene.Bullet
 {
-    public class NormalBulletController : CartridgeController
+    public class NormalCartridgeController : CartridgeController
     {
         // コンストラクタがわりのメソッド
         public void Initialize(Vector2 position, Vector2 motionVector)

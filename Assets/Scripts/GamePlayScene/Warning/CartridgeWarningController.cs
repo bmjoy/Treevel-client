@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GamePlayScene.Warning
 {
-    public class CartridgeWarningController : WarningController
+    public class CartridgeWarningController : BulletWarningController
     {
         public float localScale;
 

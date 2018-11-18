@@ -2,7 +2,7 @@
 
 namespace GamePlayScene.Warning
 {
-    public class NormalBulletWarningController : CartridgeWarningController
+    public class NormalCartridgeWarningController : CartridgeWarningController
     {
         public void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
             float bulletWidth, float bulletHeight)

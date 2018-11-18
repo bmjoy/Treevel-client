@@ -65,15 +65,15 @@ namespace GamePlayScene.Bullet
                 // SortingLayerを指定
                 bullet.GetComponent<Renderer>().sortingLayerName = "Bullet";
                 // 変数の初期設定
-                NormalBulletController bulletScript = bullet.GetComponent<NormalBulletController>();
-                bulletScript.Initialize(position, motionVector);
+                NormalCartridgeController cartridgeScript = bullet.GetComponent<NormalCartridgeController>();
+                cartridgeScript.Initialize(position, motionVector);
 
                 // emerge a bullet warning
                 GameObject warning = Instantiate(normalBulletWarningPrefab);
                 warning.GetComponent<Renderer>().sortingLayerName = "Warning";
-                NormalBulletWarningController warningScript = warning.GetComponent<NormalBulletWarningController>();
-                warningScript.Initialize(bullet.transform.position, bulletScript.motionVector,
-                    bulletScript.localScale, bulletScript.originalWidth, bulletScript.originalHeight);
+                NormalCartridgeWarningController warningScript = warning.GetComponent<NormalCartridgeWarningController>();
+                warningScript.Initialize(bullet.transform.position, cartridgeScript.motionVector,
+                    cartridgeScript.localScale, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
 
                 // delete the bullet warning
                 warningScript.deleteWarning(bullet);
