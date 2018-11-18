@@ -37,7 +37,7 @@ namespace GamePlayScene.Tile
 
         private GameObject CreateOneTile(Vector2 position, int tileNum)
         {
-            GameObject tile = Instantiate(normalTilePrefab) as GameObject;
+            GameObject tile = Instantiate(normalTilePrefab);
             tile.transform.localScale = new Vector2(TileSize.WIDTH * 0.5f, TileSize.HEIGHT * 0.5f);
             tile.transform.position = position;
             tile.name = "Tile" + tileNum.ToString();
@@ -46,7 +46,7 @@ namespace GamePlayScene.Tile
             return tile;
         }
 
-        private void MakeRelations(GameObject[,] tiles)
+        private static void MakeRelations(GameObject[,] tiles)
         {
             var row = tiles.GetLength(0);
             var column = tiles.GetLength(1);
