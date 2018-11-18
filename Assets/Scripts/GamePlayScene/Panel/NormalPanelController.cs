@@ -75,7 +75,7 @@ namespace Panel
             GamePlayDirector.OnFail -= OnFail;
         }
 
-        private void HandleFlick(object sender, System.EventArgs e)
+        private void HandleFlick(object sender, EventArgs e)
         {
             // パネル移動中はフリックを無視する
             if (moving) return;

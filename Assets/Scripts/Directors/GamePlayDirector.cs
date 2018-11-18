@@ -29,8 +29,6 @@ namespace Directors
         // 上記のように，ステージが増えた際に決めること多数有り
         public static string stageNum = "";
 
-        public GameState currentState;
-
         private GameObject tileGenerator;
 
         private GameObject panelGenerator;
@@ -65,25 +63,18 @@ namespace Directors
 
         private void OnApplicationPause(bool pauseStatus)
         {
-            if (pauseStatus)    // アプリがバックグラウンドに移動した時
+            if (pauseStatus) // アプリがバックグラウンドに移動した時
             {
                 Dispatch(GameState.Failure);
                 warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
             }
         }
 
-        private void Update()
-        {
-        }
-
         public void CheckClear()
         {
             GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");
             // 全てのパネルが最終位置にいたら，成功状態に遷移
-            if (panels.Any(panel => panel.GetComponent<NormalPanelController>().adapted == false))
-            {
-                return;
-            }
+            if (panels.Any(panel => panel.GetComponent<NormalPanelController>().adapted == false)) return;
 
             Dispatch(GameState.Success);
         }
@@ -91,7 +82,6 @@ namespace Directors
         // 状態による振り分け処理
         public void Dispatch(GameState state)
         {
-            currentState = state;
             switch (state)
             {
                 case GameState.Opening:

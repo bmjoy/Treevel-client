@@ -8,6 +8,7 @@ namespace Warning
     public class CartridgeWarningController : WarningController
     {
         public float localScale;
+
         // 元画像のサイズ
         public float originalHeight;
         public float originalWidth;
