@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using Bullet;
-using Directors;
+using GamePlayScene.Bullet;
 using UnityEngine;
 
-namespace Warning
+namespace GamePlayScene.Warning
 {
     public class CartridgeWarningController : WarningController
     {

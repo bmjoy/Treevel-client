@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Panel
+namespace GamePlayScene.Panel
 {
     public class PanelGenerator : MonoBehaviour
     {

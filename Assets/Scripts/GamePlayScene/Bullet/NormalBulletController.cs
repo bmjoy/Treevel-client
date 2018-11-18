@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bullet
+namespace GamePlayScene.Bullet
 {
     public class NormalBulletController : CartridgeController
     {

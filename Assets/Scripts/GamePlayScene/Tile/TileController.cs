@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Tile
+namespace GamePlayScene.Tile
 {
     public class TileController : MonoBehaviour
     {

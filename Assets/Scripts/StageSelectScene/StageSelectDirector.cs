@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using GamePlayScene;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Directors
+namespace StageSelectScene
 {
     public class StageSelectDirector : MonoBehaviour
     {

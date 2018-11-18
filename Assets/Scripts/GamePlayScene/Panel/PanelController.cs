@@ -1,7 +1,6 @@
-﻿using Directors;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Panel
+namespace GamePlayScene.Panel
 {
     public abstract class PanelController : MonoBehaviour
     {

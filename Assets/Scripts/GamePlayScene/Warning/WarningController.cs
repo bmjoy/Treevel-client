@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Warning
+namespace GamePlayScene.Warning
 {
     public class WarningController : MonoBehaviour
     {

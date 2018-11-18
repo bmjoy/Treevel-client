@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GamePlayScene.Warning;
 using UnityEngine;
-using Warning;
 
-namespace Bullet
+namespace GamePlayScene.Bullet
 {
     public class BulletGenerator : MonoBehaviour
     {
