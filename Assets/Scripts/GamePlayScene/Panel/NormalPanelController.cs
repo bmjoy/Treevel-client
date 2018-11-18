@@ -30,7 +30,7 @@ namespace GamePlayScene.Panel
             adapted = transform.parent.gameObject == finalTile;
         }
 
-        protected override void Update()
+        protected void Update()
         {
             // 親タイルへの移動
             if (transform.position != transform.parent.transform.position)

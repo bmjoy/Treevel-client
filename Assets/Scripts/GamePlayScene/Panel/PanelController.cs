@@ -11,10 +11,6 @@ namespace GamePlayScene.Panel
             gamePlayDirector = FindObjectOfType<GamePlayDirector>();
         }
 
-        protected virtual void Update()
-        {
-        }
-
         public abstract void Initialize(GameObject finalTile);
     }
 }

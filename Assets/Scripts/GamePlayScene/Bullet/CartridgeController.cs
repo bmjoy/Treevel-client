@@ -15,7 +15,7 @@ namespace GamePlayScene.Bullet
         public float originalHeight;
 
 
-        protected override void Update()
+        protected void Update()
         {
             // Check if bullet goes out of window
             if (transform.position.x < -((WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin) ||
@@ -37,7 +37,7 @@ namespace GamePlayScene.Bullet
             GamePlayDirector.OnFail -= OnFail;
         }
 
-        protected override void FixedUpdate()
+        protected void FixedUpdate()
         {
             transform.Translate(motionVector * speed, Space.World);
         }
