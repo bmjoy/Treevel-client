@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GamePlayScene.Warning;
 using UnityEngine;
@@ -39,6 +40,9 @@ namespace GamePlayScene.Bullet
                     coroutines.Add(CreateBullet(position: new Vector2(-6.5f, 6.0f),
                         motionVector: new Vector2(1.0f, 0.0f),
                         appearanceTiming: 2.0f, interval: 4.0f));
+                    break;
+                default:
+                    throw new NotImplementedException();
                     break;
             }
 

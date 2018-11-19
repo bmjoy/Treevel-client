@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GamePlayScene.Panel
 {
@@ -38,6 +39,9 @@ namespace GamePlayScene.Panel
                     CreateOnePanel(initialTileNum: "11", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
                     CreateOnePanel(initialTileNum: "13", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
                     CreateOnePanel(initialTileNum: "15", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
+                    break;
+                default:
+                    throw new NotImplementedException();
                     break;
             }
         }
