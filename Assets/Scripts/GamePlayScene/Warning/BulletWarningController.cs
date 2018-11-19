@@ -2,7 +2,7 @@
 
 namespace GamePlayScene.Warning
 {
-    public class BulletWarningController : MonoBehaviour
-    {
-    }
+	public class BulletWarningController : MonoBehaviour
+	{
+	}
 }
