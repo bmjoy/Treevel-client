@@ -11,7 +11,7 @@ namespace GamePlayScene.Tile
         public void CreateTiles(string stageNum)
         {
             // 最上タイルのy座標
-            var topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
+            const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
             // タイルの識別番号（分かりやすさのため1から振り分け）
             var tileNum = 1;
             // タイルを格納する配列

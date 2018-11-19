@@ -27,9 +27,9 @@ namespace GamePlayScene.Bullet
                     // 銃弾の移動ベクトル
                     Vector2 motionVector = new Vector2(-1.0f, 0.0f);
                     // 銃弾の出現時刻
-                    var appearanceTiming = 1.0f;
+                    const float appearanceTiming = 1.0f;
                     // 銃弾を作るインターバル
-                    var createInterval = 2.0f;
+                    const float createInterval = 2.0f;
                     // coroutineのリスト
                     coroutines.Add(CreateBullet(position, motionVector, appearanceTiming, createInterval));
                     coroutines.Add(CreateBullet(position: new Vector2(-6.5f, 6.0f),
