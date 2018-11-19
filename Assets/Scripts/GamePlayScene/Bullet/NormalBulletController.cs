@@ -9,10 +9,10 @@ namespace Bullet
         public void Initialize(Vector2 position, Vector2 motionVector)
         {
             Initialize(motionVector);
-            speed = 0.1f;
+            speed = 0.08f;
             originalWidth = GetComponent<Renderer>().bounds.size.x;
             originalHeight = GetComponent<Renderer>().bounds.size.y;
-            localScale = (float) (WindowSize.WIDTH * 0.15);
+            localScale = (float) (WindowSize.WIDTH * 0.10);
 
             if (motionVector.Equals(Vector2.right))
                 transform.position = new Vector2((float) (-(WindowSize.WIDTH + localScale * originalWidth) / 2),

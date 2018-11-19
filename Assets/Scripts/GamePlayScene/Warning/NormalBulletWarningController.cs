@@ -7,7 +7,7 @@ namespace Warning
         public override void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
             float bulletWidth, float bulletHeight)
         {
-            localScale = (float) (WindowSize.WIDTH * 0.15);
+            localScale = (float) (WindowSize.WIDTH * 0.08);
             originalWidth = GetComponent<Renderer>().bounds.size.x;
             originalHeight = GetComponent<Renderer>().bounds.size.y;
             transform.localScale *= new Vector2(localScale, localScale);

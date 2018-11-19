@@ -18,7 +18,7 @@ namespace Panel
         private bool moving;
 
         // フリック時のパネルの移動速度
-        private float speed = 0.2f;
+        private float speed = 0.60f;
 
         protected override void Start()
         {

@@ -22,13 +22,13 @@ namespace Bullet
             {
                 case "1":
                     // 銃弾の初期位置
-                    Vector2 position = new Vector2(6.5f, 4.0f);
+                    Vector2 position = new Vector2(6.5f, 4.61f);
                     // 銃弾の移動ベクトル
                     Vector2 motionVector = new Vector2(-1.0f, 0.0f);
                     // 銃弾の出現時刻
                     var appearanceTiming = 1.0f;
                     // 銃弾を作るインターバル
-                    var createInterval = 1.0f;
+                    var createInterval = 2.0f;
                     // coroutineのリスト
                     coroutines.Add(CreateBullet(position, motionVector, appearanceTiming, createInterval));
                     coroutines.Add(CreateBullet(position: new Vector2(-6.5f, 6.0f),
