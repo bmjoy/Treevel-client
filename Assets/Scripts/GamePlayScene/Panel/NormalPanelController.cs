@@ -1,152 +1,151 @@
 ﻿using System;
-using Directors;
-using Tile;
+using GamePlayScene.Tile;
 using TouchScript.Gestures;
 using UnityEngine;
 
-namespace Panel
+namespace GamePlayScene.Panel
 {
-    public class NormalPanelController : PanelController
-    {
-        // 最終タイル
-        private GameObject finalTile;
+	public class NormalPanelController : PanelController
+	{
+		// 最終タイル
+		private GameObject finalTile;
 
-        // パネルが最終タイルにいるかどうかの状態
-        public bool adapted;
+		// パネルが最終タイルにいるかどうかの状態
+		public bool adapted;
 
-        // パネルが移動中かどうかの状態
-        private bool moving;
+		// パネルが移動中かどうかの状態
+		private bool moving;
 
-        // フリック時のパネルの移動速度
-        private float speed = 0.60f;
+		// フリック時のパネルの移動速度
+		private float speed = 0.2f;
 
-        protected override void Start()
-        {
-            base.Start();
-            // 当たり判定をパネルサイズと同等にする
-            Vector2 panelSize = transform.localScale * 2f;
-            BoxCollider2D collider = GetComponent<BoxCollider2D>();
-            collider.size = panelSize;
-            // 初期状態で最終タイルにいるかどうかの状態を変える
-            adapted = transform.parent.gameObject == finalTile;
-        }
+		protected override void Start()
+		{
+			base.Start();
+			// 当たり判定をパネルサイズと同等にする
+			Vector2 panelSize = transform.localScale * 2f;
+			BoxCollider2D collider = GetComponent<BoxCollider2D>();
+			collider.size = panelSize;
+			// 初期状態で最終タイルにいるかどうかの状態を変える
+			adapted = transform.parent.gameObject == finalTile;
+		}
 
-        protected override void Update()
-        {
-            // 親タイルへの移動
-            if (transform.position != transform.parent.transform.position)
-            {
-                transform.position =
-                    Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
-                // 移動中にする
-                moving = true;
-            }
-            else
-            {
-                // 移動が完了した場合には，成功判定を行う
-                if (!moving) return;
-                gamePlayDirector.CheckClear();
-                moving = false;
-            }
-        }
+		protected void Update()
+		{
+			// 親タイルへの移動
+			if (transform.position != transform.parent.transform.position)
+			{
+				transform.position =
+					Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
+				// 移動中にする
+				moving = true;
+			}
+			else
+			{
+				// 移動が完了した場合には，成功判定を行う
+				if (!moving) return;
+				gamePlayDirector.CheckClear();
+				moving = false;
+			}
+		}
 
-        public override void Initialize(GameObject finalTile)
-        {
-            this.finalTile = finalTile;
-        }
+		public override void Initialize(GameObject finalTile)
+		{
+			this.finalTile = finalTile;
+		}
 
-        private void OnEnable()
-        {
-            // 当たり判定と，フリック検知のアタッチ（いちいちUIで設定したくない）
-            gameObject.AddComponent<BoxCollider2D>();
-            gameObject.AddComponent<FlickGesture>();
-            GetComponent<FlickGesture>().Flicked += HandleFlick;
-            // フリックの検知感度を変えたい際に変更可能
-            GetComponent<FlickGesture>().MinDistance = 0.5f;
-            GetComponent<FlickGesture>().FlickTime = 0.5f;
-            GamePlayDirector.OnSucceed += OnSucceed;
-            GamePlayDirector.OnFail += OnFail;
-        }
+		private void OnEnable()
+		{
+			// 当たり判定と，フリック検知のアタッチ（いちいちUIで設定したくない）
+			gameObject.AddComponent<BoxCollider2D>();
+			gameObject.AddComponent<FlickGesture>();
+			GetComponent<FlickGesture>().Flicked += HandleFlick;
+			// フリックの検知感度を変えたい際に変更可能
+			GetComponent<FlickGesture>().MinDistance = 0.5f;
+			GetComponent<FlickGesture>().FlickTime = 0.5f;
+			GamePlayDirector.OnSucceed += OnSucceed;
+			GamePlayDirector.OnFail += OnFail;
+		}
 
-        private void OnDisable()
-        {
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
-            GamePlayDirector.OnSucceed -= OnSucceed;
-            GamePlayDirector.OnFail -= OnFail;
-        }
+		private void OnDisable()
+		{
+			GetComponent<FlickGesture>().Flicked -= HandleFlick;
+			GamePlayDirector.OnSucceed -= OnSucceed;
+			GamePlayDirector.OnFail -= OnFail;
+		}
 
-        private void HandleFlick(object sender, System.EventArgs e)
-        {
-            // パネル移動中はフリックを無視する
-            if (moving) return;
+		private void HandleFlick(object sender, EventArgs e)
+		{
+			// パネル移動中はフリックを無視する
+			if (moving) return;
 
-            FlickGesture gesture = sender as FlickGesture;
+			FlickGesture gesture = sender as FlickGesture;
 
-            if (gesture.State != FlickGesture.GestureState.Recognized) return;
+			if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
-            // 親タイルオブジェクトのスクリプトを取得
-            TileController parentTile = transform.parent.gameObject.GetComponent<TileController>();
-            // フリック方向
-            var x = gesture.ScreenFlickVector.x;
-            var y = gesture.ScreenFlickVector.y;
+			// 親タイルオブジェクトのスクリプトを取得
+			TileController parentTile = transform.parent.gameObject.GetComponent<TileController>();
+			// フリック方向
+			var x = gesture.ScreenFlickVector.x;
+			var y = gesture.ScreenFlickVector.y;
 
-            // 方向検知に加えて，上下と左右の変化量を比べることで，検知精度をあげる
-            if (x > 0 && Math.Abs(x) >= Math.Abs(y))
-            {
-                // 右
-                GameObject rightTile = parentTile.rightTile;
-                UpdateTIle(rightTile);
-            }
-            else if (x < 0 && Math.Abs(x) >= Math.Abs(y))
-            {
-                // 左
-                GameObject leftTile = parentTile.leftTile;
-                UpdateTIle(leftTile);
-            }
-            else if (y > 0 && Math.Abs(y) >= Math.Abs(x))
-            {
-                // 上
-                GameObject upperTile = parentTile.upperTile;
-                UpdateTIle(upperTile);
-            }
-            else if (y < 0 && Math.Abs(y) >= Math.Abs(x))
-            {
-                // 下
-                GameObject lowerTile = parentTile.lowerTile;
-                UpdateTIle(lowerTile);
-            }
-        }
+			// 方向検知に加えて，上下と左右の変化量を比べることで，検知精度をあげる
+			if (x > 0 && Math.Abs(x) >= Math.Abs(y))
+			{
+				// 右
+				GameObject rightTile = parentTile.rightTile;
+				UpdateTIle(rightTile);
+			}
+			else if (x < 0 && Math.Abs(x) >= Math.Abs(y))
+			{
+				// 左
+				GameObject leftTile = parentTile.leftTile;
+				UpdateTIle(leftTile);
+			}
+			else if (y > 0 && Math.Abs(y) >= Math.Abs(x))
+			{
+				// 上
+				GameObject upperTile = parentTile.upperTile;
+				UpdateTIle(upperTile);
+			}
+			else if (y < 0 && Math.Abs(y) >= Math.Abs(x))
+			{
+				// 下
+				GameObject lowerTile = parentTile.lowerTile;
+				UpdateTIle(lowerTile);
+			}
+		}
 
-        private void UpdateTIle(GameObject targetTile)
-        {
-            // 移動先にタイルがなければ何もしない
-            if (targetTile == null) return;
-            // 移動先のタイルに子パネルがあれば何もしない
-            if (targetTile.transform.childCount != 0) return;
-            // 親タイルの更新
-            transform.parent = targetTile.transform;
-            // 最終タイルにいるかどうかで状態を変える
-            adapted = transform.parent.gameObject == finalTile;
-        }
+		private void UpdateTIle(GameObject targetTile)
+		{
+			// 移動先にタイルがなければ何もしない
+			if (targetTile == null) return;
+			// 移動先のタイルに子パネルがあれば何もしない
+			if (targetTile.transform.childCount != 0) return;
+			// 親タイルの更新
+			transform.parent = targetTile.transform;
+			// 最終タイルにいるかどうかで状態を変える
+			adapted = transform.parent.gameObject == finalTile;
+		}
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            // 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
-            if (!other.gameObject.CompareTag("Bullet")) return;
-            speed = 0;
-            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-            // 失敗状態に移行する
-            gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
-        }
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			// 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
+			if (!other.gameObject.CompareTag("Bullet")) return;
+			speed = 0;
+			gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+			// 失敗状態に移行する
+			gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+		}
 
-        private void OnSucceed()
-        {
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
-        }
+		private void OnSucceed()
+		{
+			GetComponent<FlickGesture>().Flicked -= HandleFlick;
+		}
 
-        private void OnFail()
-        {
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
-        }
-    }
+		private void OnFail()
+		{
+			GetComponent<FlickGesture>().Flicked -= HandleFlick;
+		}
+	}
 }
