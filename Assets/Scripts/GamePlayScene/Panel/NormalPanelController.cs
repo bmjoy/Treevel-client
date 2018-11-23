@@ -13,12 +13,6 @@ namespace GamePlayScene.Panel
 		// パネルが最終タイルにいるかどうかの状態
 		public bool adapted;
 
-		// パネルが移動中かどうかの状態
-		private bool moving;
-
-		// フリック時のパネルの移動速度
-		private float speed = 0.2f;
-
 		protected override void Start()
 		{
 			base.Start();
@@ -28,25 +22,6 @@ namespace GamePlayScene.Panel
 			collider.size = panelSize;
 			// 初期状態で最終タイルにいるかどうかの状態を変える
 			adapted = transform.parent.gameObject == finalTile;
-		}
-
-		protected void Update()
-		{
-			// 親タイルへの移動
-			if (transform.position != transform.parent.transform.position)
-			{
-				transform.position =
-					Vector2.MoveTowards(transform.position, transform.parent.transform.position, speed);
-				// 移動中にする
-				moving = true;
-			}
-			else
-			{
-				// 移動が完了した場合には，成功判定を行う
-				if (!moving) return;
-				gamePlayDirector.CheckClear();
-				moving = false;
-			}
 		}
 
 		public override void Initialize(GameObject finalTile)
@@ -76,9 +51,6 @@ namespace GamePlayScene.Panel
 
 		private void HandleFlick(object sender, EventArgs e)
 		{
-			// パネル移動中はフリックを無視する
-			if (moving) return;
-
 			FlickGesture gesture = sender as FlickGesture;
 
 			if (gesture.State != FlickGesture.GestureState.Recognized) return;
@@ -124,15 +96,18 @@ namespace GamePlayScene.Panel
 			if (targetTile.transform.childCount != 0) return;
 			// 親タイルの更新
 			transform.parent = targetTile.transform;
+			// 親タイルへ移動
+			transform.position = transform.parent.position;
 			// 最終タイルにいるかどうかで状態を変える
 			adapted = transform.parent.gameObject == finalTile;
+			// 成功判定
+			gamePlayDirector.CheckClear();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			// 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
 			if (!other.gameObject.CompareTag("Bullet")) return;
-			speed = 0;
 			gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
 			// 失敗状態に移行する
 			gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
