@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Library.Data;
+using UnityEngine;
 
-namespace GamePlayScene.Tile
+namespace Project.Scripts.GamePlayScene.Tile
 {
 	public class TileGenerator : MonoBehaviour
 	{

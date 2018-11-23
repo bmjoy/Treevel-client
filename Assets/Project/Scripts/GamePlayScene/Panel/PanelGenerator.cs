@@ -1,7 +1,8 @@
 ﻿using System;
+using Project.Scripts.Library.Data;
 using UnityEngine;
 
-namespace GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Panel
 {
 	public class PanelGenerator : MonoBehaviour
 	{

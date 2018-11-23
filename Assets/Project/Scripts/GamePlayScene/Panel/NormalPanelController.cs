@@ -1,9 +1,9 @@
 ﻿using System;
-using GamePlayScene.Tile;
+using Project.Scripts.GamePlayScene.Tile;
 using TouchScript.Gestures;
 using UnityEngine;
 
-namespace GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Panel
 {
 	public class NormalPanelController : PanelController
 	{

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Library.Data;
+using UnityEngine;
 
-namespace GamePlayScene.Warning
+namespace Project.Scripts.GamePlayScene.BulletWarning
 {
 	public class NormalCartridgeWarningController : CartridgeWarningController
 	{

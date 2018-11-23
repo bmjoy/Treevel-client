@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using GamePlayScene.Bullet;
-using GamePlayScene.Panel;
-using GamePlayScene.Tile;
+using Project.Scripts.GamePlayScene.Bullet;
+using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Tile;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace GamePlayScene
+namespace Project.Scripts.GamePlayScene
 {
 	public class GamePlayDirector : MonoBehaviour
 	{

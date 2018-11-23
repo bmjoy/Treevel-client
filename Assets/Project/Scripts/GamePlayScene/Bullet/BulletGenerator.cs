@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using GamePlayScene.Warning;
+using Project.Scripts.GamePlayScene.BulletWarning;
 using UnityEngine;
 
-namespace GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletGenerator : MonoBehaviour
 	{

@@ -1,7 +1,8 @@
 ﻿using System;
+using Project.Scripts.Library.Data;
 using UnityEngine;
 
-namespace GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public abstract class CartridgeController : BulletController
 	{

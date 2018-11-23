@@ -1,9 +1,9 @@
-﻿using GamePlayScene;
+﻿using Project.Scripts.GamePlayScene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace StageSelectScene
+namespace Project.Scripts.StageSelectScene
 {
 	public class StageSelectDirector : MonoBehaviour
 	{

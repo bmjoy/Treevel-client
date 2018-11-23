@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlayScene.Warning
+namespace Project.Scripts.GamePlayScene.BulletWarning
 {
 	public class BulletWarningController : MonoBehaviour
 	{

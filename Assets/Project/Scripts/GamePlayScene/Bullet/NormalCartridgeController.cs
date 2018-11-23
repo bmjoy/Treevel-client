@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Library.Data;
+using UnityEngine;
 
-namespace GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class NormalCartridgeController : CartridgeController
 	{
