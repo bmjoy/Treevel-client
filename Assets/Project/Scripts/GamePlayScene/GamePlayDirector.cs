@@ -152,21 +152,21 @@ namespace Project.Scripts.GamePlayScene
 			// 想定するデバイスのアスペクト比
 			const float targetRatio = WindowSize.WIDTH / WindowSize.HEIGHT;
 			// 実際のデバイスのアスペクト比
-			var currentRatio = Screen.width * 1f/ Screen.height;
+			var currentRatio = (float) Screen.width / Screen.height;
 			// 許容するアスペクト比の誤差
 			const float aspectRatioError = 0.001f;
 			if (currentRatio > targetRatio + aspectRatioError)
 			{
-				// 横長
+				// 横長のデバイスの場合
 				var ratio = targetRatio / currentRatio;
-				var rectX = (1.0f - ratio) / 2f;
+				var rectX = (1 - ratio) / 2f;
 				Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
 			}
 			else if (currentRatio < targetRatio - aspectRatioError)
 			{
-				// 縦長
+				// 縦長のデバイスの場合
 				var ratio = currentRatio / targetRatio;
-				var rectY = (1.0f - ratio) / 2f;
+				var rectY = (1 - ratio) / 2f;
 				Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
 			}
 		}
