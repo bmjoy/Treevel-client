@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Project.Scripts.Library.Data;
 using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
@@ -45,6 +46,7 @@ namespace Project.Scripts.GamePlayScene
 
 		private void Start()
 		{
+			UnifyDisplay();
 			tileGenerator = GameObject.Find("TileGenerator");
 			panelGenerator = GameObject.Find("PanelGenerator");
 			bulletGenerator = GameObject.Find("BulletGenerator");
@@ -143,6 +145,30 @@ namespace Project.Scripts.GamePlayScene
 		{
 			// StageSelectSceneに戻る
 			SceneManager.LoadScene("StageSelectScene");
+		}
+
+		private static void UnifyDisplay()
+		{
+			// 想定するデバイスのアスペクト比
+			const float targetRatio = WindowSize.WIDTH / WindowSize.HEIGHT;
+			// 実際のデバイスのアスペクト比
+			var currentRatio = (float) Screen.width / Screen.height;
+			// 許容するアスペクト比の誤差
+			const float aspectRatioError = 0.001f;
+			if (currentRatio > targetRatio + aspectRatioError)
+			{
+				// 横長のデバイスの場合
+				var ratio = targetRatio / currentRatio;
+				var rectX = (1 - ratio) / 2f;
+				Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
+			}
+			else if (currentRatio < targetRatio - aspectRatioError)
+			{
+				// 縦長のデバイスの場合
+				var ratio = currentRatio / targetRatio;
+				var rectY = (1 - ratio) / 2f;
+				Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
+			}
 		}
 	}
 }
