@@ -69,10 +69,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					break;
 				default:
 					throw new NotImplementedException();
-					break;
 			}
 
-			foreach (IEnumerator coroutine in coroutines) StartCoroutine(coroutine);
+			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
 		// 銃弾の移動方向および出現させる位置を取得してCreatebullet()メソッドに引数を渡す
@@ -98,7 +97,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-		private IEnumerator CreateBullet(String direction, int position, float appearanceTiming,
+		private IEnumerator CreateBullet(string direction, int position, float appearanceTiming,
 			float interval)
 		{
 			var currentTime = Time.time;
@@ -114,17 +113,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				sum++;
 				// normalBulletPrefabのGameObjectを作成
-				GameObject bullet = Instantiate(normalBulletPrefab);
+				var bullet = Instantiate(normalBulletPrefab);
 				// SortingLayerを指定
 				bullet.GetComponent<Renderer>().sortingLayerName = "Bullet";
 				// 変数の初期設定
-				NormalCartridgeController cartridgeScript = bullet.GetComponent<NormalCartridgeController>();
+				var cartridgeScript = bullet.GetComponent<NormalCartridgeController>();
 				cartridgeScript.Initialize(direction, position);
 
 				// emerge a bullet warning
 				GameObject warning = Instantiate(normalBulletWarningPrefab);
 				warning.GetComponent<Renderer>().sortingLayerName = "Warning";
-				NormalCartridgeWarningController warningScript =
+				var warningScript =
 					warning.GetComponent<NormalCartridgeWarningController>();
 				warningScript.Initialize(bullet.transform.position, cartridgeScript.motionVector,
 					cartridgeScript.localScale, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
