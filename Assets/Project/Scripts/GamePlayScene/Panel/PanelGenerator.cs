@@ -17,11 +17,11 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public GameObject numberPanel8Prefab;
 
 		// 現段階では8枚のパネル群
-		public void CreatePanels(string stageNum)
+		public void CreatePanels(int stageId)
 		{
-			switch (stageNum)
+			switch (stageId)
 			{
-				case "1":
+				case 1:
 					CreateOnePanel(initialTileNum: "4", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
 					CreateOnePanel(initialTileNum: "5", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
 					CreateOnePanel(initialTileNum: "6", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
@@ -31,7 +31,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 					CreateOnePanel(initialTileNum: "10", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
 					CreateOnePanel(initialTileNum: "14", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
 					break;
-				case "2":
+				case 2:
 					CreateOnePanel(initialTileNum: "1", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
 					CreateOnePanel(initialTileNum: "3", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
 					CreateOnePanel(initialTileNum: "5", finalTileNum: "6", panelPrefab: numberPanel3Prefab);

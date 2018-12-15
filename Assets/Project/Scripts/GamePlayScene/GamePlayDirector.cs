@@ -25,10 +25,7 @@ namespace Project.Scripts.GamePlayScene
 			Failure
 		}
 
-		// 型がstringなのかintなのか
-		// 1-2のように"-"区切りにするか（変数を"1"と"2"で分けるか）
-		// 上記のように，ステージが増えた際に決めること多数有り
-		public static string stageNum = "";
+		public static int stageId;
 
 		private GameObject tileGenerator;
 
@@ -58,7 +55,7 @@ namespace Project.Scripts.GamePlayScene
 			warningText = resultWindow.transform.Find("Warning").gameObject;
 			stageNumberText = GameObject.Find("StageNumberText");
 			// 現在のステージ番号を格納
-			stageNumberText.GetComponent<Text>().text = stageNum;
+			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
 			Dispatch(GameState.Opening);
 		}
@@ -105,11 +102,11 @@ namespace Project.Scripts.GamePlayScene
 		private void GameOpening()
 		{
 			// タイル作成スクリプトを起動
-			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageNum);
+			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageId);
 			// パネル作成スクリプトを起動
-			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageNum);
+			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageId);
 			// 銃弾作成スクリプトを起動
-			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageNum);
+			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageId);
 
 			Destroy(tileGenerator);
 			Destroy(panelGenerator);

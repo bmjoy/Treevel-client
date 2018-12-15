@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
 		// 現段階では5行3列のタイル群
 		// 現段階ではステージ番号に依存しない
-		public void CreateTiles(string stageNum)
+		public void CreateTiles(int stageId)
 		{
 			// 最上タイルのy座標
 			const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);

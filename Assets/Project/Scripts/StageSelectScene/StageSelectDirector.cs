@@ -24,8 +24,10 @@ namespace Project.Scripts.StageSelectScene
 
 		private void StageButtonDown(GameObject clickedButton)
 		{
+			// タップされたステージidを取得（暫定的にボタンの名前）
+			var stageId = int.Parse(clickedButton.name);
 			// ステージ番号を渡す
-			GamePlayDirector.stageNum = clickedButton.name;
+			GamePlayDirector.stageId = stageId;
 			// シーン遷移
 			SceneManager.LoadScene("GamePlayScene");
 		}
