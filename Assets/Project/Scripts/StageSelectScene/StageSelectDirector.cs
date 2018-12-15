@@ -40,6 +40,7 @@ namespace Project.Scripts.StageSelectScene
 			{
 				StageStatus.Reset(1);
 			}
+
 			// ステージ番号を渡す
 			GamePlayDirector.stageId = stageId;
 			// シーン遷移

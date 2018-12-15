@@ -8,10 +8,13 @@ namespace Project.Scripts.Library.PlayerPrefsUtils
 	{
 		// クリア有無
 		public bool passed = false;
+
 		// 挑戦回数
 		public int challengeNum = 0;
+
 		// 成功回数
 		public int successNum = 0;
+
 		// 失敗回数
 		public int failureNum = 0;
 
