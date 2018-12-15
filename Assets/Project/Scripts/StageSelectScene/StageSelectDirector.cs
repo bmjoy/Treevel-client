@@ -1,4 +1,5 @@
 ﻿using Project.Scripts.GamePlayScene;
+using Project.Scripts.Library.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,6 +27,19 @@ namespace Project.Scripts.StageSelectScene
 		{
 			// タップされたステージidを取得（暫定的にボタンの名前）
 			var stageId = int.Parse(clickedButton.name);
+			// 挑戦回数をインクリメント
+			var ss = StageStatus.Get(stageId);
+			ss.challengeNum++;
+			StageStatus.Set(stageId, ss);
+			// リセットのデバッグ用
+			if (stageId == 1)
+			{
+				StageStatus.Reset(2);
+			}
+			else if (stageId == 2)
+			{
+				StageStatus.Reset(1);
+			}
 			// ステージ番号を渡す
 			GamePlayDirector.stageId = stageId;
 			// シーン遷移

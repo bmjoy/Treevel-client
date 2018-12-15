@@ -4,6 +4,7 @@ using Project.Scripts.Library.Data;
 using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.Library.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -58,6 +59,13 @@ namespace Project.Scripts.GamePlayScene
 			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
 			Dispatch(GameState.Opening);
+
+			// StageStatusのデバッグ用
+			var tmp = StageStatus.Get(stageId).passed ? "クリア済み" : "未クリア";
+			print("ステージ" + stageId + "番は" + tmp + "です");
+			print("ステージ" + stageId + "番の挑戦回数は" + StageStatus.Get(stageId).challengeNum + "回です");
+			print("ステージ" + stageId + "番の成功回数は" + StageStatus.Get(stageId).successNum + "回です");
+			print("ステージ" + stageId + "番の失敗回数は" + StageStatus.Get(stageId).failureNum + "回です");
 		}
 
 		private void OnApplicationPause(bool pauseStatus)
@@ -120,6 +128,12 @@ namespace Project.Scripts.GamePlayScene
 			resultText.GetComponent<Text>().text = "成功！";
 			Destroy(bulletGenerator);
 			if (OnSucceed != null) OnSucceed();
+			var ss = StageStatus.Get(stageId);
+			// クリア済みにする
+			ss.passed = true;
+			// 成功回数をインクリメント
+			ss.successNum++;
+			StageStatus.Set(stageId, ss);
 		}
 
 		private void GameFail()
@@ -128,6 +142,10 @@ namespace Project.Scripts.GamePlayScene
 			resultText.GetComponent<Text>().text = "失敗！";
 			Destroy(bulletGenerator);
 			if (OnFail != null) OnFail();
+			// 失敗回数をインクリメント
+			var ss = StageStatus.Get(stageId);
+			ss.failureNum++;
+			StageStatus.Set(stageId, ss);
 		}
 
 		public void RetryButtonDown()
@@ -136,6 +154,10 @@ namespace Project.Scripts.GamePlayScene
 			Scene loadScene = SceneManager.GetActiveScene();
 			// Sceneの読み直し
 			SceneManager.LoadScene(loadScene.name);
+			// 挑戦回数をインクリメント
+			var ss = StageStatus.Get(stageId);
+			ss.challengeNum++;
+			StageStatus.Set(stageId, ss);
 		}
 
 		public void BackButtonDown()
