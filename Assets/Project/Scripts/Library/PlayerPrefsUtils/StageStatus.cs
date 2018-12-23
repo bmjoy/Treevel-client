@@ -18,19 +18,19 @@ namespace Project.Scripts.Library.PlayerPrefsUtils
 		// 失敗回数
 		public int failureNum = 0;
 
-		public static void Set(int stageNum, StageStatus stageStatus)
+		public static void Set(int stageId, StageStatus stageStatus)
 		{
-			MyPlayerPrefs.SetObject(PlayerPrefsKeys.STAGE_STATUS_KEY + stageNum, stageStatus);
+			MyPlayerPrefs.SetObject(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId, stageStatus);
 		}
 
-		public static StageStatus Get(int stageNum)
+		public static StageStatus Get(int stageId)
 		{
-			return MyPlayerPrefs.GetObject<StageStatus>(PlayerPrefsKeys.STAGE_STATUS_KEY + stageNum);
+			return MyPlayerPrefs.GetObject<StageStatus>(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId);
 		}
 
-		public static void Reset(int stageNum)
+		public static void Reset(int stageId)
 		{
-			PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_STATUS_KEY + stageNum);
+			PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId);
 		}
 	}
 }
