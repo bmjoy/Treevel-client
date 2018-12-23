@@ -4,6 +4,7 @@ using Project.Scripts.Library.Data;
 using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.Library.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,10 +26,7 @@ namespace Project.Scripts.GamePlayScene
 			Failure
 		}
 
-		// 型がstringなのかintなのか
-		// 1-2のように"-"区切りにするか（変数を"1"と"2"で分けるか）
-		// 上記のように，ステージが増えた際に決めること多数有り
-		public static string stageNum = "";
+		public static int stageId;
 
 		private GameObject tileGenerator;
 
@@ -58,9 +56,17 @@ namespace Project.Scripts.GamePlayScene
 			warningText = resultWindow.transform.Find("Warning").gameObject;
 			stageNumberText = GameObject.Find("StageNumberText");
 			// 現在のステージ番号を格納
-			stageNumberText.GetComponent<Text>().text = stageNum;
+			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
 			Dispatch(GameState.Opening);
+
+			// StageStatusのデバッグ用
+			var stageStatus = StageStatus.Get(stageId);
+			var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
+			print("ステージ" + stageId + "番は" + tmp + "です");
+			print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
+			print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
+			print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
 		}
 
 		private void OnApplicationPause(bool pauseStatus)
@@ -105,11 +111,11 @@ namespace Project.Scripts.GamePlayScene
 		private void GameOpening()
 		{
 			// タイル作成スクリプトを起動
-			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageNum);
+			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageId);
 			// パネル作成スクリプトを起動
-			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageNum);
+			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageId);
 			// 銃弾作成スクリプトを起動
-			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageNum);
+			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageId);
 
 			Destroy(tileGenerator);
 			Destroy(panelGenerator);
@@ -123,6 +129,11 @@ namespace Project.Scripts.GamePlayScene
 			resultText.GetComponent<Text>().text = "成功！";
 			Destroy(bulletGenerator);
 			if (OnSucceed != null) OnSucceed();
+			var ss = StageStatus.Get(stageId);
+			// クリア済みにする
+			ss.ClearStage(stageId);
+			// 成功回数をインクリメント
+			ss.IncSuccessNum(stageId);
 		}
 
 		private void GameFail()
@@ -131,6 +142,9 @@ namespace Project.Scripts.GamePlayScene
 			resultText.GetComponent<Text>().text = "失敗！";
 			Destroy(bulletGenerator);
 			if (OnFail != null) OnFail();
+			// 失敗回数をインクリメント
+			var ss = StageStatus.Get(stageId);
+			ss.IncFailureNum(stageId);
 		}
 
 		public void RetryButtonDown()
@@ -139,6 +153,9 @@ namespace Project.Scripts.GamePlayScene
 			Scene loadScene = SceneManager.GetActiveScene();
 			// Sceneの読み直し
 			SceneManager.LoadScene(loadScene.name);
+			// 挑戦回数をインクリメント
+			var ss = StageStatus.Get(stageId);
+			ss.IncChallengeNum(stageId);
 		}
 
 		public void BackButtonDown()

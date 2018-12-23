@@ -15,13 +15,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// Generatorが作成された時刻
 		public float startTime;
 
-		public void CreateBullets(string stageNum)
+		public void CreateBullets(int stageId)
 		{
 			List<IEnumerator> coroutines = new List<IEnumerator>();
 			startTime = Time.time;
-			switch (stageNum)
+			switch (stageId)
 			{
-				case "1":
+				case 1:
 					// 銃弾の初期位置
 					Vector2 position = new Vector2(6.5f, 4.0f);
 					// 銃弾の移動ベクトル
@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						motionVector: new Vector2(1.0f, 0.0f),
 						appearanceTiming: 2.0f, interval: 4.0f));
 					break;
-				case "2":
+				case 2:
 					coroutines.Add(CreateBullet(position: new Vector2(-6.5f, 6.0f),
 						motionVector: new Vector2(1.0f, 0.0f),
 						appearanceTiming: 2.0f, interval: 4.0f));
