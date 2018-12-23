@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace Project.Scripts.Library.PlayerPrefsUtils
+﻿namespace Project.Scripts.Library.PlayerPrefsUtils
 {
-	public class PlayerPrefsKeys : MonoBehaviour
+	public static class PlayerPrefsKeys
 	{
 		public const string STAGE_STATUS_KEY = "STAGE_STATUS_KEY";
 	}
