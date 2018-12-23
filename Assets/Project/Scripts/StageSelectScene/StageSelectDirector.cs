@@ -29,8 +29,7 @@ namespace Project.Scripts.StageSelectScene
 			var stageId = int.Parse(clickedButton.name);
 			// 挑戦回数をインクリメント
 			var ss = StageStatus.Get(stageId);
-			ss.challengeNum++;
-			StageStatus.Set(stageId, ss);
+			ss.IncChallengeNum(stageId);
 			// リセットのデバッグ用
 			if (stageId == 1)
 			{

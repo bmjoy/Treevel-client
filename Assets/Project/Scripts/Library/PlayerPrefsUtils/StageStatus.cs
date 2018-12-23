@@ -18,7 +18,7 @@ namespace Project.Scripts.Library.PlayerPrefsUtils
 		// 失敗回数
 		public int failureNum = 0;
 
-		public static void Set(int stageId, StageStatus stageStatus)
+		private static void Set(int stageId, StageStatus stageStatus)
 		{
 			MyPlayerPrefs.SetObject(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId, stageStatus);
 		}
@@ -31,6 +31,30 @@ namespace Project.Scripts.Library.PlayerPrefsUtils
 		public static void Reset(int stageId)
 		{
 			PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId);
+		}
+
+		public void ClearStage(int stageId)
+		{
+			passed = true;
+			Set(stageId, this);
+		}
+
+		public void IncChallengeNum(int stageId)
+		{
+			challengeNum++;
+			Set(stageId, this);
+		}
+
+		public void IncSuccessNum(int stageId)
+		{
+			successNum++;
+			Set(stageId, this);
+		}
+
+		public void IncFailureNum(int stageId)
+		{
+			failureNum++;
+			Set(stageId, this);
 		}
 	}
 }

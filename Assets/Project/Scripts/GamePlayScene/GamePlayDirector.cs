@@ -130,10 +130,9 @@ namespace Project.Scripts.GamePlayScene
 			if (OnSucceed != null) OnSucceed();
 			var ss = StageStatus.Get(stageId);
 			// クリア済みにする
-			ss.passed = true;
+			ss.ClearStage(stageId);
 			// 成功回数をインクリメント
-			ss.successNum++;
-			StageStatus.Set(stageId, ss);
+			ss.IncSuccessNum(stageId);
 		}
 
 		private void GameFail()
@@ -144,8 +143,7 @@ namespace Project.Scripts.GamePlayScene
 			if (OnFail != null) OnFail();
 			// 失敗回数をインクリメント
 			var ss = StageStatus.Get(stageId);
-			ss.failureNum++;
-			StageStatus.Set(stageId, ss);
+			ss.IncFailureNum(stageId);
 		}
 
 		public void RetryButtonDown()
@@ -156,8 +154,7 @@ namespace Project.Scripts.GamePlayScene
 			SceneManager.LoadScene(loadScene.name);
 			// 挑戦回数をインクリメント
 			var ss = StageStatus.Get(stageId);
-			ss.challengeNum++;
-			StageStatus.Set(stageId, ss);
+			ss.IncChallengeNum(stageId);
 		}
 
 		public void BackButtonDown()
