@@ -16,6 +16,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// Generatorが作成された時刻
 		public float startTime;
 
+		public enum Direction
+		{
+			ToLeft,
+			ToRight,
+			ToUp,
+			ToBottom
+		}
+
 		private enum ToLeft
 		{
 			First = 1,
