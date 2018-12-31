@@ -45,29 +45,29 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 銃弾の初期配置の設定
-		protected void SetInitialPosition(String direction, int position)
+		protected void SetInitialPosition(BulletGenerator.Direction direction, int line)
 		{
 			switch (direction)
 			{
-				case "left":
+				case BulletGenerator.Direction.ToLeft:
 					transform.position = new Vector2((WindowSize.WIDTH + localScale * originalWidth) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-						TileSize.HEIGHT * (position - 1));
+						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.left;
 					break;
-				case "right":
+				case BulletGenerator.Direction.ToRight:
 					transform.position = new Vector2(-(WindowSize.WIDTH + localScale * originalWidth) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-						TileSize.HEIGHT * (position - 1));
+						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.right;
 					break;
-				case "up":
-					transform.position = new Vector2(TileSize.WIDTH * (position - 2),
+				case BulletGenerator.Direction.ToUp:
+					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						-(WindowSize.HEIGHT + localScale * originalHeight) / 2);
 					motionVector = Vector2.up;
 					break;
-				case "down":
-					transform.position = new Vector2(TileSize.WIDTH * (position - 2),
+				case BulletGenerator.Direction.ToBottom:
+					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						(WindowSize.HEIGHT + localScale * originalHeight) / 2);
 					motionVector = Vector2.down;
 					break;
