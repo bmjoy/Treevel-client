@@ -64,17 +64,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				case 1:
 					// 銃弾の出現時刻
-					const float appearanceTiming = 1.0f;
+					const float appearanceTime = 1.0f;
 					// 銃弾を作るインターバル
 					const float createInterval = 1.0f;
 					// coroutineのリスト
-					coroutines.Add(CreateBullet(Direction.ToLeft, (int) ToLeft.First, appearanceTiming, createInterval));
-					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Second, appearanceTiming: 2.0f,
+					coroutines.Add(CreateBullet(Direction.ToLeft, (int) ToLeft.First, appearanceTime, createInterval));
+					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Second, appearanceTime: 2.0f,
 						interval: 4.0f));
 					break;
 				case 2:
-					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Fifth, appearanceTiming: 2.0f,
-						interval: 4.0f));
+					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Fifth, appearanceTime: 2.0f, interval: 4.0f));
 					break;
 				default:
 					throw new NotImplementedException();
@@ -84,14 +83,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-		private IEnumerator CreateBullet(Direction direction, int position, float appearanceTiming,
+		private IEnumerator CreateBullet(Direction direction, int position, float appearanceTime,
 			float interval)
 		{
 			var currentTime = Time.time;
 
 			// wait by the time the first bullet warning emerge
 			// 1.0f equals to the period which the bullet warning is emerging
-			yield return new WaitForSeconds(appearanceTiming - 1.0f - (currentTime - startTime));
+			yield return new WaitForSeconds(appearanceTime - 1.0f - (currentTime - startTime));
 
 			// the number of bullets which have emerged
 			var sum = 0;
@@ -120,7 +119,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				currentTime = Time.time;
 				// 一定時間(interval)待つ
-				yield return new WaitForSeconds(appearanceTiming + interval * sum - (currentTime - startTime));
+				yield return new WaitForSeconds(appearanceTime + interval * sum - (currentTime - startTime));
 			}
 		}
 	}
