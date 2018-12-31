@@ -37,7 +37,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			GetComponent<FlickGesture>().Flicked += HandleFlick;
 			// フリックの検知感度を変えたい際に変更可能
 			GetComponent<FlickGesture>().MinDistance = 0.5f;
-			GetComponent<FlickGesture>().FlickTime = 0.5f;
+			GetComponent<FlickGesture>().FlickTime = 0.05f;
 			GamePlayDirector.OnSucceed += OnSucceed;
 			GamePlayDirector.OnFail += OnFail;
 		}
