@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// Generatorが作成された時刻
 		public float startTime;
 
-		private enum Left
+		private enum ToLeft
 		{
 			First = 1,
 			Second,
@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			Fifth
 		}
 
-		private enum Right
+		private enum ToRight
 		{
 			First = 1,
 			Second,
@@ -34,14 +34,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			Fifth
 		}
 
-		private enum Up
+		private enum ToUp
 		{
 			First = 1,
 			Second,
 			Third
 		}
 
-		private enum Down
+		private enum ToDown
 		{
 			First = 1,
 			Second,
