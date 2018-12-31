@@ -83,7 +83,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-		private IEnumerator CreateBullet(Direction direction, int position, float appearanceTime,
+		private IEnumerator CreateBullet(Direction direction, int line, float appearanceTime,
 			float interval)
 		{
 			var currentTime = Time.time;
@@ -104,7 +104,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				bullet.GetComponent<Renderer>().sortingLayerName = "Bullet";
 				// 変数の初期設定
 				var cartridgeScript = bullet.GetComponent<NormalCartridgeController>();
-				cartridgeScript.Initialize(direction, position);
+				cartridgeScript.Initialize(direction, line);
 
 				// emerge a bullet warning
 				GameObject warning = Instantiate(normalBulletWarningPrefab);
