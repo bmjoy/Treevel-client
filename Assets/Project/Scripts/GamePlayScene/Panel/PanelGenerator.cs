@@ -43,7 +43,6 @@ namespace Project.Scripts.GamePlayScene.Panel
 					break;
 				default:
 					throw new NotImplementedException();
-					break;
 			}
 		}
 

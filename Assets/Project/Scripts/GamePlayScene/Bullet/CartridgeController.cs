@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Project.Scripts.Library.Data;
 using UnityEngine;
 
@@ -44,22 +45,37 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 銃弾の初期配置の設定
-		protected void SetInitialPosition(Vector2 position, Vector2 motionVector)
+		protected void SetInitialPosition(BulletGenerator.BulletDirection direction, int line)
 		{
-			if (motionVector.Equals(Vector2.right))
-				transform.position = new Vector2(-(WindowSize.WIDTH + localScale * originalWidth) / 2,
-					position.y);
-			else if (motionVector.Equals(Vector2.left))
-				transform.position = new Vector2((WindowSize.WIDTH + localScale * originalWidth) / 2,
-					position.y);
-			else if (motionVector.Equals(Vector2.up))
-				transform.position = new Vector2(position.x, -(WindowSize.HEIGHT + localScale * originalHeight) / 2);
-			else if (motionVector.Equals(Vector2.down))
-				transform.position = new Vector2(position.x, (WindowSize.HEIGHT + localScale * originalHeight) / 2);
+			switch (direction)
+			{
+				case BulletGenerator.BulletDirection.ToLeft:
+					transform.position = new Vector2((WindowSize.WIDTH + localScale * originalWidth) / 2,
+						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
+						TileSize.HEIGHT * (line - 1));
+					motionVector = Vector2.left;
+					break;
+				case BulletGenerator.BulletDirection.ToRight:
+					transform.position = new Vector2(-(WindowSize.WIDTH + localScale * originalWidth) / 2,
+						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
+						TileSize.HEIGHT * (line - 1));
+					motionVector = Vector2.right;
+					break;
+				case BulletGenerator.BulletDirection.ToUp:
+					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
+						-(WindowSize.HEIGHT + localScale * originalHeight) / 2);
+					motionVector = Vector2.up;
+					break;
+				case BulletGenerator.BulletDirection.ToBottom:
+					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
+						(WindowSize.HEIGHT + localScale * originalHeight) / 2);
+					motionVector = Vector2.down;
+					break;
+			}
+
 			// Check if a bullet should be flipped vertically
 			transform.localScale *= new Vector2(localScale, -1 * Mathf.Sign(motionVector.x) * localScale);
 
-			this.motionVector = motionVector;
 			// Calculate rotation angle
 			var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
 			angle = (float) (Mathf.Acos(angle) * 180 / Math.PI);
