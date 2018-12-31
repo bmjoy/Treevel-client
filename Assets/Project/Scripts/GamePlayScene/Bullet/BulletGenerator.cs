@@ -68,12 +68,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					// 銃弾を作るインターバル
 					const float createInterval = 1.0f;
 					// coroutineのリスト
-					AddCoroutine(coroutines, Left.First, appearanceTiming, createInterval);
-					AddCoroutine(coroutine: coroutines, row: Right.Second, appearanceTiming: 2.0f,
-						createInterval: 4.0f);
+					coroutines.Add(CreateBullet(Direction.ToLeft, (int) ToLeft.First, appearanceTiming, createInterval));
+					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Second, appearanceTiming: 2.0f,
+						interval: 4.0f));
 					break;
 				case 2:
-					AddCoroutine(coroutine: coroutines, row: Right.Fifth, appearanceTiming: 2.0f, createInterval: 4.0f);
+					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Fifth, appearanceTiming: 2.0f,
+						interval: 4.0f));
 					break;
 				default:
 					throw new NotImplementedException();
@@ -82,30 +83,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
-		// 銃弾の移動方向および出現させる位置を取得してCreatebullet()メソッドに引数を渡す
-		private void AddCoroutine(List<IEnumerator> coroutine, Left row, float appearanceTiming, float createInterval)
-		{
-			coroutine.Add(CreateBullet("left", (int) row, appearanceTiming, createInterval));
-		}
-
-		private void AddCoroutine(List<IEnumerator> coroutine, Right row, float appearanceTiming, float createInterval)
-		{
-			coroutine.Add(CreateBullet("right", (int) row, appearanceTiming, createInterval));
-		}
-
-		private void AddCoroutine(List<IEnumerator> coroutine, Up column, float appearanceTiming, float createInterval)
-		{
-			coroutine.Add(CreateBullet("up", (int) column, appearanceTiming, createInterval));
-		}
-
-		private void AddCoroutine(List<IEnumerator> coroutine, Down column, float appearanceTiming,
-			float createInterval)
-		{
-			coroutine.Add(CreateBullet("down", (int) column, appearanceTiming, createInterval));
-		}
-
 		// 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-		private IEnumerator CreateBullet(string direction, int position, float appearanceTiming,
+		private IEnumerator CreateBullet(Direction direction, int position, float appearanceTiming,
 			float interval)
 		{
 			var currentTime = Time.time;
