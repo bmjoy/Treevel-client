@@ -34,7 +34,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			gameObject.GetComponent<BoxCollider2D>().offset =
 				new Vector2(-(1.5f - (WindowSize.WIDTH * 0.24f * 0.1f)) / 2, 0);
 			// 銃弾の先頭部分のみに当たり判定を与える
-			gameObject.GetComponent<BoxCollider2D>().size = new Vector2(TileSize.WIDTH - PanelSize.WIDTH, 0.5f);
+			gameObject.GetComponent<BoxCollider2D>().size = new Vector2((TileSize.WIDTH - PanelSize.WIDTH)/2, 0.5f);
 			gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
 			// RigidBodyのアタッチメント
 			gameObject.AddComponent<Rigidbody2D>();
