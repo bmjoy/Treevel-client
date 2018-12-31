@@ -7,7 +7,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public class NormalCartridgeController : CartridgeController
 	{
 		// コンストラクタがわりのメソッド
-		public void Initialize(BulletGenerator.Direction direction, int line)
+		public void Initialize(BulletGenerator.BulletDirection direction, int line)
 		{
 			speed = 0.1f;
 			originalWidth = GetComponent<Renderer>().bounds.size.x;

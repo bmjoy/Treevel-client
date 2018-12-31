@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// Generatorが作成された時刻
 		public float startTime;
 
-		public enum Direction
+		public enum BulletDirection
 		{
 			ToLeft,
 			ToRight,
@@ -68,12 +68,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					// 銃弾を作るインターバル
 					const float createInterval = 1.0f;
 					// coroutineのリスト
-					coroutines.Add(CreateBullet(Direction.ToLeft, (int) ToLeft.First, appearanceTime, createInterval));
-					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Second, appearanceTime: 2.0f,
+					coroutines.Add(CreateBullet(BulletDirection.ToLeft, (int) ToLeft.First, appearanceTime, createInterval));
+					coroutines.Add(CreateBullet(BulletDirection.ToRight, (int) ToRight.Second, appearanceTime: 2.0f,
 						interval: 4.0f));
 					break;
 				case 2:
-					coroutines.Add(CreateBullet(Direction.ToRight, (int) ToRight.Fifth, appearanceTime: 2.0f, interval: 4.0f));
+					coroutines.Add(CreateBullet(BulletDirection.ToRight, (int) ToRight.Fifth, appearanceTime: 2.0f, interval: 4.0f));
 					break;
 				default:
 					throw new NotImplementedException();
@@ -83,7 +83,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した座標(x, y)に一定の時間間隔(interval)で銃弾を作成するメソッド
-		private IEnumerator CreateBullet(Direction direction, int line, float appearanceTime,
+		private IEnumerator CreateBullet(BulletDirection direction, int line, float appearanceTime,
 			float interval)
 		{
 			var currentTime = Time.time;
