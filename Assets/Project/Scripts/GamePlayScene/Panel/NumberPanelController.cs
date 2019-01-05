@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-	public class NormalPanelController : PanelController
+	public class NumberPanelController : PanelController
 	{
 		// 最終タイル
 		private GameObject finalTile;

@@ -82,7 +82,7 @@ namespace Project.Scripts.GamePlayScene
 		{
 			GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");
 			// 全てのパネルが最終位置にいたら，成功状態に遷移
-			if (panels.Any(panel => panel.GetComponent<NormalPanelController>().adapted == false)) return;
+			if (panels.Any(panel => panel.GetComponent<NumberPanelController>().adapted == false)) return;
 
 			Dispatch(GameState.Success);
 		}
