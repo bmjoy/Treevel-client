@@ -48,20 +48,19 @@ namespace Project.Scripts.GamePlayScene.Panel
 
 		private static void CreateNumberPanel(string initialTileNum, string finalTileNum, GameObject panelPrefab)
 		{
-			// 初期位置にするタイルを取得
-			var initialTile = GameObject.Find("Tile" + initialTileNum);
-			// 最終位置にするタイルを取得
-			var finalTile = GameObject.Find("Tile" + finalTileNum);
 			// 引数に渡されたPrefabを元にオブジェクトを生成
 			var panel = Instantiate(panelPrefab);
+			// 初期位置にするタイルを取得
+			var initialTile = GameObject.Find("Tile" + initialTileNum);
 			// パネルの初期設定
 			panel.name = "Panel";
 			panel.transform.localScale = new Vector2(PanelSize.WIDTH * 0.5f, PanelSize.HEIGHT * 0.5f);
 			panel.transform.parent = initialTile.transform;
 			panel.transform.position = initialTile.transform.position;
-			// 最終タイルを登録
-			panel.GetComponent<PanelController>().Initialize(finalTile);
 			panel.GetComponent<Renderer>().sortingLayerName = "Panel";
+			// 最終タイルを登録
+			var finalTile = GameObject.Find("Tile" + finalTileNum);
+			panel.GetComponent<PanelController>().Initialize(finalTile);
 		}
 	}
 }
