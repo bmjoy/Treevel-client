@@ -49,11 +49,11 @@ namespace Project.Scripts.GamePlayScene.Panel
 		private static void CreateNumberPanel(string initialTileNum, string finalTileNum, GameObject panelPrefab)
 		{
 			// 初期位置にするタイルを取得
-			GameObject initialTile = GameObject.Find("Tile" + initialTileNum);
+			var initialTile = GameObject.Find("Tile" + initialTileNum);
 			// 最終位置にするタイルを取得
-			GameObject finalTile = GameObject.Find("Tile" + finalTileNum);
+			var finalTile = GameObject.Find("Tile" + finalTileNum);
 			// 引数に渡されたPrefabを元にオブジェクトを生成
-			GameObject panel = Instantiate(panelPrefab);
+			var panel = Instantiate(panelPrefab);
 			// パネルの初期設定
 			panel.name = "Panel";
 			panel.transform.localScale = new Vector2(PanelSize.WIDTH * 0.5f, PanelSize.HEIGHT * 0.5f);
