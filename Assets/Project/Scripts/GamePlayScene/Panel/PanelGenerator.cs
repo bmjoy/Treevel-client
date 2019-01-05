@@ -15,6 +15,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public GameObject numberPanel6Prefab;
 		public GameObject numberPanel7Prefab;
 		public GameObject numberPanel8Prefab;
+		public GameObject staticPanelPrefab;
 
 		// 現段階では8枚のパネル群
 		public void CreatePanels(int stageId)
@@ -30,6 +31,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 					CreateNumberPanel(initialTileNum: "9", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
 					CreateNumberPanel(initialTileNum: "10", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
 					CreateNumberPanel(initialTileNum: "14", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
+					CreateStaticPanel(initialTileNum: "15", panelPrefab: staticPanelPrefab);
 					break;
 				case 2:
 					CreateNumberPanel(initialTileNum: "1", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
@@ -50,17 +52,30 @@ namespace Project.Scripts.GamePlayScene.Panel
 		{
 			// 引数に渡されたPrefabを元にオブジェクトを生成
 			var panel = Instantiate(panelPrefab);
+			panel.name = "NumberPanel";
+			Setup(initialTileNum, ref panel);
+			// 最終タイルを登録
+			var finalTile = GameObject.Find("Tile" + finalTileNum);
+			panel.GetComponent<PanelController>().Initialize(finalTile);
+		}
+
+		private static void CreateStaticPanel(string initialTileNum, GameObject panelPrefab)
+		{
+			var panel = Instantiate(panelPrefab);
+			panel.name = "StaticPanel";
+			Setup(initialTileNum, ref panel);
+		}
+
+		// refは参照渡し
+		private static void Setup(string initialTileNum, ref GameObject panel)
+		{
 			// 初期位置にするタイルを取得
 			var initialTile = GameObject.Find("Tile" + initialTileNum);
 			// パネルの初期設定
-			panel.name = "Panel";
 			panel.transform.localScale = new Vector2(PanelSize.WIDTH * 0.5f, PanelSize.HEIGHT * 0.5f);
 			panel.transform.parent = initialTile.transform;
 			panel.transform.position = initialTile.transform.position;
 			panel.GetComponent<Renderer>().sortingLayerName = "Panel";
-			// 最終タイルを登録
-			var finalTile = GameObject.Find("Tile" + finalTileNum);
-			panel.GetComponent<PanelController>().Initialize(finalTile);
 		}
 	}
 }
