@@ -22,31 +22,31 @@ namespace Project.Scripts.GamePlayScene.Panel
 			switch (stageId)
 			{
 				case 1:
-					CreateOnePanel(initialTileNum: "4", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
-					CreateOnePanel(initialTileNum: "5", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
-					CreateOnePanel(initialTileNum: "6", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
-					CreateOnePanel(initialTileNum: "7", finalTileNum: "7", panelPrefab: numberPanel4Prefab);
-					CreateOnePanel(initialTileNum: "8", finalTileNum: "8", panelPrefab: numberPanel5Prefab);
-					CreateOnePanel(initialTileNum: "9", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
-					CreateOnePanel(initialTileNum: "10", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
-					CreateOnePanel(initialTileNum: "14", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
+					CreateNumberPanel(initialTileNum: "4", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
+					CreateNumberPanel(initialTileNum: "5", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
+					CreateNumberPanel(initialTileNum: "6", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
+					CreateNumberPanel(initialTileNum: "7", finalTileNum: "7", panelPrefab: numberPanel4Prefab);
+					CreateNumberPanel(initialTileNum: "8", finalTileNum: "8", panelPrefab: numberPanel5Prefab);
+					CreateNumberPanel(initialTileNum: "9", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
+					CreateNumberPanel(initialTileNum: "10", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
+					CreateNumberPanel(initialTileNum: "14", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
 					break;
 				case 2:
-					CreateOnePanel(initialTileNum: "1", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
-					CreateOnePanel(initialTileNum: "3", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
-					CreateOnePanel(initialTileNum: "5", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
-					CreateOnePanel(initialTileNum: "6", finalTileNum: "7", panelPrefab: numberPanel4Prefab);
-					CreateOnePanel(initialTileNum: "8", finalTileNum: "8", panelPrefab: numberPanel5Prefab);
-					CreateOnePanel(initialTileNum: "11", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
-					CreateOnePanel(initialTileNum: "13", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
-					CreateOnePanel(initialTileNum: "15", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
+					CreateNumberPanel(initialTileNum: "1", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
+					CreateNumberPanel(initialTileNum: "3", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
+					CreateNumberPanel(initialTileNum: "5", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
+					CreateNumberPanel(initialTileNum: "6", finalTileNum: "7", panelPrefab: numberPanel4Prefab);
+					CreateNumberPanel(initialTileNum: "8", finalTileNum: "8", panelPrefab: numberPanel5Prefab);
+					CreateNumberPanel(initialTileNum: "11", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
+					CreateNumberPanel(initialTileNum: "13", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
+					CreateNumberPanel(initialTileNum: "15", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
 					break;
 				default:
 					throw new NotImplementedException();
 			}
 		}
 
-		private static void CreateOnePanel(string initialTileNum, string finalTileNum, GameObject panelPrefab)
+		private static void CreateNumberPanel(string initialTileNum, string finalTileNum, GameObject panelPrefab)
 		{
 			// 初期位置にするタイルを取得
 			GameObject initialTile = GameObject.Find("Tile" + initialTileNum);
