@@ -68,12 +68,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					// 銃弾を作るインターバル
 					const float createInterval = 1.0f;
 					// coroutineのリスト
-					coroutines.Add(CreateBullet(BulletDirection.ToLeft, (int) ToLeft.First, appearanceTime, createInterval));
+					coroutines.Add(CreateBullet(BulletDirection.ToLeft, (int) ToLeft.First, appearanceTime,
+						createInterval));
 					coroutines.Add(CreateBullet(BulletDirection.ToRight, (int) ToRight.Second, appearanceTime: 2.0f,
 						interval: 4.0f));
 					break;
 				case 2:
-					coroutines.Add(CreateBullet(BulletDirection.ToRight, (int) ToRight.Fifth, appearanceTime: 2.0f, interval: 4.0f));
+					coroutines.Add(CreateBullet(BulletDirection.ToRight, (int) ToRight.Fifth, appearanceTime: 2.0f,
+						interval: 4.0f));
 					break;
 				default:
 					throw new NotImplementedException();
