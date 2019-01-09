@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212713473970092426}
   - component: {fileID: 114183661437708264}
   m_Layer: 0
-  m_Name: normalPanelPrefab
+  m_Name: dynamicDummyPanelPrefab
   m_TagString: Panel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

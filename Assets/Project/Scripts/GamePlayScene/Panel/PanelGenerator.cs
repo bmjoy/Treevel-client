@@ -6,7 +6,6 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
 	public class PanelGenerator : MonoBehaviour
 	{
-		public GameObject normalPanelPrefab;
 		public GameObject numberPanel1Prefab;
 		public GameObject numberPanel2Prefab;
 		public GameObject numberPanel3Prefab;
@@ -16,6 +15,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public GameObject numberPanel7Prefab;
 		public GameObject numberPanel8Prefab;
 		public GameObject staticDummyPanelPrefab;
+		public GameObject dynamicDummyPanelPrefab;
 
 		// 現段階では8枚のパネル群
 		public void CreatePanels(int stageId)
