@@ -15,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public GameObject numberPanel6Prefab;
 		public GameObject numberPanel7Prefab;
 		public GameObject numberPanel8Prefab;
-		public GameObject staticPanelPrefab;
+		public GameObject staticDummyPanelPrefab;
 
 		// 現段階では8枚のパネル群
 		public void CreatePanels(int stageId)
@@ -31,7 +31,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 					CreateNumberPanel(initialTileNum: "9", finalTileNum: "9", panelPrefab: numberPanel6Prefab);
 					CreateNumberPanel(initialTileNum: "10", finalTileNum: "10", panelPrefab: numberPanel7Prefab);
 					CreateNumberPanel(initialTileNum: "14", finalTileNum: "11", panelPrefab: numberPanel8Prefab);
-					CreateStaticPanel(initialTileNum: "15", panelPrefab: staticPanelPrefab);
+					CreateStaticDummyPanel(initialTileNum: "15", panelPrefab: staticDummyPanelPrefab);
 					break;
 				case 2:
 					CreateNumberPanel(initialTileNum: "1", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
@@ -59,7 +59,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			panel.GetComponent<PanelController>().Initialize(finalTile);
 		}
 
-		private static void CreateStaticPanel(string initialTileNum, GameObject panelPrefab)
+		private static void CreateStaticDummyPanel(string initialTileNum, GameObject panelPrefab)
 		{
 			var panel = Instantiate(panelPrefab);
 			panel.name = "StaticPanel";

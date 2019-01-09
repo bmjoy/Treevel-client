@@ -1163,7 +1163,7 @@ MonoBehaviour:
     type: 2}
   numberPanel8Prefab: {fileID: 1353637230828172, guid: 4a225671eee6844d8945c6357a1c0958,
     type: 2}
-  staticPanelPrefab: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+  staticDummyPanelPrefab: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
     type: 2}
 --- !u!4 &1797629530
 Transform:
