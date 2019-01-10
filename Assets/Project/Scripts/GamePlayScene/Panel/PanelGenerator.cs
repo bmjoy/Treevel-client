@@ -23,6 +23,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			switch (stageId)
 			{
 				case 1:
+					CreateDynamicDummyPanel(initialTileNum: "3", panelPrefab: dynamicDummyPanelPrefab);
 					CreateNumberPanel(initialTileNum: "4", finalTileNum: "4", panelPrefab: numberPanel1Prefab);
 					CreateNumberPanel(initialTileNum: "5", finalTileNum: "5", panelPrefab: numberPanel2Prefab);
 					CreateNumberPanel(initialTileNum: "6", finalTileNum: "6", panelPrefab: numberPanel3Prefab);
@@ -62,7 +63,14 @@ namespace Project.Scripts.GamePlayScene.Panel
 		private static void CreateStaticDummyPanel(string initialTileNum, GameObject panelPrefab)
 		{
 			var panel = Instantiate(panelPrefab);
-			panel.name = "StaticPanel";
+			panel.name = "StaticDummyPanel";
+			Setup(initialTileNum, ref panel);
+		}
+
+		private static void CreateDynamicDummyPanel(string initialTileNum, GameObject panelPrefab)
+		{
+			var panel = Instantiate(panelPrefab);
+			panel.name = "DynamicDummyPanel";
 			Setup(initialTileNum, ref panel);
 		}
 
