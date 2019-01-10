@@ -56,7 +56,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			Setup(initialTileNum, ref panel);
 			// 最終タイルを登録
 			var finalTile = GameObject.Find("Tile" + finalTileNum);
-			panel.GetComponent<PanelController>().Initialize(finalTile);
+			panel.GetComponent<NumberPanelController>().Initialize(finalTile);
 		}
 
 		private static void CreateStaticDummyPanel(string initialTileNum, GameObject panelPrefab)
