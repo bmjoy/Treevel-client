@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4035888861635480}
   - component: {fileID: 212713473970092426}
-  - component: {fileID: 114183661437708264}
+  - component: {fileID: 114989368649593642}
   m_Layer: 0
-  m_Name: normalPanelPrefab
-  m_TagString: Panel
+  m_Name: dynamicDummyPanelPrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114183661437708264
+--- !u!114 &114989368649593642
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,10 +49,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1667971508019858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95e84251c113f49baab52aa39ff49b5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 950d269fc9172489aa122df63e8d3008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adapted: 0
 --- !u!212 &212713473970092426
 SpriteRenderer:
   m_ObjectHideFlags: 1
