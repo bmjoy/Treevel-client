@@ -38,8 +38,10 @@ namespace Project.Scripts.GamePlayScene.Tile
 
 		private GameObject CreateOneTile(Vector2 position, int tileNum)
 		{
-			GameObject tile = Instantiate(normalTilePrefab);
-			tile.transform.localScale = new Vector2(TileSize.WIDTH * 0.5f, TileSize.HEIGHT * 0.5f);
+			var tile = Instantiate(normalTilePrefab);
+			var tileWidth = tile.GetComponent<SpriteRenderer>().size.x;
+			var tileHeight = tile.GetComponent<SpriteRenderer>().size.y;
+			tile.transform.localScale = new Vector2(TileSize.WIDTH / tileWidth, TileSize.HEIGHT / tileHeight);
 			tile.transform.position = position;
 			tile.name = "Tile" + tileNum.ToString();
 			tile.GetComponent<Renderer>().sortingLayerName = "Tile";
