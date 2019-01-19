@@ -12,15 +12,11 @@ namespace Project.Scripts.GamePlayScene.Panel
 		protected virtual void Start()
 		{
 			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-			// 当たり判定をパネルサイズと同等にする
-			Vector2 panelSize = transform.localScale * 2f;
-			var panelCollider = GetComponent<BoxCollider2D>();
-			panelCollider.size = panelSize;
 		}
 
 		private void OnEnable()
 		{
-			// 当たり判定と，フリック検知のアタッチ（いちいちUIで設定したくない）
+			// 当たり判定と，フリック検知のアタッチ
 			gameObject.AddComponent<BoxCollider2D>();
 			gameObject.AddComponent<FlickGesture>();
 			GetComponent<FlickGesture>().Flicked += HandleFlick;
