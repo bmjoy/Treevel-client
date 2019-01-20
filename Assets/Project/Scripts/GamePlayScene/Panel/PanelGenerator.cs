@@ -79,8 +79,11 @@ namespace Project.Scripts.GamePlayScene.Panel
 		{
 			// 初期位置にするタイルを取得
 			var initialTile = GameObject.Find("Tile" + initialTileNum);
+			// パネル画像のサイズを取得
+			var panelWidth = panel.GetComponent<SpriteRenderer>().size.x;
+			var panelHeight = panel.GetComponent<SpriteRenderer>().size.y;
 			// パネルの初期設定
-			panel.transform.localScale = new Vector2(PanelSize.WIDTH * 0.5f, PanelSize.HEIGHT * 0.5f);
+			panel.transform.localScale = new Vector2(PanelSize.WIDTH / panelWidth, PanelSize.HEIGHT / panelHeight);
 			panel.transform.parent = initialTile.transform;
 			panel.transform.position = initialTile.transform.position;
 			panel.GetComponent<Renderer>().sortingLayerName = "Panel";

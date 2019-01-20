@@ -38,8 +38,10 @@ namespace Project.Scripts.GamePlayScene.Tile
 
 		private GameObject CreateOneTile(Vector2 position, int tileNum)
 		{
-			GameObject tile = Instantiate(normalTilePrefab);
-			tile.transform.localScale = new Vector2(TileSize.WIDTH * 0.5f, TileSize.HEIGHT * 0.5f);
+			var tile = Instantiate(normalTilePrefab);
+			var tileWidth = tile.GetComponent<SpriteRenderer>().size.x;
+			var tileHeight = tile.GetComponent<SpriteRenderer>().size.y;
+			tile.transform.localScale = new Vector2(TileSize.WIDTH / tileWidth, TileSize.HEIGHT / tileHeight);
 			tile.transform.position = position;
 			tile.name = "Tile" + tileNum.ToString();
 			tile.GetComponent<Renderer>().sortingLayerName = "Tile";
@@ -56,10 +58,10 @@ namespace Project.Scripts.GamePlayScene.Tile
 			{
 				for (var j = 0; j < column; j++)
 				{
-					GameObject rightTile = j + 1 == column ? null : tiles[i, j + 1];
-					GameObject leftTile = j == 0 ? null : tiles[i, j - 1];
-					GameObject upperTile = i == 0 ? null : tiles[i - 1, j];
-					GameObject lowerTile = i + 1 == row ? null : tiles[i + 1, j];
+					var rightTile = j + 1 == column ? null : tiles[i, j + 1];
+					var leftTile = j == 0 ? null : tiles[i, j - 1];
+					var upperTile = i == 0 ? null : tiles[i - 1, j];
+					var lowerTile = i + 1 == row ? null : tiles[i + 1, j];
 					// タイルオブジェクトのスクリプトに上下左右のタイルオブジェクトを格納する
 					tiles[i, j].GetComponent<TileController>().MakeRelation(rightTile, leftTile, upperTile, lowerTile);
 				}
