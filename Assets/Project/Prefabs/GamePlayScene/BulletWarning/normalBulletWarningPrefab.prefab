@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114214268941829640}
   m_Layer: 0
   m_Name: normalBulletWarningPrefab
-  m_TagString: Warning
+  m_TagString: BulletWarning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  originalHeight: 0
+  originalWidth: 0
 --- !u!212 &212792818627832022
 SpriteRenderer:
   m_ObjectHideFlags: 1

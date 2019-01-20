@@ -110,7 +110,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// emerge a bullet warning
 				GameObject warning = Instantiate(normalBulletWarningPrefab);
-				warning.GetComponent<Renderer>().sortingLayerName = "Warning";
+				warning.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 				var warningScript =
 					warning.GetComponent<NormalCartridgeWarningController>();
 				warningScript.Initialize(bullet.transform.position, cartridgeScript.motionVector,
