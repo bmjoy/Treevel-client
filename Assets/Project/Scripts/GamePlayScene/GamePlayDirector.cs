@@ -80,10 +80,9 @@ namespace Project.Scripts.GamePlayScene
 
 		public void CheckClear()
 		{
-			GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");
-			// 全てのパネルが最終位置にいたら，成功状態に遷移
+			GameObject[] panels = GameObject.FindGameObjectsWithTag("NumberPanel");
 			if (panels.Any(panel => panel.GetComponent<NumberPanelController>().adapted == false)) return;
-
+			// 全ての数字パネルが最終位置にいたら，成功状態に遷移
 			Dispatch(GameState.Success);
 		}
 

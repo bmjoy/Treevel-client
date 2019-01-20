@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114183974097513432}
   m_Layer: 0
   m_Name: numberPanel3Prefab
-  m_TagString: Panel
+  m_TagString: NumberPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
