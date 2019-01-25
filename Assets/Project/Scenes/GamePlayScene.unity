@@ -498,6 +498,10 @@ MonoBehaviour:
     type: 2}
   normalBulletWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
     type: 2}
+  normalHolePrefab: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
+    type: 2}
+  normalHoleWarningPrefab: {fileID: 1410919219006700, guid: fdbcd1924c8b54021949ea21ae3ba36e,
+    type: 2}
   startTime: 0
 --- !u!4 &896036188
 Transform:
