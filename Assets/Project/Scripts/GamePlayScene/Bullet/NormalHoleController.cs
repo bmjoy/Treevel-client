@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
-	public class NomalHoleController : HoleController
+	public class NormalHoleController : BulletController
 	{
 
 		// Use this for initialization
