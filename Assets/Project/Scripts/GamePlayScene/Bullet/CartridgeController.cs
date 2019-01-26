@@ -7,14 +7,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public abstract class CartridgeController : BulletController
 	{
 		public float additionalMargin = 0.00001f;
-		public float localScale;
 		public Vector2 motionVector;
 		public float speed;
-
-		// 元画像のサイズ
-		public float originalWidth;
-		public float originalHeight;
-
 
 		protected void Update()
 		{

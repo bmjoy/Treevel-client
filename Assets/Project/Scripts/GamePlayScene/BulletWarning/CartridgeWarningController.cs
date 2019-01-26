@@ -4,13 +4,8 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class CartridgeWarningController : BulletWarningController
+	public abstract class CartridgeWarningController : BulletWarningController
 	{
-		public float localScale;
-
-		// 元画像のサイズ
-		public float originalHeight;
-		public float originalWidth;
 
 		private void OnEnable()
 		{
