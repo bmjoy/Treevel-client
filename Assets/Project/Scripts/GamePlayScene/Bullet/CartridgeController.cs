@@ -52,6 +52,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			transform.Translate(motionVector * speed, Space.World);
 		}
 
+		public virtual void Initialize(BulletGenerator.BulletDirection direction, int line)
+		{
+			gameObject.GetComponent<Renderer>().sortingLayerName = "Bullet";
+		}
+
 		// 銃弾の初期配置の設定
 		protected void SetInitialPosition(BulletGenerator.BulletDirection direction, int line)
 		{
