@@ -34,7 +34,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			const float betweenPanels = TileSize.WIDTH * 0.1f;
 			gameObject.GetComponent<BoxCollider2D>().offset =
 				new Vector2(-(originalWidth - betweenPanels) / 2, 0);
-			gameObject.GetComponent<BoxCollider2D>().size = new Vector2((TileSize.WIDTH - PanelSize.WIDTH) / 2, originalHeight);
+			gameObject.GetComponent<BoxCollider2D>().size =
+				new Vector2((TileSize.WIDTH - PanelSize.WIDTH) / 2, originalHeight);
 			gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
 			// RigidBodyのアタッチメント
 			gameObject.AddComponent<Rigidbody2D>();
