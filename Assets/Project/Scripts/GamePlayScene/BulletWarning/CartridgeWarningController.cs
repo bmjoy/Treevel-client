@@ -29,6 +29,11 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			Destroy(gameObject);
 		}
 
+		public virtual void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
+			float bulletWidth, float bulletHeight)
+		{
+			gameObject.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
+		}
 
 		public void DeleteWarning(GameObject bullet)
 		{

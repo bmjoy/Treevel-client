@@ -1,22 +1,17 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Project.Scripts.GamePlayScene.Bullet;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class HoleWarningController : MonoBehaviour
+	public abstract class HoleWarningController : BulletWarningController
 	{
-
-		// Use this for initialization
-		void Start()
+		public virtual void Initialize(int row, int column)
 		{
-
+			gameObject.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 		}
 
-		// Update is called once per frame
-		void Update()
-		{
+		public abstract void DeleteWarning(GameObject hole);
 
-		}
 	}
 }
