@@ -10,8 +10,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public void Initialize(BulletGenerator.BulletDirection direction, int line)
 		{
 			speed = 0.1f;
-			originalWidth = GetComponent<Renderer>().bounds.size.x;
-			originalHeight = GetComponent<Renderer>().bounds.size.y;
+			originalWidth = GetComponent<SpriteRenderer>().bounds.size.x;
+			originalHeight = GetComponent<SpriteRenderer>().bounds.size.y;
 			localScale = (float) (WindowSize.WIDTH * 0.15);
 
 			SetInitialPosition(direction, line);
