@@ -494,9 +494,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c624f5e7af1344b3b1ab1f2ff22b14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalBulletPrefab: {fileID: 1336118223516990, guid: 5c3345c91aa904fb3b34b886dbba2c82,
+  normalCartridgePrefab: {fileID: 1336118223516990, guid: 5c3345c91aa904fb3b34b886dbba2c82,
     type: 2}
-  normalBulletWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
+  normalCartridgeWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
     type: 2}
   normalHolePrefab: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
     type: 2}
