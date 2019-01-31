@@ -11,7 +11,16 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			gameObject.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 		}
 
-		public abstract void DeleteWarning(GameObject hole);
+		public void DeleteWarning(GameObject hole)
+		{
+			StartCoroutine(Delete(hole));
+		}
 
+		private IEnumerator Delete(GameObject hole)
+		{
+			yield return new WaitForSeconds(BulletGenerator.warningDisplayedTime);
+			hole.SetActive(true);
+			Destroy(gameObject);
+		}
 	}
 }

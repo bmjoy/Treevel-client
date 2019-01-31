@@ -41,12 +41,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			GamePlayDirector.OnFail += OnFail;
 		}
 
-		private void OnDisable()
-		{
-			GamePlayDirector.OnSucceed -= OnSucceed;
-			GamePlayDirector.OnFail -= OnFail;
-		}
-
 		protected void FixedUpdate()
 		{
 			transform.Translate(motionVector * speed, Space.World);
@@ -84,6 +78,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						(WindowSize.HEIGHT + localScale * originalHeight) / 2);
 					motionVector = Vector2.down;
 					break;
+				default:
+					throw new NotImplementedException();
 			}
 
 			// Check if a bullet should be flipped vertically
@@ -105,14 +101,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 		}
 
-		private void OnFail()
+		protected override void OnFail()
 		{
 			speed = 0;
-		}
-
-		private void OnSucceed()
-		{
-			Destroy(gameObject);
 		}
 	}
 }

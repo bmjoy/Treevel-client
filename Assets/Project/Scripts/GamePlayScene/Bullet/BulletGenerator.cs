@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using UnityEngine;
-using Project.Scripts.Library.Data;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletGenerator : MonoBehaviour
 	{
-		// normalBullerのPrefab
+		// 警告画像の表示時間
+		public static float warningDisplayedTime = 1.0f;
+
+		// 銃弾および警告のprefab
 		public GameObject normalCartridgePrefab;
 		public GameObject normalCartridgeWarningPrefab;
 		public GameObject normalHolePrefab;
@@ -23,6 +26,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			NormalCartridge,
 			NormalHole
 		}
+
 		public enum BulletDirection
 		{
 			ToLeft,
@@ -86,20 +90,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			switch (stageId)
 			{
 				case 1:
-					// 銃弾の出現時刻
-					const float appearanceTime = 1.0f;
-					// 銃弾を作るインターバル
-					const float createInterval = 1.0f;
 					// coroutineのリスト
-					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToLeft, (int) ToLeft.First, appearanceTime,
-						createInterval));
-					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToRight, (int) ToRight.Second, appearanceTime: 2.0f,
-						interval: 4.0f));
+					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToLeft, (int) ToLeft.First,
+						appearanceTime: 1.0f, interval: 1.0f));
+					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToRight,
+						(int) ToRight.Second, appearanceTime: 2.0f, interval: 4.0f));
 					break;
 				case 2:
-					// coroutines.Add(CreateBullet(BulletDirection.ToRight, (int) ToRight.Fifth, appearanceTime: 2.0f,
-						// interval: 4.0f));
-					coroutines.Add(CreateHole(BulletType.NormalHole, appearanceTime: 1.0f, interval: 1.5f, row: (int) Row.Second, column: (int) Column.Left));
+					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToRight,
+						(int) ToRight.Fifth, appearanceTime: 2.0f,
+						interval: 4.0f));
+					coroutines.Add(CreateHole(BulletType.NormalHole, appearanceTime: 1.0f, interval: 1.5f,
+						row: (int) Row.Second, column: (int) Column.Left));
 					break;
 				default:
 					throw new NotImplementedException();
@@ -109,14 +111,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		private IEnumerator CreateBullet(BulletType bulletType, BulletDirection direction, int line, float appearanceTime,
-			float interval)
+		private IEnumerator CreateBullet(BulletType bulletType, BulletDirection direction, int line,
+			float appearanceTime, float interval)
 		{
 			var currentTime = Time.time;
 
 			// wait by the time the first bullet warning emerge
 			// 1.0f equals to the period which the bullet warning is emerging
-			yield return new WaitForSeconds(appearanceTime - 1.0f - (currentTime - startTime));
+			yield return new WaitForSeconds(appearanceTime - warningDisplayedTime - (currentTime - startTime));
 
 			// the number of bullets which have emerged
 			var sum = 0;
@@ -155,12 +157,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
-		private IEnumerator CreateHole(BulletType bulletType, float appearanceTime, float interval, int row = 0, int column = 0)
+		private IEnumerator CreateHole(BulletType bulletType, float appearanceTime, float interval, int row = 0,
+			int column = 0)
 		{
 			var currentTime = Time.time;
-			yield return new WaitForSeconds(appearanceTime - 1.0f - (currentTime - startTime));
+			yield return new WaitForSeconds(appearanceTime - warningDisplayedTime - (currentTime - startTime));
 
 			var sum = 0;
+
 			while (true)
 			{
 				sum++;
@@ -190,6 +194,5 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				yield return new WaitForSeconds(appearanceTime + interval * sum - (currentTime - startTime));
 			}
 		}
-
 	}
 }
