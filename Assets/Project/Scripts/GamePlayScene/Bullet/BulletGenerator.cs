@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public class BulletGenerator : MonoBehaviour
 	{
 		// 警告画像の表示時間
-		public static float warningDisplayedTime = 1.0f;
+		public const float warningDisplayedTime = 1.0f;
 
 		// 銃弾および警告のprefab
 		public GameObject normalCartridgePrefab;
@@ -100,7 +100,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToRight,
 						(int) ToRight.Fifth, appearanceTime: 2.0f,
 						interval: 4.0f));
-					coroutines.Add(CreateHole(BulletType.NormalHole, appearanceTime: 1.0f, interval: 1.5f,
+					coroutines.Add(CreateHole(BulletType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
 						row: (int) Row.Second, column: (int) Column.Left));
 					break;
 				default:
