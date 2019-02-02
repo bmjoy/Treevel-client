@@ -47,6 +47,9 @@ TagManager:
   - name: Tile
     uniqueID: 1928078809
     locked: 0
+  - name: Hole
+    uniqueID: 2090039911
+    locked: 0
   - name: Panel
     uniqueID: 1604723703
     locked: 0
