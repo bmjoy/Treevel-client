@@ -11,7 +11,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public float originalWidth;
 		public float originalHeight;
 
-		private void OnDisable()
+		protected void OnDisable()
 		{
 			GamePlayDirector.OnSucceed -= OnSucceed;
 			GamePlayDirector.OnFail -= OnFail;

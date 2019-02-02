@@ -37,6 +37,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// RigidBodyのアタッチメント
 			gameObject.AddComponent<Rigidbody2D>();
 			gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+
 			GamePlayDirector.OnSucceed += OnSucceed;
 			GamePlayDirector.OnFail += OnFail;
 		}
