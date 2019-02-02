@@ -6,7 +6,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public abstract class HoleController : BulletController
 	{
 		private GamePlayDirector gamePlayDirector;
-		private bool gameFail = false;
 		private int row;
 		private int column;
 
@@ -22,19 +21,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// check whether panel exists on the tile
 			if (tile.transform.childCount != 0)
 			{
-				gameFail = true;
 				gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 				gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+				yield return new WaitForSeconds(0.5f);
 			}
 			else
 			{
 				// display the hole betweeen tile layer and panel layer
 				gameObject.GetComponent<Renderer>().sortingLayerName = "Hole";
-			}
-
-			yield return new WaitForSeconds(0.5f);
-			if (!gameFail)
-			{
+				yield return new WaitForSeconds(0.5f);
 				Destroy(gameObject);
 			}
 		}
