@@ -15,7 +15,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			originalHeight = GetComponent<Renderer>().bounds.size.y;
 			transform.localScale *= new Vector2(localScale, localScale);
 			const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
-			transform.position = new Vector2(TileSize.WIDTH * column, topTilePositionY - TileSize.HEIGHT * row);
+			transform.position =
+				new Vector2(TileSize.WIDTH * (column - 2), topTilePositionY - TileSize.HEIGHT * (row - 1));
 		}
 	}
 }
