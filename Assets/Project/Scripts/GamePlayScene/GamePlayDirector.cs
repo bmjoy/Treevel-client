@@ -75,8 +75,10 @@ namespace Project.Scripts.GamePlayScene
 		{
 			if (pauseStatus) // アプリがバックグラウンドに移動した時
 			{
-				Dispatch(GameState.Failure);
-				warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
+				if (Dispatch(GameState.Failure))
+				{
+					warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
+				}
 			}
 		}
 
