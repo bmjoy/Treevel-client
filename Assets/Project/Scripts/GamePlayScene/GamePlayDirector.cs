@@ -28,6 +28,8 @@ namespace Project.Scripts.GamePlayScene
 
 		public static int stageId;
 
+		public GameState state;
+
 		private GameObject tileGenerator;
 
 		private GameObject panelGenerator;
@@ -87,9 +89,9 @@ namespace Project.Scripts.GamePlayScene
 		}
 
 		// 状態による振り分け処理
-		public void Dispatch(GameState state)
+		public void Dispatch(GameState nextState)
 		{
-			switch (state)
+			switch (nextState)
 			{
 				case GameState.Opening:
 					GameOpening();
@@ -103,8 +105,10 @@ namespace Project.Scripts.GamePlayScene
 					GameFail();
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("state", state, null);
+					throw new ArgumentOutOfRangeException("nextState", nextState, null);
 			}
+			// 次の状態へ遷移
+			state = nextState;
 		}
 
 		private void GameOpening()
