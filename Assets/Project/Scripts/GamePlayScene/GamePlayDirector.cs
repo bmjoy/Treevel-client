@@ -97,26 +97,28 @@ namespace Project.Scripts.GamePlayScene
 			{
 				case GameState.Opening:
 					// 全ての遷移を許す
+					state = nextState;
 					GameOpening();
 					break;
 				case GameState.Playing:
 					// 全ての遷移を許す
+					state = nextState;
 					break;
 				case GameState.Success:
 					// ゲームプレイ中からの遷移のみ許す
 					if (state != GameState.Playing) return false;
+					state = nextState;
 					GameSucceed();
 					break;
 				case GameState.Failure:
 					// ゲームプレイ中からの遷移のみ許す
 					if (state != GameState.Playing) return false;
+					state = nextState;
 					GameFail();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException("nextState", nextState, null);
 			}
-			// 次の状態へ遷移
-			state = nextState;
 			return true;
 		}
 
