@@ -89,19 +89,25 @@ namespace Project.Scripts.GamePlayScene
 		}
 
 		// 状態による振り分け処理
-		public void Dispatch(GameState nextState)
+		public bool Dispatch(GameState nextState)
 		{
 			switch (nextState)
 			{
 				case GameState.Opening:
+					// 全ての遷移を許す
 					GameOpening();
 					break;
 				case GameState.Playing:
+					// 全ての遷移を許す
 					break;
 				case GameState.Success:
+					// ゲームプレイ中からの遷移のみ許す
+					if (state != GameState.Playing) return false;
 					GameSucceed();
 					break;
 				case GameState.Failure:
+					// ゲームプレイ中からの遷移のみ許す
+					if (state != GameState.Playing) return false;
 					GameFail();
 					break;
 				default:
@@ -109,6 +115,7 @@ namespace Project.Scripts.GamePlayScene
 			}
 			// 次の状態へ遷移
 			state = nextState;
+			return true;
 		}
 
 		private void GameOpening()
