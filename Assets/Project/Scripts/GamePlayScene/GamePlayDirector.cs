@@ -28,7 +28,7 @@ namespace Project.Scripts.GamePlayScene
 
 		public static int stageId;
 
-		public GameState state;
+		public GameState state = GameState.Opening;
 
 		private GameObject tileGenerator;
 
@@ -60,7 +60,7 @@ namespace Project.Scripts.GamePlayScene
 			// 現在のステージ番号を格納
 			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
-			Dispatch(GameState.Opening);
+			GameOpening();
 
 			// StageStatusのデバッグ用
 			var stageStatus = StageStatus.Get(stageId);
@@ -96,22 +96,24 @@ namespace Project.Scripts.GamePlayScene
 			switch (nextState)
 			{
 				case GameState.Opening:
-					// 全ての遷移を許す
+					// `Success`と`Failure`からの遷移のみを許す
+					if (state != GameState.Success && state != GameState.Failure) return false;
 					state = nextState;
 					GameOpening();
 					break;
 				case GameState.Playing:
-					// 全ての遷移を許す
+					// `Opening`からの遷移のみを許す
+					if (state != GameState.Opening) return false;
 					state = nextState;
 					break;
 				case GameState.Success:
-					// ゲームプレイ中からの遷移のみ許す
+					// `Playing`からの遷移のみ許す
 					if (state != GameState.Playing) return false;
 					state = nextState;
 					GameSucceed();
 					break;
 				case GameState.Failure:
-					// ゲームプレイ中からの遷移のみ許す
+					// `Playing`からの遷移のみ許す
 					if (state != GameState.Playing) return false;
 					state = nextState;
 					GameFail();
