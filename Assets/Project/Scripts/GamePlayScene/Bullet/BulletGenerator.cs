@@ -21,13 +21,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// Generatorが作成された時刻
 		public float startTime;
 
-		private enum BulletType
+		private enum CartridgeType
 		{
-			NormalCartridge,
+			NormalCartridge
+		}
+
+		private enum HoleType
+		{
 			NormalHole
 		}
 
-		public enum BulletDirection
+		public enum CartridgeDirection
 		{
 			ToLeft,
 			ToRight,
@@ -91,16 +95,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				case 1:
 					// coroutineのリスト
-					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToLeft, (int) ToLeft.First,
+					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft, (int) ToLeft.First,
 						appearanceTime: 1.0f, interval: 1.0f));
-					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToRight,
+					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
 						(int) ToRight.Second, appearanceTime: 2.0f, interval: 4.0f));
 					break;
 				case 2:
-					coroutines.Add(CreateBullet(BulletType.NormalCartridge, BulletDirection.ToRight,
+					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
 						(int) ToRight.Fifth, appearanceTime: 2.0f,
 						interval: 4.0f));
-					coroutines.Add(CreateHole(BulletType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
+					coroutines.Add(CreateHole(HoleType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
 						row: (int) Row.Second, column: (int) Column.Left));
 					break;
 				default:
@@ -111,7 +115,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		private IEnumerator CreateBullet(BulletType bulletType, BulletDirection direction, int line,
+		private IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
 			float appearanceTime, float interval)
 		{
 			var currentTime = Time.time;
@@ -128,9 +132,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				sum++;
 				GameObject cartridge;
 				GameObject warning;
-				switch (bulletType)
+				switch (cartridgeType)
 				{
-					case BulletType.NormalCartridge:
+					case CartridgeType.NormalCartridge:
 						cartridge = Instantiate(normalCartridgePrefab);
 						warning = Instantiate(normalCartridgeWarningPrefab);
 						break;
@@ -157,7 +161,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
-		private IEnumerator CreateHole(BulletType bulletType, float appearanceTime, float interval, int row = 0,
+		private IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
 			int column = 0)
 		{
 			var currentTime = Time.time;
@@ -170,9 +174,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				sum++;
 				GameObject hole;
 				GameObject warning;
-				switch (bulletType)
+				switch (holeType)
 				{
-					case BulletType.NormalHole:
+					case HoleType.NormalHole:
 						hole = Instantiate(normalHolePrefab);
 						warning = Instantiate(normalHoleWarningPrefab);
 						break;

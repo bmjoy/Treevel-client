@@ -47,34 +47,34 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			transform.Translate(motionVector * speed, Space.World);
 		}
 
-		public virtual void Initialize(BulletGenerator.BulletDirection direction, int line)
+		public virtual void Initialize(BulletGenerator.CartridgeDirection direction, int line)
 		{
 			gameObject.GetComponent<Renderer>().sortingLayerName = "Bullet";
 		}
 
 		// 銃弾の初期配置の設定
-		protected void SetInitialPosition(BulletGenerator.BulletDirection direction, int line)
+		protected void SetInitialPosition(BulletGenerator.CartridgeDirection direction, int line)
 		{
 			switch (direction)
 			{
-				case BulletGenerator.BulletDirection.ToLeft:
+				case BulletGenerator.CartridgeDirection.ToLeft:
 					transform.position = new Vector2((WindowSize.WIDTH + localScale * originalWidth) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.left;
 					break;
-				case BulletGenerator.BulletDirection.ToRight:
+				case BulletGenerator.CartridgeDirection.ToRight:
 					transform.position = new Vector2(-(WindowSize.WIDTH + localScale * originalWidth) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.right;
 					break;
-				case BulletGenerator.BulletDirection.ToUp:
+				case BulletGenerator.CartridgeDirection.ToUp:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						-(WindowSize.HEIGHT + localScale * originalHeight) / 2);
 					motionVector = Vector2.up;
 					break;
-				case BulletGenerator.BulletDirection.ToBottom:
+				case BulletGenerator.CartridgeDirection.ToBottom:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						(WindowSize.HEIGHT + localScale * originalHeight) / 2);
 					motionVector = Vector2.down;
