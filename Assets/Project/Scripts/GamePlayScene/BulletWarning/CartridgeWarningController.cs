@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		private IEnumerator Delete(GameObject bullet, float speed)
 		{
-			yield return new WaitForSeconds(BulletGenerator.warningDisplayedTime);
+			yield return new WaitForSeconds(BulletGenerator.WARNING_DISPLAYED_TIME);
 			bullet.GetComponent<CartridgeController>().speed = speed;
 			Destroy(gameObject);
 		}

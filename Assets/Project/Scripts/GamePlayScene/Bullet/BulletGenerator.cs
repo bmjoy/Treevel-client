@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public class BulletGenerator : MonoBehaviour
 	{
 		// 警告画像の表示時間
-		public const float warningDisplayedTime = 1.0f;
+		public const float WARNING_DISPLAYED_TIME = 1.0f;
 
 		// 銃弾および警告のprefab
 		public GameObject normalCartridgePrefab;
@@ -118,7 +118,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			// wait by the time the first bullet warning emerge
 			// 1.0f equals to the period which the bullet warning is emerging
-			yield return new WaitForSeconds(appearanceTime - warningDisplayedTime - (currentTime - startTime));
+			yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME - (currentTime - startTime));
 
 			// the number of bullets which have emerged
 			var sum = 0;
@@ -152,7 +152,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// 一定時間(interval)待つ
 				currentTime = Time.time;
-				yield return new WaitForSeconds(appearanceTime + interval * sum - (currentTime - startTime));
+				yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME + interval * sum - (currentTime - startTime));
 			}
 		}
 
@@ -161,7 +161,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			int column = 0)
 		{
 			var currentTime = Time.time;
-			yield return new WaitForSeconds(appearanceTime - warningDisplayedTime - (currentTime - startTime));
+			yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME - (currentTime - startTime));
 
 			var sum = 0;
 
@@ -191,7 +191,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// 一定時間(interval)待つ
 				currentTime = Time.time;
-				yield return new WaitForSeconds(appearanceTime + interval * sum - (currentTime - startTime));
+				yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME + interval * sum - (currentTime - startTime));
 			}
 		}
 	}

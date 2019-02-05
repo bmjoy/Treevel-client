@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		private IEnumerator Delete(GameObject hole)
 		{
-			yield return new WaitForSeconds(BulletGenerator.warningDisplayedTime);
+			yield return new WaitForSeconds(BulletGenerator.WARNING_DISPLAYED_TIME);
 			Destroy(gameObject);
 			hole.SetActive(true);
 		}
