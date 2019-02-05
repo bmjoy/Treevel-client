@@ -1,4 +1,4 @@
-﻿namespace Project.Scripts.Library.Data
+﻿namespace Project.Scripts.Utils.Definitions
 {
 	public static class WindowSize
 	{
@@ -23,4 +23,5 @@
 		public const float WIDTH = TileSize.WIDTH * 0.95f;
 		public const float HEIGHT = WIDTH;
 	}
+
 }
