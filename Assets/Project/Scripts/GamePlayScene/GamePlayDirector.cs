@@ -28,6 +28,8 @@ namespace Project.Scripts.GamePlayScene
 
 		public static int stageId;
 
+		public GameState state = GameState.Opening;
+
 		private GameObject tileGenerator;
 
 		private GameObject panelGenerator;
@@ -58,7 +60,7 @@ namespace Project.Scripts.GamePlayScene
 			// 現在のステージ番号を格納
 			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
-			Dispatch(GameState.Opening);
+			GameOpening();
 
 			// StageStatusのデバッグ用
 			var stageStatus = StageStatus.Get(stageId);
@@ -73,8 +75,10 @@ namespace Project.Scripts.GamePlayScene
 		{
 			if (pauseStatus) // アプリがバックグラウンドに移動した時
 			{
-				Dispatch(GameState.Failure);
-				warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
+				if (Dispatch(GameState.Failure))
+				{
+					warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
+				}
 			}
 		}
 
@@ -87,24 +91,49 @@ namespace Project.Scripts.GamePlayScene
 		}
 
 		// 状態による振り分け処理
-		public void Dispatch(GameState state)
+		public bool Dispatch(GameState nextState)
 		{
-			switch (state)
+			switch (nextState)
 			{
 				case GameState.Opening:
-					GameOpening();
+					// `Success`と`Failure`からの遷移のみを許す
+					if (state == GameState.Success || state == GameState.Failure)
+					{
+						state = nextState;
+						GameOpening();
+						return true;
+					}
 					break;
 				case GameState.Playing:
+					// `Opening`からの遷移のみを許す
+					if (state == GameState.Opening)
+					{
+						state = nextState;
+						return true;
+					}
 					break;
 				case GameState.Success:
-					GameSucceed();
+					// `Playing`からの遷移のみ許す
+					if (state == GameState.Playing)
+					{
+						state = nextState;
+						GameSucceed();
+						return true;
+					}
 					break;
 				case GameState.Failure:
-					GameFail();
+					// `Playing`からの遷移のみ許す
+					if (state == GameState.Playing)
+					{
+						state = nextState;
+						GameFail();
+						return true;
+					}
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("state", state, null);
+					throw new ArgumentOutOfRangeException("nextState", nextState, null);
 			}
+			return false;
 		}
 
 		private void GameOpening()
