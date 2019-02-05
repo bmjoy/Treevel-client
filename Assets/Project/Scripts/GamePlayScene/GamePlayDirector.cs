@@ -97,31 +97,43 @@ namespace Project.Scripts.GamePlayScene
 			{
 				case GameState.Opening:
 					// `Success`と`Failure`からの遷移のみを許す
-					if (state != GameState.Success && state != GameState.Failure) return false;
-					state = nextState;
-					GameOpening();
+					if (state == GameState.Success || state == GameState.Failure)
+					{
+						state = nextState;
+						GameOpening();
+						return true;
+					}
 					break;
 				case GameState.Playing:
 					// `Opening`からの遷移のみを許す
-					if (state != GameState.Opening) return false;
-					state = nextState;
+					if (state == GameState.Opening)
+					{
+						state = nextState;
+						return true;
+					}
 					break;
 				case GameState.Success:
 					// `Playing`からの遷移のみ許す
-					if (state != GameState.Playing) return false;
-					state = nextState;
-					GameSucceed();
+					if (state == GameState.Playing)
+					{
+						state = nextState;
+						GameSucceed();
+						return true;
+					}
 					break;
 				case GameState.Failure:
 					// `Playing`からの遷移のみ許す
-					if (state != GameState.Playing) return false;
-					state = nextState;
-					GameFail();
+					if (state == GameState.Playing)
+					{
+						state = nextState;
+						GameFail();
+						return true;
+					}
 					break;
 				default:
 					throw new ArgumentOutOfRangeException("nextState", nextState, null);
 			}
-			return true;
+			return false;
 		}
 
 		private void GameOpening()
