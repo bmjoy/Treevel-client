@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public Vector2 motionVector;
 		public float speed;
 
-		public abstract void Initialize(BulletGenerator.CartridgeDirection direction, int line);
+		public abstract void Initialize(CartridgeDirection direction, int line);
 
 		protected override void OnEnable()
 		{
@@ -55,28 +55,28 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 銃弾の初期配置の設定
-		protected void SetInitialPosition(BulletGenerator.CartridgeDirection direction, int line)
+		protected void SetInitialPosition(CartridgeDirection direction, int line)
 		{
 			switch (direction)
 			{
-				case BulletGenerator.CartridgeDirection.ToLeft:
+				case CartridgeDirection.ToLeft:
 					transform.position = new Vector2((WindowSize.WIDTH + localScale * originalWidth) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.left;
 					break;
-				case BulletGenerator.CartridgeDirection.ToRight:
+				case CartridgeDirection.ToRight:
 					transform.position = new Vector2(-(WindowSize.WIDTH + localScale * originalWidth) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.right;
 					break;
-				case BulletGenerator.CartridgeDirection.ToUp:
+				case CartridgeDirection.ToUp:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						-(WindowSize.HEIGHT + localScale * originalHeight) / 2);
 					motionVector = Vector2.up;
 					break;
-				case BulletGenerator.CartridgeDirection.ToBottom:
+				case CartridgeDirection.ToBottom:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						(WindowSize.HEIGHT + localScale * originalHeight) / 2);
 					motionVector = Vector2.down;

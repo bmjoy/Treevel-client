@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.BulletWarning;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
@@ -16,72 +17,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// Generatorが作成された時刻
 		public float startTime;
-
-		private enum CartridgeType
-		{
-			NormalCartridge
-		}
-
-		private enum HoleType
-		{
-			NormalHole
-		}
-
-		public enum CartridgeDirection
-		{
-			ToLeft,
-			ToRight,
-			ToUp,
-			ToBottom
-		}
-
-		private enum ToLeft
-		{
-			First = 1,
-			Second,
-			Third,
-			Fourth,
-			Fifth
-		}
-
-		private enum ToRight
-		{
-			First = 1,
-			Second,
-			Third,
-			Fourth,
-			Fifth
-		}
-
-		private enum ToUp
-		{
-			First = 1,
-			Second,
-			Third
-		}
-
-		private enum ToDown
-		{
-			First = 1,
-			Second,
-			Third
-		}
-
-		private enum Row
-		{
-			First = 1,
-			Second,
-			Third,
-			Fourth,
-			Fifth
-		}
-
-		private enum Column
-		{
-			Left = 1,
-			Center,
-			Right
-		}
 
 		public void CreateBullets(int stageId)
 		{
