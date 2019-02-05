@@ -8,7 +8,6 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 		public override void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
 			float bulletWidth, float bulletHeight)
 		{
-			base.Initialize(bulletPosition, bulletMotionVector, bulletLocalScale, bulletWidth, bulletHeight);
 			localScale = (float) (WindowSize.WIDTH * 0.15);
 			originalWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 			originalHeight = GetComponent<SpriteRenderer>().bounds.size.y;

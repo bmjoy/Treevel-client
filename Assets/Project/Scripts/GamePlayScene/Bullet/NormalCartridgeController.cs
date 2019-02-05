@@ -1,6 +1,4 @@
-﻿using System;
-using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+﻿using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -9,7 +7,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// コンストラクタがわりのメソッド
 		public override void Initialize(BulletGenerator.CartridgeDirection direction, int line)
 		{
-			base.Initialize(direction, line);
 			speed = 0.1f;
 			localScale = (float) (WindowSize.WIDTH * 0.15);
 

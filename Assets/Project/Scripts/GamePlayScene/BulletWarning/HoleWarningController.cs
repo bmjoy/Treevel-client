@@ -6,10 +6,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 {
 	public abstract class HoleWarningController : BulletWarningController
 	{
-		public virtual void Initialize(int row, int column)
-		{
-			gameObject.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
-		}
+		public abstract void Initialize(int row, int column);
 
 		public void DeleteWarning(GameObject hole)
 		{
@@ -18,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		private IEnumerator Delete(GameObject hole)
 		{
-			yield return new WaitForSeconds(BulletGenerator.WARNING_DISPLAYED_TIME);
+			yield return new WaitForSeconds(WARNING_DISPLAYED_TIME);
 			Destroy(gameObject);
 			hole.SetActive(true);
 		}

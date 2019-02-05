@@ -11,17 +11,19 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public float originalWidth;
 		public float originalHeight;
 
+		protected abstract void OnEnable();
+
 		protected void OnDisable()
 		{
 			GamePlayDirector.OnSucceed -= OnSucceed;
 			GamePlayDirector.OnFail -= OnFail;
 		}
 
+		protected abstract void OnFail();
+
 		protected void OnSucceed()
 		{
 			Destroy(gameObject);
 		}
-
-		protected abstract void OnFail();
 	}
 }

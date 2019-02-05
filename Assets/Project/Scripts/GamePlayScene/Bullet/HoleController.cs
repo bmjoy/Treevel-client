@@ -9,10 +9,24 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int row;
 		private int column;
 
-		private void Start()
+		// コンストラクタがわりのメソッド
+		public virtual void Initialize(int row, int column)
+		{
+			this.row = row;
+			this.column = column;
+			gameObject.SetActive(false);
+		}
+
+		protected override void OnEnable()
 		{
 			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
 			StartCoroutine(Delete());
+			GamePlayDirector.OnSucceed += OnSucceed;
+			GamePlayDirector.OnFail += OnFail;
+		}
+
+		protected override void OnFail()
+		{
 		}
 
 		private IEnumerator Delete()
@@ -23,7 +37,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 				gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
-				yield return new WaitForSeconds(0.5f);
 			}
 			else
 			{
@@ -32,25 +45,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				yield return new WaitForSeconds(0.5f);
 				Destroy(gameObject);
 			}
-		}
-
-		private void OnEnable()
-		{
-			GamePlayDirector.OnSucceed += OnSucceed;
-			GamePlayDirector.OnFail += OnFail;
-		}
-
-		// コンストラクタがわりのメソッド
-		public virtual void Initialize(int row, int column)
-		{
-			this.row = row;
-			this.column = column;
-			gameObject.SetActive(false);
-			gameObject.GetComponent<Renderer>().sortingLayerName = "Bullet";
-		}
-
-		protected override void OnFail()
-		{
 		}
 	}
 }

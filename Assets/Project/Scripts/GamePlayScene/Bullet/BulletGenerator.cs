@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using UnityEngine;
 
@@ -9,9 +8,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletGenerator : MonoBehaviour
 	{
-		// 警告画像の表示時間
-		public const float WARNING_DISPLAYED_TIME = 1.0f;
-
 		// 銃弾および警告のprefab
 		public GameObject normalCartridgePrefab;
 		public GameObject normalCartridgeWarningPrefab;
@@ -95,7 +91,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				case 1:
 					// coroutineのリスト
-					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft, (int) ToLeft.First,
+					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft,
+						(int) ToLeft.First,
 						appearanceTime: 1.0f, interval: 1.0f));
 					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
 						(int) ToRight.Second, appearanceTime: 2.0f, interval: 4.0f));
@@ -122,7 +119,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			// wait by the time the first bullet warning emerge
 			// 1.0f equals to the period which the bullet warning is emerging
-			yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME - (currentTime - startTime));
+			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
+			                                (currentTime - startTime));
 
 			// the number of bullets which have emerged
 			var sum = 0;
@@ -143,10 +141,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				}
 
 				// 変数の初期設定
+				cartridge.GetComponent<Renderer>().sortingLayerName = "Bullet";
 				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
 				cartridgeScript.Initialize(direction, line);
 
 				// emerge a bullet warning
+				warning.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				warningScript.Initialize(cartridge.transform.position, cartridgeScript.motionVector,
 					cartridgeScript.localScale, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
@@ -156,7 +156,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// 一定時間(interval)待つ
 				currentTime = Time.time;
-				yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME + interval * sum - (currentTime - startTime));
+				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
+				                                interval * sum - (currentTime - startTime));
 			}
 		}
 
@@ -165,7 +166,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			int column = 0)
 		{
 			var currentTime = Time.time;
-			yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME - (currentTime - startTime));
+			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
+			                                (currentTime - startTime));
 
 			var sum = 0;
 
@@ -184,9 +186,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						throw new NotImplementedException();
 				}
 
+				hole.GetComponent<Renderer>().sortingLayerName = "Bullet";
 				var holeScript = hole.GetComponent<HoleController>();
 				holeScript.Initialize(row, column);
 
+				warning.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 				var warningScript = warning.GetComponent<HoleWarningController>();
 				warningScript.Initialize(row, column);
 
@@ -195,7 +199,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// 一定時間(interval)待つ
 				currentTime = Time.time;
-				yield return new WaitForSeconds(appearanceTime - WARNING_DISPLAYED_TIME + interval * sum - (currentTime - startTime));
+				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
+				                                interval * sum - (currentTime - startTime));
 			}
 		}
 	}

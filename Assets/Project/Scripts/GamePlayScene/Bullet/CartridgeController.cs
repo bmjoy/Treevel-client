@@ -10,17 +10,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public Vector2 motionVector;
 		public float speed;
 
-		protected void Update()
-		{
-			// Check if bullet goes out of window
-			if (transform.position.x < -((WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin) ||
-			    transform.position.x > (WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin ||
-			    transform.position.y < -((WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin) ||
-			    transform.position.y > (WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin)
-				Destroy(gameObject);
-		}
+		public abstract void Initialize(BulletGenerator.CartridgeDirection direction, int line);
 
-		private void OnEnable()
+		protected override void OnEnable()
 		{
 			originalWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 			originalHeight = GetComponent<SpriteRenderer>().bounds.size.y;
@@ -42,14 +34,24 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			GamePlayDirector.OnFail += OnFail;
 		}
 
+		protected override void OnFail()
+		{
+			speed = 0;
+		}
+
+		protected void Update()
+		{
+			// Check if bullet goes out of window
+			if (transform.position.x < -((WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin) ||
+			    transform.position.x > (WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin ||
+			    transform.position.y < -((WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin) ||
+			    transform.position.y > (WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin)
+				Destroy(gameObject);
+		}
+
 		protected void FixedUpdate()
 		{
 			transform.Translate(motionVector * speed, Space.World);
-		}
-
-		public virtual void Initialize(BulletGenerator.CartridgeDirection direction, int line)
-		{
-			gameObject.GetComponent<Renderer>().sortingLayerName = "Bullet";
 		}
 
 		// 銃弾の初期配置の設定
@@ -100,11 +102,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			if (!other.gameObject.CompareTag("NumberPanel")) return;
 			// 衝突したオブジェクトは赤色に変える
 			gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-		}
-
-		protected override void OnFail()
-		{
-			speed = 0;
 		}
 	}
 }

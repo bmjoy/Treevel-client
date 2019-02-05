@@ -7,7 +7,6 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 	{
 		public override void Initialize(int row, int column)
 		{
-			base.Initialize(row, column);
 			originalWidth = GetComponent<Renderer>().bounds.size.x;
 			originalHeight = GetComponent<Renderer>().bounds.size.y;
 			transform.localScale *= new Vector2(TileSize.WIDTH / 2, TileSize.HEIGHT / 2);

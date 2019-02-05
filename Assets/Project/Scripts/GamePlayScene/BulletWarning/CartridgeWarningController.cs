@@ -6,11 +6,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 {
 	public abstract class CartridgeWarningController : BulletWarningController
 	{
-		public virtual void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
-			float bulletWidth, float bulletHeight)
-		{
-			gameObject.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
-		}
+		public abstract void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
+			float bulletWidth, float bulletHeight);
 
 		public void DeleteWarning(GameObject bullet)
 		{
@@ -22,7 +19,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		private IEnumerator Delete(GameObject bullet, float speed)
 		{
-			yield return new WaitForSeconds(BulletGenerator.WARNING_DISPLAYED_TIME);
+			yield return new WaitForSeconds(WARNING_DISPLAYED_TIME);
 			bullet.GetComponent<CartridgeController>().speed = speed;
 			Destroy(gameObject);
 		}
