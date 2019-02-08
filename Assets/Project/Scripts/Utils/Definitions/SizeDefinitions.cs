@@ -24,4 +24,29 @@
 		public const float HEIGHT = WIDTH;
 	}
 
+	public static class CartridgeSize
+	{
+		public const float WIDTH = WindowSize.WIDTH * 0.15f;
+		public const float HEIGHT = WindowSize.WIDTH * 0.05f;
+	}
+
+	public static class HoleSize
+	{
+		public const float WIDTH = WindowSize.WIDTH * 0.15f;
+		public const float HEIGHT = WindowSize.WIDTH * 0.15f;
+	}
+
+	public static class CartridgeWarningSize
+	{
+		public const float WIDTH = WindowSize.WIDTH * 0.15f;
+		public const float HEIGHT = WindowSize.WIDTH * 0.15f;
+		public const float POSITION_X = WindowSize.WIDTH * 0.16f;
+		public const float POSITION_Y = WindowSize.WIDTH * 0.16f;
+	}
+
+	public static class HoleWarningSize
+	{
+		public const float WIDTH = WindowSize.WIDTH * 0.15f;
+		public const float HEIGHT = WindowSize.WIDTH * 0.15f;
+	}
 }
