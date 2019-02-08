@@ -7,11 +7,15 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 		// 警告画像の表示時間
 		public const float WARNING_DISPLAYED_TIME = 1.0f;
 
-		public float localScale;
-
 		// 元画像のサイズ
-		public float originalHeight;
-		public float originalWidth;
+		protected float originalHeight;
+		protected float originalWidth;
+
+		protected virtual void Awake()
+		{
+			originalWidth = GetComponent<SpriteRenderer>().size.x;
+			originalHeight = GetComponent<SpriteRenderer>().size.y;
+		}
 
 		private void OnEnable()
 		{

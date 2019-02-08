@@ -9,6 +9,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int row;
 		private int column;
 
+		private void Start()
+		{
+			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
+			StartCoroutine(Delete());
+		}
+
 		// コンストラクタがわりのメソッド
 		public virtual void Initialize(int row, int column)
 		{
@@ -19,8 +25,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		protected override void OnEnable()
 		{
-			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-			StartCoroutine(Delete());
 			GamePlayDirector.OnSucceed += OnSucceed;
 			GamePlayDirector.OnFail += OnFail;
 		}
