@@ -38,16 +38,16 @@
 
 	public enum ToUp
 	{
-		First = 1,
-		Second,
-		Third
+		Left = 1,
+		Center,
+		Right
 	}
 
-	public enum ToDown
+	public enum ToBottom
 	{
-		First = 1,
-		Second,
-		Third
+		Left = 1,
+		Center,
+		Right
 	}
 
 	public enum Row
