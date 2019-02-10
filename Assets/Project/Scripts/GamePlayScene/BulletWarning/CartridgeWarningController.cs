@@ -4,36 +4,10 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class CartridgeWarningController : BulletWarningController
+	public abstract class CartridgeWarningController : BulletWarningController
 	{
-		public float localScale;
-
-		// 元画像のサイズ
-		public float originalHeight;
-		public float originalWidth;
-
-		private void OnEnable()
-		{
-			GamePlayDirector.OnSucceed += OnSucceed;
-			GamePlayDirector.OnFail += OnFail;
-		}
-
-		private void OnDisable()
-		{
-			GamePlayDirector.OnSucceed -= OnSucceed;
-			GamePlayDirector.OnFail -= OnFail;
-		}
-
-		private void OnFail()
-		{
-			Destroy(gameObject);
-		}
-
-		private void OnSucceed()
-		{
-			Destroy(gameObject);
-		}
-
+		public abstract void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
+			float bulletWidth, float bulletHeight);
 
 		public void DeleteWarning(GameObject bullet)
 		{
@@ -45,7 +19,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		private IEnumerator Delete(GameObject bullet, float speed)
 		{
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(WARNING_DISPLAYED_TIME);
 			bullet.GetComponent<CartridgeController>().speed = speed;
 			Destroy(gameObject);
 		}

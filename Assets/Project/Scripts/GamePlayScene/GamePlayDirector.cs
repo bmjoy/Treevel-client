@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Project.Scripts.Library.Data;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;

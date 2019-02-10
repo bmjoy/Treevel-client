@@ -1,5 +1,5 @@
 ﻿using System;
-using Project.Scripts.Library.Data;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
@@ -7,30 +7,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public abstract class CartridgeController : BulletController
 	{
 		public float additionalMargin = 0.00001f;
-		public float localScale;
 		public Vector2 motionVector;
-		public float speed;
+		[System.NonSerialized] public float speed = 0.10f;
 
-		// 元画像のサイズ
-		public float originalWidth;
-		public float originalHeight;
-
-
-		protected void Update()
+		protected override void Awake()
 		{
-			// Check if bullet goes out of window
-			if (transform.position.x < -((WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin) ||
-			    transform.position.x > (WindowSize.WIDTH + localScale * originalWidth) / 2 + additionalMargin ||
-			    transform.position.y < -((WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin) ||
-			    transform.position.y > (WindowSize.HEIGHT + localScale * originalHeight) / 2 + additionalMargin)
-				Destroy(gameObject);
-		}
-
-		private void OnEnable()
-		{
-			originalWidth = GetComponent<SpriteRenderer>().bounds.size.x;
-			originalHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-
+			base.Awake();
 			// BocCollider2Dのアタッチメント
 			gameObject.AddComponent<BoxCollider2D>();
 			// 銃弾の先頭部分のみに当たり判定を与える
@@ -43,14 +25,20 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// RigidBodyのアタッチメント
 			gameObject.AddComponent<Rigidbody2D>();
 			gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
-			GamePlayDirector.OnSucceed += OnSucceed;
-			GamePlayDirector.OnFail += OnFail;
 		}
 
-		private void OnDisable()
+		public abstract void Initialize(CartridgeDirection direction, int line);
+
+		protected void Update()
 		{
-			GamePlayDirector.OnSucceed -= OnSucceed;
-			GamePlayDirector.OnFail -= OnFail;
+			// Check if bullet goes out of window
+			if (transform.position.x <
+			    -((WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin) ||
+			    transform.position.x > (WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin ||
+			    transform.position.y <
+			    -((WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin) ||
+			    transform.position.y > (WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin)
+				Destroy(gameObject);
 		}
 
 		protected void FixedUpdate()
@@ -59,36 +47,40 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 銃弾の初期配置の設定
-		protected void SetInitialPosition(BulletGenerator.BulletDirection direction, int line)
+		protected void SetInitialPosition(CartridgeDirection direction, int line)
 		{
 			switch (direction)
 			{
-				case BulletGenerator.BulletDirection.ToLeft:
-					transform.position = new Vector2((WindowSize.WIDTH + localScale * originalWidth) / 2,
+				case CartridgeDirection.ToLeft:
+					transform.position = new Vector2((WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.left;
 					break;
-				case BulletGenerator.BulletDirection.ToRight:
-					transform.position = new Vector2(-(WindowSize.WIDTH + localScale * originalWidth) / 2,
+				case CartridgeDirection.ToRight:
+					transform.position = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.right;
 					break;
-				case BulletGenerator.BulletDirection.ToUp:
+				case CartridgeDirection.ToUp:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
-						-(WindowSize.HEIGHT + localScale * originalHeight) / 2);
+						-(WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2);
 					motionVector = Vector2.up;
 					break;
-				case BulletGenerator.BulletDirection.ToBottom:
+				case CartridgeDirection.ToBottom:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
-						(WindowSize.HEIGHT + localScale * originalHeight) / 2);
+						(WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2);
 					motionVector = Vector2.down;
 					break;
+				default:
+					throw new NotImplementedException();
 			}
 
 			// Check if a bullet should be flipped vertically
-			transform.localScale *= new Vector2(localScale, -1 * Mathf.Sign(motionVector.x) * localScale);
+			transform.localScale = new Vector2(CartridgeSize.WIDTH / originalWidth,
+				                       -1 * Mathf.Sign(motionVector.x) * CartridgeSize.HEIGHT / originalHeight) *
+			                       localScale;
 
 			// Calculate rotation angle
 			var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
@@ -98,22 +90,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			transform.Rotate(new Vector3(0, 0, angle), Space.World);
 		}
 
+		protected override void OnFail()
+		{
+			speed = 0;
+		}
+
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			// 数字パネルとの衝突以外は考えない
 			if (!other.gameObject.CompareTag("NumberPanel")) return;
 			// 衝突したオブジェクトは赤色に変える
 			gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-		}
-
-		private void OnFail()
-		{
-			speed = 0;
-		}
-
-		private void OnSucceed()
-		{
-			Destroy(gameObject);
 		}
 	}
 }

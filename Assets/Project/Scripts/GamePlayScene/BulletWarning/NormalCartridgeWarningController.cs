@@ -1,20 +1,22 @@
-﻿using Project.Scripts.Library.Data;
+﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
 	public class NormalCartridgeWarningController : CartridgeWarningController
 	{
-		public void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
+		protected override void Awake()
+		{
+			base.Awake();
+			transform.localScale =
+				new Vector2(CartridgeWarningSize.WIDTH / originalWidth, CartridgeWarningSize.HEIGHT / originalHeight);
+		}
+
+		public override void Initialize(Vector2 bulletPosition, Vector2 bulletMotionVector, float bulletLocalScale,
 			float bulletWidth, float bulletHeight)
 		{
-			localScale = (float) (WindowSize.WIDTH * 0.15);
-			originalWidth = GetComponent<SpriteRenderer>().bounds.size.x;
-			originalHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-			transform.localScale *= new Vector2(localScale, localScale);
 			transform.position = bulletPosition + Vector2.Scale(bulletMotionVector,
-				                     new Vector2((bulletLocalScale * bulletWidth + localScale * originalWidth) / 2,
-					                     (bulletLocalScale * bulletHeight + localScale * originalHeight) / 2));
+				                     new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y));
 		}
 	}
 }
