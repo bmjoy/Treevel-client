@@ -15,6 +15,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 		{
 			originalWidth = GetComponent<SpriteRenderer>().size.x;
 			originalHeight = GetComponent<SpriteRenderer>().size.y;
+			gameObject.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 		}
 
 		private void OnEnable()
@@ -29,12 +30,12 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			GamePlayDirector.OnFail -= OnFail;
 		}
 
-		private void OnFail()
+		private void OnSucceed()
 		{
 			Destroy(gameObject);
 		}
 
-		private void OnSucceed()
+		private void OnFail()
 		{
 			Destroy(gameObject);
 		}

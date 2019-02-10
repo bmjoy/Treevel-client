@@ -15,9 +15,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			originalWidth = GetComponent<SpriteRenderer>().size.x;
 			originalHeight = GetComponent<SpriteRenderer>().size.y;
+			// sortingLayerの設定
+			gameObject.GetComponent<Renderer>().sortingLayerName = "Bullet";
 		}
 
-		protected abstract void OnEnable();
+		private void OnEnable()
+		{
+			GamePlayDirector.OnSucceed += OnSucceed;
+			GamePlayDirector.OnFail += OnFail;
+		}
 
 		private void OnDisable()
 		{
@@ -25,11 +31,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			GamePlayDirector.OnFail -= OnFail;
 		}
 
-		protected abstract void OnFail();
-
-		protected void OnSucceed()
+		private void OnSucceed()
 		{
 			Destroy(gameObject);
 		}
+
+		protected abstract void OnFail();
 	}
 }

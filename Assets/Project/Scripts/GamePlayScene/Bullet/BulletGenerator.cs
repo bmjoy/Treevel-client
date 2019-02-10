@@ -76,12 +76,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				}
 
 				// 変数の初期設定
-				cartridge.GetComponent<Renderer>().sortingLayerName = "Bullet";
 				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
 				cartridgeScript.Initialize(direction, line);
 
 				// emerge a bullet warning
-				warning.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				warningScript.Initialize(cartridge.transform.position, cartridgeScript.motionVector,
 					cartridgeScript.localScale, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
@@ -121,11 +119,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						throw new NotImplementedException();
 				}
 
-				hole.GetComponent<Renderer>().sortingLayerName = "Bullet";
 				var holeScript = hole.GetComponent<HoleController>();
 				holeScript.Initialize(row, column);
 
-				warning.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
 				var warningScript = warning.GetComponent<HoleWarningController>();
 				warningScript.Initialize(row, column);
 

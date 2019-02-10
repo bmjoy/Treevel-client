@@ -23,12 +23,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			gameObject.SetActive(false);
 		}
 
-		protected override void OnEnable()
-		{
-			GamePlayDirector.OnSucceed += OnSucceed;
-			GamePlayDirector.OnFail += OnFail;
-		}
-
 		protected override void OnFail()
 		{
 		}

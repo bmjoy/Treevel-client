@@ -29,17 +29,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		public abstract void Initialize(CartridgeDirection direction, int line);
 
-		protected override void OnEnable()
-		{
-			GamePlayDirector.OnSucceed += OnSucceed;
-			GamePlayDirector.OnFail += OnFail;
-		}
-
-		protected override void OnFail()
-		{
-			speed = 0;
-		}
-
 		protected void Update()
 		{
 			// Check if bullet goes out of window
@@ -99,6 +88,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			angle *= -1 * Mathf.Sign(motionVector.y);
 
 			transform.Rotate(new Vector3(0, 0, angle), Space.World);
+		}
+
+		protected override void OnFail()
+		{
+			speed = 0;
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
