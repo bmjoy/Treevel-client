@@ -44,6 +44,12 @@ namespace Project.Scripts.GamePlayScene
 
 		private GameObject stageNumberText;
 
+		private AudioSource playingAudioSource;
+
+		private AudioSource successAudioSource;
+
+		private AudioSource failureAudioSource;
+
 		private void Start()
 		{
 			UnifyDisplay();
@@ -59,6 +65,20 @@ namespace Project.Scripts.GamePlayScene
 			stageNumberText = GameObject.Find("StageNumberText");
 			// 現在のステージ番号を格納
 			stageNumberText.GetComponent<Text>().text = stageId.ToString();
+
+			// 各音源の設定
+			// Playing
+			gameObject.AddComponent<AudioSource>();
+			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
+			SetAudioSource(clipName: "Playing", audioSource: playingAudioSource, time: 2.0f, volume: 0.10f, loop: true);
+			// Success
+			gameObject.AddComponent<AudioSource>();
+			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
+			SetAudioSource(clipName: "Success", audioSource: successAudioSource, volume: 0.40f);
+			// Failure
+			gameObject.AddComponent<AudioSource>();
+			failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
+			SetAudioSource(clipName: "Failure", audioSource: failureAudioSource, volume: 0.40f);
 
 			GameOpening();
 
@@ -149,6 +169,8 @@ namespace Project.Scripts.GamePlayScene
 			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageId);
 			// 銃弾作成スクリプトを起動
 			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageId);
+			// Playing中の音源の再生
+			playingAudioSource.Play();
 
 			Destroy(tileGenerator);
 			Destroy(panelGenerator);
@@ -158,6 +180,8 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameSucceed()
 		{
+			playingAudioSource.Stop();
+			successAudioSource.Play();
 			resultWindow.SetActive(true);
 			resultText.GetComponent<Text>().text = "成功！";
 			Destroy(bulletGenerator);
@@ -171,6 +195,8 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameFail()
 		{
+			playingAudioSource.Stop();
+			failureAudioSource.Play();
 			resultWindow.SetActive(true);
 			resultText.GetComponent<Text>().text = "失敗！";
 			Destroy(bulletGenerator);
@@ -219,6 +245,17 @@ namespace Project.Scripts.GamePlayScene
 				var rectY = (1 - ratio) / 2f;
 				Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
 			}
+		}
+
+		// AudioSourceの変数(音源名、開始時間、音量、繰り返しの有無)の設定
+		private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f,
+			float volume = 1.0f, bool loop = false)
+		{
+			var clip = Resources.Load<AudioClip>("Sounds/GamePlayScene/" + clipName);
+			audioSource.clip = clip;
+			audioSource.time = time;
+			audioSource.volume = volume;
+			audioSource.loop = loop;
 		}
 	}
 }
