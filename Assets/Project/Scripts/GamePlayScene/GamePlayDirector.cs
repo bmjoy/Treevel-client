@@ -251,7 +251,7 @@ namespace Project.Scripts.GamePlayScene
 		private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f,
 			float volume = 1.0f, bool loop = false)
 		{
-			var clip = Resources.Load<AudioClip>("Sounds/GamePlayScene/" + clipName);
+			var clip = Resources.Load<AudioClip>("Clips/GamePlayScene/" + clipName);
 			audioSource.clip = clip;
 			audioSource.time = time;
 			audioSource.volume = volume;
