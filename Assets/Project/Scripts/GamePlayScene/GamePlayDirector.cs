@@ -189,7 +189,7 @@ namespace Project.Scripts.GamePlayScene
 		public void BackButtonDown()
 		{
 			// StageSelectSceneに戻る
-			SceneManager.LoadScene("StageSelectScene");
+			SceneManager.LoadScene("MenuBarScene");
 		}
 
 		private static void UnifyDisplay()
