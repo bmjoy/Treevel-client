@@ -103,6 +103,7 @@ namespace Project.Scripts.GamePlayScene
 						GameOpening();
 						return true;
 					}
+
 					break;
 				case GameState.Playing:
 					// `Opening`からの遷移のみを許す
@@ -111,6 +112,7 @@ namespace Project.Scripts.GamePlayScene
 						state = nextState;
 						return true;
 					}
+
 					break;
 				case GameState.Success:
 					// `Playing`からの遷移のみ許す
@@ -120,6 +122,7 @@ namespace Project.Scripts.GamePlayScene
 						GameSucceed();
 						return true;
 					}
+
 					break;
 				case GameState.Failure:
 					// `Playing`からの遷移のみ許す
@@ -129,10 +132,12 @@ namespace Project.Scripts.GamePlayScene
 						GameFail();
 						return true;
 					}
+
 					break;
 				default:
 					throw new ArgumentOutOfRangeException("nextState", nextState, null);
 			}
+
 			return false;
 		}
 
