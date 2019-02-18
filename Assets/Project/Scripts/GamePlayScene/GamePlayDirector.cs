@@ -66,20 +66,7 @@ namespace Project.Scripts.GamePlayScene
 			// 現在のステージ番号を格納
 			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
-			// 各音源の設定
-			// Playing
-			gameObject.AddComponent<AudioSource>();
-			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-			SetAudioSource(clipName: "Playing", audioSource: playingAudioSource, time: 2.0f, volume: 0.10f, loop: true);
-			// Success
-			gameObject.AddComponent<AudioSource>();
-			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-			SetAudioSource(clipName: "Success", audioSource: successAudioSource, volume: 0.40f);
-			// Failure
-			gameObject.AddComponent<AudioSource>();
-			failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-			SetAudioSource(clipName: "Failure", audioSource: failureAudioSource, volume: 0.40f);
-
+			SetAudioSource();
 			GameOpening();
 
 			// StageStatusのデバッグ用
@@ -180,11 +167,9 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameSucceed()
 		{
-			playingAudioSource.Stop();
+			GameFinish();
 			successAudioSource.Play();
-			resultWindow.SetActive(true);
-			resultText.GetComponent<Text>().text = "成功！";
-			Destroy(bulletGenerator);
+			resultText.GetComponent<Text>().text = "成功!";
 			if (OnSucceed != null) OnSucceed();
 			var ss = StageStatus.Get(stageId);
 			// クリア済みにする
@@ -195,21 +180,26 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameFail()
 		{
-			playingAudioSource.Stop();
+			GameFinish();
 			failureAudioSource.Play();
-			resultWindow.SetActive(true);
-			resultText.GetComponent<Text>().text = "失敗！";
-			Destroy(bulletGenerator);
+			resultText.GetComponent<Text>().text = "失敗!";
 			if (OnFail != null) OnFail();
 			// 失敗回数をインクリメント
 			var ss = StageStatus.Get(stageId);
 			ss.IncFailureNum(stageId);
 		}
 
+		private void GameFinish()
+		{
+			playingAudioSource.Stop();
+			resultWindow.SetActive(true);
+			Destroy(bulletGenerator);
+		}
+
 		public void RetryButtonDown()
 		{
 			// 現在のScene名を取得する
-			Scene loadScene = SceneManager.GetActiveScene();
+			var loadScene = SceneManager.GetActiveScene();
 			// Sceneの読み直し
 			SceneManager.LoadScene(loadScene.name);
 			// 挑戦回数をインクリメント
@@ -245,6 +235,23 @@ namespace Project.Scripts.GamePlayScene
 				var rectY = (1 - ratio) / 2f;
 				Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
 			}
+		}
+
+		private void SetAudioSource()
+		{
+			// 各音源の設定
+			// Playing
+			gameObject.AddComponent<AudioSource>();
+			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
+			SetAudioSource(clipName: "Playing", audioSource: playingAudioSource, time: 2.0f, volume: 0.10f, loop: true);
+			// Success
+			gameObject.AddComponent<AudioSource>();
+			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
+			SetAudioSource(clipName: "Success", audioSource: successAudioSource, volume: 0.40f);
+			// Failure
+			gameObject.AddComponent<AudioSource>();
+			failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
+			SetAudioSource(clipName: "Failure", audioSource: failureAudioSource, volume: 0.40f);
 		}
 
 		// AudioSourceの変数(音源名、開始時間、音量、繰り返しの有無)の設定
