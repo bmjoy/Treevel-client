@@ -28,11 +28,9 @@ namespace Project.Scripts.MenuBarScene
 			AddListeners();
 			// 初期シーンのロード
 			StartCoroutine(AddScene("StageSelectScene"));
-			// 初期シーンの保存
-			nowScene = "StageSelectScene";
 		}
 
-		private static IEnumerator AddScene(string sceneName)
+		private IEnumerator AddScene(string sceneName)
 		{
 			// シーンをロード
 			SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
@@ -44,6 +42,8 @@ namespace Project.Scripts.MenuBarScene
 			}
 			// 指定したシーン名をアクティブにする
 			SceneManager.SetActiveScene(scene);
+			// シーンの保存
+			nowScene = sceneName;
 		}
 
 		private void AddListeners()
@@ -78,8 +78,6 @@ namespace Project.Scripts.MenuBarScene
 				SceneManager.UnloadSceneAsync(nowScene);
 				// 新しいシーンをロード
 				StartCoroutine(AddScene(toggle.name + "Scene"));
-				// 新しいシーンの保存
-				nowScene = toggle.name + "Scene";
 			}
 		}
 	}
