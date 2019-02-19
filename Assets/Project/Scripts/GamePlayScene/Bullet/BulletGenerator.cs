@@ -18,9 +18,23 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// Generatorが作成された時刻
 		public float startTime;
 
+		private List<IEnumerator> coroutines;
+
+		private void OnEnable()
+		{
+			GamePlayDirector.OnSucceed += OnSucceed;
+			GamePlayDirector.OnFail += OnFail;
+		}
+
+		private void OnDisable()
+		{
+			GamePlayDirector.OnSucceed -= OnSucceed;
+			GamePlayDirector.OnFail -= OnFail;
+		}
+
 		public void CreateBullets(int stageId)
 		{
-			List<IEnumerator> coroutines = new List<IEnumerator>();
+			coroutines = new List<IEnumerator>();
 			startTime = Time.time;
 			switch (stageId)
 			{
@@ -78,15 +92,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				// 変数の初期設定
 				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
 				cartridgeScript.Initialize(direction, line);
-
 				// emerge a bullet warning
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				warningScript.Initialize(cartridge.transform.position, cartridgeScript.motionVector,
 					cartridgeScript.localScale, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
-
 				// delete the bullet warning
 				warningScript.DeleteWarning(cartridge);
-
 				// 一定時間(interval)待つ
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
@@ -133,6 +144,22 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
 			}
+		}
+
+		private void OnSucceed()
+		{
+			GameFinish();
+		}
+
+		private void OnFail()
+		{
+			GameFinish();
+		}
+
+		private void GameFinish()
+		{
+			foreach (var coroutine in coroutines) StopCoroutine(coroutine);
+			Destroy(gameObject);
 		}
 	}
 }

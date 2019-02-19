@@ -193,7 +193,6 @@ namespace Project.Scripts.GamePlayScene
 		{
 			playingAudioSource.Stop();
 			resultWindow.SetActive(true);
-			Destroy(bulletGenerator);
 		}
 
 		public void RetryButtonDown()
