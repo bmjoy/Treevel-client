@@ -81,6 +81,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				{
 					case CartridgeType.NormalCartridge:
 						cartridge = Instantiate(normalCartridgePrefab);
+						cartridge.GetComponent<Renderer>().sortingOrder = sum;
 						warning = Instantiate(normalCartridgeWarningPrefab);
 						break;
 					default:
