@@ -159,7 +159,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private void GameFinish()
 		{
 			foreach (var coroutine in coroutines) StopCoroutine(coroutine);
-			Destroy(gameObject);
 		}
 	}
 }

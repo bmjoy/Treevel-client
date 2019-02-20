@@ -167,10 +167,10 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameSucceed()
 		{
+			if (OnSucceed != null) OnSucceed();
 			GameFinish();
 			successAudioSource.Play();
 			resultText.GetComponent<Text>().text = "成功!";
-			if (OnSucceed != null) OnSucceed();
 			var ss = StageStatus.Get(stageId);
 			// クリア済みにする
 			ss.ClearStage(stageId);
@@ -180,10 +180,10 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameFail()
 		{
+			if (OnFail != null) OnFail();
 			GameFinish();
 			failureAudioSource.Play();
 			resultText.GetComponent<Text>().text = "失敗!";
-			if (OnFail != null) OnFail();
 			// 失敗回数をインクリメント
 			var ss = StageStatus.Get(stageId);
 			ss.IncFailureNum(stageId);
@@ -193,6 +193,7 @@ namespace Project.Scripts.GamePlayScene
 		{
 			playingAudioSource.Stop();
 			resultWindow.SetActive(true);
+			Destroy(bulletGenerator);
 		}
 
 		public void RetryButtonDown()
