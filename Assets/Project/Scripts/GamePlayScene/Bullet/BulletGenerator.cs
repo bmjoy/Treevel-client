@@ -71,8 +71,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			// the number of bullets which have emerged
 			var sum = 0;
-
-			while (true)
+			
+			while (sum < 2147483647)
 			{
 				sum++;
 				GameObject cartridge;
