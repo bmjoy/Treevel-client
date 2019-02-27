@@ -81,12 +81,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				{
 					case CartridgeType.NormalCartridge:
 						cartridge = Instantiate(normalCartridgePrefab);
-						cartridge.GetComponent<Renderer>().sortingOrder = sum;
 						warning = Instantiate(normalCartridgeWarningPrefab);
 						break;
 					default:
 						throw new NotImplementedException();
 				}
+
+				cartridge.GetComponent<Renderer>().sortingOrder = sum;
+				warning.GetComponent<Renderer>().sortingOrder = sum;
 
 				// 変数の初期設定
 				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
@@ -114,7 +116,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			var sum = 0;
 
-			while (true)
+			while (sum < 2147483647)
 			{
 				sum++;
 				GameObject hole;
@@ -128,6 +130,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					default:
 						throw new NotImplementedException();
 				}
+
+				hole.GetComponent<Renderer>().sortingOrder = sum;
+				warning.GetComponent<Renderer>().sortingOrder = sum;
 
 				var holeScript = hole.GetComponent<HoleController>();
 				holeScript.Initialize(row, column);
