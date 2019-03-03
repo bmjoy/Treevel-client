@@ -1,4 +1,4 @@
-﻿namespace Project.Scripts.Library.PlayerPrefsUtils
+﻿namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
 	public static class PlayerPrefsKeys
 	{

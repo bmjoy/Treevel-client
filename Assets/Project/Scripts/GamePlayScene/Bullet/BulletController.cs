@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
 	// Bulletに共通したフィールド、メソッドの定義
 	public abstract class BulletController : MonoBehaviour
 	{
-		[System.NonSerialized] public float localScale = 1.0f;
+		[NonSerialized] public const float LOCAL_SCALE = 1.0f;
 
 		// 元画像のサイズ
 		public float originalWidth;

@@ -40,6 +40,7 @@ namespace Project.Scripts.MenuBarScene
 			{
 				yield return null;
 			}
+
 			// 指定したシーン名をアクティブにする
 			SceneManager.SetActiveScene(scene);
 			// シーンの保存
@@ -53,20 +54,14 @@ namespace Project.Scripts.MenuBarScene
 				ToggleValueChanged(stageSelectToggle);
 			});
 
-			recordToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-			{
-				ToggleValueChanged(recordToggle);
-			});
+			recordToggle.GetComponent<Toggle>().onValueChanged
+				.AddListener(delegate { ToggleValueChanged(recordToggle); });
 
-			tutorialToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-			{
-				ToggleValueChanged(tutorialToggle);
-			});
+			tutorialToggle.GetComponent<Toggle>().onValueChanged
+				.AddListener(delegate { ToggleValueChanged(tutorialToggle); });
 
-			configToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-			{
-				ToggleValueChanged(configToggle);
-			});
+			configToggle.GetComponent<Toggle>().onValueChanged
+				.AddListener(delegate { ToggleValueChanged(configToggle); });
 		}
 
 		private void ToggleValueChanged(GameObject toggle)

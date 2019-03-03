@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	{
 		public float additionalMargin = 0.00001f;
 		public Vector2 motionVector;
-		[System.NonSerialized] public float speed = 0.10f;
+		[NonSerialized] public float speed = 0.10f;
 
 		protected override void Awake()
 		{
@@ -33,11 +33,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			// Check if bullet goes out of window
 			if (transform.position.x <
-			    -((WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin) ||
-			    transform.position.x > (WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin ||
+			    -((WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin) ||
+			    transform.position.x > (WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin ||
 			    transform.position.y <
-			    -((WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin) ||
-			    transform.position.y > (WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2 + additionalMargin)
+			    -((WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin) ||
+			    transform.position.y > (WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin)
 				Destroy(gameObject);
 		}
 
@@ -52,25 +52,25 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			switch (direction)
 			{
 				case CartridgeDirection.ToLeft:
-					transform.position = new Vector2((WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2,
+					transform.position = new Vector2((WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.left;
 					break;
 				case CartridgeDirection.ToRight:
-					transform.position = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * localScale) / 2,
+					transform.position = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					motionVector = Vector2.right;
 					break;
 				case CartridgeDirection.ToUp:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
-						-(WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2);
+						-(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2);
 					motionVector = Vector2.up;
 					break;
 				case CartridgeDirection.ToBottom:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
-						(WindowSize.HEIGHT + CartridgeSize.WIDTH * localScale) / 2);
+						(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2);
 					motionVector = Vector2.down;
 					break;
 				default:
@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// Check if a bullet should be flipped vertically
 			transform.localScale = new Vector2(CartridgeSize.WIDTH / originalWidth,
 				                       -1 * Mathf.Sign(motionVector.x) * CartridgeSize.HEIGHT / originalHeight) *
-			                       localScale;
+			                       LOCAL_SCALE;
 
 			// Calculate rotation angle
 			var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;

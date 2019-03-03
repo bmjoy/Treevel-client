@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Project.Scripts.Library.PlayerPrefsUtils
+namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
 	[Serializable]
 	public class StageStatus

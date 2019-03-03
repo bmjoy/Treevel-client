@@ -4,7 +4,7 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
-using Project.Scripts.Library.PlayerPrefsUtils;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

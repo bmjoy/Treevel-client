@@ -41,15 +41,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				case 1:
 					// coroutineのリスト
 					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft,
-						(int) ToLeft.First,
-						appearanceTime: 1.0f, interval: 1.0f));
+						(int) ToLeft.First, appearanceTime: 1.0f, interval: 1.0f));
 					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
 						(int) ToRight.Second, appearanceTime: 2.0f, interval: 4.0f));
 					break;
 				case 2:
 					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
-						(int) ToRight.Fifth, appearanceTime: 2.0f,
-						interval: 4.0f));
+						(int) ToRight.Fifth, appearanceTime: 2.0f, interval: 4.0f));
 					coroutines.Add(CreateHole(HoleType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
 						row: (int) Row.Second, column: (int) Column.Left));
 					break;
@@ -95,7 +93,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				// emerge a bullet warning
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				warningScript.Initialize(cartridge.transform.position, cartridgeScript.motionVector,
-					cartridgeScript.localScale, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
+					BulletController.LOCAL_SCALE, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
 				// delete the bullet warning
 				warningScript.DeleteWarning(cartridge);
 				// 一定時間(interval)待つ

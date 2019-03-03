@@ -1,5 +1,5 @@
 ﻿using Project.Scripts.GamePlayScene;
-using Project.Scripts.Library.PlayerPrefsUtils;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,7 +18,7 @@ namespace Project.Scripts.StageSelectScene
 			// Buttons/*にリスナーを登録
 			foreach (Transform child in GameObject.Find("Buttons").transform)
 			{
-				GameObject obj = child.gameObject;
+				var obj = child.gameObject;
 				obj.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(obj));
 			}
 		}

@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			base.Awake();
 			transform.localScale = new Vector2(HoleSize.WIDTH / originalWidth, HoleSize.HEIGHT / originalHeight) *
-			                       localScale;
+			                       LOCAL_SCALE;
 		}
 
 		public override void Initialize(int row, int column)
