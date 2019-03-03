@@ -72,10 +72,12 @@ namespace Project.Scripts.GamePlayScene
 			// StageStatusのデバッグ用
 			var stageStatus = StageStatus.Get(stageId);
 			var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
+			print("-------------------------------");
 			print("ステージ" + stageId + "番は" + tmp + "です");
 			print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
 			print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
 			print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
+			print("-------------------------------");
 		}
 
 		private void OnApplicationPause(bool pauseStatus)
