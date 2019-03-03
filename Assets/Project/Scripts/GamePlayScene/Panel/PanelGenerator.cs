@@ -54,7 +54,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			// 引数に渡されたPrefabを元にオブジェクトを生成
 			var panel = Instantiate(panelPrefab);
 			panel.name = "NumberPanel";
-			Setup(initialTileNum, ref panel);
+			Setup(initialTileNum, panel);
 			// 最終タイルを登録
 			var finalTile = GameObject.Find("Tile" + finalTileNum);
 			panel.GetComponent<NumberPanelController>().Initialize(finalTile);
@@ -64,18 +64,17 @@ namespace Project.Scripts.GamePlayScene.Panel
 		{
 			var panel = Instantiate(panelPrefab);
 			panel.name = "StaticDummyPanel";
-			Setup(initialTileNum, ref panel);
+			Setup(initialTileNum, panel);
 		}
 
 		private static void CreateDynamicDummyPanel(string initialTileNum, GameObject panelPrefab)
 		{
 			var panel = Instantiate(panelPrefab);
 			panel.name = "DynamicDummyPanel";
-			Setup(initialTileNum, ref panel);
+			Setup(initialTileNum, panel);
 		}
 
-		// refは参照渡し
-		private static void Setup(string initialTileNum, ref GameObject panel)
+		private static void Setup(string initialTileNum, GameObject panel)
 		{
 			// 初期位置にするタイルを取得
 			var initialTile = GameObject.Find("Tile" + initialTileNum);
