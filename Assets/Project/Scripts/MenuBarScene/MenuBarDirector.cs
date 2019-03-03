@@ -17,7 +17,7 @@ namespace Project.Scripts.MenuBarScene
 
 		private GameObject configToggle;
 
-		private void Start()
+		private void Awake()
 		{
 			// Toggleの取得
 			stageSelectToggle = GameObject.Find("StageSelect");

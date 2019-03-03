@@ -50,7 +50,7 @@ namespace Project.Scripts.GamePlayScene
 
 		private AudioSource failureAudioSource;
 
-		private void Start()
+		private void Awake()
 		{
 			UnifyDisplay();
 			tileGenerator = GameObject.Find("TileGenerator");

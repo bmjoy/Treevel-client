@@ -8,7 +8,7 @@ namespace Project.Scripts.StageSelectScene
 {
 	public class StageSelectDirector : MonoBehaviour
 	{
-		private void Start()
+		private void Awake()
 		{
 			SetListener();
 		}
