@@ -1,5 +1,4 @@
 ﻿using System;
-using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
@@ -51,41 +50,20 @@ namespace Project.Scripts.GamePlayScene.Panel
 
 		private static void CreateNumberPanel(string initialTileNum, string finalTileNum, GameObject panelPrefab)
 		{
-			// 引数に渡されたPrefabを元にオブジェクトを生成
 			var panel = Instantiate(panelPrefab);
-			panel.name = "NumberPanel";
-			Setup(initialTileNum, panel);
-			// 最終タイルを登録
-			var finalTile = GameObject.Find("Tile" + finalTileNum);
-			panel.GetComponent<NumberPanelController>().Initialize(finalTile);
+			panel.GetComponent<NumberPanelController>().Initialize(initialTileNum, finalTileNum);
 		}
 
 		private static void CreateStaticDummyPanel(string initialTileNum, GameObject panelPrefab)
 		{
 			var panel = Instantiate(panelPrefab);
-			panel.name = "StaticDummyPanel";
-			Setup(initialTileNum, panel);
+			panel.GetComponent<StaticPanelController>().Initialize(initialTileNum);
 		}
 
 		private static void CreateDynamicDummyPanel(string initialTileNum, GameObject panelPrefab)
 		{
 			var panel = Instantiate(panelPrefab);
-			panel.name = "DynamicDummyPanel";
-			Setup(initialTileNum, panel);
-		}
-
-		private static void Setup(string initialTileNum, GameObject panel)
-		{
-			// 初期位置にするタイルを取得
-			var initialTile = GameObject.Find("Tile" + initialTileNum);
-			// パネル画像のサイズを取得
-			var panelWidth = panel.GetComponent<SpriteRenderer>().size.x;
-			var panelHeight = panel.GetComponent<SpriteRenderer>().size.y;
-			// パネルの初期設定
-			panel.transform.localScale = new Vector2(PanelSize.WIDTH / panelWidth, PanelSize.HEIGHT / panelHeight);
-			panel.transform.parent = initialTile.transform;
-			panel.transform.position = initialTile.transform.position;
-			panel.GetComponent<Renderer>().sortingLayerName = "Panel";
+			panel.GetComponent<DynamicPanelController>().Initialize(initialTileNum);
 		}
 	}
 }

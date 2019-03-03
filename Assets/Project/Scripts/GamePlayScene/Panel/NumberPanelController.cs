@@ -10,6 +10,12 @@ namespace Project.Scripts.GamePlayScene.Panel
 		// パネルが最終タイルにいるかどうかの状態
 		public bool adapted;
 
+		protected override void Awake()
+		{
+			base.Awake();
+			name = "NumberPanel";
+		}
+
 		protected override void Start()
 		{
 			base.Start();
@@ -17,9 +23,10 @@ namespace Project.Scripts.GamePlayScene.Panel
 			adapted = transform.parent.gameObject == finalTile;
 		}
 
-		public void Initialize(GameObject finalTile)
+		public void Initialize(string initialTileNum, string finalTileNum)
 		{
-			this.finalTile = finalTile;
+			Initialize(initialTileNum);
+			finalTile = GameObject.Find("Tile" + finalTileNum);
 		}
 
 		protected override void UpdateTile(GameObject targetTile)
