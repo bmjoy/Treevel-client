@@ -9,6 +9,18 @@ namespace Project.Scripts.GamePlayScene.Panel
 	{
 		protected GamePlayDirector gamePlayDirector;
 
+		protected override void Awake()
+		{
+			base.Awake();
+			name = "DynamicDummyPanel";
+			// 当たり判定と，フリック検知のアタッチ
+			gameObject.AddComponent<BoxCollider2D>();
+			gameObject.AddComponent<FlickGesture>();
+			// フリックの検知感度を変えたい際に変更可能
+			GetComponent<FlickGesture>().MinDistance = 0.2f;
+			GetComponent<FlickGesture>().FlickTime = 0.2f;
+		}
+
 		protected virtual void Start()
 		{
 			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
@@ -16,13 +28,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 
 		private void OnEnable()
 		{
-			// 当たり判定と，フリック検知のアタッチ
-			gameObject.AddComponent<BoxCollider2D>();
-			gameObject.AddComponent<FlickGesture>();
 			GetComponent<FlickGesture>().Flicked += HandleFlick;
-			// フリックの検知感度を変えたい際に変更可能
-			GetComponent<FlickGesture>().MinDistance = 0.2f;
-			GetComponent<FlickGesture>().FlickTime = 0.2f;
 			GamePlayDirector.OnSucceed += OnSucceed;
 			GamePlayDirector.OnFail += OnFail;
 		}

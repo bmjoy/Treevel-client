@@ -17,7 +17,7 @@ namespace Project.Scripts.MenuBarScene
 
 		private GameObject configToggle;
 
-		private void Start()
+		private void Awake()
 		{
 			// Toggleの取得
 			stageSelectToggle = GameObject.Find("StageSelect");
@@ -40,6 +40,7 @@ namespace Project.Scripts.MenuBarScene
 			{
 				yield return null;
 			}
+
 			// 指定したシーン名をアクティブにする
 			SceneManager.SetActiveScene(scene);
 			// シーンの保存

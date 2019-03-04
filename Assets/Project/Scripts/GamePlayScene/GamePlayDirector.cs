@@ -4,7 +4,7 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
-using Project.Scripts.Library.PlayerPrefsUtils;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -50,7 +50,7 @@ namespace Project.Scripts.GamePlayScene
 
 		private AudioSource failureAudioSource;
 
-		private void Start()
+		private void Awake()
 		{
 			UnifyDisplay();
 			tileGenerator = GameObject.Find("TileGenerator");
@@ -72,10 +72,12 @@ namespace Project.Scripts.GamePlayScene
 			// StageStatusのデバッグ用
 			var stageStatus = StageStatus.Get(stageId);
 			var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
+			print("-------------------------------");
 			print("ステージ" + stageId + "番は" + tmp + "です");
 			print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
 			print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
 			print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
+			print("-------------------------------");
 		}
 
 		private void OnApplicationPause(bool pauseStatus)
