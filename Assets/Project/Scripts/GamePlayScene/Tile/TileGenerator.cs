@@ -39,7 +39,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 		private GameObject CreateOneTile(Vector2 position, int tileNum)
 		{
 			var tile = Instantiate(normalTilePrefab);
-			tile.GetComponent<TileController>().Initialize(position, tileNum.ToString());
+			tile.GetComponent<TileController>().Initialize(position, tileNum);
 
 			return tile;
 		}

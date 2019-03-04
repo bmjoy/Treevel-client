@@ -15,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			GetComponent<Renderer>().sortingLayerName = "Panel";
 		}
 
-		public void Initialize(string initialTileNum)
+		public void Initialize(int initialTileNum)
 		{
 			// 初期位置にするタイルを取得
 			var initialTile = GameObject.Find("Tile" + initialTileNum);

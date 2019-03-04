@@ -19,7 +19,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 			GetComponent<Renderer>().sortingLayerName = "Tile";
 		}
 
-		public void Initialize(Vector2 position, string tileNum)
+		public void Initialize(Vector2 position, int tileNum)
 		{
 			transform.position = position;
 			name = "Tile" + tileNum;
