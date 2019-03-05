@@ -77,6 +77,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			while (true)
 			{
+				sum++;
 				GameObject cartridge;
 				GameObject warning;
 				switch (cartridgeType)
@@ -106,7 +107,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				try
 				{
 					bulletId = checked((short) (bulletId + 1));
-					sum = checked(sum + 1);
 				}
 				catch (OverflowException)
 				{
@@ -132,6 +132,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			while (true)
 			{
+				sum++;
 				GameObject hole;
 				GameObject warning;
 				switch (holeType)
@@ -160,7 +161,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				try
 				{
 					bulletId = checked((short) (bulletId + 1));
-					sum = checked(sum + 1);
 				}
 				catch (OverflowException)
 				{
