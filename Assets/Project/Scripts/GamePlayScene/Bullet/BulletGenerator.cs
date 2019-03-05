@@ -18,6 +18,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// Generatorが作成された時刻
 		public float startTime;
 
+		// 生成された銃弾のID(sortingOrder)
+		private short bulletId = -32768;
+
 		private List<IEnumerator> coroutines;
 
 		private void OnEnable()
@@ -87,6 +90,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						throw new NotImplementedException();
 				}
 
+				var tempBulletId = bulletId;
+				cartridge.GetComponent<Renderer>().sortingOrder = tempBulletId;
+				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
+
 				// 変数の初期設定
 				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
 				cartridgeScript.Initialize(direction, line);
@@ -96,6 +103,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					BulletController.LOCAL_SCALE, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
 				// delete the bullet warning
 				warningScript.DeleteWarning(cartridge);
+
+				try
+				{
+					bulletId = checked((short) (bulletId + 1));
+				}
+				catch (OverflowException)
+				{
+					break;
+				}
+
 				// 一定時間(interval)待つ
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
@@ -128,6 +145,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						throw new NotImplementedException();
 				}
 
+				var tempBulletId = bulletId;
+				hole.GetComponent<Renderer>().sortingOrder = tempBulletId;
+				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
+
 				var holeScript = hole.GetComponent<HoleController>();
 				holeScript.Initialize(row, column);
 
@@ -136,6 +157,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// delete the bullet warning
 				warningScript.DeleteWarning(hole);
+
+				try
+				{
+					bulletId = checked((short) (bulletId + 1));
+				}
+				catch (OverflowException)
+				{
+					break;
+				}
 
 				// 一定時間(interval)待つ
 				currentTime = Time.time;
