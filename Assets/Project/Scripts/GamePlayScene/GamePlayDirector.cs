@@ -160,9 +160,6 @@ namespace Project.Scripts.GamePlayScene
 			// 結果ウィンドウを非表示
 			resultWindow.SetActive(false);
 
-			// 銃弾ジェネレータをアクティブ化
-			bulletGenerator.SetActive(true);
-
 			// タイル作成スクリプトを起動
 			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageId);
 			// パネル作成スクリプトを起動
@@ -207,7 +204,6 @@ namespace Project.Scripts.GamePlayScene
 		{
 			playingAudioSource.Stop();
 			resultWindow.SetActive(true);
-			bulletGenerator.SetActive(false);
 		}
 
 		public void RetryButtonDown()
