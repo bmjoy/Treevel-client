@@ -98,9 +98,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				var bulletMotionVector = warningScript.Initialize(direction, line);
 
-				StartCoroutine(warningScript.Delete());
-				StartCoroutine(CreateCartridge(cartridgeType, direction, line, bulletMotionVector, tempBulletId,
-					appearanceTime + interval * (sum - 1)));
+				StartCoroutine(CreateCartridge(warning, cartridgeType, direction, line, bulletMotionVector,
+					tempBulletId));
 
 				try
 				{
@@ -118,11 +117,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 		}
 
-		private IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			Vector2 motionVector, short cartridgeId, float time)
+		private IEnumerator CreateCartridge(GameObject warning, CartridgeType cartridgeType,
+			CartridgeDirection direction,
+			int line,
+			Vector2 motionVector, short cartridgeId)
 		{
-			var currentTime = Time.time;
-			yield return new WaitForSeconds(time - (currentTime - startTime));
+			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
+			Destroy(warning);
 
 			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
 			{
@@ -175,9 +176,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				warningScript.Initialize(row, column);
 
 				// delete the bullet warning
-				StartCoroutine(warningScript.Delete());
-				StartCoroutine(CreateHole(holeType, row, column, warning.transform.position, tempBulletId,
-					appearanceTime + interval * (sum - 1)));
+				StartCoroutine(CreateHole(warning, holeType, row, column, warning.transform.position, tempBulletId));
 
 				try
 				{
@@ -195,11 +194,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 		}
 
-		private IEnumerator CreateHole(HoleType holeType, int row, int column, Vector3 holeWarningPosition,
-			short holeId, float time)
+		private IEnumerator CreateHole(GameObject warning, HoleType holeType, int row, int column,
+			Vector3 holeWarningPosition,
+			short holeId)
 		{
-			var currentTime = Time.time;
-			yield return new WaitForSeconds(time - (currentTime - startTime));
+			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
+			Destroy(warning);
 
 			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
 			{

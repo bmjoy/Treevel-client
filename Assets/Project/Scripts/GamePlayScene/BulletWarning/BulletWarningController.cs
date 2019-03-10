@@ -41,11 +41,5 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 		{
 			Destroy(gameObject);
 		}
-
-		public IEnumerator Delete()
-		{
-			yield return new WaitForSeconds(WARNING_DISPLAYED_TIME);
-			Destroy(gameObject);
-		}
 	}
 }
