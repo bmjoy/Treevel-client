@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
@@ -40,6 +41,12 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		private void OnFail()
 		{
+			Destroy(gameObject);
+		}
+
+		public IEnumerator Delete()
+		{
+			yield return new WaitForSeconds(WARNING_DISPLAYED_TIME);
 			Destroy(gameObject);
 		}
 	}
