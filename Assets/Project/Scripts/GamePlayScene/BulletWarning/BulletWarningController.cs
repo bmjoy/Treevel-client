@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
@@ -6,6 +7,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 	{
 		// 警告画像の表示時間
 		public const float WARNING_DISPLAYED_TIME = 1.0f;
+
+		[NonSerialized] public const float LOCAL_SCALE = 1.0f;
 
 		// 元画像のサイズ
 		protected float originalHeight;
