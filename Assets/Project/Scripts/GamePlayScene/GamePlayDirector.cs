@@ -53,31 +53,20 @@ namespace Project.Scripts.GamePlayScene
 		private void Awake()
 		{
 			UnifyDisplay();
+
 			tileGenerator = GameObject.Find("TileGenerator");
 			panelGenerator = GameObject.Find("PanelGenerator");
 			bulletGenerator = GameObject.Find("BulletGenerator");
 
 			resultWindow = GameObject.Find("ResultWindow");
-			resultWindow.SetActive(false);
 
 			resultText = resultWindow.transform.Find("Result").gameObject;
 			warningText = resultWindow.transform.Find("Warning").gameObject;
 			stageNumberText = GameObject.Find("StageNumberText");
-			// 現在のステージ番号を格納
-			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
 			SetAudioSource();
-			GameOpening();
 
-			// StageStatusのデバッグ用
-			var stageStatus = StageStatus.Get(stageId);
-			var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
-			print("-------------------------------");
-			print("ステージ" + stageId + "番は" + tmp + "です");
-			print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
-			print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
-			print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
-			print("-------------------------------");
+			GameOpening();
 		}
 
 		private void OnApplicationPause(bool pauseStatus)
@@ -153,6 +142,27 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameOpening()
 		{
+			CleanObject();
+
+			// StageStatusのデバッグ用
+			var stageStatus = StageStatus.Get(stageId);
+			var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
+			print("-------------------------------");
+			print("ステージ" + stageId + "番は" + tmp + "です");
+			print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
+			print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
+			print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
+			print("-------------------------------");
+
+			// 現在のステージ番号を格納
+			stageNumberText.GetComponent<Text>().text = stageId.ToString();
+
+			// 結果ウィンドウを非表示
+			resultWindow.SetActive(false);
+
+			// 銃弾ジェネレータをアクティブ化
+			bulletGenerator.SetActive(true);
+
 			// タイル作成スクリプトを起動
 			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageId);
 			// パネル作成スクリプトを起動
@@ -160,8 +170,6 @@ namespace Project.Scripts.GamePlayScene
 			// 銃弾作成スクリプトを起動
 			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageId);
 
-			Destroy(tileGenerator);
-			Destroy(panelGenerator);
 			// 状態を変更する
 			Dispatch(GameState.Playing);
 		}
@@ -199,18 +207,15 @@ namespace Project.Scripts.GamePlayScene
 		{
 			playingAudioSource.Stop();
 			resultWindow.SetActive(true);
-			Destroy(bulletGenerator);
+			bulletGenerator.SetActive(false);
 		}
 
 		public void RetryButtonDown()
 		{
-			// 現在のScene名を取得する
-			var loadScene = SceneManager.GetActiveScene();
-			// Sceneの読み直し
-			SceneManager.LoadScene(loadScene.name);
 			// 挑戦回数をインクリメント
 			var ss = StageStatus.Get(stageId);
 			ss.IncChallengeNum(stageId);
+			Dispatch(GameState.Opening);
 		}
 
 		public void BackButtonDown()
