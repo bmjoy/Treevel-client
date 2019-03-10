@@ -9,6 +9,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletGenerator : MonoBehaviour
 	{
+		private GamePlayDirector gamePlayDirector;
+
 		// 銃弾および警告のprefab
 		public GameObject normalCartridgePrefab;
 		public GameObject normalCartridgeWarningPrefab;
@@ -37,6 +39,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		public void CreateBullets(int stageId)
 		{
+			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
 			coroutines = new List<IEnumerator>();
 			startTime = Time.time;
 			switch (stageId)
@@ -121,21 +124,24 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(time - (currentTime - startTime));
 
-			GameObject cartridge;
-			switch (cartridgeType)
+			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
 			{
-				case CartridgeType.NormalCartridge:
-					cartridge = Instantiate(normalCartridgePrefab);
-					break;
-				default:
-					throw new NotImplementedException();
+				GameObject cartridge;
+				switch (cartridgeType)
+				{
+					case CartridgeType.NormalCartridge:
+						cartridge = Instantiate(normalCartridgePrefab);
+						break;
+					default:
+						throw new NotImplementedException();
+				}
+
+				// 変数の初期設定
+				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
+				cartridgeScript.Initialize(direction, line, motionVector);
+
+				cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
 			}
-
-			// 変数の初期設定
-			var cartridgeScript = cartridge.GetComponent<CartridgeController>();
-			cartridgeScript.Initialize(direction, line, motionVector);
-
-			cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
@@ -195,22 +201,25 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(time - (currentTime - startTime));
 
-			GameObject hole;
-			switch (holeType)
+			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
 			{
-				case HoleType.NormalHole:
-					hole = Instantiate(normalHolePrefab);
-					break;
-				default:
-					throw new NotImplementedException();
+				GameObject hole;
+				switch (holeType)
+				{
+					case HoleType.NormalHole:
+						hole = Instantiate(normalHolePrefab);
+						break;
+					default:
+						throw new NotImplementedException();
+				}
+
+				// 変数の初期設定
+				var holeScript = hole.GetComponent<HoleController>();
+				holeScript.Initialize(row, column, holeWarningPosition);
+
+				hole.GetComponent<Renderer>().sortingOrder = holeId;
+				StartCoroutine(holeScript.Delete());
 			}
-
-			// 変数の初期設定
-			var holeScript = hole.GetComponent<HoleController>();
-			holeScript.Initialize(row, column, holeWarningPosition);
-
-			hole.GetComponent<Renderer>().sortingOrder = holeId;
-			StartCoroutine(holeScript.Delete());
 		}
 
 		private void OnSucceed()
