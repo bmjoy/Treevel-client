@@ -81,8 +81,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				GameObject warning;
 				var tempBulletId = bulletId;
+
+				// 作成するcartidgeの種類で分岐
+				GameObject warning;
 				switch (cartridgeType)
 				{
 					case CartridgeType.NormalCartridge:
@@ -92,15 +94,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						throw new NotImplementedException();
 				}
 
+				// 同レイヤーのオブジェクトの描画順序の制御
 				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
 
-				// 変数の初期設定
+				// warningの位置・大きさ等の設定
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				var bulletMotionVector = warningScript.Initialize(direction, line);
-
+				// warningの表示が終わる時刻を待ち、cartidgeを作成する
 				StartCoroutine(CreateCartridge(warning, cartridgeType, direction, line, bulletMotionVector,
 					tempBulletId));
 
+				// 作成する銃弾の個数の上限チェック
 				try
 				{
 					bulletId = checked((short) (bulletId + 1));
@@ -110,21 +114,23 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					break;
 				}
 
-				// 一定時間(interval)待つ
+				// 次の銃弾を作成する時刻まで待つ
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
 			}
 		}
 
+		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
 		private IEnumerator CreateCartridge(GameObject warning, CartridgeType cartridgeType,
-			CartridgeDirection direction,
-			int line,
-			Vector2 motionVector, short cartridgeId)
+			CartridgeDirection direction, int line, Vector2 motionVector, short cartridgeId)
 		{
+			// 警告の表示時間だけ待つ
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
+			// 警告を削除する
 			Destroy(warning);
 
+			// ゲームが続いているなら銃弾を作成する
 			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
 			{
 				GameObject cartridge;
@@ -140,7 +146,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				// 変数の初期設定
 				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
 				cartridgeScript.Initialize(direction, line, motionVector);
-
+				// 同レイヤーのオブジェクトの描画順序の制御
 				cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
 			}
 		}
@@ -158,8 +164,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				GameObject warning;
 				var tempBulletId = bulletId;
+
+				GameObject warning;
 				switch (holeType)
 				{
 					case HoleType.NormalHole:
@@ -171,11 +178,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
 
-				// 変数の初期設定
 				var warningScript = warning.GetComponent<HoleWarningController>();
 				warningScript.Initialize(row, column);
 
-				// delete the bullet warning
 				StartCoroutine(CreateHole(warning, holeType, row, column, warning.transform.position, tempBulletId));
 
 				try
@@ -194,9 +199,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 		}
 
+		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
 		private IEnumerator CreateHole(GameObject warning, HoleType holeType, int row, int column,
-			Vector3 holeWarningPosition,
-			short holeId)
+			Vector3 holeWarningPosition, short holeId)
 		{
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
 			Destroy(warning);
@@ -213,7 +218,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						throw new NotImplementedException();
 				}
 
-				// 変数の初期設定
 				var holeScript = hole.GetComponent<HoleController>();
 				holeScript.Initialize(row, column, holeWarningPosition);
 

@@ -20,6 +20,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 		}
 
+		// 当たり判定(holeの表示場所に、tileがあるかどうかを確認する)
 		public IEnumerator Delete()
 		{
 			var gamePlayDirector = FindObjectOfType<GamePlayDirector>();

@@ -13,6 +13,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 				new Vector2(CartridgeWarningSize.WIDTH / originalWidth, CartridgeWarningSize.HEIGHT / originalHeight);
 		}
 
+		// 警告のpositionを計算する
+		// 銃弾の移動方向(bulletMotionVector)が副次的に計算されるので、その値を返す
 		public override Vector2 Initialize(CartridgeDirection direction, int line)
 		{
 			Vector2 bulletMotionVector;
