@@ -51,7 +51,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				case 2:
 					coroutines.Add(SetCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
 						(int) ToRight.Fifth, appearanceTime: 2.0f, interval: 0.5f));
-					coroutines.Add(CreateHole(HoleType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
+					coroutines.Add(SetHole(HoleType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
 						row: (int) Row.Second, column: (int) Column.Left));
 					break;
 				default:
@@ -95,7 +95,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				var bulletMotionVector = warningScript.Initialize(direction, line);
 
-				StartCoroutine(warningScript.DeleteWarning());
+				StartCoroutine(warningScript.Delete());
 				StartCoroutine(CreateCartridge(cartridgeType, direction, line, bulletMotionVector, tempBulletId,
 					appearanceTime + interval * (sum - 1)));
 
@@ -139,7 +139,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
-		private IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
+		private IEnumerator SetHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
 			int column = 0)
 		{
 			var currentTime = Time.time;
@@ -151,30 +151,27 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				GameObject hole;
 				GameObject warning;
+				var tempBulletId = bulletId;
 				switch (holeType)
 				{
 					case HoleType.NormalHole:
-						hole = Instantiate(normalHolePrefab);
 						warning = Instantiate(normalHoleWarningPrefab);
 						break;
 					default:
 						throw new NotImplementedException();
 				}
 
-				var tempBulletId = bulletId;
-				hole.GetComponent<Renderer>().sortingOrder = tempBulletId;
 				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
 
-				var holeScript = hole.GetComponent<HoleController>();
-				holeScript.Initialize(row, column);
-
+				// 変数の初期設定
 				var warningScript = warning.GetComponent<HoleWarningController>();
 				warningScript.Initialize(row, column);
 
 				// delete the bullet warning
-				warningScript.DeleteWarning(hole);
+				StartCoroutine(warningScript.Delete());
+				StartCoroutine(CreateHole(holeType, row, column, warning.transform.position, tempBulletId,
+					appearanceTime + interval * (sum - 1)));
 
 				try
 				{
@@ -190,6 +187,30 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
 			}
+		}
+
+		private IEnumerator CreateHole(HoleType holeType, int row, int column, Vector3 holeWarningPosition,
+			short holeId, float time)
+		{
+			var currentTime = Time.time;
+			yield return new WaitForSeconds(time - (currentTime - startTime));
+
+			GameObject hole;
+			switch (holeType)
+			{
+				case HoleType.NormalHole:
+					hole = Instantiate(normalHolePrefab);
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
+			// 変数の初期設定
+			var holeScript = hole.GetComponent<HoleController>();
+			holeScript.Initialize(row, column, holeWarningPosition);
+
+			hole.GetComponent<Renderer>().sortingOrder = holeId;
+			StartCoroutine(holeScript.Delete());
 		}
 
 		private void OnSucceed()
