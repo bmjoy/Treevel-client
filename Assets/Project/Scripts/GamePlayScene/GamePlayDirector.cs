@@ -119,6 +119,7 @@ namespace Project.Scripts.GamePlayScene
 					if (state == GameState.Opening)
 					{
 						state = nextState;
+						GamePlaying();
 						return true;
 					}
 
@@ -158,13 +159,16 @@ namespace Project.Scripts.GamePlayScene
 			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageId);
 			// 銃弾作成スクリプトを起動
 			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageId);
-			// Playing中の音源の再生
-			playingAudioSource.Play();
 
 			Destroy(tileGenerator);
 			Destroy(panelGenerator);
 			// 状態を変更する
 			Dispatch(GameState.Playing);
+		}
+
+		private void GamePlaying()
+		{
+			playingAudioSource.Play();
 		}
 
 		private void GameSucceed()
