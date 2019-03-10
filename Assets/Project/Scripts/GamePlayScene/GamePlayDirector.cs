@@ -230,14 +230,14 @@ namespace Project.Scripts.GamePlayScene
 			foreach (var tile in tiles)
 			{
 				// タイルの削除 (に伴いパネルも削除される)
-				Destroy(tile);
+				DestroyImmediate(tile);
 			}
 
 			GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
 			foreach (var bullet in bullets)
 			{
 				// 銃弾の削除
-				Destroy(bullet);
+				DestroyImmediate(bullet);
 			}
 		}
 
