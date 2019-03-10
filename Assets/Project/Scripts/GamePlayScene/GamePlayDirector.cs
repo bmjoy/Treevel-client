@@ -174,7 +174,7 @@ namespace Project.Scripts.GamePlayScene
 		private void GameSucceed()
 		{
 			if (OnSucceed != null) OnSucceed();
-			GameFinish();
+			EndProcess();
 			successAudioSource.Play();
 			resultText.GetComponent<Text>().text = "成功!";
 			var ss = StageStatus.Get(stageId);
@@ -187,7 +187,7 @@ namespace Project.Scripts.GamePlayScene
 		private void GameFail()
 		{
 			if (OnFail != null) OnFail();
-			GameFinish();
+			EndProcess();
 			failureAudioSource.Play();
 			resultText.GetComponent<Text>().text = "失敗!";
 			// 失敗回数をインクリメント
@@ -195,7 +195,7 @@ namespace Project.Scripts.GamePlayScene
 			ss.IncFailureNum(stageId);
 		}
 
-		private void GameFinish()
+		private void EndProcess()
 		{
 			playingAudioSource.Stop();
 			resultWindow.SetActive(true);
