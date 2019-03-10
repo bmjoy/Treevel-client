@@ -53,31 +53,20 @@ namespace Project.Scripts.GamePlayScene
 		private void Awake()
 		{
 			UnifyDisplay();
+
 			tileGenerator = GameObject.Find("TileGenerator");
 			panelGenerator = GameObject.Find("PanelGenerator");
 			bulletGenerator = GameObject.Find("BulletGenerator");
 
 			resultWindow = GameObject.Find("ResultWindow");
-			resultWindow.SetActive(false);
 
 			resultText = resultWindow.transform.Find("Result").gameObject;
 			warningText = resultWindow.transform.Find("Warning").gameObject;
 			stageNumberText = GameObject.Find("StageNumberText");
-			// 現在のステージ番号を格納
-			stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
 			SetAudioSource();
-			GameOpening();
 
-			// StageStatusのデバッグ用
-			var stageStatus = StageStatus.Get(stageId);
-			var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
-			print("-------------------------------");
-			print("ステージ" + stageId + "番は" + tmp + "です");
-			print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
-			print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
-			print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
-			print("-------------------------------");
+			GameOpening();
 		}
 
 		private void OnApplicationPause(bool pauseStatus)
@@ -119,6 +108,7 @@ namespace Project.Scripts.GamePlayScene
 					if (state == GameState.Opening)
 					{
 						state = nextState;
+						GamePlaying();
 						return true;
 					}
 
@@ -152,25 +142,44 @@ namespace Project.Scripts.GamePlayScene
 
 		private void GameOpening()
 		{
+			CleanObject();
+
+			// StageStatusのデバッグ用
+			var stageStatus = StageStatus.Get(stageId);
+			var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
+			print("-------------------------------");
+			print("ステージ" + stageId + "番は" + tmp + "です");
+			print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
+			print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
+			print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
+			print("-------------------------------");
+
+			// 現在のステージ番号を格納
+			stageNumberText.GetComponent<Text>().text = stageId.ToString();
+
+			// 結果ウィンドウを非表示
+			resultWindow.SetActive(false);
+
 			// タイル作成スクリプトを起動
 			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageId);
 			// パネル作成スクリプトを起動
 			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageId);
 			// 銃弾作成スクリプトを起動
 			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageId);
-			// Playing中の音源の再生
-			playingAudioSource.Play();
 
-			Destroy(tileGenerator);
-			Destroy(panelGenerator);
 			// 状態を変更する
 			Dispatch(GameState.Playing);
+		}
+
+		private void GamePlaying()
+		{
+			playingAudioSource.Play();
 		}
 
 		private void GameSucceed()
 		{
 			if (OnSucceed != null) OnSucceed();
-			GameFinish();
+			EndProcess();
 			successAudioSource.Play();
 			resultText.GetComponent<Text>().text = "成功!";
 			var ss = StageStatus.Get(stageId);
@@ -183,7 +192,7 @@ namespace Project.Scripts.GamePlayScene
 		private void GameFail()
 		{
 			if (OnFail != null) OnFail();
-			GameFinish();
+			EndProcess();
 			failureAudioSource.Play();
 			resultText.GetComponent<Text>().text = "失敗!";
 			// 失敗回数をインクリメント
@@ -191,28 +200,41 @@ namespace Project.Scripts.GamePlayScene
 			ss.IncFailureNum(stageId);
 		}
 
-		private void GameFinish()
+		private void EndProcess()
 		{
 			playingAudioSource.Stop();
 			resultWindow.SetActive(true);
-			Destroy(bulletGenerator);
 		}
 
 		public void RetryButtonDown()
 		{
-			// 現在のScene名を取得する
-			var loadScene = SceneManager.GetActiveScene();
-			// Sceneの読み直し
-			SceneManager.LoadScene(loadScene.name);
 			// 挑戦回数をインクリメント
 			var ss = StageStatus.Get(stageId);
 			ss.IncChallengeNum(stageId);
+			Dispatch(GameState.Opening);
 		}
 
 		public void BackButtonDown()
 		{
 			// StageSelectSceneに戻る
 			SceneManager.LoadScene("MenuBarScene");
+		}
+
+		private static void CleanObject()
+		{
+			GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
+			foreach (var tile in tiles)
+			{
+				// タイルの削除 (に伴いパネルも削除される)
+				DestroyImmediate(tile);
+			}
+
+			GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+			foreach (var bullet in bullets)
+			{
+				// 銃弾の削除
+				DestroyImmediate(bullet);
+			}
 		}
 
 		private static void UnifyDisplay()
