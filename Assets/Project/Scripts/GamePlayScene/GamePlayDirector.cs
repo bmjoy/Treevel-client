@@ -219,6 +219,23 @@ namespace Project.Scripts.GamePlayScene
 			SceneManager.LoadScene("MenuBarScene");
 		}
 
+		private static void CleanObject()
+		{
+			GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
+			foreach (var tile in tiles)
+			{
+				// タイルの削除 (に伴いパネルも削除される)
+				Destroy(tile);
+			}
+
+			GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+			foreach (var bullet in bullets)
+			{
+				// 銃弾の削除
+				Destroy(bullet);
+			}
+		}
+
 		private static void UnifyDisplay()
 		{
 			// 想定するデバイスのアスペクト比
