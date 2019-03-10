@@ -43,14 +43,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				case 1:
 					// coroutineのリスト
-					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft,
+					coroutines.Add(SetCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft,
 						(int) ToLeft.First, appearanceTime: 1.0f, interval: 1.0f));
-					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
+					coroutines.Add(SetCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
 						(int) ToRight.Second, appearanceTime: 2.0f, interval: 4.0f));
 					break;
 				case 2:
-					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
-						(int) ToRight.Fifth, appearanceTime: 2.0f, interval: 4.0f));
+					coroutines.Add(SetCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
+						(int) ToRight.Fifth, appearanceTime: 2.0f, interval: 0.5f));
 					coroutines.Add(CreateHole(HoleType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
 						row: (int) Row.Second, column: (int) Column.Left));
 					break;
@@ -62,7 +62,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		private IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
+		private IEnumerator SetCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
 			float appearanceTime, float interval)
 		{
 			var currentTime = Time.time;
@@ -78,31 +78,26 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				GameObject cartridge;
 				GameObject warning;
+				var tempBulletId = bulletId;
 				switch (cartridgeType)
 				{
 					case CartridgeType.NormalCartridge:
-						cartridge = Instantiate(normalCartridgePrefab);
 						warning = Instantiate(normalCartridgeWarningPrefab);
 						break;
 					default:
 						throw new NotImplementedException();
 				}
 
-				var tempBulletId = bulletId;
-				cartridge.GetComponent<Renderer>().sortingOrder = tempBulletId;
 				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
 
 				// 変数の初期設定
-				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
-				cartridgeScript.Initialize(direction, line);
-				// emerge a bullet warning
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
-				warningScript.Initialize(cartridge.transform.position, cartridgeScript.motionVector,
-					BulletController.LOCAL_SCALE, cartridgeScript.originalWidth, cartridgeScript.originalHeight);
-				// delete the bullet warning
-				warningScript.DeleteWarning(cartridge);
+				var bulletMotionVector = warningScript.Initialize(direction, line);
+
+				StartCoroutine(warningScript.DeleteWarning());
+				StartCoroutine(CreateCartridge(cartridgeType, direction, line, bulletMotionVector, tempBulletId,
+					appearanceTime + interval * (sum - 1)));
 
 				try
 				{
@@ -118,6 +113,29 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
 			}
+		}
+
+		private IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
+			Vector2 motionVector, short cartridgeId, float time)
+		{
+			var currentTime = Time.time;
+			yield return new WaitForSeconds(time - (currentTime - startTime));
+
+			GameObject cartridge;
+			switch (cartridgeType)
+			{
+				case CartridgeType.NormalCartridge:
+					cartridge = Instantiate(normalCartridgePrefab);
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
+			// 変数の初期設定
+			var cartridgeScript = cartridge.GetComponent<CartridgeController>();
+			cartridgeScript.Initialize(direction, line, motionVector);
+
+			cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
