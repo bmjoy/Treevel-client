@@ -81,28 +81,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				var tempBulletId = bulletId;
-
-				// 作成するcartidgeの種類で分岐
-				GameObject warning;
-				switch (cartridgeType)
-				{
-					case CartridgeType.NormalCartridge:
-						warning = Instantiate(normalCartridgeWarningPrefab);
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-
-				// 同レイヤーのオブジェクトの描画順序の制御
-				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
-
-				// warningの位置・大きさ等の設定
-				var warningScript = warning.GetComponent<CartridgeWarningController>();
-				var bulletMotionVector = warningScript.Initialize(direction, line);
-				// warningの表示が終わる時刻を待ち、cartidgeを作成する
-				StartCoroutine(CreateCartridge(warning, cartridgeType, direction, line, bulletMotionVector,
-					tempBulletId));
+				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId));
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -122,9 +101,27 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
-		private IEnumerator CreateCartridge(GameObject warning, CartridgeType cartridgeType,
-			CartridgeDirection direction, int line, Vector2 motionVector, short cartridgeId)
+		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
+			short cartridgeId)
 		{
+			// 作成するcartidgeの種類で分岐
+			GameObject warning;
+			switch (cartridgeType)
+			{
+				case CartridgeType.NormalCartridge:
+					warning = Instantiate(normalCartridgeWarningPrefab);
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
+			// 同レイヤーのオブジェクトの描画順序の制御
+			warning.GetComponent<Renderer>().sortingOrder = cartridgeId;
+
+			// warningの位置・大きさ等の設定
+			var warningScript = warning.GetComponent<CartridgeWarningController>();
+			var bulletMotionVector = warningScript.Initialize(direction, line);
+
 			// 警告の表示時間だけ待つ
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
 			// 警告を削除する
@@ -145,7 +142,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// 変数の初期設定
 				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
-				cartridgeScript.Initialize(direction, line, motionVector);
+				cartridgeScript.Initialize(direction, line, bulletMotionVector);
 				// 同レイヤーのオブジェクトの描画順序の制御
 				cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
 			}
@@ -164,24 +161,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				var tempBulletId = bulletId;
-
-				GameObject warning;
-				switch (holeType)
-				{
-					case HoleType.NormalHole:
-						warning = Instantiate(normalHoleWarningPrefab);
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-
-				warning.GetComponent<Renderer>().sortingOrder = tempBulletId;
-
-				var warningScript = warning.GetComponent<HoleWarningController>();
-				warningScript.Initialize(row, column);
-
-				StartCoroutine(CreateHole(warning, holeType, row, column, warning.transform.position, tempBulletId));
+				StartCoroutine(CreateOneHole(holeType, row, column, bulletId));
 
 				try
 				{
@@ -199,9 +179,23 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
-		private IEnumerator CreateHole(GameObject warning, HoleType holeType, int row, int column,
-			Vector3 holeWarningPosition, short holeId)
+		private IEnumerator CreateOneHole(HoleType holeType, int row, int column, short holeId)
 		{
+			GameObject warning;
+			switch (holeType)
+			{
+				case HoleType.NormalHole:
+					warning = Instantiate(normalHoleWarningPrefab);
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
+			warning.GetComponent<Renderer>().sortingOrder = holeId;
+
+			var warningScript = warning.GetComponent<HoleWarningController>();
+			warningScript.Initialize(row, column);
+
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
 			Destroy(warning);
 
@@ -218,7 +212,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				}
 
 				var holeScript = hole.GetComponent<HoleController>();
-				holeScript.Initialize(row, column, holeWarningPosition);
+				holeScript.Initialize(row, column, warning.transform.position);
 
 				hole.GetComponent<Renderer>().sortingOrder = holeId;
 				StartCoroutine(holeScript.Delete());
