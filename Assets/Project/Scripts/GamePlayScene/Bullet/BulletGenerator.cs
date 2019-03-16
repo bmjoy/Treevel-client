@@ -9,6 +9,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletGenerator : MonoBehaviour
 	{
+		// 生成された銃弾のID(sortingOrder)
+		private short bulletId = -32768;
+
+		private List<IEnumerator> coroutines;
+
 		private GamePlayDirector gamePlayDirector;
 
 		// 銃弾および警告のprefab
@@ -19,11 +24,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// Generatorが作成された時刻
 		public float startTime;
-
-		// 生成された銃弾のID(sortingOrder)
-		private short bulletId = -32768;
-
-		private List<IEnumerator> coroutines;
 
 		private void OnEnable()
 		{
@@ -192,7 +192,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
 				}
 
-				// 一定時間(interval)待つ
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
