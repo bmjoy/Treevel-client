@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using Project.Scripts.GamePlayScene.Bullet;
-using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning

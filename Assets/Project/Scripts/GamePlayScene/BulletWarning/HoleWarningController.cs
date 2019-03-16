@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Project.Scripts.GamePlayScene.BulletWarning
+﻿namespace Project.Scripts.GamePlayScene.BulletWarning
 {
 	public abstract class HoleWarningController : BulletWarningController
 	{
