@@ -46,16 +46,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				case 1:
 					// coroutineのリスト
-					coroutines.Add(SetCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft,
-						(int) ToLeft.First, appearanceTime: 1.0f, interval: 1.0f));
-					coroutines.Add(SetCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
-						(int) ToRight.Second, appearanceTime: 2.0f, interval: 4.0f));
+					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft,
+						(int) ToLeft.First, 1.0f, 1.0f));
+					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
+						(int) ToRight.Second, 2.0f, 4.0f));
 					break;
 				case 2:
-					coroutines.Add(SetCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
-						(int) ToRight.Fifth, appearanceTime: 2.0f, interval: 0.5f));
-					coroutines.Add(SetHole(HoleType.NormalHole, appearanceTime: 1.0f, interval: 2.0f,
-						row: (int) Row.Second, column: (int) Column.Left));
+					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
+						(int) ToRight.Fifth, 2.0f, 0.5f));
+					coroutines.Add(CreateHole(HoleType.NormalHole, 1.0f, 2.0f,
+						(int) Row.Second, (int) Column.Left));
 					break;
 				default:
 					throw new NotImplementedException();
@@ -65,7 +65,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		private IEnumerator SetCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
+		private IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
 			float appearanceTime, float interval)
 		{
 			var currentTime = Time.time;
@@ -152,7 +152,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
-		private IEnumerator SetHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
+		private IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
 			int column = 0)
 		{
 			var currentTime = Time.time;
