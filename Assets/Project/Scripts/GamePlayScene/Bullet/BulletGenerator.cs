@@ -111,7 +111,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				}
 				catch (OverflowException)
 				{
-					break;
+					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
 				}
 
 				// 次の銃弾を作成する時刻まで待つ
@@ -189,7 +189,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				}
 				catch (OverflowException)
 				{
-					break;
+					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
 				}
 
 				// 一定時間(interval)待つ
