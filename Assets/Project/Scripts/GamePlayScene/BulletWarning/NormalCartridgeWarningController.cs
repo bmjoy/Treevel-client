@@ -4,7 +4,7 @@ using System;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class NormalCartridgeWarningController : CartridgeWarningController
+	public class NormalCartridgeWarningController : BulletWarningController
 	{
 		protected override void Awake()
 		{
@@ -15,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		// 警告のpositionを計算する
 		// 銃弾の移動方向(bulletMotionVector)が副次的に計算されるので、その値を返す
-		public override Vector2 Initialize(CartridgeDirection direction, int line)
+		public Vector2 Initialize(CartridgeDirection direction, int line)
 		{
 			Vector2 bulletMotionVector;
 			Vector2 warningPosition;
