@@ -27,7 +27,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
 		}
 
-		public abstract void Initialize(CartridgeDirection direction, int line);
+		public abstract void Initialize(CartridgeDirection direction, int line, Vector2 motionVector);
 
 		protected void Update()
 		{
@@ -55,23 +55,19 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					transform.position = new Vector2((WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
-					motionVector = Vector2.left;
 					break;
 				case CartridgeDirection.ToRight:
 					transform.position = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
-					motionVector = Vector2.right;
 					break;
 				case CartridgeDirection.ToUp:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						-(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2);
-					motionVector = Vector2.up;
 					break;
 				case CartridgeDirection.ToBottom:
 					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
 						(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2);
-					motionVector = Vector2.down;
 					break;
 				default:
 					throw new NotImplementedException();

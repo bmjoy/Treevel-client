@@ -5,30 +5,25 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public abstract class HoleController : BulletController
 	{
-		private GamePlayDirector gamePlayDirector;
 		private int row;
 		private int column;
 
-		private void Start()
-		{
-			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-			StartCoroutine(Delete());
-		}
-
 		// コンストラクタがわりのメソッド
-		public virtual void Initialize(int row, int column)
+		public void Initialize(int row, int column, Vector3 holeWarningPosition)
 		{
 			this.row = row;
 			this.column = column;
-			gameObject.SetActive(false);
+			transform.position = holeWarningPosition;
 		}
 
 		protected override void OnFail()
 		{
 		}
 
-		private IEnumerator Delete()
+		// 当たり判定(holeの表示場所に、tileがあるかどうかを確認する)
+		public IEnumerator Delete()
 		{
+			var gamePlayDirector = FindObjectOfType<GamePlayDirector>();
 			var tile = GameObject.Find("Tile" + ((row - 1) * 3 + column));
 			// check whether panel exists on the tile
 			if (tile.transform.childCount != 0)
