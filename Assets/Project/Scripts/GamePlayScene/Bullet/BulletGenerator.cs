@@ -19,6 +19,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// 銃弾および警告のprefab
 		public GameObject normalCartridgePrefab;
 		public GameObject normalCartridgeWarningPrefab;
+		public GameObject turnCartridgePrefab;
 		public GameObject normalHolePrefab;
 		public GameObject normalHoleWarningPrefab;
 
