@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212451907916449790}
   - component: {fileID: 114617676760384634}
   m_Layer: 0
-  m_Name: normalCartridgePrefab
+  m_Name: NormalCartridgePrefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,12 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3774f8febe87f444c8912a134322f0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localScale: 0
   originalWidth: 0
   originalHeight: 0
   additionalMargin: 0.00001
   motionVector: {x: 0, y: 0}
-  speed: 0
 --- !u!212 &212451907916449790
 SpriteRenderer:
   m_ObjectHideFlags: 1
