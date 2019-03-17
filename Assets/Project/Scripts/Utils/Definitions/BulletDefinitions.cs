@@ -2,12 +2,13 @@
 {
 	public enum CartridgeType
 	{
-		NormalCartridge
+		Normal,
+		Turn
 	}
 
 	public enum HoleType
 	{
-		NormalHole
+		Normal
 	}
 
 	public enum CartridgeDirection

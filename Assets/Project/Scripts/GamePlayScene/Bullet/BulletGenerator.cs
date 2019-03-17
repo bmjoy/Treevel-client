@@ -91,7 +91,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			GameObject warning;
 			switch (cartridgeType)
 			{
-				case CartridgeType.NormalCartridge:
+				case CartridgeType.Normal:
+					warning = Instantiate(normalCartridgeWarningPrefab);
+					break;
+				case CartridgeType.Turn:
 					warning = Instantiate(normalCartridgeWarningPrefab);
 					break;
 				default:
@@ -116,15 +119,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				GameObject cartridge;
 				switch (cartridgeType)
 				{
-					case CartridgeType.NormalCartridge:
+					case CartridgeType.Normal:
 						cartridge = Instantiate(normalCartridgePrefab);
+						break;
+					case CartridgeType.Turn:
+						cartridge = Instantiate(turnCartridgePrefab);
 						break;
 					default:
 						throw new NotImplementedException();
 				}
 
 				// 変数の初期設定
-				var cartridgeScript = cartridge.GetComponent<CartridgeController>();
+				var cartridgeScript = cartridge.GetComponent<NormalCartridgeController>();
 				cartridgeScript.Initialize(direction, line, bulletMotionVector);
 				// 同レイヤーのオブジェクトの描画順序の制御
 				cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
@@ -167,7 +173,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			GameObject warning;
 			switch (holeType)
 			{
-				case HoleType.NormalHole:
+				case HoleType.Normal:
 					warning = Instantiate(normalHoleWarningPrefab);
 					break;
 				default:
@@ -187,14 +193,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				GameObject hole;
 				switch (holeType)
 				{
-					case HoleType.NormalHole:
+					case HoleType.Normal:
 						hole = Instantiate(normalHolePrefab);
 						break;
 					default:
 						throw new NotImplementedException();
 				}
 
-				var holeScript = hole.GetComponent<HoleController>();
+				var holeScript = hole.GetComponent<NormalHoleController>();
 				holeScript.Initialize(row, column, warning.transform.position);
 
 				hole.GetComponent<Renderer>().sortingOrder = holeId;
