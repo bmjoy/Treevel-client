@@ -16,53 +16,52 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public GameObject staticDummyPanelPrefab;
 		public GameObject dynamicDummyPanelPrefab;
 
-		// 現段階では8枚のパネル群
-		public void CreatePanels(int stageId)
+		public void CreateNumberPanel(int panelNumber, int initialTileNum, int finalTileNum)
 		{
-			switch (stageId)
+			GameObject panelPrefab;
+			switch (panelNumber)
 			{
 				case 1:
-					CreateDynamicDummyPanel(initialTileNum: 3, panelPrefab: dynamicDummyPanelPrefab);
-					CreateNumberPanel(initialTileNum: 4, finalTileNum: 4, panelPrefab: numberPanel1Prefab);
-					CreateNumberPanel(initialTileNum: 5, finalTileNum: 5, panelPrefab: numberPanel2Prefab);
-					CreateNumberPanel(initialTileNum: 6, finalTileNum: 6, panelPrefab: numberPanel3Prefab);
-					CreateNumberPanel(initialTileNum: 7, finalTileNum: 7, panelPrefab: numberPanel4Prefab);
-					CreateNumberPanel(initialTileNum: 8, finalTileNum: 8, panelPrefab: numberPanel5Prefab);
-					CreateNumberPanel(initialTileNum: 9, finalTileNum: 9, panelPrefab: numberPanel6Prefab);
-					CreateNumberPanel(initialTileNum: 10, finalTileNum: 10, panelPrefab: numberPanel7Prefab);
-					CreateNumberPanel(initialTileNum: 14, finalTileNum: 11, panelPrefab: numberPanel8Prefab);
-					CreateStaticDummyPanel(initialTileNum: 15, panelPrefab: staticDummyPanelPrefab);
+					panelPrefab = numberPanel1Prefab;
 					break;
 				case 2:
-					CreateNumberPanel(initialTileNum: 1, finalTileNum: 4, panelPrefab: numberPanel1Prefab);
-					CreateNumberPanel(initialTileNum: 3, finalTileNum: 5, panelPrefab: numberPanel2Prefab);
-					CreateNumberPanel(initialTileNum: 5, finalTileNum: 6, panelPrefab: numberPanel3Prefab);
-					CreateNumberPanel(initialTileNum: 6, finalTileNum: 7, panelPrefab: numberPanel4Prefab);
-					CreateNumberPanel(initialTileNum: 8, finalTileNum: 8, panelPrefab: numberPanel5Prefab);
-					CreateNumberPanel(initialTileNum: 11, finalTileNum: 9, panelPrefab: numberPanel6Prefab);
-					CreateNumberPanel(initialTileNum: 13, finalTileNum: 10, panelPrefab: numberPanel7Prefab);
-					CreateNumberPanel(initialTileNum: 15, finalTileNum: 11, panelPrefab: numberPanel8Prefab);
+					panelPrefab = numberPanel2Prefab;
+					break;
+				case 3:
+					panelPrefab = numberPanel3Prefab;
+					break;
+				case 4:
+					panelPrefab = numberPanel4Prefab;
+					break;
+				case 5:
+					panelPrefab = numberPanel5Prefab;
+					break;
+				case 6:
+					panelPrefab = numberPanel6Prefab;
+					break;
+				case 7:
+					panelPrefab = numberPanel7Prefab;
+					break;
+				case 8:
+					panelPrefab = numberPanel8Prefab;
 					break;
 				default:
 					throw new NotImplementedException();
 			}
-		}
 
-		private static void CreateNumberPanel(int initialTileNum, int finalTileNum, GameObject panelPrefab)
-		{
 			var panel = Instantiate(panelPrefab);
 			panel.GetComponent<NumberPanelController>().Initialize(initialTileNum, finalTileNum);
 		}
 
-		private static void CreateStaticDummyPanel(int initialTileNum, GameObject panelPrefab)
+		public void CreateStaticDummyPanel(int initialTileNum)
 		{
-			var panel = Instantiate(panelPrefab);
+			var panel = Instantiate(staticDummyPanelPrefab);
 			panel.GetComponent<StaticPanelController>().Initialize(initialTileNum);
 		}
 
-		private static void CreateDynamicDummyPanel(int initialTileNum, GameObject panelPrefab)
+		public void CreateDynamicDummyPanel(int initialTileNum)
 		{
-			var panel = Instantiate(panelPrefab);
+			var panel = Instantiate(dynamicDummyPanelPrefab);
 			panel.GetComponent<DynamicPanelController>().Initialize(initialTileNum);
 		}
 	}

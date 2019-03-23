@@ -37,35 +37,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			GamePlayDirector.OnFail -= OnFail;
 		}
 
-		public void CreateBullets(int stageId)
+		public void CreateBullets(List<IEnumerator> coroutines)
 		{
+			this.coroutines = coroutines;
 			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-			coroutines = new List<IEnumerator>();
 			startTime = Time.time;
-			switch (stageId)
-			{
-				case 1:
-					// coroutineのリスト
-					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToLeft,
-						(int) ToLeft.First, 1.0f, 1.0f));
-					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
-						(int) ToRight.Second, 2.0f, 4.0f));
-					break;
-				case 2:
-					coroutines.Add(CreateCartridge(CartridgeType.NormalCartridge, CartridgeDirection.ToRight,
-						(int) ToRight.Fifth, 2.0f, 0.5f));
-					coroutines.Add(CreateHole(HoleType.NormalHole, 1.0f, 2.0f,
-						(int) Row.Second, (int) Column.Left));
-					break;
-				default:
-					throw new NotImplementedException();
-			}
 
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		private IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
+		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
 			float appearanceTime, float interval)
 		{
 			var currentTime = Time.time;
@@ -149,7 +131,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
-		private IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
+		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
 			int column = 0)
 		{
 			var currentTime = Time.time;
