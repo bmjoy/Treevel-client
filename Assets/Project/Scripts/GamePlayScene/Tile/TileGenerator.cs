@@ -39,7 +39,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 		private GameObject CreateOneTile(Vector2 position, int tileNum)
 		{
 			var tile = Instantiate(normalTilePrefab);
-			tile.GetComponent<TileController>().Initialize(position, tileNum);
+			tile.GetComponent<NormalTileController>().Initialize(position, tileNum);
 
 			return tile;
 		}
@@ -58,7 +58,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 					var upperTile = i == 0 ? null : tiles[i - 1, j];
 					var lowerTile = i + 1 == row ? null : tiles[i + 1, j];
 					// タイルオブジェクトのスクリプトに上下左右のタイルオブジェクトを格納する
-					tiles[i, j].GetComponent<TileController>().MakeRelation(rightTile, leftTile, upperTile, lowerTile);
+					tiles[i, j].GetComponent<NormalTileController>().MakeRelation(rightTile, leftTile, upperTile, lowerTile);
 				}
 			}
 		}

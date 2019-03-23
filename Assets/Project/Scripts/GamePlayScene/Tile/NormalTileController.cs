@@ -4,7 +4,7 @@ using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-	public class TileController : MonoBehaviour
+	public class NormalTileController : MonoBehaviour
 	{
 		[CanBeNull] public GameObject rightTile;
 		[CanBeNull] public GameObject leftTile;

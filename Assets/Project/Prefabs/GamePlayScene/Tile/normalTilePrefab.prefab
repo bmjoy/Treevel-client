@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4482315734691428}
   - component: {fileID: 212720884470728028}
-  - component: {fileID: 114271774500816028}
+  - component: {fileID: 114202185148520404}
   m_Layer: 0
   m_Name: normalTilePrefab
   m_TagString: Tile
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114271774500816028
+--- !u!114 &114202185148520404
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
