@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
@@ -16,40 +16,27 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public GameObject staticDummyPanelPrefab;
 		public GameObject dynamicDummyPanelPrefab;
 
+		private List<GameObject> numberPanelPrefabs;
+
+		private void Awake()
+		{
+			numberPanelPrefabs = new List<GameObject>
+			{
+				numberPanel1Prefab,
+				numberPanel2Prefab,
+				numberPanel3Prefab,
+				numberPanel4Prefab,
+				numberPanel4Prefab,
+				numberPanel5Prefab,
+				numberPanel6Prefab,
+				numberPanel7Prefab,
+				numberPanel8Prefab
+			};
+		}
+
 		public void CreateNumberPanel(int panelNumber, int initialTileNum, int finalTileNum)
 		{
-			GameObject panelPrefab;
-			switch (panelNumber)
-			{
-				case 1:
-					panelPrefab = numberPanel1Prefab;
-					break;
-				case 2:
-					panelPrefab = numberPanel2Prefab;
-					break;
-				case 3:
-					panelPrefab = numberPanel3Prefab;
-					break;
-				case 4:
-					panelPrefab = numberPanel4Prefab;
-					break;
-				case 5:
-					panelPrefab = numberPanel5Prefab;
-					break;
-				case 6:
-					panelPrefab = numberPanel6Prefab;
-					break;
-				case 7:
-					panelPrefab = numberPanel7Prefab;
-					break;
-				case 8:
-					panelPrefab = numberPanel8Prefab;
-					break;
-				default:
-					throw new NotImplementedException();
-			}
-
-			var panel = Instantiate(panelPrefab);
+			var panel = Instantiate(numberPanelPrefabs[panelNumber - 1]);
 			panel.GetComponent<NumberPanelController>().Initialize(initialTileNum, finalTileNum);
 		}
 
