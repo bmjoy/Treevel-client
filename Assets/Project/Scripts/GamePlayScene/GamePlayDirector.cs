@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
-using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,11 +28,7 @@ namespace Project.Scripts.GamePlayScene
 
 		public GameState state = GameState.Opening;
 
-		private GameObject tileGenerator;
-
-		private GameObject panelGenerator;
-
-		private GameObject bulletGenerator;
+		private GameObject stageGenerator;
 
 		private GameObject resultWindow;
 
@@ -54,9 +48,7 @@ namespace Project.Scripts.GamePlayScene
 		{
 			UnifyDisplay();
 
-			tileGenerator = GameObject.Find("TileGenerator");
-			panelGenerator = GameObject.Find("PanelGenerator");
-			bulletGenerator = GameObject.Find("BulletGenerator");
+			stageGenerator = GameObject.Find("StageGenerator");
 
 			resultWindow = GameObject.Find("ResultWindow");
 
@@ -65,7 +57,10 @@ namespace Project.Scripts.GamePlayScene
 			stageNumberText = GameObject.Find("StageNumberText");
 
 			SetAudioSource();
+		}
 
+		private void Start()
+		{
 			GameOpening();
 		}
 
@@ -160,12 +155,8 @@ namespace Project.Scripts.GamePlayScene
 			// 結果ウィンドウを非表示
 			resultWindow.SetActive(false);
 
-			// タイル作成スクリプトを起動
-			tileGenerator.GetComponent<TileGenerator>().CreateTiles(stageId);
-			// パネル作成スクリプトを起動
-			panelGenerator.GetComponent<PanelGenerator>().CreatePanels(stageId);
-			// 銃弾作成スクリプトを起動
-			bulletGenerator.GetComponent<BulletGenerator>().CreateBullets(stageId);
+			// 番号に合わせたステージの作成
+			stageGenerator.GetComponent<StageGenerator>().CreateStages(stageId);
 
 			// 状態を変更する
 			Dispatch(GameState.Playing);
