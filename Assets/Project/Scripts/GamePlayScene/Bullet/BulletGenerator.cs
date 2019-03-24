@@ -48,8 +48,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			float appearanceTime, float interval)
+		private IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
+			float appearanceTime, float interval, int[,] additionalInfo = null)
 		{
 			var currentTime = Time.time;
 
@@ -64,7 +64,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId));
+				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId, additionalInfo));
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -85,7 +85,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
 		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			short cartridgeId)
+			short cartridgeId, int[,] additionalInfo)
 		{
 			// 作成するcartidgeの種類で分岐
 			GameObject warning;
@@ -131,7 +131,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// 変数の初期設定
 				var cartridgeScript = cartridge.GetComponent<NormalCartridgeController>();
-				cartridgeScript.Initialize(direction, line, bulletMotionVector);
+				cartridgeScript.Initialize(direction, line, bulletMotionVector, additionalInfo);
 				// 同レイヤーのオブジェクトの描画順序の制御
 				cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
 			}

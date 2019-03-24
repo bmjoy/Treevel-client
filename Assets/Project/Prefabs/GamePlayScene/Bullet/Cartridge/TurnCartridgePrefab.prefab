@@ -52,6 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041c494d274ad4b579a42d5e45b5bf41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalWidth: 0
+  originalHeight: 0
+  additionalMargin: 0.00001
+  motionVector: {x: 0, y: 0}
+  normalCartridgeWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
+    type: 2}
 --- !u!212 &212145730030468188
 SpriteRenderer:
   m_ObjectHideFlags: 1

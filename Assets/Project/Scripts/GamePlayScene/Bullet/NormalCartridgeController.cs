@@ -8,7 +8,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	{
 		public float additionalMargin = 0.00001f;
 		public Vector2 motionVector;
-		[NonSerialized] public float speed = 0.10f;
+		protected Vector2 orthogonalMotionVector;
+		[NonSerialized] protected float speed = 0.10f;
 
 		protected override void Awake()
 		{
@@ -28,11 +29,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// コンストラクタがわりのメソッド
-		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector)
+		public virtual void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
+			int[,] additionalInfo)
+		{
+			Initialize(direction, line, motionVector);
+		}
+
+		protected void Initialize(CartridgeDirection direction, int line, Vector2 motionVector)
 		{
 			this.motionVector = motionVector;
 			SetInitialPosition(direction, line);
 		}
+
 		protected void Update()
 		{
 			// Check if bullet goes out of window
@@ -45,37 +53,25 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				Destroy(gameObject);
 		}
 
-		protected void FixedUpdate()
+		protected virtual void FixedUpdate()
 		{
 			transform.Translate(motionVector * speed, Space.World);
 		}
 
 		// 銃弾の初期配置の設定
-		protected void SetInitialPosition(CartridgeDirection direction, int line)
+		private void SetInitialPosition(CartridgeDirection direction, int line)
 		{
-			switch (direction)
-			{
-				case CartridgeDirection.ToLeft:
-					transform.position = new Vector2((WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
-						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-						TileSize.HEIGHT * (line - 1));
-					break;
-				case CartridgeDirection.ToRight:
-					transform.position = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
-						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-						TileSize.HEIGHT * (line - 1));
-					break;
-				case CartridgeDirection.ToUp:
-					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
-						-(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2);
-					break;
-				case CartridgeDirection.ToBottom:
-					transform.position = new Vector2(TileSize.WIDTH * (line - 2),
-						(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2);
-					break;
-				default:
-					throw new NotImplementedException();
-			}
+			// 移動方向に関わる座標
+			var motionVectorPosition = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
+				                           -(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2) * motionVector;
+			// 移動方向に垂直な方向の座標
+			orthogonalMotionVector = new Vector2(Math.Abs(motionVector.y), Math.Abs(motionVector.x));
+			var orthogonalMotionVectorPosition = new Vector2(TileSize.WIDTH * (line - 2),
+				                                     WindowSize.HEIGHT * 0.5f -
+				                                     (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
+				                                     TileSize.HEIGHT * (line - 1)) * orthogonalMotionVector;
+			// 銃弾の座標の初期位置
+			transform.position = motionVectorPosition + orthogonalMotionVectorPosition;
 
 			// Check if a bullet should be flipped vertically
 			transform.localScale = new Vector2(CartridgeSize.WIDTH / originalWidth,

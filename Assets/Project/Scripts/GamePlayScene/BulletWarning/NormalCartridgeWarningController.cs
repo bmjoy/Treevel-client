@@ -64,5 +64,13 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			transform.position = warningPosition;
 			return bulletMotionVector;
 		}
+
+		// 警告の座標と画像を引数に受け取る
+		public void Initialize(Vector2 position, string imageName)
+		{
+			transform.position = position;
+			var sprite = Resources.Load<Sprite>("Textures/BulletWarning/" + imageName);
+			gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+		}
 	}
 }
