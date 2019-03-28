@@ -22,6 +22,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return new Vector2(v.y, v.x);
 		}
 
+		protected static Vector2 Rotate(Vector2 v, float angle)
+		{
+			return new Vector2((float) (Math.Cos(angle) * v.x - Math.Sin(angle) * v.y),
+				(float) (Math.Sin(angle) * v.x + Math.Cos(angle) * v.y));
+		}
+
 		protected virtual void Awake()
 		{
 			originalWidth = GetComponent<SpriteRenderer>().size.x;
