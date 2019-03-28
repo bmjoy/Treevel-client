@@ -64,7 +64,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			var motionVectorPosition = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
 				                           -(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2) * motionVector;
 			// 移動方向に垂直な方向の座標
-			orthogonalMotionVector = new Vector2(Math.Abs(motionVector.y), Math.Abs(motionVector.x));
+			var orthogonalMotionVector = Abs(Transposition(motionVector));
 			var orthogonalMotionVectorPosition = new Vector2(TileSize.WIDTH * (line - 2),
 				                                     WindowSize.HEIGHT * 0.5f -
 				                                     (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -

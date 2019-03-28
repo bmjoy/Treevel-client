@@ -12,6 +12,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public float originalWidth;
 		public float originalHeight;
 
+		protected static Vector2 Abs(Vector2 v)
+		{
+			return new Vector2(Math.Abs(v.x), Math.Abs(v.y));
+		}
+
+		protected static Vector2 Transposition(Vector2 v)
+		{
+			return new Vector2(v.y, v.x);
+		}
+
 		protected virtual void Awake()
 		{
 			originalWidth = GetComponent<SpriteRenderer>().size.x;
