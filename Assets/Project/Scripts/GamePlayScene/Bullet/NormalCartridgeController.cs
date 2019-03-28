@@ -8,8 +8,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	{
 		public float additionalMargin = 0.00001f;
 		public Vector2 motionVector;
-		protected Vector2 orthogonalMotionVector;
-		[NonSerialized] protected float speed = 0.10f;
+		[NonSerialized] protected float speed = 0.05f;
 
 		protected override void Awake()
 		{
