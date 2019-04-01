@@ -89,6 +89,18 @@ namespace Project.Scripts.GamePlayScene.Panel
 			transform.parent = targetTile.transform;
 			// 親タイルへ移動
 			transform.position = transform.parent.position;
+
+			// ワープタイルの場合には追加処理を施す
+			var warpTileController = targetTile.GetComponent<WarpTileController>();
+			if (warpTileController != null)
+			{
+				// ワープ先が移動可能なタイルかどうか
+				if (warpTileController.pairTile.transform.childCount != 0)
+				{
+					transform.parent = warpTileController.pairTile.transform;
+					transform.position = transform.parent.position;
+				}
+			}
 		}
 
 		private void OnSucceed()
