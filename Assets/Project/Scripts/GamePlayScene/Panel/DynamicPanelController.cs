@@ -95,7 +95,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			if (warpTileController != null)
 			{
 				// ワープ先が移動可能なタイルかどうか
-				if (warpTileController.pairTile.transform.childCount != 0)
+				if (warpTileController.pairTile.transform.childCount == 0)
 				{
 					transform.parent = warpTileController.pairTile.transform;
 					transform.position = transform.parent.position;
