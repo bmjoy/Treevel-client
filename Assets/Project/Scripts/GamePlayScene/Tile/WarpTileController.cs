@@ -2,7 +2,7 @@
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-	public class WarpTileController : TileController
+	public class WarpTileController : NormalTileController
 	{
 		// 相方のwarpTile
 		public GameObject pairTile;
