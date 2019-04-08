@@ -27,9 +27,6 @@ namespace Project.Scripts.GamePlayScene
 
 		public void CreateStages(int stageId)
 		{
-			// タイル作成
-			tileGenerator.CreateTiles();
-
 			List<IEnumerator> coroutines = new List<IEnumerator>();
 
 			switch (stageId)
@@ -42,6 +39,8 @@ namespace Project.Scripts.GamePlayScene
 					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.NormalCartridge,
 						CartridgeDirection.ToRight,
 						(int) ToRight.Second, 2.0f, 4.0f));
+					// タイル作成
+					tileGenerator.CreateNormalTiles();
 					// パネル作成
 					panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
 					panelGenerator.CreateNumberPanel(panelNumber: 1, initialTileNum: 4, finalTileNum: 4);
@@ -61,6 +60,9 @@ namespace Project.Scripts.GamePlayScene
 						(int) ToRight.Fifth, 2.0f, 0.5f));
 					coroutines.Add(bulletGenerator.CreateHole(HoleType.NormalHole, 1.0f, 2.0f,
 						(int) Row.Second, (int) Column.Left));
+					// タイル作成
+					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
+					tileGenerator.CreateNormalTiles();
 					// パネル作成
 					panelGenerator.CreateNumberPanel(panelNumber: 1, initialTileNum: 1, finalTileNum: 4);
 					panelGenerator.CreateNumberPanel(panelNumber: 2, initialTileNum: 3, finalTileNum: 5);

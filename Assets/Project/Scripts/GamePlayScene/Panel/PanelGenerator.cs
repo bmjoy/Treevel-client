@@ -26,7 +26,6 @@ namespace Project.Scripts.GamePlayScene.Panel
 				numberPanel2Prefab,
 				numberPanel3Prefab,
 				numberPanel4Prefab,
-				numberPanel4Prefab,
 				numberPanel5Prefab,
 				numberPanel6Prefab,
 				numberPanel7Prefab,

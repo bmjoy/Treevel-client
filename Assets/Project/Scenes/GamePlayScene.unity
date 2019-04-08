@@ -393,6 +393,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalTilePrefab: {fileID: 1202584627454472, guid: 10615e735d661461a88777d89755bf0e,
     type: 2}
+  warpTilePrefab: {fileID: 1341861734510488, guid: 478593e9f969847a4af06fc32611b1a1,
+    type: 2}
 --- !u!1 &896036186
 GameObject:
   m_ObjectHideFlags: 0

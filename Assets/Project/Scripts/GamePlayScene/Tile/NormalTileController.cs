@@ -1,10 +1,10 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 using Project.Scripts.Utils.Definitions;
+using JetBrains.Annotations;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-	public class TileController : MonoBehaviour
+	public class NormalTileController : MonoBehaviour
 	{
 		[CanBeNull] public GameObject rightTile;
 		[CanBeNull] public GameObject leftTile;
@@ -32,6 +32,11 @@ namespace Project.Scripts.GamePlayScene.Tile
 			this.leftTile = leftTile;
 			this.upperTile = upperTile;
 			this.lowerTile = lowerTile;
+		}
+
+		/* パネルがタイルに移動してきたときの処理 */
+		public virtual void HandlePanel(GameObject panel)
+		{
 		}
 	}
 }

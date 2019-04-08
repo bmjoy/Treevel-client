@@ -47,7 +47,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
 			// 親タイルオブジェクトのスクリプトを取得
-			var parentTile = transform.parent.gameObject.GetComponent<TileController>();
+			var parentTile = transform.parent.gameObject.GetComponent<NormalTileController>();
 			// フリック方向
 			var x = gesture.ScreenFlickVector.x;
 			var y = gesture.ScreenFlickVector.y;
@@ -89,6 +89,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 			transform.parent = targetTile.transform;
 			// 親タイルへ移動
 			transform.position = transform.parent.position;
+			// 親タイルの副作用
+			targetTile.GetComponent<NormalTileController>().HandlePanel(gameObject);
 		}
 
 		private void OnSucceed()
