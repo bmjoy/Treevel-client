@@ -33,5 +33,10 @@ namespace Project.Scripts.GamePlayScene.Tile
 			this.upperTile = upperTile;
 			this.lowerTile = lowerTile;
 		}
+
+		/* パネルがタイルに移動してきたときの処理 */
+		public virtual void HandlePanel(GameObject panel)
+		{
+		}
 	}
 }

@@ -12,5 +12,14 @@ namespace Project.Scripts.GamePlayScene.Tile
 			base.Initialize(position, tileNum);
 			this.pairTile = pairTile;
 		}
+
+		public override void HandlePanel(GameObject panel)
+		{
+			if (pairTile.transform.childCount == 0)
+			{
+				panel.transform.parent = pairTile.transform;
+				panel.transform.position = pairTile.transform.position;
+			}
+		}
 	}
 }
