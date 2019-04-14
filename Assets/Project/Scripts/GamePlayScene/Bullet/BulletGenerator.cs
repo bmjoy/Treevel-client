@@ -121,11 +121,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				{
 					case CartridgeType.Normal:
 						cartridge = Instantiate(normalCartridgePrefab);
-						cartridge.GetComponent<NormalCartridgeController>().Initialize(direction, line, bulletMotionVector);
+						cartridge.GetComponent<NormalCartridgeController>()
+							.Initialize(direction, line, bulletMotionVector);
 						break;
 					case CartridgeType.Turn:
 						cartridge = Instantiate(turnCartridgePrefab);
-						cartridge.GetComponent<TurnCartridgeController>().Initialize(direction, line, bulletMotionVector, additionalInfo);
+						cartridge.GetComponent<TurnCartridgeController>()
+							.Initialize(direction, line, bulletMotionVector, additionalInfo);
 						break;
 					default:
 						throw new NotImplementedException();

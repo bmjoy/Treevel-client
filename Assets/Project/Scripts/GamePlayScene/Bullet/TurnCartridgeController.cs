@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
-
 	public class TurnCartridgeController : NormalCartridgeController
 	{
 		// 回転方向
