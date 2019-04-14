@@ -121,17 +121,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				{
 					case CartridgeType.Normal:
 						cartridge = Instantiate(normalCartridgePrefab);
+						cartridge.GetComponent<NormalCartridgeController>().Initialize(direction, line, bulletMotionVector);
 						break;
 					case CartridgeType.Turn:
 						cartridge = Instantiate(turnCartridgePrefab);
+						cartridge.GetComponent<TurnCartridgeController>().Initialize(direction, line, bulletMotionVector, additionalInfo);
 						break;
 					default:
 						throw new NotImplementedException();
 				}
 
-				// 変数の初期設定
-				var cartridgeScript = cartridge.GetComponent<NormalCartridgeController>();
-				cartridgeScript.Initialize(direction, line, bulletMotionVector, additionalInfo);
 				// 同レイヤーのオブジェクトの描画順序の制御
 				cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
 			}

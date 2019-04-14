@@ -27,14 +27,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
 		}
 
-		// コンストラクタがわりのメソッド
-		public virtual void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
-			int[,] additionalInfo)
-		{
-			Initialize(direction, line, motionVector);
-		}
-
-		protected void Initialize(CartridgeDirection direction, int line, Vector2 motionVector)
+		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector)
 		{
 			this.motionVector = motionVector;
 			SetInitialPosition(direction, line);
