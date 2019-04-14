@@ -33,12 +33,17 @@ namespace Project.Scripts.GamePlayScene
 			{
 				case 1:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.NormalCartridge,
+					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Turn,
 						CartridgeDirection.ToLeft,
-						(int) ToLeft.First, 1.0f, 1.0f));
-					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.NormalCartridge,
-						CartridgeDirection.ToRight,
-						(int) ToRight.Second, 2.0f, 4.0f));
+						(int) Row.Second, 1.0f, 1.0f,
+						new int[,]
+						{
+							{(int)CartridgeDirection.ToUp, (int)Column.Right},
+							{(int)CartridgeDirection.ToLeft, (int)Row.First}
+						}));
+					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Normal,
+						CartridgeDirection.ToUp,
+						(int) Column.Right, 2.0f, 4.0f));
 					// タイル作成
 					tileGenerator.CreateNormalTiles();
 					// パネル作成
@@ -55,10 +60,10 @@ namespace Project.Scripts.GamePlayScene
 					break;
 				case 2:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.NormalCartridge,
+					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Normal,
 						CartridgeDirection.ToRight,
-						(int) ToRight.Fifth, 2.0f, 0.5f));
-					coroutines.Add(bulletGenerator.CreateHole(HoleType.NormalHole, 1.0f, 2.0f,
+						(int) Row.Fifth, 2.0f, 0.5f));
+					coroutines.Add(bulletGenerator.CreateHole(HoleType.Normal, 1.0f, 2.0f,
 						(int) Row.Second, (int) Column.Left));
 					// タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
