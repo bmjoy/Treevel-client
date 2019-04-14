@@ -13,7 +13,7 @@
 
 	public enum CartridgeDirection
 	{
-		ToLeft = 1,
+		ToLeft,
 		ToRight,
 		ToUp,
 		ToBottom

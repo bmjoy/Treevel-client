@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
+
 	public class TurnCartridgeController : NormalCartridgeController
 	{
 		// 回転方向
@@ -48,7 +49,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
 				// warningの位置・大きさ等の設定
 				var warningScript = warning.GetComponent<NormalCartridgeWarningController>();
-				warningScript.Initialize(turnPoint, warningList[turnDirection[0] - 1]);
+				warningScript.Initialize(turnPoint, warningList[turnDirection[0]]);
 				rotateCount++;
 				transform.Translate(motionVector * speed, Space.World);
 			}
@@ -84,7 +85,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						            TileSize.WIDTH * (turnLine[0] - 2),
 						            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						            TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
-					turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
+					turnAngle = turnDirection[0] % 2 == 1 ? -90 : 90;
 					turnAngle = (motionVector.x + motionVector.y) * turnAngle;
 					turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
 					rotateCount = -1;
@@ -104,7 +105,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 		}
 
-		public override void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
+		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
 			int[,] additionalInfo)
 		{
 			Initialize(direction, line, motionVector);
@@ -122,7 +123,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 				            TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
 			// 回転角度
-			turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
+			turnAngle = turnDirection[0] % 2 == 1 ? -90 : 90;
 			turnAngle = (motionVector.x + motionVector.y) * turnAngle;
 			turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
 		}
