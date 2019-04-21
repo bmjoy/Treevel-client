@@ -258,15 +258,15 @@ namespace Project.Scripts.GamePlayScene
 			// Playing
 			gameObject.AddComponent<AudioSource>();
 			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-			SetAudioSource(clipName: "Playing", audioSource: playingAudioSource, time: 2.0f, volume: 0.10f, loop: true);
+			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, volume: 0.10f, loop: true);
 			// Success
 			gameObject.AddComponent<AudioSource>();
 			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-			SetAudioSource(clipName: "Success", audioSource: successAudioSource, volume: 0.40f);
+			SetAudioSource(clipName: "success", audioSource: successAudioSource, volume: 0.40f);
 			// Failure
 			gameObject.AddComponent<AudioSource>();
 			failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-			SetAudioSource(clipName: "Failure", audioSource: failureAudioSource, volume: 0.40f);
+			SetAudioSource(clipName: "failure", audioSource: failureAudioSource, volume: 0.40f);
 		}
 
 		// AudioSourceの変数(音源名、開始時間、音量、繰り返しの有無)の設定

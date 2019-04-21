@@ -4,7 +4,7 @@ using System;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class NormalCartridgeWarningController : CartridgeWarningController
+	public class NormalCartridgeWarningController : BulletWarningController
 	{
 		protected override void Awake()
 		{
@@ -15,8 +15,20 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		// 警告のpositionを計算する
 		// 銃弾の移動方向(bulletMotionVector)が副次的に計算されるので、その値を返す
-		public override Vector2 Initialize(CartridgeDirection direction, int line)
+		public Vector2 Initialize(CartridgeType cartridgeType, CartridgeDirection direction, int line)
 		{
+			switch (cartridgeType)
+			{
+				case CartridgeType.Normal:
+					break;
+				case CartridgeType.Turn:
+					var sprite = Resources.Load<Sprite>("Textures/BulletWarning/turnWarning");
+					gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
 			Vector2 bulletMotionVector;
 			Vector2 warningPosition;
 			switch (direction)
@@ -51,6 +63,14 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 				                  new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
 			transform.position = warningPosition;
 			return bulletMotionVector;
+		}
+
+		// 警告の座標と画像を引数に受け取る
+		public void Initialize(Vector2 position, string imageName)
+		{
+			transform.position = position;
+			var sprite = Resources.Load<Sprite>("Textures/BulletWarning/" + imageName);
+			gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
 		}
 	}
 }
