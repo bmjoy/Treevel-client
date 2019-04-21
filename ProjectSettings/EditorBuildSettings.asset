@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/MenuBarScene.unity
     guid: 47c09d9777db0433eab6b66eac0abee4
   - enabled: 1
-    path: Assets/Project/Scenes/StageSelectScene.unity
+    path: Assets/Project/Scenes/EasyStageSelectScene.unity
     guid: 4b0234159911040549a0ca37c4209712
   - enabled: 1
     path: Assets/Project/Scenes/RecordScene.unity
@@ -23,4 +23,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/GamePlayScene.unity
     guid: dcec7563bff464223b7c21f17f5902f5
+  - enabled: 1
+    path: Assets/Project/Scenes/NormalStageSelectScene.unity
+    guid: ebdb017d9e0a543fabc9102396a5e396
+  - enabled: 1
+    path: Assets/Project/Scenes/HardStageSelectScene.unity
+    guid: 4bdfcf250240d4c7caee7565f770e92e
+  - enabled: 1
+    path: Assets/Project/Scenes/VeryHardStageSelectScene.unity
+    guid: b32486667d9f4463a9415019bca60c8b
   m_configObjects: {}
