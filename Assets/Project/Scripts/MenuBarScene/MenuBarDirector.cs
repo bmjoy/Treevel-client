@@ -11,6 +11,12 @@ namespace Project.Scripts.MenuBarScene
 
 		private GameObject easyStageSelectToggle;
 
+		private GameObject normalStageSelectToggle;
+
+		private GameObject hardStageSelectToggle;
+
+		private GameObject veryHardStageSelectToggle;
+
 		private GameObject recordToggle;
 
 		private GameObject tutorialToggle;
@@ -21,6 +27,9 @@ namespace Project.Scripts.MenuBarScene
 		{
 			// Toggleの取得
 			easyStageSelectToggle = GameObject.Find("EasyStageSelect");
+			normalStageSelectToggle = GameObject.Find("NormalStageSelect");
+			hardStageSelectToggle = GameObject.Find("HardStageSelect");
+			veryHardStageSelectToggle = GameObject.Find("VeryHardStageSelect");
 			recordToggle = GameObject.Find("Record");
 			tutorialToggle = GameObject.Find("Tutorial");
 			configToggle = GameObject.Find("Config");
@@ -53,6 +62,15 @@ namespace Project.Scripts.MenuBarScene
 			{
 				ToggleValueChanged(easyStageSelectToggle);
 			});
+
+			normalStageSelectToggle.GetComponent<Toggle>().onValueChanged
+				.AddListener(delegate { ToggleValueChanged(normalStageSelectToggle); });
+
+			hardStageSelectToggle.GetComponent<Toggle>().onValueChanged
+				.AddListener(delegate { ToggleValueChanged(hardStageSelectToggle); });
+
+			veryHardStageSelectToggle.GetComponent<Toggle>().onValueChanged
+				.AddListener(delegate { ToggleValueChanged(veryHardStageSelectToggle); });
 
 			recordToggle.GetComponent<Toggle>().onValueChanged
 				.AddListener(delegate { ToggleValueChanged(recordToggle); });

@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 171549290}
   - component: {fileID: 171549291}
   m_Layer: 5
-  m_Name: Normal
+  m_Name: NormalStageSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -824,7 +824,7 @@ GameObject:
   - component: {fileID: 565208518}
   - component: {fileID: 565208519}
   m_Layer: 5
-  m_Name: Veryhard
+  m_Name: VeryHardStageSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1045,7 +1045,7 @@ GameObject:
   - component: {fileID: 752616046}
   - component: {fileID: 752616047}
   m_Layer: 5
-  m_Name: Hard
+  m_Name: HardStageSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
