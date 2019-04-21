@@ -3383,7 +3383,7 @@ GameObject:
   - component: {fileID: 1532375890}
   - component: {fileID: 1532375889}
   m_Layer: 5
-  m_Name: Notification
+  m_Name: Vibration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
