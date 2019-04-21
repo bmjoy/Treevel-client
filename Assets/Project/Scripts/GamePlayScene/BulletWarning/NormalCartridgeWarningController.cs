@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 				case CartridgeType.Normal:
 					break;
 				case CartridgeType.Turn:
-					var sprite = Resources.Load<Sprite>("Textures/BulletWarning/TurnWarning");
+					var sprite = Resources.Load<Sprite>("Textures/BulletWarning/turnWarning");
 					gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
 					break;
 				default:

@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private Vector2 turnPoint;
 
 		// 回転方向に応じて表示わけする警告画像の名前
-		private readonly string[] warningList = {"TurnLeft", "TurnRight", "TurnUp", "TurnBottom"};
+		private readonly string[] warningList = {"turnLeft", "turnRight", "turnUp", "turnBottom"};
 
 		// 警告
 		public GameObject normalCartridgeWarningPrefab;

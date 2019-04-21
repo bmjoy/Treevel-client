@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212145730030468188}
   - component: {fileID: 114569484378481306}
   m_Layer: 0
-  m_Name: TurnCartridgePrefab
+  m_Name: turnCartridgePrefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

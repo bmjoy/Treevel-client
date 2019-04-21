@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212792818627832022}
   - component: {fileID: 114214268941829640}
   m_Layer: 0
-  m_Name: NormalCartridgeWarningPrefab
+  m_Name: normalCartridgeWarningPrefab
   m_TagString: BulletWarning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

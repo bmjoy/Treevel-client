@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212451907916449790}
   - component: {fileID: 114617676760384634}
   m_Layer: 0
-  m_Name: NormalCartridgePrefab
+  m_Name: normalCartridgePrefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212462007558622042}
   - component: {fileID: 114338736704674466}
   m_Layer: 0
-  m_Name: NormalHoleWarningPrefab
+  m_Name: normalHoleWarningPrefab
   m_TagString: BulletWarning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
