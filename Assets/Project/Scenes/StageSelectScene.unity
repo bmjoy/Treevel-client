@@ -464,6 +464,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba06d578e8e24151aaf4b7de5f5b885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageButtonPrefab: {fileID: 1236724618390060, guid: e88ee036a5fc34075a20671c1eb8c11a,
+    type: 2}
 --- !u!1 &1167472421
 GameObject:
   m_ObjectHideFlags: 0
