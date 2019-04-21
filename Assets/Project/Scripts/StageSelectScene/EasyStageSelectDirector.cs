@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
 {
-	public class StageSelectDirector : MonoBehaviour
+	public class EasyStageSelectDirector : MonoBehaviour
 	{
 		public GameObject stageButtonPrefab;
 
@@ -28,7 +28,7 @@ namespace Project.Scripts.StageSelectScene
 
 		private void makeButtons()
 		{
-			RectTransform content = GameObject.Find("Canvas/Scroll View/Viewport/Content/Buttons").GetComponent<RectTransform>();
+			var content = GameObject.Find("Canvas/Scroll View/Viewport/Content/Buttons").GetComponent<RectTransform>();
 			for (var i = 0; i < 10; i++)
 			{
 				var button = Instantiate(stageButtonPrefab);
@@ -36,6 +36,7 @@ namespace Project.Scripts.StageSelectScene
 				button.transform.SetParent(content, false);
 				button.GetComponentInChildren<Text>().text = "ステージ" + (i+1) + "へ";
 				button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
+				button.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
 				var rectTransform = button.GetComponent<RectTransform>();
 				var buttonPositionY = 0.05f + i * 0.10f;
 				rectTransform.anchorMax = new Vector2(0.90f, buttonPositionY+0.02f);
