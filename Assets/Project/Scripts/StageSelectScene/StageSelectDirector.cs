@@ -8,9 +8,12 @@ namespace Project.Scripts.StageSelectScene
 {
 	public class StageSelectDirector : MonoBehaviour
 	{
+		public GameObject stageButtonPrefab;
+
 		private void Awake()
 		{
 			SetListener();
+			makeButtons();
 		}
 
 		private static void SetListener()
@@ -20,6 +23,24 @@ namespace Project.Scripts.StageSelectScene
 			{
 				var obj = child.gameObject;
 				obj.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(obj));
+			}
+		}
+
+		private void makeButtons()
+		{
+			RectTransform content = GameObject.Find("Canvas/Scroll View/Viewport/Content/Buttons").GetComponent<RectTransform>();
+			for (var i = 0; i < 10; i++)
+			{
+				var button = Instantiate(stageButtonPrefab);
+				button.name = (i+1).ToString();
+				button.transform.SetParent(content, false);
+				button.GetComponentInChildren<Text>().text = "ステージ" + (i+1) + "へ";
+				button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
+				var rectTransform = button.GetComponent<RectTransform>();
+				var buttonPositionY = 0.05f + i * 0.10f;
+				rectTransform.anchorMax = new Vector2(0.90f, buttonPositionY+0.02f);
+				rectTransform.anchorMin = new Vector2(0.10f, buttonPositionY-0.02f);
+				rectTransform.anchoredPosition = new Vector2(0.50f, buttonPositionY);
 			}
 		}
 
