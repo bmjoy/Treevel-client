@@ -269,7 +269,7 @@ namespace Project.Scripts.GamePlayScene
 			// Playing
 			gameObject.AddComponent<AudioSource>();
 			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, loop: true);
+			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, loop: true, volumeRate: 0.25f);
 			// Success
 			gameObject.AddComponent<AudioSource>();
 			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
@@ -281,13 +281,13 @@ namespace Project.Scripts.GamePlayScene
 		}
 
 		/* 個々の音源のセットアップ (音源名 / 開始時間 / 繰り返し の設定) */
-		private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f, bool loop = false)
+		private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f, bool loop = false, float volumeRate = 1.0f)
 		{
 			var clip = Resources.Load<AudioClip>("Clips/GamePlayScene/" + clipName);
 			audioSource.clip = clip;
 			audioSource.time = time;
 			audioSource.loop = loop;
-			audioSource.volume = PlayerPrefs.GetFloat("Volume", Audio.DEFAULT_VOLUME);
+			audioSource.volume = PlayerPrefs.GetFloat("Volume", Audio.DEFAULT_VOLUME) * volumeRate;
 		}
 	}
 }
