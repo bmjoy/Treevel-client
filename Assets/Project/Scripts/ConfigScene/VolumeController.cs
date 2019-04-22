@@ -1,16 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using Project.Scripts.Utils.Definitions;
 
-public class VolumeController : MonoBehaviour {
+namespace Project.Scripts.ConfigScene
+{
+	public class VolumeController : MonoBehaviour
+	{
+		private Slider volumeSlider;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		private void Awake()
+		{
+			volumeSlider = GetComponent<Slider>();
+			volumeSlider.value = PlayerPrefs.GetFloat("Volume", Audio.DEFAULT_VOLUME);
+			volumeSlider.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
+		}
+
+		private void ValueChangeCheck()
+		{
+			PlayerPrefs.SetFloat("Volume", volumeSlider.value);
+		}
 	}
 }
