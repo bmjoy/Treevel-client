@@ -269,26 +269,25 @@ namespace Project.Scripts.GamePlayScene
 			// Playing
 			gameObject.AddComponent<AudioSource>();
 			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, volume: 0.10f, loop: true);
+			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, loop: true);
 			// Success
 			gameObject.AddComponent<AudioSource>();
 			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-			SetAudioSource(clipName: "success", audioSource: successAudioSource, volume: 0.40f);
+			SetAudioSource(clipName: "success", audioSource: successAudioSource);
 			// Failure
 			gameObject.AddComponent<AudioSource>();
 			failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-			SetAudioSource(clipName: "failure", audioSource: failureAudioSource, volume: 0.40f);
+			SetAudioSource(clipName: "failure", audioSource: failureAudioSource);
 		}
 
-		/* 個々の音源のセットアップ (音源名 / 開始時間 / 音量 / 繰り返し の設定) */
-		private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f,
-			float volume = 1.0f, bool loop = false)
+		/* 個々の音源のセットアップ (音源名 / 開始時間 / 繰り返し の設定) */
+		private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f, bool loop = false)
 		{
 			var clip = Resources.Load<AudioClip>("Clips/GamePlayScene/" + clipName);
 			audioSource.clip = clip;
 			audioSource.time = time;
-			audioSource.volume = volume;
 			audioSource.loop = loop;
+			audioSource.volume = PlayerPrefs.GetFloat("Volume", Audio.DEFAULT_VOLUME);
 		}
 	}
 }
