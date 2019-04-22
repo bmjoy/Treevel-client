@@ -56,7 +56,7 @@ namespace Project.Scripts.GamePlayScene
 			warningText = resultWindow.transform.Find("Warning").gameObject;
 			stageNumberText = GameObject.Find("StageNumberText");
 
-			SetAudioSource();
+			SetAudioSources();
 		}
 
 		private void Start()
@@ -252,7 +252,7 @@ namespace Project.Scripts.GamePlayScene
 			}
 		}
 
-		private void SetAudioSource()
+		private void SetAudioSources()
 		{
 			// 各音源の設定
 			// Playing
