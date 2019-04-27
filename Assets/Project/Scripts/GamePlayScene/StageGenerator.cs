@@ -38,8 +38,8 @@ namespace Project.Scripts.GamePlayScene
 						(int) Row.Second, 1.0f, 1.0f,
 						new int[,]
 						{
-							{(int)CartridgeDirection.ToUp, (int)Column.Right},
-							{(int)CartridgeDirection.ToLeft, (int)Row.First}
+							{(int) CartridgeDirection.ToUp, (int) Column.Right},
+							{(int) CartridgeDirection.ToLeft, (int) Row.First}
 						}));
 					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Normal,
 						CartridgeDirection.ToUp,

@@ -56,7 +56,7 @@ namespace Project.Scripts.GamePlayScene
 			warningText = resultWindow.transform.Find("Warning").gameObject;
 			stageNumberText = GameObject.Find("StageNumberText");
 
-			SetAudioSource();
+			SetAudioSources();
 		}
 
 		private void Start()
@@ -75,6 +75,7 @@ namespace Project.Scripts.GamePlayScene
 			}
 		}
 
+		/* ゲームのクリア判定 */
 		public void CheckClear()
 		{
 			GameObject[] panels = GameObject.FindGameObjectsWithTag("NumberPanel");
@@ -83,7 +84,7 @@ namespace Project.Scripts.GamePlayScene
 			Dispatch(GameState.Success);
 		}
 
-		// 状態による振り分け処理
+		/* 状態遷移 */
 		public bool Dispatch(GameState nextState)
 		{
 			switch (nextState)
@@ -135,6 +136,7 @@ namespace Project.Scripts.GamePlayScene
 			return false;
 		}
 
+		/* ゲーム起動時 */
 		private void GameOpening()
 		{
 			CleanObject();
@@ -162,11 +164,13 @@ namespace Project.Scripts.GamePlayScene
 			Dispatch(GameState.Playing);
 		}
 
+		/* ゲーム開始時 */
 		private void GamePlaying()
 		{
 			playingAudioSource.Play();
 		}
 
+		/* ゲーム成功時 */
 		private void GameSucceed()
 		{
 			if (OnSucceed != null) OnSucceed();
@@ -180,6 +184,7 @@ namespace Project.Scripts.GamePlayScene
 			ss.IncSuccessNum(stageId);
 		}
 
+		/* ゲーム失敗時 */
 		private void GameFail()
 		{
 			if (OnFail != null) OnFail();
@@ -191,12 +196,14 @@ namespace Project.Scripts.GamePlayScene
 			ss.IncFailureNum(stageId);
 		}
 
+		/* ゲーム終了時の共通処理 */
 		private void EndProcess()
 		{
 			playingAudioSource.Stop();
 			resultWindow.SetActive(true);
 		}
 
+		/* リトライボタン押下時 */
 		public void RetryButtonDown()
 		{
 			// 挑戦回数をインクリメント
@@ -205,12 +212,14 @@ namespace Project.Scripts.GamePlayScene
 			Dispatch(GameState.Opening);
 		}
 
+		/* 戻るボタン押下時 */
 		public void BackButtonDown()
 		{
 			// StageSelectSceneに戻る
 			SceneManager.LoadScene("MenuBarScene");
 		}
 
+		/* タイル・パネル・銃弾オブジェクトの削除 */
 		private static void CleanObject()
 		{
 			GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
@@ -228,6 +237,7 @@ namespace Project.Scripts.GamePlayScene
 			}
 		}
 
+		/* ゲーム画面のアスペクト比を統一する */
 		private static void UnifyDisplay()
 		{
 			// 想定するデバイスのアスペクト比
@@ -252,32 +262,34 @@ namespace Project.Scripts.GamePlayScene
 			}
 		}
 
-		private void SetAudioSource()
+		/* 音源のセットアップ */
+		private void SetAudioSources()
 		{
 			// 各音源の設定
 			// Playing
 			gameObject.AddComponent<AudioSource>();
 			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, volume: 0.10f, loop: true);
+			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, loop: true,
+				volumeRate: 0.25f);
 			// Success
 			gameObject.AddComponent<AudioSource>();
 			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-			SetAudioSource(clipName: "success", audioSource: successAudioSource, volume: 0.40f);
+			SetAudioSource(clipName: "success", audioSource: successAudioSource);
 			// Failure
 			gameObject.AddComponent<AudioSource>();
 			failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-			SetAudioSource(clipName: "failure", audioSource: failureAudioSource, volume: 0.40f);
+			SetAudioSource(clipName: "failure", audioSource: failureAudioSource);
 		}
 
-		// AudioSourceの変数(音源名、開始時間、音量、繰り返しの有無)の設定
+		/* 個々の音源のセットアップ (音源名 / 開始時間 / 繰り返し の設定) */
 		private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f,
-			float volume = 1.0f, bool loop = false)
+			bool loop = false, float volumeRate = 1.0f)
 		{
 			var clip = Resources.Load<AudioClip>("Clips/GamePlayScene/" + clipName);
 			audioSource.clip = clip;
 			audioSource.time = time;
-			audioSource.volume = volume;
 			audioSource.loop = loop;
+			audioSource.volume = PlayerPrefs.GetFloat("Volume", Audio.DEFAULT_VOLUME) * volumeRate;
 		}
 	}
 }

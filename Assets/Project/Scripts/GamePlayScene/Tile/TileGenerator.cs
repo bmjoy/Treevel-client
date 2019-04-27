@@ -96,7 +96,8 @@ namespace Project.Scripts.GamePlayScene.Tile
 					var upperTile = i == 0 ? null : tiles[i - 1, j];
 					var lowerTile = i + 1 == row ? null : tiles[i + 1, j];
 					// タイルオブジェクトのスクリプトに上下左右のタイルオブジェクトを格納する
-					tiles[i, j].GetComponent<NormalTileController>().MakeRelation(rightTile, leftTile, upperTile, lowerTile);
+					tiles[i, j].GetComponent<NormalTileController>()
+						.MakeRelation(rightTile, leftTile, upperTile, lowerTile);
 				}
 			}
 		}
