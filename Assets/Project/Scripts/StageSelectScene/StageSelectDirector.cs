@@ -14,18 +14,6 @@ namespace Project.Scripts.StageSelectScene
 		{
 			// ボタンの作成
 			MakeButtons();
-			// Buttonのリスナーを設定
-			SetListener();
-		}
-
-		private static void SetListener()
-		{
-			// Buttons/*にリスナーを登録
-			foreach (Transform child in GameObject.Find("Buttons").transform)
-			{
-				var obj = child.gameObject;
-				obj.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(obj));
-			}
 		}
 
 		protected static void StageButtonDown(GameObject clickedButton)
