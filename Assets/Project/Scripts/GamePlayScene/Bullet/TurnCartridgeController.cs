@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
@@ -9,10 +10,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public class TurnCartridgeController : NormalCartridgeController
 	{
 		// 回転方向
-		private List<int> turnDirection = new List<int>();
+		private int[] turnDirection;
 
 		// 回転する列(or行)
-		private List<int> turnLine = new List<int>();
+		private int[] turnLine;
 
 		// 回転に関する警告を表示する座標
 		private Vector2 turnPoint;
@@ -76,10 +77,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				transform.Rotate(new Vector3(0, 0, turnAngle / 2f / Mathf.PI * 180f), Space.World);
 				motionVector = Rotate(motionVector, turnAngle / 2f);
 				// 別のタイル上でまだ回転する場合
-				if (turnDirection.Count >= 2)
+				if (turnDirection.Length >= 2)
 				{
-					turnDirection.RemoveAt(0);
-					turnLine.RemoveAt(0);
+					// 配列の先頭要素を除く部分配列を取得する
+					turnDirection = turnDirection.Skip(1).Take(turnDirection.Length - 1).ToArray();
+					turnLine = turnLine.Skip(1).Take(turnLine.Length - 1).ToArray();
+
 					turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(
 						            TileSize.WIDTH * (turnLine[0] - 2),
 						            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
@@ -105,16 +108,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
-			int[,] additionalInfo)
+			Dictionary<string, int[]> additionalInfo)
 		{
 			Initialize(direction, line, motionVector);
 
 			// どのタイル上でどの方向に曲がるかの引数を受け取る
-			for (var i = 0; i < additionalInfo.GetLength(0); i++)
-			{
-				turnDirection.Add(additionalInfo[i, 0]);
-				turnLine.Add(additionalInfo[i, 1]);
-			}
+			turnDirection = additionalInfo["TurnDirection"];
+			turnLine = additionalInfo["TurnLine"];
 
 			// 銃弾が曲がるタイルの座標
 			turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(

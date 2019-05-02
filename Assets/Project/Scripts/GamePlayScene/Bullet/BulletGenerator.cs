@@ -47,9 +47,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
+		public Dictionary<string, int[]> SetTurnInfo(int[] turnDirection, int[] turnLine)
+		{
+			return new Dictionary<string, int[]> {{"TurnDirection", turnDirection}, {"TurnLine", turnLine}};
+		}
+
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			float appearanceTime, float interval, int[,] additionalInfo = null)
+			float appearanceTime, float interval, Dictionary<string, int[]> additionalInfo = null)
 		{
 			var currentTime = Time.time;
 
@@ -85,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
 		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			short cartridgeId, int[,] additionalInfo)
+			short cartridgeId, Dictionary<string, int[]> additionalInfo)
 		{
 			// 作成するcartidgeの種類で分岐
 			GameObject warning;
