@@ -2,7 +2,6 @@
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
 {
