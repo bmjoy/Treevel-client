@@ -18,7 +18,7 @@ namespace Project.Scripts.StageSelectScene
 			SetListener();
 		}
 
-		private void SetListener()
+		private static void SetListener()
 		{
 			// Buttons/*にリスナーを登録
 			foreach (Transform child in GameObject.Find("Buttons").transform)
@@ -28,7 +28,7 @@ namespace Project.Scripts.StageSelectScene
 			}
 		}
 
-		private void StageButtonDown(GameObject clickedButton)
+		private static void StageButtonDown(GameObject clickedButton)
 		{
 			// タップされたステージidを取得（暫定的にボタンの名前）
 			var stageId = int.Parse(clickedButton.name);
