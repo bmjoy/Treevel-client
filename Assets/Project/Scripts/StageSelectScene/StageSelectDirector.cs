@@ -35,16 +35,6 @@ namespace Project.Scripts.StageSelectScene
 			// 挑戦回数をインクリメント
 			var ss = StageStatus.Get(stageId);
 			ss.IncChallengeNum(stageId);
-			// リセットのデバッグ用
-			if (stageId == 1)
-			{
-				StageStatus.Reset(2);
-			}
-			else if (stageId == 2)
-			{
-				StageStatus.Reset(1);
-			}
-
 			// ステージ番号を渡す
 			GamePlayDirector.stageId = stageId;
 			// シーン遷移
