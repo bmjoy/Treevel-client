@@ -47,9 +47,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
-		public Dictionary<string, int[]> SetTurnInfo(int[] direction, int[] line)
+		public Dictionary<string, int[]> SetTurnInfo(int[] turnDirection, int[] turnLine)
 		{
-			return new Dictionary<string, int[]> {{"TurnDirection", direction}, {"TurnLine", line}};
+			return new Dictionary<string, int[]> {{"TurnDirection", turnDirection}, {"TurnLine", turnLine}};
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
