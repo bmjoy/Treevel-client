@@ -18,9 +18,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// 銃弾の先頭部分のみに当たり判定を与える
 			const float betweenPanels = TileSize.WIDTH - PanelSize.WIDTH;
 			gameObject.GetComponent<BoxCollider2D>().offset =
-				new Vector2(-(originalWidth - betweenPanels / 2) / 2, 0);
+				new Vector2(-(originalWidth - betweenPanels) / 2, 0);
 			gameObject.GetComponent<BoxCollider2D>().size =
-				new Vector2(betweenPanels / 2, originalHeight);
+				new Vector2(betweenPanels, originalHeight);
 			gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
 			// RigidBodyのアタッチメント
 			gameObject.AddComponent<Rigidbody2D>();
