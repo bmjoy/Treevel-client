@@ -10,9 +10,9 @@
 
 	public static class StageStartId
 	{
-		public const int EASY = 0;
-		public const int NORMAL = EASY + StageNum.EASY;
-		public const int HARD = NORMAL + StageNum.NORMAL;
-		public const int VERY_HARD = HARD + StageNum.HARD;
+		public const int EASY = 1;
+		public const int NORMAL = 1001;
+		public const int HARD = 2001;
+		public const int VERY_HARD = 3001;
 	}
 }
