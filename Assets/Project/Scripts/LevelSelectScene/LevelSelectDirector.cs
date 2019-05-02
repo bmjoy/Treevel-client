@@ -30,6 +30,21 @@ namespace Project.Scripts.LevelSelectScene
 			StartCoroutine(AddScene("EasyStageSelectScene"));
 		}
 
+		private void OnEnable()
+		{
+			SceneManager.sceneUnloaded += OnSceneUnloaded;
+		}
+
+		/* このシーンがアンロードされた時に，`nowScene`もアンロードする */
+		private void OnSceneUnloaded(Scene scene)
+		{
+			if (scene.name == "LevelSelectScene")
+			{
+				SceneManager.UnloadSceneAsync(nowScene);
+				SceneManager.sceneUnloaded -= OnSceneUnloaded;
+			}
+		}
+
 		private IEnumerator AddScene(string sceneName)
 		{
 			// シーンをロード
@@ -75,6 +90,5 @@ namespace Project.Scripts.LevelSelectScene
 				StartCoroutine(AddScene(toggle.name + "Scene"));
 			}
 		}
-
 	}
 }
