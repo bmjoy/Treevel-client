@@ -54,7 +54,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			float appearanceTime, float interval, Dictionary<string, int[]> dictionary = null)
+			float appearanceTime, float interval, Dictionary<string, int[]> additionalInfo = null)
 		{
 			var currentTime = Time.time;
 
@@ -69,7 +69,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			while (true)
 			{
 				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId, dictionary));
+				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId, additionalInfo));
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -90,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
 		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			short cartridgeId, Dictionary<string, int[]> dictionary)
+			short cartridgeId, Dictionary<string, int[]> additionalInfo)
 		{
 			// 作成するcartidgeの種類で分岐
 			GameObject warning;
@@ -132,7 +132,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					case CartridgeType.Turn:
 						cartridge = Instantiate(turnCartridgePrefab);
 						cartridge.GetComponent<TurnCartridgeController>()
-							.Initialize(direction, line, bulletMotionVector, dictionary);
+							.Initialize(direction, line, bulletMotionVector, additionalInfo);
 						break;
 					default:
 						throw new NotImplementedException();
