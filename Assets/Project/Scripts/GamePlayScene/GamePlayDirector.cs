@@ -216,7 +216,7 @@ namespace Project.Scripts.GamePlayScene
 		public void BackButtonDown()
 		{
 			// StageSelectSceneに戻る
-			SceneManager.LoadScene("MenuBarScene");
+			SceneManager.LoadScene("MenuSelectScene");
 		}
 
 		/* タイル・パネル・銃弾オブジェクトの削除 */

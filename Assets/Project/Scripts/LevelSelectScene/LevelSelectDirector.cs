@@ -69,14 +69,20 @@ namespace Project.Scripts.LevelSelectScene
 				ToggleValueChanged(easyStageSelectToggle);
 			});
 
-			normalStageSelectToggle.GetComponent<Toggle>().onValueChanged.
-				AddListener(delegate { ToggleValueChanged(normalStageSelectToggle); });
+			normalStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
+			{
+				ToggleValueChanged(normalStageSelectToggle);
+			});
 
-			hardStageSelectToggle.GetComponent<Toggle>().onValueChanged.
-				AddListener(delegate { ToggleValueChanged(hardStageSelectToggle); });
+			hardStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
+			{
+				ToggleValueChanged(hardStageSelectToggle);
+			});
 
-			veryHardStageSelectToggle.GetComponent<Toggle>().onValueChanged.
-				AddListener(delegate { ToggleValueChanged(veryHardStageSelectToggle); });
+			veryHardStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
+			{
+				ToggleValueChanged(veryHardStageSelectToggle);
+			});
 		}
 
 		private void ToggleValueChanged(GameObject toggle)
