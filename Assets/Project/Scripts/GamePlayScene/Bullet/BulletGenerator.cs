@@ -54,7 +54,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			float appearanceTime, float interval, Dictionary<string, int[]> additionalInfo = null)
+			float appearanceTime, float interval, Dictionary<string, int[]> additionalInfo = null, bool loop = true)
 		{
 			var currentTime = Time.time;
 
@@ -66,7 +66,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// the number of bullets which have emerged
 			var sum = 0;
 
-			while (true)
+			do
 			{
 				sum++;
 				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId, additionalInfo));
@@ -85,7 +85,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
-			}
+			} while (loop);
 		}
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
@@ -145,7 +145,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
 		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
-			int column = 0)
+			int column = 0, bool loop = true)
 		{
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
@@ -153,7 +153,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			var sum = 0;
 
-			while (true)
+			do
 			{
 				sum++;
 				StartCoroutine(CreateOneHole(holeType, row, column, bulletId));
@@ -170,7 +170,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
-			}
+			} while (loop);
 		}
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
