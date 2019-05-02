@@ -14,6 +14,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 		{
 			base.Awake();
 			name = "NumberPanel";
+			// 当たり判定と，フリック検知のアタッチ
+			gameObject.AddComponent<BoxCollider2D>();
 		}
 
 		protected override void Start()

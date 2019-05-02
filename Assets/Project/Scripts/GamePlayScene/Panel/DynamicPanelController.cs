@@ -13,8 +13,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		{
 			base.Awake();
 			name = "DynamicDummyPanel";
-			// 当たり判定と，フリック検知のアタッチ
-			gameObject.AddComponent<BoxCollider2D>();
+			// フリック検知のアタッチ
 			gameObject.AddComponent<FlickGesture>();
 			// フリックの検知感度を変えたい際に変更可能
 			GetComponent<FlickGesture>().MinDistance = 0.2f;
