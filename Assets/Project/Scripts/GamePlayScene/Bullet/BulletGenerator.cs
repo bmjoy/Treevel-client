@@ -110,7 +110,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			warning.GetComponent<Renderer>().sortingOrder = cartridgeId;
 
 			// warningの位置・大きさ等の設定
-			var warningScript = warning.GetComponent<NormalCartridgeWarningController>();
+			var warningScript = warning.GetComponent<CartridgeWarningController>();
 			var bulletMotionVector = warningScript.Initialize(cartridgeType, direction, line);
 
 			// 警告の表示時間だけ待つ
@@ -188,7 +188,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			warning.GetComponent<Renderer>().sortingOrder = holeId;
 
-			var warningScript = warning.GetComponent<NormalHoleWarningController>();
+			var warningScript = warning.GetComponent<HoleWarningController>();
 			warningScript.Initialize(row, column);
 
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
