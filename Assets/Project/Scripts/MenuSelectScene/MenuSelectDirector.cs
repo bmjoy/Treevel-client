@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Project.Scripts.MenuBarScene
+namespace Project.Scripts.MenuSelectScene
 {
-	public class MenuBarDirector : MonoBehaviour
+	public class MenuSelectDirector : MonoBehaviour
 	{
 		private string nowScene;
 

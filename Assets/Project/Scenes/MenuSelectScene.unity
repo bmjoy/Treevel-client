@@ -934,7 +934,7 @@ GameObject:
   - component: {fileID: 1352383784}
   - component: {fileID: 1352383783}
   m_Layer: 0
-  m_Name: MenuBarDirector
+  m_Name: MenuSelectDirector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
