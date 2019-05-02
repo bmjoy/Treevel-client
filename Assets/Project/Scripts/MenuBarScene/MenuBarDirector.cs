@@ -9,7 +9,7 @@ namespace Project.Scripts.MenuBarScene
 	{
 		private string nowScene;
 
-		private GameObject stageSelectToggle;
+		private GameObject levelSelectToggle;
 
 		private GameObject recordToggle;
 
@@ -20,14 +20,14 @@ namespace Project.Scripts.MenuBarScene
 		private void Awake()
 		{
 			// Toggleの取得
-			stageSelectToggle = GameObject.Find("StageSelect");
+			levelSelectToggle = GameObject.Find("LevelSelect");
 			recordToggle = GameObject.Find("Record");
 			tutorialToggle = GameObject.Find("Tutorial");
 			configToggle = GameObject.Find("Config");
 			// Toggleのリスナーを設定
 			AddListeners();
 			// 初期シーンのロード
-			StartCoroutine(AddScene("StageSelectScene"));
+			StartCoroutine(AddScene("LevelSelectScene"));
 		}
 
 		private IEnumerator AddScene(string sceneName)
@@ -49,9 +49,9 @@ namespace Project.Scripts.MenuBarScene
 
 		private void AddListeners()
 		{
-			stageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
+			levelSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
 			{
-				ToggleValueChanged(stageSelectToggle);
+				ToggleValueChanged(levelSelectToggle);
 			});
 
 			recordToggle.GetComponent<Toggle>().onValueChanged
