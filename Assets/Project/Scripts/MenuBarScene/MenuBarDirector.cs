@@ -9,13 +9,7 @@ namespace Project.Scripts.MenuBarScene
 	{
 		private string nowScene;
 
-		private GameObject easyStageSelectToggle;
-
-		private GameObject normalStageSelectToggle;
-
-		private GameObject hardStageSelectToggle;
-
-		private GameObject veryHardStageSelectToggle;
+		private GameObject levelSelectToggle;
 
 		private GameObject recordToggle;
 
@@ -26,17 +20,14 @@ namespace Project.Scripts.MenuBarScene
 		private void Awake()
 		{
 			// Toggleの取得
-			easyStageSelectToggle = GameObject.Find("EasyStageSelect");
-			normalStageSelectToggle = GameObject.Find("NormalStageSelect");
-			hardStageSelectToggle = GameObject.Find("HardStageSelect");
-			veryHardStageSelectToggle = GameObject.Find("VeryHardStageSelect");
+			levelSelectToggle = GameObject.Find("LevelSelect");
 			recordToggle = GameObject.Find("Record");
 			tutorialToggle = GameObject.Find("Tutorial");
 			configToggle = GameObject.Find("Config");
 			// Toggleのリスナーを設定
 			AddListeners();
 			// 初期シーンのロード
-			StartCoroutine(AddScene("EasyStageSelectScene"));
+			StartCoroutine(AddScene("LevelSelectScene"));
 		}
 
 		private IEnumerator AddScene(string sceneName)
@@ -58,19 +49,10 @@ namespace Project.Scripts.MenuBarScene
 
 		private void AddListeners()
 		{
-			easyStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
+			levelSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
 			{
-				ToggleValueChanged(easyStageSelectToggle);
+				ToggleValueChanged(levelSelectToggle);
 			});
-
-			normalStageSelectToggle.GetComponent<Toggle>().onValueChanged
-				.AddListener(delegate { ToggleValueChanged(normalStageSelectToggle); });
-
-			hardStageSelectToggle.GetComponent<Toggle>().onValueChanged
-				.AddListener(delegate { ToggleValueChanged(hardStageSelectToggle); });
-
-			veryHardStageSelectToggle.GetComponent<Toggle>().onValueChanged
-				.AddListener(delegate { ToggleValueChanged(veryHardStageSelectToggle); });
 
 			recordToggle.GetComponent<Toggle>().onValueChanged
 				.AddListener(delegate { ToggleValueChanged(recordToggle); });
