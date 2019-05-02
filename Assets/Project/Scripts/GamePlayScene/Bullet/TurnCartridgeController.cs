@@ -79,8 +79,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				// 別のタイル上でまだ回転する場合
 				if (turnDirection.Length >= 2)
 				{
+					// 配列の先頭要素を除く部分配列を取得する
 					turnDirection = turnDirection.Skip(1).Take(turnDirection.Length - 1).ToArray();
 					turnLine = turnLine.Skip(1).Take(turnLine.Length - 1).ToArray();
+
 					turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(
 						            TileSize.WIDTH * (turnLine[0] - 2),
 						            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
