@@ -47,7 +47,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
-		public Dictionary<string, int[]> SetTurnInfo(int[] turnDirection, int[] turnLine)
+		public Dictionary<string, int[]> SetTurnCartridgeInfo(int[] turnDirection, int[] turnLine)
 		{
 			return new Dictionary<string, int[]> {{"TurnDirection", turnDirection}, {"TurnLine", turnLine}};
 		}
