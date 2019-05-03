@@ -59,7 +59,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			float appearanceTime, float interval, Dictionary<string, int[]> additionalInfo = null, bool loop = true)
+			float appearanceTime, float interval, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
 		{
 			var currentTime = Time.time;
 
