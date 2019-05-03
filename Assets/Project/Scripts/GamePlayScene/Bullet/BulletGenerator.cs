@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line,  additionalInfo));
+				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, additionalInfo));
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -94,7 +94,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
-		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, short cartridgeId, CartridgeDirection direction, int line,
+		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, short cartridgeId,
+			CartridgeDirection direction, int line,
 			Dictionary<string, int[]> additionalInfo)
 		{
 			// 作成するcartidgeの種類で分岐
@@ -179,7 +180,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
-		private IEnumerator CreateOneHole(HoleType holeType,  short holeId, int row, int column)
+		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column)
 		{
 			GameObject warning;
 			switch (holeType)
