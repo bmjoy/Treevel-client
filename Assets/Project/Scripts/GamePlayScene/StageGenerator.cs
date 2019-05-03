@@ -33,15 +33,22 @@ namespace Project.Scripts.GamePlayScene
 			{
 				case 1:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Turn,
-						CartridgeDirection.ToLeft,
-						(int) Row.Second, 1.0f, 1.0f, loop: true,
+					coroutines.Add(bulletGenerator.CreateCartridge(
+						cartridgeType: CartridgeType.Turn,
+						appearanceTime: 1.0f,
+						interval: 1.0f,
+						direction: CartridgeDirection.ToLeft,
+						line: (int) Row.Second,
+						loop: true,
 						additionalInfo: bulletGenerator.SetTurnCartridgeInfo(
 							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
 							turnLine: new[] {(int) Column.Right, (int) Row.First})));
-					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Normal,
-						CartridgeDirection.ToUp,
-						(int) Column.Right, 2.0f, 4.0f));
+					coroutines.Add(bulletGenerator.CreateCartridge(
+						cartridgeType: CartridgeType.Normal,
+						direction: CartridgeDirection.ToUp,
+						line: (int) Column.Right,
+						appearanceTime: 2.0f,
+						interval: 4.0f));
 					// タイル作成
 					tileGenerator.CreateNormalTiles();
 					// パネル作成
@@ -58,11 +65,19 @@ namespace Project.Scripts.GamePlayScene
 					break;
 				case 2:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Normal,
-						CartridgeDirection.ToRight,
-						(int) Row.Fifth, 2.0f, 0.5f, loop: false));
-					coroutines.Add(bulletGenerator.CreateHole(HoleType.Normal, 1.0f, 2.0f,
-						(int) Row.Second, (int) Column.Left));
+					coroutines.Add(bulletGenerator.CreateCartridge(
+						cartridgeType: CartridgeType.Normal,
+						appearanceTime: 2.0f,
+						interval: 0.5f,
+						direction: CartridgeDirection.ToRight,
+						line: (int) Row.Fifth,
+						loop: false));
+					coroutines.Add(bulletGenerator.CreateHole(
+						holeType: HoleType.Normal,
+						appearanceTime: 1.0f,
+						interval: 2.0f,
+						row: (int) Row.Second,
+						column: (int) Column.Left));
 					// タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
 					tileGenerator.CreateNormalTiles();

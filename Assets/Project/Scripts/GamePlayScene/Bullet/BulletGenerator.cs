@@ -58,8 +58,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			float appearanceTime, float interval, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
+		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
+			CartridgeDirection direction, int line, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
 		{
 			var currentTime = Time.time;
 
@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId, additionalInfo));
+				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line,  additionalInfo));
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -94,8 +94,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
-		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			short cartridgeId, Dictionary<string, int[]> additionalInfo)
+		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, short cartridgeId, CartridgeDirection direction, int line,
+			Dictionary<string, int[]> additionalInfo)
 		{
 			// 作成するcartidgeの種類で分岐
 			GameObject warning;
@@ -161,7 +161,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneHole(holeType, row, column, bulletId));
+				StartCoroutine(CreateOneHole(holeType, bulletId, row, column));
 
 				try
 				{
@@ -179,7 +179,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
-		private IEnumerator CreateOneHole(HoleType holeType, int row, int column, short holeId)
+		private IEnumerator CreateOneHole(HoleType holeType,  short holeId, int row, int column)
 		{
 			GameObject warning;
 			switch (holeType)
