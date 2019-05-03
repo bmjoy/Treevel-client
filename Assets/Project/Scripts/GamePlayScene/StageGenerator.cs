@@ -35,8 +35,8 @@ namespace Project.Scripts.GamePlayScene
 					// 銃弾実体生成
 					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Turn,
 						CartridgeDirection.ToLeft,
-						(int) Row.Second, 1.0f, 1.0f, true,
-						bulletGenerator.SetTurnCartridgeInfo(
+						(int) Row.Second, 1.0f, 1.0f, loop: true,
+						additionalInfo: bulletGenerator.SetTurnCartridgeInfo(
 							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
 							turnLine: new[] {(int) Column.Right, (int) Row.First})));
 					coroutines.Add(bulletGenerator.CreateCartridge(CartridgeType.Normal,
