@@ -40,7 +40,7 @@ namespace Project.Scripts.GamePlayScene
 						direction: CartridgeDirection.ToLeft,
 						line: (int) Row.Second,
 						loop: true,
-						additionalInfo: bulletGenerator.SetTurnCartridgeInfo(
+						additionalInfo: BulletGenerator.SetTurnCartridgeInfo(
 							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
 							turnLine: new[] {(int) Column.Right, (int) Row.First})));
 					coroutines.Add(bulletGenerator.CreateCartridge(
