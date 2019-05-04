@@ -22,6 +22,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public GameObject turnCartridgePrefab;
 		public GameObject normalHolePrefab;
 		public GameObject normalHoleWarningPrefab;
+		public GameObject aimingHolePrefab;
+		public GameObject aimingHoleWarningPrefab;
 
 		// Generatorが作成された時刻
 		public float startTime;
