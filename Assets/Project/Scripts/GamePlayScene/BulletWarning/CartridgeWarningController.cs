@@ -4,7 +4,7 @@ using System;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class NormalCartridgeWarningController : BulletWarningController
+	public class CartridgeWarningController : BulletWarningController
 	{
 		protected override void Awake()
 		{

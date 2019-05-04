@@ -47,14 +47,19 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
-		public Dictionary<string, int[]> SetTurnInfo(int[] turnDirection, int[] turnLine)
+		public Dictionary<string, int[]> SetNormalCartridgeInfo()
+		{
+			return null;
+		}
+
+		public Dictionary<string, int[]> SetTurnCartridgeInfo(int[] turnDirection, int[] turnLine)
 		{
 			return new Dictionary<string, int[]> {{"TurnDirection", turnDirection}, {"TurnLine", turnLine}};
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		public IEnumerator CreateCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			float appearanceTime, float interval, Dictionary<string, int[]> additionalInfo = null)
+		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
+			CartridgeDirection direction, int line, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
 		{
 			var currentTime = Time.time;
 
@@ -66,10 +71,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// the number of bullets which have emerged
 			var sum = 0;
 
-			while (true)
+			do
 			{
 				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, direction, line, bulletId, additionalInfo));
+				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, additionalInfo));
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -85,12 +90,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
-			}
+			} while (loop);
 		}
 
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
-		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, CartridgeDirection direction, int line,
-			short cartridgeId, Dictionary<string, int[]> additionalInfo)
+		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, short cartridgeId,
+			CartridgeDirection direction, int line,
+			Dictionary<string, int[]> additionalInfo)
 		{
 			// 作成するcartidgeの種類で分岐
 			GameObject warning;
@@ -110,7 +116,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			warning.GetComponent<Renderer>().sortingOrder = cartridgeId;
 
 			// warningの位置・大きさ等の設定
-			var warningScript = warning.GetComponent<NormalCartridgeWarningController>();
+			var warningScript = warning.GetComponent<CartridgeWarningController>();
 			var bulletMotionVector = warningScript.Initialize(cartridgeType, direction, line);
 
 			// 警告の表示時間だけ待つ
@@ -145,7 +151,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
 		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
-			int column = 0)
+			int column = 0, bool loop = true)
 		{
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
@@ -153,10 +159,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			var sum = 0;
 
-			while (true)
+			do
 			{
 				sum++;
-				StartCoroutine(CreateOneHole(holeType, row, column, bulletId));
+				StartCoroutine(CreateOneHole(holeType, bulletId, row, column));
 
 				try
 				{
@@ -170,11 +176,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
 				                                interval * sum - (currentTime - startTime));
-			}
+			} while (loop);
 		}
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
-		private IEnumerator CreateOneHole(HoleType holeType, int row, int column, short holeId)
+		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column)
 		{
 			GameObject warning;
 			switch (holeType)
@@ -188,7 +194,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			warning.GetComponent<Renderer>().sortingOrder = holeId;
 
-			var warningScript = warning.GetComponent<NormalHoleWarningController>();
+			var warningScript = warning.GetComponent<HoleWarningController>();
 			warningScript.Initialize(row, column);
 
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);

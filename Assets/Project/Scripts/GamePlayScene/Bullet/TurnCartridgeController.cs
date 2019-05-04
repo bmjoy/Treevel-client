@@ -48,7 +48,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				// 同レイヤーのオブジェクトの描画順序の制御
 				warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
 				// warningの位置・大きさ等の設定
-				var warningScript = warning.GetComponent<NormalCartridgeWarningController>();
+				var warningScript = warning.GetComponent<CartridgeWarningController>();
 				warningScript.Initialize(turnPoint, warningList[turnDirection[0]]);
 				rotateCount++;
 				transform.Translate(motionVector * speed, Space.World);
