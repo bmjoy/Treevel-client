@@ -8,17 +8,17 @@ namespace Project.Scripts.GamePlayScene.Tile
 		public GameObject normalTilePrefab;
 		public GameObject warpTilePrefab;
 
-		private readonly GameObject[,] tiles = new GameObject[5, 3];
+		private readonly GameObject[,] tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
 
 		/* 普通タイルの作成 */
 		public void CreateNormalTiles()
 		{
-			for (var tileNum = 1; tileNum <= 15; tileNum++)
+			for (var tileNum = 1; tileNum <= StageSize.NUM; tileNum++)
 			{
 				// 行 (0~4)
-				var row = (tileNum - 1) / 3;
+				var row = (tileNum - 1) / StageSize.COLUMN;
 				// 列 (0~2)
-				var column = (tileNum - 1) % 3;
+				var column = (tileNum - 1) % StageSize.COLUMN;
 
 				// 既に他タイルを作成している場合はスルー
 				if (tiles[row, column] != null) continue;
@@ -61,9 +61,9 @@ namespace Project.Scripts.GamePlayScene.Tile
 			// 処理計算では0から扱いたい
 			tileNum -= 1;
 			// 行 (0~4)
-			var row = tileNum / 3;
+			var row = tileNum / StageSize.COLUMN;
 			// 列 (0~2)
-			var column = tileNum % 3;
+			var column = tileNum % StageSize.COLUMN;
 			// 作成するタイルのx,y座標
 			var positionX = TileSize.WIDTH * (column - 1);
 			var positionY = topTilePositionY - TileSize.HEIGHT * row;
@@ -75,9 +75,9 @@ namespace Project.Scripts.GamePlayScene.Tile
 		private void SetTile(int tileNum, GameObject tile)
 		{
 			// 行 (0~4)
-			var row = (tileNum - 1) / 3;
+			var row = (tileNum - 1) / StageSize.COLUMN;
 			// 列 (0~2)
-			var column = (tileNum - 1) % 3;
+			var column = (tileNum - 1) % StageSize.COLUMN;
 
 			tiles[row, column] = tile;
 		}

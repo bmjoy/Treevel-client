@@ -15,4 +15,11 @@
 		public const int HARD = 2001;
 		public const int VERY_HARD = 3001;
 	}
+
+	public static class StageSize
+	{
+		public const int ROW = 5;
+		public const int COLUMN = 3;
+		public const int NUM = ROW * COLUMN;
+	}
 }

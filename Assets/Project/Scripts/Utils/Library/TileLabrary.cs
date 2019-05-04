@@ -28,7 +28,7 @@ namespace Project.Scripts.Utils.Library
 		/* タイルの行・列を受け取り，タイルオブジェクトを返す */
 		public static GameObject GetTile(int row, int column)
 		{
-			return GetTile((row - 1) * 3 + column);
+			return GetTile((row - 1) * StageSize.COLUMN + column);
 		}
 	}
 }
