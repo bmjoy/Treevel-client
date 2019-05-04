@@ -46,8 +46,6 @@ namespace Project.Scripts.GamePlayScene
 
 		private void Awake()
 		{
-			UnifyDisplay();
-
 			stageGenerator = GameObject.Find("StageGenerator");
 
 			resultWindow = GameObject.Find("ResultWindow");
@@ -55,6 +53,8 @@ namespace Project.Scripts.GamePlayScene
 			resultText = resultWindow.transform.Find("Result").gameObject;
 			warningText = resultWindow.transform.Find("Warning").gameObject;
 			stageNumberText = GameObject.Find("StageNumberText");
+
+			UnifyDisplay(resultWindow);
 
 			SetAudioSources();
 		}
@@ -238,7 +238,7 @@ namespace Project.Scripts.GamePlayScene
 		}
 
 		/* ゲーム画面のアスペクト比を統一する */
-		private static void UnifyDisplay()
+		private static void UnifyDisplay(GameObject resultWindow)
 		{
 			// 想定するデバイスのアスペクト比
 			const float targetRatio = WindowSize.WIDTH / WindowSize.HEIGHT;
@@ -252,6 +252,8 @@ namespace Project.Scripts.GamePlayScene
 				var ratio = targetRatio / currentRatio;
 				var rectX = (1 - ratio) / 2f;
 				Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
+				// 結果ウィンドウも変える
+				resultWindow.transform.localScale = new Vector2(ratio, ratio);
 			}
 			else if (currentRatio < targetRatio - aspectRatioError)
 			{
@@ -259,6 +261,8 @@ namespace Project.Scripts.GamePlayScene
 				var ratio = currentRatio / targetRatio;
 				var rectY = (1 - ratio) / 2f;
 				Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
+				// 結果ウィンドウも変える
+				resultWindow.transform.localScale = new Vector2(ratio, ratio);
 			}
 		}
 
