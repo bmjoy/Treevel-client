@@ -33,10 +33,10 @@ namespace Project.Scripts.GamePlayScene.Panel
 			};
 		}
 
-		public void CreateNumberPanel(int panelNumber, int initialTileNum, int finalTileNum)
+		public void CreateNumberPanel(int panelNum, int initialTileNum, int finalTileNum)
 		{
-			var panel = Instantiate(numberPanelPrefabs[panelNumber - 1]);
-			panel.GetComponent<NumberPanelController>().Initialize(panelNumber, initialTileNum, finalTileNum);
+			var panel = Instantiate(numberPanelPrefabs[panelNum - 1]);
+			panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
 		}
 
 		public void CreateStaticDummyPanel(int initialTileNum)

@@ -24,10 +24,10 @@ namespace Project.Scripts.GamePlayScene.Panel
 			adapted = transform.parent.gameObject == finalTile;
 		}
 
-		public void Initialize(int panelNumber, int initialTileNum, int finalTileNum)
+		public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
 		{
 			Initialize(initialTileNum);
-			name = "NumberPanel" + panelNumber;
+			name = "NumberPanel" + panelNum;
 			finalTile = GameObject.Find("Tile" + finalTileNum);
 		}
 
