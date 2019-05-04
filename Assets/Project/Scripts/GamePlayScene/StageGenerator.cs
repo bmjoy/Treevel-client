@@ -98,7 +98,7 @@ namespace Project.Scripts.GamePlayScene
 						appearanceTime: 2.0f,
 						interval: 2.0f,
 						additionalInfo: BulletGenerator.SetAimingHoleInfo(
-							aimingPanel: new[] {1})));
+							aimingPanel: new[] {1, 2, 3, 4, 5, 6, 7, 8})));
 					// タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
 					tileGenerator.CreateNormalTiles();
