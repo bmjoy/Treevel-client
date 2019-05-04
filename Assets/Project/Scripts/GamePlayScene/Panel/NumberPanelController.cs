@@ -9,6 +9,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 		// 最終タイル
 		private GameObject finalTile;
 
+		private int panelNum;
+
 		// パネルが最終タイルにいるかどうかの状態
 		public bool adapted;
 
@@ -31,6 +33,16 @@ namespace Project.Scripts.GamePlayScene.Panel
 			Initialize(initialTileNum);
 			name = PanelName.NUMBER_PANEL;
 			finalTile = TileLibrary.GetTile(finalTileNum);
+			this.panelNum = panelNum;
+		}
+
+		public GameObject GetNumberPanel(int panelNum)
+		{
+			if (this.panelNum == panelNum)
+			{
+				return gameObject;
+			}
+			return null;
 		}
 
 		protected override void UpdateTile(GameObject targetTile)
