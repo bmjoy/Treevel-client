@@ -24,7 +24,7 @@ namespace Project.Scripts.StageSelectScene
 				// クリック時のリスナー
 				button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
 				// Buttonの色
-				button.GetComponent<Image>().color = new Color(1.0f, 0.75f, 0.75f);
+				button.GetComponent<Image>().color = new Color(1.0f, 0.25f, 0.25f);
 				// Buttonの位置
 				var rectTransform = button.GetComponent<RectTransform>();
 				// 下部のマージン : 0.05f

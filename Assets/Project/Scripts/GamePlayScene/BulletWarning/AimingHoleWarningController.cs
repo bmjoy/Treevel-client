@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Project.Scripts.Utils.Library;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
@@ -11,7 +12,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			var aimingPanel = additionalInfo["AimingPanel"];
 			var count = additionalInfo["Count"][0];
 			var panelNum = aimingPanel[((count - 1) % aimingPanel.Length)];
-			var panel = GameObject.Find("NumberPanel" + panelNum);
+			var panel = PanelLibrary.GetPanel(panelNum);
 			// 警告の表示位置をPanelと同じ位置にする
 			transform.position = panel.transform.position;
 			// 次の表示位置を求める

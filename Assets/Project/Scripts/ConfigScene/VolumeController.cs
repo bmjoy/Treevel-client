@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 
 namespace Project.Scripts.ConfigScene
 {
@@ -11,13 +12,13 @@ namespace Project.Scripts.ConfigScene
 		private void Awake()
 		{
 			volumeSlider = GetComponent<Slider>();
-			volumeSlider.value = PlayerPrefs.GetFloat("Volume", Audio.DEFAULT_VOLUME);
+			volumeSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME);
 			volumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
 		}
 
 		private void ValueChangeCheck()
 		{
-			PlayerPrefs.SetFloat("Volume", volumeSlider.value);
+			PlayerPrefs.SetFloat(PlayerPrefsKeys.VOLUME, volumeSlider.value);
 		}
 	}
 }

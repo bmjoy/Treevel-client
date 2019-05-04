@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Library;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
@@ -32,7 +33,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public IEnumerator Delete()
 		{
 			var gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-			var tile = GameObject.Find("Tile" + ((row - 1) * 3 + column));
+			var tile = TileLibrary.GetTile(row, column);
 			// check whether panel exists on the tile
 			if (tile.transform.childCount != 0)
 			{
@@ -42,7 +43,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			else
 			{
 				// display the hole betweeen tile layer and panel layer
-				gameObject.GetComponent<Renderer>().sortingLayerName = "Hole";
+				gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
 				yield return new WaitForSeconds(0.5f);
 				Destroy(gameObject);
 			}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		protected override void Awake()
 		{
 			base.Awake();
-			name = "DynamicDummyPanel";
+			name = PanelName.DYNAMIC_DUMMY_PANEL;
 			// フリック検知のアタッチ
 			gameObject.AddComponent<FlickGesture>();
 			// フリックの検知感度を変えたい際に変更可能

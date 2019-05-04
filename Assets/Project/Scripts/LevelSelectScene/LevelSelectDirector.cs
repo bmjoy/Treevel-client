@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,6 +8,11 @@ namespace Project.Scripts.LevelSelectScene
 {
 	public class LevelSelectDirector : MonoBehaviour
 	{
+		private const string EASY_STAGE_SELECT_TOGGLE_NAME = "EasyStageSelect";
+		private const string NORMAL_STAGE_SELECT_TOGGLE_NAME = "NormalStageSelect";
+		private const string HARD_STAGE_SELECT_TOGGLE_NAME = "HardStageSelect";
+		private const string VERY_HARD_STAGE_SELECT_TOGGLE_NAME = "VeryHardStageSelect";
+
 		private string nowScene;
 
 		private GameObject easyStageSelectToggle;
@@ -20,14 +26,14 @@ namespace Project.Scripts.LevelSelectScene
 		private void Awake()
 		{
 			// Toggleの取得
-			easyStageSelectToggle = GameObject.Find("EasyStageSelect");
-			normalStageSelectToggle = GameObject.Find("NormalStageSelect");
-			hardStageSelectToggle = GameObject.Find("HardStageSelect");
-			veryHardStageSelectToggle = GameObject.Find("VeryHardStageSelect");
+			easyStageSelectToggle = GameObject.Find(EASY_STAGE_SELECT_TOGGLE_NAME);
+			normalStageSelectToggle = GameObject.Find(NORMAL_STAGE_SELECT_TOGGLE_NAME);
+			hardStageSelectToggle = GameObject.Find(HARD_STAGE_SELECT_TOGGLE_NAME);
+			veryHardStageSelectToggle = GameObject.Find(VERY_HARD_STAGE_SELECT_TOGGLE_NAME);
 			// Toggleのリスナーを設定
 			AddListeners();
 			// 初期シーンのロード
-			StartCoroutine(AddScene("EasyStageSelectScene"));
+			StartCoroutine(AddScene(SceneName.EASY_STAGE_SELECT_SCENE));
 		}
 
 		private void OnEnable()
@@ -38,7 +44,7 @@ namespace Project.Scripts.LevelSelectScene
 		/* このシーンがアンロードされた時に，`nowScene`もアンロードする */
 		private void OnSceneUnloaded(Scene scene)
 		{
-			if (scene.name == "LevelSelectScene")
+			if (scene.name == SceneName.LEVEL_SELECT_SCENE)
 			{
 				SceneManager.UnloadSceneAsync(nowScene);
 				SceneManager.sceneUnloaded -= OnSceneUnloaded;
