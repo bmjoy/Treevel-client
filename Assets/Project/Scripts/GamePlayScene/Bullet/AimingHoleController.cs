@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts.GamePlayScene.Bullet;
 using UnityEngine;
 
-public class AimingHoleController : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+namespace Project.Scripts.GamePlayScene.Bullet
+{
+	public class AimingHoleController : NormalHoleController
+	{
+		public override void Initialize(int row, int column, Vector3 holeWarningPosition)
+		{
+			transform.position = holeWarningPosition;
+			GetRowAndColumn(out row, out column, holeWarningPosition);
+			this.row = row;
+			this.column = column;
+		}
 	}
 }
