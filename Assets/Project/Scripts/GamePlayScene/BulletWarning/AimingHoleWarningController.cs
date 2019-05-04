@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class AimingHoleWarningController : HoleWarningController
+	public class AimingHoleWarningController : NormalHoleWarningController
 	{
 		public void Initialize(Dictionary<string, int[]> additionalInfo)
 		{

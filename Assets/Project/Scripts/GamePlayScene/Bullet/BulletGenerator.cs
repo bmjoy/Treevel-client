@@ -194,7 +194,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				case HoleType.Normal:
 					warning = Instantiate(normalHoleWarningPrefab);
-					warning.GetComponent<HoleWarningController>().Initialize(row, column);
+					warning.GetComponent<NormalHoleWarningController>().Initialize(row, column);
 					break;
 				case HoleType.Aiming:
 					warning = Instantiate(aimingHoleWarningPrefab);
