@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Project.Scripts.GamePlayScene.Bullet;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {

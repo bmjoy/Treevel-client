@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using Project.Scripts.Utils.Definitions;
-using UnityEditor.PackageManager;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
