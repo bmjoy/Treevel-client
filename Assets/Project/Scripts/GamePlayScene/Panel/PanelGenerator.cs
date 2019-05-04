@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public void CreateNumberPanel(int panelNumber, int initialTileNum, int finalTileNum)
 		{
 			var panel = Instantiate(numberPanelPrefabs[panelNumber - 1]);
-			panel.GetComponent<NumberPanelController>().Initialize(initialTileNum, finalTileNum);
+			panel.GetComponent<NumberPanelController>().Initialize(panelNumber, initialTileNum, finalTileNum);
 		}
 
 		public void CreateStaticDummyPanel(int initialTileNum)
