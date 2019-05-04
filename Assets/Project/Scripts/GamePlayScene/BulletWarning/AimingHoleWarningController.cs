@@ -12,20 +12,14 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 		{
 			// 撃ち抜くPanelを取得する
 			var aimingPanel = additionalInfo["AimingPanel"];
-			var panelNumber = aimingPanel[0];
+			var count = additionalInfo["Count"][0];
+			var panelNumber = aimingPanel[((count - 1) % aimingPanel.Length)];
 			var panel = GameObject.Find("NumberPanel" + panelNumber);
 			// 警告の表示位置をPanelと同じ位置にする
 			transform.position = panel.transform.position;
-			// 次の表示位置を求めるために、配列を数字の若い方へシフトする
-			if (aimingPanel.Length != 1)
-			{
-				int[] newAimingPanel = new int[aimingPanel.Length];
-				aimingPanel = aimingPanel.Skip(1).Take(aimingPanel.Length - 1).ToArray();
-				System.Array.Copy(aimingPanel, newAimingPanel, aimingPanel.Length - 1);
-				newAimingPanel[aimingPanel.Length] = aimingPanel[0];
-				additionalInfo.Remove("AimingPanel");
-				additionalInfo.Add("AimingPanel", newAimingPanel);
-			}
+			// 次の表示位置を求める
+			additionalInfo.Remove("Count");
+			additionalInfo.Add("Count", new[] {count + 1});
 		}
 	}
 }
