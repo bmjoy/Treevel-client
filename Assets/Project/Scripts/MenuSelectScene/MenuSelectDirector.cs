@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace Project.Scripts.MenuSelectScene
 			// Toggleのリスナーを設定
 			AddListeners();
 			// 初期シーンのロード
-			StartCoroutine(AddScene("LevelSelectScene"));
+			StartCoroutine(AddScene(SceneName.LEVEL_SELECT_SCENE));
 		}
 
 		private IEnumerator AddScene(string sceneName)

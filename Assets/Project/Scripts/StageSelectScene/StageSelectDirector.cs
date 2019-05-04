@@ -1,4 +1,5 @@
 ﻿using Project.Scripts.GamePlayScene;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,7 +32,7 @@ namespace Project.Scripts.StageSelectScene
 			var background = Instantiate(dummyBackgroundPrefab);
 			background.transform.SetParent(canvas, false);
 			// シーン遷移
-			SceneManager.LoadScene("GamePlayScene");
+			SceneManager.LoadScene(SceneName.GAME_PLAY_SCENE);
 		}
 
 		/* 現在アクティブなシーンの Canvas を取得 */

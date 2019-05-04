@@ -45,7 +45,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			originalWidth = GetComponent<SpriteRenderer>().size.x;
 			originalHeight = GetComponent<SpriteRenderer>().size.y;
 			// sortingLayerの設定
-			gameObject.GetComponent<Renderer>().sortingLayerName = "Bullet";
+			gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
 		}
 
 		private void OnEnable()

@@ -11,18 +11,31 @@ namespace Project.Scripts.GamePlayScene.Tile
 		[CanBeNull] public GameObject upperTile;
 		[CanBeNull] public GameObject lowerTile;
 
+		private int tileNum;
+
 		private void Awake()
 		{
 			var tileWidth = GetComponent<SpriteRenderer>().size.x;
 			var tileHeight = GetComponent<SpriteRenderer>().size.y;
 			transform.localScale = new Vector2(TileSize.WIDTH / tileWidth, TileSize.HEIGHT / tileHeight);
-			GetComponent<Renderer>().sortingLayerName = "Tile";
+			GetComponent<Renderer>().sortingLayerName = SortingLayerName.TILE;
 		}
 
 		public void Initialize(Vector2 position, int tileNum)
 		{
 			transform.position = position;
-			name = "Tile" + tileNum;
+			name = TileName.NORMAL_TILE;
+			this.tileNum = tileNum;
+		}
+
+		/* 自身のタイル番号に該当した番号が与えられたら，自身の GameObject を返す */
+		public GameObject GetTile(int tileNum)
+		{
+			if (this.tileNum == tileNum)
+			{
+				return gameObject;
+			}
+			return null;
 		}
 
 		// 自身タイルの上下左右のタイルへの参照を入れる

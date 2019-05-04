@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
@@ -15,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 		{
 			originalWidth = GetComponent<SpriteRenderer>().size.x;
 			originalHeight = GetComponent<SpriteRenderer>().size.y;
-			gameObject.GetComponent<Renderer>().sortingLayerName = "BulletWarning";
+			gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET_WARNING;
 		}
 
 		private void OnEnable()

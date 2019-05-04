@@ -78,7 +78,7 @@ namespace Project.Scripts.GamePlayScene
 		/* ゲームのクリア判定 */
 		public void CheckClear()
 		{
-			GameObject[] panels = GameObject.FindGameObjectsWithTag("NumberPanel");
+			GameObject[] panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
 			if (panels.Any(panel => panel.GetComponent<NumberPanelController>().adapted == false)) return;
 			// 全ての数字パネルが最終位置にいたら，成功状態に遷移
 			Dispatch(GameState.Success);
@@ -216,20 +216,20 @@ namespace Project.Scripts.GamePlayScene
 		public void BackButtonDown()
 		{
 			// StageSelectSceneに戻る
-			SceneManager.LoadScene("MenuSelectScene");
+			SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
 		}
 
 		/* タイル・パネル・銃弾オブジェクトの削除 */
 		private static void CleanObject()
 		{
-			GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
+			GameObject[] tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
 			foreach (var tile in tiles)
 			{
 				// タイルの削除 (に伴いパネルも削除される)
 				DestroyImmediate(tile);
 			}
 
-			GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+			GameObject[] bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
 			foreach (var bullet in bullets)
 			{
 				// 銃弾の削除
@@ -273,16 +273,16 @@ namespace Project.Scripts.GamePlayScene
 			// Playing
 			gameObject.AddComponent<AudioSource>();
 			playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-			SetAudioSource(clipName: "playing", audioSource: playingAudioSource, time: 2.0f, loop: true,
+			SetAudioSource(clipName: ClipName.PLAYING, audioSource: playingAudioSource, time: 2.0f, loop: true,
 				volumeRate: 0.25f);
 			// Success
 			gameObject.AddComponent<AudioSource>();
 			successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-			SetAudioSource(clipName: "success", audioSource: successAudioSource);
+			SetAudioSource(clipName: ClipName.SUCCESS, audioSource: successAudioSource);
 			// Failure
 			gameObject.AddComponent<AudioSource>();
 			failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-			SetAudioSource(clipName: "failure", audioSource: failureAudioSource);
+			SetAudioSource(clipName: ClipName.FAILURE, audioSource: failureAudioSource);
 		}
 
 		/* 個々の音源のセットアップ (音源名 / 開始時間 / 繰り返し の設定) */
@@ -293,7 +293,7 @@ namespace Project.Scripts.GamePlayScene
 			audioSource.clip = clip;
 			audioSource.time = time;
 			audioSource.loop = loop;
-			audioSource.volume = PlayerPrefs.GetFloat("Volume", Audio.DEFAULT_VOLUME) * volumeRate;
+			audioSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME) * volumeRate;
 		}
 	}
 }

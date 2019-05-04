@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace Project.Scripts.LevelSelectScene
 			// Toggleのリスナーを設定
 			AddListeners();
 			// 初期シーンのロード
-			StartCoroutine(AddScene("EasyStageSelectScene"));
+			StartCoroutine(AddScene(SceneName.EASY_STAGE_SELECT_SCENE));
 		}
 
 		private void OnEnable()
@@ -38,7 +39,7 @@ namespace Project.Scripts.LevelSelectScene
 		/* このシーンがアンロードされた時に，`nowScene`もアンロードする */
 		private void OnSceneUnloaded(Scene scene)
 		{
-			if (scene.name == "LevelSelectScene")
+			if (scene.name == SceneName.LEVEL_SELECT_SCENE)
 			{
 				SceneManager.UnloadSceneAsync(nowScene);
 				SceneManager.sceneUnloaded -= OnSceneUnloaded;

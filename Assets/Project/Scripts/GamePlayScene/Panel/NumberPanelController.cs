@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Library;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
@@ -27,8 +29,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
 		{
 			Initialize(initialTileNum);
-			name = "NumberPanel" + panelNum;
-			finalTile = GameObject.Find("Tile" + finalTileNum);
+			name = PanelName.NUMBER_PANEL;
+			finalTile = TileLibrary.GetTile(finalTileNum);
 		}
 
 		protected override void UpdateTile(GameObject targetTile)
@@ -43,7 +45,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			// 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
-			if (!other.gameObject.CompareTag("Bullet")) return;
+			if (!other.gameObject.CompareTag(TagName.BULLET)) return;
 			gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
 			// 失敗状態に移行する
 			gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
