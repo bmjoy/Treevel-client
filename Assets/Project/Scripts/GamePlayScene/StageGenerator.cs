@@ -91,6 +91,7 @@ namespace Project.Scripts.GamePlayScene
 					panelGenerator.CreateNumberPanel(panelNumber: 7, initialTileNum: 13, finalTileNum: 10);
 					panelGenerator.CreateNumberPanel(panelNumber: 8, initialTileNum: 15, finalTileNum: 11);
 					break;
+				// 必ずパネルを撃ち抜く銃弾のテストステージ
 				case 3:
 					// 銃弾実体生成
 					coroutines.Add(bulletGenerator.CreateHole(
