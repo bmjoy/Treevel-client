@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
-	public class HoleWarningController : BulletWarningController
+	public class NormalHoleWarningController : BulletWarningController
 	{
 		protected override void Awake()
 		{

@@ -8,7 +8,8 @@
 
 	public enum HoleType
 	{
-		Normal
+		Normal,
+		Aiming
 	}
 
 	public enum CartridgeDirection

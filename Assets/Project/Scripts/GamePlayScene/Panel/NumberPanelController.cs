@@ -13,7 +13,6 @@ namespace Project.Scripts.GamePlayScene.Panel
 		protected override void Awake()
 		{
 			base.Awake();
-			name = "NumberPanel";
 			// 当たり判定と，フリック検知のアタッチ
 			gameObject.AddComponent<BoxCollider2D>();
 		}
@@ -25,9 +24,10 @@ namespace Project.Scripts.GamePlayScene.Panel
 			adapted = transform.parent.gameObject == finalTile;
 		}
 
-		public void Initialize(int initialTileNum, int finalTileNum)
+		public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
 		{
 			Initialize(initialTileNum);
+			name = "NumberPanel" + panelNum;
 			finalTile = GameObject.Find("Tile" + finalTileNum);
 		}
 
