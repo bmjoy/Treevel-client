@@ -61,7 +61,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		public static Dictionary<string, int[]> SetAimingHoleInfo(int[] aimingPanel)
 		{
-			return new Dictionary<string, int[]> {{"AimingPanel", aimingPanel}};
+			return new Dictionary<string, int[]> {{"AimingPanel", aimingPanel}, {"Count", new[] {1}}};
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
@@ -187,7 +187,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
-		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column, Dictionary<string, int[]> additionalInfo)
+		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column,
+			Dictionary<string, int[]> additionalInfo)
 		{
 			GameObject warning;
 			switch (holeType)

@@ -32,7 +32,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// 最上タイルのy座標
 			const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
 			row = (int) ((topTilePositionY - position.y) / TileSize.HEIGHT) + 1;
-			column =(int)(position.x/TileSize.WIDTH) + 1 + 1;
+			column = (int) ((position.x / TileSize.WIDTH) + 1) + 1;
 		}
 
 		protected static Vector2 Rotate(Vector2 v, float angle)
