@@ -9,7 +9,7 @@ namespace Project.Scripts.StageSelectScene
 	{
 		public GameObject stageButtonPrefab;
 
-		public GameObject dummuBackgroundPrefab;
+		public GameObject dummyBackgroundPrefab;
 
 		private void Awake()
 		{
@@ -27,8 +27,8 @@ namespace Project.Scripts.StageSelectScene
 			// ステージ番号を渡す
 			GamePlayDirector.stageId = stageId;
 			// 背景画像をCanvasの下に置く
-			var canvas = GetCanvas().GetComponent<RectTransform>();;
-			var background = Instantiate(dummuBackgroundPrefab);
+			var canvas = GetCanvas().GetComponent<RectTransform>();
+			var background = Instantiate(dummyBackgroundPrefab);
 			background.transform.SetParent(canvas, false);
 			// シーン遷移
 			SceneManager.LoadScene("GamePlayScene");
@@ -37,16 +37,16 @@ namespace Project.Scripts.StageSelectScene
 		/* 現在アクティブなシーンの Canvas を取得 */
 		private static GameObject GetCanvas()
 		{
-			var canvas = new GameObject();
 			var scene = SceneManager.GetActiveScene();
 			foreach (var rootGameObject in scene.GetRootGameObjects())
 			{
 				if (rootGameObject.name == "Canvas")
 				{
-					canvas = rootGameObject;
+					return rootGameObject;
 				}
 			}
-			return canvas;
+
+			return null;
 		}
 
 		/* ボタンの生成 */
