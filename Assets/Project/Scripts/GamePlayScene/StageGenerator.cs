@@ -91,6 +91,27 @@ namespace Project.Scripts.GamePlayScene
 					panelGenerator.CreateNumberPanel(panelNumber: 7, initialTileNum: 13, finalTileNum: 10);
 					panelGenerator.CreateNumberPanel(panelNumber: 8, initialTileNum: 15, finalTileNum: 11);
 					break;
+				case 3:
+					// 銃弾実体生成
+					coroutines.Add(bulletGenerator.CreateHole(
+						holeType: HoleType.Aiming,
+						appearanceTime: 2.0f,
+						interval: 2.0f,
+						additionalInfo: BulletGenerator.SetAimingHoleInfo(
+							aimingPanel: new[] {1})));
+					// タイル作成
+					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
+					tileGenerator.CreateNormalTiles();
+					// パネル作成
+					panelGenerator.CreateNumberPanel(panelNumber: 1, initialTileNum: 1, finalTileNum: 4);
+					panelGenerator.CreateNumberPanel(panelNumber: 2, initialTileNum: 3, finalTileNum: 5);
+					panelGenerator.CreateNumberPanel(panelNumber: 3, initialTileNum: 5, finalTileNum: 6);
+					panelGenerator.CreateNumberPanel(panelNumber: 4, initialTileNum: 6, finalTileNum: 7);
+					panelGenerator.CreateNumberPanel(panelNumber: 5, initialTileNum: 8, finalTileNum: 8);
+					panelGenerator.CreateNumberPanel(panelNumber: 6, initialTileNum: 11, finalTileNum: 9);
+					panelGenerator.CreateNumberPanel(panelNumber: 7, initialTileNum: 13, finalTileNum: 10);
+					panelGenerator.CreateNumberPanel(panelNumber: 8, initialTileNum: 15, finalTileNum: 11);
+					break;
 				default:
 					throw new NotImplementedException();
 			}
