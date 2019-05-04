@@ -17,7 +17,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// コンストラクタがわりのメソッド
-		public virtual void Initialize(int row, int column, Vector3 holeWarningPosition)
+		public virtual void Initialize(int row, int column, Vector2 holeWarningPosition)
 		{
 			this.row = row;
 			this.column = column;
