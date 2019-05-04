@@ -4,9 +4,6 @@
 	{
 		public const float WIDTH = 9;
 		public const float HEIGHT = 16;
-
-		public const float BRANK_WIDTH = 0;
-		public const float BRANK_HEIGHT = 0;
 	}
 
 	public static class TileSize
