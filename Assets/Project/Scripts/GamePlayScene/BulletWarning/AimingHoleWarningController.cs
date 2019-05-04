@@ -10,8 +10,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			// 撃ち抜くPanelを取得する
 			var aimingPanel = additionalInfo["AimingPanel"];
 			var count = additionalInfo["Count"][0];
-			var panelNumber = aimingPanel[((count - 1) % aimingPanel.Length)];
-			var panel = GameObject.Find("NumberPanel" + panelNumber);
+			var panelNum = aimingPanel[((count - 1) % aimingPanel.Length)];
+			var panel = GameObject.Find("NumberPanel" + panelNum);
 			// 警告の表示位置をPanelと同じ位置にする
 			transform.position = panel.transform.position;
 			// 次の表示位置を求める
