@@ -17,7 +17,7 @@ namespace Project.Scripts.StageSelectScene
 			MakeButtons();
 		}
 
-		protected static void StageButtonDown(GameObject clickedButton)
+		protected void StageButtonDown(GameObject clickedButton)
 		{
 			// タップされたステージidを取得（暫定的にボタンの名前）
 			var stageId = int.Parse(clickedButton.name);
@@ -26,8 +26,27 @@ namespace Project.Scripts.StageSelectScene
 			ss.IncChallengeNum(stageId);
 			// ステージ番号を渡す
 			GamePlayDirector.stageId = stageId;
+			// 背景画像をCanvasの下に置く
+			var canvas = GetCanvas().GetComponent<RectTransform>();;
+			var background = Instantiate(dummuBackgroundPrefab);
+			background.transform.SetParent(canvas, false);
 			// シーン遷移
 			SceneManager.LoadScene("GamePlayScene");
+		}
+
+		/* 現在アクティブなシーンの Canvas を取得 */
+		private static GameObject GetCanvas()
+		{
+			var canvas = new GameObject();
+			var scene = SceneManager.GetActiveScene();
+			foreach (var rootGameObject in scene.GetRootGameObjects())
+			{
+				if (rootGameObject.name == "Canvas")
+				{
+					canvas = rootGameObject;
+				}
+			}
+			return canvas;
 		}
 
 		/* ボタンの生成 */
