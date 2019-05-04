@@ -9,6 +9,8 @@ namespace Project.Scripts.StageSelectScene
 	{
 		public GameObject stageButtonPrefab;
 
+		public GameObject dummuBackgroundPrefab;
+
 		private void Awake()
 		{
 			// ボタンの作成

@@ -452,6 +452,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageButtonPrefab: {fileID: 1236724618390060, guid: e88ee036a5fc34075a20671c1eb8c11a,
     type: 2}
+  dummuBackgroundPrefab: {fileID: 1685904052702858, guid: 02d50765ccd9d4f3faf58216ef9a568a,
+    type: 2}
 --- !u!4 &1324947878
 Transform:
   m_ObjectHideFlags: 0
