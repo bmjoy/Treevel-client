@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using Project.Scripts.Utils.Definitions;
+using UnityEditor.PackageManager;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -22,6 +24,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		protected static Vector2 Transposition(Vector2 v)
 		{
 			return new Vector2(v.y, v.x);
+		}
+
+		// 座標から行(row)と列(column)を返す関数
+		protected static void GetRowAndColumn(out int row, out int column, Vector2 position)
+		{
+			print(position);
+			// 最上タイルのy座標
+			const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
+			print(topTilePositionY);
+			row = (int) ((topTilePositionY - position.y) / TileSize.HEIGHT) + 1;
+			column =(int)(position.x/TileSize.WIDTH) + 1 + 1;
 		}
 
 		protected static Vector2 Rotate(Vector2 v, float angle)
