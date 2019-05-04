@@ -12,11 +12,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public float originalWidth;
 		public float originalHeight;
 
+		// ベクトルの絶対値を返す関数
 		protected static Vector2 Abs(Vector2 v)
 		{
 			return new Vector2(Math.Abs(v.x), Math.Abs(v.y));
 		}
 
+		// ベクトルの転置を返す関数
 		protected static Vector2 Transposition(Vector2 v)
 		{
 			return new Vector2(v.y, v.x);
