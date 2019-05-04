@@ -59,6 +59,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return new Dictionary<string, int[]> {{"TurnDirection", turnDirection}, {"TurnLine", turnLine}};
 		}
 
+		public static Dictionary<string, int[]> SetAimingHoleInfo(int[] aimingPanel)
+		{
+			return new Dictionary<string, int[]> {{"AimingPanel", aimingPanel}};
+		}
+
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
 			CartridgeDirection direction, int line, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
@@ -153,7 +158,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
 		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
-			int column = 0, bool loop = true)
+			int column = 0, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
 		{
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
@@ -164,7 +169,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneHole(holeType, bulletId, row, column));
+				StartCoroutine(CreateOneHole(holeType, bulletId, row, column, additionalInfo));
 
 				try
 				{
@@ -182,13 +187,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
-		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column)
+		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column, Dictionary<string, int[]> additionalInfo)
 		{
 			GameObject warning;
 			switch (holeType)
 			{
 				case HoleType.Normal:
 					warning = Instantiate(normalHoleWarningPrefab);
+					warning.GetComponent<HoleWarningController>().Initialize(row, column);
+					break;
+				case HoleType.Aiming:
+					warning = Instantiate(aimingHoleWarningPrefab);
+					warning.GetComponent<AimingHoleWarningController>().Initialize(additionalInfo);
 					break;
 				default:
 					throw new NotImplementedException();
@@ -196,26 +206,28 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			warning.GetComponent<Renderer>().sortingOrder = holeId;
 
-			var warningScript = warning.GetComponent<HoleWarningController>();
-			warningScript.Initialize(row, column);
-
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
 			Destroy(warning);
 
 			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
 			{
 				GameObject hole;
+				NormalHoleController holeScript;
 				switch (holeType)
 				{
 					case HoleType.Normal:
 						hole = Instantiate(normalHolePrefab);
+						holeScript = hole.GetComponent<NormalHoleController>();
+						holeScript.Initialize(row, column, warning.transform.position);
+						break;
+					case HoleType.Aiming:
+						hole = Instantiate(aimingHolePrefab);
+						holeScript = hole.GetComponent<AimingHoleController>();
+						holeScript.Initialize(row, column, warning.transform.position);
 						break;
 					default:
 						throw new NotImplementedException();
 				}
-
-				var holeScript = hole.GetComponent<NormalHoleController>();
-				holeScript.Initialize(row, column, warning.transform.position);
 
 				hole.GetComponent<Renderer>().sortingOrder = holeId;
 				StartCoroutine(holeScript.Delete());
