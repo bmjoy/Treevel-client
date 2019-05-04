@@ -8,6 +8,11 @@ namespace Project.Scripts.MenuSelectScene
 {
 	public class MenuSelectDirector : MonoBehaviour
 	{
+		private const string LEVEL_SELECT_TOGGLE_NAME = "LevelSelect";
+		private const string RECORD_TOGGLE_NAME = "Record";
+		private const string TUTORIAL_TOGGLE_NAME = "Tutorial";
+		private const string CONFIG_TOGGLE_NAME = "Config";
+
 		private string nowScene;
 
 		private GameObject levelSelectToggle;
@@ -21,10 +26,10 @@ namespace Project.Scripts.MenuSelectScene
 		private void Awake()
 		{
 			// Toggleの取得
-			levelSelectToggle = GameObject.Find("LevelSelect");
-			recordToggle = GameObject.Find("Record");
-			tutorialToggle = GameObject.Find("Tutorial");
-			configToggle = GameObject.Find("Config");
+			levelSelectToggle = GameObject.Find(LEVEL_SELECT_TOGGLE_NAME);
+			recordToggle = GameObject.Find(RECORD_TOGGLE_NAME);
+			tutorialToggle = GameObject.Find(TUTORIAL_TOGGLE_NAME);
+			configToggle = GameObject.Find(CONFIG_TOGGLE_NAME);
 			// Toggleのリスナーを設定
 			AddListeners();
 			// 初期シーンのロード

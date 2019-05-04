@@ -11,6 +11,15 @@ namespace Project.Scripts.GamePlayScene
 {
 	public class GamePlayDirector : MonoBehaviour
 	{
+		private const string STAGE_GENERATOR_NAME = "StageGenerator";
+		private const string RESULT_WINDOW_NAME = "ResultWindow";
+		private const string RESULT_NAME = "Result";
+		private const string SUCCESS_TEXT = "成功！";
+		private const string FAILURE_TEXT = "失敗！";
+		private const string WARNING_NAME = "Warning";
+		private const string WARNING_TEXT = "アプリが\nバックグラウンドに\n移動しました";
+		private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
+
 		public delegate void ChangeAction();
 
 		public static event ChangeAction OnFail;
@@ -46,13 +55,13 @@ namespace Project.Scripts.GamePlayScene
 
 		private void Awake()
 		{
-			stageGenerator = GameObject.Find("StageGenerator");
+			stageGenerator = GameObject.Find(STAGE_GENERATOR_NAME);
 
-			resultWindow = GameObject.Find("ResultWindow");
+			resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
 
-			resultText = resultWindow.transform.Find("Result").gameObject;
-			warningText = resultWindow.transform.Find("Warning").gameObject;
-			stageNumberText = GameObject.Find("StageNumberText");
+			resultText = resultWindow.transform.Find(RESULT_NAME).gameObject;
+			warningText = resultWindow.transform.Find(WARNING_NAME).gameObject;
+			stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
 			UnifyDisplay(resultWindow);
 
@@ -70,7 +79,7 @@ namespace Project.Scripts.GamePlayScene
 			{
 				if (Dispatch(GameState.Failure))
 				{
-					warningText.GetComponent<Text>().text = "アプリが\nバックグラウンドに\n移動しました";
+					warningText.GetComponent<Text>().text = WARNING_TEXT;
 				}
 			}
 		}
@@ -176,7 +185,7 @@ namespace Project.Scripts.GamePlayScene
 			if (OnSucceed != null) OnSucceed();
 			EndProcess();
 			successAudioSource.Play();
-			resultText.GetComponent<Text>().text = "成功!";
+			resultText.GetComponent<Text>().text = SUCCESS_TEXT;
 			var ss = StageStatus.Get(stageId);
 			// クリア済みにする
 			ss.ClearStage(stageId);
@@ -190,7 +199,7 @@ namespace Project.Scripts.GamePlayScene
 			if (OnFail != null) OnFail();
 			EndProcess();
 			failureAudioSource.Play();
-			resultText.GetComponent<Text>().text = "失敗!";
+			resultText.GetComponent<Text>().text = FAILURE_TEXT;
 			// 失敗回数をインクリメント
 			var ss = StageStatus.Get(stageId);
 			ss.IncFailureNum(stageId);

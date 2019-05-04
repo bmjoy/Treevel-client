@@ -12,6 +12,10 @@ namespace Project.Scripts.GamePlayScene
 {
 	public class StageGenerator : MonoBehaviour
 	{
+		private const string TILE_GENERATOR_NAME = "TileGenerator";
+		private const string PANEL_GENERATOR_NAME = "PanelGenerator";
+		private const string BULLET_GENERATOR_NAME = "BulletGenerator";
+
 		private TileGenerator tileGenerator;
 
 		private PanelGenerator panelGenerator;
@@ -20,9 +24,9 @@ namespace Project.Scripts.GamePlayScene
 
 		private void Awake()
 		{
-			tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
-			panelGenerator = GameObject.Find("PanelGenerator").GetComponent<PanelGenerator>();
-			bulletGenerator = GameObject.Find("BulletGenerator").GetComponent<BulletGenerator>();
+			tileGenerator = GameObject.Find(TILE_GENERATOR_NAME).GetComponent<TileGenerator>();
+			panelGenerator = GameObject.Find(PANEL_GENERATOR_NAME).GetComponent<PanelGenerator>();
+			bulletGenerator = GameObject.Find(BULLET_GENERATOR_NAME).GetComponent<BulletGenerator>();
 		}
 
 		public void CreateStages(int stageId)
