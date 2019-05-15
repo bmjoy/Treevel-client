@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return turnLine;
 		}
 
-		public void SetTurnLine(int[] urnLine)
+		public void SetTurnLine(int[] turnLine)
 		{
 			this.turnLine = turnLine;
 		}
