@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project/Scenes/MenuBarScene.unity
+    path: Assets/Project/Scenes/MenuSelectScene.unity
     guid: 47c09d9777db0433eab6b66eac0abee4
   - enabled: 1
     path: Assets/Project/Scenes/RecordScene.unity
@@ -24,15 +24,15 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/LevelSelectScene.unity
     guid: bd321d6187a974e9e808df4b07e0b634
   - enabled: 1
-    path: Assets/Project/Scenes/EasyStageSelectScene.unity
+    path: Assets/Project/Scenes/StageSelectScene/EasyStageSelectScene.unity
     guid: 4b0234159911040549a0ca37c4209712
   - enabled: 1
-    path: Assets/Project/Scenes/NormalStageSelectScene.unity
+    path: Assets/Project/Scenes/StageSelectScene/NormalStageSelectScene.unity
     guid: ebdb017d9e0a543fabc9102396a5e396
   - enabled: 1
-    path: Assets/Project/Scenes/HardStageSelectScene.unity
+    path: Assets/Project/Scenes/StageSelectScene/HardStageSelectScene.unity
     guid: 4bdfcf250240d4c7caee7565f770e92e
   - enabled: 1
-    path: Assets/Project/Scenes/VeryHardStageSelectScene.unity
+    path: Assets/Project/Scenes/StageSelectScene/VeryHardStageSelectScene.unity
     guid: b32486667d9f4463a9415019bca60c8b
   m_configObjects: {}
