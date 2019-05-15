@@ -44,7 +44,7 @@ namespace Project.Scripts.GamePlayScene
 						direction: CartridgeDirection.ToLeft,
 						line: (int) Row.Second,
 						loop: true,
-						additionalInfo: BulletGenerator.SetTurnCartridgeInfo(
+						bulletInfo: BulletGenerator.SetTurnCartridgeInfo(
 							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
 							turnLine: new[] {(int) Column.Right, (int) Row.First})));
 					coroutines.Add(bulletGenerator.CreateCartridge(
@@ -114,7 +114,7 @@ namespace Project.Scripts.GamePlayScene
 						holeType: HoleType.Aiming,
 						appearanceTime: 2.0f,
 						interval: 2.0f,
-						additionalInfo: BulletGenerator.SetAimingHoleInfo(
+						bulletInfo: BulletGenerator.SetAimingHoleInfo(
 							aimingPanel: new[] {1, 2, 3, 4, 5, 6, 7, 8})));
 
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */

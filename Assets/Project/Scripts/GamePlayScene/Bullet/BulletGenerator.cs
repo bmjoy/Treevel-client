@@ -49,24 +49,30 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
-		public static Dictionary<string, int[]> SetNormalCartridgeInfo()
+		public static BulletInfo SetNormalCartridgeInfo()
 		{
 			return null;
 		}
 
-		public static Dictionary<string, int[]> SetTurnCartridgeInfo(int[] turnDirection, int[] turnLine)
+		public static BulletInfo SetTurnCartridgeInfo(int[] turnDirection, int[] turnLine)
 		{
-			return new Dictionary<string, int[]> {{"TurnDirection", turnDirection}, {"TurnLine", turnLine}};
+			var bulletInfo = new BulletInfo();
+			bulletInfo.SetTurnDirection(turnDirection);
+			bulletInfo.SetTurnLine(turnLine);
+			return bulletInfo;
 		}
 
-		public static Dictionary<string, int[]> SetAimingHoleInfo(int[] aimingPanel)
+		public static BulletInfo SetAimingHoleInfo(int[] aimingPanel)
 		{
-			return new Dictionary<string, int[]> {{"AimingPanel", aimingPanel}, {"Count", new[] {1}}};
+			var bulletInfo = new BulletInfo();
+			bulletInfo.SetAimingPanel(aimingPanel);
+			bulletInfo.SetCount(1);
+			return bulletInfo;
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
-			CartridgeDirection direction, int line, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
+			CartridgeDirection direction, int line, bool loop = true, BulletInfo bulletInfo = null)
 		{
 			var currentTime = Time.time;
 
@@ -81,7 +87,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, additionalInfo));
+				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, bulletInfo));
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -103,7 +109,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
 		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, short cartridgeId,
 			CartridgeDirection direction, int line,
-			Dictionary<string, int[]> additionalInfo)
+			BulletInfo bulletInfo)
 		{
 			// 作成するcartidgeの種類で分岐
 			GameObject warning;
@@ -145,7 +151,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					case CartridgeType.Turn:
 						cartridge = Instantiate(turnCartridgePrefab);
 						cartridge.GetComponent<TurnCartridgeController>()
-							.Initialize(direction, line, bulletMotionVector, additionalInfo);
+							.Initialize(direction, line, bulletMotionVector, bulletInfo);
 						break;
 					default:
 						throw new NotImplementedException();
@@ -158,7 +164,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
 		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
-			int column = 0, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
+			int column = 0, bool loop = true, BulletInfo bulletInfo = null)
 		{
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
@@ -169,7 +175,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneHole(holeType, bulletId, row, column, additionalInfo));
+				StartCoroutine(CreateOneHole(holeType, bulletId, row, column, bulletInfo));
 
 				try
 				{
@@ -188,7 +194,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
 		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column,
-			Dictionary<string, int[]> additionalInfo)
+			BulletInfo bulletInfo)
 		{
 			GameObject warning;
 			switch (holeType)
@@ -199,7 +205,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					break;
 				case HoleType.Aiming:
 					warning = Instantiate(aimingHoleWarningPrefab);
-					warning.GetComponent<AimingHoleWarningController>().Initialize(additionalInfo);
+					warning.GetComponent<AimingHoleWarningController>().Initialize(bulletInfo);
 					break;
 				default:
 					throw new NotImplementedException();

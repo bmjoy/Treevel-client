@@ -108,13 +108,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
-			Dictionary<string, int[]> additionalInfo)
+			BulletInfo bulletInfo)
 		{
 			Initialize(direction, line, motionVector);
 
 			// どのタイル上でどの方向に曲がるかの引数を受け取る
-			turnDirection = additionalInfo["TurnDirection"];
-			turnLine = additionalInfo["TurnLine"];
+			turnDirection = bulletInfo.GetTurnDirection();
+			turnLine = bulletInfo.GetTurnLine();
 
 			// 銃弾が曲がるタイルの座標
 			turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(
