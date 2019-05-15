@@ -3,13 +3,15 @@
 	public enum CartridgeType
 	{
 		Normal,
-		Turn
+		Turn,
+		Random
 	}
 
 	public enum HoleType
 	{
 		Normal,
-		Aiming
+		Aiming,
+		Random
 	}
 
 	public enum CartridgeDirection
@@ -17,7 +19,8 @@
 		ToLeft,
 		ToRight,
 		ToUp,
-		ToBottom
+		ToBottom,
+		Random
 	}
 
 	public enum Row
@@ -26,13 +29,15 @@
 		Second,
 		Third,
 		Fourth,
-		Fifth
+		Fifth,
+		Random
 	}
 
 	public enum Column
 	{
 		Left = 1,
 		Center,
-		Right
+		Right,
+		Random
 	}
 }
