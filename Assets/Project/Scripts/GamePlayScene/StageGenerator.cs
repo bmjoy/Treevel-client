@@ -117,6 +117,39 @@ namespace Project.Scripts.GamePlayScene
 					panelGenerator.CreateNumberPanel(panelNum: 7, initialTileNum: 13, finalTileNum: 10);
 					panelGenerator.CreateNumberPanel(panelNum: 8, initialTileNum: 15, finalTileNum: 11);
 					break;
+				// 記録画面テスト用 (`case 1`と全く同じ)
+				case 1001:
+					// 銃弾実体生成
+					coroutines.Add(bulletGenerator.CreateCartridge(
+						cartridgeType: CartridgeType.Turn,
+						appearanceTime: 1.0f,
+						interval: 1.0f,
+						direction: CartridgeDirection.ToLeft,
+						line: (int) Row.Second,
+						loop: true,
+						additionalInfo: BulletGenerator.SetTurnCartridgeInfo(
+							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
+							turnLine: new[] {(int) Column.Right, (int) Row.First})));
+					coroutines.Add(bulletGenerator.CreateCartridge(
+						cartridgeType: CartridgeType.Normal,
+						direction: CartridgeDirection.ToUp,
+						line: (int) Column.Right,
+						appearanceTime: 2.0f,
+						interval: 4.0f));
+					// タイル作成
+					tileGenerator.CreateNormalTiles();
+					// パネル作成
+					panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
+					panelGenerator.CreateNumberPanel(panelNum: 1, initialTileNum: 4, finalTileNum: 4);
+					panelGenerator.CreateNumberPanel(panelNum: 2, initialTileNum: 5, finalTileNum: 5);
+					panelGenerator.CreateNumberPanel(panelNum: 3, initialTileNum: 6, finalTileNum: 6);
+					panelGenerator.CreateNumberPanel(panelNum: 4, initialTileNum: 7, finalTileNum: 7);
+					panelGenerator.CreateNumberPanel(panelNum: 5, initialTileNum: 8, finalTileNum: 8);
+					panelGenerator.CreateNumberPanel(panelNum: 6, initialTileNum: 9, finalTileNum: 9);
+					panelGenerator.CreateNumberPanel(panelNum: 7, initialTileNum: 10, finalTileNum: 10);
+					panelGenerator.CreateNumberPanel(panelNum: 8, initialTileNum: 14, finalTileNum: 11);
+					panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
+					break;
 				default:
 					throw new NotImplementedException();
 			}
