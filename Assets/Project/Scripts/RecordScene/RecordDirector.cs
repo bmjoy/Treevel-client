@@ -12,6 +12,8 @@ namespace Project.Scripts.RecordScene
 
 		public GameObject stageNumPrefab;
 
+		public GameObject successLinePrefab;
+
 		private GameObject level;
 
 		private GameObject percentage;
@@ -144,7 +146,20 @@ namespace Project.Scripts.RecordScene
 					maxY = 0.75f * stageStatus.challengeNum / maxScale + 0.15f;
 				}
 				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, maxY);
-				graphUi.GetComponent<Image>().color = stageStatus.passed ? Color.cyan : Color.red;
+
+				if (stageStatus.passed)
+				{
+					graphUi.GetComponent<Image>().color = Color.cyan;
+					var successY = 0.75f * stageStatus.firstSuccessNum / maxScale + 0.15f;
+					var successLineUi = Instantiate(successLinePrefab);
+					successLineUi.transform.SetParent(graphAreaContent, false);
+					successLineUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, successY);
+					successLineUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, successY);
+				}
+				else
+				{
+					graphUi.GetComponent<Image>().color = Color.red;
+				}
 
 				var stageNumUi = Instantiate(stageNumPrefab);
 				stageNumUi.transform.SetParent(graphAreaContent, false);

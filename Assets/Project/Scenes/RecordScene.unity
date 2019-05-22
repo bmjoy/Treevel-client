@@ -849,6 +849,8 @@ MonoBehaviour:
     type: 2}
   stageNumPrefab: {fileID: 1009195855993088, guid: b626be635a42747f6a7fd8fb88fcc4ff,
     type: 2}
+  successLinePrefab: {fileID: 1781992108246784, guid: 923a9a5e14eb54aa082f3884cb658373,
+    type: 2}
 --- !u!1 &1572766962
 GameObject:
   m_ObjectHideFlags: 0
