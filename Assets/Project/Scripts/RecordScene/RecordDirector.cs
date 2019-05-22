@@ -26,6 +26,9 @@ namespace Project.Scripts.RecordScene
 
 		private int nowLevel;
 
+		// グラフの横幅が隙間の何倍か
+		private const float RATIO_GRAPH_SPACE = 1.0f;
+
 		private void Awake()
 		{
 			level = GameObject.Find("Level");
@@ -108,7 +111,9 @@ namespace Project.Scripts.RecordScene
 			// 描画する範囲
 			var graphAreaContent = graphArea.GetComponent<RectTransform>();;
 			// 隙間の大きさ
-			var blank = 0.85f / (2 * stageNum + 1);
+			var blank = 0.85f / ((1 + RATIO_GRAPH_SPACE) * stageNum + 1);
+			// グラフの横幅
+			var graphWidth = blank * RATIO_GRAPH_SPACE;
 			// グラフ描画の左端
 			var leftPosition = 0.1f;
 			// ステージ番号
@@ -119,6 +124,7 @@ namespace Project.Scripts.RecordScene
 			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
 			{
 				var stageStatus = StageStatus.Get(stageId);
+
 				if (stageStatus.challengeNum > maxChallengeNum)
 				{
 					maxChallengeNum = stageStatus.challengeNum;
@@ -148,7 +154,7 @@ namespace Project.Scripts.RecordScene
 				{
 					maxY = 0.75f * stageStatus.challengeNum / maxScale + 0.15f;
 				}
-				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, maxY);
+				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + graphWidth, maxY);
 
 				if (stageStatus.passed)
 				{
@@ -157,7 +163,7 @@ namespace Project.Scripts.RecordScene
 					var successLineUi = Instantiate(successLinePrefab);
 					successLineUi.transform.SetParent(graphAreaContent, false);
 					successLineUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, successY);
-					successLineUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, successY);
+					successLineUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + graphWidth, successY);
 				}
 				else
 				{
@@ -168,7 +174,7 @@ namespace Project.Scripts.RecordScene
 				stageNumUi.transform.SetParent(graphAreaContent, false);
 				stageNumUi.GetComponent<Text>().text = stageName.ToString();
 				stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, 0.05f);
-				stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, 0.15f);
+				stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + graphWidth, 0.15f);
 
 				leftPosition += blank;
 				stageName++;
