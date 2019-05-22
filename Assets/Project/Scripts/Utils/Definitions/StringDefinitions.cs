@@ -29,5 +29,6 @@
 		public const string NUMBER_PANEL = "NumberPanel";
 		public const string BULLET = "Bullet";
 		public const string BULLET_WARNING = "BulletWarning";
+		public const string GRAPH_UI = "GraphUi";
 	}
 }

@@ -42,6 +42,13 @@ namespace Project.Scripts.RecordScene
 		/* 難易度に合わせた画面を描画する */
 		private void Draw(int levelNum)
 		{
+			// 画面を綺麗にする
+			GameObject[] graphUis = GameObject.FindGameObjectsWithTag(TagName.GRAPH_UI);
+			foreach (var graphUi in graphUis)
+			{
+				Destroy(graphUi);
+			}
+
 			switch (levelNum)
 			{
 				case 0:
