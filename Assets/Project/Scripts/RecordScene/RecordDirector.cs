@@ -123,6 +123,12 @@ namespace Project.Scripts.RecordScene
 				}
 			}
 
+			// 目盛の数値を書き換える
+			var maxScale = (float) Math.Ceiling(maxChallengeNum / 3.0f) * 3.0f;
+			GameObject.Find("Scale2-Value").GetComponent<Text>().text = (maxScale / 3).ToString();
+			GameObject.Find("Scale3-Value").GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
+			GameObject.Find("Scale4-Value").GetComponent<Text>().text = maxScale.ToString();
+
 			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
 			{
 				leftPosition += blank;
@@ -135,7 +141,7 @@ namespace Project.Scripts.RecordScene
 				var maxY = 0.15f;
 				if(maxChallengeNum != 0)
 				{
-					maxY = 0.75f * stageStatus.challengeNum / maxChallengeNum + 0.15f;
+					maxY = 0.75f * stageStatus.challengeNum / maxScale + 0.15f;
 				}
 				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, maxY);
 
