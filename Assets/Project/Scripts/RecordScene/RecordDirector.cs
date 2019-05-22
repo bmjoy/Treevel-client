@@ -8,6 +8,10 @@ namespace Project.Scripts.RecordScene
 {
 	public class RecordDirector : MonoBehaviour
 	{
+		public GameObject graphPrefab;
+
+		public GameObject stageNumPrefab;
+
 		private GameObject level;
 
 		private GameObject percentage;
