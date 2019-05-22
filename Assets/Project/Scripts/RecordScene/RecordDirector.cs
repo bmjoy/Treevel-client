@@ -106,7 +106,7 @@ namespace Project.Scripts.RecordScene
 		private void DrawGraph(int stageNum, int stageStartId)
 		{
 			// 描画する範囲
-			var graphAreaContent = GameObject.Find("GraphArea").GetComponent<RectTransform>();;
+			var graphAreaContent = graphArea.GetComponent<RectTransform>();;
 			// 隙間の大きさ
 			var blank = 0.85f / (2 * stageNum + 1);
 			// グラフ描画の左端
