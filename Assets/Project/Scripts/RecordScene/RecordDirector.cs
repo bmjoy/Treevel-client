@@ -43,29 +43,21 @@ namespace Project.Scripts.RecordScene
 				case 0:
 					nowLevel = 0;
 					level.GetComponent<Text>().text = "Easy";
-					leftButton.SetActive(false);
-					rightButton.SetActive(true);
 					DrawPercentage(StageNum.EASY, StageStartId.EASY);
 					break;
 				case 1:
 					nowLevel = 1;
 					level.GetComponent<Text>().text = "Normal";
-					leftButton.SetActive(true);
-					rightButton.SetActive(true);
 					DrawPercentage(StageNum.NORMAL, StageStartId.NORMAL);
 					break;
 				case 2:
 					nowLevel = 2;
 					level.GetComponent<Text>().text = "Hard";
-					leftButton.SetActive(true);
-					rightButton.SetActive(true);
 					DrawPercentage(StageNum.HARD, StageStartId.HARD);
 					break;
 				case 3:
 					nowLevel = 3;
 					level.GetComponent<Text>().text = "VeryHard";
-					leftButton.SetActive(true);
-					rightButton.SetActive(false);
 					DrawPercentage(StageNum.VERY_HARD, StageStartId.VERY_HARD);
 					break;
 				default:
@@ -96,13 +88,27 @@ namespace Project.Scripts.RecordScene
 		/* 左ボタンクリック時の処理 */
 		private void LeftButtonDown()
 		{
-			Draw(nowLevel - 1);
+			if (nowLevel == 0)
+			{
+				Draw(3);
+			}
+			else
+			{
+				Draw(nowLevel - 1);
+			}
 		}
 
 		/* 右ボタンクリック時の処理 */
 		private void RightButtonDown()
 		{
-			Draw(nowLevel + 1);
+			if (nowLevel == 3)
+			{
+				Draw(0);
+			}
+			else
+			{
+				Draw(nowLevel + 1);
+			}
 		}
 	}
 }
