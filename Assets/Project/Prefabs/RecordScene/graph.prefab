@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114730860889979388}
   m_Layer: 5
   m_Name: graph
-  m_TagString: Untagged
+  m_TagString: GraphUi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
