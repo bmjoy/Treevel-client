@@ -90,7 +90,7 @@ namespace Project.Scripts.RecordScene
 		{
 			var successStageNum = 0;
 
-			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
+			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
 			{
 				var stageStatus = StageStatus.Get(stageId);
 
@@ -110,7 +110,7 @@ namespace Project.Scripts.RecordScene
 		{
 			// 挑戦回数の最大値を求める
 			var maxChallengeNum = 0;
-			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
+			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
 			{
 				var stageStatus = StageStatus.Get(stageId);
 
@@ -130,7 +130,8 @@ namespace Project.Scripts.RecordScene
 			}
 
 			// 描画する範囲
-			var graphAreaContent = graphArea.GetComponent<RectTransform>();;
+			var graphAreaContent = graphArea.GetComponent<RectTransform>();
+			;
 			// 隙間の大きさ
 			var blankWidth = 0.85f / ((1 + RATIO_GRAPH_SPACE) * stageNum + 1);
 			// グラフの横幅
@@ -148,7 +149,7 @@ namespace Project.Scripts.RecordScene
 			// ステージ番号
 			var stageName = 1;
 
-			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
+			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
 			{
 				var stageStatus = StageStatus.Get(stageId);
 
@@ -159,7 +160,8 @@ namespace Project.Scripts.RecordScene
 				stageNumUi.transform.SetParent(graphAreaContent, false);
 				stageNumUi.GetComponent<Text>().text = stageName.ToString();
 				stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, bottomStageNumPosition);
-				stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + graphWidth, bottomGraphPosition);
+				stageNumUi.GetComponent<RectTransform>().anchorMax =
+					new Vector2(leftPosition + graphWidth, bottomGraphPosition);
 
 				/* グラフ本体の配置 */
 				var graphUi = Instantiate(graphPrefab);
@@ -168,10 +170,11 @@ namespace Project.Scripts.RecordScene
 				// 挑戦回数に応じたグラフの高さ
 				var maxY = bottomGraphPosition;
 
-				if(maxChallengeNum != 0)
+				if (maxChallengeNum != 0)
 				{
 					// 挑戦回数に関して，グラフ本体の描画範囲に正規化する
-					maxY = (topGraphPosition - bottomGraphPosition) * stageStatus.challengeNum / maxScale + bottomGraphPosition;
+					maxY = (topGraphPosition - bottomGraphPosition) * stageStatus.challengeNum / maxScale +
+					       bottomGraphPosition;
 				}
 
 				graphUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, bottomGraphPosition);
@@ -183,10 +186,12 @@ namespace Project.Scripts.RecordScene
 					graphUi.GetComponent<Image>().color = Color.cyan;
 
 					var successLineUi = Instantiate(successLinePrefab);
-					var successY = (topGraphPosition - bottomGraphPosition) * stageStatus.firstSuccessNum / maxScale + bottomGraphPosition;
+					var successY = (topGraphPosition - bottomGraphPosition) * stageStatus.firstSuccessNum / maxScale +
+					               bottomGraphPosition;
 					successLineUi.transform.SetParent(graphAreaContent, false);
 					successLineUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, successY);
-					successLineUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + graphWidth, successY);
+					successLineUi.GetComponent<RectTransform>().anchorMax =
+						new Vector2(leftPosition + graphWidth, successY);
 				}
 				else
 				{
