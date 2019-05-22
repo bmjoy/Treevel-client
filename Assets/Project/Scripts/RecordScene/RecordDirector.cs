@@ -127,9 +127,12 @@ namespace Project.Scripts.RecordScene
 
 			// 目盛の数値を書き換える
 			var maxScale = (float) Math.Ceiling(maxChallengeNum / 3.0f) * 3.0f;
-			GameObject.Find("Scale2-Value").GetComponent<Text>().text = (maxScale / 3).ToString();
-			GameObject.Find("Scale3-Value").GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
-			GameObject.Find("Scale4-Value").GetComponent<Text>().text = maxScale.ToString();
+			if (maxScale != 0)
+			{
+				GameObject.Find("Scale2-Value").GetComponent<Text>().text = (maxScale / 3).ToString();
+				GameObject.Find("Scale3-Value").GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
+				GameObject.Find("Scale4-Value").GetComponent<Text>().text = maxScale.ToString();
+			}
 
 			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
 			{
