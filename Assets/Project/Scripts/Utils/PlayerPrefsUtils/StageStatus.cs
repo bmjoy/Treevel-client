@@ -38,8 +38,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
 
 		public void ClearStage(int stageId)
 		{
+			if (!passed) firstSuccessNum = challengeNum;
 			passed = true;
-			firstSuccessNum = challengeNum;
 			Set(stageId, this);
 		}
 
