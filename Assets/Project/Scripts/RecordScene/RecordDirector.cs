@@ -48,21 +48,25 @@ namespace Project.Scripts.RecordScene
 					nowLevel = 0;
 					level.GetComponent<Text>().text = "Easy";
 					DrawPercentage(StageNum.EASY, StageStartId.EASY);
+					DrawGraph(StageNum.EASY, StageStartId.EASY);
 					break;
 				case 1:
 					nowLevel = 1;
 					level.GetComponent<Text>().text = "Normal";
 					DrawPercentage(StageNum.NORMAL, StageStartId.NORMAL);
+					DrawGraph(StageNum.NORMAL, StageStartId.NORMAL);
 					break;
 				case 2:
 					nowLevel = 2;
 					level.GetComponent<Text>().text = "Hard";
 					DrawPercentage(StageNum.HARD, StageStartId.HARD);
+					DrawGraph(StageNum.HARD, StageStartId.HARD);
 					break;
 				case 3:
 					nowLevel = 3;
 					level.GetComponent<Text>().text = "VeryHard";
 					DrawPercentage(StageNum.VERY_HARD, StageStartId.VERY_HARD);
+					DrawGraph(StageNum.VERY_HARD, StageStartId.VERY_HARD);
 					break;
 				default:
 					throw new NotImplementedException();
@@ -87,6 +91,56 @@ namespace Project.Scripts.RecordScene
 			var percentageNum = (clearStageNum / (float) stageNum) * 100;
 
 			percentage.GetComponent<Text>().text = percentageNum + "%";
+		}
+
+		/* 難易度に合わせた棒グラフを描画する */
+		private void DrawGraph(int stageNum, int stageStartId)
+		{
+			// 描画する範囲
+			var graphAreaContent = GameObject.Find("GraphArea").GetComponent<RectTransform>();;
+			// 隙間の大きさ
+			var blank = 0.85f / (2 * stageNum + 1);
+			// グラフ描画の左端
+			var leftPosition = 0.1f;
+			// ステージ番号
+			var stageName = 1;
+
+			// 挑戦回数の最大値を求める
+			var maxChallengeNum = 0;
+			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
+			{
+				var stageStatus = StageStatus.Get(stageId);
+				if (stageStatus.challengeNum > maxChallengeNum)
+				{
+					maxChallengeNum = stageStatus.challengeNum;
+				}
+			}
+
+			for (var stageId = stageStartId; stageId < stageStartId + stageNum ; stageId++)
+			{
+				leftPosition += blank;
+
+				var graphUi = Instantiate(graphPrefab);
+				graphUi.transform.SetParent(graphAreaContent, false);
+				graphUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, 0.15f);
+
+				var stageStatus = StageStatus.Get(stageId);
+				var maxY = 0.15f;
+				if(maxChallengeNum != 0)
+				{
+					maxY = 0.75f * stageStatus.challengeNum / maxChallengeNum + 0.15f;
+				}
+				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, maxY);
+
+				var stageNumUi = Instantiate(stageNumPrefab);
+				stageNumUi.transform.SetParent(graphAreaContent, false);
+				stageNumUi.GetComponent<Text>().text = stageName.ToString();
+				stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, 0.05f);
+				stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, 0.15f);
+
+				leftPosition += blank;
+				stageName++;
+			}
 		}
 
 		/* 左ボタンクリック時の処理 */
