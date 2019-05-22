@@ -144,6 +144,7 @@ namespace Project.Scripts.RecordScene
 					maxY = 0.75f * stageStatus.challengeNum / maxScale + 0.15f;
 				}
 				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + blank, maxY);
+				graphUi.GetComponent<Image>().color = stageStatus.passed ? Color.cyan : Color.red;
 
 				var stageNumUi = Instantiate(stageNumPrefab);
 				stageNumUi.transform.SetParent(graphAreaContent, false);
