@@ -26,9 +26,6 @@ namespace Project.Scripts.RecordScene
 
 		private int nowLevel;
 
-		// グラフの横幅が隙間の何倍か
-		private const float RATIO_GRAPH_SPACE = 1.0f;
-
 		private void Awake()
 		{
 			level = GameObject.Find("Level");
@@ -108,8 +105,118 @@ namespace Project.Scripts.RecordScene
 		/* 難易度に合わせた棒グラフを描画する */
 		private void DrawGraph(int stageNum, int stageStartId)
 		{
+			// 描画するパネル
+			var graphAreaContent = graphArea.GetComponent<RectTransform>();
+
+			/* UIの配置周りの定数宣言 */
+
+			// 棒グラフ描画範囲の左端
+			const float leftPosition = 0.1f;
+
+			// 棒グラフ描画範囲の右端
+			const float rightPosition = 0.95f;
+
+			// 棒グラフ本体の上端
+			const float topPosition = 0.9f;
+
+			// 棒グラフ本体の下端
+			const float bottomPosition = 0.15f;
+
+			// 棒グラフの横幅が隙間の何倍か
+			const float graphWidthRatio = 1.0f;
+
+			// ステージ番号の下端
+			const float bottomStageNumPosition = 0.05f;
+
+			// グラフ間の隙間の横幅 -> stageNum個のグラフと(stageNum + 1)個の隙間
+			var blankWidth = (rightPosition - leftPosition) / (stageNum * graphWidthRatio + (stageNum + 1));
+
+			// 棒グラフの横幅
+			var graphWidth = blankWidth * graphWidthRatio;
+
+
 			// 挑戦回数の最大値を求める
+			var maxChallengeNum = GetMaxChallengeNum(stageNum, stageStartId);
+
+			// 目盛の最大値を求める
+			var maxScale = (float) Math.Ceiling((float) maxChallengeNum / 3) * 3;
+
+			// 目盛を書き換える
+			if (maxScale > 0)
+			{
+				GameObject.Find("Scale4-Value").GetComponent<Text>().text = maxScale.ToString();
+				GameObject.Find("Scale3-Value").GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
+				GameObject.Find("Scale2-Value").GetComponent<Text>().text = (maxScale / 3).ToString();
+			}
+
+			// ステージ番号
+			var stageName = 1;
+
+			// 描画する棒グラフの左端と右端を示す
+			var left = leftPosition;
+
+			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
+			{
+				var stageStatus = StageStatus.Get(stageId);
+
+				// 左端と右端の更新
+				left += blankWidth;
+				var right = left + graphWidth;
+
+				/* ステージ番号の配置 */
+				var stageNumUi = Instantiate(stageNumPrefab);
+				stageNumUi.transform.SetParent(graphAreaContent, false);
+				stageNumUi.GetComponent<Text>().text = stageName.ToString();
+				stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, bottomStageNumPosition);
+				stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, bottomPosition);
+
+				/* 棒グラフの配置 */
+				var graphUi = Instantiate(graphPrefab);
+				graphUi.transform.SetParent(graphAreaContent, false);
+
+				// 挑戦回数に応じた棒グラフの上端
+				var graphMaxY = bottomPosition;
+
+				if (maxChallengeNum != 0)
+				{
+					// 挑戦回数を用いて，棒グラフの高さを描画範囲に正規化する
+					graphMaxY = (topPosition - bottomPosition) * (stageStatus.challengeNum / maxScale) + bottomPosition;
+				}
+
+				graphUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, bottomPosition);
+				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, graphMaxY);
+
+				if (stageStatus.passed)
+				{
+					/* 成功している場合は，色を水色にして，成功した際の挑戦回数も示す */
+					graphUi.GetComponent<Image>().color = Color.cyan;
+
+					var successLineUi = Instantiate(successLinePrefab);
+					successLineUi.transform.SetParent(graphAreaContent, false);
+					var successY = (topPosition - bottomPosition) * (stageStatus.firstSuccessNum / maxScale) +
+					               bottomPosition;
+					successLineUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, successY);
+					successLineUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, successY);
+				}
+				else
+				{
+					/* 成功していない場合は，色を赤色にする */
+					graphUi.GetComponent<Image>().color = Color.red;
+				}
+
+				// 左端の更新
+				left = right;
+
+				// ステージ番号の更新
+				stageName++;
+			}
+		}
+
+		/* 挑戦回数の最大値を求める */
+		private static int GetMaxChallengeNum(int stageNum, int stageStartId)
+		{
 			var maxChallengeNum = 0;
+
 			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
 			{
 				var stageStatus = StageStatus.Get(stageId);
@@ -120,88 +227,7 @@ namespace Project.Scripts.RecordScene
 				}
 			}
 
-			// 目盛の数値を書き換える
-			var maxScale = (float) Math.Ceiling(maxChallengeNum / 3.0f) * 3.0f;
-			if (maxScale != 0)
-			{
-				GameObject.Find("Scale2-Value").GetComponent<Text>().text = (maxScale / 3).ToString();
-				GameObject.Find("Scale3-Value").GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
-				GameObject.Find("Scale4-Value").GetComponent<Text>().text = maxScale.ToString();
-			}
-
-			// 描画する範囲
-			var graphAreaContent = graphArea.GetComponent<RectTransform>();
-			;
-			// 隙間の大きさ
-			var blankWidth = 0.85f / ((1 + RATIO_GRAPH_SPACE) * stageNum + 1);
-			// グラフの横幅
-			var graphWidth = blankWidth * RATIO_GRAPH_SPACE;
-			// グラフ描画の左端
-			var leftPosition = 0.1f;
-			// グラフ描画の左端
-			var rightPosition = 0.85f;
-			// グラフ本体の上端
-			const float topGraphPosition = 0.9f;
-			// グラフ本体の下端
-			const float bottomGraphPosition = 0.15f;
-			// ステージ番号の下端
-			const float bottomStageNumPosition = 0.05f;
-			// ステージ番号
-			var stageName = 1;
-
-			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
-			{
-				var stageStatus = StageStatus.Get(stageId);
-
-				leftPosition += blankWidth;
-
-				/* ステージ番号の配置 */
-				var stageNumUi = Instantiate(stageNumPrefab);
-				stageNumUi.transform.SetParent(graphAreaContent, false);
-				stageNumUi.GetComponent<Text>().text = stageName.ToString();
-				stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, bottomStageNumPosition);
-				stageNumUi.GetComponent<RectTransform>().anchorMax =
-					new Vector2(leftPosition + graphWidth, bottomGraphPosition);
-
-				/* グラフ本体の配置 */
-				var graphUi = Instantiate(graphPrefab);
-				graphUi.transform.SetParent(graphAreaContent, false);
-
-				// 挑戦回数に応じたグラフの高さ
-				var maxY = bottomGraphPosition;
-
-				if (maxChallengeNum != 0)
-				{
-					// 挑戦回数に関して，グラフ本体の描画範囲に正規化する
-					maxY = (topGraphPosition - bottomGraphPosition) * stageStatus.challengeNum / maxScale +
-					       bottomGraphPosition;
-				}
-
-				graphUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, bottomGraphPosition);
-				graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(leftPosition + graphWidth, maxY);
-
-				if (stageStatus.passed)
-				{
-					/* 成功している場合は，色を水色にして，成功した際の挑戦回数を表示する */
-					graphUi.GetComponent<Image>().color = Color.cyan;
-
-					var successLineUi = Instantiate(successLinePrefab);
-					var successY = (topGraphPosition - bottomGraphPosition) * stageStatus.firstSuccessNum / maxScale +
-					               bottomGraphPosition;
-					successLineUi.transform.SetParent(graphAreaContent, false);
-					successLineUi.GetComponent<RectTransform>().anchorMin = new Vector2(leftPosition, successY);
-					successLineUi.GetComponent<RectTransform>().anchorMax =
-						new Vector2(leftPosition + graphWidth, successY);
-				}
-				else
-				{
-					graphUi.GetComponent<Image>().color = Color.red;
-				}
-
-				leftPosition += graphWidth;
-
-				stageName++;
-			}
+			return maxChallengeNum;
 		}
 
 		/* 左ボタンクリック時の処理 */
