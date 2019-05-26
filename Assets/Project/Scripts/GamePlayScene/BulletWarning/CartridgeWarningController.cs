@@ -1,6 +1,7 @@
 ﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using System;
+using Project.Scripts.GamePlayScene.Bullet;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
@@ -15,7 +16,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		// 警告のpositionを計算する
 		// 銃弾の移動方向(bulletMotionVector)が副次的に計算されるので、その値を返す
-		public Vector2 Initialize(CartridgeType cartridgeType, CartridgeDirection direction, int line)
+		public Vector2 Initialize(CartridgeType cartridgeType, ref CartridgeDirection direction, ref int line,
+			BulletInfo bulletInfo)
 		{
 			switch (cartridgeType)
 			{
@@ -29,28 +31,53 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 					throw new NotImplementedException();
 			}
 
+			if (direction == CartridgeDirection.Random)
+			{
+				direction = bulletInfo.GetCartridgeDirection();
+			}
+
 			Vector2 bulletMotionVector;
 			Vector2 warningPosition;
 			switch (direction)
 			{
 				case CartridgeDirection.ToLeft:
+					if (line == (int) Row.Random)
+					{
+						line = bulletInfo.GetCartridgeRow();
+					}
+
 					warningPosition = new Vector2(WindowSize.WIDTH / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					bulletMotionVector = Vector2.left;
 					break;
 				case CartridgeDirection.ToRight:
+					if (line == (int) Row.Random)
+					{
+						line = bulletInfo.GetCartridgeRow();
+					}
+
 					warningPosition = new Vector2(-WindowSize.WIDTH / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					bulletMotionVector = Vector2.right;
 					break;
 				case CartridgeDirection.ToUp:
+					if (line == (int) Column.Random)
+					{
+						line = bulletInfo.GetCartridgeColumn();
+					}
+
 					warningPosition = new Vector2(TileSize.WIDTH * (line - 2),
 						-WindowSize.HEIGHT / 2);
 					bulletMotionVector = Vector2.up;
 					break;
 				case CartridgeDirection.ToBottom:
+					if (line == (int) Column.Random)
+					{
+						line = bulletInfo.GetCartridgeColumn();
+					}
+
 					warningPosition = new Vector2(TileSize.WIDTH * (line - 2),
 						WindowSize.HEIGHT / 2);
 					bulletMotionVector = Vector2.down;
