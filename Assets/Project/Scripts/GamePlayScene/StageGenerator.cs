@@ -172,6 +172,40 @@ namespace Project.Scripts.GamePlayScene
 					break;
 				default:
 					throw new NotImplementedException();
+				// ランダムに銃弾を生成するテストステージ
+				case 4:
+					// 銃弾実体生成
+					coroutines.Add(bulletGenerator.CreateRandomBullet(
+						appearanceTime: 2.0f,
+						interval: 18.0f,
+						bulletInfo: BulletInfo.SetBulletInfo(
+							randomBulletType: new int[] {10, 90},
+							randomCartridgeType: new int[] {100, 0},
+							randomHoleType: new int[] {50, 50})));
+					coroutines.Add(bulletGenerator.CreateCartridge(
+						cartridgeType: CartridgeType.Random,
+						appearanceTime: 8.0f,
+						interval: 18.0f,
+						direction: CartridgeDirection.ToBottom,
+						column: Column.Center,
+						bulletInfo: BulletInfo.SetCartridgeInfo()));
+					coroutines.Add(bulletGenerator.CreateHole(
+						holeType: HoleType.Random,
+						appearanceTime: 14.0f,
+						interval: 18.0f,
+						bulletInfo: BulletInfo.SetHoleInfo()));
+					// タイル作成
+					tileGenerator.CreateNormalTiles();
+					// パネル作成
+					panelGenerator.CreateNumberPanel(panelNum: 1, initialTileNum: 1, finalTileNum: 4);
+					panelGenerator.CreateNumberPanel(panelNum: 2, initialTileNum: 3, finalTileNum: 5);
+					panelGenerator.CreateNumberPanel(panelNum: 3, initialTileNum: 5, finalTileNum: 6);
+					panelGenerator.CreateNumberPanel(panelNum: 4, initialTileNum: 6, finalTileNum: 7);
+					panelGenerator.CreateNumberPanel(panelNum: 5, initialTileNum: 8, finalTileNum: 8);
+					panelGenerator.CreateNumberPanel(panelNum: 6, initialTileNum: 11, finalTileNum: 9);
+					panelGenerator.CreateNumberPanel(panelNum: 7, initialTileNum: 13, finalTileNum: 10);
+					panelGenerator.CreateNumberPanel(panelNum: 8, initialTileNum: 15, finalTileNum: 11);
+					break;
 			}
 
 			// 銃弾の一括作成
