@@ -103,15 +103,31 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			} while (loop);
 		}
 
+		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
+			CartridgeDirection direction, bool loop = true,
+			BulletInfo bulletInfo = null)
 		{
+			return CreateCartridge(cartridgeType, appearanceTime, interval, direction, (int) Row.Random, loop,
+				bulletInfo);
 		}
 
+		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
+			CartridgeDirection direction, Row row, bool loop = true,
+			BulletInfo bulletInfo = null)
 		{
+			return CreateCartridge(cartridgeType, appearanceTime, interval, direction, (int) row, loop, bulletInfo);
+		}
+
+		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
+			CartridgeDirection direction, Column column, bool loop = true,
+			BulletInfo bulletInfo = null)
+		{
+			return CreateCartridge(cartridgeType, appearanceTime, interval, direction, (int) column, loop, bulletInfo);
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
-			CartridgeDirection direction, int line, bool loop = true, BulletInfo bulletInfo = null)
+		private IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
+			CartridgeDirection direction, int line, bool loop, BulletInfo bulletInfo)
 		{
 			var currentTime = Time.time;
 

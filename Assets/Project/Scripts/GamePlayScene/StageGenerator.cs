@@ -7,7 +7,6 @@ using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 
-
 namespace Project.Scripts.GamePlayScene
 {
 	public class StageGenerator : MonoBehaviour
@@ -42,15 +41,15 @@ namespace Project.Scripts.GamePlayScene
 						appearanceTime: 1.0f,
 						interval: 1.0f,
 						direction: CartridgeDirection.ToLeft,
-						line: (int) Row.Second,
+						row: Row.Second,
 						loop: true,
-						bulletInfo: BulletGenerator.SetTurnCartridgeInfo(
+						bulletInfo: BulletInfo.SetTurnCartridgeInfo(
 							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
 							turnLine: new[] {(int) Column.Right, (int) Row.First})));
 					coroutines.Add(bulletGenerator.CreateCartridge(
 						cartridgeType: CartridgeType.Normal,
 						direction: CartridgeDirection.ToUp,
-						line: (int) Column.Right,
+						column: Column.Right,
 						appearanceTime: 2.0f,
 						interval: 4.0f));
 
@@ -80,15 +79,12 @@ namespace Project.Scripts.GamePlayScene
 						appearanceTime: 2.0f,
 						interval: 0.5f,
 						direction: CartridgeDirection.ToRight,
-						line: (int) Row.Fifth,
+						row: Row.Fifth,
 						loop: false));
 					coroutines.Add(bulletGenerator.CreateHole(
 						holeType: HoleType.Normal,
 						appearanceTime: 1.0f,
-						interval: 2.0f,
-						row: (int) Row.Second,
-						column: (int) Column.Left));
-
+						interval: 2.0f));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 特殊タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
@@ -114,7 +110,7 @@ namespace Project.Scripts.GamePlayScene
 						holeType: HoleType.Aiming,
 						appearanceTime: 2.0f,
 						interval: 2.0f,
-						bulletInfo: BulletGenerator.SetAimingHoleInfo(
+						bulletInfo: BulletInfo.SetAimingHoleInfo(
 							aimingPanel: new[] {1, 2, 3, 4, 5, 6, 7, 8})));
 
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
