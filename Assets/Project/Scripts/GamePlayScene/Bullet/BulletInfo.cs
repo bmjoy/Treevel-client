@@ -374,13 +374,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			SetRandomParameter(out this.randomNumberPanels, out sumOfRandomNumberPanels, randomNumberPanels);
 		}
 
-		{
-			return count;
-		}
-
-		public void SetCount(int count)
-		{
-			this.count = count;
 		}
 	}
 }
