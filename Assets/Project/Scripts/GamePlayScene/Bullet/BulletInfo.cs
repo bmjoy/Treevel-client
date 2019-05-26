@@ -12,7 +12,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return turnDirection;
 		}
 
-		public void SetTurnDirection(int[] turnDirection)
+		private void SetTurnDirection(int[] turnDirection)
 		{
 			this.turnDirection = turnDirection;
 		}
@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return turnLine;
 		}
 
-		public void SetTurnLine(int[] turnLine)
+		private void SetTurnLine(int[] turnLine)
 		{
 			this.turnLine = turnLine;
 		}
@@ -38,16 +38,24 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return aimingPanel;
 		}
 
-		public void SetAimingPanel(int[] aimingPanel)
+		private void SetAimingPanel(int[] aimingPanel)
 		{
 			this.aimingPanel = aimingPanel;
 		}
 
 		// AimingHoleの撃ち抜くパネルの番号の配列のindex
-		// 銃弾毎に、用途を変える可能性あり
-		private int count = 0;
+		private int aimingHoleCount = 0;
 
-		public int GetCount()
+		public int GetAimingHoleCount()
+		{
+			return aimingHoleCount;
+		}
+
+		public void SetAimingHoleCount(int aimingHoleCount)
+		{
+			this.aimingHoleCount = aimingHoleCount;
+		}
+
 		{
 			return count;
 		}
