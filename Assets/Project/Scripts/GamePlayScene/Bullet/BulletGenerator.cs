@@ -215,8 +215,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
-		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
-			int column = 0, bool loop = true, BulletInfo bulletInfo = null)
+		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, Row row = Row.Random,
+			Column column = Column.Random, bool loop = true, BulletInfo bulletInfo = null)
 		{
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
@@ -224,10 +224,23 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			var sum = 0;
 
+			if (bulletInfo == null)
+			{
+				bulletInfo = new BulletInfo();
+			}
+
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneHole(holeType, bulletId, row, column, bulletInfo));
+				if (holeType == HoleType.Random)
+				{
+					StartCoroutine(CreateOneHole(bulletInfo.GetHoleType(), bulletId, (int) row, (int) column,
+						bulletInfo));
+				}
+				else
+				{
+					StartCoroutine(CreateOneHole(holeType, bulletId, (int) row, (int) column, bulletInfo));
+				}
 
 				try
 				{
@@ -253,7 +266,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				case HoleType.Normal:
 					warning = Instantiate(normalHoleWarningPrefab);
-					warning.GetComponent<NormalHoleWarningController>().Initialize(row, column);
+					warning.GetComponent<NormalHoleWarningController>().Initialize(ref row, ref column, bulletInfo);
 					break;
 				case HoleType.Aiming:
 					warning = Instantiate(aimingHoleWarningPrefab);
