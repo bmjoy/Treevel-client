@@ -49,7 +49,58 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
+		public IEnumerator CreateRandomBullet(float appearanceTime, float interval,
+			CartridgeDirection direction = CartridgeDirection.Random, int line = (int) Row.Random, Row row = Row.Random,
+			Column column = Column.Random, bool loop = true, BulletInfo bulletInfo = null)
 		{
+			var currentTime = Time.time;
+
+			// wait by the time the first bullet warning emerge
+			// 1.0f equals to the period which the bullet warning is emerging
+			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
+			                                (currentTime - startTime));
+
+			// the number of bullets which have emerged
+			var sum = 0;
+
+			if (bulletInfo == null)
+			{
+				bulletInfo = new BulletInfo();
+			}
+
+			do
+			{
+				sum++;
+				var bulletType = bulletInfo.GetBulletType();
+				switch (bulletType)
+				{
+					case BulletType.Cartridge:
+						var cartridgeType = bulletInfo.GetCartridgeType();
+						StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, bulletInfo));
+						break;
+					case BulletType.Hole:
+						var holeType = bulletInfo.GetHoleType();
+						StartCoroutine(CreateOneHole(holeType, bulletId, (int) row, (int) column, bulletInfo));
+						break;
+					default:
+						throw new NotImplementedException();
+				}
+
+				// 作成する銃弾の個数の上限チェック
+				try
+				{
+					bulletId = checked((short) (bulletId + 1));
+				}
+				catch (OverflowException)
+				{
+					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+				}
+
+				// 次の銃弾を作成する時刻まで待つ
+				currentTime = Time.time;
+				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
+				                                interval * sum - (currentTime - startTime));
+			} while (loop);
 		}
 
 		{
