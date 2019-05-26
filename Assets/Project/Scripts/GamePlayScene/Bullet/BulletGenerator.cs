@@ -49,25 +49,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
-		public static BulletInfo SetNormalCartridgeInfo()
 		{
-			return null;
 		}
 
-		public static BulletInfo SetTurnCartridgeInfo(int[] turnDirection, int[] turnLine)
 		{
-			var bulletInfo = new BulletInfo();
-			bulletInfo.SetTurnDirection(turnDirection);
-			bulletInfo.SetTurnLine(turnLine);
-			return bulletInfo;
 		}
 
-		public static BulletInfo SetAimingHoleInfo(int[] aimingPanel)
 		{
-			var bulletInfo = new BulletInfo();
-			bulletInfo.SetAimingPanel(aimingPanel);
-			bulletInfo.SetCount(1);
-			return bulletInfo;
 		}
 
 		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド

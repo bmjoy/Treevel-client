@@ -374,6 +374,74 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			SetRandomParameter(out this.randomNumberPanels, out sumOfRandomNumberPanels, randomNumberPanels);
 		}
 
+		// Bulletに関する引数の設定
+		public static BulletInfo SetBulletInfo(int[] randomBulletType = null, int[] randomCartridgeType = null,
+			int[] randomHoleType = null, int[] turnDirection = null, int[] turnLine = null,
+			int[] aimingPanel = null, int[] randomDirections = null, int[] randomRows = null,
+			int[] randomColumns = null, int[] randomTileNums = null, int[] randomNumberPanels = null)
+		{
+			var bulletInfo = new BulletInfo();
+			bulletInfo.SetRandomBulletTypes(randomBulletType);
+			bulletInfo.SetRandomCartridgeTypes(randomCartridgeType);
+			bulletInfo.SetRandomHoleTypes(randomHoleType);
+			bulletInfo.SetTurnDirection(turnDirection);
+			bulletInfo.SetTurnLine(turnLine);
+			bulletInfo.SetAimingPanel(aimingPanel);
+			bulletInfo.SetAimingHoleCount(1);
+			bulletInfo.SetRandomCartridgeDirections(randomDirections);
+			bulletInfo.SetRandomCartridgeRows(randomRows);
+			bulletInfo.SetRandomCartridgeColumns(randomColumns);
+			bulletInfo.SetRandomTileNums(randomTileNums);
+			bulletInfo.SetRandomNumberPanels(randomNumberPanels);
+			return bulletInfo;
+		}
+
+		// Cartridgeに関する引数の設定
+		public static BulletInfo SetCartridgeInfo(int[] randomCartridgeType = null, int[] randomDirections = null,
+			int[] randomRows = null,
+			int[] randomColumns = null)
+		{
+			var bulletInfo = new BulletInfo();
+			bulletInfo.SetRandomCartridgeTypes(randomCartridgeType);
+			bulletInfo.SetRandomCartridgeDirections(randomDirections);
+			bulletInfo.SetRandomCartridgeRows(randomRows);
+			bulletInfo.SetRandomCartridgeColumns(randomColumns);
+			return bulletInfo;
+		}
+
+		// Holeに関する引数の設定
+		public static BulletInfo SetHoleInfo(int[] randomHoleType = null, int[] randomTileNums = null,
+			int[] randomNumberPanels = null)
+		{
+			var bulletInfo = new BulletInfo();
+			bulletInfo.SetRandomHoleTypes(randomHoleType);
+			bulletInfo.SetRandomTileNums(randomTileNums);
+			bulletInfo.SetRandomNumberPanels(randomNumberPanels);
+			return bulletInfo;
+		}
+
+		// TurnCartridgeに関する引数の設定
+		public static BulletInfo SetTurnCartridgeInfo(int[] turnDirection = null, int[] turnLine = null,
+			int[] randomDirections = null, int[] randomRows = null,
+			int[] randomColumns = null)
+		{
+			var bulletInfo = new BulletInfo();
+			bulletInfo.SetTurnDirection(turnDirection);
+			bulletInfo.SetTurnLine(turnLine);
+			bulletInfo.SetRandomCartridgeDirections(randomDirections);
+			bulletInfo.SetRandomCartridgeRows(randomRows);
+			bulletInfo.SetRandomCartridgeColumns(randomColumns);
+			return bulletInfo;
+		}
+
+		// AimingHoleに関する引数の設定
+		public static BulletInfo SetAimingHoleInfo(int[] aimingPanel = null, int[] randomNumberPanels = null)
+		{
+			var bulletInfo = new BulletInfo();
+			bulletInfo.SetAimingPanel(aimingPanel);
+			bulletInfo.SetAimingHoleCount(1);
+			bulletInfo.SetRandomNumberPanels(randomNumberPanels);
+			return bulletInfo;
 		}
 	}
 }
