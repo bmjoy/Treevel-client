@@ -123,10 +123,23 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// the number of bullets which have emerged
 			var sum = 0;
 
+			if (bulletInfo == null)
+			{
+				bulletInfo = new BulletInfo();
+			}
+
 			do
 			{
 				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, bulletInfo));
+				if (cartridgeType == CartridgeType.Random)
+				{
+					StartCoroutine(CreateOneCartridge(bulletInfo.GetCartridgeType(), bulletId, direction, line,
+						bulletInfo));
+				}
+				else
+				{
+					StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, bulletInfo));
+				}
 
 				// 作成する銃弾の個数の上限チェック
 				try
@@ -169,7 +182,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			// warningの位置・大きさ等の設定
 			var warningScript = warning.GetComponent<CartridgeWarningController>();
-			var bulletMotionVector = warningScript.Initialize(cartridgeType, direction, line);
+			var bulletMotionVector = warningScript.Initialize(cartridgeType, ref direction, ref line, bulletInfo);
 
 			// 警告の表示時間だけ待つ
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
