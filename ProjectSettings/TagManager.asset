@@ -8,6 +8,7 @@ TagManager:
   - NumberPanel
   - BulletWarning
   - Tile
+  - GraphUi
   layers:
   - Default
   - TransparentFX

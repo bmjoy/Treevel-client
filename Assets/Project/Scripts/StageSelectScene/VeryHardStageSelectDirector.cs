@@ -9,10 +9,10 @@ namespace Project.Scripts.StageSelectScene
 		protected override void MakeButtons()
 		{
 			var content = GameObject.Find("Canvas/Scroll View/Viewport/Content/Buttons").GetComponent<RectTransform>();
-			for (var i = 0; i < StageNum.VERY_HARD; i++)
+			for (var i = 0; i < StageInfo.Num[StageLevel.VeryHard]; i++)
 			{
 				// ステージを一意に定めるID
-				var stageId = StageStartId.VERY_HARD + i;
+				var stageId = StageInfo.StageStartId[StageLevel.VeryHard] + i;
 				// ボタンインスタンスを生成
 				var button = Instantiate(stageButtonPrefab);
 				// 名前

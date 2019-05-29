@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-﻿using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
@@ -9,10 +9,10 @@ namespace Project.Scripts.StageSelectScene
 		protected override void MakeButtons()
 		{
 			var content = GameObject.Find("Canvas/Scroll View/Viewport/Content/Buttons").GetComponent<RectTransform>();
-			for (var i = 0; i < StageNum.NORMAL; i++)
+			for (var i = 0; i < StageInfo.Num[StageLevel.Normal]; i++)
 			{
 				// ステージを一意に定めるID
-				var stageId = StageStartId.NORMAL + i;
+				var stageId = StageInfo.StageStartId[StageLevel.Normal] + i;
 				// ボタンインスタンスを生成
 				var button = Instantiate(stageButtonPrefab);
 				// 名前
