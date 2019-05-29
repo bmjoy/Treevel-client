@@ -143,7 +143,7 @@ namespace Project.Scripts.RecordScene
 			var maxChallengeNum = GetMaxChallengeNum(stageNum, stageStartId);
 
 			// 目盛の最大値を求める
-			var maxScale = (float) Math.Ceiling((float) maxChallengeNum / 3) * 3;
+			var maxScale = (float) Math.Ceiling((float) maxChallengeNum / 30) * 30;
 
 			// 目盛を書き換える
 			if (maxScale > 0)
