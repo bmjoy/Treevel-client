@@ -5,6 +5,58 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletInfo
 	{
+		// TurnCartridgeの曲がる方向
+		private int[] turnDirection = null;
+
+		public int[] GetTurnDirection()
+		{
+			return turnDirection;
+		}
+
+		private void SetTurnDirection(int[] turnDirection)
+		{
+			this.turnDirection = turnDirection;
+		}
+
+		// Turncartridgeの曲がる場所
+		private int[] turnLine = null;
+
+		public int[] GetTurnLine()
+		{
+			return turnLine;
+		}
+
+		private void SetTurnLine(int[] turnLine)
+		{
+			this.turnLine = turnLine;
+		}
+
+		// AimingHoleの撃ち抜くパネルの番号の配列
+		private int[] aimingPanel = null;
+
+		public int[] GetAimingPanel()
+		{
+			return aimingPanel;
+		}
+
+		private void SetAimingPanel(int[] aimingPanel)
+		{
+			this.aimingPanel = aimingPanel;
+		}
+
+		// AimingHoleの撃ち抜くパネルの番号の配列のindex
+		private int aimingHoleCount = 0;
+
+		public int GetAimingHoleCount()
+		{
+			return aimingHoleCount;
+		}
+
+		public void SetAimingHoleCount(int aimingHoleCount)
+		{
+			this.aimingHoleCount = aimingHoleCount;
+		}
+
 		/* 配列の初期化を行うメソッド */
 		private static int[] SetInitialRate(int arrayLength)
 		{
@@ -181,19 +233,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			SetRandomParameter(out this.randomTileNums, out sumOfRandomTileNums, randomTileNums);
 		}
 
-		// TurnCartridgeの曲がる方向
-		private int[] turnDirection = null;
-
-		public int[] GetTurnDirection()
-		{
-			return turnDirection;
-		}
-
-		private void SetTurnDirection(int[] turnDirection)
-		{
-			this.turnDirection = turnDirection;
-		}
-
 		// Turncartridgeの曲がる方向の出現率の重み
 		private int[] randomTurnDirections = SetInitialRate(Enum.GetNames(typeof(CartridgeDirection)).Length - 1);
 		private int sumOfRandomTurnDirections = Enum.GetNames(typeof(CartridgeDirection)).Length - 1 * INITIAL_RATE;
@@ -275,19 +314,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			SetRandomParameter(out this.randomTurnDirections, out sumOfRandomTurnDirections, randomTurnDirections);
 		}
 
-		// Turncartridgeの曲がる場所
-		private int[] turnLine = null;
-
-		public int[] GetTurnLine()
-		{
-			return turnLine;
-		}
-
-		private void SetTurnLine(int[] turnLine)
-		{
-			this.turnLine = turnLine;
-		}
-
 		// 曲がる位置の選択率の重み
 		private int[] randomTurnRows = SetInitialRate(StageSize.ROW);
 		private int[] randomTurnColumns = SetInitialRate(StageSize.COLUMN);
@@ -330,32 +356,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 
 			return randomTurnLine;
-		}
-
-		// AimingHoleの撃ち抜くパネルの番号の配列
-		private int[] aimingPanel = null;
-
-		public int[] GetAimingPanel()
-		{
-			return aimingPanel;
-		}
-
-		private void SetAimingPanel(int[] aimingPanel)
-		{
-			this.aimingPanel = aimingPanel;
-		}
-
-		// AimingHoleの撃ち抜くパネルの番号の配列のindex
-		private int aimingHoleCount = 0;
-
-		public int GetAimingHoleCount()
-		{
-			return aimingHoleCount;
-		}
-
-		public void SetAimingHoleCount(int aimingHoleCount)
-		{
-			this.aimingHoleCount = aimingHoleCount;
 		}
 
 		// AimingHoleが出現するNumberPanelの出現率の重み
