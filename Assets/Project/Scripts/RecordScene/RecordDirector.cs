@@ -139,7 +139,6 @@ namespace Project.Scripts.RecordScene
 			// 棒グラフの横幅
 			var graphWidth = blankWidth * graphWidthRatio;
 
-
 			// 挑戦回数の最大値を求める
 			var maxChallengeNum = GetMaxChallengeNum(stageNum, stageStartId);
 
