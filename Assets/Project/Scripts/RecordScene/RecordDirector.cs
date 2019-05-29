@@ -155,17 +155,16 @@ namespace Project.Scripts.RecordScene
 
 			// ステージ番号
 			var stageName = 1;
-
-			// 描画する棒グラフの左端と右端を示す
+			// 描画する棒グラフの左端を示す
 			var left = leftPosition;
 
 			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
 			{
-				var stageStatus = StageStatus.Get(stageId);
-
 				// 左端と右端の更新
 				left += blankWidth;
 				var right = left + graphWidth;
+				
+				var stageStatus = StageStatus.Get(stageId);
 
 				/* ステージ番号の配置 */
 				var stageNumUi = Instantiate(stageNumPrefab);
@@ -210,7 +209,6 @@ namespace Project.Scripts.RecordScene
 
 				// 左端の更新
 				left = right;
-
 				// ステージ番号の更新
 				stageName++;
 			}
