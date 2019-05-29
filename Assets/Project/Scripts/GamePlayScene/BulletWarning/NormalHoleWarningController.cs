@@ -16,6 +16,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 		// 警告のpositionを計算する
 		public void Initialize(ref int row, ref int column, BulletInfo bulletInfo)
 		{
+			// Holeを出現させるTileをランダムに決める場合
 			if (row == (int) Row.Random && column == (int) Column.Random)
 			{
 				var tileNum = bulletInfo.GetTileNum();

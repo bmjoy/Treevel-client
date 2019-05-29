@@ -8,12 +8,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class TurnCartridgeController : NormalCartridgeController
 	{
-		// 回転方向
+		// 回転方向の配列
 		private int[] turnDirection;
+		// 次に曲がる方向
 		private int nextTurnDirection;
 
-		// 回転する列(or行)
+		// 回転する行(or列)の配列
 		private int[] turnLine;
+		// 次に回転する行(or列)
 		private int nextTurnLine;
 
 		// 回転に関する警告を表示する座標
@@ -118,22 +120,26 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			turnDirection = bulletInfo.GetTurnDirection();
 			if (turnDirection == null)
 			{
+				// 次に曲がる方向をランダムに決める場合
 				nextTurnDirection = bulletInfo.GetRandomTurnDirection(direction: direction, line: line);
 				turnDirection = new int[] {nextTurnDirection};
 			}
 			else
 			{
+				// 次に曲がる方向が引数として与えられている場合
 				nextTurnDirection = turnDirection[0];
 			}
 
 			turnLine = bulletInfo.GetTurnLine();
 			if (turnLine == null)
 			{
+				// 次に曲がる行(or列)をランダムに決める場合
 				nextTurnLine = bulletInfo.GetRandomTurnLine(direction: direction);
 				turnLine = new int[] {nextTurnLine};
 			}
 			else
 			{
+				// 次に曲がる行(or列)が引数として与えられている場合
 				nextTurnLine = turnLine[0];
 			}
 

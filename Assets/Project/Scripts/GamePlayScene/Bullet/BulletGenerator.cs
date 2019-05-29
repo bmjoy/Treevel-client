@@ -49,6 +49,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
 		}
 
+		/* 一定の時間感覚でランダムにBullet(CartridgeまたはHole)を出現させるメソッド */
 		public IEnumerator CreateRandomBullet(float appearanceTime, float interval,
 			CartridgeDirection direction = CartridgeDirection.Random, int line = (int) Row.Random, Row row = Row.Random,
 			Column column = Column.Random, bool loop = true, BulletInfo bulletInfo = null)
@@ -71,14 +72,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			do
 			{
 				sum++;
+				// CartridgeまたはHoleをランダムに決定する
 				var bulletType = bulletInfo.GetBulletType();
 				switch (bulletType)
 				{
 					case BulletType.Cartridge:
+						// Cartridgeの種類をランダムに決定する
 						var cartridgeType = bulletInfo.GetCartridgeType();
 						StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, bulletInfo));
 						break;
 					case BulletType.Hole:
+						// Holeの種類をランダムに決定する
 						var holeType = bulletInfo.GetHoleType();
 						StartCoroutine(CreateOneHole(holeType, bulletId, (int) row, (int) column, bulletInfo));
 						break;
@@ -103,6 +107,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			} while (loop);
 		}
 
+		/* 一定の時間感覚でcartridgeを出現させるメソッド */
+		/* 銃弾を出現させるlineを指定せずに呼び出す場合 */
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
 			CartridgeDirection direction, bool loop = true,
 			BulletInfo bulletInfo = null)
@@ -111,6 +117,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				bulletInfo);
 		}
 
+		/* 銃弾を出現させる行を指定する場合*/
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
 			CartridgeDirection direction, Row row, bool loop = true,
 			BulletInfo bulletInfo = null)
@@ -118,6 +125,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return CreateCartridge(cartridgeType, appearanceTime, interval, direction, (int) row, loop, bulletInfo);
 		}
 
+		/* 銃弾を出現させる列を指定する場合 */
 		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
 			CartridgeDirection direction, Column column, bool loop = true,
 			BulletInfo bulletInfo = null)
@@ -125,7 +133,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return CreateCartridge(cartridgeType, appearanceTime, interval, direction, (int) column, loop, bulletInfo);
 		}
 
-		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
+		/* 指定した行(or列)の端から一定の時間間隔(interval)でCartridgeを作成するメソッド */
 		private IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
 			CartridgeDirection direction, int line, bool loop, BulletInfo bulletInfo)
 		{
@@ -149,11 +157,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				sum++;
 				if (cartridgeType == CartridgeType.Random)
 				{
+					// 出現させるCartridgeをランダムに決める場合
 					StartCoroutine(CreateOneCartridge(bulletInfo.GetCartridgeType(), bulletId, direction, line,
 						bulletInfo));
 				}
 				else
 				{
+					// 出現させるCartridgeが決まっている場合
 					StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, bulletInfo));
 				}
 
@@ -230,7 +240,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 		}
 
-		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
+		/* 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド */
 		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, Row row = Row.Random,
 			Column column = Column.Random, bool loop = true, BulletInfo bulletInfo = null)
 		{
@@ -250,11 +260,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				sum++;
 				if (holeType == HoleType.Random)
 				{
+					// 出現させるHoleをランダムに決める場合
 					StartCoroutine(CreateOneHole(bulletInfo.GetHoleType(), bulletId, (int) row, (int) column,
 						bulletInfo));
 				}
 				else
 				{
+					// 出現させるHoleが決まっている場合
 					StartCoroutine(CreateOneHole(holeType, bulletId, (int) row, (int) column, bulletInfo));
 				}
 

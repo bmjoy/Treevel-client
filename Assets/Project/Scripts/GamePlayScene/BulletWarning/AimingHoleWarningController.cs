@@ -12,6 +12,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			int panelNum;
 			if (aimingPanel != null)
 			{
+				// AimingHoleを出現させるNumberPanelが決まっている場合
 				var count = bulletInfo.GetAimingHoleCount();
 				panelNum = aimingPanel[((count - 1) % aimingPanel.Length)];
 				// 次の表示位置を求める
@@ -19,6 +20,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			}
 			else
 			{
+				// AimingHoleを出現させるNumberPanelをランダムに決める場合
 				panelNum = bulletInfo.GetNumberPanel();
 			}
 

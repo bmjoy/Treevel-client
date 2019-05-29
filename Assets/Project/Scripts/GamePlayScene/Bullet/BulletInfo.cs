@@ -5,7 +5,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletInfo
 	{
-		// 配列の初期化を行うメソッド
+		/* 配列の初期化を行うメソッド */
 		private static int[] SetInitialRate(int arrayLength)
 		{
 			var returnArray = new int[arrayLength];
@@ -17,11 +17,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return returnArray;
 		}
 
-		// 重みに基づき配列の何番目を選択するかを決定する(配列の最初は1番目)
+		/* 重みに基づき配列の何番目を選択するかをランダムに決定する(配列の最初であるならば1を返す) */
 		private int GetRandomParameter(int[] randomParameters, int sumOfRandomParameters)
 		{
+			// 1以上重みの総和以下の値をランダムに取得する
 			var randomValue = random.Next(sumOfRandomParameters) + 1;
 			var index = 0;
+			// 重み配列の最初の要素から順に、ランダムな値から値を引く
 			while (randomValue > 0)
 			{
 				randomValue -= randomParameters[index];
@@ -31,7 +33,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return index;
 		}
 
-		// int[]配列を更新し、その配列の要素和を求める
+		/* int[]配列を更新し、その配列の要素和を求める */
 		private void SetRandomParameter(out int[] randomParameters, out int sumOfRandomParameters,
 			int[] newRandomParameters)
 		{
@@ -43,17 +45,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 		}
 
-		// 乱数
+		// 乱数生成ための変数
 		private readonly System.Random random = new System.Random();
 
 		// 各パラメータの重みの初期値
 		private const int INITIAL_RATE = 100;
 
-		// 各Bulletの出現率の重み
+		// Bullet(CartridgeとHole)の出現率の重み
 		private int[] randomBulletTypes = SetInitialRate(Enum.GetNames(typeof(BulletType)).Length - 1);
 		private int sumOfRandomBulletTypes = (Enum.GetNames(typeof(BulletType)).Length - 1) * INITIAL_RATE;
 
-		// 重みに基づきどのBulletを出現させるかを決定する
+		// どのBulletを出現させるかランダムに決定する
 		public BulletType GetBulletType()
 		{
 			var index = GetRandomParameter(randomBulletTypes, sumOfRandomBulletTypes);
@@ -71,7 +73,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomCartridgeTypes = SetInitialRate(Enum.GetNames(typeof(CartridgeType)).Length - 1);
 		private int sumOfRandomCartridgeTypes = (Enum.GetNames(typeof(CartridgeType)).Length - 1) * INITIAL_RATE;
 
-		// 重みに基づきどのCartridgeを出現させるかを決定する
+		// どのCartridgeを出現させるかランダムに決定する
 		public CartridgeType GetCartridgeType()
 		{
 			var index = GetRandomParameter(randomCartridgeTypes, sumOfRandomCartridgeTypes);
@@ -89,7 +91,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomHoleTypes = SetInitialRate(Enum.GetNames(typeof(HoleType)).Length - 1);
 		private int sumOfRandomHoleTypes = (Enum.GetNames(typeof(HoleType)).Length - 1) * INITIAL_RATE;
 
-		// 重みに基づきどのHoleを出現させるかを決定する
+		// どのHoleを出現させるかランダムに決定する
 		public HoleType GetHoleType()
 		{
 			var index = GetRandomParameter(randomHoleTypes, sumOfRandomHoleTypes);
@@ -109,7 +111,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int sumOfRandomCartridgeDirections =
 			(Enum.GetNames(typeof(CartridgeDirection)).Length - 1) * INITIAL_RATE;
 
-		// 重みに基づきどの方向にCartridgeを移動させるかを決定する
+		// どの方向にCartridgeを移動させるかランダムに決定する
 		public CartridgeDirection GetCartridgeDirection()
 		{
 			var index = GetRandomParameter(randomCartridgeDirections, sumOfRandomCartridgeDirections);
@@ -128,7 +130,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomCartridgeRows = SetInitialRate(Enum.GetNames(typeof(Row)).Length - 1);
 		private int sumOfRandomCartridgeRows = (Enum.GetNames(typeof(Row)).Length - 1) * INITIAL_RATE;
 
-		// 重みに基づきどの行にCartridgeを出現させるかを決定する
+		// どの行にCartridgeを出現させるかランダムに決定する
 		public int GetCartridgeRow()
 		{
 			var index = GetRandomParameter(randomCartridgeRows, sumOfRandomCartridgeRows);
@@ -146,7 +148,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomCartridgeColumns = SetInitialRate(Enum.GetNames(typeof(Column)).Length - 1);
 		private int sumOfRandomCartridgeColumns = (Enum.GetNames(typeof(Column)).Length - 1) * INITIAL_RATE;
 
-		// 重みに基づきどの列にCartridgeを出現させるかを決定する
+		// どの列にCartridgeを出現させるかランダムに決定する
 		public int GetCartridgeColumn()
 		{
 			var index = GetRandomParameter(randomCartridgeColumns, sumOfRandomCartridgeColumns);
@@ -165,7 +167,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomTileNums = SetInitialRate(StageSize.TILE_NUM);
 		private int sumOfRandomTileNums = StageSize.TILE_NUM * INITIAL_RATE;
 
-		// 重みに基づきどのTileにHoleを出現させるかを決定する
+		// どのTileにHoleを出現させるかランダムに決定する
 		public int GetTileNum()
 		{
 			var index = GetRandomParameter(randomTileNums, sumOfRandomTileNums);
@@ -196,7 +198,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomTurnDirections = SetInitialRate(Enum.GetNames(typeof(CartridgeDirection)).Length - 1);
 		private int sumOfRandomTurnDirections = Enum.GetNames(typeof(CartridgeDirection)).Length - 1 * INITIAL_RATE;
 
-		// 重みに基づきどこでTurnCartridgeが曲がるかを決定する
+		// どこでTurnCartridgeが曲がるかランダムに決定する
 		public int GetRandomTurnDirection(CartridgeDirection direction, int line)
 		{
 			var randomTurnDirection = 0;
@@ -292,7 +294,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int sumOfRandomTurnRows = StageSize.ROW * INITIAL_RATE;
 		private int sumOfRandomTurnColumns = StageSize.COLUMN * INITIAL_RATE;
 
-		// 重みに基づいてどこで曲がるのかを決定する
+		// どこで曲がるのかランダムに決定する
 		public int GetRandomTurnLine(CartridgeDirection direction = 0)
 		{
 			int randomValue;
@@ -360,7 +362,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomNumberPanels = SetInitialRate(StageSize.NUMBER_PANEL_NUM);
 		private int sumOfRandomNumberPanels = StageSize.NUMBER_PANEL_NUM * INITIAL_RATE;
 
-		// 重みに基づきどのNumberPanelにAimingHoleを出現させるかを決定する
+		// どのNumberPanelにAimingHoleを出現させるかランダムに決定する
 		public int GetNumberPanel()
 		{
 			var index = GetRandomParameter(randomNumberPanels, sumOfRandomNumberPanels);
@@ -374,7 +376,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			SetRandomParameter(out this.randomNumberPanels, out sumOfRandomNumberPanels, randomNumberPanels);
 		}
 
-		// Bulletに関する引数の設定
+		/* Bulletに関する引数を設定するメソッド */
 		public static BulletInfo SetBulletInfo(int[] randomBulletType = null, int[] randomCartridgeType = null,
 			int[] randomHoleType = null, int[] turnDirection = null, int[] turnLine = null,
 			int[] aimingPanel = null, int[] randomDirections = null, int[] randomRows = null,
@@ -396,7 +398,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return bulletInfo;
 		}
 
-		// Cartridgeに関する引数の設定
+		/* Cartridgeに関する引数を設定するメソッド */
 		public static BulletInfo SetCartridgeInfo(int[] randomCartridgeType = null, int[] randomDirections = null,
 			int[] randomRows = null,
 			int[] randomColumns = null)
@@ -409,7 +411,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return bulletInfo;
 		}
 
-		// Holeに関する引数の設定
+		/* Holeに関する引数を設定するメソッド */
 		public static BulletInfo SetHoleInfo(int[] randomHoleType = null, int[] randomTileNums = null,
 			int[] randomNumberPanels = null)
 		{
@@ -420,7 +422,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return bulletInfo;
 		}
 
-		// TurnCartridgeに関する引数の設定
+		/* TurnCartridgeに関する引数を設定するメソッド */
 		public static BulletInfo SetTurnCartridgeInfo(int[] turnDirection = null, int[] turnLine = null,
 			int[] randomDirections = null, int[] randomRows = null,
 			int[] randomColumns = null)
@@ -434,7 +436,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return bulletInfo;
 		}
 
-		// AimingHoleに関する引数の設定
+		/* AimingHoleに関する引数を設定するメソッド */
 		public static BulletInfo SetAimingHoleInfo(int[] aimingPanel = null, int[] randomNumberPanels = null)
 		{
 			var bulletInfo = new BulletInfo();

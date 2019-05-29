@@ -33,16 +33,19 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 			if (direction == CartridgeDirection.Random)
 			{
+				// Cartridgeの侵攻方向をランダムに決める場合
 				direction = bulletInfo.GetCartridgeDirection();
 			}
 
 			Vector2 bulletMotionVector;
 			Vector2 warningPosition;
+			// Cartridgeの進行方向によってWarningの表示位置を求める
 			switch (direction)
 			{
 				case CartridgeDirection.ToLeft:
 					if (line == (int) Row.Random)
 					{
+						// Cartridgeを出現させる行をランダムに決める場合
 						line = bulletInfo.GetCartridgeRow();
 					}
 
@@ -54,6 +57,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 				case CartridgeDirection.ToRight:
 					if (line == (int) Row.Random)
 					{
+						// Cartridgeを出現させる行をランダムに決める場合
 						line = bulletInfo.GetCartridgeRow();
 					}
 
@@ -65,6 +69,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 				case CartridgeDirection.ToUp:
 					if (line == (int) Column.Random)
 					{
+						// Cartridgeを出現させる列をランダムに決める場合
 						line = bulletInfo.GetCartridgeColumn();
 					}
 
@@ -75,6 +80,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 				case CartridgeDirection.ToBottom:
 					if (line == (int) Column.Random)
 					{
+						// Cartridgeを出現させる列をランダムに決める場合
 						line = bulletInfo.GetCartridgeColumn();
 					}
 
