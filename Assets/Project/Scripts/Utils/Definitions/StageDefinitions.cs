@@ -1,19 +1,32 @@
-﻿namespace Project.Scripts.Utils.Definitions
+﻿using System.Collections.Generic;
+
+namespace Project.Scripts.Utils.Definitions
 {
-	public static class StageNum
+	public enum StageLevel
 	{
-		public const int EASY = 10;
-		public const int NORMAL = 10;
-		public const int HARD = 10;
-		public const int VERY_HARD = 10;
+		Easy = 0,
+		Normal,
+		Hard,
+		VeryHard
 	}
 
-	public static class StageStartId
+	public static class StageInfo
 	{
-		public const int EASY = 1;
-		public const int NORMAL = 1001;
-		public const int HARD = 2001;
-		public const int VERY_HARD = 3001;
+		public static readonly Dictionary<StageLevel, int> Num = new Dictionary<StageLevel, int>()
+		{
+			{StageLevel.Easy, 10},
+			{StageLevel.Normal, 10},
+			{StageLevel.Hard, 10},
+			{StageLevel.VeryHard, 10}
+		};
+
+		public static readonly Dictionary<StageLevel, int> StageStartId = new Dictionary<StageLevel, int>()
+		{
+			{StageLevel.Easy, 1},
+			{StageLevel.Normal, 1001},
+			{StageLevel.Hard, 2001},
+			{StageLevel.VeryHard, 3001}
+		};
 	}
 
 	public static class StageSize

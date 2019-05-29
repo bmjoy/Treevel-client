@@ -24,7 +24,7 @@ namespace Project.Scripts.RecordScene
 
 		private GameObject rightButton;
 
-		private int nowLevel;
+		private StageLevel nowLevel;
 
 		private void Awake()
 		{
@@ -42,7 +42,7 @@ namespace Project.Scripts.RecordScene
 		}
 
 		/* 難易度に合わせた画面を描画する */
-		private void Draw(int levelNum)
+		private void Draw(StageLevel stageLevel)
 		{
 			// 画面を綺麗にする
 			GameObject[] graphUis = GameObject.FindGameObjectsWithTag(TagName.GRAPH_UI);
@@ -51,31 +51,30 @@ namespace Project.Scripts.RecordScene
 				Destroy(graphUi);
 			}
 
-			switch (levelNum)
+			// 難易度の更新
+			nowLevel = stageLevel;
+
+			switch (nowLevel)
 			{
-				case 0:
-					nowLevel = 0;
+				case StageLevel.Easy:
 					level.GetComponent<Text>().text = "Easy";
-					DrawPercentage(StageNum.EASY, StageStartId.EASY);
-					DrawGraph(StageNum.EASY, StageStartId.EASY);
+					DrawPercentage(StageLevel.Easy);
+					DrawGraph(StageLevel.Easy);
 					break;
-				case 1:
-					nowLevel = 1;
+				case StageLevel.Normal:
 					level.GetComponent<Text>().text = "Normal";
-					DrawPercentage(StageNum.NORMAL, StageStartId.NORMAL);
-					DrawGraph(StageNum.NORMAL, StageStartId.NORMAL);
+					DrawPercentage(StageLevel.Normal);
+					DrawGraph(StageLevel.Normal);
 					break;
-				case 2:
-					nowLevel = 2;
+				case StageLevel.Hard:
 					level.GetComponent<Text>().text = "Hard";
-					DrawPercentage(StageNum.HARD, StageStartId.HARD);
-					DrawGraph(StageNum.HARD, StageStartId.HARD);
+					DrawPercentage(StageLevel.Hard);
+					DrawGraph(StageLevel.Hard);
 					break;
-				case 3:
-					nowLevel = 3;
+				case StageLevel.VeryHard:
 					level.GetComponent<Text>().text = "VeryHard";
-					DrawPercentage(StageNum.VERY_HARD, StageStartId.VERY_HARD);
-					DrawGraph(StageNum.VERY_HARD, StageStartId.VERY_HARD);
+					DrawPercentage(StageLevel.VeryHard);
+					DrawGraph(StageLevel.VeryHard);
 					break;
 				default:
 					throw new NotImplementedException();
@@ -83,8 +82,11 @@ namespace Project.Scripts.RecordScene
 		}
 
 		/* 難易度に合わせた成功割合を描画する */
-		private void DrawPercentage(int stageNum, int stageStartId)
+		private void DrawPercentage(StageLevel stageLevel)
 		{
+			var stageNum = StageInfo.Num[stageLevel];
+			var stageStartId = StageInfo.StageStartId[stageLevel];
+
 			var successStageNum = 0;
 
 			for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++)
@@ -103,8 +105,11 @@ namespace Project.Scripts.RecordScene
 		}
 
 		/* 難易度に合わせた棒グラフを描画する */
-		private void DrawGraph(int stageNum, int stageStartId)
+		private void DrawGraph(StageLevel stageLevel)
 		{
+			var stageNum = StageInfo.Num[stageLevel];
+			var stageStartId = StageInfo.StageStartId[stageLevel];
+
 			// 描画するパネル
 			var graphAreaContent = graphArea.GetComponent<RectTransform>();
 
@@ -233,9 +238,9 @@ namespace Project.Scripts.RecordScene
 		/* 左ボタンクリック時の処理 */
 		private void LeftButtonDown()
 		{
-			if (nowLevel == 0)
+			if (nowLevel == StageLevel.Easy)
 			{
-				Draw(3);
+				Draw(StageLevel.VeryHard);
 			}
 			else
 			{
@@ -246,9 +251,9 @@ namespace Project.Scripts.RecordScene
 		/* 右ボタンクリック時の処理 */
 		private void RightButtonDown()
 		{
-			if (nowLevel == 3)
+			if (nowLevel == StageLevel.VeryHard)
 			{
-				Draw(0);
+				Draw(StageLevel.Easy);
 			}
 			else
 			{
