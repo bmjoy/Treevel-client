@@ -38,7 +38,7 @@ namespace Project.Scripts.RecordScene
 			rightButton.GetComponent<Button>().onClick.AddListener(RightButtonDown);
 
 			// 最初は "Easy" を表示
-			Draw(0);
+			Draw(StageLevel.Easy);
 		}
 
 		/* 難易度に合わせた画面を描画する */
@@ -54,27 +54,23 @@ namespace Project.Scripts.RecordScene
 			// 難易度の更新
 			nowLevel = stageLevel;
 
+			DrawPercentage(nowLevel);
+
+			DrawGraph(nowLevel);
+
 			switch (nowLevel)
 			{
 				case StageLevel.Easy:
 					levelText.GetComponent<Text>().text = "Easy";
-					DrawPercentage(StageLevel.Easy);
-					DrawGraph(StageLevel.Easy);
 					break;
 				case StageLevel.Normal:
 					levelText.GetComponent<Text>().text = "Normal";
-					DrawPercentage(StageLevel.Normal);
-					DrawGraph(StageLevel.Normal);
 					break;
 				case StageLevel.Hard:
 					levelText.GetComponent<Text>().text = "Hard";
-					DrawPercentage(StageLevel.Hard);
-					DrawGraph(StageLevel.Hard);
 					break;
 				case StageLevel.VeryHard:
 					levelText.GetComponent<Text>().text = "VeryHard";
-					DrawPercentage(StageLevel.VeryHard);
-					DrawGraph(StageLevel.VeryHard);
 					break;
 				default:
 					throw new NotImplementedException();
