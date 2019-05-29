@@ -14,9 +14,9 @@ namespace Project.Scripts.RecordScene
 
 		public GameObject successLinePrefab;
 
-		private GameObject level;
+		private GameObject levelText;
 
-		private GameObject percentage;
+		private GameObject percentageText;
 
 		private GameObject graphArea;
 
@@ -28,8 +28,8 @@ namespace Project.Scripts.RecordScene
 
 		private void Awake()
 		{
-			level = GameObject.Find("Level");
-			percentage = GameObject.Find("Percentage");
+			levelText = GameObject.Find("Level");
+			percentageText = GameObject.Find("Percentage");
 			graphArea = GameObject.Find("GraphArea");
 			leftButton = GameObject.Find("LeftButton");
 			rightButton = GameObject.Find("RightButton");
@@ -57,22 +57,22 @@ namespace Project.Scripts.RecordScene
 			switch (nowLevel)
 			{
 				case StageLevel.Easy:
-					level.GetComponent<Text>().text = "Easy";
+					levelText.GetComponent<Text>().text = "Easy";
 					DrawPercentage(StageLevel.Easy);
 					DrawGraph(StageLevel.Easy);
 					break;
 				case StageLevel.Normal:
-					level.GetComponent<Text>().text = "Normal";
+					levelText.GetComponent<Text>().text = "Normal";
 					DrawPercentage(StageLevel.Normal);
 					DrawGraph(StageLevel.Normal);
 					break;
 				case StageLevel.Hard:
-					level.GetComponent<Text>().text = "Hard";
+					levelText.GetComponent<Text>().text = "Hard";
 					DrawPercentage(StageLevel.Hard);
 					DrawGraph(StageLevel.Hard);
 					break;
 				case StageLevel.VeryHard:
-					level.GetComponent<Text>().text = "VeryHard";
+					levelText.GetComponent<Text>().text = "VeryHard";
 					DrawPercentage(StageLevel.VeryHard);
 					DrawGraph(StageLevel.VeryHard);
 					break;
@@ -99,9 +99,9 @@ namespace Project.Scripts.RecordScene
 				}
 			}
 
-			var percentageNum = (successStageNum / (float) stageNum) * 100;
+			var successPercentage = (successStageNum / (float) stageNum) * 100;
 
-			percentage.GetComponent<Text>().text = percentageNum + "%";
+			percentageText.GetComponent<Text>().text = successPercentage + "%";
 		}
 
 		/* 難易度に合わせた棒グラフを描画する */
@@ -163,7 +163,7 @@ namespace Project.Scripts.RecordScene
 				// 左端と右端の更新
 				left += blankWidth;
 				var right = left + graphWidth;
-				
+
 				var stageStatus = StageStatus.Get(stageId);
 
 				/* ステージ番号の配置 */
