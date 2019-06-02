@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4380493274482196}
   - component: {fileID: 212562249403175830}
+  - component: {fileID: 114447457105615336}
   m_Layer: 0
   m_Name: numberTile6Prefab
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,6 +41,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114447457105615336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305301057825576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6728fbddefa994c0c8c311b28795f4ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightTile: {fileID: 0}
+  leftTile: {fileID: 0}
+  upperTile: {fileID: 0}
+  lowerTile: {fileID: 0}
 --- !u!212 &212562249403175830
 SpriteRenderer:
   m_ObjectHideFlags: 1
