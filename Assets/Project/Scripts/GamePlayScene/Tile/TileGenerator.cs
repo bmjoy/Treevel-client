@@ -1,14 +1,39 @@
 ﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
 	public class TileGenerator : MonoBehaviour
 	{
+		public GameObject numberTile1Prefab;
+		public GameObject numberTile2Prefab;
+		public GameObject numberTile3Prefab;
+		public GameObject numberTile4Prefab;
+		public GameObject numberTile5Prefab;
+		public GameObject numberTile6Prefab;
+		public GameObject numberTile7Prefab;
+		public GameObject numberTile8Prefab;
 		public GameObject normalTilePrefab;
 		public GameObject warpTilePrefab;
 
+		private List<GameObject> numberTilePrefabs;
 		private readonly GameObject[,] tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
+
+		private void Awake()
+		{
+			numberTilePrefabs = new List<GameObject>
+			{
+				numberTile1Prefab,
+				numberTile2Prefab,
+				numberTile3Prefab,
+				numberTile4Prefab,
+				numberTile5Prefab,
+				numberTile6Prefab,
+				numberTile7Prefab,
+				numberTile8Prefab
+			};
+		}
 
 		/* 普通タイルの作成 */
 		public void CreateNormalTiles()
