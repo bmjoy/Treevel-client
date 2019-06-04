@@ -42,6 +42,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			{
 				return gameObject;
 			}
+
 			return null;
 		}
 
