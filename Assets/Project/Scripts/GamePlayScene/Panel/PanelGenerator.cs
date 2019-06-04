@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Project.Scripts.GamePlayScene.Tile;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
@@ -18,6 +19,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 
 		private List<GameObject> numberPanelPrefabs;
 
+		private TileGenerator tileGenerator;
+
 		private void Awake()
 		{
 			numberPanelPrefabs = new List<GameObject>
@@ -31,12 +34,34 @@ namespace Project.Scripts.GamePlayScene.Panel
 				numberPanel7Prefab,
 				numberPanel8Prefab
 			};
+
+			tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
 		}
 
-		public void CreateNumberPanel(int panelNum, int initialTileNum, int finalTileNum)
+		public void CreateNumberPanels(List<Dictionary<string, int>> numberPanelParams)
 		{
-			var panel = Instantiate(numberPanelPrefabs[panelNum - 1]);
-			panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
+			foreach (Dictionary<string, int> numberPanelParam in numberPanelParams)
+			{
+				// パラメータの取得
+				var panelNum = numberPanelParam["panelNum"];
+				var finalTileNum = numberPanelParam["finalTileNum"];
+				// 数字タイルの作成
+				tileGenerator.CreateNumberTile(panelNum, finalTileNum);
+			}
+
+			// ノーマルタイルの一括作成
+			tileGenerator.CreateNormalTiles();
+
+			foreach (Dictionary<string, int> numberPanelParam in numberPanelParams)
+			{
+				// パラメータの取得
+				var panelNum = numberPanelParam["panelNum"];
+				var initialTileNum = numberPanelParam["initialTileNum"];
+				var finalTileNum = numberPanelParam["finalTileNum"];
+				// 数字パネルの作成
+				var panel = Instantiate(numberPanelPrefabs[panelNum - 1]);
+				panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
+			}
 		}
 
 		public void CreateStaticDummyPanel(int initialTileNum)
