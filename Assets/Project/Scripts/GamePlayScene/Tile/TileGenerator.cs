@@ -77,6 +77,19 @@ namespace Project.Scripts.GamePlayScene.Tile
 			SetTile(secondTileNum, secondTile);
 		}
 
+		/* ナンバータイルの作成 */
+		public void CreateNumberTile(int panelNum, int tileNum)
+		{
+			// パネルに合わせたタイルを選択
+			var numberTile = Instantiate(numberTilePrefabs[panelNum - 1]);
+
+			var tilePosition = GetTilePosition(tileNum);
+
+			numberTile.GetComponent<NumberTileController>().Initialize(tilePosition, tileNum);
+
+			SetTile(tileNum, numberTile);
+		}
+
 		/* タイルの座標を取得 */
 		private static Vector2 GetTilePosition(int tileNum)
 		{
