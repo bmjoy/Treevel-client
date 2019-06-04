@@ -31,7 +31,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 		public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
 		{
 			Initialize(initialTileNum);
-			name = PanelName.NUMBER_PANEL;
+			name = PanelName.NUMBER_PANEL + panelNum;
 			finalTile = TileLibrary.GetTile(finalTileNum);
 			this.panelNum = panelNum;
 		}
