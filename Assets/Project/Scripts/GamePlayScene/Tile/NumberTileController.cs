@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 		public override void Initialize(Vector2 position, int tileNum)
 		{
 			base.Initialize(position, tileNum);
-			name = TileName.NUMBER_TILE + tileNum;
+			name = TileName.NUMBER_TILE;
 		}
 	}
 }

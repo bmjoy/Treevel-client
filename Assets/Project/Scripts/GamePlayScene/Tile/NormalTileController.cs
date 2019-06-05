@@ -24,7 +24,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 		public virtual void Initialize(Vector2 position, int tileNum)
 		{
 			transform.position = position;
-			name = TileName.NORMAL_TILE + tileNum;
+			name = TileName.NORMAL_TILE;
 			this.tileNum = tileNum;
 		}
 
