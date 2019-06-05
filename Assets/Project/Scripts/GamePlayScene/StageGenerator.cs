@@ -13,19 +13,19 @@ namespace Project.Scripts.GamePlayScene
 	{
 		private const string TILE_GENERATOR_NAME = "TileGenerator";
 		private const string PANEL_GENERATOR_NAME = "PanelGenerator";
-		private const string BULLET_GENERATOR_NAME = "BulletGenerator";
+		private const string BULLET_GROUP_GENERATOR_NAME = "BulletGroupGenerator";
 
 		private TileGenerator tileGenerator;
 
 		private PanelGenerator panelGenerator;
 
-		private BulletGenerator bulletGenerator;
+		private BulletGroupGenerator bulletGroupGenerator;
 
 		private void Awake()
 		{
 			tileGenerator = GameObject.Find(TILE_GENERATOR_NAME).GetComponent<TileGenerator>();
 			panelGenerator = GameObject.Find(PANEL_GENERATOR_NAME).GetComponent<PanelGenerator>();
-			bulletGenerator = GameObject.Find(BULLET_GENERATOR_NAME).GetComponent<BulletGenerator>();
+			bulletGroupGenerator = GameObject.Find(BULLET_GROUP_GENERATOR_NAME).GetComponent<BulletGroupGenerator>();
 		}
 
 		public void CreateStages(int stageId)
@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene
 			{
 				case 1:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(
+					coroutines.Add(bulletGroupGenerator.CreateCartridge(
 						cartridgeType: CartridgeType.Turn,
 						appearanceTime: 1.0f,
 						interval: 1.0f,
@@ -46,7 +46,7 @@ namespace Project.Scripts.GamePlayScene
 						bulletInfo: BulletInfo.SetTurnCartridgeInfo(
 							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
 							turnLine: new[] {(int) Column.Right, (int) Row.First})));
-					coroutines.Add(bulletGenerator.CreateCartridge(
+					coroutines.Add(bulletGroupGenerator.CreateCartridge(
 						cartridgeType: CartridgeType.Normal,
 						direction: CartridgeDirection.ToUp,
 						column: Column.Right,
@@ -74,14 +74,14 @@ namespace Project.Scripts.GamePlayScene
 					break;
 				case 2:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(
+					coroutines.Add(bulletGroupGenerator.CreateCartridge(
 						cartridgeType: CartridgeType.Normal,
 						appearanceTime: 2.0f,
 						interval: 0.5f,
 						direction: CartridgeDirection.ToRight,
 						row: Row.Fifth,
 						loop: false));
-					coroutines.Add(bulletGenerator.CreateHole(
+					coroutines.Add(bulletGroupGenerator.CreateHole(
 						holeType: HoleType.Normal,
 						appearanceTime: 1.0f,
 						interval: 2.0f));
@@ -106,7 +106,7 @@ namespace Project.Scripts.GamePlayScene
 				// 必ずパネルを撃ち抜く銃弾のテストステージ
 				case 3:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateHole(
+					coroutines.Add(bulletGroupGenerator.CreateHole(
 						holeType: HoleType.Aiming,
 						appearanceTime: 2.0f,
 						interval: 2.0f,
@@ -175,21 +175,21 @@ namespace Project.Scripts.GamePlayScene
 				// ランダムに銃弾を生成するテストステージ
 				case 4:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateRandomBullet(
+					coroutines.Add(bulletGroupGenerator.CreateRandomBullet(
 						appearanceTime: 2.0f,
 						interval: 18.0f,
 						bulletInfo: BulletInfo.SetBulletInfo(
 							randomBulletType: new int[] {10, 90},
 							randomCartridgeType: new int[] {100, 0},
 							randomHoleType: new int[] {50, 50})));
-					coroutines.Add(bulletGenerator.CreateCartridge(
+					coroutines.Add(bulletGroupGenerator.CreateCartridge(
 						cartridgeType: CartridgeType.Random,
 						appearanceTime: 8.0f,
 						interval: 18.0f,
 						direction: CartridgeDirection.ToBottom,
 						column: Column.Center,
 						bulletInfo: BulletInfo.SetCartridgeInfo()));
-					coroutines.Add(bulletGenerator.CreateHole(
+					coroutines.Add(bulletGroupGenerator.CreateHole(
 						holeType: HoleType.Random,
 						appearanceTime: 14.0f,
 						interval: 18.0f,
@@ -209,7 +209,7 @@ namespace Project.Scripts.GamePlayScene
 			}
 
 			// 銃弾の一括作成
-			bulletGenerator.CreateBullets(coroutines);
+			bulletGroupGenerator.CreateBullets(coroutines);
 		}
 	}
 }

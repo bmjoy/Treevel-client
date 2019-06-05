@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
-	public class BulletGenerator : MonoBehaviour
+	public class BulletGroupGenerator : MonoBehaviour
 	{
 		// 生成された銃弾のID(sortingOrder)
 		private short bulletId = -32768;
