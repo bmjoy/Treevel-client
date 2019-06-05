@@ -75,5 +75,11 @@ namespace Project.Scripts.GamePlayScene.Panel
 			var panel = Instantiate(dynamicDummyPanelPrefab);
 			panel.GetComponent<DynamicPanelController>().Initialize(initialTileNum);
 		}
+
+		/* 変数をもらい辞書型に変換 */
+		public static Dictionary<string, int> ComvartToDictionary(int panelNum, int initialTileNum, int finalTileNum)
+		{
+			return new Dictionary<string, int>() {{"panelNum", panelNum}, {"initialTileNum", initialTileNum}, {"finalTileNum", finalTileNum}};
+		}
 	}
 }
