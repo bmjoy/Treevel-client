@@ -51,6 +51,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			{
 				return gameObject;
 			}
+
 			return null;
 		}
 
@@ -68,6 +69,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 					Destroy(GetComponent<SpriteGlowEffect>());
 				}
 			}
+
 			// 成功判定
 			gamePlayDirector.CheckClear();
 		}
