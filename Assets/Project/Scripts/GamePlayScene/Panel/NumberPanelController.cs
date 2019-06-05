@@ -1,6 +1,8 @@
 ﻿using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using SpriteGlow;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
@@ -19,6 +21,11 @@ namespace Project.Scripts.GamePlayScene.Panel
 			base.Awake();
 			// 当たり判定と，フリック検知のアタッチ
 			gameObject.AddComponent<BoxCollider2D>();
+			// 光らせるためのコンポーネントをアタッチ
+			gameObject.AddComponent<PostProcessVolume>();
+			var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
+			GetComponent<PostProcessVolume>().isGlobal = true;
+			GetComponent<PostProcessVolume>().profile = profile;
 		}
 
 		protected override void Start()
@@ -26,6 +33,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 			base.Start();
 			// 初期状態で最終タイルにいるかどうかの状態を変える
 			adapted = transform.parent.gameObject == finalTile;
+			// 最終タイルにいる場合，光らせる
+			if (adapted) AddSpriteGlow();
 		}
 
 		public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
@@ -50,6 +59,15 @@ namespace Project.Scripts.GamePlayScene.Panel
 			base.UpdateTile(targetTile);
 			// 最終タイルにいるかどうかで状態を変える
 			adapted = transform.parent.gameObject == finalTile;
+			// 最終タイルにいるかどうかで，光らせるかを決める
+			if (adapted) AddSpriteGlow();
+			else
+			{
+				if (GetComponent<SpriteGlowEffect>() != null)
+				{
+					Destroy(GetComponent<SpriteGlowEffect>());
+				}
+			}
 			// 成功判定
 			gamePlayDirector.CheckClear();
 		}
@@ -61,6 +79,15 @@ namespace Project.Scripts.GamePlayScene.Panel
 			gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
 			// 失敗状態に移行する
 			gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+		}
+
+		/* オブジェクトを光らせる */
+		private void AddSpriteGlow()
+		{
+			gameObject.AddComponent<SpriteGlowEffect>();
+			GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
+			GetComponent<SpriteGlowEffect>().GlowBrightness = 3.0f;
+			GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
 		}
 	}
 }
