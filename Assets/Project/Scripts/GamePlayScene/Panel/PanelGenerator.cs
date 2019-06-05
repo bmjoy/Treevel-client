@@ -38,7 +38,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
 		}
 
-		public void CreateNumberPanels(List<Dictionary<string, int>> numberPanelParams)
+		public void PrepareTilesAndCreateNumberPanels(List<Dictionary<string, int>> numberPanelParams)
 		{
 			foreach (Dictionary<string, int> numberPanelParam in numberPanelParams)
 			{

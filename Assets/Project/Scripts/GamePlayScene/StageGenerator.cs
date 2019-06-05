@@ -56,7 +56,7 @@ namespace Project.Scripts.GamePlayScene
 
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 数字パネル作成
-					panelGenerator.CreateNumberPanels(
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
 						new List<Dictionary<string, int>>()
 						{
 							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
@@ -93,7 +93,7 @@ namespace Project.Scripts.GamePlayScene
 					// 特殊タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
 					// 数字パネル作成
-					panelGenerator.CreateNumberPanels(
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
 						new List<Dictionary<string, int>>()
 						{
 							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 1, finalTileNum: 4),
@@ -121,7 +121,7 @@ namespace Project.Scripts.GamePlayScene
 					// 特殊タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
 					// 数字パネル作成
-					panelGenerator.CreateNumberPanels(
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
 						new List<Dictionary<string, int>>()
 						{
 							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 1, finalTileNum: 4),
@@ -157,7 +157,7 @@ namespace Project.Scripts.GamePlayScene
 
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 数字パネル作成
-					panelGenerator.CreateNumberPanels(
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
 						new List<Dictionary<string, int>>()
 						{
 							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
