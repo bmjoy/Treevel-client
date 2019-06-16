@@ -63,8 +63,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 			adapted = transform.parent.gameObject == finalTile;
 			// 最終タイルにいるかどうかで，光らせるかを決める
 			GetComponent<SpriteGlowEffect>().enabled = adapted;
-			// 成功判定
-			gamePlayDirector.CheckClear();
+			// adapted が true になっていれば (必要条件) 成功判定をする
+			if (adapted) gamePlayDirector.CheckClear();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
