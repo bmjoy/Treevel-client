@@ -26,6 +26,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
 			GetComponent<PostProcessVolume>().isGlobal = true;
 			GetComponent<PostProcessVolume>().profile = profile;
+			AddSpriteGlow();
 		}
 
 		protected override void Start()
@@ -33,8 +34,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 			base.Start();
 			// 初期状態で最終タイルにいるかどうかの状態を変える
 			adapted = transform.parent.gameObject == finalTile;
-			// 最終タイルにいる場合，光らせる
-			if (adapted) AddSpriteGlow();
+			// 最終タイルにいるかどうかで，光らせるかを決める
+			GetComponent<SpriteGlowEffect>().enabled = adapted;
 		}
 
 		public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
@@ -61,15 +62,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			// 最終タイルにいるかどうかで状態を変える
 			adapted = transform.parent.gameObject == finalTile;
 			// 最終タイルにいるかどうかで，光らせるかを決める
-			if (adapted) AddSpriteGlow();
-			else
-			{
-				if (GetComponent<SpriteGlowEffect>() != null)
-				{
-					Destroy(GetComponent<SpriteGlowEffect>());
-				}
-			}
-
+			GetComponent<SpriteGlowEffect>().enabled = adapted;
 			// 成功判定
 			gamePlayDirector.CheckClear();
 		}
