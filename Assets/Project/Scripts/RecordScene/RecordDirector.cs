@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
+using SnapScroll;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,59 +16,58 @@ namespace Project.Scripts.RecordScene
 
 		public GameObject successLinePrefab;
 
-		private GameObject levelText;
+		private readonly Dictionary<StageLevel, GameObject> levelText = new Dictionary<StageLevel, GameObject>();
 
-		private GameObject percentageText;
+		private readonly Dictionary<StageLevel, GameObject> percentageText = new Dictionary<StageLevel, GameObject>();
 
-		private GameObject graphArea;
+		private readonly Dictionary<StageLevel, GameObject> graphArea = new Dictionary<StageLevel, GameObject>();
 
-		private StageLevel nowLevel;
+		private SnapScrollView snapScrollView;
 
 		private void Awake()
 		{
-			levelText = GameObject.Find("Level");
-			percentageText = GameObject.Find("Percentage");
-			graphArea = GameObject.Find("GraphArea");
+			// 取得
+			snapScrollView = GameObject.Find("SnapScrollView").GetComponent<SnapScrollView>();
+			// ページの最大値を設定
+			snapScrollView.MaxPage = Enum.GetNames(typeof(StageLevel)).Length - 1;
+			// ページの横幅の設定
+			snapScrollView.PageSize = Screen.width;
 
-
-			// 最初は "Easy" を表示
-			Draw(StageLevel.Easy);
+			// TODO: 将来的には非同期で呼び出したい (バージョンアップ待ち)
+			// 各種グラフなどを全て描画する
+			Draw();
 		}
 
-		/* 難易度に合わせた画面を描画する */
-		private void Draw(StageLevel stageLevel)
+		/* 全難易度の画面を描画する */
+		private void Draw()
 		{
-			// 画面を綺麗にする
-			GameObject[] graphUis = GameObject.FindGameObjectsWithTag(TagName.GRAPH_UI);
-			foreach (var graphUi in graphUis)
+			foreach (StageLevel stageLevel in Enum.GetValues(typeof(StageLevel)))
 			{
-				Destroy(graphUi);
+				// 準備
+				GetGameObjects(stageLevel);
+				// 成功割合の描画
+				DrawPercentage(stageLevel);
+				// 棒グラフの描画
+				DrawGraph(stageLevel);
 			}
 
-			// 難易度の更新
-			nowLevel = stageLevel;
+			// 名前が決まるまではこれで行く
+			levelText[StageLevel.Easy].GetComponent<Text>().text = "簡単";
+			levelText[StageLevel.Normal].GetComponent<Text>().text = "普通";
+			levelText[StageLevel.Hard].GetComponent<Text>().text = "ムズイ";
+			levelText[StageLevel.VeryHard].GetComponent<Text>().text = "激ムズ";
+		}
 
-			DrawPercentage(nowLevel);
+		/* 必要な GameObject を Scene から取得 */
+		private void GetGameObjects(StageLevel stageLevel)
+		{
+			// SnapScrollView -> Viewport -> Content -> のオブジェクトを特定
+			var level = GameObject.Find(stageLevel.ToString());
 
-			DrawGraph(nowLevel);
-
-			switch (nowLevel)
-			{
-				case StageLevel.Easy:
-					levelText.GetComponent<Text>().text = "Easy";
-					break;
-				case StageLevel.Normal:
-					levelText.GetComponent<Text>().text = "Normal";
-					break;
-				case StageLevel.Hard:
-					levelText.GetComponent<Text>().text = "Hard";
-					break;
-				case StageLevel.VeryHard:
-					levelText.GetComponent<Text>().text = "VeryHard";
-					break;
-				default:
-					throw new NotImplementedException();
-			}
+			// 各種 GameObject を取得
+			levelText.Add(stageLevel, level.transform.Find("Level").gameObject);
+			percentageText.Add(stageLevel, level.transform.Find("Percentage").gameObject);
+			graphArea.Add(stageLevel, level.transform.Find("GraphArea").gameObject);
 		}
 
 		/* 難易度に合わせた成功割合を描画する */
@@ -89,7 +90,7 @@ namespace Project.Scripts.RecordScene
 
 			var successPercentage = (successStageNum / (float) stageNum) * 100;
 
-			percentageText.GetComponent<Text>().text = successPercentage + "%";
+			percentageText[stageLevel].GetComponent<Text>().text = successPercentage + "%";
 		}
 
 		/* 難易度に合わせた棒グラフを描画する */
@@ -99,7 +100,7 @@ namespace Project.Scripts.RecordScene
 			var stageStartId = StageInfo.StageStartId[stageLevel];
 
 			// 描画するパネル
-			var graphAreaContent = graphArea.GetComponent<RectTransform>();
+			var graphAreaContent = graphArea[stageLevel].GetComponent<RectTransform>();
 
 			/* UIの配置周りの定数宣言 */
 
