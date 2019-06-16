@@ -20,10 +20,6 @@ namespace Project.Scripts.RecordScene
 
 		private GameObject graphArea;
 
-		private GameObject leftButton;
-
-		private GameObject rightButton;
-
 		private StageLevel nowLevel;
 
 		private void Awake()
@@ -31,11 +27,7 @@ namespace Project.Scripts.RecordScene
 			levelText = GameObject.Find("Level");
 			percentageText = GameObject.Find("Percentage");
 			graphArea = GameObject.Find("GraphArea");
-			leftButton = GameObject.Find("LeftButton");
-			rightButton = GameObject.Find("RightButton");
 
-			leftButton.GetComponent<Button>().onClick.AddListener(LeftButtonDown);
-			rightButton.GetComponent<Button>().onClick.AddListener(RightButtonDown);
 
 			// 最初は "Easy" を表示
 			Draw(StageLevel.Easy);
@@ -226,32 +218,6 @@ namespace Project.Scripts.RecordScene
 			}
 
 			return maxChallengeNum;
-		}
-
-		/* 左ボタンクリック時の処理 */
-		private void LeftButtonDown()
-		{
-			if (nowLevel == StageLevel.Easy)
-			{
-				Draw(StageLevel.VeryHard);
-			}
-			else
-			{
-				Draw(nowLevel - 1);
-			}
-		}
-
-		/* 右ボタンクリック時の処理 */
-		private void RightButtonDown()
-		{
-			if (nowLevel == StageLevel.VeryHard)
-			{
-				Draw(StageLevel.Easy);
-			}
-			else
-			{
-				Draw(nowLevel + 1);
-			}
 		}
 	}
 }
