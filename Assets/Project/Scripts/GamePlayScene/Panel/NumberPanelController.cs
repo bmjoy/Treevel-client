@@ -22,11 +22,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 			// 当たり判定と，フリック検知のアタッチ
 			gameObject.AddComponent<BoxCollider2D>();
 			// 光らせるためのコンポーネントをアタッチ
-			gameObject.AddComponent<PostProcessVolume>();
-			var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
-			GetComponent<PostProcessVolume>().isGlobal = true;
-			GetComponent<PostProcessVolume>().profile = profile;
-			AddSpriteGlow();
+			AddPostProcessVolume();
+			AddSpriteGlowEffect();
 		}
 
 		protected override void Start()
@@ -76,8 +73,17 @@ namespace Project.Scripts.GamePlayScene.Panel
 			gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
 		}
 
+		/* SpriteGlowEffect コンポーネントに必要なコンポーネント */
+		private void AddPostProcessVolume()
+		{
+			gameObject.AddComponent<PostProcessVolume>();
+			GetComponent<PostProcessVolume>().isGlobal = true;
+			var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
+			GetComponent<PostProcessVolume>().profile = profile;
+		}
+
 		/* オブジェクトを光らせる */
-		private void AddSpriteGlow()
+		private void AddSpriteGlowEffect()
 		{
 			gameObject.AddComponent<SpriteGlowEffect>();
 			GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
