@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4447536029278920}
   - component: {fileID: 212613370315751616}
   - component: {fileID: 114706222321565858}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: numberPanel4Prefab
   m_TagString: NumberPanel
   m_Icon: {fileID: 0}

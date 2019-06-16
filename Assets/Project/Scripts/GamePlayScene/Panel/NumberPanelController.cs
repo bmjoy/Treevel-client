@@ -1,6 +1,8 @@
 ﻿using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using SpriteGlow;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
@@ -19,6 +21,9 @@ namespace Project.Scripts.GamePlayScene.Panel
 			base.Awake();
 			// 当たり判定と，フリック検知のアタッチ
 			gameObject.AddComponent<BoxCollider2D>();
+			// 光らせるためのコンポーネントをアタッチ
+			AddPostProcessVolume();
+			AddSpriteGlowEffect();
 		}
 
 		protected override void Start()
@@ -26,6 +31,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 			base.Start();
 			// 初期状態で最終タイルにいるかどうかの状態を変える
 			adapted = transform.parent.gameObject == finalTile;
+			// 最終タイルにいるかどうかで，光らせるかを決める
+			GetComponent<SpriteGlowEffect>().enabled = adapted;
 		}
 
 		public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
@@ -51,8 +58,10 @@ namespace Project.Scripts.GamePlayScene.Panel
 			base.UpdateTile(targetTile);
 			// 最終タイルにいるかどうかで状態を変える
 			adapted = transform.parent.gameObject == finalTile;
-			// 成功判定
-			gamePlayDirector.CheckClear();
+			// 最終タイルにいるかどうかで，光らせるかを決める
+			GetComponent<SpriteGlowEffect>().enabled = adapted;
+			// adapted が true になっていれば (必要条件) 成功判定をする
+			if (adapted) gamePlayDirector.CheckClear();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
@@ -62,6 +71,24 @@ namespace Project.Scripts.GamePlayScene.Panel
 			gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
 			// 失敗状態に移行する
 			gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+		}
+
+		/* SpriteGlowEffect コンポーネントに必要なコンポーネント */
+		private void AddPostProcessVolume()
+		{
+			gameObject.AddComponent<PostProcessVolume>();
+			GetComponent<PostProcessVolume>().isGlobal = true;
+			var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
+			GetComponent<PostProcessVolume>().profile = profile;
+		}
+
+		/* オブジェクトを光らせる */
+		private void AddSpriteGlowEffect()
+		{
+			gameObject.AddComponent<SpriteGlowEffect>();
+			GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
+			GetComponent<SpriteGlowEffect>().GlowBrightness = 3.0f;
+			GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
 		}
 	}
 }
