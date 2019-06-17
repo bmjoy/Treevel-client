@@ -1,28 +1,14 @@
-﻿using Project.Scripts.GamePlayScene.Bullet;
-using Project.Scripts.Utils.Library;
+﻿using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
 	public class AimingHoleWarningController : NormalHoleWarningController
 	{
-		public void Initialize(BulletInfo bulletInfo)
+		public void Initialize(int[] aimingPanel, ref int aimingHoleCount)
 		{
-			// 撃ち抜くPanelを取得する
-			var aimingPanel = bulletInfo.GetAimingPanel();
-			int panelNum;
-			if (aimingPanel != null)
-			{
-				// AimingHoleを出現させるNumberPanelが決まっている場合
-				var count = bulletInfo.GetAimingHoleCount();
-				panelNum = aimingPanel[((count - 1) % aimingPanel.Length)];
-				// 次の表示位置を求める
-				bulletInfo.SetAimingHoleCount(count + 1);
-			}
-			else
-			{
-				// AimingHoleを出現させるNumberPanelをランダムに決める場合
-				panelNum = bulletInfo.GetNumberPanel();
-			}
+			var panelNum = aimingPanel[((aimingHoleCount - 1) % aimingPanel.Length)];
+			// 次の表示位置を求める
+			aimingHoleCount += 1;
 
 			var panel = PanelLibrary.GetPanel(panelNum);
 			// 警告の表示位置をPanelと同じ位置にする
