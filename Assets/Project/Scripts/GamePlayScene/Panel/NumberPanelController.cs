@@ -19,8 +19,6 @@ namespace Project.Scripts.GamePlayScene.Panel
 		protected override void Awake()
 		{
 			base.Awake();
-			// 当たり判定と，フリック検知のアタッチ
-			gameObject.AddComponent<BoxCollider2D>();
 			// 光らせるためのコンポーネントをアタッチ
 			AddPostProcessVolume();
 			AddSpriteGlowEffect();
