@@ -500,6 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletGroupControllerPrefab: {fileID: 1810046256894534, guid: 477196a904b4344c88ab20b42d179cd8,
     type: 2}
+  normalCartridgeGeneratorPrefab: {fileID: 1198175920480986, guid: 862747cb8118c47788f9eb458f7096c7,
     type: 2}
     type: 2}
     type: 2}
