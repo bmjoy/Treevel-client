@@ -1,16 +1,117 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts.GamePlayScene.BulletWarning;
 using UnityEngine;
 
-public class BulletGroupController : MonoBehaviour {
+namespace Project.Scripts.GamePlayScene.Bullet
+{
+	public class BulletGroupController : MonoBehaviour
+	{
+		// 生成された銃弾のID(sortingOrder)
+		private short bulletId = -32768;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		private GamePlayDirector gamePlayDirector;
+
+		// ゲームの開始時刻
+		private float startTime;
+
+		// 銃弾の生成初めの時刻
+		private float appearanceTime;
+
+		// 銃弾の生成間隔
+		private float interval;
+
+		// 銃弾生成のループの有無
+		private bool loop;
+
+		// 乱数
+		private System.Random random;
+
+		// 銃弾グループ内で管理する各銃弾のGenerator
+		private List<GameObject> bulletGenerators;
+
+		// 各銃弾のGeneratorの出現割合
+		private int[] bulletRatio;
+
+		private void OnEnable()
+		{
+			GamePlayDirector.OnSucceed += OnSucceed;
+			GamePlayDirector.OnFail += OnFail;
+		}
+
+		private void OnDisable()
+		{
+			GamePlayDirector.OnSucceed -= OnSucceed;
+			GamePlayDirector.OnFail -= OnFail;
+		}
+
+		/* 銃弾グループに必要な引数を受け取る */
+		public void Initialize(float startTime, float appearanceTime, float interval, bool loop,
+			List<GameObject> bulletGenerators)
+		{
+			random = new System.Random();
+			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
+			this.startTime = startTime;
+			this.appearanceTime = appearanceTime;
+			this.interval = interval;
+			this.loop = loop;
+			bulletRatio = new int[bulletGenerators.Count];
+			for (var index = 0; index < bulletGenerators.Count; index++)
+			{
+				bulletRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;
+			}
+
+			this.bulletGenerators = bulletGenerators;
+		}
+
+		/* 銃弾生成時刻と、生成する銃弾を管理する */
+		public IEnumerator CreateBullets()
+		{
+			var currentTime = Time.time;
+			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
+			                                (currentTime - startTime));
+			var sum = 0;
+
+			do
+			{
+				sum++;
+				// 出現させる銃弾を決定する
+				var index = BulletGenerator.GetRandomParameter(random, bulletRatio);
+				var bulletGeneratorScript = bulletGenerators[index - 1].GetComponent<BulletGenerator>();
+				StartCoroutine(bulletGeneratorScript.CreateBullet(bulletId));
+
+				// 作成する銃弾の個数の上限チェック
+				try
+				{
+					bulletId = checked((short) (bulletId + 1));
+				}
+				catch (OverflowException)
+				{
+					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+				}
+
+				// 次の銃弾を作成する時刻まで待つ
+				currentTime = Time.time;
+				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
+				                                interval * sum - (currentTime - startTime));
+			} while (loop);
+		}
+
+		private void OnFail()
+		{
+			GameFinish();
+		}
+
+		private void OnSucceed()
+		{
+			GameFinish();
+		}
+
+		/* ゲーム終了時に銃弾グループを削除する */
+		private void GameFinish()
+		{
+			Destroy(gameObject);
+		}
 	}
 }
