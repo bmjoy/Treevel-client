@@ -498,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c624f5e7af1344b3b1ab1f2ff22b14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletGroupControllerPrefab: {fileID: 1810046256894534, guid: 477196a904b4344c88ab20b42d179cd8,
     type: 2}
     type: 2}
     type: 2}
