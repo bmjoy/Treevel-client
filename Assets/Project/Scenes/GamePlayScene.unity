@@ -504,6 +504,7 @@ MonoBehaviour:
     type: 2}
   turnCartridgeGeneratorPrefab: {fileID: 1840753890305500, guid: 2ecfcf13f9b644b299762e3cb5d83175,
     type: 2}
+  normalHoleGeneratorPrefab: {fileID: 1016726232043914, guid: f4001e6d3634a4e47b8c225f2f769939,
     type: 2}
     type: 2}
   startTime: 0
