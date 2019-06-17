@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -62,13 +60,20 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			yield return StartCoroutine(bulletGroupScript.CreateBullets());
 		}
 
+		private void OnSucceed()
 		{
+			GameFinish();
 		}
 
+		private void OnFail()
 		{
+			GameFinish();
 		}
 
+		/* ゲーム終了時に全てのBulletGroupを停止させる */
+		private void GameFinish()
 		{
+			StopAllCoroutines();
 		}
 
 		/* NormalCartridgeのGeneratorを生成する */
