@@ -143,7 +143,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		/* 曲がる方向を重みに基づきランダムに決定する */
-		public int GetRandomTurnDirection(CartridgeDirection direction, int line)
+		private int GetRandomTurnDirection(CartridgeDirection direction, int line)
 		{
 			var randomTurnDirection = 0;
 			// 最上行または最下行を移動している場合
