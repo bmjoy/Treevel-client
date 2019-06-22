@@ -196,6 +196,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 						cartridgeLocalLeft = (int) CartridgeDirection.ToRight;
 						cartridgeLocalRight = (int) CartridgeDirection.ToLeft;
 						break;
+					case CartridgeDirection.Random:
+						throw new Exception();
 					default:
 						throw new NotImplementedException();
 				}
