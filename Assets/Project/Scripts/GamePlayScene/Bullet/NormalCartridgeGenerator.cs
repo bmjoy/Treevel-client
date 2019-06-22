@@ -14,12 +14,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// 銃弾の移動方向
 		protected CartridgeDirection cartridgeDirection;
 
-		// どの行に出現させるか
-		protected Row row;
-
-		// どの列に出現させるか
-		protected Column column;
-
 		// 移動方向に応じて行または列は決まるので、何番目かの情報を保存する
 		protected int line;
 
@@ -39,7 +33,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			this.ratio = ratio;
 			this.cartridgeDirection = cartridgeDirection;
-			this.row = row;
 			line = (int) row;
 		}
 
@@ -47,7 +40,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			this.ratio = ratio;
 			this.cartridgeDirection = cartridgeDirection;
-			this.column = column;
 			line = (int) column;
 		}
 
