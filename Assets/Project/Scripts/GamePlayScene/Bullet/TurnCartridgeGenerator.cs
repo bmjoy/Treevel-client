@@ -108,12 +108,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// ゲームが続いているなら銃弾を作成する
 			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
 			{
-				var nextCartridgeTurnDirection = turnDirection ?? new int[]
+				int[] nextCartridgeTurnDirection = turnDirection ?? new int[]
 				{
 					GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)
 				};
 
-				var nextCartridgeTurnLine = turnLine;
+				int[] nextCartridgeTurnLine = turnLine;
 				if (nextCartridgeTurnLine == null)
 				{
 					switch (nextCartridgeDirection)
