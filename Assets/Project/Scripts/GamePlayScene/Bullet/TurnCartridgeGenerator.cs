@@ -44,9 +44,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Row row, int[] turnDirection,
-			int[] turnLine, int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
+			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn, int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
 		{
-			Initialize(ratio, cartridgeDirection, row);
+			Initialize(ratio, cartridgeDirection, row, randomCartridgeDirection, randomRow, randomColumn);
 			this.turnDirection = turnDirection;
 			this.turnLine = turnLine;
 			this.randomTurnDirections = randomTurnDirections;
@@ -55,9 +55,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Column column, int[] turnDirection,
-			int[] turnLine, int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
+			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn, int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
 		{
-			Initialize(ratio, cartridgeDirection, column);
+			Initialize(ratio, cartridgeDirection, column, randomCartridgeDirection, randomRow, randomColumn);
 			this.turnDirection = turnDirection;
 			this.turnLine = turnLine;
 			this.randomTurnDirections = randomTurnDirections;
