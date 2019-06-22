@@ -57,13 +57,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			this.appearanceTime = appearanceTime;
 			this.interval = interval;
 			this.loop = loop;
+			this.bulletGenerators = bulletGenerators;
 			bulletRatio = new int[bulletGenerators.Count];
 			for (var index = 0; index < bulletGenerators.Count; index++)
 			{
 				bulletRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;
 			}
-
-			this.bulletGenerators = bulletGenerators;
 		}
 
 		/* 銃弾生成時刻と、生成する銃弾を管理する */
