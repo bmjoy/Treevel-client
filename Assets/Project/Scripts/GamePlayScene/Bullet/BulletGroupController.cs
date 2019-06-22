@@ -12,9 +12,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		private BulletGroupGenerator bulletGroupGenerator;
 
-		// ゲームの開始時刻
-		private float startTime;
-
 		// 銃弾の生成初めの時刻
 		private float appearanceTime;
 
@@ -57,7 +54,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			random = new System.Random();
 			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-			this.startTime = startTime;
 			this.appearanceTime = appearanceTime;
 			this.interval = interval;
 			this.loop = loop;
@@ -75,7 +71,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			var currentTime = Time.time;
 			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
-			                                (currentTime - startTime));
+			                                (currentTime - bulletGroupGenerator.startTime));
 			var sum = 0;
 
 			do
@@ -101,7 +97,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				// 次の銃弾を作成する時刻まで待つ
 				currentTime = Time.time;
 				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
-				                                interval * sum - (currentTime - startTime));
+				                                interval * sum - (currentTime - bulletGroupGenerator.startTime));
 			} while (loop);
 		}
 
