@@ -77,7 +77,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				sum++;
 				// 出現させる銃弾を決定する
-				var index = BulletGenerator.GetRandomParameter(random, bulletRatio);
+				var index = BulletGenerator.GetRandomParameter(bulletRatio);
 				var bulletGeneratorScript = bulletGenerators[index - 1].GetComponent<BulletGenerator>();
 				// 銃弾のsortingOrderを管理するIDを決定する
 				var nextBulletId = bulletGroupGenerator.bulletId;

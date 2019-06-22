@@ -72,14 +72,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		/* Holeの出現する行を重みに基づき決定する */
 		private int GetRow()
 		{
-			var index = GetRandomParameter(random, randomRow);
+			var index = GetRandomParameter(randomRow);
 			return (int) Enum.ToObject(typeof(Row), index);
 		}
 
 		/* Holeの出現する列を重みに基づき決定する */
 		private int GetColumn()
 		{
-			var index = GetRandomParameter(random, randomColumn);
+			var index = GetRandomParameter(randomColumn);
 			return (int) Enum.ToObject(typeof(Column), index);
 		}
 	}

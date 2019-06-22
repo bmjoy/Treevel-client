@@ -203,7 +203,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				}
 
 				// 乱数を取得する
-				var randomValue = random.Next(randomTurnDirections[cartridgeLocalLeft - 1] +
+				var randomValue = new System.Random().Next(randomTurnDirections[cartridgeLocalLeft - 1] +
 				                              randomTurnDirections[cartridgeLocalRight - 1]) + 1;
 				// 乱数に基づいてCartridgeから見て右または左のどちらかの方向を選択する
 				randomTurnDirection = randomValue <= randomTurnDirections[cartridgeLocalLeft - 1]
@@ -217,14 +217,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		/* 曲がる行を重みに基づき決定する*/
 		private int GetTurnRow()
 		{
-			var index = GetRandomParameter(random, randomRow);
+			var index = GetRandomParameter(randomRow);
 			return (int) Enum.ToObject(typeof(Row), index);
 		}
 
 		/* 曲がる列を重みに基づき決定する */
 		private int GetTurnColumn()
 		{
-			var index = GetRandomParameter(random, randomColumn);
+			var index = GetRandomParameter(randomColumn);
 			return (int) Enum.ToObject(typeof(Column), index);
 		}
 	}

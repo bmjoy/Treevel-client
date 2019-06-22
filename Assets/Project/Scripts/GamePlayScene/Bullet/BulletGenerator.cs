@@ -14,9 +14,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// このGeneratorの出現する重み
 		public int ratio = BulletGenerator.INITIAL_RATIO;
 
-		// 乱数生成ための変数
-		protected readonly System.Random random = new System.Random();
-
 		protected void Awake()
 		{
 			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
@@ -49,11 +46,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		/* 重みに基づき配列の何番目を選択するかをランダムに決定する(配列の最初であるならば1を返す) */
 		// 必ずライブラリ化する
-		public static int GetRandomParameter(System.Random random, int[] randomParameters)
+		public static int GetRandomParameter(int[] randomParameters)
 		{
+
 			var sumOfRandomParameters = randomParameters.Sum();
 			// 1以上重みの総和以下の値をランダムに取得する
-			var randomValue = random.Next(sumOfRandomParameters) + 1;
+			var randomValue = new System.Random().Next(sumOfRandomParameters) + 1;
 			var index = 0;
 			// 重み配列の最初の要素から順に、ランダムな値から値を引く
 			while (randomValue > 0)

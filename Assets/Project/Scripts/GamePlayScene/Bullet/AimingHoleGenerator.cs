@@ -65,7 +65,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		/* 撃つNumberPanelの番号を重みに基づき決定する */
 		private int GetNumberPanel()
 		{
-			var index = GetRandomParameter(random, randomNumberPanel);
+			var index = GetRandomParameter(randomNumberPanel);
 			return index;
 		}
 	}
