@@ -13,8 +13,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// 銃弾グループを制御するcoroutine
 		private List<IEnumerator> coroutines;
 
-		private GamePlayDirector gamePlayDirector;
-
 		// 銃弾グループのprefab
 		public GameObject bulletGroupControllerPrefab;
 
@@ -43,7 +41,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public void CreateBulletGroups(List<IEnumerator> coroutines)
 		{
 			this.coroutines = coroutines;
-			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
 			startTime = Time.time;
 
 			foreach (var coroutine in this.coroutines) StartCoroutine(coroutine);

@@ -12,7 +12,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private const int INITIAL_RATIO = 100;
 
 		// このGeneratorの出現する重み
-		public int ratio = BulletGenerator.INITIAL_RATIO;
+		public int ratio = INITIAL_RATIO;
 
 		protected void Awake()
 		{

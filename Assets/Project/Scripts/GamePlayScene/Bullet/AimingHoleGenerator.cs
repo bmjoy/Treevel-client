@@ -17,7 +17,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// aimingPanel配列の何番目か
 		private int aimingHoleCount = 0;
 
-		// aimingHoleが出現するNumberTileの出現率の重み
+		// aimingHoleが出現するNumberPanelの出現率の重み
 		private int[] randomNumberPanel = SetInitialRatio(StageSize.NUMBER_PANEL_NUM);
 
 		public void Initialize(int ratio, int[] aimingPanel)
@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public override IEnumerator CreateBullet(int bulletId)
 		{
 			// どのNumberPanelを撃つか指定する
-			var nextAimingPanel = aimingPanel ?? new int[] {GetNumberPanel()};
+			int[] nextAimingPanel = aimingPanel ?? new int[] {GetNumberPanel()};
 
 			// 警告の作成
 			var warning = Instantiate(aimingHoleWarningPrefab);

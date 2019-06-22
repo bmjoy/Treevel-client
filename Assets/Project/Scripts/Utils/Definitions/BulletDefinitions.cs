@@ -1,24 +1,18 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
-	public enum BulletType
-	{
-		Cartridge = 1,
-		Hole,
-		Random = 0
-	}
 
 	public enum CartridgeType
 	{
 		Normal = 1,
 		Turn,
-		Random = 0
+		Random = -1
 	}
 
 	public enum HoleType
 	{
 		Normal = 1,
 		Aiming,
-		Random = 0
+		Random = -1
 	}
 
 	public enum CartridgeDirection
@@ -27,7 +21,7 @@
 		ToRight,
 		ToUp,
 		ToBottom,
-		Random = 0
+		Random = -1
 	}
 
 	public enum Row
@@ -37,7 +31,7 @@
 		Third,
 		Fourth,
 		Fifth,
-		Random = 0
+		Random = -1
 	}
 
 	public enum Column
@@ -45,6 +39,6 @@
 		Left = 1,
 		Center,
 		Right,
-		Random = 0
+		Random = -1
 	}
 }
