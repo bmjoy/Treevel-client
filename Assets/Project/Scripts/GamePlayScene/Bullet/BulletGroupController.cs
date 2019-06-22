@@ -8,10 +8,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class BulletGroupController : MonoBehaviour
 	{
-		// 生成された銃弾のID(sortingOrder)
-		private short bulletId = -32768;
-
 		private GamePlayDirector gamePlayDirector;
+
+		private BulletGroupGenerator bulletGroupGenerator;
 
 		// ゲームの開始時刻
 		private float startTime;
@@ -33,6 +32,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		// 各銃弾のGeneratorの出現割合
 		private int[] bulletRatio;
+
+		private void Awake()
+		{
+			bulletGroupGenerator = GameObject.Find(StageGenerator.BULLET_GROUP_GENERATOR_NAME)
+				.GetComponent<BulletGroupGenerator>();
+		}
 
 		private void OnEnable()
 		{
@@ -79,12 +84,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				// 出現させる銃弾を決定する
 				var index = BulletGenerator.GetRandomParameter(random, bulletRatio);
 				var bulletGeneratorScript = bulletGenerators[index - 1].GetComponent<BulletGenerator>();
-				StartCoroutine(bulletGeneratorScript.CreateBullet(bulletId));
+				// 銃弾のsortingOrderを管理するIDを決定する
+				var nextBulletId = bulletGroupGenerator.bulletId;
+				StartCoroutine(bulletGeneratorScript.CreateBullet(nextBulletId));
 
 				// 作成する銃弾の個数の上限チェック
 				try
 				{
-					bulletId = checked((short) (bulletId + 1));
+					bulletGroupGenerator.bulletId = checked((short) (nextBulletId + 1));
 				}
 				catch (OverflowException)
 				{

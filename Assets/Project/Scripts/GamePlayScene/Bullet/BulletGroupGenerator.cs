@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public class BulletGroupGenerator : MonoBehaviour
 	{
 		// 生成された銃弾のID(sortingOrder)
-		private short bulletId = -32768;
+		public short bulletId = -32768;
 
 		// 銃弾グループを制御するcoroutine
 		private List<IEnumerator> coroutines;

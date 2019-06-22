@@ -13,7 +13,7 @@ namespace Project.Scripts.GamePlayScene
 	{
 		private const string TILE_GENERATOR_NAME = "TileGenerator";
 		private const string PANEL_GENERATOR_NAME = "PanelGenerator";
-		private const string BULLET_GROUP_GENERATOR_NAME = "BulletGroupGenerator";
+		public const string BULLET_GROUP_GENERATOR_NAME = "BulletGroupGenerator";
 
 		private TileGenerator tileGenerator;
 
