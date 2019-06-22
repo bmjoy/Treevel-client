@@ -44,7 +44,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Row row, int[] turnDirection,
-			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn, int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
+			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
+			int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
 		{
 			Initialize(ratio, cartridgeDirection, row, randomCartridgeDirection, randomRow, randomColumn);
 			this.turnDirection = turnDirection;
@@ -55,7 +56,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Column column, int[] turnDirection,
-			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn, int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
+			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
+			int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
 		{
 			Initialize(ratio, cartridgeDirection, column, randomCartridgeDirection, randomRow, randomColumn);
 			this.turnDirection = turnDirection;
@@ -204,7 +206,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 				// 乱数を取得する
 				var randomValue = new System.Random().Next(randomTurnDirections[cartridgeLocalLeft - 1] +
-				                              randomTurnDirections[cartridgeLocalRight - 1]) + 1;
+				                                           randomTurnDirections[cartridgeLocalRight - 1]) + 1;
 				// 乱数に基づいてCartridgeから見て右または左のどちらかの方向を選択する
 				randomTurnDirection = randomValue <= randomTurnDirections[cartridgeLocalLeft - 1]
 					? (int) Enum.ToObject(typeof(CartridgeDirection), cartridgeLocalLeft)

@@ -48,7 +48,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		// 必ずライブラリ化する
 		public static int GetRandomParameter(int[] randomParameters)
 		{
-
 			var sumOfRandomParameters = randomParameters.Sum();
 			// 1以上重みの総和以下の値をランダムに取得する
 			var randomValue = new System.Random().Next(sumOfRandomParameters) + 1;

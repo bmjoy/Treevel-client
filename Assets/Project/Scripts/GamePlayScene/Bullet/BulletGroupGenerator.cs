@@ -140,24 +140,28 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		/* 横方向、ランダムな行を移動し、ランダムな場所でランダムな方向に曲がる銃弾を生成
 		   進行方向もランダムな時はこのメソッドを使用する */
 		public GameObject CreateTurnCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Row row,
-			int[] turnDirection, int[] turnLine, int[] randomCartridgedirection, int[] randomRow, int[] randomColumn, int[] randomTurnDirections, int[] randomTurnRow,
+			int[] turnDirection, int[] turnLine, int[] randomCartridgedirection, int[] randomRow, int[] randomColumn,
+			int[] randomTurnDirections, int[] randomTurnRow,
 			int[] randomTurnColumn)
 		{
 			var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
 			var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-			cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row, turnDirection, turnLine, randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
+			cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row, turnDirection, turnLine,
+				randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
 				randomTurnColumn);
 			return cartridgeGenerator;
 		}
 
 		/* 縦方向、ランダムな行を移動し、ランダムな場所でランダムな方向に曲がる銃弾を生成 */
 		public GameObject CreateTurnCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Column column,
-			int[] turnDirection, int[] turnLine, int[] randomCartridgedirection, int[] randomRow, int[] randomColumn, int[] randomTurnDirections, int[] randomTurnRow,
+			int[] turnDirection, int[] turnLine, int[] randomCartridgedirection, int[] randomRow, int[] randomColumn,
+			int[] randomTurnDirections, int[] randomTurnRow,
 			int[] randomTurnColumn)
 		{
 			var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
 			var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-			cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column, turnDirection, turnLine, randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
+			cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column, turnDirection, turnLine,
+				randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
 				randomTurnColumn);
 			return cartridgeGenerator;
 		}
