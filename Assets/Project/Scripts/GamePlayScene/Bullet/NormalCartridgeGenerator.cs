@@ -24,7 +24,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		protected int line;
 
 		// 銃弾がどの方向に進行するかをランダムに決めるときの各方向の重み
-		protected int[] randomCartridgeDirection =
+		private int[] randomCartridgeDirection =
 			SetInitialRatio(Enum.GetNames(typeof(CartridgeDirection)).Length - 1);
 
 		// 銃弾がどの行に出現するかをランダムに決めるときの各行の重み
