@@ -137,9 +137,9 @@ namespace Project.Scripts.RecordScene
 			// 目盛を書き換える
 			if (maxScale > 0)
 			{
-				GameObject.Find("Scale4-Value").GetComponent<Text>().text = maxScale.ToString();
-				GameObject.Find("Scale3-Value").GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
-				GameObject.Find("Scale2-Value").GetComponent<Text>().text = (maxScale / 3).ToString();
+				graphArea[stageLevel].transform.Find("Scale4-Value").gameObject.GetComponent<Text>().text = maxScale.ToString();
+				graphArea[stageLevel].transform.Find("Scale3-Value").gameObject.GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
+				graphArea[stageLevel].transform.Find("Scale2-Value").gameObject.GetComponent<Text>().text = (maxScale / 3).ToString();
 			}
 
 			// ステージ番号
