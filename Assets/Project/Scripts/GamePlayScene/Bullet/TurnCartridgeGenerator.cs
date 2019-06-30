@@ -219,14 +219,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		/* 曲がる行を重みに基づき決定する*/
 		private int GetTurnRow()
 		{
-			var index = GetRandomParameter(randomRow);
+			var index = GetRandomParameter(randomRow) + 1;
 			return (int) Enum.ToObject(typeof(Row), index);
 		}
 
 		/* 曲がる列を重みに基づき決定する */
 		private int GetTurnColumn()
 		{
-			var index = GetRandomParameter(randomColumn);
+			var index = GetRandomParameter(randomColumn) + 1;
 			return (int) Enum.ToObject(typeof(Column), index);
 		}
 	}

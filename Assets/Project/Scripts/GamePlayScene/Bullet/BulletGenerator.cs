@@ -44,7 +44,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			return returnArray;
 		}
 
-		/* 重みに基づき配列の何番目を選択するかをランダムに決定する(配列の最初であるならば1を返す) */
+		/* 重みに基づき配列の何番目を選択するかをランダムに決定する(配列の最初であるならば0を返す) */
 		// 必ずライブラリ化する
 		public static int GetRandomParameter(int[] randomParameters)
 		{
@@ -59,7 +59,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				index += 1;
 			}
 
-			return index;
+			return index - 1;
 		}
 
 		/* 実際に1つの銃弾を生成する方法を各銃弾のGenerator毎に実装する */
