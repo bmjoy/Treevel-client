@@ -61,6 +61,8 @@ namespace Project.Scripts.GamePlayScene
 
 			resultText = resultWindow.transform.Find(RESULT_NAME).gameObject;
 			warningText = resultWindow.transform.Find(WARNING_NAME).gameObject;
+			warningText.GetComponent<Text>().text = WARNING_TEXT;
+
 			stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
 			UnifyDisplay(resultWindow);
@@ -79,7 +81,8 @@ namespace Project.Scripts.GamePlayScene
 			{
 				if (Dispatch(GameState.Failure))
 				{
-					warningText.GetComponent<Text>().text = WARNING_TEXT;
+					// 警告ウィンドウを表示
+					warningText.SetActive(true);
 				}
 			}
 		}
@@ -165,6 +168,9 @@ namespace Project.Scripts.GamePlayScene
 
 			// 結果ウィンドウを非表示
 			resultWindow.SetActive(false);
+
+			// 警告ウィンドウを非表示
+			warningText.SetActive(false);
 
 			// 番号に合わせたステージの作成
 			stageGenerator.GetComponent<StageGenerator>().CreateStages(stageId);
