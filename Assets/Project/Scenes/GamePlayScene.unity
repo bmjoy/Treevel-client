@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 896036188}
   - component: {fileID: 896036187}
   m_Layer: 0
-  m_Name: BulletGenerator
+  m_Name: BulletGroupGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -498,19 +498,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c624f5e7af1344b3b1ab1f2ff22b14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalCartridgePrefab: {fileID: 1336118223516990, guid: 5c3345c91aa904fb3b34b886dbba2c82,
+  bulletGroupControllerPrefab: {fileID: 1810046256894534, guid: 477196a904b4344c88ab20b42d179cd8,
     type: 2}
-  normalCartridgeWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
+  normalCartridgeGeneratorPrefab: {fileID: 1198175920480986, guid: 862747cb8118c47788f9eb458f7096c7,
     type: 2}
-  turnCartridgePrefab: {fileID: 1834930760170460, guid: 642a60a13eb7641fd8bca7401db9c1f6,
+  turnCartridgeGeneratorPrefab: {fileID: 1840753890305500, guid: 2ecfcf13f9b644b299762e3cb5d83175,
     type: 2}
-  normalHolePrefab: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
+  normalHoleGeneratorPrefab: {fileID: 1016726232043914, guid: f4001e6d3634a4e47b8c225f2f769939,
     type: 2}
-  normalHoleWarningPrefab: {fileID: 1410919219006700, guid: fdbcd1924c8b54021949ea21ae3ba36e,
-    type: 2}
-  aimingHolePrefab: {fileID: 1225760507672674, guid: aba219999cff64bc3970ce8adba53fce,
-    type: 2}
-  aimingHoleWarningPrefab: {fileID: 1827875136056974, guid: a0af620f27170486a819a947527a1c02,
+  aimingHoleGeneratorPrefab: {fileID: 1971231480067746, guid: 079830519aa1340d4a1bc23578ee4bd5,
     type: 2}
   startTime: 0
 --- !u!4 &896036188

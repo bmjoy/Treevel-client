@@ -2,22 +2,25 @@
 {
 	public enum CartridgeType
 	{
-		Normal,
-		Turn
+		Normal = 1,
+		Turn,
+		Random = -1
 	}
 
 	public enum HoleType
 	{
-		Normal,
-		Aiming
+		Normal = 1,
+		Aiming,
+		Random = -1
 	}
 
 	public enum CartridgeDirection
 	{
-		ToLeft,
+		ToLeft = 1,
 		ToRight,
 		ToUp,
-		ToBottom
+		ToBottom,
+		Random = -1
 	}
 
 	public enum Row
@@ -26,13 +29,15 @@
 		Second,
 		Third,
 		Fourth,
-		Fifth
+		Fifth,
+		Random = -1
 	}
 
 	public enum Column
 	{
 		Left = 1,
 		Center,
-		Right
+		Right,
+		Random = -1
 	}
 }

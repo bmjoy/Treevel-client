@@ -1,32 +1,23 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Project.Scripts.GamePlayScene.BulletWarning;
-using Project.Scripts.Utils.Definitions;
+﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
-	public class BulletGenerator : MonoBehaviour
+	public abstract class BulletGenerator : MonoBehaviour
 	{
-		// 生成された銃弾のID(sortingOrder)
-		private short bulletId = -32768;
+		protected GamePlayDirector gamePlayDirector;
 
-		private List<IEnumerator> coroutines;
+		// ランダムな値を決めるときの各要素の重みの初期値
+		private const int INITIAL_RATIO = 100;
 
-		private GamePlayDirector gamePlayDirector;
+		// このGeneratorの出現する重み
+		public int ratio = INITIAL_RATIO;
 
-		// 銃弾および警告のprefab
-		public GameObject normalCartridgePrefab;
-		public GameObject normalCartridgeWarningPrefab;
-		public GameObject turnCartridgePrefab;
-		public GameObject normalHolePrefab;
-		public GameObject normalHoleWarningPrefab;
-		public GameObject aimingHolePrefab;
-		public GameObject aimingHoleWarningPrefab;
-
-		// Generatorが作成された時刻
-		public float startTime;
+		protected void Awake()
+		{
+			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
+		}
 
 		private void OnEnable()
 		{
@@ -40,200 +31,39 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			GamePlayDirector.OnFail -= OnFail;
 		}
 
-		public void CreateBullets(List<IEnumerator> coroutines)
+		/* 配列の初期化を行うメソッド */
+		// 必ずライブラリ化する
+		protected static int[] SetInitialRatio(int arrayLength)
 		{
-			this.coroutines = coroutines;
-			gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-			startTime = Time.time;
-
-			foreach (var coroutine in coroutines) StartCoroutine(coroutine);
-		}
-
-		public static Dictionary<string, int[]> SetNormalCartridgeInfo()
-		{
-			return null;
-		}
-
-		public static Dictionary<string, int[]> SetTurnCartridgeInfo(int[] turnDirection, int[] turnLine)
-		{
-			return new Dictionary<string, int[]> {{"TurnDirection", turnDirection}, {"TurnLine", turnLine}};
-		}
-
-		public static Dictionary<string, int[]> SetAimingHoleInfo(int[] aimingPanel)
-		{
-			return new Dictionary<string, int[]> {{"AimingPanel", aimingPanel}, {"Count", new[] {1}}};
-		}
-
-		// 指定した行(or列)の端から一定の時間間隔(interval)で弾丸を作成するメソッド
-		public IEnumerator CreateCartridge(CartridgeType cartridgeType, float appearanceTime, float interval,
-			CartridgeDirection direction, int line, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
-		{
-			var currentTime = Time.time;
-
-			// wait by the time the first bullet warning emerge
-			// 1.0f equals to the period which the bullet warning is emerging
-			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
-			                                (currentTime - startTime));
-
-			// the number of bullets which have emerged
-			var sum = 0;
-
-			do
+			var returnArray = new int[arrayLength];
+			for (var index = 0; index < arrayLength; index++)
 			{
-				sum++;
-				StartCoroutine(CreateOneCartridge(cartridgeType, bulletId, direction, line, additionalInfo));
-
-				// 作成する銃弾の個数の上限チェック
-				try
-				{
-					bulletId = checked((short) (bulletId + 1));
-				}
-				catch (OverflowException)
-				{
-					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
-				}
-
-				// 次の銃弾を作成する時刻まで待つ
-				currentTime = Time.time;
-				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
-				                                interval * sum - (currentTime - startTime));
-			} while (loop);
-		}
-
-		// warningの表示が終わる時刻を待ち、cartridgeを作成するメソッド
-		private IEnumerator CreateOneCartridge(CartridgeType cartridgeType, short cartridgeId,
-			CartridgeDirection direction, int line,
-			Dictionary<string, int[]> additionalInfo)
-		{
-			// 作成するcartidgeの種類で分岐
-			GameObject warning;
-			switch (cartridgeType)
-			{
-				case CartridgeType.Normal:
-					warning = Instantiate(normalCartridgeWarningPrefab);
-					break;
-				case CartridgeType.Turn:
-					warning = Instantiate(normalCartridgeWarningPrefab);
-					break;
-				default:
-					throw new NotImplementedException();
+				returnArray[index] = INITIAL_RATIO;
 			}
 
-			// 同レイヤーのオブジェクトの描画順序の制御
-			warning.GetComponent<Renderer>().sortingOrder = cartridgeId;
-
-			// warningの位置・大きさ等の設定
-			var warningScript = warning.GetComponent<CartridgeWarningController>();
-			var bulletMotionVector = warningScript.Initialize(cartridgeType, direction, line);
-
-			// 警告の表示時間だけ待つ
-			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
-			// 警告を削除する
-			Destroy(warning);
-
-			// ゲームが続いているなら銃弾を作成する
-			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
-			{
-				GameObject cartridge;
-				switch (cartridgeType)
-				{
-					case CartridgeType.Normal:
-						cartridge = Instantiate(normalCartridgePrefab);
-						cartridge.GetComponent<NormalCartridgeController>()
-							.Initialize(direction, line, bulletMotionVector);
-						break;
-					case CartridgeType.Turn:
-						cartridge = Instantiate(turnCartridgePrefab);
-						cartridge.GetComponent<TurnCartridgeController>()
-							.Initialize(direction, line, bulletMotionVector, additionalInfo);
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-
-				// 同レイヤーのオブジェクトの描画順序の制御
-				cartridge.GetComponent<Renderer>().sortingOrder = cartridgeId;
-			}
+			return returnArray;
 		}
 
-		// 指定したパネルに一定の時間間隔(interval)で撃ち抜く銃弾を作成するメソッド
-		public IEnumerator CreateHole(HoleType holeType, float appearanceTime, float interval, int row = 0,
-			int column = 0, bool loop = true, Dictionary<string, int[]> additionalInfo = null)
+		/* 重みに基づき配列の何番目を選択するかをランダムに決定する(配列の最初であるならば0を返す) */
+		// 必ずライブラリ化する
+		public static int GetRandomParameter(int[] randomParameters)
 		{
-			var currentTime = Time.time;
-			yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
-			                                (currentTime - startTime));
-
-			var sum = 0;
-
-			do
+			var sumOfRandomParameters = randomParameters.Sum();
+			// 1以上重みの総和以下の値をランダムに取得する
+			var randomValue = new System.Random().Next(sumOfRandomParameters) + 1;
+			var index = 0;
+			// 重み配列の最初の要素から順に、ランダムな値から値を引く
+			while (randomValue > 0)
 			{
-				sum++;
-				StartCoroutine(CreateOneHole(holeType, bulletId, row, column, additionalInfo));
-
-				try
-				{
-					bulletId = checked((short) (bulletId + 1));
-				}
-				catch (OverflowException)
-				{
-					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
-				}
-
-				currentTime = Time.time;
-				yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
-				                                interval * sum - (currentTime - startTime));
-			} while (loop);
-		}
-
-		// warningの表示が終わる時刻を待ち、holeを作成するメソッド
-		private IEnumerator CreateOneHole(HoleType holeType, short holeId, int row, int column,
-			Dictionary<string, int[]> additionalInfo)
-		{
-			GameObject warning;
-			switch (holeType)
-			{
-				case HoleType.Normal:
-					warning = Instantiate(normalHoleWarningPrefab);
-					warning.GetComponent<NormalHoleWarningController>().Initialize(row, column);
-					break;
-				case HoleType.Aiming:
-					warning = Instantiate(aimingHoleWarningPrefab);
-					warning.GetComponent<AimingHoleWarningController>().Initialize(additionalInfo);
-					break;
-				default:
-					throw new NotImplementedException();
+				randomValue -= randomParameters[index];
+				index += 1;
 			}
 
-			warning.GetComponent<Renderer>().sortingOrder = holeId;
-
-			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
-			Destroy(warning);
-
-			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
-			{
-				GameObject hole;
-				NormalHoleController holeScript;
-				switch (holeType)
-				{
-					case HoleType.Normal:
-						hole = Instantiate(normalHolePrefab);
-						holeScript = hole.GetComponent<NormalHoleController>();
-						holeScript.Initialize(row, column, warning.transform.position);
-						break;
-					case HoleType.Aiming:
-						hole = Instantiate(aimingHolePrefab);
-						holeScript = hole.GetComponent<AimingHoleController>();
-						holeScript.Initialize(row, column, warning.transform.position);
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-
-				hole.GetComponent<Renderer>().sortingOrder = holeId;
-				StartCoroutine(holeScript.Delete());
-			}
+			return index - 1;
 		}
+
+		/* 実際に1つの銃弾を生成する方法を各銃弾のGenerator毎に実装する */
+		public abstract IEnumerator CreateBullet(int bulletId);
 
 		private void OnSucceed()
 		{
@@ -247,7 +77,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		private void GameFinish()
 		{
-			foreach (var coroutine in coroutines) StopCoroutine(coroutine);
+			Destroy(gameObject);
 		}
 	}
 }

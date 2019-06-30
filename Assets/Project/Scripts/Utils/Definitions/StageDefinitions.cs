@@ -33,6 +33,7 @@ namespace Project.Scripts.Utils.Definitions
 	{
 		public const int ROW = 5;
 		public const int COLUMN = 3;
-		public const int NUM = ROW * COLUMN;
+		public const int TILE_NUM = ROW * COLUMN;
+		public const int NUMBER_PANEL_NUM = 8;
 	}
 }

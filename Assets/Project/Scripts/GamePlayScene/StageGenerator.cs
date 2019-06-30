@@ -7,26 +7,25 @@ using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 
-
 namespace Project.Scripts.GamePlayScene
 {
 	public class StageGenerator : MonoBehaviour
 	{
 		private const string TILE_GENERATOR_NAME = "TileGenerator";
 		private const string PANEL_GENERATOR_NAME = "PanelGenerator";
-		private const string BULLET_GENERATOR_NAME = "BulletGenerator";
+		public const string BULLET_GROUP_GENERATOR_NAME = "BulletGroupGenerator";
 
 		private TileGenerator tileGenerator;
 
 		private PanelGenerator panelGenerator;
 
-		private BulletGenerator bulletGenerator;
+		private BulletGroupGenerator bulletGroupGenerator;
 
 		private void Awake()
 		{
 			tileGenerator = GameObject.Find(TILE_GENERATOR_NAME).GetComponent<TileGenerator>();
 			panelGenerator = GameObject.Find(PANEL_GENERATOR_NAME).GetComponent<PanelGenerator>();
-			bulletGenerator = GameObject.Find(BULLET_GENERATOR_NAME).GetComponent<BulletGenerator>();
+			bulletGroupGenerator = GameObject.Find(BULLET_GROUP_GENERATOR_NAME).GetComponent<BulletGroupGenerator>();
 		}
 
 		public void CreateStages(int stageId)
@@ -37,23 +36,7 @@ namespace Project.Scripts.GamePlayScene
 			{
 				case 1:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(
-						cartridgeType: CartridgeType.Turn,
-						appearanceTime: 1.0f,
-						interval: 1.0f,
-						direction: CartridgeDirection.ToLeft,
-						line: (int) Row.Second,
-						loop: true,
-						additionalInfo: BulletGenerator.SetTurnCartridgeInfo(
-							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
-							turnLine: new[] {(int) Column.Right, (int) Row.First})));
-					coroutines.Add(bulletGenerator.CreateCartridge(
-						cartridgeType: CartridgeType.Normal,
-						direction: CartridgeDirection.ToUp,
-						line: (int) Column.Right,
-						appearanceTime: 2.0f,
-						interval: 4.0f));
-
+					// 銃弾を生成しない
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 数字パネル作成
 					panelGenerator.PrepareTilesAndCreateNumberPanels(
@@ -75,20 +58,16 @@ namespace Project.Scripts.GamePlayScene
 					break;
 				case 2:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(
-						cartridgeType: CartridgeType.Normal,
-						appearanceTime: 2.0f,
-						interval: 0.5f,
-						direction: CartridgeDirection.ToRight,
-						line: (int) Row.Fifth,
-						loop: false));
-					coroutines.Add(bulletGenerator.CreateHole(
-						holeType: HoleType.Normal,
-						appearanceTime: 1.0f,
-						interval: 2.0f,
-						row: (int) Row.Second,
-						column: (int) Column.Left));
-
+					// NormalCartridgeを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 3.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
+								cartridgeDirection: CartridgeDirection.ToLeft, row: Row.First)
+						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 特殊タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
@@ -107,16 +86,20 @@ namespace Project.Scripts.GamePlayScene
 						}
 					);
 					break;
-				// 必ずパネルを撃ち抜く銃弾のテストステージ
 				case 3:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateHole(
-						holeType: HoleType.Aiming,
-						appearanceTime: 2.0f,
-						interval: 2.0f,
-						additionalInfo: BulletGenerator.SetAimingHoleInfo(
-							aimingPanel: new[] {1, 2, 3, 4, 5, 6, 7, 8})));
-
+					// TurnCartridgeを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
+								cartridgeDirection: CartridgeDirection.ToLeft, row: Row.First,
+								turnDirection: new int[] {(int) CartridgeDirection.ToBottom},
+								turnLine: new int[] {(int) Column.Left})
+						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 特殊タイル作成
 					tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
@@ -135,26 +118,230 @@ namespace Project.Scripts.GamePlayScene
 						}
 					);
 					break;
-				// 記録画面テスト用 (`case 1`と全く同じ)
+				case 4:
+					// 銃弾実体生成
+					// NormalHoleを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: Row.First,
+								column: Column.Left)
+						}));
+					/* 特殊タイル -> 数字パネル -> 特殊パネル */
+					// 数字パネル作成
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
+						new List<Dictionary<string, int>>()
+						{
+							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+							PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+							PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+							PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+							PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+							PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+							PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+							PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+						}
+					);
+					// 特殊パネル作成
+					panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
+					panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
+					break;
+				case 5:
+					// 銃弾実体生成
+					// AimingHoleを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: new int[] {1})
+						}));
+					/* 特殊タイル -> 数字パネル -> 特殊パネル */
+					// 数字パネル作成
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
+						new List<Dictionary<string, int>>()
+						{
+							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+							PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+							PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+							PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+							PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+							PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+							PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+							PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+						}
+					);
+					break;
+				case 6:
+					// 銃弾実体生成
+					// ランダムな引数でNormalCartridgeを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
+								cartridgeDirection: CartridgeDirection.Random, row: Row.Random),
+							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
+								cartridgeDirection: CartridgeDirection.Random, row: Row.Random,
+								randomCartridgeDirection: new int[] {200, 10, 100, 0},
+								randomRow: new int[] {100, 5, 5, 5, 100}, randomColumn: new int[] {100, 10, 0}),
+						}));
+					/* 特殊タイル -> 数字パネル -> 特殊パネル */
+					// 数字パネル作成
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
+						new List<Dictionary<string, int>>()
+						{
+							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+							PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+							PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+							PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+							PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+							PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+							PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+							PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+						}
+					);
+					break;
+				case 7:
+					// 銃弾実体生成
+					// ランダムな引数でTurnCartridgeを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
+								cartridgeDirection: CartridgeDirection.Random, row: Row.Random),
+							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
+								cartridgeDirection: CartridgeDirection.Random, row: Row.Random,
+								turnDirection: null, turnLine: null,
+								randomCartridgedirection: new int[] {10, 10, 10, 10},
+								randomRow: new int[] {1, 2, 3, 4, 5}, randomColumn: new int[] {100, 0, 100},
+								randomTurnDirections: new int[] {100, 0, 100, 0}, randomTurnRow: new int[] {1, 0, 0},
+								randomTurnColumn: new int[] {10, 10, 10, 10, 10})
+						}));
+					/* 特殊タイル -> 数字パネル -> 特殊パネル */
+					// 数字パネル作成
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
+						new List<Dictionary<string, int>>()
+						{
+							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+							PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+							PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+							PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+							PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+							PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+							PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+							PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+						}
+					);
+					break;
+				case 8:
+					// 銃弾実体生成
+					// ランダムな引数でNormalHoleを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: Row.Random,
+								column: Column.Random),
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: Row.Random,
+								column: Column.Random,
+								randomRow: new int[] {100, 20, 20, 20, 100}, randomColumn: new int[] {30, 100, 30})
+						}));
+					/* 特殊タイル -> 数字パネル -> 特殊パネル */
+					// 数字パネル作成
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
+						new List<Dictionary<string, int>>()
+						{
+							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+							PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+							PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+							PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+							PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+							PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+							PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+							PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+						}
+					);
+					break;
+				case 9:
+					// 銃弾実体生成
+					// ランダムな引数でAimingHoleを生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null),
+							bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null,
+								randomNumberPanel: new int[] {10, 0, 10, 0, 10, 0, 10, 0, 10})
+						}));
+					/* 特殊タイル -> 数字パネル -> 特殊パネル */
+					// 数字パネル作成
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
+						new List<Dictionary<string, int>>()
+						{
+							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+							PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+							PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+							PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+							PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+							PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+							PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+							PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+						}
+					);
+					break;
+				case 10:
+					// 銃弾実体生成
+					// ランダムな銃弾をランダムな引数で生成する
+					coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+						appearanceTime: 1.0f,
+						interval: 5.0f,
+						loop: true,
+						bulletGenerators: new List<GameObject>()
+						{
+							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 10,
+								cartridgeDirection: CartridgeDirection.Random, row: Row.Random),
+							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 10,
+								cartridgeDirection: CartridgeDirection.Random, row: Row.Random),
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 10, row: Row.Random,
+								column: Column.Random),
+							bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 10)
+						}));
+					/* 特殊タイル -> 数字パネル -> 特殊パネル */
+					// 数字パネル作成
+					panelGenerator.PrepareTilesAndCreateNumberPanels(
+						new List<Dictionary<string, int>>()
+						{
+							PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+							PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+							PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+							PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+							PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+							PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+							PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+							PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+						}
+					);
+					// 特殊パネル作成
+					panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
+					panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
+					break;
 				case 1001:
 					// 銃弾実体生成
-					coroutines.Add(bulletGenerator.CreateCartridge(
-						cartridgeType: CartridgeType.Turn,
-						appearanceTime: 1.0f,
-						interval: 1.0f,
-						direction: CartridgeDirection.ToLeft,
-						line: (int) Row.Second,
-						loop: true,
-						additionalInfo: BulletGenerator.SetTurnCartridgeInfo(
-							turnDirection: new[] {(int) CartridgeDirection.ToUp, (int) CartridgeDirection.ToLeft},
-							turnLine: new[] {(int) Column.Right, (int) Row.First})));
-					coroutines.Add(bulletGenerator.CreateCartridge(
-						cartridgeType: CartridgeType.Normal,
-						direction: CartridgeDirection.ToUp,
-						line: (int) Column.Right,
-						appearanceTime: 2.0f,
-						interval: 4.0f));
-
+					// 銃弾を生成しない
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 数字パネル作成
 					panelGenerator.PrepareTilesAndCreateNumberPanels(
@@ -179,7 +366,7 @@ namespace Project.Scripts.GamePlayScene
 			}
 
 			// 銃弾の一括作成
-			bulletGenerator.CreateBullets(coroutines);
+			bulletGroupGenerator.CreateBulletGroups(coroutines);
 		}
 	}
 }

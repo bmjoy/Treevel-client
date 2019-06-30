@@ -31,6 +31,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 			Vector2 bulletMotionVector;
 			Vector2 warningPosition;
+			// Cartridgeの進行方向によってWarningの表示位置を求める
 			switch (direction)
 			{
 				case CartridgeDirection.ToLeft:

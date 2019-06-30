@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
@@ -9,10 +8,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class TurnCartridgeController : NormalCartridgeController
 	{
-		// 回転方向
+		// 回転方向の配列
 		private int[] turnDirection;
 
-		// 回転する列(or行)
+		// 回転する行(or列)の配列
 		private int[] turnLine;
 
 		// 回転に関する警告を表示する座標
@@ -49,7 +48,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
 				// warningの位置・大きさ等の設定
 				var warningScript = warning.GetComponent<CartridgeWarningController>();
-				warningScript.Initialize(turnPoint, warningList[turnDirection[0]]);
+				warningScript.Initialize(turnPoint, warningList[turnDirection[0] - 1]);
 				rotateCount++;
 				transform.Translate(motionVector * speed, Space.World);
 			}
@@ -82,12 +81,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 					// 配列の先頭要素を除く部分配列を取得する
 					turnDirection = turnDirection.Skip(1).Take(turnDirection.Length - 1).ToArray();
 					turnLine = turnLine.Skip(1).Take(turnLine.Length - 1).ToArray();
-
 					turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(
 						            TileSize.WIDTH * (turnLine[0] - 2),
 						            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						            TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
-					turnAngle = turnDirection[0] % 2 == 1 ? -90 : 90;
+					turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
 					turnAngle = (motionVector.x + motionVector.y) * turnAngle;
 					turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
 					rotateCount = -1;
@@ -108,13 +106,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
-			Dictionary<string, int[]> additionalInfo)
+			int[] turnDirection, int[] turnLine)
 		{
+			// 銃弾に必要な引数を受け取る
 			Initialize(direction, line, motionVector);
-
-			// どのタイル上でどの方向に曲がるかの引数を受け取る
-			turnDirection = additionalInfo["TurnDirection"];
-			turnLine = additionalInfo["TurnLine"];
+			this.turnDirection = turnDirection;
+			this.turnLine = turnLine;
 
 			// 銃弾が曲がるタイルの座標
 			turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(
@@ -122,7 +119,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 				            TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
 			// 回転角度
-			turnAngle = turnDirection[0] % 2 == 1 ? -90 : 90;
+			turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
 			turnAngle = (motionVector.x + motionVector.y) * turnAngle;
 			turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
 		}

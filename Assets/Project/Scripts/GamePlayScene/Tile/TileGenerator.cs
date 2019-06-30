@@ -38,7 +38,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 		/* 普通タイルの作成 */
 		public void CreateNormalTiles()
 		{
-			for (var tileNum = 1; tileNum <= StageSize.NUM; tileNum++)
+			for (var tileNum = 1; tileNum <= StageSize.TILE_NUM; tileNum++)
 			{
 				// 行 (0~4)
 				var row = (tileNum - 1) / StageSize.COLUMN;
