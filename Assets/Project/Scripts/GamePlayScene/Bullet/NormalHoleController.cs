@@ -7,6 +7,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
 	public class NormalHoleController : BulletController
 	{
+		// 銃痕の表示時間
+		private const float HOLE_DISPLAYED_TIME = 0.50f;
+
 		protected int row;
 		protected int column;
 
@@ -37,14 +40,26 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			// check whether panel exists on the tile
 			if (tile.transform.childCount != 0)
 			{
-				gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-				gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+				var panel = tile.transform.GetChild(0);
+				if (panel.CompareTag(TagName.NUMBER_PANEL))
+				{
+					// 数字パネルが銃弾の出現場所に存在する
+					gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+				}
+				else
+				{
+					// 数字パネル以外のパネルが銃弾の出現場所に存在する
+					yield return new WaitForSeconds(HOLE_DISPLAYED_TIME);
+					Destroy(gameObject);
+				}
 			}
 			else
 			{
-				// display the hole betweeen tile layer and panel layer
+				// 銃弾の出現場所にパネルが存在しない
+				// タイルとパネルの間のレイヤー(Hole)に描画する
 				gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
-				yield return new WaitForSeconds(0.5f);
+				yield return new WaitForSeconds(HOLE_DISPLAYED_TIME);
 				Destroy(gameObject);
 			}
 		}
