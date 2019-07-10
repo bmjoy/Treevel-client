@@ -8,6 +8,7 @@ namespace Project.Scripts.LevelSelectScene
 {
 	public class LevelSelectDirector : MonoBehaviour
 	{
+		public const string LEVEL_TAB_TOGGLE_GROUP_NAME = "LevelTab";
 		private const string EASY_STAGE_SELECT_TOGGLE_NAME = "EasyStageSelect";
 		private const string NORMAL_STAGE_SELECT_TOGGLE_NAME = "NormalStageSelect";
 		private const string HARD_STAGE_SELECT_TOGGLE_NAME = "HardStageSelect";
@@ -96,10 +97,13 @@ namespace Project.Scripts.LevelSelectScene
 			// ONになった場合のみ処理
 			if (toggle.GetComponent<Toggle>().isOn)
 			{
-				// 今のシーンをアンロード
-				SceneManager.UnloadSceneAsync(nowScene);
-				// 新しいシーンをロード
-				StartCoroutine(AddScene(toggle.name + "Scene"));
+				if (toggle.name + "Scene" != nowScene)
+				{
+					// 今のシーンをアンロード
+					SceneManager.UnloadSceneAsync(nowScene);
+					// 新しいシーンをロード
+					StartCoroutine(AddScene(toggle.name + "Scene"));
+				}
 			}
 		}
 	}

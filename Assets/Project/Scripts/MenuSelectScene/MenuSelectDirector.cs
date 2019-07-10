@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.LevelSelectScene;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,7 @@ namespace Project.Scripts.MenuSelectScene
 {
 	public class MenuSelectDirector : MonoBehaviour
 	{
+		public const string MENU_TAB_TOGGLE_GROUP_NAME = "MenuTab";
 		private const string LEVEL_SELECT_TOGGLE_NAME = "LevelSelect";
 		private const string RECORD_TOGGLE_NAME = "Record";
 		private const string TUTORIAL_TOGGLE_NAME = "Tutorial";
@@ -75,10 +77,20 @@ namespace Project.Scripts.MenuSelectScene
 			// ONになった場合のみ処理
 			if (toggle.GetComponent<Toggle>().isOn)
 			{
-				// 今のシーンをアンロード
-				SceneManager.UnloadSceneAsync(nowScene);
-				// 新しいシーンをロード
-				StartCoroutine(AddScene(toggle.name + "Scene"));
+				if (toggle.name + "Scene" != nowScene)
+				{
+					// ToggleGroupを削除する前に、allowSwitchOffをtrueにする
+					if (nowScene == SceneName.LEVEL_SELECT_SCENE)
+					{
+						var levelTab = GameObject.Find(LevelSelectDirector.LEVEL_TAB_TOGGLE_GROUP_NAME);
+						levelTab.GetComponent<ToggleGroup>().allowSwitchOff = true;
+					}
+
+					// 今のシーンをアンロード
+					SceneManager.UnloadSceneAsync(nowScene);
+					// 新しいシーンをロード
+					StartCoroutine(AddScene(toggle.name + "Scene"));
+				}
 			}
 		}
 	}
