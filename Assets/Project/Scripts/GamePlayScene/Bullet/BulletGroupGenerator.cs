@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
-	public class BulletGroupGenerator : MonoBehaviour
+	public class BulletGroupGenerator : SingletonObject<BulletGroupGenerator>
 	{
 		// 生成された銃弾のID(sortingOrder)
 		public short bulletId = -32768;

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.Utils;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-	public class PanelGenerator : MonoBehaviour
+	public class PanelGenerator : SingletonObject<PanelGenerator>
 	{
 		public GameObject numberPanel1Prefab;
 		public GameObject numberPanel2Prefab;

@@ -1,10 +1,11 @@
 ﻿using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils;
 using UnityEngine;
 using System.Collections.Generic;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-	public class TileGenerator : MonoBehaviour
+	public class TileGenerator : SingletonObject<TileGenerator>
 	{
 		public GameObject numberTile1Prefab;
 		public GameObject numberTile2Prefab;

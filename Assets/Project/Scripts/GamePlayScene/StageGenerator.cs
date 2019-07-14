@@ -23,9 +23,9 @@ namespace Project.Scripts.GamePlayScene
 
 		private void Awake()
 		{
-			tileGenerator = GameObject.Find(TILE_GENERATOR_NAME).GetComponent<TileGenerator>();
-			panelGenerator = GameObject.Find(PANEL_GENERATOR_NAME).GetComponent<PanelGenerator>();
-			bulletGroupGenerator = GameObject.Find(BULLET_GROUP_GENERATOR_NAME).GetComponent<BulletGroupGenerator>();
+			tileGenerator = TileGenerator.Instance;
+			panelGenerator = PanelGenerator.Instance;
+			bulletGroupGenerator = BulletGroupGenerator.Instance;
 		}
 
 		public void CreateStages(int stageId)
