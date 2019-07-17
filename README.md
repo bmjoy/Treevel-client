@@ -39,3 +39,10 @@
 
 ### その他
 - `namespace` はディレクトリ構造と統一させる．
+
+### 自動フォーマット
+本プロジェクトは[Astyle](http://astyle.sourceforge.net)と[git-hooks](https://git-scm.com/docs/githooks)を用いて自動フォーマットを行っています。
+クローンした直後に以下のコマンドを実行してください。
+```
+$ git config core.hooksPath .githooks
+```

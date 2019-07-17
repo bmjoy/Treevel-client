@@ -1,0 +1,46 @@
+# c#のファイルとして認識する
+mode=cs
+# linuxスタイルにする
+# class, namespaces, function のブレースが下に来て、
+# if, for, while　などのブレースは右に来る
+style=linux
+# インデントにタブを使う
+indent=spaces=4
+# namespace文の中をインデントする
+indent-namespaces
+# switch文の中をインデントする
+indent-switches
+# case文の中をインデントする
+indent-cases
+# class文をインデントする
+indent-classes
+# 1行ブロックを許可する
+#keep-one-line-blocks
+# 1行文を許可する
+keep-one-line-statements
+# プリプロセッサをソースコード内のインデントと合わせる
+indent-preproc-cond
+# 括弧の両側のスペースを削除
+unpad-paren
+# if, while, switchの後にpaddingを入れる
+pad-header
+# 演算子の前後にpaddingを入れる
+pad-oper
+# カンマの後ろにスペースを入れる
+pad-comma
+# originalファイルを生成しない
+suffix=none
+# if, for, while文の前後に空行を入れる
+break-blocks
+# 余計の空行を削除
+delete-empty-lines
+# コメントもインデントする
+indent-col1-comments
+# ラインエンドをLFにする
+lineend=linux
+# if, for, whileのブレースがなければ追加する
+add-braces
+
+
+attach-return-type
+attach-return-type-decl
