@@ -25,14 +25,16 @@ namespace Project.Scripts.Utils
                     return null;
                 }
 
-
+                // instance を作成途中に他のスレッドも作っちゃうとSingletonにならないのでロックする
                 lock (_lock)
                 {
+                    // instance がない場合、シーンで探すか、新しく作成。
+                    // instance すでに値を持ってる場合そのまま返す。
                     if (_instance == null)
                     {
                         _instance = (T)FindObjectOfType(typeof(T));
 
-
+                        // クラスTを持つオブジェクトが二つ以上あったらおかしいのでエラーを出す
                         if (FindObjectsOfType(typeof(T)).Length > 1)
                         {
                             Debug.LogError("[Singleton] Something went really wrong " +
@@ -41,6 +43,7 @@ namespace Project.Scripts.Utils
                             return _instance;
                         }
 
+                        // シーンに存在しない場合新しくオブジェクトを作成し、アタッチする。
                         if (_instance == null)
                         {
                             GameObject singleton = new GameObject();

@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.GamePlayScene
 {
-	// TODO Singleton
 	public class GamePlayDirector : MonoBehaviour
 	{
 		private const string STAGE_GENERATOR_NAME = "StageGenerator";

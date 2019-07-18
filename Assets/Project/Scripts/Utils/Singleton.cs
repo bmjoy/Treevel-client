@@ -3,8 +3,17 @@ namespace Project.Scripts.Utils
 {
     /// <summary>
     /// Singleton Class
-    /// Use <c>var.Instance</c> to get the insatance.
+    /// Use <code>var.Instance</code> to get the instance.
+    /// 
+    /// usage: 
+    /// <code>
+    /// public class MySingleton : Singleton&lt;MySingleton&gt;
+    /// {
+    ///     public MySingleton() {}
+    /// }
+    /// </code>
     /// </summary>
+    /// <typeparam name="T">シングルトンにしたいクラス</typeparam>
     public class Singleton<T> where T : class, new()
     {
         static T _instance;
