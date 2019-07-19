@@ -25,11 +25,19 @@
 >
 > Parameters -> lowerCamelCase
 >
-> Fields -> lowerCamelCase
+> Fields (not private) -> lowerCamelCase
 >
-> Constant fields -> ALL_UPPER
+> Instance fields (private) -> lowerCamelCase
 >
-> Static readonly fields -> UpperCamelCase
+> Static field (private) -> lowerCamelCase
+>
+> Constant fields (not private) -> ALL_UPPER
+>
+> Constant fields (private) -> ALL_UPPER
+>
+> Static readonly fields (not private) -> UpperCamelCase
+>
+> Static readonly fields (private) -> UpperCamelCase
 >
 > Enum members -> UpperCamelCase
 >
