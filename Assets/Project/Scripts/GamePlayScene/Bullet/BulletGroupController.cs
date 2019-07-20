@@ -90,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				}
 				catch (OverflowException)
 				{
-					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+					bulletGroupGenerator.bulletId = short.MinValue;
 				}
 
 				// 次の銃弾を作成する時刻まで待つ
