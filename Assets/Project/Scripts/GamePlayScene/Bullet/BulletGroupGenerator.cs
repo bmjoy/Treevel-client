@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 	public class BulletGroupGenerator : MonoBehaviour
 	{
 		// 生成された銃弾のID(sortingOrder)
-		public short bulletId = -32768;
+		public short bulletId;
 
 		// 銃弾グループを制御するcoroutine
 		private List<IEnumerator> coroutines;
@@ -40,10 +40,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		/* 一連の銃弾の生成タイミングを管理するBulletGroupを作成する */
 		public void CreateBulletGroups(List<IEnumerator> coroutines)
 		{
-			this.coroutines = coroutines;
-			startTime = Time.time;
+			Initialize();
 
+			this.coroutines = coroutines;
 			foreach (var coroutine in this.coroutines) StartCoroutine(coroutine);
+		}
+
+		/* ゲーム開始時およびリトライ時に初期化が必要な変数を初期化する */
+		private void Initialize()
+		{
+			bulletId = short.MaxValue - 2;//short.MinValue;
+			startTime = Time.time;
 		}
 
 		/* BulletGroupを生成する */
