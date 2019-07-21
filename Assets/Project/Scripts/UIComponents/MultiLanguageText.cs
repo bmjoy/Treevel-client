@@ -6,7 +6,7 @@ using Project.Scripts.Utils.Definitions;
 namespace Project.Scripts.UIComponents
 {
     /// <summary>
-    /// 他言語に対応するテキスト
+    /// 多言語に対応するテキスト
     /// </summary>
     public class MultiLanguageText : Text
     {
