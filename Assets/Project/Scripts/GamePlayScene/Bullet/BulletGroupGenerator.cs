@@ -49,7 +49,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		/* ゲーム開始時およびリトライ時に初期化が必要な変数を初期化する */
 		private void Initialize()
 		{
-			bulletId = short.MaxValue - 2;//short.MinValue;
+			bulletId = short.MinValue;
 			startTime = Time.time;
 		}
 
