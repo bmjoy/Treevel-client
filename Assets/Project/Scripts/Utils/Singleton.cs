@@ -4,8 +4,8 @@ namespace Project.Scripts.Utils
     /// <summary>
     /// Singleton Class
     /// Use <code>var.Instance</code> to get the instance.
-    /// 
-    /// usage: 
+    ///
+    /// usage:
     /// <code>
     /// public class MySingleton : Singleton&lt;MySingleton&gt;
     /// {
@@ -14,25 +14,25 @@ namespace Project.Scripts.Utils
     /// </code>
     /// </summary>
     /// <typeparam name="T">シングルトンにしたいクラス</typeparam>
-    public class Singleton<T> where T : class, new()
+    public abstract class Singleton<T> where T : class, new()
     {
-        static T _instance;
+        private static T instance;
 
-        static object _lock = new object();
+        private static object @lock = new object();
 
         public static T Instance
         {
             get
             {
 
-                lock (_lock)
+                lock (@lock)
                 {
-                    if (_instance == null)
+                    if (instance == null)
                     {
-                        _instance = new T();
+                        instance = new T();
                     }
 
-                    return _instance;
+                    return instance;
                 }
             }
         }
