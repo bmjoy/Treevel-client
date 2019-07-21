@@ -74,7 +74,7 @@ namespace Project.Scripts.Editor
             }
 
             // EventSystemを一緒にUndoするためにUndo Group使う
-            Undo.RecordObject(null, "Create Multi Language Text");
+            Undo.RecordObject(obj, "Create Multi Language Text");
             int groupID = Undo.GetCurrentGroup();
 
             // EventSystem がなければ作成
