@@ -1,5 +1,5 @@
 ﻿
-namespace Project.Scripts.Utils
+namespace Project.Scripts.Utils.Patterns
 {
     /// <summary>
     /// Singleton Class

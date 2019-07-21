@@ -1,5 +1,5 @@
 ﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils;
+using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using System.Collections.Generic;
 

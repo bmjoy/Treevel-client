@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Tile;
-using Project.Scripts.Utils;
+using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.Utils
+namespace Project.Scripts.Utils.Patterns
 {
     /// <summary>
     /// Monobehaviourを継承したSingletonクラス
