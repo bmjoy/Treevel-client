@@ -38,7 +38,7 @@ namespace Project.Scripts.Utils.Patterns
                         // シーンに存在しない場合新しくオブジェクトを作成し、アタッチする。
                         if (_instance == null)
                         {
-                            GameObject singleton = new GameObject();
+                            var singleton = new GameObject();
                             _instance = singleton.AddComponent<T>();
                             singleton.name = "_" + typeof(T).ToString();
 
