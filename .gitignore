@@ -29,3 +29,6 @@ ExportedObj/
 Assets/Plugins/*
 Assets/Plugins.meta
 
+# For VSCode
+.vscode/launch.json
+.vscode/settings.json
