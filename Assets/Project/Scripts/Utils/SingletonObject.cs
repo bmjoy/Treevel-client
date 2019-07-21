@@ -9,9 +9,9 @@ namespace Project.Scripts.Utils
     /// <typeparam name="T">継承するクラス名</typeparam>
     public abstract class SingletonObject<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T instance;
+        private static T _instance;
 
-        private static object @lock = new object();
+        private static object _lock = new object();
 
         public static T Instance
         {
@@ -26,13 +26,13 @@ namespace Project.Scripts.Utils
                 }
 
                 // instance を作成途中に他のスレッドも作っちゃうとSingletonにならないのでロックする
-                lock (@lock)
+                lock (_lock)
                 {
                     // instance がない場合、シーンで探すか、新しく作成。
                     // instance すでに値を持ってる場合そのまま返す。
-                    if (instance == null)
+                    if (_instance == null)
                     {
-                        instance = (T)FindObjectOfType(typeof(T));
+                        _instance = (T)FindObjectOfType(typeof(T));
 
                         // クラスTを持つオブジェクトが二つ以上あったらおかしいのでエラーを出す
                         if (FindObjectsOfType(typeof(T)).Length > 1)
@@ -40,14 +40,14 @@ namespace Project.Scripts.Utils
                             Debug.LogError("[Singleton] Something went really wrong " +
                                 " - there should never be more than 1 singleton!" +
                                 " Reopenning the scene might fix it.");
-                            return instance;
+                            return _instance;
                         }
 
                         // シーンに存在しない場合新しくオブジェクトを作成し、アタッチする。
-                        if (instance == null)
+                        if (_instance == null)
                         {
                             GameObject singleton = new GameObject();
-                            instance = singleton.AddComponent<T>();
+                            _instance = singleton.AddComponent<T>();
                             singleton.name = "_" + typeof(T).ToString();
 
                             DontDestroyOnLoad(singleton);
@@ -59,11 +59,11 @@ namespace Project.Scripts.Utils
                         else
                         {
                             Debug.Log("[Singleton] Using instance already created: " +
-                                instance.gameObject.name);
+                                _instance.gameObject.name);
                         }
                     }
 
-                    return instance;
+                    return _instance;
                 }
             }
         }

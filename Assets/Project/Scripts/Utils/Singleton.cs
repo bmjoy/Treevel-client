@@ -16,23 +16,23 @@ namespace Project.Scripts.Utils
     /// <typeparam name="T">シングルトンにしたいクラス</typeparam>
     public abstract class Singleton<T> where T : class, new()
     {
-        private static T instance;
+        private static T _instance;
 
-        private static object @lock = new object();
+        private static object _lock = new object();
 
         public static T Instance
         {
             get
             {
 
-                lock (@lock)
+                lock (_lock)
                 {
-                    if (instance == null)
+                    if (_instance == null)
                     {
-                        instance = new T();
+                        _instance = new T();
                     }
 
-                    return instance;
+                    return _instance;
                 }
             }
         }
