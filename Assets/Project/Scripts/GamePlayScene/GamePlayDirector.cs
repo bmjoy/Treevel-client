@@ -11,7 +11,6 @@ namespace Project.Scripts.GamePlayScene
 {
 	public class GamePlayDirector : MonoBehaviour
 	{
-		private const string STAGE_GENERATOR_NAME = "StageGenerator";
 		private const string RESULT_WINDOW_NAME = "ResultWindow";
 		private const string RESULT_NAME = "Result";
 		private const string SUCCESS_TEXT = "成功！";
@@ -37,8 +36,6 @@ namespace Project.Scripts.GamePlayScene
 
 		public GameState state = GameState.Opening;
 
-		private GameObject stageGenerator;
-
 		private GameObject resultWindow;
 
 		private GameObject resultText;
@@ -55,8 +52,6 @@ namespace Project.Scripts.GamePlayScene
 
 		private void Awake()
 		{
-			stageGenerator = GameObject.Find(STAGE_GENERATOR_NAME);
-
 			resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
 
 			resultText = resultWindow.transform.Find(RESULT_NAME).gameObject;
@@ -173,7 +168,7 @@ namespace Project.Scripts.GamePlayScene
 			warningText.SetActive(false);
 
 			// 番号に合わせたステージの作成
-			stageGenerator.GetComponent<StageGenerator>().CreateStages(stageId);
+			StageGenerator.Instance.CreateStages(stageId);
 
 			// 状態を変更する
 			Dispatch(GameState.Playing);
