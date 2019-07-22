@@ -32,8 +32,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		private void Awake()
 		{
-			bulletGroupGenerator = GameObject.Find(StageGenerator.BULLET_GROUP_GENERATOR_NAME)
-				.GetComponent<BulletGroupGenerator>();
+			bulletGroupGenerator = BulletGroupGenerator.Instance;
 		}
 
 		private void OnEnable()

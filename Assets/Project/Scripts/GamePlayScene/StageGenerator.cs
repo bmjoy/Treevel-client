@@ -6,30 +6,23 @@ using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.GamePlayScene
 {
-	public class StageGenerator : MonoBehaviour
+	public class StageGenerator : Singleton<StageGenerator>
 	{
-		private const string TILE_GENERATOR_NAME = "TileGenerator";
-		private const string PANEL_GENERATOR_NAME = "PanelGenerator";
-		public const string BULLET_GROUP_GENERATOR_NAME = "BulletGroupGenerator";
+		// TODO プライベートにする
 
-		private TileGenerator tileGenerator;
-
-		private PanelGenerator panelGenerator;
-
-		private BulletGroupGenerator bulletGroupGenerator;
-
-		private void Awake()
-		{
-			tileGenerator = GameObject.Find(TILE_GENERATOR_NAME).GetComponent<TileGenerator>();
-			panelGenerator = GameObject.Find(PANEL_GENERATOR_NAME).GetComponent<PanelGenerator>();
-			bulletGroupGenerator = GameObject.Find(BULLET_GROUP_GENERATOR_NAME).GetComponent<BulletGroupGenerator>();
+		public StageGenerator() {
 		}
 
 		public void CreateStages(int stageId)
 		{
+			var tileGenerator = TileGenerator.Instance;
+			var panelGenerator = PanelGenerator.Instance;
+			var bulletGroupGenerator = BulletGroupGenerator.Instance;
+
 			List<IEnumerator> coroutines = new List<IEnumerator>();
 
 			switch (stageId)
