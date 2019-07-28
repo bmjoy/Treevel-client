@@ -1,5 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+﻿using UnityEngine;
+using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {

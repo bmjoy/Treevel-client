@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
