@@ -1,8 +1,9 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -19,13 +20,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
         // 銃弾がどの方向に進行するかをランダムに決めるときの各方向の重み
         private int[] randomCartridgeDirection =
-            SetInitialRatio(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
+            BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
         // 銃弾がどの行に出現するかをランダムに決めるときの各行の重み
-        protected int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
+        protected int[] randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         // 銃弾がどの列に出現するかをランダムに決めるときの各列の重み
-        protected int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
+        protected int[] randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         /* メンバ変数の初期化を行う
            行と列の違いおよび、ランダムに値を決めるかどうかでオーバーロードしている */
@@ -114,21 +115,21 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* Cartridgeの移動方向を重みに基づき決定する */
         protected ECartridgeDirection GetCartridgeDirection()
         {
-            var index = GetRandomParameter(randomCartridgeDirection) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomCartridgeDirection) + 1;
             return (ECartridgeDirection) Enum.ToObject(typeof(ECartridgeDirection), index);
         }
 
         /* Cartridgeの出現する行を重みに基づき決定する*/
         protected int GetRow()
         {
-            var index = GetRandomParameter(randomRow) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
         /* Cartridgeの出現する列を重みに基づき決定する */
         protected int GetColumn()
         {
-            var index = GetRandomParameter(randomColumn) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomColumn) + 1;
             return (int) Enum.ToObject(typeof(EColumn), index);
         }
     }

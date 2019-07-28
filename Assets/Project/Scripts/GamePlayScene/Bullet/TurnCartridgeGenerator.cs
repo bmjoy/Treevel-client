@@ -1,9 +1,10 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -19,16 +20,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
         [CanBeNull] private int[] turnLine = null;
 
         // 曲がる方向をランダムに決めるときの各方向の重み
-        private int[] randomTurnDirections = SetInitialRatio(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
+        private int[] randomTurnDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
         // 曲がる行をランダムに決めるときの各行の重み
-        private int[] randomTurnRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
+        private int[] randomTurnRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         // 曲がる列をランダムに決めるときの各列の重み
-        private int[] randomTurnColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
+        private int[] randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
-            int[] turnLine)
+                               int[] turnLine)
         {
             Initialize(ratio, cartridgeDirection, row);
             this.turnDirection = turnDirection;
@@ -203,14 +204,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* 曲がる行を重みに基づき決定する*/
         private int GetTurnRow()
         {
-            var index = GetRandomParameter(randomRow) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
         /* 曲がる列を重みに基づき決定する */
         private int GetTurnColumn()
         {
-            var index = GetRandomParameter(randomColumn) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomColumn) + 1;
             return (int) Enum.ToObject(typeof(EColumn), index);
         }
     }
