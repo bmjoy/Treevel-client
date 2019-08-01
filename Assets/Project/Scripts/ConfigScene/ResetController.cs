@@ -18,13 +18,13 @@ namespace Project.Scripts.ConfigScene
 
 		private static void ResetButtonDown()
 		{
-			ResetStageStatus(StageLevel.Easy);
-			ResetStageStatus(StageLevel.Normal);
-			ResetStageStatus(StageLevel.Hard);
-			ResetStageStatus(StageLevel.VeryHard);
+			ResetStageStatus(EStageLevel.Easy);
+			ResetStageStatus(EStageLevel.Normal);
+			ResetStageStatus(EStageLevel.Hard);
+			ResetStageStatus(EStageLevel.VeryHard);
 		}
 
-		private static void ResetStageStatus(StageLevel stageLevel)
+		private static void ResetStageStatus(EStageLevel stageLevel)
 		{
 			var stageNum = StageInfo.Num[stageLevel];
 			var stageStartId = StageInfo.StageStartId[stageLevel];

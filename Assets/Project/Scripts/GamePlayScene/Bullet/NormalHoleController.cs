@@ -45,7 +45,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 				{
 					// 数字パネルが銃弾の出現場所に存在する
 					gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-					gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+					gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
 				}
 				else
 				{

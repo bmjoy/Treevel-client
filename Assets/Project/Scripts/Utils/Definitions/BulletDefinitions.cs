@@ -1,20 +1,20 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
-	public enum CartridgeType
+	public enum ECartridgeType
 	{
 		Normal = 1,
 		Turn,
 		Random = -1
 	}
 
-	public enum HoleType
+	public enum EHoleType
 	{
 		Normal = 1,
 		Aiming,
 		Random = -1
 	}
 
-	public enum CartridgeDirection
+	public enum ECartridgeDirection
 	{
 		ToLeft = 1,
 		ToRight,
@@ -23,7 +23,7 @@
 		Random = -1
 	}
 
-	public enum Row
+	public enum ERow
 	{
 		First = 1,
 		Second,
@@ -33,7 +33,7 @@
 		Random = -1
 	}
 
-	public enum Column
+	public enum EColumn
 	{
 		Left = 1,
 		Center,

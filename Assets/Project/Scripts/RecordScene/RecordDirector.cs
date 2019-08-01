@@ -16,11 +16,11 @@ namespace Project.Scripts.RecordScene
 
 		public GameObject successLinePrefab;
 
-		private readonly Dictionary<StageLevel, GameObject> levelText = new Dictionary<StageLevel, GameObject>();
+		private readonly Dictionary<EStageLevel, GameObject> levelText = new Dictionary<EStageLevel, GameObject>();
 
-		private readonly Dictionary<StageLevel, GameObject> percentageText = new Dictionary<StageLevel, GameObject>();
+		private readonly Dictionary<EStageLevel, GameObject> percentageText = new Dictionary<EStageLevel, GameObject>();
 
-		private readonly Dictionary<StageLevel, GameObject> graphArea = new Dictionary<StageLevel, GameObject>();
+		private readonly Dictionary<EStageLevel, GameObject> graphArea = new Dictionary<EStageLevel, GameObject>();
 
 		private SnapScrollView snapScrollView;
 
@@ -29,7 +29,7 @@ namespace Project.Scripts.RecordScene
 			// 取得
 			snapScrollView = GameObject.Find("SnapScrollView").GetComponent<SnapScrollView>();
 			// ページの最大値を設定
-			snapScrollView.MaxPage = Enum.GetNames(typeof(StageLevel)).Length - 1;
+			snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
 			// ページの横幅の設定
 			snapScrollView.PageSize = Screen.width;
 
@@ -41,7 +41,7 @@ namespace Project.Scripts.RecordScene
 		/* 全難易度の画面を描画する */
 		private void Draw()
 		{
-			foreach (StageLevel stageLevel in Enum.GetValues(typeof(StageLevel)))
+			foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel)))
 			{
 				// 準備
 				GetGameObjects(stageLevel);
@@ -52,14 +52,14 @@ namespace Project.Scripts.RecordScene
 			}
 
 			// 名前が決まるまではこれで行く
-			levelText[StageLevel.Easy].GetComponent<Text>().text = "簡単";
-			levelText[StageLevel.Normal].GetComponent<Text>().text = "普通";
-			levelText[StageLevel.Hard].GetComponent<Text>().text = "ムズイ";
-			levelText[StageLevel.VeryHard].GetComponent<Text>().text = "激ムズ";
+			levelText[EStageLevel.Easy].GetComponent<Text>().text = "簡単";
+			levelText[EStageLevel.Normal].GetComponent<Text>().text = "普通";
+			levelText[EStageLevel.Hard].GetComponent<Text>().text = "ムズイ";
+			levelText[EStageLevel.VeryHard].GetComponent<Text>().text = "激ムズ";
 		}
 
 		/* 必要な GameObject を Scene から取得 */
-		private void GetGameObjects(StageLevel stageLevel)
+		private void GetGameObjects(EStageLevel stageLevel)
 		{
 			// SnapScrollView -> Viewport -> Content -> のオブジェクトを特定
 			var level = GameObject.Find(stageLevel.ToString());
@@ -71,7 +71,7 @@ namespace Project.Scripts.RecordScene
 		}
 
 		/* 難易度に合わせた成功割合を描画する */
-		private void DrawPercentage(StageLevel stageLevel)
+		private void DrawPercentage(EStageLevel stageLevel)
 		{
 			var stageNum = StageInfo.Num[stageLevel];
 			var stageStartId = StageInfo.StageStartId[stageLevel];
@@ -94,7 +94,7 @@ namespace Project.Scripts.RecordScene
 		}
 
 		/* 難易度に合わせた棒グラフを描画する */
-		private void DrawGraph(StageLevel stageLevel)
+		private void DrawGraph(EStageLevel stageLevel)
 		{
 			var stageNum = StageInfo.Num[stageLevel];
 			var stageStartId = StageInfo.StageStartId[stageLevel];

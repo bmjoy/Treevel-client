@@ -24,7 +24,7 @@ namespace Project.Scripts.GamePlayScene
 		public static event ChangeAction OnFail;
 		public static event ChangeAction OnSucceed;
 
-		public enum GameState
+		public enum EGameState
 		{
 			Opening,
 			Playing,
@@ -34,7 +34,7 @@ namespace Project.Scripts.GamePlayScene
 
 		public static int stageId;
 
-		public GameState state = GameState.Opening;
+		public EGameState state = EGameState.Opening;
 
 		private GameObject resultWindow;
 
@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene
 		{
 			if (pauseStatus) // アプリがバックグラウンドに移動した時
 			{
-				if (Dispatch(GameState.Failure))
+				if (Dispatch(EGameState.Failure))
 				{
 					// 警告ウィンドウを表示
 					warningText.SetActive(true);
@@ -88,17 +88,17 @@ namespace Project.Scripts.GamePlayScene
 			GameObject[] panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
 			if (panels.Any(panel => panel.GetComponent<NumberPanelController>().adapted == false)) return;
 			// 全ての数字パネルが最終位置にいたら，成功状態に遷移
-			Dispatch(GameState.Success);
+			Dispatch(EGameState.Success);
 		}
 
 		/* 状態遷移 */
-		public bool Dispatch(GameState nextState)
+		public bool Dispatch(EGameState nextState)
 		{
 			switch (nextState)
 			{
-				case GameState.Opening:
+				case EGameState.Opening:
 					// `Success`と`Failure`からの遷移のみを許す
-					if (state == GameState.Success || state == GameState.Failure)
+					if (state == EGameState.Success || state == EGameState.Failure)
 					{
 						state = nextState;
 						GameOpening();
@@ -106,9 +106,9 @@ namespace Project.Scripts.GamePlayScene
 					}
 
 					break;
-				case GameState.Playing:
+				case EGameState.Playing:
 					// `Opening`からの遷移のみを許す
-					if (state == GameState.Opening)
+					if (state == EGameState.Opening)
 					{
 						state = nextState;
 						GamePlaying();
@@ -116,9 +116,9 @@ namespace Project.Scripts.GamePlayScene
 					}
 
 					break;
-				case GameState.Success:
+				case EGameState.Success:
 					// `Playing`からの遷移のみ許す
-					if (state == GameState.Playing)
+					if (state == EGameState.Playing)
 					{
 						state = nextState;
 						GameSucceed();
@@ -126,9 +126,9 @@ namespace Project.Scripts.GamePlayScene
 					}
 
 					break;
-				case GameState.Failure:
+				case EGameState.Failure:
 					// `Playing`からの遷移のみ許す
-					if (state == GameState.Playing)
+					if (state == EGameState.Playing)
 					{
 						state = nextState;
 						GameFail();
@@ -171,7 +171,7 @@ namespace Project.Scripts.GamePlayScene
 			StageGenerator.Instance.CreateStages(stageId);
 
 			// 状態を変更する
-			Dispatch(GameState.Playing);
+			Dispatch(EGameState.Playing);
 		}
 
 		/* ゲーム開始時 */
@@ -219,7 +219,7 @@ namespace Project.Scripts.GamePlayScene
 			// 挑戦回数をインクリメント
 			var ss = StageStatus.Get(stageId);
 			ss.IncChallengeNum(stageId);
-			Dispatch(GameState.Opening);
+			Dispatch(EGameState.Opening);
 		}
 
 		/* 戻るボタン押下時 */

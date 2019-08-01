@@ -18,19 +18,19 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int column;
 
 		// Holeが出現する行をランダムに決めるときの各行の重み
-		private int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(Row)).Length - 1);
+		private int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
 
 		// Holeが出現する列をランダムに決めるときの各列の重み
-		private int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(Column)).Length - 1);
+		private int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
 
-		public void Initialize(int ratio, Row row, Column column)
+		public void Initialize(int ratio, ERow row, EColumn column)
 		{
 			this.ratio = ratio;
 			this.row = (int) row;
 			this.column = (int) column;
 		}
 
-		public void Initialize(int ratio, Row row, Column column, int[] randomRow, int[] randomColumn)
+		public void Initialize(int ratio, ERow row, EColumn column, int[] randomRow, int[] randomColumn)
 		{
 			this.ratio = ratio;
 			this.row = (int) row;
@@ -42,8 +42,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public override IEnumerator CreateBullet(int bulletId)
 		{
 			// 出現する行および列を指定する
-			var nextHoleRow = (row == (int) Row.Random) ? GetRow() : row;
-			var nextHoleColumn = (column == (int) Column.Random) ? GetColumn() : column;
+			var nextHoleRow = (row == (int) ERow.Random) ? GetRow() : row;
+			var nextHoleColumn = (column == (int) EColumn.Random) ? GetColumn() : column;
 
 			// 警告の作成
 			var warning = Instantiate(normalHoleWarningPrefab);
@@ -57,7 +57,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			Destroy(warning);
 
 			// ゲームが続いているなら銃弾を作成する
-			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
+			if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing)
 			{
 				var hole = Instantiate(normalHolePrefab);
 				var holeScript = hole.GetComponent<NormalHoleController>();
@@ -73,14 +73,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int GetRow()
 		{
 			var index = GetRandomParameter(randomRow) + 1;
-			return (int) Enum.ToObject(typeof(Row), index);
+			return (int) Enum.ToObject(typeof(ERow), index);
 		}
 
 		/* Holeの出現する列を重みに基づき決定する */
 		private int GetColumn()
 		{
 			var index = GetRandomParameter(randomColumn) + 1;
-			return (int) Enum.ToObject(typeof(Column), index);
+			return (int) Enum.ToObject(typeof(EColumn), index);
 		}
 	}
 }

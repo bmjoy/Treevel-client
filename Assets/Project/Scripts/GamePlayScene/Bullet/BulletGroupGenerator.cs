@@ -83,7 +83,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		/* NormalCartridgeのGeneratorを生成する */
 		/* 横方向、特定の行を移動する銃弾を生成 */
-		public GameObject CreateNormalCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Row row)
+		public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row)
 		{
 			var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
 			var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
@@ -92,8 +92,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		/* 縦方向、特定の列を移動する銃弾を生成 */
-		public GameObject CreateNormalCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection,
-			Column column)
+		public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection,
+			EColumn column)
 		{
 			var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
 			var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
@@ -103,7 +103,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		/* 横方向、ランダムな行を移動する銃弾を生成
 		   進行方向もランダムな時はこのメソッドを使用する */
-		public GameObject CreateNormalCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Row row,
+		public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row,
 			int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
 		{
 			var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
@@ -114,8 +114,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		/* 縦方向、ランダムな列を移動する銃弾を生成 */
-		public GameObject CreateNormalCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection,
-			Column column, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
+		public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection,
+			EColumn column, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
 		{
 			var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
 			var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
@@ -126,7 +126,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		/* TurnCartridgeのGeneratorを生成する*/
 		/* 横方向、特定の行を移動し、特定の場所で特定の方向に曲がる銃弾を生成 */
-		public GameObject CreateTurnCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Row row,
+		public GameObject CreateTurnCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row,
 			int[] turnDirection = null, int[] turnLine = null)
 		{
 			var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
@@ -136,7 +136,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		/* 縦方向、特定の行を移動し、特定の場所で特定の方向に曲がる銃弾を生成 */
-		public GameObject CreateTurnCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Column column,
+		public GameObject CreateTurnCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, EColumn column,
 			int[] turnDirection = null, int[] turnLine = null)
 		{
 			var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
@@ -147,7 +147,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		/* 横方向、ランダムな行を移動し、ランダムな場所でランダムな方向に曲がる銃弾を生成
 		   進行方向もランダムな時はこのメソッドを使用する */
-		public GameObject CreateTurnCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Row row,
+		public GameObject CreateTurnCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row,
 			int[] turnDirection, int[] turnLine, int[] randomCartridgedirection, int[] randomRow, int[] randomColumn,
 			int[] randomTurnDirections, int[] randomTurnRow,
 			int[] randomTurnColumn)
@@ -161,7 +161,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		/* 縦方向、ランダムな行を移動し、ランダムな場所でランダムな方向に曲がる銃弾を生成 */
-		public GameObject CreateTurnCartridgeGenerator(int ratio, CartridgeDirection cartridgeDirection, Column column,
+		public GameObject CreateTurnCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, EColumn column,
 			int[] turnDirection, int[] turnLine, int[] randomCartridgedirection, int[] randomRow, int[] randomColumn,
 			int[] randomTurnDirections, int[] randomTurnRow,
 			int[] randomTurnColumn)
@@ -176,7 +176,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		/* NormalHoleのGeneratorを生成する */
 		/* 特定の行、特定の列に銃弾を生成する */
-		public GameObject CreateNormalHoleGenerator(int ratio, Row row, Column column)
+		public GameObject CreateNormalHoleGenerator(int ratio, ERow row, EColumn column)
 		{
 			var holeGenerator = Instantiate(normalHoleGeneratorPrefab);
 			var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
@@ -185,7 +185,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		/* ランダムな行、ランダムな列に銃弾を生成する */
-		public GameObject CreateNormalHoleGenerator(int ratio, Row row, Column column, int[] randomRow,
+		public GameObject CreateNormalHoleGenerator(int ratio, ERow row, EColumn column, int[] randomRow,
 			int[] randomColumn)
 		{
 			var holeGenerator = Instantiate(normalHoleGeneratorPrefab);

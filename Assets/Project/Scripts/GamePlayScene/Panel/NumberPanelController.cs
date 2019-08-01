@@ -68,7 +68,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 			if (!other.gameObject.CompareTag(TagName.BULLET)) return;
 			gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
 			// 失敗状態に移行する
-			gamePlayDirector.Dispatch(GamePlayDirector.GameState.Failure);
+			gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
 		}
 
 		/* SpriteGlowEffect コンポーネントに必要なコンポーネント */

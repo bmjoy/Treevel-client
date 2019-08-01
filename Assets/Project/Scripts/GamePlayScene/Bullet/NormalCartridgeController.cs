@@ -27,7 +27,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
 		}
 
-		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector)
+		public void Initialize(ECartridgeDirection direction, int line, Vector2 motionVector)
 		{
 			this.motionVector = motionVector;
 			SetInitialPosition(direction, line);
@@ -51,7 +51,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		// 銃弾の初期配置の設定
-		private void SetInitialPosition(CartridgeDirection direction, int line)
+		private void SetInitialPosition(ECartridgeDirection direction, int line)
 		{
 			// 移動方向に関わる座標
 			var motionVectorPosition = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,

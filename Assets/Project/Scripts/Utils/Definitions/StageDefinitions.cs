@@ -2,7 +2,7 @@
 
 namespace Project.Scripts.Utils.Definitions
 {
-	public enum StageLevel
+	public enum EStageLevel
 	{
 		Easy = 0,
 		Normal,
@@ -12,20 +12,20 @@ namespace Project.Scripts.Utils.Definitions
 
 	public static class StageInfo
 	{
-		public static readonly Dictionary<StageLevel, int> Num = new Dictionary<StageLevel, int>()
+		public static readonly Dictionary<EStageLevel, int> Num = new Dictionary<EStageLevel, int>()
 		{
-			{StageLevel.Easy, 10},
-			{StageLevel.Normal, 10},
-			{StageLevel.Hard, 10},
-			{StageLevel.VeryHard, 10}
+			{EStageLevel.Easy, 10},
+			{EStageLevel.Normal, 10},
+			{EStageLevel.Hard, 10},
+			{EStageLevel.VeryHard, 10}
 		};
 
-		public static readonly Dictionary<StageLevel, int> StageStartId = new Dictionary<StageLevel, int>()
+		public static readonly Dictionary<EStageLevel, int> StageStartId = new Dictionary<EStageLevel, int>()
 		{
-			{StageLevel.Easy, 1},
-			{StageLevel.Normal, 1001},
-			{StageLevel.Hard, 2001},
-			{StageLevel.VeryHard, 3001}
+			{EStageLevel.Easy, 1},
+			{EStageLevel.Normal, 1001},
+			{EStageLevel.Hard, 2001},
+			{EStageLevel.VeryHard, 3001}
 		};
 	}
 
