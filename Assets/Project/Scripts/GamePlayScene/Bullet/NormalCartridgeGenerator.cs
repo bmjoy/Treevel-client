@@ -12,14 +12,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		[SerializeField] private GameObject normalCartridgeWarningPrefab;
 
 		// 銃弾の移動方向
-		protected CartridgeDirection cartridgeDirection;
+		protected ECartridgeDirection cartridgeDirection;
 
 		// 移動方向に応じて行または列は決まるので、何番目かの情報を保存する
 		protected int line;
 
 		// 銃弾がどの方向に進行するかをランダムに決めるときの各方向の重み
 		private int[] randomCartridgeDirection =
-			SetInitialRatio(Enum.GetNames(typeof(CartridgeDirection)).Length - 1);
+			SetInitialRatio(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
 		// 銃弾がどの行に出現するかをランダムに決めるときの各行の重み
 		protected int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(Row)).Length - 1);
@@ -29,21 +29,21 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 		/* メンバ変数の初期化を行う
 		   行と列の違いおよび、ランダムに値を決めるかどうかでオーバーロードしている */
-		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Row row)
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Row row)
 		{
 			this.ratio = ratio;
 			this.cartridgeDirection = cartridgeDirection;
 			line = (int) row;
 		}
 
-		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Column column)
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Column column)
 		{
 			this.ratio = ratio;
 			this.cartridgeDirection = cartridgeDirection;
 			line = (int) column;
 		}
 
-		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Row row,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Row row,
 			int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
 		{
 			Initialize(ratio, cartridgeDirection, row);
@@ -52,7 +52,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			this.randomColumn = randomColumn;
 		}
 
-		public void Initialize(int ratio, CartridgeDirection cartridgeDirection, Column column,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Column column,
 			int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
 		{
 			Initialize(ratio, cartridgeDirection, column);
@@ -65,7 +65,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		public override IEnumerator CreateBullet(int bulletId)
 		{
 			// 銃弾の出現方向を指定する
-			var nextCartridgeDirection = (cartridgeDirection == CartridgeDirection.Random)
+			var nextCartridgeDirection = (cartridgeDirection == ECartridgeDirection.Random)
 				? GetCartridgeDirection()
 				: cartridgeDirection;
 
@@ -75,15 +75,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			{
 				switch (nextCartridgeDirection)
 				{
-					case CartridgeDirection.ToLeft:
-					case CartridgeDirection.ToRight:
+					case ECartridgeDirection.ToLeft:
+					case ECartridgeDirection.ToRight:
 						nextCartridgeLine = GetRow();
 						break;
-					case CartridgeDirection.ToUp:
-					case CartridgeDirection.ToBottom:
+					case ECartridgeDirection.ToUp:
+					case ECartridgeDirection.ToBottom:
 						nextCartridgeLine = GetColumn();
 						break;
-					case CartridgeDirection.Random:
+					case ECartridgeDirection.Random:
 						break;
 					default:
 						throw new NotImplementedException();
@@ -115,10 +115,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		}
 
 		/* Cartridgeの移動方向を重みに基づき決定する */
-		protected CartridgeDirection GetCartridgeDirection()
+		protected ECartridgeDirection GetCartridgeDirection()
 		{
 			var index = GetRandomParameter(randomCartridgeDirection) + 1;
-			return (CartridgeDirection) Enum.ToObject(typeof(CartridgeDirection), index);
+			return (ECartridgeDirection) Enum.ToObject(typeof(ECartridgeDirection), index);
 		}
 
 		/* Cartridgeの出現する行を重みに基づき決定する*/

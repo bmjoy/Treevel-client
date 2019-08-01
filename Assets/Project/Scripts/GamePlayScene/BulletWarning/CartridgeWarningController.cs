@@ -15,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		// 警告のpositionを計算する
 		// 銃弾の移動方向(bulletMotionVector)が副次的に計算されるので、その値を返す
-		public Vector2 Initialize(ECartridgeType cartridgeType, CartridgeDirection direction, int line)
+		public Vector2 Initialize(ECartridgeType cartridgeType, ECartridgeDirection direction, int line)
 		{
 			switch (cartridgeType)
 			{
@@ -34,24 +34,24 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 			// Cartridgeの進行方向によってWarningの表示位置を求める
 			switch (direction)
 			{
-				case CartridgeDirection.ToLeft:
+				case ECartridgeDirection.ToLeft:
 					warningPosition = new Vector2(WindowSize.WIDTH / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					bulletMotionVector = Vector2.left;
 					break;
-				case CartridgeDirection.ToRight:
+				case ECartridgeDirection.ToRight:
 					warningPosition = new Vector2(-WindowSize.WIDTH / 2,
 						WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
 						TileSize.HEIGHT * (line - 1));
 					bulletMotionVector = Vector2.right;
 					break;
-				case CartridgeDirection.ToUp:
+				case ECartridgeDirection.ToUp:
 					warningPosition = new Vector2(TileSize.WIDTH * (line - 2),
 						-WindowSize.HEIGHT / 2);
 					bulletMotionVector = Vector2.up;
 					break;
-				case CartridgeDirection.ToBottom:
+				case ECartridgeDirection.ToBottom:
 					warningPosition = new Vector2(TileSize.WIDTH * (line - 2),
 						WindowSize.HEIGHT / 2);
 					bulletMotionVector = Vector2.down;

@@ -105,7 +105,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 		}
 
-		public void Initialize(CartridgeDirection direction, int line, Vector2 motionVector,
+		public void Initialize(ECartridgeDirection direction, int line, Vector2 motionVector,
 			int[] turnDirection, int[] turnLine)
 		{
 			// 銃弾に必要な引数を受け取る

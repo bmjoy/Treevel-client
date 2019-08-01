@@ -14,7 +14,7 @@
 		Random = -1
 	}
 
-	public enum CartridgeDirection
+	public enum ECartridgeDirection
 	{
 		ToLeft = 1,
 		ToRight,
