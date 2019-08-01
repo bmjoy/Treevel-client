@@ -7,7 +7,7 @@
 		Random = -1
 	}
 
-	public enum HoleType
+	public enum EHoleType
 	{
 		Normal = 1,
 		Aiming,
