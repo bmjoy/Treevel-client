@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		protected int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
 
 		// 銃弾がどの列に出現するかをランダムに決めるときの各列の重み
-		protected int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(Column)).Length - 1);
+		protected int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
 
 		/* メンバ変数の初期化を行う
 		   行と列の違いおよび、ランダムに値を決めるかどうかでオーバーロードしている */
@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			line = (int) row;
 		}
 
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Column column)
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column)
 		{
 			this.ratio = ratio;
 			this.cartridgeDirection = cartridgeDirection;
@@ -52,7 +52,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			this.randomColumn = randomColumn;
 		}
 
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Column column,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column,
 			int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
 		{
 			Initialize(ratio, cartridgeDirection, column);
@@ -132,7 +132,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		protected int GetColumn()
 		{
 			var index = GetRandomParameter(randomColumn) + 1;
-			return (int) Enum.ToObject(typeof(Column), index);
+			return (int) Enum.ToObject(typeof(EColumn), index);
 		}
 	}
 }

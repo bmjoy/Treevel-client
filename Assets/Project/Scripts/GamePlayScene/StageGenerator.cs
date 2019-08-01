@@ -91,7 +91,7 @@ namespace Project.Scripts.GamePlayScene
 							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
 								cartridgeDirection: ECartridgeDirection.ToLeft, row: ERow.First,
 								turnDirection: new int[] {(int) ECartridgeDirection.ToBottom},
-								turnLine: new int[] {(int) Column.Left})
+								turnLine: new int[] {(int) EColumn.Left})
 						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 特殊タイル作成
@@ -121,7 +121,7 @@ namespace Project.Scripts.GamePlayScene
 						bulletGenerators: new List<GameObject>()
 						{
 							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.First,
-								column: Column.Left)
+								column: EColumn.Left)
 						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 数字パネル作成
@@ -246,9 +246,9 @@ namespace Project.Scripts.GamePlayScene
 						bulletGenerators: new List<GameObject>()
 						{
 							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.Random,
-								column: Column.Random),
+								column: EColumn.Random),
 							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.Random,
-								column: Column.Random,
+								column: EColumn.Random,
 								randomRow: new int[] {100, 20, 20, 20, 100}, randomColumn: new int[] {30, 100, 30})
 						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
@@ -310,7 +310,7 @@ namespace Project.Scripts.GamePlayScene
 							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 10,
 								cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
 							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 10, row: ERow.Random,
-								column: Column.Random),
+								column: EColumn.Random),
 							bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 10)
 						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */

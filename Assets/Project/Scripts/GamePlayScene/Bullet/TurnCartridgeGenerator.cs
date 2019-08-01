@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomTurnRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
 
 		// 曲がる列をランダムに決めるときの各列の重み
-		private int[] randomTurnColumn = SetInitialRatio(Enum.GetNames(typeof(Column)).Length - 1);
+		private int[] randomTurnColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
 
 		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
 			int[] turnLine)
@@ -35,7 +35,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			this.turnLine = turnLine;
 		}
 
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Column column, int[] turnDirection,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
 			int[] turnLine)
 		{
 			Initialize(ratio, cartridgeDirection, column);
@@ -55,7 +55,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			this.randomTurnColumn = randomTurnColumn;
 		}
 
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Column column, int[] turnDirection,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
 			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
 			int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
 		{
@@ -163,13 +163,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			}
 			// 最左列または最も最右列を移動している場合
 			else if ((direction == ECartridgeDirection.ToUp || direction == ECartridgeDirection.ToBottom) &&
-			         (line == (int) Column.Left || line == (int) Column.Right))
+			         (line == (int) EColumn.Left || line == (int) EColumn.Right))
 			{
-				if (line == (int) Column.Left)
+				if (line == (int) EColumn.Left)
 				{
 					randomTurnDirection = (int) ECartridgeDirection.ToRight;
 				}
-				else if (line == (int) Column.Right)
+				else if (line == (int) EColumn.Right)
 				{
 					randomTurnDirection = (int) ECartridgeDirection.ToLeft;
 				}
@@ -227,7 +227,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int GetTurnColumn()
 		{
 			var index = GetRandomParameter(randomColumn) + 1;
-			return (int) Enum.ToObject(typeof(Column), index);
+			return (int) Enum.ToObject(typeof(EColumn), index);
 		}
 	}
 }

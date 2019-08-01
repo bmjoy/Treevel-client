@@ -33,7 +33,7 @@
 		Random = -1
 	}
 
-	public enum Column
+	public enum EColumn
 	{
 		Left = 1,
 		Center,

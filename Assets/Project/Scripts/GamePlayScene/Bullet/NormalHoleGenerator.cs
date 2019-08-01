@@ -21,16 +21,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
 
 		// Holeが出現する列をランダムに決めるときの各列の重み
-		private int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(Column)).Length - 1);
+		private int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
 
-		public void Initialize(int ratio, ERow row, Column column)
+		public void Initialize(int ratio, ERow row, EColumn column)
 		{
 			this.ratio = ratio;
 			this.row = (int) row;
 			this.column = (int) column;
 		}
 
-		public void Initialize(int ratio, ERow row, Column column, int[] randomRow, int[] randomColumn)
+		public void Initialize(int ratio, ERow row, EColumn column, int[] randomRow, int[] randomColumn)
 		{
 			this.ratio = ratio;
 			this.row = (int) row;
@@ -43,7 +43,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		{
 			// 出現する行および列を指定する
 			var nextHoleRow = (row == (int) ERow.Random) ? GetRow() : row;
-			var nextHoleColumn = (column == (int) Column.Random) ? GetColumn() : column;
+			var nextHoleColumn = (column == (int) EColumn.Random) ? GetColumn() : column;
 
 			// 警告の作成
 			var warning = Instantiate(normalHoleWarningPrefab);
@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int GetColumn()
 		{
 			var index = GetRandomParameter(randomColumn) + 1;
-			return (int) Enum.ToObject(typeof(Column), index);
+			return (int) Enum.ToObject(typeof(EColumn), index);
 		}
 	}
 }
