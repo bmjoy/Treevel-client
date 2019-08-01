@@ -51,7 +51,7 @@
 - `namespace` はディレクトリ構造と統一させる
 
 ### Code Style
-[Astyle](http://astyle.sourceforge.net)と[git-hooks](https://git-scm.com/docs/githooks)を用いて自動フォーマットしている
+[Astyle](http://astyle.sourceforge.net)と[git-hooks](https://git-scm.com/docs/githooks)を用いて自動フォーマットしている．
 クローン後に，以下のコマンドを実行してください
 
 ```
