@@ -69,23 +69,19 @@ namespace Project.Scripts.LevelSelectScene
 
         private void AddListeners()
         {
-            easyStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-            {
+            easyStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
                 ToggleValueChanged(easyStageSelectToggle);
             });
 
-            normalStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-            {
+            normalStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
                 ToggleValueChanged(normalStageSelectToggle);
             });
 
-            hardStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-            {
+            hardStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
                 ToggleValueChanged(hardStageSelectToggle);
             });
 
-            veryHardStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-            {
+            veryHardStageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
                 ToggleValueChanged(veryHardStageSelectToggle);
             });
         }

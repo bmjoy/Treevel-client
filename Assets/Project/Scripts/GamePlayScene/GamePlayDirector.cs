@@ -24,8 +24,7 @@ namespace Project.Scripts.GamePlayScene
         public static event ChangeAction OnFail;
         public static event ChangeAction OnSucceed;
 
-        public enum EGameState
-        {
+        public enum EGameState {
             Opening,
             Playing,
             Success,
@@ -72,8 +71,7 @@ namespace Project.Scripts.GamePlayScene
 
         private void OnApplicationPause(bool pauseStatus)
         {
-            if (pauseStatus) // アプリがバックグラウンドに移動した時
-            {
+            if (pauseStatus) { // アプリがバックグラウンドに移動した時
                 if (Dispatch(EGameState.Failure)) {
                     // 警告ウィンドウを表示
                     warningText.SetActive(true);
@@ -255,8 +253,7 @@ namespace Project.Scripts.GamePlayScene
                 Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
                 // 結果ウィンドウも変える
                 resultWindow.transform.localScale = new Vector2(ratio, ratio);
-            }
-            else if (currentRatio < targetRatio - aspectRatioError) {
+            } else if (currentRatio < targetRatio - aspectRatioError) {
                 // 縦長のデバイスの場合
                 var ratio = currentRatio / targetRatio;
                 var rectY = (1 - ratio) / 2f;

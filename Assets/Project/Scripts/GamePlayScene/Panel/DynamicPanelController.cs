@@ -59,18 +59,15 @@ namespace Project.Scripts.GamePlayScene.Panel
                 // 右
                 var rightTile = parentTile.rightTile;
                 UpdateTile(rightTile);
-            }
-            else if (x < 0 && Math.Abs(x) >= Math.Abs(y)) {
+            } else if (x < 0 && Math.Abs(x) >= Math.Abs(y)) {
                 // 左
                 var leftTile = parentTile.leftTile;
                 UpdateTile(leftTile);
-            }
-            else if (y > 0 && Math.Abs(y) >= Math.Abs(x)) {
+            } else if (y > 0 && Math.Abs(y) >= Math.Abs(x)) {
                 // 上
                 var upperTile = parentTile.upperTile;
                 UpdateTile(upperTile);
-            }
-            else if (y < 0 && Math.Abs(y) >= Math.Abs(x)) {
+            } else if (y < 0 && Math.Abs(y) >= Math.Abs(x)) {
                 // 下
                 var lowerTile = parentTile.lowerTile;
                 UpdateTile(lowerTile);

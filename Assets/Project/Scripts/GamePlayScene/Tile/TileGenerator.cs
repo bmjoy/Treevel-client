@@ -23,8 +23,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private void Awake()
         {
-            numberTilePrefabs = new List<GameObject>
-            {
+            numberTilePrefabs = new List<GameObject> {
                 numberTile1Prefab,
                 numberTile2Prefab,
                 numberTile3Prefab,
@@ -133,7 +132,7 @@ namespace Project.Scripts.GamePlayScene.Tile
                     var lowerTile = i + 1 == row ? null : tiles[i + 1, j];
                     // タイルオブジェクトのスクリプトに上下左右のタイルオブジェクトを格納する
                     tiles[i, j].GetComponent<NormalTileController>()
-                        .MakeRelation(rightTile, leftTile, upperTile, lowerTile);
+                    .MakeRelation(rightTile, leftTile, upperTile, lowerTile);
                 }
             }
         }

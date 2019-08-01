@@ -24,8 +24,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 
         private void Awake()
         {
-            numberPanelPrefabs = new List<GameObject>
-            {
+            numberPanelPrefabs = new List<GameObject> {
                 numberPanel1Prefab,
                 numberPanel2Prefab,
                 numberPanel3Prefab,
@@ -78,8 +77,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /* 変数をもらい辞書型に変換 */
         public static Dictionary<string, int> ComvartToDictionary(int panelNum, int initialTileNum, int finalTileNum)
         {
-            return new Dictionary<string, int>()
-            {
+            return new Dictionary<string, int>() {
                 {"panelNum", panelNum},
                 {"initialTileNum", initialTileNum},
                 {"finalTileNum", finalTileNum}

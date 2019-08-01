@@ -13,7 +13,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         }
 
         // 指定されたオブジェクトの情報を読み込み
-        public static T GetObject<T>(string key) where T : new()
+        public static T GetObject<T>(string key) where T : new ()
         {
             var json = PlayerPrefs.GetString(key);
             if (json == "") return new T();

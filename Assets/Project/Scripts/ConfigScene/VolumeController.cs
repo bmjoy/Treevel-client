@@ -13,7 +13,9 @@ namespace Project.Scripts.ConfigScene
         {
             volumeSlider = GetComponent<Slider>();
             volumeSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME);
-            volumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            volumeSlider.onValueChanged.AddListener(delegate {
+                ValueChangeCheck();
+            });
         }
 
         private void ValueChangeCheck()

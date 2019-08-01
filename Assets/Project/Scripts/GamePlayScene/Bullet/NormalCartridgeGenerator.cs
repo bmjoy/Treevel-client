@@ -104,7 +104,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
                 var cartridge = Instantiate(normalCartridgePrefab);
                 cartridge.GetComponent<NormalCartridgeController>()
-                    .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
+                .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
 
                 // 同レイヤーのオブジェクトの描画順序の制御
                 cartridge.GetComponent<Renderer>().sortingOrder = bulletId;

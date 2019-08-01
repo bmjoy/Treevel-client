@@ -53,7 +53,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             }
             // 回転はじめのフレーム
             else if (rotateCount == 0 && Vector2.Distance(turnPoint, transform.position) <=
-                     (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) {
+                (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) {
                 Destroy(warning);
                 rotateCount++;
                 motionVector = Rotate(motionVector, turnAngle / 2f);
@@ -77,9 +77,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
                     turnDirection = turnDirection.Skip(1).Take(turnDirection.Length - 1).ToArray();
                     turnLine = turnLine.Skip(1).Take(turnLine.Length - 1).ToArray();
                     turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(
-                                    TileSize.WIDTH * (turnLine[0] - 2),
-                                    WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-                                    TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
+                            TileSize.WIDTH * (turnLine[0] - 2),
+                            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
+                            TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
                     turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
                     turnAngle = (motionVector.x + motionVector.y) * turnAngle;
                     turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
@@ -108,9 +108,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
             // 銃弾が曲がるタイルの座標
             turnPoint = transform.position * Abs(Transposition(motionVector)) + new Vector2(
-                            TileSize.WIDTH * (turnLine[0] - 2),
-                            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-                            TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
+                    TileSize.WIDTH * (turnLine[0] - 2),
+                    WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
+                    TileSize.HEIGHT * (turnLine[0] - 1)) * Abs(motionVector);
             // 回転角度
             turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
             turnAngle = (motionVector.x + motionVector.y) * turnAngle;

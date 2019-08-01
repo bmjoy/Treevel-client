@@ -17,7 +17,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             base.Awake();
             transform.localScale = new Vector2(HoleSize.WIDTH / originalWidth, HoleSize.HEIGHT / originalHeight) *
-                                   LOCAL_SCALE;
+            LOCAL_SCALE;
         }
 
         // コンストラクタがわりのメソッド
@@ -44,14 +44,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
                     // 数字パネルが銃弾の出現場所に存在する
                     gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                     gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
-                }
-                else {
+                } else {
                     // 数字パネル以外のパネルが銃弾の出現場所に存在する
                     yield return new WaitForSeconds(HOLE_DISPLAYED_TIME);
                     Destroy(gameObject);
                 }
-            }
-            else {
+            } else {
                 // 銃弾の出現場所にパネルが存在しない
                 // タイルとパネルの間のレイヤー(Hole)に描画する
                 gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;

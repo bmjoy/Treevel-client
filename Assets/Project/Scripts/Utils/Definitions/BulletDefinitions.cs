@@ -1,21 +1,18 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
-    public enum ECartridgeType
-    {
+    public enum ECartridgeType {
         Normal = 1,
         Turn,
         Random = -1
     }
 
-    public enum EHoleType
-    {
+    public enum EHoleType {
         Normal = 1,
         Aiming,
         Random = -1
     }
 
-    public enum ECartridgeDirection
-    {
+    public enum ECartridgeDirection {
         ToLeft = 1,
         ToRight,
         ToUp,
@@ -23,8 +20,7 @@
         Random = -1
     }
 
-    public enum ERow
-    {
+    public enum ERow {
         First = 1,
         Second,
         Third,
@@ -33,8 +29,7 @@
         Random = -1
     }
 
-    public enum EColumn
-    {
+    public enum EColumn {
         Left = 1,
         Center,
         Right,

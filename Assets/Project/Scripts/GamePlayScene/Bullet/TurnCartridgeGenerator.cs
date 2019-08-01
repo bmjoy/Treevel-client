@@ -107,8 +107,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
             // ゲームが続いているなら銃弾を作成する
             if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                int[] nextCartridgeTurnDirection = turnDirection ?? new int[]
-                {
+                int[] nextCartridgeTurnDirection = turnDirection ?? new int[] {
                     GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)
                 };
 
@@ -148,18 +147,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 (line == (int) ERow.First || line == (int) ERow.Fifth)) {
                 if (line == (int) ERow.First) {
                     randomTurnDirection = (int) ECartridgeDirection.ToBottom;
-                }
-                else if (line == (int) ERow.Fifth) {
+                } else if (line == (int) ERow.Fifth) {
                     randomTurnDirection = (int) ECartridgeDirection.ToUp;
                 }
             }
             // 最左列または最も最右列を移動している場合
             else if ((direction == ECartridgeDirection.ToUp || direction == ECartridgeDirection.ToBottom) &&
-                     (line == (int) EColumn.Left || line == (int) EColumn.Right)) {
+                (line == (int) EColumn.Left || line == (int) EColumn.Right)) {
                 if (line == (int) EColumn.Left) {
                     randomTurnDirection = (int) ECartridgeDirection.ToRight;
-                }
-                else if (line == (int) EColumn.Right) {
+                } else if (line == (int) EColumn.Right) {
                     randomTurnDirection = (int) ECartridgeDirection.ToLeft;
                 }
             }
@@ -193,7 +190,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
                 // 乱数を取得する
                 var randomValue = new System.Random().Next(randomTurnDirections[cartridgeLocalLeft - 1] +
-                                                           randomTurnDirections[cartridgeLocalRight - 1]) + 1;
+                    randomTurnDirections[cartridgeLocalRight - 1]) + 1;
                 // 乱数に基づいてCartridgeから見て右または左のどちらかの方向を選択する
                 randomTurnDirection = randomValue <= randomTurnDirections[cartridgeLocalLeft - 1]
                     ? (int) Enum.ToObject(typeof(ECartridgeDirection), cartridgeLocalLeft)
