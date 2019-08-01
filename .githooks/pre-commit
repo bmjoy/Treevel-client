@@ -12,9 +12,8 @@
 # TODO: cross-platform
 
 FORMATTER='./tool/astyle/mac/bin/AStyle'
-OPTIONS='--options=.astylerc --formatted --suffix=none'
+OPTIONS='--options=.astylerc'
 
 for FILE in `git diff --staged --name-only | grep .cs`; do
     ${FORMATTER} ${OPTIONS} ${FILE}
-    git add ${FILE}
 done
