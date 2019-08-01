@@ -22,14 +22,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			SetInitialRatio(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
 		// 銃弾がどの行に出現するかをランダムに決めるときの各行の重み
-		protected int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(Row)).Length - 1);
+		protected int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
 
 		// 銃弾がどの列に出現するかをランダムに決めるときの各列の重み
 		protected int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(Column)).Length - 1);
 
 		/* メンバ変数の初期化を行う
 		   行と列の違いおよび、ランダムに値を決めるかどうかでオーバーロードしている */
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Row row)
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row)
 		{
 			this.ratio = ratio;
 			this.cartridgeDirection = cartridgeDirection;
@@ -43,7 +43,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			line = (int) column;
 		}
 
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Row row,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row,
 			int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
 		{
 			Initialize(ratio, cartridgeDirection, row);
@@ -71,7 +71,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			// 銃弾の出現する場所を指定する
 			var nextCartridgeLine = line;
-			if (nextCartridgeLine == (int) Row.Random)
+			if (nextCartridgeLine == (int) ERow.Random)
 			{
 				switch (nextCartridgeDirection)
 				{
@@ -125,7 +125,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		protected int GetRow()
 		{
 			var index = GetRandomParameter(randomRow) + 1;
-			return (int) Enum.ToObject(typeof(Row), index);
+			return (int) Enum.ToObject(typeof(ERow), index);
 		}
 
 		/* Cartridgeの出現する列を重みに基づき決定する */

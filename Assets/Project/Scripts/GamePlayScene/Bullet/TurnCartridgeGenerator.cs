@@ -22,12 +22,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int[] randomTurnDirections = SetInitialRatio(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
 		// 曲がる行をランダムに決めるときの各行の重み
-		private int[] randomTurnRow = SetInitialRatio(Enum.GetNames(typeof(Row)).Length - 1);
+		private int[] randomTurnRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
 
 		// 曲がる列をランダムに決めるときの各列の重み
 		private int[] randomTurnColumn = SetInitialRatio(Enum.GetNames(typeof(Column)).Length - 1);
 
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Row row, int[] turnDirection,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
 			int[] turnLine)
 		{
 			Initialize(ratio, cartridgeDirection, row);
@@ -43,7 +43,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			this.turnLine = turnLine;
 		}
 
-		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, Row row, int[] turnDirection,
+		public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
 			int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
 			int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
 		{
@@ -76,7 +76,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
 			// 銃弾の出現する場所を指定する
 			var nextCartridgeLine = line;
-			if (nextCartridgeLine == (int) Row.Random)
+			if (nextCartridgeLine == (int) ERow.Random)
 			{
 				switch (nextCartridgeDirection)
 				{
@@ -150,13 +150,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			var randomTurnDirection = 0;
 			// 最上行または最下行を移動している場合
 			if ((direction == ECartridgeDirection.ToLeft || direction == ECartridgeDirection.ToRight) &&
-			    (line == (int) Row.First || line == (int) Row.Fifth))
+			    (line == (int) ERow.First || line == (int) ERow.Fifth))
 			{
-				if (line == (int) Row.First)
+				if (line == (int) ERow.First)
 				{
 					randomTurnDirection = (int) ECartridgeDirection.ToBottom;
 				}
-				else if (line == (int) Row.Fifth)
+				else if (line == (int) ERow.Fifth)
 				{
 					randomTurnDirection = (int) ECartridgeDirection.ToUp;
 				}
@@ -220,7 +220,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 		private int GetTurnRow()
 		{
 			var index = GetRandomParameter(randomRow) + 1;
-			return (int) Enum.ToObject(typeof(Row), index);
+			return (int) Enum.ToObject(typeof(ERow), index);
 		}
 
 		/* 曲がる列を重みに基づき決定する */

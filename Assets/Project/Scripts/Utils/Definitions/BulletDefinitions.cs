@@ -23,7 +23,7 @@
 		Random = -1
 	}
 
-	public enum Row
+	public enum ERow
 	{
 		First = 1,
 		Second,

@@ -59,7 +59,7 @@ namespace Project.Scripts.GamePlayScene
 						bulletGenerators: new List<GameObject>()
 						{
 							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
-								cartridgeDirection: ECartridgeDirection.ToLeft, row: Row.First)
+								cartridgeDirection: ECartridgeDirection.ToLeft, row: ERow.First)
 						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
 					// 特殊タイル作成
@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene
 						bulletGenerators: new List<GameObject>()
 						{
 							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
-								cartridgeDirection: ECartridgeDirection.ToLeft, row: Row.First,
+								cartridgeDirection: ECartridgeDirection.ToLeft, row: ERow.First,
 								turnDirection: new int[] {(int) ECartridgeDirection.ToBottom},
 								turnLine: new int[] {(int) Column.Left})
 						}));
@@ -120,7 +120,7 @@ namespace Project.Scripts.GamePlayScene
 						loop: true,
 						bulletGenerators: new List<GameObject>()
 						{
-							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: Row.First,
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.First,
 								column: Column.Left)
 						}));
 					/* 特殊タイル -> 数字パネル -> 特殊パネル */
@@ -179,9 +179,9 @@ namespace Project.Scripts.GamePlayScene
 						bulletGenerators: new List<GameObject>()
 						{
 							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
-								cartridgeDirection: ECartridgeDirection.Random, row: Row.Random),
+								cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
 							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
-								cartridgeDirection: ECartridgeDirection.Random, row: Row.Random,
+								cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random,
 								randomCartridgeDirection: new int[] {200, 10, 100, 0},
 								randomRow: new int[] {100, 5, 5, 5, 100}, randomColumn: new int[] {100, 10, 0}),
 						}));
@@ -211,9 +211,9 @@ namespace Project.Scripts.GamePlayScene
 						bulletGenerators: new List<GameObject>()
 						{
 							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
-								cartridgeDirection: ECartridgeDirection.Random, row: Row.Random),
+								cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
 							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
-								cartridgeDirection: ECartridgeDirection.Random, row: Row.Random,
+								cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random,
 								turnDirection: null, turnLine: null,
 								randomCartridgedirection: new int[] {10, 10, 10, 10},
 								randomRow: new int[] {1, 2, 3, 4, 5}, randomColumn: new int[] {100, 0, 100},
@@ -245,9 +245,9 @@ namespace Project.Scripts.GamePlayScene
 						loop: true,
 						bulletGenerators: new List<GameObject>()
 						{
-							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: Row.Random,
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.Random,
 								column: Column.Random),
-							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: Row.Random,
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.Random,
 								column: Column.Random,
 								randomRow: new int[] {100, 20, 20, 20, 100}, randomColumn: new int[] {30, 100, 30})
 						}));
@@ -306,10 +306,10 @@ namespace Project.Scripts.GamePlayScene
 						bulletGenerators: new List<GameObject>()
 						{
 							bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 10,
-								cartridgeDirection: ECartridgeDirection.Random, row: Row.Random),
+								cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
 							bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 10,
-								cartridgeDirection: ECartridgeDirection.Random, row: Row.Random),
-							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 10, row: Row.Random,
+								cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
+							bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 10, row: ERow.Random,
 								column: Column.Random),
 							bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 10)
 						}));
