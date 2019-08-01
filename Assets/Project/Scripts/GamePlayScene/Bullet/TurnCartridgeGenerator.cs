@@ -100,7 +100,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			warning.GetComponent<Renderer>().sortingOrder = bulletId;
 			var warningScript = warning.GetComponent<CartridgeWarningController>();
 			var bulletMotionVector =
-				warningScript.Initialize(CartridgeType.Turn, nextCartridgeDirection, nextCartridgeLine);
+				warningScript.Initialize(ECartridgeType.Turn, nextCartridgeDirection, nextCartridgeLine);
 
 			// 警告の表示時間だけ待つ
 			yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);

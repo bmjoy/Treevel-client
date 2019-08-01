@@ -15,13 +15,13 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
 		// 警告のpositionを計算する
 		// 銃弾の移動方向(bulletMotionVector)が副次的に計算されるので、その値を返す
-		public Vector2 Initialize(CartridgeType cartridgeType, CartridgeDirection direction, int line)
+		public Vector2 Initialize(ECartridgeType cartridgeType, CartridgeDirection direction, int line)
 		{
 			switch (cartridgeType)
 			{
-				case CartridgeType.Normal:
+				case ECartridgeType.Normal:
 					break;
-				case CartridgeType.Turn:
+				case ECartridgeType.Turn:
 					var sprite = Resources.Load<Sprite>("Textures/BulletWarning/turnWarning");
 					gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
 					break;

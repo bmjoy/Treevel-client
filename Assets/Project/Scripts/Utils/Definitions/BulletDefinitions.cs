@@ -1,6 +1,6 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
-	public enum CartridgeType
+	public enum ECartridgeType
 	{
 		Normal = 1,
 		Turn,
