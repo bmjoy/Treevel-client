@@ -103,7 +103,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 			Destroy(warning);
 
 			// ゲームが続いているなら銃弾を作成する
-			if (gamePlayDirector.state == GamePlayDirector.GameState.Playing)
+			if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing)
 			{
 				var cartridge = Instantiate(normalCartridgePrefab);
 				cartridge.GetComponent<NormalCartridgeController>()
