@@ -1,5 +1,4 @@
-﻿
-namespace Project.Scripts.Utils.Patterns
+﻿namespace Project.Scripts.Utils.Patterns
 {
     /// <summary>
     /// Singleton Class
@@ -24,11 +23,8 @@ namespace Project.Scripts.Utils.Patterns
         {
             get
             {
-
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
+                lock (_lock) {
+                    if (_instance == null) {
                         _instance = new T();
                     }
 
