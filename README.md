@@ -15,6 +15,8 @@
 >
 > Interfaces -> IUpperCamelCase
 >
+> Enums -> EUpperCamelCase
+>
 > Type parameters -> TUpperCamelCase
 >
 > Methods, properties and events -> UpperCamelCase
@@ -46,11 +48,14 @@
 > All other entities -> UpperCamelCase
 
 ### その他
-- `namespace` はディレクトリ構造と統一させる．
+- `namespace` はディレクトリ構造と統一させる
 
-### 自動フォーマット
-本プロジェクトは[Astyle](http://astyle.sourceforge.net)と[git-hooks](https://git-scm.com/docs/githooks)を用いて自動フォーマットを行っています。
-クローンした直後に以下のコマンドを実行してください。
+### Code Style
+[Astyle](http://astyle.sourceforge.net)と[git-hooks](https://git-scm.com/docs/githooks)を用いて自動フォーマットしている
+クローン後に，以下のコマンドを実行してください
+
 ```
 $ git config core.hooksPath .githooks
 ```
+
+フォーマット形式は，[Artistic Style](http://astyle.sourceforge.net/astyle.html#_Options)を元に`.astylerc`に記述されている
