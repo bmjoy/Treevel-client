@@ -14,21 +14,14 @@ namespace Project.Scripts.Editor
         private static GUIContent TEXT_INDEX = new GUIContent("Text Index", "Text Index");
         #endregion
 
-        MultiLanguageText uiText;
-
         public override void OnInspectorGUI()
         {
-            uiText = (MultiLanguageText)target;
+            MultiLanguageText uiText = (MultiLanguageText)target;
 
             base.OnInspectorGUI();
 
             EditorGUI.BeginChangeCheck();
-            uiText.TextIndex = (TextIndex)EditorGUILayout.EnumPopup(TEXT_INDEX, uiText.TextIndex);
-            if (EditorGUI.EndChangeCheck())
-            {
-                uiText.text = "test text";
-                // uiText.text = TextUtility.GetText(uiText.TextIndex);
-            }
+            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(TEXT_INDEX, uiText.TextIndex);
         }
 
         /// <summary>

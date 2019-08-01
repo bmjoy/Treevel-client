@@ -1,8 +1,10 @@
 namespace Project.Scripts.Utils.Definitions
 {
-    public enum TextIndex
+    public enum ETextIndex
     {
-        eSuccess,   // 成功
-        eConfig,    // 設定
+        Success,   // 成功
+        Failed,    // 失敗
+        Config,    // 設定
+        Retry,     // リトライ
     }
 }

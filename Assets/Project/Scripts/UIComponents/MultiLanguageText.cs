@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.TextUtils;
 
 namespace Project.Scripts.UIComponents
 {
@@ -10,8 +10,13 @@ namespace Project.Scripts.UIComponents
     /// </summary>
     public class MultiLanguageText : Text
     {
-        [SerializeField] TextIndex _textIndex;
-        public TextIndex TextIndex
+        [SerializeField] ETextIndex _textIndex;
+
+        /// <summary>
+        /// TextIndex が設定される同時にテキストを取得して設定する
+        /// </summary>
+        /// <value></value>
+        public ETextIndex TextIndex
         {
             get { return _textIndex; }
             set
@@ -19,39 +24,8 @@ namespace Project.Scripts.UIComponents
                 if (_textIndex != value)
                 {
                     _textIndex = value;
-                    // text = TextUtility.GetText(_textIndex);
+                    text = LanguageUtility.GetText(_textIndex);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Override setter to perform special text "index:" for quick transform
-        /// </summary>
-        /// <value>The text.</value>
-        public override string text
-        {
-            get
-            {
-                return base.text;
-            }
-
-            set
-            {
-                if ((value != null) && value.StartsWith("index:", StringComparison.Ordinal))
-                {
-                    string eText = value.Substring("index:".Length);
-                    try
-                    {
-                        TextIndex eTextIndex = (TextIndex)Enum.Parse(typeof(TextIndex), eText);
-                        TextIndex = eTextIndex;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.Log(ex.Message);
-                    }
-                }
-                else
-                    base.text = value;
             }
         }
 
@@ -60,14 +34,21 @@ namespace Project.Scripts.UIComponents
         /// </summary>
         public void OnLanguageChanged()
         {
-            // text = TextUtility.GetText(TextIndex);
+            text = LanguageUtility.GetText(TextIndex);
         }
 
         protected override void Start()
         {
             base.Start();
-            // Configuration.ChangeLanguageEventHandler += OnLanguageChanged;
-            // text = TextUtility.GetText(TextIndex);
+
+            // 言語変更するイベントを登録する
+            LanguageUtility.OnLanguageChange += OnLanguageChanged;
+            text = LanguageUtility.GetText(TextIndex);
+        }
+
+        void OnDestroy()
+        {
+            LanguageUtility.OnLanguageChange -= OnLanguageChanged;
         }
     }
 }

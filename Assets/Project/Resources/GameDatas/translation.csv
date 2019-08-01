@@ -1,0 +1,5 @@
+enum,JP,EN
+Success,成功,Success
+Failed,失敗,Failed
+Config,設定,Setting
+Retry,リトライ,Retry
