@@ -23,9 +23,10 @@ done
 # 変更された，もしくは追加された .cs ファイルをフォーマットする
 # TODO: cross-platform
 
-FORMATTER='./tool/astyle/mac/bin/AStyle'
+ROOTDIR=`git rev-parse --show-toplevel`
+FORMATTER="${ROOTDIR}/tool/astyle/mac/bin/AStyle"
 OPTIONS='--options=.astylerc'
 
 for FILE in ${STAGED_FILES}; do 
-    ${FORMATTER} ${OPTIONS} ${FILE}
+    "${FORMATTER}" ${OPTIONS} ${FILE}
 done
