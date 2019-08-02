@@ -7,6 +7,18 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
+# ステージング済みのファイルを取得
+STAGED_FILES=`git diff --staged --name-only | grep .cs`
+
+# エンコードの確認、utf-8じゃないファイルがあればコミットを中止
+for FILE in ${STAGED_FILES}; do
+    ENCODE=`file -b --mime-encoding ${FILE}`
+    if [ ${ENCODE} != 'utf-8' ]; then
+        echo "${FILE}のエンコードはutf-8ではありません、utf-8に変換してください"
+        exit 1
+    fi
+done
+
 # auto formatter
 # 変更された，もしくは追加された .cs ファイルをフォーマットする
 # TODO: cross-platform
@@ -14,6 +26,6 @@
 FORMATTER='./tool/astyle/mac/bin/AStyle'
 OPTIONS='--options=.astylerc'
 
-for FILE in `git diff --staged --name-only | grep .cs`; do
+for FILE in ${STAGED_FILES}; do 
     ${FORMATTER} ${OPTIONS} ${FILE}
 done
