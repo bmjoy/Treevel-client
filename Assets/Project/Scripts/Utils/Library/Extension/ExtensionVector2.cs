@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System;
 
-namespace Project.Scripts.Utils.Library.MyMath
+namespace Project.Scripts.Utils.Library.Extension
 {
-    public static class MyVector2
+    public static class ExtensionVector2
     {
         /// <summary>
         /// 要素の絶対値によるベクトルを返す
         /// </summary>
         /// <param name="v"> 対象ベクトル </param>
         /// <returns> 要素の絶対値によるベクトル </returns>
-        public static Vector2 Abs(Vector2 v)
+        public static Vector2 Abs(this Vector2 v)
         {
             return new Vector2(Math.Abs(v.x), Math.Abs(v.y));
         }
@@ -20,7 +20,7 @@ namespace Project.Scripts.Utils.Library.MyMath
         /// </summary>
         /// <param name="v"> 対象ベクトル </param>
         /// <returns>　転置後のベクトル </returns>
-        public static Vector2 Transposition(Vector2 v)
+        public static Vector2 Transposition(this Vector2 v)
         {
             return new Vector2(v.y, v.x);
         }
@@ -31,7 +31,7 @@ namespace Project.Scripts.Utils.Library.MyMath
         /// <param name="v"> 対象ベクトル </param>
         /// <param name="angle"> 回転角 </param>
         /// <returns> 回転後のベクトル </returns>
-        public static Vector2 Rotate(Vector2 v, float angle)
+        public static Vector2 Rotate(this Vector2 v, float angle)
         {
             return new Vector2((float)(Math.Cos(angle) * v.x - Math.Sin(angle) * v.y),
                                (float)(Math.Sin(angle) * v.x + Math.Cos(angle) * v.y));
