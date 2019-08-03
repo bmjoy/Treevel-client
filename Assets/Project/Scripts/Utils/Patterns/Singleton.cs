@@ -1,5 +1,4 @@
-﻿
-namespace Project.Scripts.Utils.Patterns
+﻿namespace Project.Scripts.Utils.Patterns
 {
     /// <summary>
     /// Singleton Class
@@ -14,21 +13,16 @@ namespace Project.Scripts.Utils.Patterns
     /// </code>
     /// </summary>
     /// <typeparam name="T">シングルトンにしたいクラス</typeparam>
-    public abstract class Singleton<T> where T : class, new()
+    public abstract class Singleton<T> where T : class, new ()
     {
         private static T _instance;
 
         private static object _lock = new object();
 
-        public static T Instance
-        {
-            get
-            {
-
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
+        public static T Instance {
+            get {
+                lock (_lock) {
+                    if (_instance == null) {
                         _instance = new T();
                     }
 
