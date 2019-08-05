@@ -80,18 +80,10 @@ namespace Project.Scripts.MenuSelectScene
         {
             // ONになった場合のみ処理
             if (toggle.GetComponent<Toggle>().isOn) {
-                if (toggle.name + "Scene" != nowScene) {
-                    // ToggleGroupを削除する前に、allowSwitchOffをtrueにする
-                    if (nowScene == SceneName.LEVEL_SELECT_SCENE) {
-                        var levelTab = GameObject.Find(LevelSelectDirector.LEVEL_TAB_TOGGLE_GROUP_NAME);
-                        levelTab.GetComponent<ToggleGroup>().allowSwitchOff = true;
-                    }
-
-                    // 今のシーンをアンロード
-                    SceneManager.UnloadSceneAsync(nowScene);
-                    // 新しいシーンをロード
-                    StartCoroutine(AddScene(toggle.name + "Scene"));
-                }
+                // 今のシーンをアンロード
+                SceneManager.UnloadSceneAsync(nowScene);
+                // 新しいシーンをロード
+                StartCoroutine(AddScene(toggle.name + "Scene"));
             }
         }
     }
