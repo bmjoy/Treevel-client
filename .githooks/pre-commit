@@ -8,7 +8,7 @@
 # To enable this hook, rename this file to "pre-commit".
 
 # ステージング済みのファイルを取得
-STAGED_FILES=`git diff --staged --differ-filtered=d --name-only | grep .cs$`
+STAGED_FILES=`git diff --staged --diff-filter=d --name-only | grep .cs$`
 
 # エンコードの確認、utf-8じゃないファイルがあればコミットを中止
 for FILE in ${STAGED_FILES}; do
