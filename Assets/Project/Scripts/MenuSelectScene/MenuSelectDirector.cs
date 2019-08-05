@@ -8,7 +8,6 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class MenuSelectDirector : MonoBehaviour
     {
-        public const string MENU_TAB_TOGGLE_GROUP_NAME = "MenuTab";
         private const string STAGE_SELECT_TOGGLE_NAME = "StageSelect";
         private const string RECORD_TOGGLE_NAME = "Record";
         private const string TUTORIAL_TOGGLE_NAME = "Tutorial";
