@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Project.Scripts.LevelSelectScene;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,14 +9,14 @@ namespace Project.Scripts.MenuSelectScene
     public class MenuSelectDirector : MonoBehaviour
     {
         public const string MENU_TAB_TOGGLE_GROUP_NAME = "MenuTab";
-        private const string LEVEL_SELECT_TOGGLE_NAME = "LevelSelect";
+        private const string STAGE_SELECT_TOGGLE_NAME = "StageSelect";
         private const string RECORD_TOGGLE_NAME = "Record";
         private const string TUTORIAL_TOGGLE_NAME = "Tutorial";
         private const string CONFIG_TOGGLE_NAME = "Config";
 
         private string nowScene;
 
-        private GameObject levelSelectToggle;
+        private GameObject stageSelectToggle;
 
         private GameObject recordToggle;
 
@@ -28,14 +27,14 @@ namespace Project.Scripts.MenuSelectScene
         private void Awake()
         {
             // Toggleの取得
-            levelSelectToggle = GameObject.Find(LEVEL_SELECT_TOGGLE_NAME);
+            stageSelectToggle = GameObject.Find(STAGE_SELECT_TOGGLE_NAME);
             recordToggle = GameObject.Find(RECORD_TOGGLE_NAME);
             tutorialToggle = GameObject.Find(TUTORIAL_TOGGLE_NAME);
             configToggle = GameObject.Find(CONFIG_TOGGLE_NAME);
             // Toggleのリスナーを設定
             AddListeners();
             // 初期シーンのロード
-            StartCoroutine(AddScene(SceneName.LEVEL_SELECT_SCENE));
+            StartCoroutine(AddScene(SceneName.STAGE_SELECT_SCENE));
         }
 
         private IEnumerator AddScene(string sceneName)
@@ -56,8 +55,8 @@ namespace Project.Scripts.MenuSelectScene
 
         private void AddListeners()
         {
-            levelSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
-                ToggleValueChanged(levelSelectToggle);
+            stageSelectToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
+                ToggleValueChanged(stageSelectToggle);
             });
 
             recordToggle.GetComponent<Toggle>().onValueChanged
