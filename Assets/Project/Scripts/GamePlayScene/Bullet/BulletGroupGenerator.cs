@@ -9,10 +9,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class BulletGroupGenerator : SingletonObject<BulletGroupGenerator>
     {
-        // 生成された銃弾のID(sortingOrder)
+        /// <summary>
+        /// 生成された銃弾のID(sortingOrder)
+        /// </summary>
         [NonSerialized] public short bulletId;
 
-        // 銃弾グループを制御するcoroutine
+        /// <summary>
+        /// 銃弾グループを制御するcoroutine
+        /// </summary>
         private List<IEnumerator> _coroutines;
 
         // 銃弾グループのprefab
@@ -24,7 +28,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
         [SerializeField] private GameObject _normalHoleGeneratorPrefab;
         [SerializeField] private GameObject _aimingHoleGeneratorPrefab;
 
-        // Generatorが作成された時刻
+        /// <summary>
+        /// ゲームの開始時刻
+        /// </summary>
         [NonSerialized] public float startTime;
 
         private void OnEnable()
@@ -39,7 +45,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
             GamePlayDirector.OnFail -= OnFail;
         }
 
-        /* 一連の銃弾の生成タイミングを管理するBulletGroupを作成する */
+        /// <summary>
+        /// 生成したBulletGroup群のcoroutineを開始する
+        /// </summary>
+        /// <param name="coroutines"></param>
         public void CreateBulletGroups(List<IEnumerator> coroutines)
         {
             Initialize();
@@ -48,14 +57,23 @@ namespace Project.Scripts.GamePlayScene.Bullet
             foreach (var coroutine in this._coroutines) StartCoroutine(coroutine);
         }
 
-        /* ゲーム開始時およびリトライ時に初期化が必要な変数を初期化する */
+        /// <summary>
+        /// ゲーム開始時およびリトライ時の初期化
+        /// </summary>
         private void Initialize()
         {
             bulletId = short.MinValue;
             startTime = Time.time;
         }
 
-        /* BulletGroupを生成する */
+        /// <summary>
+        /// BulletGroupの生成
+        /// </summary>
+        /// <param name="appearanceTime"> 銃弾生成の開始時刻</param>
+        /// <param name="interval"> 銃弾生成の時間間隔 </param>
+        /// <param name="loop"> 銃弾生成の繰り返しの有無 </param>
+        /// <param name="bulletGenerators"></param>
+        /// <returns></returns>
         public IEnumerator CreateBulletGroup(float appearanceTime, float interval, bool loop,
             List<GameObject> bulletGenerators)
         {
@@ -76,9 +94,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
             GameFinish();
         }
 
-        /* ゲーム終了時に全てのBulletGroupを停止させる */
         private void GameFinish()
         {
+            // 全てのBulletGroupを停止させる
             StopAllCoroutines();
         }
 
