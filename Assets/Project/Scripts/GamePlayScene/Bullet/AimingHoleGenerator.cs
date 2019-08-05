@@ -9,24 +9,48 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class AimingHoleGenerator : NormalHoleGenerator
     {
+        /// <summary>
+        /// AimingHoleのPrefab
+        /// </summary>
         [SerializeField] private GameObject _aimingHolePrefab;
+        /// <summary>
+        /// AimingHoleWarningのPrefab
+        /// </summary>
         [SerializeField] private GameObject _aimingHoleWarningPrefab;
 
-        // 銃弾を出現させるNumberPanelの番号の入った配列
+        /// <summary>
+        /// 撃ち抜くNumberanelの番号配列
+        /// </summary>
         [CanBeNull] private int[] _aimingPanel = null;
 
-        // aimingPanel配列の何番目か
+        /// <summary>
+        /// 次に参照するaimingPanelのindex
+        /// </summary>
         private int _aimingHoleCount = 0;
 
-        // aimingHoleが出現するNumberPanelの出現率の重み
+        /// <summary>
+        /// AimingHoleが撃ち抜くNumberPanelの確率
+        /// </summary>
+        /// <returns></returns>
         private int[] _randomNumberPanel = BulletLibrary.GetInitialArray(StageSize.NUMBER_PANEL_NUM);
 
+        /// <summary>
+        /// 特定のNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現確率 </param>
+        /// <param name="aimingPanel"> 撃ち抜くNumberPanelの配列 </param>
         public void Initialize(int ratio, int[] aimingPanel)
         {
             this.ratio = ratio;
             this._aimingPanel = aimingPanel;
         }
 
+        /// <summary>
+        /// ランダムなNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現確率 </param>
+        /// <param name="aimingPanel"> null </param>
+        /// <param name="randomNumberPanel"> 撃ちぬくNumberPanelの確率 </param>
         public void Initialize(int ratio, int[] aimingPanel, int[] randomNumberPanel)
         {
             this.ratio = ratio;
@@ -60,7 +84,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
             }
         }
 
-        /* 撃つNumberPanelの番号を重みに基づき決定する */
+        /// <summary>
+        /// 撃ちぬくNumberPanelを重みに基づき決定する
+        /// </summary>
+        /// <returns></returns>
         private int GetNumberPanel()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomNumberPanel) + 1;
