@@ -33,7 +33,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         // 当たり判定(holeの表示場所に、tileがあるかどうかを確認する)
-        public IEnumerator Delete()
+        public IEnumerator CollisionCheck()
         {
             var gamePlayDirector = FindObjectOfType<GamePlayDirector>();
             var tile = TileLibrary.GetTile(row, column);
