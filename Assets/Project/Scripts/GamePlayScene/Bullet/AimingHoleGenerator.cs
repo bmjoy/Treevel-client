@@ -38,7 +38,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // どのNumberPanelを撃つか指定する
             int[] nextAimingPanel = aimingPanel ?? new int[] {GetNumberPanel()};
-            
+
             // 警告の作成
             var warning = Instantiate(aimingHoleWarningPrefab);
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
