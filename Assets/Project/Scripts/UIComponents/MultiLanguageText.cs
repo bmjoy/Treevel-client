@@ -46,7 +46,7 @@ namespace Project.Scripts.UIComponents
             text = LanguageUtility.GetText(TextIndex);
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
             LanguageUtility.OnLanguageChange -= OnLanguageChanged;
         }
