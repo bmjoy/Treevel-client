@@ -10,11 +10,11 @@ namespace Project.Scripts.Utils.TextUtils
     /// 列挙の値は<see cref="SystemLanguage"/>で定義する列挙値に合わせること
     /// 又、順序はResources/GameDatas/translation.csvに合わせること
     /// </summary>
-    public enum ELanguage
-    {
+    public enum ELanguage {
         Japanese, // 日本語
         English, // 英語
     }
+
     public class LanguageUtility
     {
         private static ELanguage _currentLanguage;
@@ -30,7 +30,7 @@ namespace Project.Scripts.Utils.TextUtils
         /// </summary>
 
         #if UNITY_EDITOR
-            [UnityEditor.Callbacks.DidReloadScripts]
+        [UnityEditor.Callbacks.DidReloadScripts]
         #endif
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
@@ -46,8 +46,8 @@ namespace Project.Scripts.Utils.TextUtils
         /// csvファイルからテキストの対応表を読み込む
         /// </summary>
         #if UNITY_EDITOR
-            [UnityEditor.Callbacks.DidReloadScripts]
-            [UnityEditor.MenuItem("Tools/Load Text")]
+        [UnityEditor.Callbacks.DidReloadScripts]
+        [UnityEditor.MenuItem("Tools/Load Text")]
         #endif
         public static void Load()
         {
@@ -55,8 +55,7 @@ namespace Project.Scripts.Utils.TextUtils
             List<string[]> datas = CSVReader.LoadCSV(DATA_PATH);
 
             // skip headers
-            for (int i = 1; i < datas.Count; i++)
-            {
+            for (int i = 1; i < datas.Count; i++) {
                 string[] line = datas[i];
 
                 ETextIndex index;
@@ -66,8 +65,7 @@ namespace Project.Scripts.Utils.TextUtils
                         string newText = line[(int)language + 1];
                         _stringTable.Add(key, newText);
                     }
-                }
-                else {
+                } else {
                     Debug.LogWarning(message: $"{line[0]} is not a valid enum value");
                 }
             }
@@ -75,16 +73,16 @@ namespace Project.Scripts.Utils.TextUtils
         public static string GetText(ETextIndex index)
         {
             KeyValuePair<ELanguage, ETextIndex> key = new KeyValuePair<ELanguage, ETextIndex>(_currentLanguage, index);
-            if (_stringTable.ContainsKey(key)){
+            if (_stringTable.ContainsKey(key)) {
                 return _stringTable[key];
-            }
-            else {
+            } else {
                 Debug.LogWarning($"{CurrentLanguage.ToString()}の{index.ToString()}が存在していない");
                 return "";
             }
         }
 
-        public static ELanguage CurrentLanguage {
+        public static ELanguage CurrentLanguage
+        {
             get {
                 return _currentLanguage;
             }

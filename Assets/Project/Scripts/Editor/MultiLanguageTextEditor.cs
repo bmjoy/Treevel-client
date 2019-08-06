@@ -41,8 +41,8 @@ namespace Project.Scripts.Editor
                 Canvas canvas = FindObjectOfType<Canvas>();
                 if (canvas != null) {
                     GameObjectUtility.SetParentAndAlign(obj, canvas.gameObject);
-                }
-                else {　// シーンにCanvasがない場合
+                } else {
+                    　// シーンにCanvasがない場合
                     // キャンバス作成
                     parent = CreateAndInitializeCanvas();
                     // レイヤーをUIに設定する
@@ -50,13 +50,12 @@ namespace Project.Scripts.Editor
                     // 親子関係を設定する
                     GameObjectUtility.SetParentAndAlign(obj, parent);
                 }
-            }
-            else {　// 何かを選択している場合
+            } else {
+                　// 何かを選択している場合
                 if (selection.GetComponentInParent<Canvas>()) {
                     // 選択したオブジェクトはキャンバスの子オブジェクトだったらそのまま選択したオブジェクトの下に置く
                     GameObjectUtility.SetParentAndAlign(obj, selection);
-                }
-                else {
+                } else {
                     // 選択したオブジェクトがCanvasを持っていなかったらCanvasを作成
                     parent = CreateAndInitializeCanvas();
                     GameObjectUtility.SetParentAndAlign(parent, selection);
@@ -89,7 +88,8 @@ namespace Project.Scripts.Editor
         /// キャンバスの作成とデフォルトの設定
         /// </summary>
         /// <returns>作成したキャンバスゲームオブジェクト</returns>
-        private static GameObject CreateAndInitializeCanvas () {
+        private static GameObject CreateAndInitializeCanvas()
+        {
             GameObject obj = new GameObject("Canvas");
             Canvas canvas = obj.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
