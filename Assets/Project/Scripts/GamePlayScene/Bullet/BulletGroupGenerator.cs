@@ -101,7 +101,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         /// <summary>
-        /// NormalCartridgeのGeneratorを生成する 
+        /// NormalCartridgeのGeneratorを生成する
         /// 横方向、特定の行を移動するNormalCartridge
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合</param>
@@ -117,7 +117,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         /// <summary>
-        /// NormalCartridgeのGeneratorを生成する 
+        /// NormalCartridgeのGeneratorを生成する
         /// 縦方向、特定の列を移動するNormalCartridge
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合 </param>

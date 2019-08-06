@@ -94,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             angle = (float)(Mathf.Acos(angle) * 180 / Math.PI);
             angle *= -1 * Mathf.Sign(motionVector.y);
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
-            
+
         }
 
         protected override void OnFail()
