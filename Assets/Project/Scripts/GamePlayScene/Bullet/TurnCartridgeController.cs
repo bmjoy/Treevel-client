@@ -19,7 +19,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private Vector2 _turnPoint;
 
         // 回転方向に応じて表示わけする警告画像の名前
-        private readonly string[] _warningList = {"turnLeft", "turnRight", "turnUp", "turnBottom"};
+        private enum ETurnWarning {
+            turnLeft,
+            turnRight,
+            turnUp,
+            turnBottom
+        }
 
         // 警告
         [SerializeField] private GameObject _normalCartridgeWarningPrefab;
@@ -48,7 +53,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 _warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
                 // warningの位置・大きさ等の設定
                 var warningScript = _warning.GetComponent<CartridgeWarningController>();
-                warningScript.Initialize(_turnPoint, _warningList[_turnDirection[0] - 1]);
+                warningScript.Initialize(_turnPoint, Enum.GetName(typeof(ETurnWarning), _turnDirection[0]-1));
                 _rotateCount++;
                 transform.Translate(motionVector * speed, Space.World);
             }
