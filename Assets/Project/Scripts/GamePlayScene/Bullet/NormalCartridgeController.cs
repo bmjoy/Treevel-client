@@ -84,9 +84,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private void OnTriggerEnter2D(Collider2D other)
         {
             // 数字パネルとの衝突以外は考えない
-            if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) {
-                return;
-            }
+            if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) return;
 
             // 衝突したオブジェクトは赤色に変える
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;

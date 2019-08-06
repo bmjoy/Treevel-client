@@ -9,8 +9,8 @@ namespace Project.Scripts.Utils.Library
         /// <summary>
         /// 座標から行(row)と列(column)を返す
         /// </summary>
-        /// <param name="row"> 行を受け取る変数 </param>
-        /// <param name="column"> 列を受け取る変数 </param>
+        /// <param name="row"> 盤面の行番号 </param>
+        /// <param name="column"> 盤面の列番号 </param>
         /// <param name="position"> 座標 </param>
         public static void GetRowAndColumn(out int row, out int column, Vector2 position)
         {
@@ -21,7 +21,7 @@ namespace Project.Scripts.Utils.Library
         }
 
         /// <summary>
-        /// 要素数を指定し、初期化された配列を返す
+        /// 要素数を指定し、BulletGeneratorPrameter.INITIAL_RATIOで初期化された配列を返す
         /// </summary>
         /// <param name="arrayLength"> 配列の要素数 </param>
         /// <returns> 初期化された配列 </returns>
@@ -57,6 +57,5 @@ namespace Project.Scripts.Utils.Library
 
             return index - 1;
         }
-
     }
 }
