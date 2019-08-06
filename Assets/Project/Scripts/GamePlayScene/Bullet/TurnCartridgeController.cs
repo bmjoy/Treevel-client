@@ -54,7 +54,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             }
             // 回転はじめのフレーム
             else if (rotateCount == 0 && Vector2.Distance(turnPoint, transform.position) <=
-                     (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) {
+                (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) {
                 Destroy(warning);
                 rotateCount++;
                 motionVector = motionVector.Rotate(turnAngle / 2f);
@@ -79,9 +79,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
                     turnDirection = turnDirection.Skip(1).Take(turnDirection.Length - 1).ToArray();
                     turnLine = turnLine.Skip(1).Take(turnLine.Length - 1).ToArray();
                     turnPoint = transform.position * motionVector.Transposition().Abs() + new Vector2(
-                                    TileSize.WIDTH * (turnLine[0] - 2),
-                                    WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-                                    TileSize.HEIGHT * (turnLine[0] - 1)) * motionVector.Abs();
+                            TileSize.WIDTH * (turnLine[0] - 2),
+                            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
+                            TileSize.HEIGHT * (turnLine[0] - 1)) * motionVector.Abs();
                     turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
                     turnAngle = (motionVector.x + motionVector.y) * turnAngle;
                     turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
@@ -101,7 +101,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         public void Initialize(ECartridgeDirection direction, int line, Vector2 motionVector,
-                               int[] turnDirection, int[] turnLine)
+            int[] turnDirection, int[] turnLine)
         {
             // 銃弾に必要な引数を受け取る
             Initialize(direction, line, motionVector);
@@ -109,9 +109,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this.turnLine = turnLine;
             // 銃弾が曲がるタイルの座標
             turnPoint = transform.position * motionVector.Transposition().Abs() + new Vector2(
-                            TileSize.WIDTH * (turnLine[0] - 2),
-                            WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-                            TileSize.HEIGHT * (turnLine[0] - 1)) * motionVector.Abs();
+                    TileSize.WIDTH * (turnLine[0] - 2),
+                    WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
+                    TileSize.HEIGHT * (turnLine[0] - 1)) * motionVector.Abs();
             // 回転角度
             turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
             turnAngle = (motionVector.x + motionVector.y) * turnAngle;

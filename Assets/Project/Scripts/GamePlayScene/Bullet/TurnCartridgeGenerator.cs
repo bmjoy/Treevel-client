@@ -29,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private int[] randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
-                               int[] turnLine)
+            int[] turnLine)
         {
             Initialize(ratio, cartridgeDirection, row);
             this.turnDirection = turnDirection;

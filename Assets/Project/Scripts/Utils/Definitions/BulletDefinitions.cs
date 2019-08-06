@@ -7,7 +7,7 @@
         /// </summary>
         public const int INITIAL_RATIO = 100;
     }
-    
+
     public enum ECartridgeType {
         Normal = 1,
         Turn,
