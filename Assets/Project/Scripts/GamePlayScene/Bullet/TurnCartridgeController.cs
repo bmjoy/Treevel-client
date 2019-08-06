@@ -9,16 +9,25 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class TurnCartridgeController : NormalCartridgeController
     {
-        // 回転方向の配列
+        /// <summary>
+        /// 曲がる方向の配列
+        /// </summary>
         private int[] _turnDirection;
 
-        // 回転する行(or列)の配列
+        /// <summary>
+        /// 曲がる行(または列)の配列
+        /// </summary>
         private int[] _turnLine;
 
-        // 回転に関する警告を表示する座標
+        /// <summary>
+        /// 曲がる方向を示す警告の座標
+        /// </summary>
         private Vector2 _turnPoint;
 
-        // 回転方向に応じて表示わけする警告画像の名前
+        /// <summary>
+        /// 曲がる方向に応じて表示わけする警告画像の名前
+        /// </summary>
+        /// <value></value>
         private enum ETurnWarning {
             turnLeft,
             turnRight,
@@ -26,20 +35,33 @@ namespace Project.Scripts.GamePlayScene.Bullet
             turnBottom
         }
 
-        // 警告
-        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
+        /// <summary>
+        /// NormalWarningのPrefab
+        /// </summary>
+        public GameObject _normalCartridgeWarningPrefab;
+        /// <summary>
+        /// NormalWarning
+        /// </summary>
         private GameObject _warning;
 
-        // １フレームあたりの回転角度
+        /// <summary>
+        /// 1フレームあたりの回転角度
+        /// </summary>
         private float _turnAngle;
 
-        // 回転に要するフレーム数
+        /// <summary>
+        /// 回転に要するフレーム数
+        /// </summary>
         private const int COUNT = 50;
 
-        // 回転の何フレーム目か
+        /// <summary>
+        /// 回転の何フレーム目か
+        /// </summary>
         private int _rotateCount = -1;
 
-        // 回転中の銃弾の速さ (円周(回転半径 * 2 * pi)の4分の1をフレーム数で割る)
+        /// <summary>
+        /// 回転中の銃弾の速さ (円周(=回転半径 * 2 * pi)の4分の1をフレーム数で割る)
+        /// </summary>
         private float rotatingSpeed =
             ((PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) * 2f * (float) Math.PI / 4f / COUNT;
 
@@ -53,7 +75,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 _warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
                 // warningの位置・大きさ等の設定
                 var warningScript = _warning.GetComponent<CartridgeWarningController>();
-                warningScript.Initialize(_turnPoint, Enum.GetName(typeof(ETurnWarning), _turnDirection[0]-1));
+                warningScript.Initialize(_turnPoint, Enum.GetName(typeof(ETurnWarning), _turnDirection[0] - 1));
                 _rotateCount++;
                 transform.Translate(motionVector * speed, Space.World);
             }
@@ -105,6 +127,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
             }
         }
 
+        /// <summary>
+        /// 銃弾の移動ベクトル、曲がる方向、曲がる行(または列)、初期座標を設定する
+        /// </summary>
+        /// <param name="direction"> 移動方向 </param>
+        /// <param name="line"> 移動する行(または列) </param>
+        /// <param name="motionVector"> 移動ベクトル </param>
+        /// <param name="turnDirection">　曲がる方向 </param>
+        /// <param name="turnLine"> 曲がる行(または列) </param>
         public void Initialize(ECartridgeDirection direction, int line, Vector2 motionVector,
             int[] turnDirection, int[] turnLine)
         {

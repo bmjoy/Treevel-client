@@ -10,24 +10,51 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class TurnCartridgeGenerator : NormalCartridgeGenerator
     {
+        /// <summary>
+        /// TurnCartridgeのPrefab
+        /// </summary>
         [SerializeField] private GameObject _turnCartridgePrefab;
+        /// <summary>
+        /// TurnCartridgeWarningのPrefab
+        /// </summary>
         [SerializeField] private GameObject _turnCartridgeWarningPrefab;
 
-        // 曲がる方向
+        /// <summary>
+        /// 曲がる方向
+        /// </summary>
         [CanBeNull] private int[] _turnDirection = null;
 
-        // 曲がる場所
+        /// <summary>
+        /// 曲がる行(または列)
+        /// </summary>
         [CanBeNull] private int[] _turnLine = null;
 
-        // 曲がる方向をランダムに決めるときの各方向の重み
+        /// <summary>
+        /// 曲がる方向の重み
+        /// </summary>
+        /// <returns></returns>
         private int[] _randomTurnDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
-        // 曲がる行をランダムに決めるときの各行の重み
+        /// <summary>
+        /// 曲がる行の重み
+        /// </summary>
+        /// <returns></returns>
         private int[] _randomTurnRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
-        // 曲がる列をランダムに決めるときの各列の重み
+        /// <summary>
+        /// 曲がる列の重み
+        /// </summary>
+        /// <returns></returns>
         private int[] _randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
+        /// <summary>
+        /// 特定の行を移動し、特定の列で特定の方向に曲がるTurnHoleを生成するGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="cartridgeDirection"> 移動方向 </param>
+        /// <param name="row"> 移動する行 </param>
+        /// <param name="turnDirection"> 曲がる方向 </param>
+        /// <param name="turnLine"> 曲がる列 </param>
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
             int[] turnLine)
         {
@@ -36,6 +63,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this._turnLine = turnLine;
         }
 
+        /// <summary>
+        /// 特定の列を移動し、特定の行で特定の方向に曲がるTurnHoleを生成するGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="cartridgeDirection"> 移動方向 </param>
+        /// <param name="column"> 移動する列 </param>
+        /// <param name="turnDirection"> 曲がる方向 </param>
+        /// <param name="turnLine"> 曲がる行 </param>
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
             int[] turnLine)
         {
@@ -44,6 +79,20 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this._turnLine = turnLine;
         }
 
+        /// <summary>
+        /// ランダムな行を移動し、ランダムな列でランダムな方向に曲がるTurnHoleを生成するGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="cartridgeDirection"> 移動する方向 </param>
+        /// <param name="row"> 移動する行 </param>
+        /// <param name="turnDirection"> 曲がる方向(nullを許容) </param>
+        /// <param name="turnLine"> 曲がる行(または列)(nullを許容) </param>
+        /// <param name="randomCartridgeDirection"> 移動する方向の重み </param>
+        /// <param name="randomRow"> 移動する行の重み </param>
+        /// <param name="randomColumn"> 移動する列の重み </param>
+        /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
+        /// <param name="randomTurnRow"> 曲がる行の重み </param>
+        /// <param name="randomTurnColumn"> 曲がる列の重み </param>
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
             int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
@@ -56,6 +105,20 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this._randomTurnColumn = randomTurnColumn;
         }
 
+        /// <summary>
+        /// ランダムな列を移動し、ランダムな行でランダムな方向に曲がるTurnHoleを生成するGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="cartridgeDirection"> 移動する方向 </param>
+        /// <param name="column"> 移動する列 </param>
+        /// <param name="turnDirection"> 曲がる方向(nullを許容) </param>
+        /// <param name="turnLine"> 曲がる行(または列)(nullを許容) </param>
+        /// <param name="randomCartridgeDirection"> 移動する方向の重み </param>
+        /// <param name="randomRow"> 移動する行の重み </param>
+        /// <param name="randomColumn"> 移動する列の重み </param>
+        /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
+        /// <param name="randomTurnRow"> 曲がる行の重み </param>
+        /// <param name="randomTurnColumn"> 曲がる列の重み </param>
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
             int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
@@ -139,7 +202,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
             }
         }
 
-        /* 曲がる方向を重みに基づきランダムに決定する */
+        /// <summary>
+        /// 曲がる方向を重みに基づき決定する
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <param name="line"></param>
+        /// <returns></returns>
         private int GetRandomTurnDirection(ECartridgeDirection direction, int line)
         {
             var randomTurnDirection = 0;
@@ -201,14 +269,20 @@ namespace Project.Scripts.GamePlayScene.Bullet
             return randomTurnDirection;
         }
 
-        /* 曲がる行を重みに基づき決定する*/
+        /// <summary>
+        /// 曲がる行を重みに基づき決定する
+        /// </summary>
+        /// <returns></returns>
         private int GetTurnRow()
         {
             var index = BulletLibrary.SamplingArrayIndex(randomRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
-        /* 曲がる列を重みに基づき決定する */
+        /// <summary>
+        /// 曲がる列を重みに基づき決定する
+        /// </summary>
+        /// <returns></returns>
         private int GetTurnColumn()
         {
             var index = BulletLibrary.SamplingArrayIndex(randomColumn) + 1;
