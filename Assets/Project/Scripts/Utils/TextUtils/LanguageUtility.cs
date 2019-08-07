@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 
 namespace Project.Scripts.Utils.TextUtils
@@ -35,10 +36,15 @@ namespace Project.Scripts.Utils.TextUtils
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
         {
-            string systemLanguage = Application.systemLanguage.ToString();
-            if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
-                _currentLanguage = ELanguage.Japanese;
+            if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {
+                _currentLanguage = MyPlayerPrefs.GetObject<ELanguage>(PlayerPrefsKeys.LANGUAGE);
+            } else {
+                string systemLanguage = Application.systemLanguage.ToString();
+                if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
+                    _currentLanguage = ELanguage.Japanese;
+                }
             }
+
             Load();
         }
 
@@ -89,6 +95,9 @@ namespace Project.Scripts.Utils.TextUtils
             set {
                 _currentLanguage = value;
                 OnLanguageChange.Invoke();
+
+                // PlayerPrefsに保存
+                MyPlayerPrefs.SetObject(PlayerPrefsKeys.LANGUAGE, _currentLanguage);
             }
         }
     }
