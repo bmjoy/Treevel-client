@@ -78,6 +78,8 @@ namespace Project.Scripts.MenuSelectScene
         {
             // ONになった場合のみ処理
             if (toggle.GetComponent<Toggle>().isOn) {
+                // 現在チェックされている Toggle を OFF にする
+                GameObject.Find(nowScene.Replace("Scene", "")).GetComponent<Toggle>().isOn = false;
                 // 今のシーンをアンロード
                 SceneManager.UnloadSceneAsync(nowScene);
                 // 新しいシーンをロード
