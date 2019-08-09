@@ -25,7 +25,8 @@ namespace Project.Scripts.Utils.TextUtils
         public delegate void LanguageChangeEvent();
         public static event LanguageChangeEvent OnLanguageChange;
 
-        static LanguageUtility () {
+        static LanguageUtility()
+        {
             if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {
                 _currentLanguage = MyPlayerPrefs.GetObject<ELanguage>(PlayerPrefsKeys.LANGUAGE);
             } else {
