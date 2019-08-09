@@ -49,6 +49,7 @@ namespace Project.Scripts.UIComponents
         protected override void OnDestroy()
         {
             LanguageUtility.OnLanguageChange -= OnLanguageChanged;
+            base.OnDestroy();
         }
     }
 }
