@@ -16,7 +16,7 @@ namespace Project.Scripts.Utils.TextUtils
         English, // 英語
     }
 
-    public class LanguageUtility
+    public static class LanguageUtility
     {
         private static ELanguage _currentLanguage;
         private static Dictionary<KeyValuePair<ELanguage, ETextIndex>, string> _stringTable;
@@ -25,17 +25,7 @@ namespace Project.Scripts.Utils.TextUtils
         public delegate void LanguageChangeEvent();
         public static event LanguageChangeEvent OnLanguageChange;
 
-
-        /// <summary>
-        /// アプリ起動するとき自動でデバイスの言語を取得し設定する。
-        /// </summary>
-
-        #if UNITY_EDITOR
-        [UnityEditor.Callbacks.DidReloadScripts]
-        #endif
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        public static void Init()
-        {
+        static LanguageUtility () {
             if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {
                 _currentLanguage = MyPlayerPrefs.GetObject<ELanguage>(PlayerPrefsKeys.LANGUAGE);
             } else {
