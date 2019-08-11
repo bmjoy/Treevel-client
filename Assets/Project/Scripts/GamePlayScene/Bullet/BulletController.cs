@@ -10,8 +10,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
         [NonSerialized] protected const float LOCAL_SCALE = 1.0f;
 
         // 元画像のサイズ
-        public float originalWidth;
-        public float originalHeight;
+        [NonSerialized] public float originalWidth;
+        [NonSerialized] public float originalHeight;
 
         protected virtual void Awake()
         {

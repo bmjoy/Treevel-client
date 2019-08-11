@@ -7,9 +7,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class NormalCartridgeController : BulletController
     {
-        public float additionalMargin = 0.00001f;
-        public Vector2 motionVector;
-        [NonSerialized] protected float speed = 0.05f;
+        [NonSerialized] public float additionalMargin = 0.00001f;
+        [NonSerialized] public Vector2 motionVector;
+        protected float speed = 0.05f;
 
         protected override void Awake()
         {

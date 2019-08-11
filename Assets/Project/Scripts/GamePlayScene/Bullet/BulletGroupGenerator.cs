@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class BulletGroupGenerator : SingletonObject<BulletGroupGenerator>
     {
         // 生成された銃弾のID(sortingOrder)
-        public short bulletId;
+        [NonSerialized] public short bulletId;
 
         // 銃弾グループを制御するcoroutine
         private List<IEnumerator> coroutines;
@@ -18,13 +19,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public GameObject bulletGroupControllerPrefab;
 
         // 各銃弾のGeneratorのprefab
-        public GameObject normalCartridgeGeneratorPrefab;
-        public GameObject turnCartridgeGeneratorPrefab;
-        public GameObject normalHoleGeneratorPrefab;
-        public GameObject aimingHoleGeneratorPrefab;
+        [SerializeField] private GameObject normalCartridgeGeneratorPrefab;
+        [SerializeField] private GameObject turnCartridgeGeneratorPrefab;
+        [SerializeField] private GameObject normalHoleGeneratorPrefab;
+        [SerializeField] private GameObject aimingHoleGeneratorPrefab;
 
         // Generatorが作成された時刻
-        public float startTime;
+        [NonSerialized] public float startTime;
 
         private void OnEnable()
         {

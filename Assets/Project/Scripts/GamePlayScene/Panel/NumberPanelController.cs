@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using System;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using SpriteGlow;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         private int panelNum;
 
         // パネルが最終タイルにいるかどうかの状態
-        public bool adapted;
+        [NonSerialized] public bool adapted;
 
         protected override void Awake()
         {

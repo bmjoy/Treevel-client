@@ -7,16 +7,16 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        public GameObject numberTile1Prefab;
-        public GameObject numberTile2Prefab;
-        public GameObject numberTile3Prefab;
-        public GameObject numberTile4Prefab;
-        public GameObject numberTile5Prefab;
-        public GameObject numberTile6Prefab;
-        public GameObject numberTile7Prefab;
-        public GameObject numberTile8Prefab;
-        public GameObject normalTilePrefab;
-        public GameObject warpTilePrefab;
+        [SerializeField] private GameObject numberTile1Prefab;
+        [SerializeField] private GameObject numberTile2Prefab;
+        [SerializeField] private GameObject numberTile3Prefab;
+        [SerializeField] private GameObject numberTile4Prefab;
+        [SerializeField] private GameObject numberTile5Prefab;
+        [SerializeField] private GameObject numberTile6Prefab;
+        [SerializeField] private GameObject numberTile7Prefab;
+        [SerializeField] private GameObject numberTile8Prefab;
+        [SerializeField] private GameObject normalTilePrefab;
+        [SerializeField] private GameObject warpTilePrefab;
 
         private List<GameObject> numberTilePrefabs;
         private readonly GameObject[,] tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];

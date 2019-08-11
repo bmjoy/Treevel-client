@@ -7,16 +7,16 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     public class PanelGenerator : SingletonObject<PanelGenerator>
     {
-        public GameObject numberPanel1Prefab;
-        public GameObject numberPanel2Prefab;
-        public GameObject numberPanel3Prefab;
-        public GameObject numberPanel4Prefab;
-        public GameObject numberPanel5Prefab;
-        public GameObject numberPanel6Prefab;
-        public GameObject numberPanel7Prefab;
-        public GameObject numberPanel8Prefab;
-        public GameObject staticDummyPanelPrefab;
-        public GameObject dynamicDummyPanelPrefab;
+        [SerializeField] private GameObject numberPanel1Prefab;
+        [SerializeField] private GameObject numberPanel2Prefab;
+        [SerializeField] private GameObject numberPanel3Prefab;
+        [SerializeField] private GameObject numberPanel4Prefab;
+        [SerializeField] private GameObject numberPanel5Prefab;
+        [SerializeField] private GameObject numberPanel6Prefab;
+        [SerializeField] private GameObject numberPanel7Prefab;
+        [SerializeField] private GameObject numberPanel8Prefab;
+        [SerializeField] private GameObject staticDummyPanelPrefab;
+        [SerializeField] private GameObject dynamicDummyPanelPrefab;
 
         private List<GameObject> numberPanelPrefabs;
 

@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using System;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
@@ -6,7 +7,7 @@ namespace Project.Scripts.GamePlayScene.Tile
     public class WarpTileController : NormalTileController
     {
         // 相方のwarpTile
-        public GameObject pairTile;
+        [NonSerialized] public GameObject pairTile;
 
         public void Initialize(Vector2 position, int tileNum, GameObject pairTile)
         {

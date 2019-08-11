@@ -10,11 +10,11 @@ namespace Project.Scripts.RecordScene
 {
     public class RecordDirector : MonoBehaviour
     {
-        public GameObject graphPrefab;
+        [SerializeField] private GameObject graphPrefab;
 
-        public GameObject stageNumPrefab;
+        [SerializeField] private GameObject stageNumPrefab;
 
-        public GameObject successLinePrefab;
+        [SerializeField] private GameObject successLinePrefab;
 
         private readonly Dictionary<EStageLevel, GameObject> levelText = new Dictionary<EStageLevel, GameObject>();
 

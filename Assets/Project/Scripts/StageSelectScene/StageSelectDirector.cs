@@ -14,12 +14,12 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージボタンの Prefab
         /// </summary>
-        public GameObject stageButtonPrefab;
+        [SerializeField] protected GameObject stageButtonPrefab;
 
         /// <summary>
         /// ゲーム画面のためのダミー背景
         /// </summary>
-        public GameObject dummyBackgroundPrefab;
+        [SerializeField] protected GameObject dummyBackgroundPrefab;
 
         private SnapScrollView snapScrollView;
 

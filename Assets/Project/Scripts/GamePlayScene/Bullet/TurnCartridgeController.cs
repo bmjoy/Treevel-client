@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private readonly string[] warningList = {"turnLeft", "turnRight", "turnUp", "turnBottom"};
 
         // 警告
-        public GameObject normalCartridgeWarningPrefab;
+        [SerializeField] private GameObject normalCartridgeWarningPrefab;
         private GameObject warning;
 
         // １フレームあたりの回転角度
