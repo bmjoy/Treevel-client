@@ -43,6 +43,7 @@ namespace Project.Scripts.Utils.Definitions
         /// <summary>
         /// 難易度ごとに固有のボタン色
         /// </summary>
+        /// TODO: 今後，インスペクタから変更できるようにする
         public static readonly Dictionary<EStageLevel, Color> LevelColor = new Dictionary<EStageLevel, Color>()
         {
             {EStageLevel.Easy, Color.magenta},
