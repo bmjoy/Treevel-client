@@ -86,7 +86,7 @@ namespace Project.Scripts.StageSelectScene
         /// <param name="stageLevel"> 配置するボタンの難易度 </param>
         private void MakeButtons(EStageLevel stageLevel)
         {
-            var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + stageLevel + "/Scroll View/Viewport/Content/Buttons").GetComponent<RectTransform>();
+            var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + stageLevel + "/ScrollView/Viewport/Content/Buttons").GetComponent<RectTransform>();
 
             // TODO: 今後，難易度ごとにボタン配置を変える必要がある
             for (var i = 0; i < StageInfo.Num[stageLevel]; i++) {
