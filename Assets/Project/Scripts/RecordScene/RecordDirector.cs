@@ -51,10 +51,10 @@ namespace Project.Scripts.RecordScene
             }
 
             // 名前が決まるまではこれで行く
-            levelText[EStageLevel.Easy].GetComponent<Text>().text = "簡単";
-            levelText[EStageLevel.Normal].GetComponent<Text>().text = "普通";
-            levelText[EStageLevel.Hard].GetComponent<Text>().text = "ムズイ";
-            levelText[EStageLevel.VeryHard].GetComponent<Text>().text = "激ムズ";
+            levelText[EStageLevel.Easy].GetComponent<Text>().text = StageInfo.LevelName[EStageLevel.Easy];
+            levelText[EStageLevel.Normal].GetComponent<Text>().text = StageInfo.LevelName[EStageLevel.Normal];
+            levelText[EStageLevel.Hard].GetComponent<Text>().text = StageInfo.LevelName[EStageLevel.Hard];
+            levelText[EStageLevel.VeryHard].GetComponent<Text>().text = StageInfo.LevelName[EStageLevel.VeryHard];
         }
 
         /* 必要な GameObject を Scene から取得 */
