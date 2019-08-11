@@ -53,7 +53,8 @@ namespace Project.Scripts.StageSelectScene
         /// テキストを更新する
         /// </summary>
         /// <param name="stageLevel"> 変更するテキストの難易度 </param>
-        private static void UpdateText(EStageLevel stageLevel) {
+        private static void UpdateText(EStageLevel stageLevel)
+        {
             var text = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + stageLevel + "/Level").GetComponent<Text>();
             text.text = StageInfo.LevelName[stageLevel];
         }
@@ -98,7 +99,7 @@ namespace Project.Scripts.StageSelectScene
         /// ステージ選択画面からゲーム選択画面へ移動する
         /// </summary>
         /// <param name="clickedButton"> タッチされたボタン </param>
-        protected void StageButtonDown(GameObject clickedButton)
+        private void StageButtonDown(GameObject clickedButton)
         {
             // タップされたステージidを取得（暫定的にボタンの名前）
             var stageId = int.Parse(clickedButton.name);
