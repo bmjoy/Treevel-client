@@ -7,7 +7,11 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class MenuSelectDirector : SingletonObject<MenuSelectDirector>
     {
-        public string NowScene { get; private set; }
+        public string NowScene
+        {
+            get;
+            private set;
+        }
 
         private void Awake()
         {
