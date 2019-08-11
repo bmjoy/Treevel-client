@@ -48,13 +48,9 @@ namespace Project.Scripts.RecordScene
                 DrawPercentage(stageLevel);
                 // 棒グラフの描画
                 DrawGraph(stageLevel);
+                // タイトルの変更
+                levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
             }
-
-            // 名前が決まるまではこれで行く
-            levelText[EStageLevel.Easy].GetComponent<Text>().text = "簡単";
-            levelText[EStageLevel.Normal].GetComponent<Text>().text = "普通";
-            levelText[EStageLevel.Hard].GetComponent<Text>().text = "ムズイ";
-            levelText[EStageLevel.VeryHard].GetComponent<Text>().text = "激ムズ";
         }
 
         /* 必要な GameObject を Scene から取得 */

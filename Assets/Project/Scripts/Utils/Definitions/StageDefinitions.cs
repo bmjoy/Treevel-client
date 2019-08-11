@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Project.Scripts.Utils.Definitions
 {
@@ -25,6 +26,30 @@ namespace Project.Scripts.Utils.Definitions
             {EStageLevel.Normal, 1001},
             {EStageLevel.Hard, 2001},
             {EStageLevel.VeryHard, 3001}
+        };
+
+        /// <summary>
+        /// 難易度ごとに固有の難易度名
+        /// </summary>
+        /// TODO: 今後，多言語対応に組み込む
+        public static readonly Dictionary<EStageLevel, string> LevelName = new Dictionary<EStageLevel, string>()
+        {
+            {EStageLevel.Easy, "簡単"},
+            {EStageLevel.Normal, "普通"},
+            {EStageLevel.Hard, "ムズイ"},
+            {EStageLevel.VeryHard, "激ムズ"}
+        };
+
+        /// <summary>
+        /// 難易度ごとに固有のボタン色
+        /// </summary>
+        /// TODO: 今後，インスペクタから変更できるようにする
+        public static readonly Dictionary<EStageLevel, Color> LevelColor = new Dictionary<EStageLevel, Color>()
+        {
+            {EStageLevel.Easy, Color.magenta},
+            {EStageLevel.Normal, Color.green},
+            {EStageLevel.Hard, Color.yellow},
+            {EStageLevel.VeryHard, Color.cyan}
         };
     }
 
