@@ -7,7 +7,7 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class MenuSelectDirector : SingletonObject<MenuSelectDirector>
     {
-        public string nowScene;
+        public string NowScene { get; private set; }
 
         private void Awake()
         {
@@ -28,7 +28,7 @@ namespace Project.Scripts.MenuSelectScene
             // 指定したシーン名をアクティブにする
             SceneManager.SetActiveScene(scene);
             // シーンの保存
-            nowScene = sceneName;
+            NowScene = sceneName;
         }
     }
 }

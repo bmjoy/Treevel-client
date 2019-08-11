@@ -20,7 +20,7 @@ namespace Project.Scripts.Utils.MyUiConponents
         {
             // ONになった場合のみ処理
             if (isOn) {
-                var nowScene = MenuSelectDirector.Instance.nowScene;
+                var nowScene = MenuSelectDirector.Instance.NowScene;
                 // 現在チェックされている Toggle を取得
                 var checkedToggle = GameObject.Find(nowScene.Replace("Scene", ""));
                 if (checkedToggle != null) {
