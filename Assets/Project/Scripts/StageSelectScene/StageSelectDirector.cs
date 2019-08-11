@@ -22,28 +22,6 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public GameObject dummyBackgroundPrefab;
 
-        /// <summary>
-        /// 難易度ごとに固有の難易度名
-        /// </summary>
-        private static readonly Dictionary<EStageLevel, string> LevelName = new Dictionary<EStageLevel, string>()
-        {
-            {EStageLevel.Easy, "簡単"},
-            {EStageLevel.Normal, "普通"},
-            {EStageLevel.Hard, "ムズイ"},
-            {EStageLevel.VeryHard, "激ムズ"}
-        };
-
-        /// <summary>
-        /// 難易度ごとに固有のボタン色
-        /// </summary>
-        private static readonly Dictionary<EStageLevel, Color> Color = new Dictionary<EStageLevel, Color>()
-        {
-            {EStageLevel.Easy, UnityEngine.Color.magenta},
-            {EStageLevel.Normal, UnityEngine.Color.green},
-            {EStageLevel.Hard, UnityEngine.Color.yellow},
-            {EStageLevel.VeryHard, UnityEngine.Color.cyan}
-        };
-
         private SnapScrollView snapScrollView;
 
         private void Awake()
@@ -77,7 +55,7 @@ namespace Project.Scripts.StageSelectScene
         /// <param name="stageLevel"> 変更するテキストの難易度 </param>
         private static void UpdateText(EStageLevel stageLevel) {
             var text = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + stageLevel + "/Level").GetComponent<Text>();
-            text.text = LevelName[stageLevel];
+            text.text = StageInfo.LevelName[stageLevel];
         }
 
         /// <summary>
@@ -103,7 +81,7 @@ namespace Project.Scripts.StageSelectScene
                 // クリック時のリスナー
                 button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
                 // Buttonの色
-                button.GetComponent<Image>().color = Color[stageLevel];
+                button.GetComponent<Image>().color = StageInfo.LevelColor[stageLevel];
                 // Buttonの位置
                 var rectTransform = button.GetComponent<RectTransform>();
                 // 下部のマージン : 0.05f
