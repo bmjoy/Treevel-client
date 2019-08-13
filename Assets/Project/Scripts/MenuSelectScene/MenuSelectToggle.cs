@@ -1,11 +1,10 @@
-﻿using Project.Scripts.MenuSelectScene;
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Project.Scripts.Utils.MyUiConponents
+namespace Project.Scripts.MenuSelectScene
 {
     public class MenuSelectToggle : Toggle
     {
