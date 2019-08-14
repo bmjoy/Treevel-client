@@ -19,7 +19,7 @@ namespace Project.Scripts.MenuSelectScene
         private void ToggleValueChanged(GameObject toggle)
         {
             #if UNITY_EDITOR
-                if (!EditorApplication.isPlaying) return;
+            if (!EditorApplication.isPlaying) return;
             #endif
 
             // ONになった場合のみ処理
