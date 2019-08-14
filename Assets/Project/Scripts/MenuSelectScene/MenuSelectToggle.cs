@@ -18,16 +18,24 @@ namespace Project.Scripts.MenuSelectScene
 
         private void ToggleValueChanged(GameObject toggle)
         {
+            #if UNITY_EDITOR
+                if (!EditorApplication.isPlaying) return;
+            #endif
+
             // ONになった場合のみ処理
-            if (isOn && EditorApplication.isPlaying) {
+            if (isOn) {
                 var nowScene = MenuSelectDirector.Instance.NowScene;
+
                 // 現在チェックされている Toggle を取得
                 var checkedToggle = GameObject.Find(nowScene.Replace("Scene", ""));
-                checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
-                // 今のシーンをアンロード
-                SceneManager.UnloadSceneAsync(nowScene);
-                // 新しいシーンをロード
-                StartCoroutine(MenuSelectDirector.Instance.AddScene(name + "Scene"));
+
+                if (checkedToggle != null) {
+                    checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
+                    // 今のシーンをアンロード
+                    SceneManager.UnloadSceneAsync(nowScene);
+                    // 新しいシーンをロード
+                    StartCoroutine(MenuSelectDirector.Instance.AddScene(name + "Scene"));
+                }
             }
         }
 
