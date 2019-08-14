@@ -1,10 +1,10 @@
-﻿using Project.Scripts.MenuSelectScene;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Project.Scripts.Utils.MyUiConponents
+namespace Project.Scripts.MenuSelectScene
 {
     public class MenuSelectToggle : Toggle
     {
@@ -18,11 +18,17 @@ namespace Project.Scripts.Utils.MyUiConponents
 
         private void ToggleValueChanged(GameObject toggle)
         {
+            #if UNITY_EDITOR
+            if (!EditorApplication.isPlaying) return;
+            #endif
+
             // ONになった場合のみ処理
             if (isOn) {
                 var nowScene = MenuSelectDirector.Instance.NowScene;
+
                 // 現在チェックされている Toggle を取得
                 var checkedToggle = GameObject.Find(nowScene.Replace("Scene", ""));
+
                 if (checkedToggle != null) {
                     checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
                     // 今のシーンをアンロード
