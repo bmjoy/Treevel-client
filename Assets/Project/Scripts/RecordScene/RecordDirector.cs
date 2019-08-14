@@ -27,7 +27,7 @@ namespace Project.Scripts.RecordScene
         private void Awake()
         {
             // 取得
-            _snapScrollView = GameObject.Find("SnapScrollView").GetComponent<SnapScrollView>();
+            _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
             _snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
             // ページの横幅の設定
@@ -57,12 +57,12 @@ namespace Project.Scripts.RecordScene
         private void GetGameObjects(EStageLevel stageLevel)
         {
             // SnapScrollView -> Viewport -> Content -> のオブジェクトを特定
-            var level = GameObject.Find(stageLevel.ToString());
+            var level = GameObject.Find(stageLevel.ToString()).transform;
 
             // 各種 GameObject を取得
-            _levelText.Add(stageLevel, level.transform.Find("Level").gameObject);
-            _percentageText.Add(stageLevel, level.transform.Find("Percentage").gameObject);
-            _graphArea.Add(stageLevel, level.transform.Find("GraphArea").gameObject);
+            _levelText.Add(stageLevel, level.Find("Level").gameObject);
+            _percentageText.Add(stageLevel, level.Find("Percentage").gameObject);
+            _graphArea.Add(stageLevel, level.Find("GraphArea").gameObject);
         }
 
         /* 難易度に合わせた成功割合を描画する */
