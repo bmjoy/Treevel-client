@@ -16,22 +16,22 @@ namespace Project.Scripts.RecordScene
 
         [SerializeField] private GameObject _successLinePrefab;
 
-        private readonly Dictionary<EStageLevel, GameObject> levelText = new Dictionary<EStageLevel, GameObject>();
+        private readonly Dictionary<EStageLevel, GameObject> _levelText = new Dictionary<EStageLevel, GameObject>();
 
-        private readonly Dictionary<EStageLevel, GameObject> percentageText = new Dictionary<EStageLevel, GameObject>();
+        private readonly Dictionary<EStageLevel, GameObject> _percentageText = new Dictionary<EStageLevel, GameObject>();
 
-        private readonly Dictionary<EStageLevel, GameObject> graphArea = new Dictionary<EStageLevel, GameObject>();
+        private readonly Dictionary<EStageLevel, GameObject> _graphArea = new Dictionary<EStageLevel, GameObject>();
 
-        private SnapScrollView snapScrollView;
+        private SnapScrollView _snapScrollView;
 
         private void Awake()
         {
             // 取得
-            snapScrollView = GameObject.Find("SnapScrollView").GetComponent<SnapScrollView>();
+            _snapScrollView = GameObject.Find("SnapScrollView").GetComponent<SnapScrollView>();
             // ページの最大値を設定
-            snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
+            _snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
             // ページの横幅の設定
-            snapScrollView.PageSize = Screen.width;
+            _snapScrollView.PageSize = Screen.width;
 
             // TODO: 将来的には非同期で呼び出したい (バージョンアップ待ち)
             // 各種グラフなどを全て描画する
@@ -49,7 +49,7 @@ namespace Project.Scripts.RecordScene
                 // 棒グラフの描画
                 DrawGraph(stageLevel);
                 // タイトルの変更
-                levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
+                _levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
             }
         }
 
@@ -60,9 +60,9 @@ namespace Project.Scripts.RecordScene
             var level = GameObject.Find(stageLevel.ToString());
 
             // 各種 GameObject を取得
-            levelText.Add(stageLevel, level.transform.Find("Level").gameObject);
-            percentageText.Add(stageLevel, level.transform.Find("Percentage").gameObject);
-            graphArea.Add(stageLevel, level.transform.Find("GraphArea").gameObject);
+            _levelText.Add(stageLevel, level.transform.Find("Level").gameObject);
+            _percentageText.Add(stageLevel, level.transform.Find("Percentage").gameObject);
+            _graphArea.Add(stageLevel, level.transform.Find("GraphArea").gameObject);
         }
 
         /* 難易度に合わせた成功割合を描画する */
@@ -83,7 +83,7 @@ namespace Project.Scripts.RecordScene
 
             var successPercentage = (successStageNum / (float) stageNum) * 100;
 
-            percentageText[stageLevel].GetComponent<Text>().text = successPercentage + "%";
+            _percentageText[stageLevel].GetComponent<Text>().text = successPercentage + "%";
         }
 
         /* 難易度に合わせた棒グラフを描画する */
@@ -114,6 +114,7 @@ namespace Project.Scripts.RecordScene
 
             // ステージ番号の下端
             const float bottomStageNumPosition = 0.05f;
+            var graphAreaContent = _graphArea[stageLevel].GetComponent<RectTransform>();
 
             // グラフ間の隙間の横幅 -> stageNum個のグラフと(stageNum + 1)個の隙間
             var blankWidth = (rightPosition - leftPosition) / (stageNum * graphWidthRatio + (stageNum + 1));
@@ -129,9 +130,9 @@ namespace Project.Scripts.RecordScene
 
             // 目盛を書き換える
             if (maxScale > 0) {
-                graphArea[stageLevel].transform.Find("Scale4-Value").gameObject.GetComponent<Text>().text = maxScale.ToString();
-                graphArea[stageLevel].transform.Find("Scale3-Value").gameObject.GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
-                graphArea[stageLevel].transform.Find("Scale2-Value").gameObject.GetComponent<Text>().text = (maxScale / 3).ToString();
+                _graphArea[stageLevel].transform.Find("Scale4-Value").gameObject.GetComponent<Text>().text = maxScale.ToString();
+                _graphArea[stageLevel].transform.Find("Scale3-Value").gameObject.GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
+                _graphArea[stageLevel].transform.Find("Scale2-Value").gameObject.GetComponent<Text>().text = (maxScale / 3).ToString();
             }
 
             // ステージ番号
