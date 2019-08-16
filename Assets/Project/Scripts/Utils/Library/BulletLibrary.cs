@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
 
@@ -10,12 +11,12 @@ namespace Project.Scripts.Utils.Library
         /// 座標から盤面の行と列を計算する
         /// </summary>
         /// <param name="position"> 座標 </param>
-        public static (int, int) GetRowAndColumn(Vector2 position)
+        public static(int, int) GetRowAndColumn(Vector2 position)
         {
             // 最上タイルのy座標
             const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
-            int row = (int)((topTilePositionY - position.y) / TileSize.HEIGHT) + 1;
-            int column = (int)((position.x / TileSize.WIDTH) + 1) + 1;
+            int row = (int)Math.Round((topTilePositionY - position.y) / TileSize.HEIGHT, MidpointRounding.AwayFromZero) + 1;
+            int column = (int)Math.Round((position.x / TileSize.WIDTH) + 1, MidpointRounding.AwayFromZero) + 1;
             return (row, column);
         }
 
