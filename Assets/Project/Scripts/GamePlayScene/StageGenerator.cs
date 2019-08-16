@@ -262,7 +262,7 @@ namespace Project.Scripts.GamePlayScene
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null),
                                                                        bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null,
-                                                                               randomNumberPanel: new int[] {10, 0, 10, 0, 10, 0, 10, 0, 10})
+                                                                               randomNumberPanel: new int[] {10, 0, 10, 0, 10, 0, 10, 10})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
                     // 数字パネル作成
