@@ -11,7 +11,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             int row;
             int column;
             // 座標から行と列を取得する
-            BulletLibrary.GetRowAndColumn(out row, out column, holeWarningPosition);
+            (row, column) = BulletLibrary.GetRowAndColumn(holeWarningPosition);
             this.row = row;
             this.column = column;
         }

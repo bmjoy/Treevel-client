@@ -7,17 +7,16 @@ namespace Project.Scripts.Utils.Library
     public static class BulletLibrary
     {
         /// <summary>
-        /// 座標から行(row)と列(column)を返す
+        /// 座標から盤面の行と列を計算する
         /// </summary>
-        /// <param name="row"> 盤面の行番号 </param>
-        /// <param name="column"> 盤面の列番号 </param>
         /// <param name="position"> 座標 </param>
-        public static void GetRowAndColumn(out int row, out int column, Vector2 position)
+        public static (int, int) GetRowAndColumn(Vector2 position)
         {
             // 最上タイルのy座標
             const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
-            row = (int)((topTilePositionY - position.y) / TileSize.HEIGHT) + 1;
-            column = (int)((position.x / TileSize.WIDTH) + 1) + 1;
+            int row = (int)((topTilePositionY - position.y) / TileSize.HEIGHT) + 1;
+            int column = (int)((position.x / TileSize.WIDTH) + 1) + 1;
+            return (row, column);
         }
 
         /// <summary>
