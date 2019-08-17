@@ -70,12 +70,12 @@ namespace Project.Scripts.RecordScene
             foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
                 // 準備
                 GetGameObjects(stageLevel);
+                // タイトルの変更
+                _levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
                 // 成功割合の描画
                 DrawPercentage(stageLevel);
                 // 棒グラフの描画
                 DrawGraph(stageLevel);
-                // タイトルの変更
-                _levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
             }
         }
 
