@@ -93,8 +93,6 @@ namespace Project.Scripts.RecordScene
             var stageStartId = StageInfo.StageStartId[stageLevel];
 
             // 描画するパネル
-            var graphAreaContent = graphArea[stageLevel].GetComponent<RectTransform>();
-
             /* UIの配置周りの定数宣言 */
 
             // 棒グラフ描画範囲の左端
