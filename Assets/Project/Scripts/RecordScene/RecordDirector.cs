@@ -59,7 +59,6 @@ namespace Project.Scripts.RecordScene
             // ページの横幅の設定
             _snapScrollView.PageSize = Screen.width;
 
-            // TODO: 将来的には非同期で呼び出したい (バージョンアップ待ち)
             // 各種グラフなどを全て描画する
             Draw();
         }
