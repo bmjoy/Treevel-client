@@ -64,11 +64,13 @@ namespace Project.Scripts.RecordScene
             Draw();
         }
 
-        /* 全難易度の画面を描画する */
+        /// <summary>
+        /// 全難易度の画面を描画する
+        /// </summary>
         private void Draw()
         {
             foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
-                // 準備
+                // GameObject の準備
                 GetGameObjects(stageLevel);
                 // タイトルの変更
                 _levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
@@ -79,19 +81,27 @@ namespace Project.Scripts.RecordScene
             }
         }
 
-        /* 必要な GameObject を Scene から取得 */
+        /// <summary>
+        /// 各難易度に必要な GameObject を取得
+        /// </summary>
+        /// <param name="stageLevel"> 難易度 </param>
         private void GetGameObjects(EStageLevel stageLevel)
         {
-            // SnapScrollView -> Viewport -> Content -> のオブジェクトを特定
+            // Canvas -> SnapScrollView -> Viewport -> Content -> ${stageLevel} を取得
             var level = GameObject.Find(stageLevel.ToString()).transform;
 
-            // 各種 GameObject を取得
+            // ${stageLevel} -> Level を取得
             _levelText.Add(stageLevel, level.Find("Level").gameObject);
+            // ${stageLevel} -> Percentage を取得
             _percentageText.Add(stageLevel, level.Find("Percentage").gameObject);
+            // ${stageLevel} -> GraphArea を取得
             _graphArea.Add(stageLevel, level.Find("GraphArea").gameObject);
         }
 
-        /* 難易度に合わせた成功割合を描画する */
+        /// <summary>
+        /// 難易度に合わせた成功割合を描画する
+        /// </summary>
+        /// <param name="stageLevel"> 難易度 </param>
         private void DrawPercentage(EStageLevel stageLevel)
         {
             var stageNum = StageInfo.Num[stageLevel];
@@ -112,7 +122,10 @@ namespace Project.Scripts.RecordScene
             _percentageText[stageLevel].GetComponent<Text>().text = successPercentage + "%";
         }
 
-        /* 難易度に合わせた棒グラフを描画する */
+        /// <summary>
+        /// 難易度に合わせた棒グラフを描画する
+        /// </summary>
+        /// <param name="stageLevel"> 難易度 </param>
         private void DrawGraph(EStageLevel stageLevel)
         {
             var stageNum = StageInfo.Num[stageLevel];
@@ -130,7 +143,7 @@ namespace Project.Scripts.RecordScene
             // 挑戦回数の最大値を求める
             var maxChallengeNum = GetMaxChallengeNum(stageNum, stageStartId);
 
-            // 目盛の最大値を求める
+            // 挑戦回数の最大値に収まる 30 で割れる目盛の最小値を求める
             var maxScale = (float) Math.Ceiling((float) maxChallengeNum / 30) * 30;
 
             // 目盛を書き換える
@@ -196,7 +209,12 @@ namespace Project.Scripts.RecordScene
             }
         }
 
-        /* 挑戦回数の最大値を求める */
+        /// <summary>
+        /// 挑戦回数の最大値を求める
+        /// </summary>
+        /// <param name="stageNum"></param>
+        /// <param name="stageStartId"></param>
+        /// <returns></returns>
         private static int GetMaxChallengeNum(int stageNum, int stageStartId)
         {
             var maxChallengeNum = 0;
