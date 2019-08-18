@@ -38,6 +38,10 @@ namespace Project.Scripts.GamePlayScene.Panel
             _tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
         }
 
+        /// <summary>
+        /// 必要なタイルを準備してから，数字パネルを作成する
+        /// </summary>
+        /// <param name="numberPanelParams"> ComvartToDictionary によって変換された辞書型リスト </param>
         public void PrepareTilesAndCreateNumberPanels(List<Dictionary<string, int>> numberPanelParams)
         {
             foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
@@ -62,19 +66,33 @@ namespace Project.Scripts.GamePlayScene.Panel
             }
         }
 
+        /// <summary>
+        /// 動かないダミーパネルを作成する
+        /// </summary>
+        /// <param name="initialTileNum"> 配置するタイルの番号 </param>
         public void CreateStaticDummyPanel(int initialTileNum)
         {
             var panel = Instantiate(_staticDummyPanelPrefab);
             panel.GetComponent<StaticPanelController>().Initialize(initialTileNum);
         }
 
+        /// <summary>
+        /// 動くダミーパネルを作成する
+        /// </summary>
+        /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
         public void CreateDynamicDummyPanel(int initialTileNum)
         {
             var panel = Instantiate(_dynamicDummyPanelPrefab);
             panel.GetComponent<DynamicPanelController>().Initialize(initialTileNum);
         }
 
-        /* 変数をもらい辞書型に変換 */
+        /// <summary>
+        /// 辞書型に変換 (PrepareTilesAndCreateNumberPanels の引数のため)
+        /// </summary>
+        /// <param name="panelNum"> 作成されたパネルの番号 </param>
+        /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
+        /// <param name="finalTileNum"> パネルのゴールとなるタイルの番号 </param>
+        /// <returns></returns>
         public static Dictionary<string, int> ComvartToDictionary(int panelNum, int initialTileNum, int finalTileNum)
         {
             return new Dictionary<string, int>() {

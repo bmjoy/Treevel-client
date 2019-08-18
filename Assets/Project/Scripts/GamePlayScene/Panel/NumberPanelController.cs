@@ -9,12 +9,19 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     public class NumberPanelController : DynamicPanelController
     {
-        // 最終タイル
+        /// <summary>
+        /// パネルのゴールとなるタイル
+        /// </summary>
         private GameObject _finalTile;
 
+        /// <summary>
+        /// パネルの番号
+        /// </summary>
         private int panelNum;
 
-        // パネルが最終タイルにいるかどうかの状態
+        /// <summary>
+        /// パネルがゴールタイルにいるかどうか
+        /// </summary>
         [NonSerialized] public bool adapted;
 
         protected override void Awake()
@@ -34,6 +41,12 @@ namespace Project.Scripts.GamePlayScene.Panel
             GetComponent<SpriteGlowEffect>().enabled = adapted;
         }
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <param name="panelNum"> パネルの番号 </param>
+        /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
+        /// <param name="finalTileNum"> パネルのゴールタイル </param>
         public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
         {
             Initialize(initialTileNum);
@@ -42,6 +55,10 @@ namespace Project.Scripts.GamePlayScene.Panel
             this.panelNum = panelNum;
         }
 
+        /// <summary>
+        /// パネルの番号と一致していたら自身を返す
+        /// </summary>
+        /// <param name="panelNum"> 取得したいパネルの番号 </param>
         public GameObject GetNumberPanel(int panelNum)
         {
             if (this.panelNum == panelNum) {
@@ -51,9 +68,11 @@ namespace Project.Scripts.GamePlayScene.Panel
             return null;
         }
 
+        /// <inheritdoc />
         protected override void UpdateTile(GameObject targetTile)
         {
             base.UpdateTile(targetTile);
+
             // 最終タイルにいるかどうかで状態を変える
             adapted = transform.parent.gameObject == _finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
@@ -62,6 +81,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             if (adapted) gamePlayDirector.CheckClear();
         }
 
+        /// <summary>
+        /// 衝突イベントを処理する
+        /// </summary>
         private void OnTriggerEnter2D(Collider2D other)
         {
             // 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
@@ -71,7 +93,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
         }
 
-        /* SpriteGlowEffect コンポーネントに必要なコンポーネント */
+        /// <summary>
+        /// PostProcessVolume のアタッチ
+        /// </summary>
         private void AddPostProcessVolume()
         {
             gameObject.AddComponent<PostProcessVolume>();
@@ -80,7 +104,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             GetComponent<PostProcessVolume>().profile = profile;
         }
 
-        /* オブジェクトを光らせる */
+        /// <summary>
+        /// SpriteGlowEffect のアタッチ
+        /// </summary>
         private void AddSpriteGlowEffect()
         {
             gameObject.AddComponent<SpriteGlowEffect>();
