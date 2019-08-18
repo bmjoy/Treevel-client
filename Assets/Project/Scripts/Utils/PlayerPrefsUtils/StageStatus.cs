@@ -19,11 +19,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public int failureNum = 0;
 
         // 初成功にかかった挑戦回数
-        public int firstSuccessNum = -1;
+        public int firstSuccessNum = 0;
 
-        private static void Set(int stageId, StageStatus stageStatus)
+        private void Set(int stageId)
         {
-            MyPlayerPrefs.SetObject(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId, stageStatus);
+            MyPlayerPrefs.SetObject(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId, this);
         }
 
         public static StageStatus Get(int stageId)
@@ -40,25 +40,25 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         {
             if (!passed) firstSuccessNum = challengeNum;
             passed = true;
-            Set(stageId, this);
+            Set(stageId);
         }
 
         public void IncChallengeNum(int stageId)
         {
             challengeNum++;
-            Set(stageId, this);
+            Set(stageId);
         }
 
         public void IncSuccessNum(int stageId)
         {
             successNum++;
-            Set(stageId, this);
+            Set(stageId);
         }
 
         public void IncFailureNum(int stageId)
         {
             failureNum++;
-            Set(stageId, this);
+            Set(stageId);
         }
     }
 }
