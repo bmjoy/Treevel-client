@@ -7,16 +7,16 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        [SerializeField] private GameObject numberTile1Prefab;
-        [SerializeField] private GameObject numberTile2Prefab;
-        [SerializeField] private GameObject numberTile3Prefab;
-        [SerializeField] private GameObject numberTile4Prefab;
-        [SerializeField] private GameObject numberTile5Prefab;
-        [SerializeField] private GameObject numberTile6Prefab;
-        [SerializeField] private GameObject numberTile7Prefab;
-        [SerializeField] private GameObject numberTile8Prefab;
-        [SerializeField] private GameObject normalTilePrefab;
-        [SerializeField] private GameObject warpTilePrefab;
+        [SerializeField] private GameObject _numberTile1Prefab;
+        [SerializeField] private GameObject _numberTile2Prefab;
+        [SerializeField] private GameObject _numberTile3Prefab;
+        [SerializeField] private GameObject _numberTile4Prefab;
+        [SerializeField] private GameObject _numberTile5Prefab;
+        [SerializeField] private GameObject _numberTile6Prefab;
+        [SerializeField] private GameObject _numberTile7Prefab;
+        [SerializeField] private GameObject _numberTile8Prefab;
+        [SerializeField] private GameObject _normalTilePrefab;
+        [SerializeField] private GameObject _warpTilePrefab;
 
         private List<GameObject> numberTilePrefabs;
         private readonly GameObject[,] tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
@@ -24,14 +24,14 @@ namespace Project.Scripts.GamePlayScene.Tile
         private void Awake()
         {
             numberTilePrefabs = new List<GameObject> {
-                numberTile1Prefab,
-                numberTile2Prefab,
-                numberTile3Prefab,
-                numberTile4Prefab,
-                numberTile5Prefab,
-                numberTile6Prefab,
-                numberTile7Prefab,
-                numberTile8Prefab
+                _numberTile1Prefab,
+                _numberTile2Prefab,
+                _numberTile3Prefab,
+                _numberTile4Prefab,
+                _numberTile5Prefab,
+                _numberTile6Prefab,
+                _numberTile7Prefab,
+                _numberTile8Prefab
             };
         }
 
@@ -47,7 +47,7 @@ namespace Project.Scripts.GamePlayScene.Tile
                 // 既に他タイルを作成している場合はスルー
                 if (tiles[row, column] != null) continue;
 
-                var tile = Instantiate(normalTilePrefab);
+                var tile = Instantiate(_normalTilePrefab);
 
                 var tilePosition = GetTilePosition(tileNum);
 
@@ -63,8 +63,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         /* ワープタイルの作成 */
         public void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
-            var firstTile = Instantiate(warpTilePrefab);
-            var secondTile = Instantiate(warpTilePrefab);
+            var firstTile = Instantiate(_warpTilePrefab);
+            var secondTile = Instantiate(_warpTilePrefab);
 
             var firstTilePosition = GetTilePosition(firstTileNum);
             var secondTilePosition = GetTilePosition(secondTileNum);

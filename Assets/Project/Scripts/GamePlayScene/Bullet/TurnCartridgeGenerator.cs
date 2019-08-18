@@ -10,38 +10,38 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class TurnCartridgeGenerator : NormalCartridgeGenerator
     {
-        [SerializeField] private GameObject turnCartridgePrefab;
-        [SerializeField] private GameObject turnCartridgeWarningPrefab;
+        [SerializeField] private GameObject _turnCartridgePrefab;
+        [SerializeField] private GameObject _turnCartridgeWarningPrefab;
 
         // 曲がる方向
-        [CanBeNull] private int[] turnDirection = null;
+        [CanBeNull] private int[] _turnDirection = null;
 
         // 曲がる場所
-        [CanBeNull] private int[] turnLine = null;
+        [CanBeNull] private int[] _turnLine = null;
 
         // 曲がる方向をランダムに決めるときの各方向の重み
-        private int[] randomTurnDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
+        private int[] _randomTurnDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
         // 曲がる行をランダムに決めるときの各行の重み
-        private int[] randomTurnRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
+        private int[] _randomTurnRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         // 曲がる列をランダムに決めるときの各列の重み
-        private int[] randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
+        private int[] _randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
             int[] turnLine)
         {
             Initialize(ratio, cartridgeDirection, row);
-            this.turnDirection = turnDirection;
-            this.turnLine = turnLine;
+            this._turnDirection = turnDirection;
+            this._turnLine = turnLine;
         }
 
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
             int[] turnLine)
         {
             Initialize(ratio, cartridgeDirection, column);
-            this.turnDirection = turnDirection;
-            this.turnLine = turnLine;
+            this._turnDirection = turnDirection;
+            this._turnLine = turnLine;
         }
 
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
@@ -49,11 +49,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
             Initialize(ratio, cartridgeDirection, row, randomCartridgeDirection, randomRow, randomColumn);
-            this.turnDirection = turnDirection;
-            this.turnLine = turnLine;
-            this.randomTurnDirections = randomTurnDirections;
-            this.randomTurnRow = randomTurnRow;
-            this.randomTurnColumn = randomTurnColumn;
+            this._turnDirection = turnDirection;
+            this._turnLine = turnLine;
+            this._randomTurnDirections = randomTurnDirections;
+            this._randomTurnRow = randomTurnRow;
+            this._randomTurnColumn = randomTurnColumn;
         }
 
         public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
@@ -61,11 +61,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
             Initialize(ratio, cartridgeDirection, column, randomCartridgeDirection, randomRow, randomColumn);
-            this.turnDirection = turnDirection;
-            this.turnLine = turnLine;
-            this.randomTurnDirections = randomTurnDirections;
-            this.randomTurnRow = randomTurnRow;
-            this.randomTurnColumn = randomTurnColumn;
+            this._turnDirection = turnDirection;
+            this._turnLine = turnLine;
+            this._randomTurnDirections = randomTurnDirections;
+            this._randomTurnRow = randomTurnRow;
+            this._randomTurnColumn = randomTurnColumn;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -95,7 +95,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             }
 
             // 警告の作成
-            var warning = Instantiate(turnCartridgeWarningPrefab);
+            var warning = Instantiate(_turnCartridgeWarningPrefab);
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<CartridgeWarningController>();
             var bulletMotionVector =
@@ -108,11 +108,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
             // ゲームが続いているなら銃弾を作成する
             if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                int[] nextCartridgeTurnDirection = turnDirection ?? new int[] {
+                int[] nextCartridgeTurnDirection = _turnDirection ?? new int[] {
                     GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)
                 };
 
-                int[] nextCartridgeTurnLine = turnLine;
+                int[] nextCartridgeTurnLine = _turnLine;
                 if (nextCartridgeTurnLine == null) {
                     switch (nextCartridgeDirection) {
                         case ECartridgeDirection.ToLeft:
@@ -130,7 +130,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
                     }
                 }
 
-                var cartridge = Instantiate(turnCartridgePrefab);
+                var cartridge = Instantiate(_turnCartridgePrefab);
                 cartridge.GetComponent<TurnCartridgeController>().Initialize(nextCartridgeDirection, nextCartridgeLine,
                     bulletMotionVector, nextCartridgeTurnDirection, nextCartridgeTurnLine);
 
@@ -190,10 +190,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 }
 
                 // 乱数を取得する
-                var randomValue = new System.Random().Next(randomTurnDirections[cartridgeLocalLeft - 1] +
-                    randomTurnDirections[cartridgeLocalRight - 1]) + 1;
+                var randomValue = new System.Random().Next(_randomTurnDirections[cartridgeLocalLeft - 1] +
+                    _randomTurnDirections[cartridgeLocalRight - 1]) + 1;
                 // 乱数に基づいてCartridgeから見て右または左のどちらかの方向を選択する
-                randomTurnDirection = randomValue <= randomTurnDirections[cartridgeLocalLeft - 1]
+                randomTurnDirection = randomValue <= _randomTurnDirections[cartridgeLocalLeft - 1]
                     ? (int) Enum.ToObject(typeof(ECartridgeDirection), cartridgeLocalLeft)
                     : (int) Enum.ToObject(typeof(ECartridgeDirection), cartridgeLocalRight);
             }

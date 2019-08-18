@@ -9,8 +9,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class NormalCartridgeGenerator : BulletGenerator
     {
-        [SerializeField] private GameObject normalCartridgePrefab;
-        [SerializeField] private GameObject normalCartridgeWarningPrefab;
+        [SerializeField] private GameObject _normalCartridgePrefab;
+        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
 
         // 銃弾の移動方向
         protected ECartridgeDirection cartridgeDirection;
@@ -90,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             }
 
             // warningの作成
-            var warning = Instantiate(normalCartridgeWarningPrefab);
+            var warning = Instantiate(_normalCartridgeWarningPrefab);
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<CartridgeWarningController>();
             var bulletMotionVector =
@@ -103,7 +103,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
             // ゲームが続いているなら銃弾を作成する
             if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                var cartridge = Instantiate(normalCartridgePrefab);
+                var cartridge = Instantiate(_normalCartridgePrefab);
                 cartridge.GetComponent<NormalCartridgeController>()
                 .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
 

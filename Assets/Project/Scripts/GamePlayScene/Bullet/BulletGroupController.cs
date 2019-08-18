@@ -11,29 +11,29 @@ namespace Project.Scripts.GamePlayScene.Bullet
     {
         private GamePlayDirector gamePlayDirector;
 
-        private BulletGroupGenerator bulletGroupGenerator;
+        private BulletGroupGenerator _bulletGroupGenerator;
 
         // 銃弾の生成初めの時刻
-        private float appearanceTime;
+        private float _appearanceTime;
 
         // 銃弾の生成間隔
-        private float interval;
+        private float _interval;
 
         // 銃弾生成のループの有無
-        private bool loop;
+        private bool _loop;
 
         // 乱数
-        private System.Random random;
+        private System.Random _random;
 
         // 銃弾グループ内で管理する各銃弾のGenerator
-        private List<GameObject> bulletGenerators;
+        private List<GameObject> _bulletGenerators;
 
         // 各銃弾のGeneratorの出現割合
-        private int[] bulletRatio;
+        private int[] _bulletRatio;
 
         private void Awake()
         {
-            bulletGroupGenerator = BulletGroupGenerator.Instance;
+            _bulletGroupGenerator = BulletGroupGenerator.Instance;
         }
 
         private void OnEnable()
@@ -52,15 +52,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public void Initialize(float startTime, float appearanceTime, float interval, bool loop,
             List<GameObject> bulletGenerators)
         {
-            random = new System.Random();
+            _random = new System.Random();
             gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-            this.appearanceTime = appearanceTime;
-            this.interval = interval;
-            this.loop = loop;
-            this.bulletGenerators = bulletGenerators;
-            bulletRatio = new int[bulletGenerators.Count];
+            this._appearanceTime = appearanceTime;
+            this._interval = interval;
+            this._loop = loop;
+            this._bulletGenerators = bulletGenerators;
+            _bulletRatio = new int[bulletGenerators.Count];
             for (var index = 0; index < bulletGenerators.Count; index++) {
-                bulletRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;
+                _bulletRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;
             }
         }
 
@@ -68,31 +68,31 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public IEnumerator CreateBullets()
         {
             var currentTime = Time.time;
-            yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
-                    (currentTime - bulletGroupGenerator.startTime));
+            yield return new WaitForSeconds(_appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
+                    (currentTime - _bulletGroupGenerator.startTime));
             var sum = 0;
 
             do {
                 sum++;
                 // 出現させる銃弾を決定する
-                var index = BulletLibrary.SamplingArrayIndex(bulletRatio);
-                var bulletGeneratorScript = bulletGenerators[index].GetComponent<BulletGenerator>();
+                var index = BulletLibrary.SamplingArrayIndex(_bulletRatio);
+                var bulletGeneratorScript = _bulletGenerators[index].GetComponent<BulletGenerator>();
                 // 銃弾のsortingOrderを管理するIDを決定する
-                var nextBulletId = bulletGroupGenerator.bulletId;
+                var nextBulletId = _bulletGroupGenerator.bulletId;
                 StartCoroutine(bulletGeneratorScript.CreateBullet(nextBulletId));
 
                 // 作成する銃弾の個数の上限チェック
                 try {
-                    bulletGroupGenerator.bulletId = checked((short)(nextBulletId + 1));
+                    _bulletGroupGenerator.bulletId = checked((short)(nextBulletId + 1));
                 } catch (OverflowException) {
-                    bulletGroupGenerator.bulletId = short.MinValue;
+                    _bulletGroupGenerator.bulletId = short.MinValue;
                 }
 
                 // 次の銃弾を作成する時刻まで待つ
                 currentTime = Time.time;
-                yield return new WaitForSeconds(appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
-                        interval * sum - (currentTime - bulletGroupGenerator.startTime));
-            } while (loop);
+                yield return new WaitForSeconds(_appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
+                        _interval * sum - (currentTime - _bulletGroupGenerator.startTime));
+            } while (_loop);
         }
 
         private void OnFail()

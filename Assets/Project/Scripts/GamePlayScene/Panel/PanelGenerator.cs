@@ -7,16 +7,16 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     public class PanelGenerator : SingletonObject<PanelGenerator>
     {
-        [SerializeField] private GameObject numberPanel1Prefab;
-        [SerializeField] private GameObject numberPanel2Prefab;
-        [SerializeField] private GameObject numberPanel3Prefab;
-        [SerializeField] private GameObject numberPanel4Prefab;
-        [SerializeField] private GameObject numberPanel5Prefab;
-        [SerializeField] private GameObject numberPanel6Prefab;
-        [SerializeField] private GameObject numberPanel7Prefab;
-        [SerializeField] private GameObject numberPanel8Prefab;
-        [SerializeField] private GameObject staticDummyPanelPrefab;
-        [SerializeField] private GameObject dynamicDummyPanelPrefab;
+        [SerializeField] private GameObject _numberPanel1Prefab;
+        [SerializeField] private GameObject _numberPanel2Prefab;
+        [SerializeField] private GameObject _numberPanel3Prefab;
+        [SerializeField] private GameObject _numberPanel4Prefab;
+        [SerializeField] private GameObject _numberPanel5Prefab;
+        [SerializeField] private GameObject _numberPanel6Prefab;
+        [SerializeField] private GameObject _numberPanel7Prefab;
+        [SerializeField] private GameObject _numberPanel8Prefab;
+        [SerializeField] private GameObject _staticDummyPanelPrefab;
+        [SerializeField] private GameObject _dynamicDummyPanelPrefab;
 
         private List<GameObject> numberPanelPrefabs;
 
@@ -25,14 +25,14 @@ namespace Project.Scripts.GamePlayScene.Panel
         private void Awake()
         {
             numberPanelPrefabs = new List<GameObject> {
-                numberPanel1Prefab,
-                numberPanel2Prefab,
-                numberPanel3Prefab,
-                numberPanel4Prefab,
-                numberPanel5Prefab,
-                numberPanel6Prefab,
-                numberPanel7Prefab,
-                numberPanel8Prefab
+                _numberPanel1Prefab,
+                _numberPanel2Prefab,
+                _numberPanel3Prefab,
+                _numberPanel4Prefab,
+                _numberPanel5Prefab,
+                _numberPanel6Prefab,
+                _numberPanel7Prefab,
+                _numberPanel8Prefab
             };
 
             tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
@@ -64,13 +64,13 @@ namespace Project.Scripts.GamePlayScene.Panel
 
         public void CreateStaticDummyPanel(int initialTileNum)
         {
-            var panel = Instantiate(staticDummyPanelPrefab);
+            var panel = Instantiate(_staticDummyPanelPrefab);
             panel.GetComponent<StaticPanelController>().Initialize(initialTileNum);
         }
 
         public void CreateDynamicDummyPanel(int initialTileNum)
         {
-            var panel = Instantiate(dynamicDummyPanelPrefab);
+            var panel = Instantiate(_dynamicDummyPanelPrefab);
             panel.GetComponent<DynamicPanelController>().Initialize(initialTileNum);
         }
 
