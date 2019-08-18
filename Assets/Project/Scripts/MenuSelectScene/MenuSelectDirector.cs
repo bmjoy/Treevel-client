@@ -16,10 +16,10 @@ namespace Project.Scripts.MenuSelectScene
         private void Awake()
         {
             // 初期シーンのロード
-            StartCoroutine(AddScene(SceneName.STAGE_SELECT_SCENE));
+            StartCoroutine(ChangeScene(SceneName.STAGE_SELECT_SCENE));
         }
 
-        public IEnumerator AddScene(string sceneName)
+        public IEnumerator ChangeScene(string sceneName)
         {
             // シーンをロード
             SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);

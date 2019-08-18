@@ -34,7 +34,7 @@ namespace Project.Scripts.MenuSelectScene
                     // 今のシーンをアンロード
                     SceneManager.UnloadSceneAsync(nowScene);
                     // 新しいシーンをロード
-                    StartCoroutine(MenuSelectDirector.Instance.AddScene(name + "Scene"));
+                    StartCoroutine(MenuSelectDirector.Instance.ChangeScene(name + "Scene"));
                 }
             }
         }
