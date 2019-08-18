@@ -1,5 +1,8 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
+    /// <summary>
+    /// タイルの名前
+    /// </summary>
     public static class TileName
     {
         public const string NORMAL_TILE = "NormalTile";

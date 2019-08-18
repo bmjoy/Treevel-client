@@ -2,9 +2,15 @@
 {
     public static class Audio
     {
+        /// <summary>
+        /// デフォルトの音量
+        /// </summary>
         public const float DEFAULT_VOLUME = 0.5f;
     }
 
+    /// <summary>
+    /// クリップの名前
+    /// </summary>
     public static class ClipName
     {
         public const string PLAYING = "playing";

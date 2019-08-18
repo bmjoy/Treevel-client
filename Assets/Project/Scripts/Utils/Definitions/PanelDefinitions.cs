@@ -1,5 +1,8 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
+    /// <summary>
+    /// パネルの名前
+    /// </summary>
     public static class PanelName
     {
         public const string DYNAMIC_DUMMY_PANEL = "DynamicDummyPanel";
