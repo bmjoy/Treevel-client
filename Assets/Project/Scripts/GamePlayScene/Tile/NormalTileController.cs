@@ -7,10 +7,10 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class NormalTileController : MonoBehaviour
     {
-        [CanBeNull, NonEditable] public GameObject _rightTile;
-        [CanBeNull, NonEditable] public GameObject _leftTile;
-        [CanBeNull, NonEditable] public GameObject _upperTile;
-        [CanBeNull, NonEditable] public GameObject _lowerTile;
+        [NonEditable] public GameObject _rightTile;
+        [NonEditable] public GameObject _leftTile;
+        [NonEditable] public GameObject _upperTile;
+        [NonEditable] public GameObject _lowerTile;
 
         private int tileNum;
 
