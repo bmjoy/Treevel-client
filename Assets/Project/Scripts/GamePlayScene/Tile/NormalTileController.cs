@@ -11,7 +11,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         [NonEditable] public GameObject _upperTile;
         [NonEditable] public GameObject _lowerTile;
 
-        private int tileNum;
+        private int _tileNum;
 
         private void Awake()
         {
@@ -25,13 +25,13 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             transform.position = position;
             name = TileName.NORMAL_TILE;
-            this.tileNum = tileNum;
+            _tileNum = tileNum;
         }
 
         /* 自身のタイル番号に該当した番号が与えられたら，自身の GameObject を返す */
         public GameObject GetTile(int tileNum)
         {
-            if (this.tileNum == tileNum) {
+            if (this._tileNum == tileNum) {
                 return gameObject;
             }
 
