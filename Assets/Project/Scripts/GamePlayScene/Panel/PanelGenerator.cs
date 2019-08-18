@@ -18,13 +18,13 @@ namespace Project.Scripts.GamePlayScene.Panel
         [SerializeField] private GameObject _staticDummyPanelPrefab;
         [SerializeField] private GameObject _dynamicDummyPanelPrefab;
 
-        private List<GameObject> numberPanelPrefabs;
+        private List<GameObject> _numberPanelPrefabs;
 
-        private TileGenerator tileGenerator;
+        private TileGenerator _tileGenerator;
 
         private void Awake()
         {
-            numberPanelPrefabs = new List<GameObject> {
+            _numberPanelPrefabs = new List<GameObject> {
                 _numberPanel1Prefab,
                 _numberPanel2Prefab,
                 _numberPanel3Prefab,
@@ -35,7 +35,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                 _numberPanel8Prefab
             };
 
-            tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
+            _tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
         }
 
         public void PrepareTilesAndCreateNumberPanels(List<Dictionary<string, int>> numberPanelParams)
@@ -45,11 +45,11 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var panelNum = numberPanelParam["panelNum"];
                 var finalTileNum = numberPanelParam["finalTileNum"];
                 // 数字タイルの作成
-                tileGenerator.CreateNumberTile(panelNum, finalTileNum);
+                _tileGenerator.CreateNumberTile(panelNum, finalTileNum);
             }
 
             // ノーマルタイルの一括作成
-            tileGenerator.CreateNormalTiles();
+            _tileGenerator.CreateNormalTiles();
 
             foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
                 // パラメータの取得
@@ -57,7 +57,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var initialTileNum = numberPanelParam["initialTileNum"];
                 var finalTileNum = numberPanelParam["finalTileNum"];
                 // 数字パネルの作成
-                var panel = Instantiate(numberPanelPrefabs[panelNum - 1]);
+                var panel = Instantiate(_numberPanelPrefabs[panelNum - 1]);
                 panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
