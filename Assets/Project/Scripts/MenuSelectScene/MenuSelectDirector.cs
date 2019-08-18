@@ -7,6 +7,9 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class MenuSelectDirector : SingletonObject<MenuSelectDirector>
     {
+        /// <summary>
+        /// 現在表示しているシーン
+        /// </summary>
         public string NowScene
         {
             get;
@@ -19,6 +22,10 @@ namespace Project.Scripts.MenuSelectScene
             StartCoroutine(ChangeScene(SceneName.STAGE_SELECT_SCENE));
         }
 
+        /// <summary>
+        /// シーンを変更する
+        /// </summary>
+        /// <param name="sceneName"> シーン名 </param>
         public IEnumerator ChangeScene(string sceneName)
         {
             // シーンをロード
