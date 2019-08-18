@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System;
+using Project.Scripts.Utils.Attribute;
 using Project.Scripts.Utils.Definitions;
 using JetBrains.Annotations;
 
@@ -7,10 +7,10 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class NormalTileController : MonoBehaviour
     {
-        [NonSerialized, CanBeNull] public GameObject rightTile;
-        [NonSerialized, CanBeNull] public GameObject leftTile;
-        [NonSerialized, CanBeNull] public GameObject upperTile;
-        [NonSerialized, CanBeNull] public GameObject lowerTile;
+        [CanBeNull, NonEditable] public GameObject rightTile;
+        [CanBeNull, NonEditable] public GameObject leftTile;
+        [CanBeNull, NonEditable] public GameObject upperTile;
+        [CanBeNull, NonEditable] public GameObject lowerTile;
 
         private int tileNum;
 

@@ -1,7 +1,8 @@
-﻿using UnityEngine;
 using System;
+using Project.Scripts.Utils.Attribute;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -9,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
     {
         [NonSerialized] public float additionalMargin = 0.00001f;
         [NonSerialized] public Vector2 motionVector;
-        protected float speed = 0.05f;
+        [SerializeField, NonEditable] protected float speed = 0.05f;
 
         protected override void Awake()
         {
