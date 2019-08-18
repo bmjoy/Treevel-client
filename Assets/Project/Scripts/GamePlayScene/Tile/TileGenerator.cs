@@ -35,7 +35,9 @@ namespace Project.Scripts.GamePlayScene.Tile
             };
         }
 
-        /* 普通タイルの作成 */
+        /// <summary>
+        /// 普通タイルの作成
+        /// </summary>
         public void CreateNormalTiles()
         {
             for (var tileNum = 1; tileNum <= StageSize.TILE_NUM; tileNum++) {
@@ -60,7 +62,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             MakeRelations(_tiles);
         }
 
-        /* ワープタイルの作成 */
+        /// <summary>
+        /// ワープタイルの作成 (2つで1組)
+        /// </summary>
+        /// <param name="firstTileNum"> ワープタイル1 </param>
+        /// <param name="secondTileNum"> ワープタイル2 </param>
         public void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTile = Instantiate(_warpTilePrefab);
@@ -76,7 +82,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             SetTile(secondTileNum, secondTile);
         }
 
-        /* ナンバータイルの作成 */
+        /// <summary>
+        /// ナンバータイルの作成
+        /// </summary>
+        /// <param name="panelNum"> ゴールとして受け入れるパネルの番号 </param>
+        /// <param name="tileNum"> タイルの番号 </param>
         public void CreateNumberTile(int panelNum, int tileNum)
         {
             // パネルに合わせたタイルを選択
@@ -89,7 +99,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             SetTile(tileNum, numberTile);
         }
 
-        /* タイルの座標を取得 */
+        /// <summary>
+        /// タイルの座標を計算し，取得
+        /// </summary>
+        /// <param name="tileNum"> タイルの番号 </param>
+        /// <returns></returns>
         private static Vector2 GetTilePosition(int tileNum)
         {
             // 最上タイルのy座標
@@ -108,7 +122,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             return new Vector2(positionX, positionY);
         }
 
-        /* タイルを配列に格納 */
+        /// <summary>
+        /// タイルを配列に格納
+        /// </summary>
+        /// <param name="tileNum"> タイルの番号 </param>
+        /// <param name="tile"> タイル </param>
         private void SetTile(int tileNum, GameObject tile)
         {
             // 行 (0~4)
@@ -119,6 +137,10 @@ namespace Project.Scripts.GamePlayScene.Tile
             _tiles[row, column] = tile;
         }
 
+        /// <summary>
+        /// タイルの上下左右のタイルへの参照を入れる
+        /// </summary>
+        /// <param name="tiles"></param>
         private static void MakeRelations(GameObject[,] tiles)
         {
             var row = tiles.GetLength(0);

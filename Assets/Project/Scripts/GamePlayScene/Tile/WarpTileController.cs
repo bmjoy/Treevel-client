@@ -6,9 +6,15 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class WarpTileController : NormalTileController
     {
-        // 相方のwarpTile
+        // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <param name="position"> 座標 </param>
+        /// <param name="tileNum"> タイルの番号 </param>
+        /// <param name="pairTile"> 相方の WarpTile </param>
         public void Initialize(Vector2 position, int tileNum, GameObject pairTile)
         {
             base.Initialize(position, tileNum);
@@ -16,6 +22,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             this._pairTile = pairTile;
         }
 
+        /// <inheritdoc />
         public override void HandlePanel(GameObject panel)
         {
             if (_pairTile.transform.childCount == 0) {
