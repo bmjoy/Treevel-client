@@ -2,5 +2,5 @@
 
 namespace Project.Scripts.Utils.Attribute
 {
-    public class NonEditableAttribute : PropertyAttribute{}
+    public class NonEditableAttribute : PropertyAttribute {}
 }
