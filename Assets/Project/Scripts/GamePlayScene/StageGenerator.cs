@@ -6,18 +6,11 @@ using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public class StageGenerator : Singleton<StageGenerator>
+    public class StageGenerator : MonoBehaviour
     {
-        // TODO プライベートにする
-
-        public StageGenerator()
-        {
-        }
-
         /// <summary>
         /// ステージを作成する
         /// </summary>
