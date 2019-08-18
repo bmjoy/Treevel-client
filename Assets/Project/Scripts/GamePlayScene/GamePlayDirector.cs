@@ -35,31 +35,31 @@ namespace Project.Scripts.GamePlayScene
 
         public EGameState state = EGameState.Opening;
 
-        private GameObject resultWindow;
+        private GameObject _resultWindow;
 
-        private GameObject resultText;
+        private GameObject _resultText;
 
-        private GameObject warningText;
+        private GameObject _warningText;
 
-        private GameObject stageNumberText;
+        private GameObject _stageNumberText;
 
-        private AudioSource playingAudioSource;
+        private AudioSource _playingAudioSource;
 
-        private AudioSource successAudioSource;
+        private AudioSource _successAudioSource;
 
-        private AudioSource failureAudioSource;
+        private AudioSource _failureAudioSource;
 
         private void Awake()
         {
-            resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
+            _resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
 
-            resultText = resultWindow.transform.Find(RESULT_NAME).gameObject;
-            warningText = resultWindow.transform.Find(WARNING_NAME).gameObject;
-            warningText.GetComponent<Text>().text = WARNING_TEXT;
+            _resultText = _resultWindow.transform.Find(RESULT_NAME).gameObject;
+            _warningText = _resultWindow.transform.Find(WARNING_NAME).gameObject;
+            _warningText.GetComponent<Text>().text = WARNING_TEXT;
 
-            stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
+            _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
-            UnifyDisplay(resultWindow);
+            UnifyDisplay(_resultWindow);
 
             SetAudioSources();
         }
@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene
             if (pauseStatus) { // アプリがバックグラウンドに移動した時
                 if (Dispatch(EGameState.Failure)) {
                     // 警告ウィンドウを表示
-                    warningText.SetActive(true);
+                    _warningText.SetActive(true);
                 }
             }
         }
@@ -129,7 +129,7 @@ namespace Project.Scripts.GamePlayScene
 
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("nextState", nextState, null);
+                    throw new ArgumentOutOfRangeException(nameof(nextState), nextState, null);
             }
 
             return false;
@@ -151,16 +151,16 @@ namespace Project.Scripts.GamePlayScene
             print("-------------------------------");
 
             // 現在のステージ番号を格納
-            stageNumberText.GetComponent<Text>().text = stageId.ToString();
+            _stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
             // 結果ウィンドウを非表示
-            resultWindow.SetActive(false);
+            _resultWindow.SetActive(false);
 
             // 警告ウィンドウを非表示
-            warningText.SetActive(false);
+            _warningText.SetActive(false);
 
             // 番号に合わせたステージの作成
-            StageGenerator.Instance.CreateStages(stageId);
+            StageGenerator.CreateStages(stageId);
 
             // 状態を変更する
             Dispatch(EGameState.Playing);
@@ -169,7 +169,7 @@ namespace Project.Scripts.GamePlayScene
         /* ゲーム開始時 */
         private void GamePlaying()
         {
-            playingAudioSource.Play();
+            _playingAudioSource.Play();
         }
 
         /* ゲーム成功時 */
@@ -177,8 +177,8 @@ namespace Project.Scripts.GamePlayScene
         {
             if (OnSucceed != null) OnSucceed();
             EndProcess();
-            successAudioSource.Play();
-            resultText.GetComponent<Text>().text = SUCCESS_TEXT;
+            _successAudioSource.Play();
+            _resultText.GetComponent<Text>().text = SUCCESS_TEXT;
             var ss = StageStatus.Get(stageId);
             // クリア済みにする
             ss.ClearStage(stageId);
@@ -191,8 +191,8 @@ namespace Project.Scripts.GamePlayScene
         {
             if (OnFail != null) OnFail();
             EndProcess();
-            failureAudioSource.Play();
-            resultText.GetComponent<Text>().text = FAILURE_TEXT;
+            _failureAudioSource.Play();
+            _resultText.GetComponent<Text>().text = FAILURE_TEXT;
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);
             ss.IncFailureNum(stageId);
@@ -201,8 +201,8 @@ namespace Project.Scripts.GamePlayScene
         /* ゲーム終了時の共通処理 */
         private void EndProcess()
         {
-            playingAudioSource.Stop();
-            resultWindow.SetActive(true);
+            _playingAudioSource.Stop();
+            _resultWindow.SetActive(true);
         }
 
         /* リトライボタン押下時 */
@@ -269,17 +269,17 @@ namespace Project.Scripts.GamePlayScene
             // 各音源の設定
             // Playing
             gameObject.AddComponent<AudioSource>();
-            playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-            SetAudioSource(clipName: ClipName.PLAYING, audioSource: playingAudioSource, time: 2.0f, loop: true,
+            _playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
+            SetAudioSource(clipName: ClipName.PLAYING, audioSource: _playingAudioSource, time: 2.0f, loop: true,
                 volumeRate: 0.25f);
             // Success
             gameObject.AddComponent<AudioSource>();
-            successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-            SetAudioSource(clipName: ClipName.SUCCESS, audioSource: successAudioSource);
+            _successAudioSource = gameObject.GetComponents<AudioSource>()[1];
+            SetAudioSource(clipName: ClipName.SUCCESS, audioSource: _successAudioSource);
             // Failure
             gameObject.AddComponent<AudioSource>();
-            failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-            SetAudioSource(clipName: ClipName.FAILURE, audioSource: failureAudioSource);
+            _failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
+            SetAudioSource(clipName: ClipName.FAILURE, audioSource: _failureAudioSource);
         }
 
         /* 個々の音源のセットアップ (音源名 / 開始時間 / 繰り返し の設定) */
