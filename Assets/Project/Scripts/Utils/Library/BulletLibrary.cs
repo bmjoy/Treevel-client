@@ -8,7 +8,7 @@ namespace Project.Scripts.Utils.Library
     public static class BulletLibrary
     {
         /// <summary>
-        /// 座標から盤面の行と列を計算する
+        /// 座標から行(row)と列(column)を返す
         /// </summary>
         /// <param name="position"> 座標 </param>
         public static(int, int) GetRowAndColumn(Vector2 position)
