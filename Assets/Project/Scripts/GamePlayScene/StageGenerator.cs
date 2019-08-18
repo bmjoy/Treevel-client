@@ -18,7 +18,12 @@ namespace Project.Scripts.GamePlayScene
         {
         }
 
-        public void CreateStages(int stageId)
+        /// <summary>
+        /// ステージを作成する
+        /// </summary>
+        /// <param name="stageId"> ステージ id </param>
+        /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
+        public static void CreateStages(int stageId)
         {
             var tileGenerator = TileGenerator.Instance;
             var panelGenerator = PanelGenerator.Instance;
