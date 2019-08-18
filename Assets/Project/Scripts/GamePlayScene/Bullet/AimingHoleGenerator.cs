@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -18,7 +19,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private int aimingHoleCount = 0;
 
         // aimingHoleが出現するNumberPanelの出現率の重み
-        private int[] randomNumberPanel = SetInitialRatio(StageSize.NUMBER_PANEL_NUM);
+        private int[] randomNumberPanel = BulletLibrary.GetInitialArray(StageSize.NUMBER_PANEL_NUM);
 
         public void Initialize(int ratio, int[] aimingPanel)
         {
@@ -43,7 +44,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<AimingHoleWarningController>();
             warningScript.Initialize(nextAimingPanel, ref aimingHoleCount);
-
             // 警告の表示時間だけ待つ
             yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
             // 警告を削除する
@@ -54,7 +54,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 var hole = Instantiate(aimingHolePrefab);
                 var holeScript = hole.GetComponent<AimingHoleController>();
                 holeScript.Initialize(warning.transform.position);
-
                 // 同レイヤーのオブジェクトの描画順序の制御
                 hole.GetComponent<Renderer>().sortingOrder = bulletId;
                 StartCoroutine(holeScript.Delete());
@@ -64,7 +63,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* 撃つNumberPanelの番号を重みに基づき決定する */
         private int GetNumberPanel()
         {
-            var index = GetRandomParameter(randomNumberPanel) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomNumberPanel) + 1;
             return index;
         }
     }

@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -29,35 +29,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             GamePlayDirector.OnSucceed -= OnSucceed;
             GamePlayDirector.OnFail -= OnFail;
-        }
-
-        /* 配列の初期化を行うメソッド */
-        // 必ずライブラリ化する
-        protected static int[] SetInitialRatio(int arrayLength)
-        {
-            var returnArray = new int[arrayLength];
-            for (var index = 0; index < arrayLength; index++) {
-                returnArray[index] = INITIAL_RATIO;
-            }
-
-            return returnArray;
-        }
-
-        /* 重みに基づき配列の何番目を選択するかをランダムに決定する(配列の最初であるならば0を返す) */
-        // 必ずライブラリ化する
-        public static int GetRandomParameter(int[] randomParameters)
-        {
-            var sumOfRandomParameters = randomParameters.Sum();
-            // 1以上重みの総和以下の値をランダムに取得する
-            var randomValue = new System.Random().Next(sumOfRandomParameters) + 1;
-            var index = 0;
-            // 重み配列の最初の要素から順に、ランダムな値から値を引く
-            while (randomValue > 0) {
-                randomValue -= randomParameters[index];
-                index += 1;
-            }
-
-            return index - 1;
         }
 
         /* 実際に1つの銃弾を生成する方法を各銃弾のGenerator毎に実装する */

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.BulletWarning;
-using UnityEngine;
+using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -74,7 +75,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             do {
                 sum++;
                 // 出現させる銃弾を決定する
-                var index = BulletGenerator.GetRandomParameter(bulletRatio);
+                var index = BulletLibrary.SamplingArrayIndex(bulletRatio);
                 var bulletGeneratorScript = bulletGenerators[index].GetComponent<BulletGenerator>();
                 // 銃弾のsortingOrderを管理するIDを決定する
                 var nextBulletId = bulletGroupGenerator.bulletId;

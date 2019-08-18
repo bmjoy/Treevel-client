@@ -1,6 +1,7 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+using Project.Scripts.Utils.Library.Extension;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -57,23 +58,21 @@ namespace Project.Scripts.GamePlayScene.Bullet
             var motionVectorPosition = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
                 -(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2) * motionVector;
             // 移動方向に垂直な方向の座標
-            var orthogonalMotionVector = Abs(Transposition(motionVector));
+            var orthogonalMotionVector = motionVector.Transposition().Abs();
             var orthogonalMotionVectorPosition = new Vector2(TileSize.WIDTH * (line - 2),
                 WindowSize.HEIGHT * 0.5f -
                 (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
                 TileSize.HEIGHT * (line - 1)) * orthogonalMotionVector;
             // 銃弾の座標の初期位置
             transform.position = motionVectorPosition + orthogonalMotionVectorPosition;
-
             // Check if a bullet should be flipped vertically
             transform.localScale = new Vector2(CartridgeSize.WIDTH / originalWidth,
-                -1 * Mathf.Sign(motionVector.x) * CartridgeSize.HEIGHT / originalHeight) * LOCAL_SCALE;
-
+                -1 * Mathf.Sign(motionVector.x) * CartridgeSize.HEIGHT / originalHeight) *
+            LOCAL_SCALE;
             // Calculate rotation angle
             var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
             angle = (float)(Mathf.Acos(angle) * 180 / Math.PI);
             angle *= -1 * Mathf.Sign(motionVector.y);
-
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
         }
 
@@ -86,6 +85,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 数字パネルとの衝突以外は考えない
             if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) return;
+
             // 衝突したオブジェクトは赤色に変える
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }

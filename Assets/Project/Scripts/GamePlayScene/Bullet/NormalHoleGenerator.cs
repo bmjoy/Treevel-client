@@ -1,8 +1,9 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -18,10 +19,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private int column;
 
         // Holeが出現する行をランダムに決めるときの各行の重み
-        private int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
+        private int[] randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         // Holeが出現する列をランダムに決めるときの各列の重み
-        private int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
+        private int[] randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         public void Initialize(int ratio, ERow row, EColumn column)
         {
@@ -44,13 +45,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
             // 出現する行および列を指定する
             var nextHoleRow = (row == (int) ERow.Random) ? GetRow() : row;
             var nextHoleColumn = (column == (int) EColumn.Random) ? GetColumn() : column;
-
             // 警告の作成
             var warning = Instantiate(normalHoleWarningPrefab);
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<NormalHoleWarningController>();
             warningScript.Initialize(nextHoleRow, nextHoleColumn);
-
             // 警告の表示時間だけ待つ
             yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
             // 警告を削除する
@@ -61,7 +60,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 var hole = Instantiate(normalHolePrefab);
                 var holeScript = hole.GetComponent<NormalHoleController>();
                 holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
-
                 // 同レイヤーのオブジェクトの描画順序の制御
                 hole.GetComponent<Renderer>().sortingOrder = bulletId;
                 StartCoroutine(holeScript.Delete());
@@ -71,14 +69,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* Holeの出現する行を重みに基づき決定する */
         private int GetRow()
         {
-            var index = GetRandomParameter(randomRow) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
         /* Holeの出現する列を重みに基づき決定する */
         private int GetColumn()
         {
-            var index = GetRandomParameter(randomColumn) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(randomColumn) + 1;
             return (int) Enum.ToObject(typeof(EColumn), index);
         }
     }
