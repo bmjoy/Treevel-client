@@ -9,6 +9,9 @@ namespace Project.Scripts.ConfigScene
 {
     public class ResetController : MonoBehaviour
     {
+        /// <summary>
+        /// ステージリセットボタン
+        /// </summary>
         private Button _resetButton;
 
         private void Awake()
@@ -17,8 +20,12 @@ namespace Project.Scripts.ConfigScene
             _resetButton.onClick.AddListener(ResetButtonDown);
         }
 
+        /// <summary>
+        /// ステージリセットボタンを押した場合の処理
+        /// </summary>
         private static void ResetButtonDown()
         {
+            // 全ステージをリセット
             foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
                 var stageNum = StageInfo.Num[stageLevel];
                 var stageStartId = StageInfo.StageStartId[stageLevel];

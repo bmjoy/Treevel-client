@@ -7,6 +7,9 @@ namespace Project.Scripts.ConfigScene
 {
     public class VolumeController : MonoBehaviour
     {
+        /// <summary>
+        /// 音量スライダー
+        /// </summary>
         private Slider _volumeSlider;
 
         private void Awake()
@@ -18,6 +21,9 @@ namespace Project.Scripts.ConfigScene
             });
         }
 
+        /// <summary>
+        /// 音量スライダーが変化した場合の処理
+        /// </summary>
         private void ValueChangeCheck()
         {
             PlayerPrefs.SetFloat(PlayerPrefsKeys.VOLUME, _volumeSlider.value);
