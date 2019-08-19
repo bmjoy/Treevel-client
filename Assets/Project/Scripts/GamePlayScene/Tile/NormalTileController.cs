@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Project.Scripts.Utils.Attribute;
+using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using JetBrains.Annotations;
 

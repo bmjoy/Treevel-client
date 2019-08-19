@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using Project.Scripts.Utils.Attribute;
+using Project.Scripts.Utils.Attributes;
 
 namespace Project.Scripts.Editor
 {
