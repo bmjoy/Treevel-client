@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
-using JetBrains.Annotations;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
