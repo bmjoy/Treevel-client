@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
     public class NormalHoleController : BulletController
     {
         // 銃痕の表示時間
-        private const float HOLE_DISPLAYED_TIME = 0.50f;
+        private const float _HOLE_DISPLAYED_TIME = 0.50f;
 
         protected int row;
         protected int column;
@@ -46,14 +46,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
                     gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
                 } else {
                     // 数字パネル以外のパネルが銃弾の出現場所に存在する
-                    yield return new WaitForSeconds(HOLE_DISPLAYED_TIME);
+                    yield return new WaitForSeconds(_HOLE_DISPLAYED_TIME);
                     Destroy(gameObject);
                 }
             } else {
                 // 銃弾の出現場所にパネルが存在しない
                 // タイルとパネルの間のレイヤー(Hole)に描画する
                 gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
-                yield return new WaitForSeconds(HOLE_DISPLAYED_TIME);
+                yield return new WaitForSeconds(_HOLE_DISPLAYED_TIME);
                 Destroy(gameObject);
             }
         }

@@ -57,19 +57,19 @@ namespace Project.Scripts.GamePlayScene.Panel
             // 方向検知に加えて，上下と左右の変化量を比べることで，検知精度をあげる
             if (x > 0 && Math.Abs(x) >= Math.Abs(y)) {
                 // 右
-                var rightTile = parentTile.rightTile;
+                var rightTile = parentTile._rightTile;
                 UpdateTile(rightTile);
             } else if (x < 0 && Math.Abs(x) >= Math.Abs(y)) {
                 // 左
-                var leftTile = parentTile.leftTile;
+                var leftTile = parentTile._leftTile;
                 UpdateTile(leftTile);
             } else if (y > 0 && Math.Abs(y) >= Math.Abs(x)) {
                 // 上
-                var upperTile = parentTile.upperTile;
+                var upperTile = parentTile._upperTile;
                 UpdateTile(upperTile);
             } else if (y < 0 && Math.Abs(y) >= Math.Abs(x)) {
                 // 下
-                var lowerTile = parentTile.lowerTile;
+                var lowerTile = parentTile._lowerTile;
                 UpdateTile(lowerTile);
             }
         }

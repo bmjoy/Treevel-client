@@ -482,25 +482,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633aaf5d1ee7d4e199e9bb156394d2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberTile1Prefab: {fileID: 1720766100627462, guid: bf028c722117c4afb86fc833b5d96d14,
+  _numberTile1Prefab: {fileID: 1720766100627462, guid: bf028c722117c4afb86fc833b5d96d14,
     type: 3}
-  numberTile2Prefab: {fileID: 1728207391172570, guid: 3144f0b52b5fa43729e1b917fee9f46a,
+  _numberTile2Prefab: {fileID: 1728207391172570, guid: 3144f0b52b5fa43729e1b917fee9f46a,
     type: 3}
-  numberTile3Prefab: {fileID: 1479016069720960, guid: d64f3d9e27baf480b85c3b120aa04957,
+  _numberTile3Prefab: {fileID: 1479016069720960, guid: d64f3d9e27baf480b85c3b120aa04957,
     type: 3}
-  numberTile4Prefab: {fileID: 1621355552667394, guid: c545b85462b1d40dfac05d64750d57e3,
+  _numberTile4Prefab: {fileID: 1621355552667394, guid: c545b85462b1d40dfac05d64750d57e3,
     type: 3}
-  numberTile5Prefab: {fileID: 1033863517126588, guid: 3a9418df460e74fe19733448cb74a3aa,
+  _numberTile5Prefab: {fileID: 1033863517126588, guid: 3a9418df460e74fe19733448cb74a3aa,
     type: 3}
-  numberTile6Prefab: {fileID: 1305301057825576, guid: 38ce63e490929471faa6fa12d38a8cc1,
+  _numberTile6Prefab: {fileID: 1305301057825576, guid: 38ce63e490929471faa6fa12d38a8cc1,
     type: 3}
-  numberTile7Prefab: {fileID: 1001052288116312, guid: 33f500d2cdb6f433699c17809110ad5e,
+  _numberTile7Prefab: {fileID: 1001052288116312, guid: 33f500d2cdb6f433699c17809110ad5e,
     type: 3}
-  numberTile8Prefab: {fileID: 1451089964976956, guid: 656cbc31991614476adff801d9ce67c7,
+  _numberTile8Prefab: {fileID: 1451089964976956, guid: 656cbc31991614476adff801d9ce67c7,
     type: 3}
-  normalTilePrefab: {fileID: 1202584627454472, guid: 10615e735d661461a88777d89755bf0e,
+  _normalTilePrefab: {fileID: 1202584627454472, guid: 10615e735d661461a88777d89755bf0e,
     type: 3}
-  warpTilePrefab: {fileID: 1341861734510488, guid: 478593e9f969847a4af06fc32611b1a1,
+  _warpTilePrefab: {fileID: 1341861734510488, guid: 478593e9f969847a4af06fc32611b1a1,
     type: 3}
 --- !u!1 &896036186
 GameObject:
@@ -531,18 +531,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c624f5e7af1344b3b1ab1f2ff22b14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletId: -32768
   bulletGroupControllerPrefab: {fileID: 1810046256894534, guid: 477196a904b4344c88ab20b42d179cd8,
     type: 3}
-  normalCartridgeGeneratorPrefab: {fileID: 1198175920480986, guid: 862747cb8118c47788f9eb458f7096c7,
+  _normalCartridgeGeneratorPrefab: {fileID: 1198175920480986, guid: 862747cb8118c47788f9eb458f7096c7,
     type: 3}
-  turnCartridgeGeneratorPrefab: {fileID: 1840753890305500, guid: 2ecfcf13f9b644b299762e3cb5d83175,
+  _turnCartridgeGeneratorPrefab: {fileID: 1840753890305500, guid: 2ecfcf13f9b644b299762e3cb5d83175,
     type: 3}
-  normalHoleGeneratorPrefab: {fileID: 1016726232043914, guid: f4001e6d3634a4e47b8c225f2f769939,
+  _normalHoleGeneratorPrefab: {fileID: 1016726232043914, guid: f4001e6d3634a4e47b8c225f2f769939,
     type: 3}
-  aimingHoleGeneratorPrefab: {fileID: 1971231480067746, guid: 079830519aa1340d4a1bc23578ee4bd5,
+  _aimingHoleGeneratorPrefab: {fileID: 1971231480067746, guid: 079830519aa1340d4a1bc23578ee4bd5,
     type: 3}
-  startTime: 0
 --- !u!4 &896036188
 Transform:
   m_ObjectHideFlags: 0
@@ -1239,25 +1237,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba4749476458d4ce197e12e743e43472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberPanel1Prefab: {fileID: 1556909149041080, guid: 3cbdb3aba45c048d381ec09975dfb843,
+  _numberPanel1Prefab: {fileID: 1556909149041080, guid: 3cbdb3aba45c048d381ec09975dfb843,
     type: 3}
-  numberPanel2Prefab: {fileID: 1740829354581646, guid: dbd25ee4b364c4271a584fca923352db,
+  _numberPanel2Prefab: {fileID: 1740829354581646, guid: dbd25ee4b364c4271a584fca923352db,
     type: 3}
-  numberPanel3Prefab: {fileID: 1821297137846638, guid: 489fd281dd9ed4639a4f30419568d561,
+  _numberPanel3Prefab: {fileID: 1821297137846638, guid: 489fd281dd9ed4639a4f30419568d561,
     type: 3}
-  numberPanel4Prefab: {fileID: 1666121162928382, guid: 67d1f410b60704677bb6c0826bb03b2d,
+  _numberPanel4Prefab: {fileID: 1666121162928382, guid: 67d1f410b60704677bb6c0826bb03b2d,
     type: 3}
-  numberPanel5Prefab: {fileID: 1105968026340254, guid: 92596bcac6d264e30af64bfb0e39a161,
+  _numberPanel5Prefab: {fileID: 1105968026340254, guid: 92596bcac6d264e30af64bfb0e39a161,
     type: 3}
-  numberPanel6Prefab: {fileID: 1534627393435266, guid: 43b466b59451544b081a6b1c95a36a63,
+  _numberPanel6Prefab: {fileID: 1534627393435266, guid: 43b466b59451544b081a6b1c95a36a63,
     type: 3}
-  numberPanel7Prefab: {fileID: 1523037386814182, guid: d57e96bd849524229ae9cf4f96056123,
+  _numberPanel7Prefab: {fileID: 1523037386814182, guid: d57e96bd849524229ae9cf4f96056123,
     type: 3}
-  numberPanel8Prefab: {fileID: 1353637230828172, guid: 4a225671eee6844d8945c6357a1c0958,
+  _numberPanel8Prefab: {fileID: 1353637230828172, guid: 4a225671eee6844d8945c6357a1c0958,
     type: 3}
-  staticDummyPanelPrefab: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+  _staticDummyPanelPrefab: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
     type: 3}
-  dynamicDummyPanelPrefab: {fileID: 1667971508019858, guid: d16fddeae14184ddf8c14eba3f866b67,
+  _dynamicDummyPanelPrefab: {fileID: 1667971508019858, guid: d16fddeae14184ddf8c14eba3f866b67,
     type: 3}
 --- !u!4 &1797629530
 Transform:

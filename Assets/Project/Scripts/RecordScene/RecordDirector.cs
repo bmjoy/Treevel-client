@@ -10,11 +10,11 @@ namespace Project.Scripts.RecordScene
 {
     public class RecordDirector : MonoBehaviour
     {
-        public GameObject graphPrefab;
+        [SerializeField] private GameObject _graphPrefab;
 
-        public GameObject stageNumPrefab;
+        [SerializeField] private GameObject _stageNumPrefab;
 
-        public GameObject successLinePrefab;
+        [SerializeField] private GameObject _successLinePrefab;
 
         private readonly Dictionary<EStageLevel, GameObject> levelText = new Dictionary<EStageLevel, GameObject>();
 
@@ -147,14 +147,14 @@ namespace Project.Scripts.RecordScene
                 var stageStatus = StageStatus.Get(stageId);
 
                 /* ステージ番号の配置 */
-                var stageNumUi = Instantiate(stageNumPrefab);
+                var stageNumUi = Instantiate(_stageNumPrefab);
                 stageNumUi.transform.SetParent(graphAreaContent, false);
                 stageNumUi.GetComponent<Text>().text = stageName.ToString();
                 stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, bottomStageNumPosition);
                 stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, bottomPosition);
 
                 /* 棒グラフの配置 */
-                var graphUi = Instantiate(graphPrefab);
+                var graphUi = Instantiate(_graphPrefab);
                 graphUi.transform.SetParent(graphAreaContent, false);
 
                 // 挑戦回数に応じた棒グラフの上端
@@ -172,7 +172,7 @@ namespace Project.Scripts.RecordScene
                     /* 成功している場合は，色を水色にして，成功した際の挑戦回数も示す */
                     graphUi.GetComponent<Image>().color = Color.cyan;
 
-                    var successLineUi = Instantiate(successLinePrefab);
+                    var successLineUi = Instantiate(_successLinePrefab);
                     successLineUi.transform.SetParent(graphAreaContent, false);
                     var successY = (topPosition - bottomPosition) * (stageStatus.firstSuccessNum / maxScale) +
                         bottomPosition;

@@ -1,30 +1,31 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class BulletGroupGenerator : SingletonObject<BulletGroupGenerator>
     {
         // 生成された銃弾のID(sortingOrder)
-        public short bulletId;
+        [NonSerialized] public short bulletId;
 
         // 銃弾グループを制御するcoroutine
-        private List<IEnumerator> coroutines;
+        private List<IEnumerator> _coroutines;
 
         // 銃弾グループのprefab
         public GameObject bulletGroupControllerPrefab;
 
         // 各銃弾のGeneratorのprefab
-        public GameObject normalCartridgeGeneratorPrefab;
-        public GameObject turnCartridgeGeneratorPrefab;
-        public GameObject normalHoleGeneratorPrefab;
-        public GameObject aimingHoleGeneratorPrefab;
+        [SerializeField] private GameObject _normalCartridgeGeneratorPrefab;
+        [SerializeField] private GameObject _turnCartridgeGeneratorPrefab;
+        [SerializeField] private GameObject _normalHoleGeneratorPrefab;
+        [SerializeField] private GameObject _aimingHoleGeneratorPrefab;
 
         // Generatorが作成された時刻
-        public float startTime;
+        [NonSerialized] public float startTime;
 
         private void OnEnable()
         {
@@ -43,8 +44,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             Initialize();
 
-            this.coroutines = coroutines;
-            foreach (var coroutine in this.coroutines) StartCoroutine(coroutine);
+            this._coroutines = coroutines;
+            foreach (var coroutine in this._coroutines) StartCoroutine(coroutine);
         }
 
         /* ゲーム開始時およびリトライ時に初期化が必要な変数を初期化する */
@@ -85,7 +86,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* 横方向、特定の行を移動する銃弾を生成 */
         public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row)
         {
-            var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row);
             return cartridgeGenerator;
@@ -95,7 +96,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection,
             EColumn column)
         {
-            var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column);
             return cartridgeGenerator;
@@ -106,7 +107,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row,
             int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
         {
-            var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row, randomCartridgeDirection, randomRow,
                 randomColumn);
@@ -117,7 +118,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection,
             EColumn column, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
         {
-            var cartridgeGenerator = Instantiate(normalCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column, randomCartridgeDirection, randomRow,
                 randomColumn);
@@ -129,7 +130,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public GameObject CreateTurnCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row,
             int[] turnDirection = null, int[] turnLine = null)
         {
-            var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row);
             return cartridgeGenerator;
@@ -140,7 +141,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             EColumn column,
             int[] turnDirection = null, int[] turnLine = null)
         {
-            var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column);
             return cartridgeGenerator;
@@ -153,7 +154,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             int[] randomTurnDirections, int[] randomTurnRow,
             int[] randomTurnColumn)
         {
-            var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row, turnDirection, turnLine,
                 randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
@@ -168,7 +169,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             int[] randomTurnDirections, int[] randomTurnRow,
             int[] randomTurnColumn)
         {
-            var cartridgeGenerator = Instantiate(turnCartridgeGeneratorPrefab);
+            var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column, turnDirection, turnLine,
                 randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
@@ -180,7 +181,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* 特定の行、特定の列に銃弾を生成する */
         public GameObject CreateNormalHoleGenerator(int ratio, ERow row, EColumn column)
         {
-            var holeGenerator = Instantiate(normalHoleGeneratorPrefab);
+            var holeGenerator = Instantiate(_normalHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
             holeGeneratorScript.Initialize(ratio, row, column);
             return holeGenerator;
@@ -190,7 +191,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public GameObject CreateNormalHoleGenerator(int ratio, ERow row, EColumn column, int[] randomRow,
             int[] randomColumn)
         {
-            var holeGenerator = Instantiate(normalHoleGeneratorPrefab);
+            var holeGenerator = Instantiate(_normalHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
             holeGeneratorScript.Initialize(ratio, row, column, randomRow, randomColumn);
             return holeGenerator;
@@ -200,7 +201,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* 特定の番号のパネルのあるタイルの場所に銃弾を生成する */
         public GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanel = null)
         {
-            var holeGenerator = Instantiate(aimingHoleGeneratorPrefab);
+            var holeGenerator = Instantiate(_aimingHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
             holeGeneratorScript.Initialize(ratio, aimingPanel);
             return holeGenerator;
@@ -209,7 +210,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /* ランダムな番号のパネルのあるタイルの場所に銃弾を生成する*/
         public GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanel, int[] randomNumberPanel)
         {
-            var holeGenerator = Instantiate(aimingHoleGeneratorPrefab);
+            var holeGenerator = Instantiate(_aimingHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
             holeGeneratorScript.Initialize(ratio, aimingPanel, randomNumberPanel);
             return holeGenerator;

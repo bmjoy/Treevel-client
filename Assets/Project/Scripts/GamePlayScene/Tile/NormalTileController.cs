@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
+using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
-using JetBrains.Annotations;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
     public class NormalTileController : MonoBehaviour
     {
-        [CanBeNull] public GameObject rightTile;
-        [CanBeNull] public GameObject leftTile;
-        [CanBeNull] public GameObject upperTile;
-        [CanBeNull] public GameObject lowerTile;
+        [NonEditable] public GameObject _rightTile;
+        [NonEditable] public GameObject _leftTile;
+        [NonEditable] public GameObject _upperTile;
+        [NonEditable] public GameObject _lowerTile;
 
         private int tileNum;
 
@@ -41,10 +41,10 @@ namespace Project.Scripts.GamePlayScene.Tile
         // 自身タイルの上下左右のタイルへの参照を入れる
         public void MakeRelation(GameObject rightTile, GameObject leftTile, GameObject upperTile, GameObject lowerTile)
         {
-            this.rightTile = rightTile;
-            this.leftTile = leftTile;
-            this.upperTile = upperTile;
-            this.lowerTile = lowerTile;
+            this._rightTile = rightTile;
+            this._leftTile = leftTile;
+            this._upperTile = upperTile;
+            this._lowerTile = lowerTile;
         }
 
         /* パネルがタイルに移動してきたときの処理 */

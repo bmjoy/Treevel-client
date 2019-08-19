@@ -29,9 +29,9 @@
 >
 > Fields (not private) -> lowerCamelCase
 >
-> Instance fields (private) -> lowerCamelCase
+> Instance fields (private) -> _lowerCamelCase
 >
-> Static field (private) -> lowerCamelCase
+> Static field (private) -> _lowerCamelCase
 >
 > Constant fields (not private) -> ALL_UPPER
 >

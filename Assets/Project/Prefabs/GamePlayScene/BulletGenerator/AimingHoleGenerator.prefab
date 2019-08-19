@@ -1,22 +1,12 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1971231480067746}
-  m_IsPrefabParent: 1
 --- !u!1 &1971231480067746
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4088608138730468}
   - component: {fileID: 114527726401551268}
@@ -29,9 +19,10 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4088608138730468
 Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971231480067746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -42,29 +33,21 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114527726401551268
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971231480067746}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e915e542ba6fd4843a16b59743f32438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamePlayDirector: {fileID: 0}
-  ratio: 100
-  normalHolePrefab: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
-    type: 2}
-  normalHoleWarningPrefab: {fileID: 1410919219006700, guid: fdbcd1924c8b54021949ea21ae3ba36e,
-    type: 2}
-  row: 0
-  column: 0
-  randomRow: 6400000064000000640000006400000064000000
-  randomColumn: 640000006400000064000000
-  aimingHolePrefab: {fileID: 1225760507672674, guid: aba219999cff64bc3970ce8adba53fce,
-    type: 2}
-  aimingHoleWarningPrefab: {fileID: 1827875136056974, guid: a0af620f27170486a819a947527a1c02,
-    type: 2}
-  aimingPanel: 
-  aimingHoleCount: 0
-  randomNumberPanel: 6400000064000000640000006400000064000000640000006400000064000000
+  _normalHolePrefab: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
+    type: 3}
+  _normalHoleWarningPrefab: {fileID: 1410919219006700, guid: fdbcd1924c8b54021949ea21ae3ba36e,
+    type: 3}
+  _aimingHolePrefab: {fileID: 1225760507672674, guid: aba219999cff64bc3970ce8adba53fce,
+    type: 3}
+  _aimingHoleWarningPrefab: {fileID: 1827875136056974, guid: a0af620f27170486a819a947527a1c02,
+    type: 3}

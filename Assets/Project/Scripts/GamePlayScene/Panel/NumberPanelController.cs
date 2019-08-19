@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using System;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using SpriteGlow;
 using UnityEngine;
@@ -9,12 +10,12 @@ namespace Project.Scripts.GamePlayScene.Panel
     public class NumberPanelController : DynamicPanelController
     {
         // 最終タイル
-        private GameObject finalTile;
+        private GameObject _finalTile;
 
         private int panelNum;
 
         // パネルが最終タイルにいるかどうかの状態
-        public bool adapted;
+        [NonSerialized] public bool adapted;
 
         protected override void Awake()
         {
@@ -28,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Start();
             // 初期状態で最終タイルにいるかどうかの状態を変える
-            adapted = transform.parent.gameObject == finalTile;
+            adapted = transform.parent.gameObject == _finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
             GetComponent<SpriteGlowEffect>().enabled = adapted;
         }
@@ -37,7 +38,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             Initialize(initialTileNum);
             name = PanelName.NUMBER_PANEL + panelNum;
-            finalTile = TileLibrary.GetTile(finalTileNum);
+            _finalTile = TileLibrary.GetTile(finalTileNum);
             this.panelNum = panelNum;
         }
 
@@ -54,7 +55,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.UpdateTile(targetTile);
             // 最終タイルにいるかどうかで状態を変える
-            adapted = transform.parent.gameObject == finalTile;
+            adapted = transform.parent.gameObject == _finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
             GetComponent<SpriteGlowEffect>().enabled = adapted;
             // adapted が true になっていれば (必要条件) 成功判定をする

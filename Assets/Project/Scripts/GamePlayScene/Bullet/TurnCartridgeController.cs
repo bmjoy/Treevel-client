@@ -10,29 +10,29 @@ namespace Project.Scripts.GamePlayScene.Bullet
     public class TurnCartridgeController : NormalCartridgeController
     {
         // 回転方向の配列
-        private int[] turnDirection;
+        private int[] _turnDirection;
 
         // 回転する行(or列)の配列
-        private int[] turnLine;
+        private int[] _turnLine;
 
         // 回転に関する警告を表示する座標
-        private Vector2 turnPoint;
+        private Vector2 _turnPoint;
 
         // 回転方向に応じて表示わけする警告画像の名前
-        private readonly string[] warningList = {"turnLeft", "turnRight", "turnUp", "turnBottom"};
+        private readonly string[] _warningList = {"turnLeft", "turnRight", "turnUp", "turnBottom"};
 
         // 警告
-        public GameObject normalCartridgeWarningPrefab;
-        private GameObject warning;
+        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
+        private GameObject _warning;
 
         // １フレームあたりの回転角度
-        private float turnAngle;
+        private float _turnAngle;
 
         // 回転に要するフレーム数
         private const int COUNT = 50;
 
         // 回転の何フレーム目か
-        private int rotateCount = -1;
+        private int _rotateCount = -1;
 
         // 回転中の銃弾の速さ (円周(回転半径 * 2 * pi)の4分の1をフレーム数で割る)
         private float rotatingSpeed =
@@ -41,55 +41,55 @@ namespace Project.Scripts.GamePlayScene.Bullet
         protected override void FixedUpdate()
         {
             // 回転する座標に近づいたら警告を表示する
-            if (rotateCount == -1 && Vector2.Distance(turnPoint, transform.position) <=
+            if (_rotateCount == -1 && Vector2.Distance(_turnPoint, transform.position) <=
                 (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f + speed * 50) {
-                warning = Instantiate(normalCartridgeWarningPrefab);
+                _warning = Instantiate(_normalCartridgeWarningPrefab);
                 // 同レイヤーのオブジェクトの描画順序の制御
-                warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
+                _warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
                 // warningの位置・大きさ等の設定
-                var warningScript = warning.GetComponent<CartridgeWarningController>();
-                warningScript.Initialize(turnPoint, warningList[turnDirection[0] - 1]);
-                rotateCount++;
+                var warningScript = _warning.GetComponent<CartridgeWarningController>();
+                warningScript.Initialize(_turnPoint, _warningList[_turnDirection[0] - 1]);
+                _rotateCount++;
                 transform.Translate(motionVector * speed, Space.World);
             }
             // 回転はじめのフレーム
-            else if (rotateCount == 0 && Vector2.Distance(turnPoint, transform.position) <=
+            else if (_rotateCount == 0 && Vector2.Distance(_turnPoint, transform.position) <=
                 (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) {
-                Destroy(warning);
-                rotateCount++;
-                motionVector = motionVector.Rotate(turnAngle / 2f);
-                transform.Rotate(new Vector3(0, 0, turnAngle / 2f / Mathf.PI * 180f), Space.World);
+                Destroy(_warning);
+                _rotateCount++;
+                motionVector = motionVector.Rotate(_turnAngle / 2f);
+                transform.Rotate(new Vector3(0, 0, _turnAngle / 2f / Mathf.PI * 180f), Space.World);
                 transform.Translate(motionVector * rotatingSpeed, Space.World);
             }
             // 回転中のフレーム
-            else if (0 < rotateCount && rotateCount <= COUNT - 1) {
-                rotateCount++;
-                motionVector = motionVector.Rotate(turnAngle);
-                transform.Rotate(new Vector3(0, 0, turnAngle / Mathf.PI * 180f), Space.World);
+            else if (0 < _rotateCount && _rotateCount <= COUNT - 1) {
+                _rotateCount++;
+                motionVector = motionVector.Rotate(_turnAngle);
+                transform.Rotate(new Vector3(0, 0, _turnAngle / Mathf.PI * 180f), Space.World);
                 transform.Translate(motionVector * rotatingSpeed, Space.World);
             }
             // 回転おわりのフレーム
-            else if (rotateCount == COUNT) {
-                transform.Rotate(new Vector3(0, 0, turnAngle / 2f / Mathf.PI * 180f), Space.World);
-                motionVector = motionVector.Rotate(turnAngle / 2f);
+            else if (_rotateCount == COUNT) {
+                transform.Rotate(new Vector3(0, 0, _turnAngle / 2f / Mathf.PI * 180f), Space.World);
+                motionVector = motionVector.Rotate(_turnAngle / 2f);
 
                 // 別のタイル上でまだ回転する場合
-                if (turnDirection.Length >= 2) {
+                if (_turnDirection.Length >= 2) {
                     // 配列の先頭要素を除く部分配列を取得する
-                    turnDirection = turnDirection.Skip(1).Take(turnDirection.Length - 1).ToArray();
-                    turnLine = turnLine.Skip(1).Take(turnLine.Length - 1).ToArray();
-                    turnPoint = transform.position * motionVector.Transposition().Abs() + new Vector2(
-                            TileSize.WIDTH * (turnLine[0] - 2),
+                    _turnDirection = _turnDirection.Skip(1).Take(_turnDirection.Length - 1).ToArray();
+                    _turnLine = _turnLine.Skip(1).Take(_turnLine.Length - 1).ToArray();
+                    _turnPoint = transform.position * motionVector.Transposition().Abs() + new Vector2(
+                            TileSize.WIDTH * (_turnLine[0] - 2),
                             WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-                            TileSize.HEIGHT * (turnLine[0] - 1)) * motionVector.Abs();
-                    turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
-                    turnAngle = (motionVector.x + motionVector.y) * turnAngle;
-                    turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
-                    rotateCount = -1;
+                            TileSize.HEIGHT * (_turnLine[0] - 1)) * motionVector.Abs();
+                    _turnAngle = _turnDirection[0] % 2 == 1 ? 90 : -90;
+                    _turnAngle = (motionVector.x + motionVector.y) * _turnAngle;
+                    _turnAngle = _turnAngle / COUNT / 180.0f * Mathf.PI;
+                    _rotateCount = -1;
                 }
                 // 回転しない場合
                 else {
-                    rotateCount = -2;
+                    _rotateCount = -2;
                 }
 
                 transform.Translate(motionVector * speed, Space.World);
@@ -105,24 +105,24 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 銃弾に必要な引数を受け取る
             Initialize(direction, line, motionVector);
-            this.turnDirection = turnDirection;
-            this.turnLine = turnLine;
+            this._turnDirection = turnDirection;
+            this._turnLine = turnLine;
             // 銃弾が曲がるタイルの座標
-            turnPoint = transform.position * motionVector.Transposition().Abs() + new Vector2(
+            _turnPoint = transform.position * motionVector.Transposition().Abs() + new Vector2(
                     TileSize.WIDTH * (turnLine[0] - 2),
                     WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
                     TileSize.HEIGHT * (turnLine[0] - 1)) * motionVector.Abs();
             // 回転角度
-            turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
-            turnAngle = (motionVector.x + motionVector.y) * turnAngle;
-            turnAngle = turnAngle / COUNT / 180.0f * Mathf.PI;
+            _turnAngle = turnDirection[0] % 2 == 1 ? 90 : -90;
+            _turnAngle = (motionVector.x + motionVector.y) * _turnAngle;
+            _turnAngle = _turnAngle / COUNT / 180.0f * Mathf.PI;
         }
 
         protected override void OnFail()
         {
             base.OnFail();
             rotatingSpeed = 0;
-            turnAngle = 0;
+            _turnAngle = 0;
         }
     }
 }

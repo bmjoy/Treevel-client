@@ -386,11 +386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b53763965784e018406592f8845568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphPrefab: {fileID: 1622654635503194, guid: b144f6c938d114f16b8dc352d74a5d5a,
+  _graphPrefab: {fileID: 1622654635503194, guid: b144f6c938d114f16b8dc352d74a5d5a,
     type: 3}
-  stageNumPrefab: {fileID: 1009195855993088, guid: b626be635a42747f6a7fd8fb88fcc4ff,
+  _stageNumPrefab: {fileID: 1009195855993088, guid: b626be635a42747f6a7fd8fb88fcc4ff,
     type: 3}
-  successLinePrefab: {fileID: 1781992108246784, guid: 923a9a5e14eb54aa082f3884cb658373,
+  _successLinePrefab: {fileID: 1781992108246784, guid: 923a9a5e14eb54aa082f3884cb658373,
     type: 3}
 --- !u!1 &1585348990
 GameObject:

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿﻿using Project.Scripts.Utils.Definitions;
+using System;
 using System.Collections;
-using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -8,11 +9,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
     {
         protected GamePlayDirector gamePlayDirector;
 
-        // ランダムな値を決めるときの各要素の重みの初期値
-        private const int INITIAL_RATIO = 100;
-
         // このGeneratorの出現する重み
-        public int ratio = INITIAL_RATIO;
+        [NonSerialized] public int ratio = BulletGeneratorParameter.INITIAL_RATIO;
 
         protected void Awake()
         {
