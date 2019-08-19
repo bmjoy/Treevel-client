@@ -24,12 +24,12 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 成功時のイベント
         /// </summary>
-        public static event ChangeAction OnFail;
+        public static event ChangeAction OnSucceed;
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
-        public static event ChangeAction OnSucceed;
+        public static event ChangeAction OnFail;
 
         /// <summary>
         /// ゲームの状態一覧

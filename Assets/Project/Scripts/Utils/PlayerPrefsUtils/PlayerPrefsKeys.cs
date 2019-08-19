@@ -1,7 +1,7 @@
 ﻿namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
     /// <summary>
-    /// キー群
+    /// PlayerPrefs で使うキー群
     /// </summary>
     public static class PlayerPrefsKeys
     {
