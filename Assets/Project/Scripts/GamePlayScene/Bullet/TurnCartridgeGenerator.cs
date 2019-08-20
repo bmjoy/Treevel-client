@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
         /// <param name="randomTurnRow"> 曲がる行の重み </param>
         /// <param name="randomTurnColumn"> 曲がる列の重み </param>
-        public void Initialize(int ratio, 
+        public void Initialize(int ratio,
             int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {

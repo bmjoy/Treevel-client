@@ -228,7 +228,7 @@ namespace Project.Scripts.GamePlayScene
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.Random,
                             column: EColumn.Random),
-                                    bulletGroupGenerator.CreateRandomNormalHoleGenerator(ratio: 100, 
+                                    bulletGroupGenerator.CreateRandomNormalHoleGenerator(ratio: 100,
                                         randomRow: new int[] {100, 20, 20, 20, 100}, randomColumn: new int[] {30, 100, 30})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
@@ -255,7 +255,7 @@ namespace Project.Scripts.GamePlayScene
                             loop: true,
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null),
-                                                                       bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100, 
+                                                                       bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100,
                                                                                randomNumberPanel: new int[] {10, 0, 10, 0, 10, 0, 10, 10})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
@@ -282,17 +282,17 @@ namespace Project.Scripts.GamePlayScene
                             loop: true,
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateRandomNormalCartridgeGenerator(ratio: 100,
-                                                    randomCartridgeDirection: new int[] {10, 10, 10, 10},
-                                                    randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10}),
-                                                bulletGroupGenerator.CreateRandomTurnCartridgeGenerator(ratio: 100,
-                                                    randomCartridgedirection: new int[] {10, 10, 10, 10},
-                                                    randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10},
-                                                    randomTurnDirections: new int[] {10, 10, 10, 10}, randomTurnRow: new int[] {10, 10, 10},
-                                                    randomTurnColumn: new int[] {10, 10, 10, 10, 10}),
-                                                bulletGroupGenerator.CreateRandomNormalHoleGenerator(ratio: 100, 
-                                        randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10}),
-                                                bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100, 
-                                                                               randomNumberPanel: new int[] {10, 10, 10, 10, 10, 10, 10, 10})
+                            randomCartridgeDirection: new int[] {10, 10, 10, 10},
+                            randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10}),
+                                       bulletGroupGenerator.CreateRandomTurnCartridgeGenerator(ratio: 100,
+                                           randomCartridgedirection: new int[] {10, 10, 10, 10},
+                                           randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10},
+                                           randomTurnDirections: new int[] {10, 10, 10, 10}, randomTurnRow: new int[] {10, 10, 10},
+                                           randomTurnColumn: new int[] {10, 10, 10, 10, 10}),
+                                       bulletGroupGenerator.CreateRandomNormalHoleGenerator(ratio: 100,
+                                           randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10}),
+                                       bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100,
+                                           randomNumberPanel: new int[] {10, 10, 10, 10, 10, 10, 10, 10})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
                     // 数字パネル作成
