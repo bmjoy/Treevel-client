@@ -9,19 +9,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class NormalCartridgeGenerator : BulletGenerator
     {
-<<<<<<< HEAD
-        [SerializeField] private GameObject _normalCartridgePrefab;
-        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
-=======
         /// <summary>
         /// NormalCartridgeのPrefab
         /// </summary>
-        [SerializeField] private GameObject normalCartridgePrefab;
+        [SerializeField] private GameObject _normalCartridgePrefab;
         /// <summary>
         /// NormalCartridgeWarningのPrefab
         /// </summary>
-        [SerializeField] private GameObject normalCartridgeWarningPrefab;
->>>>>>> Add comments in NormalCartridge scripts
+        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
 
         /// <summary>
         /// 銃弾の移動方向
@@ -40,25 +35,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private int[] randomCartridgeDirection =
             BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
-<<<<<<< HEAD
-        // 銃弾がどの行に出現するかをランダムに決めるときの各行の重み
-        protected int[] randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
-
-        // 銃弾がどの列に出現するかをランダムに決めるときの各列の重み
-        protected int[] randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
-=======
         /// <summary>
         /// 移動する行の重み
         /// </summary>
-        /// <returns></returns>
-        protected int[] randomRow = SetInitialRatio(Enum.GetNames(typeof(ERow)).Length - 1);
+        protected int[] randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         /// <summary>
         /// 移動する列の重み
         /// </summary>
-        /// <returns></returns>
-        protected int[] randomColumn = SetInitialRatio(Enum.GetNames(typeof(EColumn)).Length - 1);
->>>>>>> Add comments in NormalCartridge scripts
+        protected int[] randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         /// <summary>
         /// 特定の行を移動するNormalCartridgeを生成するGeneratorの初期化
