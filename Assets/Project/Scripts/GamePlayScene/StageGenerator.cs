@@ -168,8 +168,7 @@ namespace Project.Scripts.GamePlayScene
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
                             cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
-                                                bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
-                                                    cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random,
+                                                bulletGroupGenerator.CreateRandomNormalCartridgeGenerator(ratio: 100,
                                                     randomCartridgeDirection: new int[] {200, 10, 100, 0},
                                                     randomRow: new int[] {100, 5, 5, 5, 100}, randomColumn: new int[] {100, 10, 0}),
                     }));
@@ -198,9 +197,7 @@ namespace Project.Scripts.GamePlayScene
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
                             cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
-                                                bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
-                                                    cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random,
-                                                    turnDirection: null, turnLine: null,
+                                                bulletGroupGenerator.CreateRandomTurnCartridgeGenerator(ratio: 100,
                                                     randomCartridgedirection: new int[] {10, 10, 10, 10},
                                                     randomRow: new int[] {1, 2, 3, 4, 5}, randomColumn: new int[] {100, 0, 100},
                                                     randomTurnDirections: new int[] {100, 0, 100, 0}, randomTurnRow: new int[] {1, 0, 0},
@@ -231,8 +228,7 @@ namespace Project.Scripts.GamePlayScene
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.Random,
                             column: EColumn.Random),
-                                    bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 100, row: ERow.Random,
-                                        column: EColumn.Random,
+                                    bulletGroupGenerator.CreateRandomNormalHoleGenerator(ratio: 100, 
                                         randomRow: new int[] {100, 20, 20, 20, 100}, randomColumn: new int[] {30, 100, 30})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
@@ -259,7 +255,7 @@ namespace Project.Scripts.GamePlayScene
                             loop: true,
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null),
-                                                                       bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null,
+                                                                       bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100, 
                                                                                randomNumberPanel: new int[] {10, 0, 10, 0, 10, 0, 10, 10})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
@@ -285,13 +281,18 @@ namespace Project.Scripts.GamePlayScene
                             interval: 5.0f,
                             loop: true,
                     bulletGenerators: new List<GameObject>() {
-                        bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 10,
-                            cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
-                                                bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 10,
-                                                    cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
-                                                bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 10, row: ERow.Random,
-                                                    column: EColumn.Random),
-                                                bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 10)
+                        bulletGroupGenerator.CreateRandomNormalCartridgeGenerator(ratio: 100,
+                                                    randomCartridgeDirection: new int[] {10, 10, 10, 10},
+                                                    randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10}),
+                                                bulletGroupGenerator.CreateRandomTurnCartridgeGenerator(ratio: 100,
+                                                    randomCartridgedirection: new int[] {10, 10, 10, 10},
+                                                    randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10},
+                                                    randomTurnDirections: new int[] {10, 10, 10, 10}, randomTurnRow: new int[] {10, 10, 10},
+                                                    randomTurnColumn: new int[] {10, 10, 10, 10, 10}),
+                                                bulletGroupGenerator.CreateRandomNormalHoleGenerator(ratio: 100, 
+                                        randomRow: new int[] {10, 10, 10, 10, 10}, randomColumn: new int[] {10, 10, 10}),
+                                                bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100, 
+                                                                               randomNumberPanel: new int[] {10, 10, 10, 10, 10, 10, 10, 10})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
                     // 数字パネル作成

@@ -80,52 +80,20 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         /// <summary>
-        /// ランダムな行を移動し、ランダムな列でランダムな方向に曲がるTurnHoleを生成するGeneratorの初期化
+        /// ランダムな行(または列)を移動し、ランダムな列でランダムな方向に曲がるTurnHoleを生成するGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 移動する方向 </param>
-        /// <param name="row"> 移動する行 </param>
-        /// <param name="turnDirection"> 曲がる方向(nullを許容) </param>
-        /// <param name="turnLine"> 曲がる行(または列)(nullを許容) </param>
         /// <param name="randomCartridgeDirection"> 移動する方向の重み </param>
         /// <param name="randomRow"> 移動する行の重み </param>
         /// <param name="randomColumn"> 移動する列の重み </param>
         /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
         /// <param name="randomTurnRow"> 曲がる行の重み </param>
         /// <param name="randomTurnColumn"> 曲がる列の重み </param>
-        public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
-            int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
+        public void Initialize(int ratio, 
+            int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
-            Initialize(ratio, cartridgeDirection, row, randomCartridgeDirection, randomRow, randomColumn);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
-            this._randomTurnDirections = randomTurnDirections;
-            this._randomTurnRow = randomTurnRow;
-            this._randomTurnColumn = randomTurnColumn;
-        }
-
-        /// <summary>
-        /// ランダムな列を移動し、ランダムな行でランダムな方向に曲がるTurnHoleを生成するGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 移動する方向 </param>
-        /// <param name="column"> 移動する列 </param>
-        /// <param name="turnDirection"> 曲がる方向(nullを許容) </param>
-        /// <param name="turnLine"> 曲がる行(または列)(nullを許容) </param>
-        /// <param name="randomCartridgeDirection"> 移動する方向の重み </param>
-        /// <param name="randomRow"> 移動する行の重み </param>
-        /// <param name="randomColumn"> 移動する列の重み </param>
-        /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
-        /// <param name="randomTurnRow"> 曲がる行の重み </param>
-        /// <param name="randomTurnColumn"> 曲がる列の重み </param>
-        public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
-            int[] turnLine, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
-            int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
-        {
-            Initialize(ratio, cartridgeDirection, column, randomCartridgeDirection, randomRow, randomColumn);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
+            Initialize(ratio, randomCartridgeDirection, randomRow, randomColumn);
             this._randomTurnDirections = randomTurnDirections;
             this._randomTurnRow = randomTurnRow;
             this._randomTurnColumn = randomTurnColumn;

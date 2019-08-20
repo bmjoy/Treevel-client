@@ -49,12 +49,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// ランダムなNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="aimingPanel"> null </param>
         /// <param name="randomNumberPanel"> 撃ちぬくNumberPanelの確率 </param>
-        public void Initialize(int ratio, int[] aimingPanel, int[] randomNumberPanel)
+        public void InitializeRandom(int ratio, int[] randomNumberPanel)
         {
             this.ratio = ratio;
-            this._aimingPanel = aimingPanel;
             this._randomNumberPanel = randomNumberPanel;
         }
 
