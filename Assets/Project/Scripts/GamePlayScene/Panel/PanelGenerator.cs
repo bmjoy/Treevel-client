@@ -15,10 +15,20 @@ namespace Project.Scripts.GamePlayScene.Panel
         [SerializeField] private GameObject _numberPanel6Prefab;
         [SerializeField] private GameObject _numberPanel7Prefab;
         [SerializeField] private GameObject _numberPanel8Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel1Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel2Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel3Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel4Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel5Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel6Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel7Prefab;
+        [SerializeField] private GameObject _lifeNumberPanel8Prefab;
+
         [SerializeField] private GameObject _staticDummyPanelPrefab;
         [SerializeField] private GameObject _dynamicDummyPanelPrefab;
 
         private List<GameObject> _numberPanelPrefabs;
+        private List<GameObject> _lifeNumberPanelPrefabs;
 
         private TileGenerator _tileGenerator;
 
@@ -35,7 +45,18 @@ namespace Project.Scripts.GamePlayScene.Panel
                 _numberPanel8Prefab
             };
 
-            _tileGenerator = GameObject.Find("TileGenerator").GetComponent<TileGenerator>();
+            _lifeNumberPanelPrefabs = new List<GameObject> {
+                _lifeNumberPanel1Prefab,
+                _lifeNumberPanel2Prefab,
+                _lifeNumberPanel3Prefab,
+                _lifeNumberPanel4Prefab,
+                _lifeNumberPanel5Prefab,
+                _lifeNumberPanel6Prefab,
+                _lifeNumberPanel7Prefab,
+                _lifeNumberPanel8Prefab
+            };
+
+            _tileGenerator = FindObjectOfType<TileGenerator>();
         }
 
         /// <summary>
@@ -62,6 +83,30 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var finalTileNum = numberPanelParam["finalTileNum"];
                 // 数字パネルの作成
                 var panel = Instantiate(_numberPanelPrefabs[panelNum - 1]);
+                panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
+            }
+        }
+
+        public void PrepareTilesAndCreateLifeNumberPanels(List<Dictionary<string, int>> numberPanelParams)
+        {
+            foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
+                // パラメータの取得
+                var panelNum = numberPanelParam["panelNum"];
+                var finalTileNum = numberPanelParam["finalTileNum"];
+                // 数字タイルの作成
+                _tileGenerator.CreateNumberTile(panelNum, finalTileNum);
+            }
+
+            // ノーマルタイルの一括作成
+            _tileGenerator.CreateNormalTiles();
+
+            foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
+                // パラメータの取得
+                var panelNum = numberPanelParam["panelNum"];
+                var initialTileNum = numberPanelParam["initialTileNum"];
+                var finalTileNum = numberPanelParam["finalTileNum"];
+                // 数字パネルの作成
+                var panel = Instantiate(_lifeNumberPanelPrefabs[panelNum - 1]);
                 panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
