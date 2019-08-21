@@ -1,4 +1,4 @@
-using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
@@ -22,7 +22,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         protected override void Awake()
         {
             base.Awake();
-            _currentLife = MaxLife;
+            _maxLife = Mathf.Max(_maxLife, 1); // MaxLifeの最小値を１にする
+            _currentLife = _maxLife;
             _anim = GetComponent<Animation>();
         }
 
@@ -35,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             if (other.tag == TagName.BULLET) {
                 --_currentLife;
-                if (_currentLife == 0) {
+                if (_currentLife <= 0) {
                     _anim.Play("NumberPanelDead", PlayMode.StopAll);
 
                     // 失敗状態に移行する
@@ -50,9 +51,5 @@ namespace Project.Scripts.GamePlayScene.Panel
                 }
             }
         }
-
-        #region getters / setters
-        public int MaxLife => _maxLife;
-        #endregion
     }
 }
