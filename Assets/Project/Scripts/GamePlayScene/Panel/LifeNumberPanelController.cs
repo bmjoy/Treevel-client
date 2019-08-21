@@ -41,7 +41,6 @@ namespace Project.Scripts.GamePlayScene.Panel
 
                     // 失敗状態に移行する
                     gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
-                    return;
                 } else if (_currentLife == 1) {
                     // ループさせて危機感っぽい
                     _anim.wrapMode = WrapMode.Loop;
