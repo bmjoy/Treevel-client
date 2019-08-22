@@ -93,7 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ba9d9276b104cf88a9c2b8a1a45842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adapted: 0
+  _deadAnimation: {fileID: 7400000, guid: 594ed3ef43ae0448587bed753a2434e6, type: 2}
+  _attackedAnimation: {fileID: 7400000, guid: ffc1129f38cd246bb8e73a118f1ff87e, type: 2}
   _maxLife: 3
 --- !u!111 &7315357259351478073
 Animation:
@@ -104,10 +105,8 @@ Animation:
   m_GameObject: {fileID: 1556909149041080}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: ffc1129f38cd246bb8e73a118f1ff87e, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: ffc1129f38cd246bb8e73a118f1ff87e, type: 2}
-  - {fileID: 7400000, guid: 594ed3ef43ae0448587bed753a2434e6, type: 2}
+  m_Animation: {fileID: 0}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
