@@ -42,6 +42,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             GamePlayDirector.OnFail -= OnFail;
         }
 
+        /// <summary>
+        /// フリックイベントを処理する
+        /// </summary>
         private void HandleFlick(object sender, EventArgs e)
         {
             var gesture = sender as FlickGesture;
@@ -74,6 +77,10 @@ namespace Project.Scripts.GamePlayScene.Panel
             }
         }
 
+        /// <summary>
+        /// パネルの位置を更新する
+        /// </summary>
+        /// <param name="targetTile"> パネルの移動先となるタイル </param>
         protected virtual void UpdateTile(GameObject targetTile)
         {
             // 移動先にタイルがなければ何もしない
@@ -88,11 +95,17 @@ namespace Project.Scripts.GamePlayScene.Panel
             targetTile.GetComponent<NormalTileController>().HandlePanel(gameObject);
         }
 
+        /// <summary>
+        /// ゲーム成功時の処理
+        /// </summary>
         private void OnSucceed()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
         }
 
+        /// <summary>
+        /// ゲーム失敗時の処理
+        /// </summary>
         private void OnFail()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;

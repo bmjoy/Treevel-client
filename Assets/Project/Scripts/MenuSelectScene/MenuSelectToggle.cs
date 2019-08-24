@@ -16,6 +16,10 @@ namespace Project.Scripts.MenuSelectScene
             });
         }
 
+        /// <summary>
+        /// トグルの状態が変更した場合の処理
+        /// </summary>
+        /// <param name="toggle"> 変更したトグル </param>
         private void ToggleValueChanged(GameObject toggle)
         {
             #if UNITY_EDITOR
@@ -34,7 +38,7 @@ namespace Project.Scripts.MenuSelectScene
                     // 今のシーンをアンロード
                     SceneManager.UnloadSceneAsync(nowScene);
                     // 新しいシーンをロード
-                    StartCoroutine(MenuSelectDirector.Instance.AddScene(name + "Scene"));
+                    StartCoroutine(MenuSelectDirector.Instance.ChangeScene(name + "Scene"));
                 }
             }
         }

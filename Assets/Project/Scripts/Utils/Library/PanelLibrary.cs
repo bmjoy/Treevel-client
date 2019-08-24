@@ -6,7 +6,11 @@ namespace Project.Scripts.Utils.Library
 {
     public static class PanelLibrary
     {
-        /* パネルの番号を受け取り，NumberPanelオブジェクトを返す */
+        /// <summary>
+        /// パネルの番号から，Number Panel を返す
+        /// </summary>
+        /// <param name="panelNum"> パネルの番号 </param>
+        /// <returns> Number Panel オブジェクト </returns>
         public static GameObject GetPanel(int panelNum)
         {
             GameObject[] numberPanels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);

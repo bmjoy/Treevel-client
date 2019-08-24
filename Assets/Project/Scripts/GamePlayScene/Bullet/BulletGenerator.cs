@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
     {
         protected GamePlayDirector gamePlayDirector;
 
-        // このGeneratorの出現する重み
+        // Generatorの出現する確率
         [NonSerialized] public int ratio = BulletGeneratorParameter.INITIAL_RATIO;
 
         protected void Awake()

@@ -1,5 +1,8 @@
 ﻿namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
+    /// <summary>
+    /// PlayerPrefs で使うキー群
+    /// </summary>
     public static class PlayerPrefsKeys
     {
         public const string STAGE_STATUS_KEY = "STAGE_STATUS_KEY";

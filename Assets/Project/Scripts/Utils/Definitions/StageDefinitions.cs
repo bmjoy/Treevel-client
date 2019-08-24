@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Project.Scripts.Utils.Definitions
 {
+    /// <summary>
+    /// ステージの難易度一覧
+    /// </summary>
     public enum EStageLevel {
         Easy = 0,
         Normal,
@@ -12,6 +15,9 @@ namespace Project.Scripts.Utils.Definitions
 
     public static class StageInfo
     {
+        /// <summary>
+        /// ステージ数
+        /// </summary>
         public static readonly Dictionary<EStageLevel, int> Num = new Dictionary<EStageLevel, int>()
         {
             {EStageLevel.Easy, 10},
@@ -20,6 +26,9 @@ namespace Project.Scripts.Utils.Definitions
             {EStageLevel.VeryHard, 10}
         };
 
+        /// <summary>
+        /// ステージ id の開始値
+        /// </summary>
         public static readonly Dictionary<EStageLevel, int> StageStartId = new Dictionary<EStageLevel, int>()
         {
             {EStageLevel.Easy, 1},
@@ -55,9 +64,24 @@ namespace Project.Scripts.Utils.Definitions
 
     public static class StageSize
     {
+        /// <summary>
+        /// ステージのタイル行数
+        /// </summary>
         public const int ROW = 5;
+
+        /// <summary>
+        /// ステージのタイル列数
+        /// </summary>
         public const int COLUMN = 3;
+
+        /// <summary>
+        /// タイルの合計数
+        /// </summary>
         public const int TILE_NUM = ROW * COLUMN;
+
+        /// <summary>
+        /// ナンバーパネルの数
+        /// </summary>
         public const int NUMBER_PANEL_NUM = 8;
     }
 }

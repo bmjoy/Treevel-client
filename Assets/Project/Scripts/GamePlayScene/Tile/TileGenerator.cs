@@ -18,12 +18,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         [SerializeField] private GameObject _normalTilePrefab;
         [SerializeField] private GameObject _warpTilePrefab;
 
-        private List<GameObject> numberTilePrefabs;
-        private readonly GameObject[,] tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
+        private List<GameObject> _numberTilePrefabs;
+        private readonly GameObject[,] _tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
 
         private void Awake()
         {
-            numberTilePrefabs = new List<GameObject> {
+            _numberTilePrefabs = new List<GameObject> {
                 _numberTile1Prefab,
                 _numberTile2Prefab,
                 _numberTile3Prefab,
@@ -35,7 +35,9 @@ namespace Project.Scripts.GamePlayScene.Tile
             };
         }
 
-        /* 普通タイルの作成 */
+        /// <summary>
+        /// 普通タイルの作成
+        /// </summary>
         public void CreateNormalTiles()
         {
             for (var tileNum = 1; tileNum <= StageSize.TILE_NUM; tileNum++) {
@@ -45,7 +47,7 @@ namespace Project.Scripts.GamePlayScene.Tile
                 var column = (tileNum - 1) % StageSize.COLUMN;
 
                 // 既に他タイルを作成している場合はスルー
-                if (tiles[row, column] != null) continue;
+                if (_tiles[row, column] != null) continue;
 
                 var tile = Instantiate(_normalTilePrefab);
 
@@ -57,10 +59,14 @@ namespace Project.Scripts.GamePlayScene.Tile
             }
 
             // タイルの位置関係を作成する
-            MakeRelations(tiles);
+            MakeRelations(_tiles);
         }
 
-        /* ワープタイルの作成 */
+        /// <summary>
+        /// ワープタイルの作成 (2つで1組)
+        /// </summary>
+        /// <param name="firstTileNum"> ワープタイル1 </param>
+        /// <param name="secondTileNum"> ワープタイル2 </param>
         public void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTile = Instantiate(_warpTilePrefab);
@@ -76,11 +82,15 @@ namespace Project.Scripts.GamePlayScene.Tile
             SetTile(secondTileNum, secondTile);
         }
 
-        /* ナンバータイルの作成 */
+        /// <summary>
+        /// ナンバータイルの作成
+        /// </summary>
+        /// <param name="panelNum"> ゴールとして受け入れるパネルの番号 </param>
+        /// <param name="tileNum"> タイルの番号 </param>
         public void CreateNumberTile(int panelNum, int tileNum)
         {
             // パネルに合わせたタイルを選択
-            var numberTile = Instantiate(numberTilePrefabs[panelNum - 1]);
+            var numberTile = Instantiate(_numberTilePrefabs[panelNum - 1]);
 
             var tilePosition = GetTilePosition(tileNum);
 
@@ -89,7 +99,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             SetTile(tileNum, numberTile);
         }
 
-        /* タイルの座標を取得 */
+        /// <summary>
+        /// タイルの座標を計算し，取得
+        /// </summary>
+        /// <param name="tileNum"> タイルの番号 </param>
+        /// <returns></returns>
         private static Vector2 GetTilePosition(int tileNum)
         {
             // 最上タイルのy座標
@@ -108,7 +122,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             return new Vector2(positionX, positionY);
         }
 
-        /* タイルを配列に格納 */
+        /// <summary>
+        /// タイルを配列に格納
+        /// </summary>
+        /// <param name="tileNum"> タイルの番号 </param>
+        /// <param name="tile"> タイル </param>
         private void SetTile(int tileNum, GameObject tile)
         {
             // 行 (0~4)
@@ -116,9 +134,13 @@ namespace Project.Scripts.GamePlayScene.Tile
             // 列 (0~2)
             var column = (tileNum - 1) % StageSize.COLUMN;
 
-            tiles[row, column] = tile;
+            _tiles[row, column] = tile;
         }
 
+        /// <summary>
+        /// タイルの上下左右のタイルへの参照を入れる
+        /// </summary>
+        /// <param name="tiles"></param>
         private static void MakeRelations(GameObject[,] tiles)
         {
             var row = tiles.GetLength(0);

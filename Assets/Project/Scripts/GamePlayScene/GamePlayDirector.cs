@@ -21,9 +21,19 @@ namespace Project.Scripts.GamePlayScene
 
         public delegate void ChangeAction();
 
-        public static event ChangeAction OnFail;
+        /// <summary>
+        /// 成功時のイベント
+        /// </summary>
         public static event ChangeAction OnSucceed;
 
+        /// <summary>
+        /// 失敗時のイベント
+        /// </summary>
+        public static event ChangeAction OnFail;
+
+        /// <summary>
+        /// ゲームの状態一覧
+        /// </summary>
         public enum EGameState {
             Opening,
             Playing,
@@ -31,35 +41,62 @@ namespace Project.Scripts.GamePlayScene
             Failure
         }
 
+        /// <summary>
+        /// ステージ id
+        /// </summary>
         public static int stageId;
 
+        /// <summary>
+        /// ゲームの現状態
+        /// </summary>
         public EGameState state = EGameState.Opening;
 
-        private GameObject resultWindow;
+        /// <summary>
+        /// 結果ウィンドウ
+        /// </summary>
+        private GameObject _resultWindow;
 
-        private GameObject resultText;
+        /// <summary>
+        /// 結果ウィンドウ上の結果用テキスト
+        /// </summary>
+        private GameObject _resultText;
 
-        private GameObject warningText;
+        /// <summary>
+        /// 結果ウィンドウ上の警告用テキスト
+        /// </summary>
+        private GameObject _warningText;
 
-        private GameObject stageNumberText;
+        /// <summary>
+        /// ステージ id 表示用のテキスト
+        /// </summary>
+        private GameObject _stageNumberText;
 
-        private AudioSource playingAudioSource;
+        /// <summary>
+        /// プレイ中の BGM
+        /// </summary>
+        private AudioSource _playingAudioSource;
 
-        private AudioSource successAudioSource;
+        /// <summary>
+        /// 成功時の音
+        /// </summary>
+        private AudioSource _successAudioSource;
 
-        private AudioSource failureAudioSource;
+        /// <summary>
+        /// 失敗時の音
+        /// </summary>
+        private AudioSource _failureAudioSource;
 
         private void Awake()
         {
-            resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
+            _resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
 
-            resultText = resultWindow.transform.Find(RESULT_NAME).gameObject;
-            warningText = resultWindow.transform.Find(WARNING_NAME).gameObject;
-            warningText.GetComponent<Text>().text = WARNING_TEXT;
+            _resultText = _resultWindow.transform.Find(RESULT_NAME).gameObject;
+            _warningText = _resultWindow.transform.Find(WARNING_NAME).gameObject;
+            _warningText.GetComponent<Text>().text = WARNING_TEXT;
 
-            stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
+            _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
-            UnifyDisplay(resultWindow);
+            UnifyDisplay(_resultWindow);
 
             SetAudioSources();
         }
@@ -74,12 +111,14 @@ namespace Project.Scripts.GamePlayScene
             if (pauseStatus) { // アプリがバックグラウンドに移動した時
                 if (Dispatch(EGameState.Failure)) {
                     // 警告ウィンドウを表示
-                    warningText.SetActive(true);
+                    _warningText.SetActive(true);
                 }
             }
         }
 
-        /* ゲームのクリア判定 */
+        /// <summary>
+        /// ゲームがクリアしているかをチェックする
+        /// </summary>
         public void CheckClear()
         {
             GameObject[] panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
@@ -88,7 +127,11 @@ namespace Project.Scripts.GamePlayScene
             Dispatch(EGameState.Success);
         }
 
-        /* 状態遷移 */
+        /// <summary>
+        /// ゲームの状態を変更する
+        /// </summary>
+        /// <param name="nextState"> 変更したい状態 </param>
+        /// <returns> 変更に成功したかどうか </returns>
         public bool Dispatch(EGameState nextState)
         {
             switch (nextState) {
@@ -129,13 +172,15 @@ namespace Project.Scripts.GamePlayScene
 
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("nextState", nextState, null);
+                    throw new ArgumentOutOfRangeException(nameof(nextState), nextState, null);
             }
 
             return false;
         }
 
-        /* ゲーム起動時 */
+        /// <summary>
+        /// 起動状態の処理
+        /// </summary>
         private void GameOpening()
         {
             CleanObject();
@@ -151,34 +196,38 @@ namespace Project.Scripts.GamePlayScene
             print("-------------------------------");
 
             // 現在のステージ番号を格納
-            stageNumberText.GetComponent<Text>().text = stageId.ToString();
+            _stageNumberText.GetComponent<Text>().text = stageId.ToString();
 
             // 結果ウィンドウを非表示
-            resultWindow.SetActive(false);
+            _resultWindow.SetActive(false);
 
             // 警告ウィンドウを非表示
-            warningText.SetActive(false);
+            _warningText.SetActive(false);
 
             // 番号に合わせたステージの作成
-            StageGenerator.Instance.CreateStages(stageId);
+            StageGenerator.CreateStages(stageId);
 
             // 状態を変更する
             Dispatch(EGameState.Playing);
         }
 
-        /* ゲーム開始時 */
+        /// <summary>
+        /// 開始状態の処理
+        /// </summary>
         private void GamePlaying()
         {
-            playingAudioSource.Play();
+            _playingAudioSource.Play();
         }
 
-        /* ゲーム成功時 */
+        /// <summary>
+        /// 成功状態の処理
+        /// </summary>
         private void GameSucceed()
         {
             if (OnSucceed != null) OnSucceed();
             EndProcess();
-            successAudioSource.Play();
-            resultText.GetComponent<Text>().text = SUCCESS_TEXT;
+            _successAudioSource.Play();
+            _resultText.GetComponent<Text>().text = SUCCESS_TEXT;
             var ss = StageStatus.Get(stageId);
             // クリア済みにする
             ss.ClearStage(stageId);
@@ -186,26 +235,32 @@ namespace Project.Scripts.GamePlayScene
             ss.IncSuccessNum(stageId);
         }
 
-        /* ゲーム失敗時 */
+        /// <summary>
+        /// 失敗状態の処理
+        /// </summary>
         private void GameFail()
         {
             if (OnFail != null) OnFail();
             EndProcess();
-            failureAudioSource.Play();
-            resultText.GetComponent<Text>().text = FAILURE_TEXT;
+            _failureAudioSource.Play();
+            _resultText.GetComponent<Text>().text = FAILURE_TEXT;
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);
             ss.IncFailureNum(stageId);
         }
 
-        /* ゲーム終了時の共通処理 */
+        /// <summary>
+        /// ゲーム終了時の共通処理
+        /// </summary>
         private void EndProcess()
         {
-            playingAudioSource.Stop();
-            resultWindow.SetActive(true);
+            _playingAudioSource.Stop();
+            _resultWindow.SetActive(true);
         }
 
-        /* リトライボタン押下時 */
+        /// <summary>
+        /// リトライボタン押下時の処理
+        /// </summary>
         public void RetryButtonDown()
         {
             // 挑戦回数をインクリメント
@@ -214,14 +269,18 @@ namespace Project.Scripts.GamePlayScene
             Dispatch(EGameState.Opening);
         }
 
-        /* 戻るボタン押下時 */
+        /// <summary>
+        /// 戻るボタン押下時の処理
+        /// </summary>
         public void BackButtonDown()
         {
             // StageSelectSceneに戻る
             SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
 
-        /* タイル・パネル・銃弾オブジェクトの削除 */
+        /// <summary>
+        /// タイル・パネル・銃弾オブジェクトの削除
+        /// </summary>
         private static void CleanObject()
         {
             GameObject[] tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
@@ -237,7 +296,11 @@ namespace Project.Scripts.GamePlayScene
             }
         }
 
-        /* ゲーム画面のアスペクト比を統一する */
+        /// <summary>
+        /// ゲーム画面のアスペクト比を統一する
+        /// </summary>
+        /// <param name="resultWindow"> 結果ウィンドウ </param>
+        /// Bug: ゲーム画面遷移時にカメラ範囲が狭くなることがある
         private static void UnifyDisplay(GameObject resultWindow)
         {
             // 想定するデバイスのアスペクト比
@@ -263,26 +326,35 @@ namespace Project.Scripts.GamePlayScene
             }
         }
 
-        /* 音源のセットアップ */
+        /// <summary>
+        /// 音源のセットアップ
+        /// </summary>
         private void SetAudioSources()
         {
             // 各音源の設定
             // Playing
             gameObject.AddComponent<AudioSource>();
-            playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-            SetAudioSource(clipName: ClipName.PLAYING, audioSource: playingAudioSource, time: 2.0f, loop: true,
+            _playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
+            SetAudioSource(clipName: ClipName.PLAYING, audioSource: _playingAudioSource, time: 2.0f, loop: true,
                 volumeRate: 0.25f);
             // Success
             gameObject.AddComponent<AudioSource>();
-            successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-            SetAudioSource(clipName: ClipName.SUCCESS, audioSource: successAudioSource);
+            _successAudioSource = gameObject.GetComponents<AudioSource>()[1];
+            SetAudioSource(clipName: ClipName.SUCCESS, audioSource: _successAudioSource);
             // Failure
             gameObject.AddComponent<AudioSource>();
-            failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-            SetAudioSource(clipName: ClipName.FAILURE, audioSource: failureAudioSource);
+            _failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
+            SetAudioSource(clipName: ClipName.FAILURE, audioSource: _failureAudioSource);
         }
 
-        /* 個々の音源のセットアップ (音源名 / 開始時間 / 繰り返し の設定) */
+        /// <summary>
+        /// 個々の音源のセットアップ
+        /// </summary>
+        /// <param name="clipName"> 音源名 </param>
+        /// <param name="audioSource"> 音源 </param>
+        /// <param name="time"> 開始時間 </param>
+        /// <param name="loop"> 繰り返しの有無 </param>
+        /// <param name="volumeRate"> 設定音量に対する比率 </param>
         private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f,
             bool loop = false, float volumeRate = 1.0f)
         {

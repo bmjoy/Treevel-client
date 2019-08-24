@@ -13,10 +13,17 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                 new Vector2(CartridgeWarningSize.WIDTH / originalWidth, CartridgeWarningSize.HEIGHT / originalHeight);
         }
 
-        // 警告のpositionを計算する
-        // 銃弾の移動方向(bulletMotionVector)が副次的に計算されるので、その値を返す
+        /// <summary>
+        /// 座標を設定する
+        /// 銃弾の移動方向が副次的に計算される
+        /// </summary>
+        /// <param name="cartridgeType"> 銃弾の種類 </param>
+        /// <param name="direction"> 移動方向 </param>
+        /// <param name="line"> 移動する行(または列) </param>
+        /// <returns> 銃弾の移動方向 </returns>
         public Vector2 Initialize(ECartridgeType cartridgeType, ECartridgeDirection direction, int line)
         {
+            // 表示する警告画像を設定する
             switch (cartridgeType) {
                 case ECartridgeType.Normal:
                     break;
@@ -30,7 +37,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
             Vector2 bulletMotionVector;
             Vector2 warningPosition;
-            // Cartridgeの進行方向によってWarningの表示位置を求める
+            // 銃弾の進行方向から警告の座標を求める
             switch (direction) {
                 case ECartridgeDirection.ToLeft:
                     warningPosition = new Vector2(WindowSize.WIDTH / 2,
@@ -64,7 +71,11 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
             return bulletMotionVector;
         }
 
-        // 警告の座標と画像を引数に受け取る
+        /// <summary>
+        /// 座標と警告画像の初期化
+        /// </summary>
+        /// <param name="position"> 座標 </param>
+        /// <param name="imageName"> 警告画像の名前 </param>
         public void Initialize(Vector2 position, string imageName)
         {
             transform.position = position;

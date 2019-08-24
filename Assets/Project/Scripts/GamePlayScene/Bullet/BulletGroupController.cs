@@ -7,29 +7,44 @@ using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
+    /// <summary>
+    /// 銃弾の生成時刻、生成する銃弾の種類を管理する
+    /// </summary>
     public class BulletGroupController : MonoBehaviour
     {
         private GamePlayDirector gamePlayDirector;
 
         private BulletGroupGenerator _bulletGroupGenerator;
 
-        // 銃弾の生成初めの時刻
+        /// <summary>
+        /// 銃弾生成の開始時刻
+        /// </summary>
         private float _appearanceTime;
 
-        // 銃弾の生成間隔
+        /// <summary>
+        /// 銃弾生成の時間間隔
+        /// </summary>
         private float _interval;
 
-        // 銃弾生成のループの有無
+        /// <summary>
+        /// 銃弾生成の繰り返しの有無
+        /// </summary>
         private bool _loop;
 
-        // 乱数
+        /// <summary>
+        /// 乱数
+        /// </summary>
         private System.Random _random;
 
-        // 銃弾グループ内で管理する各銃弾のGenerator
+        /// <summary>
+        /// このBulletGroupに属するBulletGeneratorの配列
+        /// </summary>
         private List<GameObject> _bulletGenerators;
 
-        // 各銃弾のGeneratorの出現割合
-        private int[] _bulletRatio;
+        /// <summary>
+        /// BulletGeneratorの出現割合
+        /// </summary>
+        private int[] _bulletGeneratorRatio;
 
         private void Awake()
         {
@@ -48,7 +63,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
             GamePlayDirector.OnFail -= OnFail;
         }
 
-        /* 銃弾グループに必要な引数を受け取る */
+        /// <summary>
+        /// BulletGroupの初期化
+        /// </summary>
+        /// <param name="startTime"> ゲームの開始時刻 </param>
+        /// <param name="appearanceTime"> 銃弾生成の開始時刻</param>
+        /// <param name="interval"> 銃弾生成の時間間隔 </param>
+        /// <param name="loop"> 銃弾生成の繰り返しの有無 </param>
+        /// <param name="bulletGenerators"> BulletGeneratorの配列 </param>
         public void Initialize(float startTime, float appearanceTime, float interval, bool loop,
             List<GameObject> bulletGenerators)
         {
@@ -58,13 +80,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this._interval = interval;
             this._loop = loop;
             this._bulletGenerators = bulletGenerators;
-            _bulletRatio = new int[bulletGenerators.Count];
+            _bulletGeneratorRatio = new int[bulletGenerators.Count];
             for (var index = 0; index < bulletGenerators.Count; index++) {
-                _bulletRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;
+                _bulletGeneratorRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;
             }
         }
 
-        /* 銃弾生成時刻と、生成する銃弾を管理する */
+        /// <summary>
+        /// 銃弾生成時刻を管理し、銃弾を生成する
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator CreateBullets()
         {
             var currentTime = Time.time;
@@ -75,7 +100,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             do {
                 sum++;
                 // 出現させる銃弾を決定する
-                var index = BulletLibrary.SamplingArrayIndex(_bulletRatio);
+                var index = BulletLibrary.SamplingArrayIndex(_bulletGeneratorRatio);
                 var bulletGeneratorScript = _bulletGenerators[index].GetComponent<BulletGenerator>();
                 // 銃弾のsortingOrderを管理するIDを決定する
                 var nextBulletId = _bulletGroupGenerator.bulletId;
@@ -105,9 +130,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
             GameFinish();
         }
 
-        /* ゲーム終了時に銃弾グループを削除する */
         private void GameFinish()
         {
+            // 銃弾グループを削除する
             Destroy(gameObject);
         }
     }

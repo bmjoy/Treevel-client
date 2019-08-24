@@ -5,11 +5,18 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 {
     public abstract class BulletWarningController : MonoBehaviour
     {
-        // 警告画像の表示時間
+        /// <summary>
+        /// 表示時間
+        /// </summary>
         public const float WARNING_DISPLAYED_TIME = 1.0f;
 
-        // 元画像のサイズ
+        /// <summary>
+        /// 元画像の縦幅
+        /// </summary>
         protected float originalHeight;
+        /// <summary>
+        /// 元画像の横幅
+        /// </summary>
         protected float originalWidth;
 
         protected virtual void Awake()

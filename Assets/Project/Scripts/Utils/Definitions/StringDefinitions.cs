@@ -1,5 +1,8 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
+    /// <summary>
+    /// シーンの名前
+    /// </summary>
     public static class SceneName
     {
         public const string MENU_SELECT_SCENE = "MenuSelectScene";
@@ -10,6 +13,9 @@
         public const string CONFIG_SCENE = "ConfigScene";
     }
 
+    /// <summary>
+    /// Sorting Layer の名前
+    /// </summary>
     public static class SortingLayerName
     {
         public const string TILE = "Tile";
@@ -19,6 +25,9 @@
         public const string BULLET_WARNING = "BulletWarning";
     }
 
+    /// <summary>
+    /// タグの名前
+    /// </summary>
     public static class TagName
     {
         public const string TILE = "Tile";

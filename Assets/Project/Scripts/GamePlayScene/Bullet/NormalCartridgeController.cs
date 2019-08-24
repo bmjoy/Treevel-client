@@ -8,8 +8,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class NormalCartridgeController : BulletController
     {
+        /// <summary>
+        /// 銃弾が存在することを許す画面外の余幅
+        /// </summary>
         [NonSerialized] public float additionalMargin = 0.00001f;
+        /// <summary>
+        /// 銃弾の移動ベクトル
+        /// </summary>
         [NonSerialized] public Vector2 motionVector;
+        /// <summary>
+        /// 銃弾の移動する速さ
+        /// </summary>
         [SerializeField, NonEditable] protected float speed = 0.05f;
 
         protected override void Awake()
@@ -29,6 +38,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
         }
 
+        /// <summary>
+        /// 銃弾の移動ベクトル、初期座標を設定する
+        /// </summary>
+        /// <param name="direction"> 移動方向</param>
+        /// <param name="line"> 移動する行(または列) </param>
+        /// <param name="motionVector"> 移動ベクトル </param>
         public void Initialize(ECartridgeDirection direction, int line, Vector2 motionVector)
         {
             this.motionVector = motionVector;
@@ -52,13 +67,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
             transform.Translate(motionVector * speed, Space.World);
         }
 
-        // 銃弾の初期配置の設定
+        /// <summary>
+        /// 銃弾の初期座標を設定する
+        /// </summary>
+        /// <param name="direction"> 移動方向 </param>
+        /// <param name="line"> 移動する行(または列)</param>
         private void SetInitialPosition(ECartridgeDirection direction, int line)
         {
-            // 移動方向に関わる座標
+            // 移動方向の初期座標
             var motionVectorPosition = new Vector2(-(WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2,
                 -(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2) * motionVector;
-            // 移動方向に垂直な方向の座標
+            // 移動方向に垂直な方向の初期座標
             var orthogonalMotionVector = motionVector.Transposition().Abs();
             var orthogonalMotionVectorPosition = new Vector2(TileSize.WIDTH * (line - 2),
                 WindowSize.HEIGHT * 0.5f -
@@ -66,15 +85,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 TileSize.HEIGHT * (line - 1)) * orthogonalMotionVector;
             // 銃弾の座標の初期位置
             transform.position = motionVectorPosition + orthogonalMotionVectorPosition;
-            // Check if a bullet should be flipped vertically
+            // 銃弾画像の向きを反転させるかどうか
             transform.localScale = new Vector2(CartridgeSize.WIDTH / originalWidth,
                 -1 * Mathf.Sign(motionVector.x) * CartridgeSize.HEIGHT / originalHeight) *
             LOCAL_SCALE;
-            // Calculate rotation angle
+            // 銃弾画像を何度回転させるか
             var angle = Vector2.Dot(motionVector, Vector2.left) / motionVector.magnitude;
             angle = (float)(Mathf.Acos(angle) * 180 / Math.PI);
             angle *= -1 * Mathf.Sign(motionVector.y);
             transform.Rotate(new Vector3(0, 0, angle), Space.World);
+
         }
 
         protected override void OnFail()

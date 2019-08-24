@@ -21,16 +21,16 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] protected GameObject dummyBackgroundPrefab;
 
-        private SnapScrollView snapScrollView;
+        private SnapScrollView _snapScrollView;
 
         private void Awake()
         {
             // 取得
-            snapScrollView = FindObjectOfType<SnapScrollView>();
+            _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
-            snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
+            _snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
             // ページの横幅の設定
-            snapScrollView.PageSize = Screen.width;
+            _snapScrollView.PageSize = Screen.width;
 
             // TODO: 非同期で呼び出す
             // 各ステージの選択ボタンなどを描画する

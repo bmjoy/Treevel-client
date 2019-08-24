@@ -12,7 +12,11 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                 new Vector2(HoleWarningSize.WIDTH / originalWidth, HoleWarningSize.HEIGHT / originalHeight);
         }
 
-        // 警告のpositionを計算する
+        /// <summary>
+        /// 座標を設定する
+        /// </summary>
+        /// <param name="row"> 出現する行</param>
+        /// <param name="column"> 出現する列 </param>
         public void Initialize(int row, int column)
         {
             const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);

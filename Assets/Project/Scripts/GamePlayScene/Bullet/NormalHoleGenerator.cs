@@ -9,21 +9,43 @@ namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class NormalHoleGenerator : BulletGenerator
     {
+        /// <summary>
+        /// NormalHoleのPrefab
+        /// </summary>
         [SerializeField] private GameObject _normalHolePrefab;
+        /// <summary>
+        /// NormalHoleWarningのPrefab
+        /// </summary>
         [SerializeField] private GameObject _normalHoleWarningPrefab;
 
-        // 出現する行
-        private int _row;
+        /// <summary>
+        ///  出現する行
+        /// </summary>
+        private int _row = (int) ERow.Random;
 
-        // 出現する列
-        private int _column;
+        /// <summary>
+        /// 出現する列
+        /// </summary>
+        private int _column = (int) EColumn.Random;
 
-        // Holeが出現する行をランダムに決めるときの各行の重み
+        /// <summary>
+        /// 出現する行の重み
+        /// </summary>
+        /// <returns></returns>
         private int[] _randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
-        // Holeが出現する列をランダムに決めるときの各列の重み
+        /// <summary>
+        /// 出現する列の重み
+        /// </summary>
+        /// <returns></returns>
         private int[] _randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
+        /// <summary>
+        /// 特定の行、特定の列に出現するNormalHoleを生成するGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="row"> 出現する行 </param>
+        /// <param name="column"> 出現する列 </param>
         public void Initialize(int ratio, ERow row, EColumn column)
         {
             this.ratio = ratio;
@@ -31,11 +53,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this._column = (int) column;
         }
 
-        public void Initialize(int ratio, ERow row, EColumn column, int[] randomRow, int[] randomColumn)
+        /// <summary>
+        /// ランダムな行、ランダムな列に出現するNormalHoleを生成するGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio">　Generatorの出現確率 </param>
+        /// <param name="randomRow"> 出現する行の重み </param>
+        /// <param name="randomColumn"> 出現する列の重み </param>
+        public void Initialize(int ratio, int[] randomRow, int[] randomColumn)
         {
             this.ratio = ratio;
-            this._row = (int) row;
-            this._column = (int) column;
             this._randomRow = randomRow;
             this._randomColumn = randomColumn;
         }
@@ -63,18 +89,24 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
                 // 同レイヤーのオブジェクトの描画順序の制御
                 hole.GetComponent<Renderer>().sortingOrder = bulletId;
-                StartCoroutine(holeScript.Delete());
+                StartCoroutine(holeScript.CollisionCheck());
             }
         }
 
-        /* Holeの出現する行を重みに基づき決定する */
+        /// <summary>
+        /// 出現する行を重みに基づき決定する
+        /// </summary>
+        /// <returns></returns>
         private int GetRow()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
-        /* Holeの出現する列を重みに基づき決定する */
+        /// <summary>
+        /// 出現する列を重みに基づき決定する
+        /// </summary>
+        /// <returns></returns>
         private int GetColumn()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomColumn) + 1;
