@@ -7,6 +7,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
+    [RequireComponent(typeof(Animation))]
     public class NumberPanelController : DynamicPanelController
     {
         /// <summary>
@@ -23,10 +24,19 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// パネルがゴールタイルにいるかどうか
         /// </summary>
         [NonSerialized] public bool adapted;
+        /// <summary>
+        /// 失敗時のアニメーション
+        /// </summary>
+        [SerializeField] protected AnimationClip _deadAnimation;
+
+        protected Animation _anim;
 
         protected override void Awake()
         {
             base.Awake();
+            _anim = GetComponent<Animation>();
+            _anim.AddClip(_deadAnimation, _deadAnimation.name);
+
             // 光らせるためのコンポーネントをアタッチ
             AddPostProcessVolume();
             AddSpriteGlowEffect();
@@ -88,7 +98,10 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             // 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
             if (!other.gameObject.CompareTag(TagName.BULLET)) return;
-            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+
+            // 失敗演出
+            _anim.Play(_deadAnimation.name, PlayMode.StopAll);
+
             // 失敗状態に移行する
             gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
         }
