@@ -84,8 +84,8 @@ namespace Project.Scripts.GamePlayScene
                     bulletGenerators: new List<GameObject>() {
                         bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
                             cartridgeDirection: ECartridgeDirection.ToLeft, row: ERow.First,
-                            turnDirection: new int[] {(int) ECartridgeDirection.ToBottom},
-                            turnLine: new int[] {(int) EColumn.Left})
+                            turnDirection: new int[] {(int) ECartridgeDirection.ToBottom, (int) ECartridgeDirection.ToRight, (int) ECartridgeDirection.ToUp, (int) ECartridgeDirection.ToLeft},
+                            turnLine: new int[] {(int) EColumn.Left, (int) ERow.Second, (int) EColumn.Right, (int) ERow.First})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
                     // 特殊タイル作成
@@ -93,14 +93,14 @@ namespace Project.Scripts.GamePlayScene
                     // 数字パネル作成
                     panelGenerator.PrepareTilesAndCreateNumberPanels(
                     new List<Dictionary<string, int>>() {
-                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 1, finalTileNum: 4),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 3, finalTileNum: 5),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 5, finalTileNum: 6),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 6, finalTileNum: 7),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 11, finalTileNum: 9),
+                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 7, finalTileNum: 4),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 8, finalTileNum: 5),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 9, finalTileNum: 6),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 10, finalTileNum: 7),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 11, finalTileNum: 8),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 12, finalTileNum: 9),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 13, finalTileNum: 10),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 15, finalTileNum: 11)
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
                     }
                     );
                     break;
