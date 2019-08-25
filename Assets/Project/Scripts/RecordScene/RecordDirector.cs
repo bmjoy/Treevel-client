@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
@@ -60,13 +61,13 @@ namespace Project.Scripts.RecordScene
             _snapScrollView.PageSize = Screen.width;
 
             // 各種グラフなどを全て描画する
-            Draw();
+            StartCoroutine(Draw());
         }
 
         /// <summary>
         /// 全難易度の画面を描画する
         /// </summary>
-        private void Draw()
+        private IEnumerator Draw()
         {
             foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
                 // GameObject の準備
