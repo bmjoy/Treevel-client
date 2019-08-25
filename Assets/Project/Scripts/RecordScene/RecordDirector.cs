@@ -61,24 +61,31 @@ namespace Project.Scripts.RecordScene
             _snapScrollView.PageSize = Screen.width;
 
             // 各種グラフなどを全て描画する
-            StartCoroutine(Draw());
+            Draw();
         }
 
         /// <summary>
         /// 全難易度の画面を描画する
         /// </summary>
-        private IEnumerator Draw()
+        private void Draw()
         {
-            foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
-                // GameObject の準備
-                GetGameObjects(stageLevel);
-                // タイトルの変更
-                _levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
-                // 成功割合の描画
-                DrawPercentage(stageLevel);
-                // 棒グラフの描画
-                DrawGraph(stageLevel);
-            }
+            foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) StartCoroutine(DrawEach(stageLevel));
+        }
+
+        /// <summary>
+        /// 各難易度の画面を描画する
+        /// </summary>
+        /// <param name="stageLevel"> 難易度 </param>
+        private IEnumerator DrawEach(EStageLevel stageLevel)
+        {
+            // GameObject の準備
+            GetGameObjects(stageLevel);
+            // タイトルの変更
+            _levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
+            // 成功割合の描画
+            DrawPercentage(stageLevel);
+            // 棒グラフの描画
+            DrawGraph(stageLevel);
         }
 
         /// <summary>
