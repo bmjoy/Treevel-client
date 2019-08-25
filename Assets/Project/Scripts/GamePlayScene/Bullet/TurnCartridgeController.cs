@@ -24,6 +24,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// </summary>
         [SerializeField] private GameObject _normalCartridgeWarningPrefab;
 
+        private GamePlayDirector _gamePlayDirector;
+
         /// <summary>
         /// 警告を表示するフレームの配列
         /// </summary>
@@ -32,7 +34,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 次に表示する警告のインデックス
         /// </summary>
-        private int warningIndex = 0;
+        private int _warningIndex = 0;
 
         /// <summary>
         /// 曲がる方向を示す警告の座標の配列
@@ -81,23 +83,32 @@ namespace Project.Scripts.GamePlayScene.Bullet
             turnBottom
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            _gamePlayDirector = FindObjectOfType<GamePlayDirector>();
+        }
+
         protected override void FixedUpdate()
         {
-            // 警告を表示するタイミングかどうかを毎フレーム監視する
-            _warningTiming[warningIndex]--;
-            if (_warningTiming[warningIndex] == 0) {
-                // 警告を表示、その後、銃弾の回転
-                StartCoroutine(rotateCoroutines[warningIndex]);
-                // 次の警告の表示タイミングを監視する
-                warningIndex++;
-            }
+            if (_gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
+                // 警告を表示するタイミングかどうかを毎フレーム監視する
+                _warningTiming[_warningIndex]--;
+                if (_warningTiming[_warningIndex] == 0) {
+                    // 警告を表示、その後、銃弾の回転
+                    StartCoroutine(rotateCoroutines[_warningIndex]);
+                    // 次の警告の表示タイミングを監視する
+                    if (_warningIndex != _turnDirection.Length - 1)
+                        _warningIndex++;
+                }
 
-            if (_rotating) {
-                // 回転中
-                transform.Translate(motionVector * _rotatingSpeed, Space.World);
-            } else {
-                // 直進中
-                transform.Translate(motionVector * speed, Space.World);
+                if (_rotating) {
+                    // 回転中
+                    transform.Translate(motionVector * _rotatingSpeed, Space.World);
+                } else {
+                    // 直進中
+                    transform.Translate(motionVector * speed, Space.World);
+                }
             }
         }
 
@@ -150,7 +161,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 _warningTiming[index] = (int)Math.Round(_COUNT + (Vector2.Distance(_turnPoint[index - 1], _turnPoint[index]) - (PanelSize.WIDTH - CartridgeSize.WIDTH)) / speed, MidpointRounding.AwayFromZero);
                 rotateCoroutines[index] = DisplayTurnWarning(_turnPoint[index], _turnDirection[index], _turnAngle[index]);
             }
-            _warningTiming[turnDirection.Length] = int.MaxValue;
         }
 
         /// <summary>
@@ -208,7 +218,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
             base.OnFail();
             StopAllCoroutines();
             motionVector = new Vector2(0, 0);
-            _warningTiming[warningIndex] = 0;
         }
     }
 }
