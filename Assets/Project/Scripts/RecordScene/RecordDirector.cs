@@ -86,6 +86,8 @@ namespace Project.Scripts.RecordScene
             DrawPercentage(stageLevel);
             // 棒グラフの描画
             DrawGraph(stageLevel);
+
+            yield return null;
         }
 
         /// <summary>
