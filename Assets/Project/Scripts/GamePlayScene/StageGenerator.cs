@@ -345,10 +345,7 @@ namespace Project.Scripts.GamePlayScene
                         bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 10,
                             cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
                                                 bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 10,
-                                                    cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random),
-                                                bulletGroupGenerator.CreateNormalHoleGenerator(ratio: 10, row: ERow.Random,
-                                                    column: EColumn.Random),
-                                                bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 10)
+                                                    cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random)
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
                     // 数字パネル作成
