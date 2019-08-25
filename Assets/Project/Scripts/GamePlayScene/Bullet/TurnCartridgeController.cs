@@ -57,6 +57,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private const float _FRAME_RATE = 50;
 
         /// <summary>
+        /// 警告表示後から銃弾が警告座標に到達するフレーム数
+        /// </summary>
+        private const int _RUNNING_FRAME = 30;
+
+        /// <summary>
         /// 回転中の銃弾の速さ (円周(= 回転半径 * 2 * pi)の4分の1をフレーム数で割る)
         /// </summary>
         private float _rotatingSpeed =
@@ -150,8 +155,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
             // 1つ目の警告を表示させるタイミングを求める
             // 警告座標に到達する時間(= 銃弾が進む距離 / 銃弾の速さ)のNフレーム前が表示タイミング
-            _warningTiming = new int[turnDirection.Length + 1];
-            _warningTiming[0] = (int)Math.Round((Vector2.Distance(transform.position, _turnPoint[0]) - (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) / speed - _FRAME_RATE * BulletWarningController.WARNING_DISPLAYED_TIME, MidpointRounding.AwayFromZero);
+            _warningTiming = new int[turnDirection.Length];
+            _warningTiming[0] = (int)Math.Round((Vector2.Distance(transform.position, _turnPoint[0]) - (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) / speed - _FRAME_RATE * BulletWarningController.WARNING_DISPLAYED_TIME - _RUNNING_FRAME, MidpointRounding.AwayFromZero);
             // 警告の表示および銃弾が回転する挙動を特定のタイミングで発火できるようにcoroutineにセットする
             rotateCoroutines = new IEnumerator[turnDirection.Length];
             rotateCoroutines[0] = DisplayTurnWarning(_turnPoint[0], _turnDirection[0], _turnAngle[0]);
@@ -208,6 +213,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             for (var index = 0; index < _FRAME_RATE; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する
             Destroy(_warning);
+            for (var index = 0; index < _RUNNING_FRAME; index++) yield return new WaitForFixedUpdate();
             // 銃弾を回転させる
             StartCoroutine(RotateCartridge(turnAngle));
             yield break;
