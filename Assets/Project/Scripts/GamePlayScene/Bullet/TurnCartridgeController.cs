@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// NormalWarningのPrefab
         /// </summary>
-        public GameObject _normalCartridgeWarningPrefab;
+        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
 
         /// <summary>
         /// 警告を表示するフレームの配列
@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// 曲がる方向に応じて表示分けする警告画像の名前
         /// </summary>
         /// <value></value>
-        private enum ETurnWarning {
+        private enum _ETurnWarning {
             turnLeft,
             turnRight,
             turnUp,
@@ -99,7 +99,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 // 直進中
                 transform.Translate(motionVector * speed, Space.World);
             }
-
         }
 
         /// <summary>
@@ -194,7 +193,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             _warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
             // warningの位置・大きさ等の設定
             var warningScript = _warning.GetComponent<CartridgeWarningController>();
-            warningScript.Initialize(warningPosition, Enum.GetName(typeof(ETurnWarning), turnDirection - 1));
+            warningScript.Initialize(warningPosition, Enum.GetName(typeof(_ETurnWarning), turnDirection - 1));
             // 警告の表示時間だけ待つ
             for (var index = 0; index < _FRAME_RATE; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する
