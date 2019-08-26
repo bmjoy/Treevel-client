@@ -167,7 +167,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row);
+            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row, turnDirection, turnLine);
             return cartridgeGenerator;
         }
 
@@ -187,7 +187,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column);
+            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column, turnDirection, turnLine);
             return cartridgeGenerator;
         }
 
