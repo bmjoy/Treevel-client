@@ -120,7 +120,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 warningScript.Initialize(ECartridgeType.Normal, nextCartridgeDirection, nextCartridgeLine);
 
             // 警告の表示時間だけ待つ
-            for(int index=0; index<BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
+            for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する
             Destroy(warning);
 
