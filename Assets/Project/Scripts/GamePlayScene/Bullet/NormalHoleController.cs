@@ -9,9 +9,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
     public class NormalHoleController : BulletController
     {
         /// <summary>
-        /// 表示時間
+        /// 表示フレーム数
         /// </summary>
-        private const float _HOLE_DISPLAYED_TIME = 0.50f;
+        private const int _HOLE_DISPLAYED_FRAMES = 25;
+
+
 
         /// <summary>
         /// 出現する行
@@ -46,8 +48,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
         protected void Update()
         {
-            // 50フレーム以上経過していたら銃弾を消す
-            if (transform.position.z < (-1) * 50 * speed && gamePlayDirector.state == GamePlayDirector.EGameState.Playing) Destroy(gameObject);
+            // 指定のフレーム以上経過していたら銃弾を消す
+            if (transform.position.z < (-1) * _HOLE_DISPLAYED_FRAMES * speed && gamePlayDirector.state == GamePlayDirector.EGameState.Playing) Destroy(gameObject);
         }
 
         protected void FixedUpdate()
@@ -80,14 +82,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 } else {
                     // 銃弾の出現するタイル上に数字パネル以外のタイルが存在する
                     // 当たり判定は起きない
-                    yield return new WaitForSeconds(_HOLE_DISPLAYED_TIME);
+                    yield return new WaitForSeconds(_HOLE_DISPLAYED_FRAMES / 50);
                     Destroy(gameObject);
                 }
             } else {
                 // 銃弾の出現するタイル上にパネルが存在しない
                 // タイルとパネルの間のレイヤー(Hole)に描画する
                 gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
-                yield return new WaitForSeconds(_HOLE_DISPLAYED_TIME);
+                yield return new WaitForSeconds(_HOLE_DISPLAYED_FRAMES / 50);
                 Destroy(gameObject);
             }
         }
