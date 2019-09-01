@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
@@ -49,6 +50,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// NumberPanelとの当たり判定
         /// </summary>
         /// <returns></returns>
+        [Obsolete("このメソッドは使われておりません")]
         public IEnumerator CollisionCheck()
         {
             var gamePlayDirector = FindObjectOfType<GamePlayDirector>();
