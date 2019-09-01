@@ -4,6 +4,8 @@ using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
+    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Rigidbody2D))]
     // Bulletに共通したフィールド、メソッドの定義
     public abstract class BulletController : MonoBehaviour
     {
