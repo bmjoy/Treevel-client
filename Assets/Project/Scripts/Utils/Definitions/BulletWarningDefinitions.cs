@@ -13,6 +13,6 @@ namespace Project.Scripts.Utils.Definitions
         ///  警告を表示するフレーム数
         /// </summary>
         /// <returns></returns>
-        public static int WARNING_DISPLAYED_FRAMES = (int) (1.0f / Time.fixedDeltaTime * WARNING_DISPLAYED_TIME);
+        public static int WARNING_DISPLAYED_FRAMES = (int)(1.0f / Time.fixedDeltaTime * WARNING_DISPLAYED_TIME);
     }
 }
