@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Project.Scripts.GamePlayScene.BulletWarning;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bullet
@@ -93,7 +93,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public IEnumerator CreateBullets()
         {
             var currentTime = Time.time;
-            yield return new WaitForSeconds(_appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME -
+            yield return new WaitForSeconds(_appearanceTime - BulletWarningParameter.WARNING_DISPLAYED_TIME -
                     (currentTime - _bulletGroupGenerator.startTime));
             var sum = 0;
 
@@ -115,7 +115,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
                 // 次の銃弾を作成する時刻まで待つ
                 currentTime = Time.time;
-                yield return new WaitForSeconds(_appearanceTime - BulletWarningController.WARNING_DISPLAYED_TIME +
+                yield return new WaitForSeconds(_appearanceTime - BulletWarningParameter.WARNING_DISPLAYED_TIME +
                         _interval * sum - (currentTime - _bulletGroupGenerator.startTime));
             } while (_loop);
         }

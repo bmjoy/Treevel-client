@@ -6,11 +6,6 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
     public abstract class BulletWarningController : MonoBehaviour
     {
         /// <summary>
-        /// 表示時間
-        /// </summary>
-        public const float WARNING_DISPLAYED_TIME = 1.0f;
-
-        /// <summary>
         /// 元画像の縦幅
         /// </summary>
         protected float originalHeight;

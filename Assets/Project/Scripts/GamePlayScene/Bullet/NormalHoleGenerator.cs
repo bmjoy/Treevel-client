@@ -78,7 +78,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             var warningScript = warning.GetComponent<NormalHoleWarningController>();
             warningScript.Initialize(nextHoleRow, nextHoleColumn);
             // 警告の表示時間だけ待つ
-            yield return new WaitForSeconds(BulletWarningController.WARNING_DISPLAYED_TIME);
+            for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する
             Destroy(warning);
 
