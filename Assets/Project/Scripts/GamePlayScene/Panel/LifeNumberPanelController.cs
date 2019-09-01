@@ -37,7 +37,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="other">The other Collider2D involved in this collision.</param>
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == TagName.BULLET) {
+            if (other.tag == TagName.BULLET && other.gameObject.transform.position.z >= 0) {
                 --_currentLife;
                 if (_currentLife <= 0) {
                     _anim.Play(_deadAnimation.name, PlayMode.StopAll);

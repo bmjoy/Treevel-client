@@ -98,6 +98,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             // 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
             if (!other.gameObject.CompareTag(TagName.BULLET)) return;
+            // 銃痕(hole)が出現したフレーム以外では衝突を考えない
+            if (other.gameObject.transform.position.z < 0) return;
 
             // 失敗演出
             _anim.Play(_deadAnimation.name, PlayMode.StopAll);
