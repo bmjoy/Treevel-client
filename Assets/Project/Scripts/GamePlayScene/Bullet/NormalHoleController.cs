@@ -26,8 +26,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
             base.Awake();
             transform.localScale = new Vector2(HoleSize.WIDTH / originalWidth, HoleSize.HEIGHT / originalHeight) *
             LOCAL_SCALE;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
         }
 
         /// <summary>

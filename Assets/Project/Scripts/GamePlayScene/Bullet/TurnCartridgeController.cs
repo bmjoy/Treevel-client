@@ -24,8 +24,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// </summary>
         [SerializeField] private GameObject _normalCartridgeWarningPrefab;
 
-        private GamePlayDirector _gamePlayDirector;
-
         /// <summary>
         /// 警告を表示するフレームの配列
         /// </summary>
@@ -86,12 +84,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
         protected override void Awake()
         {
             base.Awake();
-            _gamePlayDirector = FindObjectOfType<GamePlayDirector>();
         }
 
         protected override void FixedUpdate()
         {
-            if (_gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
+            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
                 // 警告を表示するタイミングかどうかを毎フレーム監視する
                 _warningTiming[_warningIndex]--;
                 if (_warningTiming[_warningIndex] == 0) {

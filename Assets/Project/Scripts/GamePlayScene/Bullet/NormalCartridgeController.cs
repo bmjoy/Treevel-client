@@ -1,5 +1,4 @@
 using System;
-using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
@@ -16,24 +15,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// 銃弾の移動ベクトル
         /// </summary>
         [NonSerialized] public Vector2 motionVector;
-        /// <summary>
-        /// 銃弾の移動する速さ
-        /// </summary>
-        [SerializeField, NonEditable] protected float speed = 0.05f;
 
         protected override void Awake()
         {
             base.Awake();
-            // BocCollider2Dのアタッチメント
             // 銃弾の先頭部分のみに当たり判定を与える
             const float betweenPanels = TileSize.WIDTH - PanelSize.WIDTH;
             gameObject.GetComponent<BoxCollider2D>().offset =
                 new Vector2(-(originalWidth - betweenPanels) / 2, 0);
             gameObject.GetComponent<BoxCollider2D>().size =
                 new Vector2(betweenPanels, originalHeight);
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            // RigidBodyのアタッチメント
-            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
         }
 
         /// <summary>
@@ -100,7 +91,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             speed = 0;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        protected override void OnTriggerEnter2D(Collider2D other)
         {
             // 数字パネルとの衝突以外は考えない
             if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) return;
