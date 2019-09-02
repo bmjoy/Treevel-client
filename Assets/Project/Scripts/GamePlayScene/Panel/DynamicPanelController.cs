@@ -6,6 +6,8 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
+    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(FlickGesture))]
     public class DynamicPanelController : PanelController
     {
         protected GamePlayDirector gamePlayDirector;
@@ -14,11 +16,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Awake();
             name = PanelName.DYNAMIC_DUMMY_PANEL;
-            // 当たり判定のアタッチ
-            gameObject.AddComponent<BoxCollider2D>();
-            // フリック検知のアタッチ
-            gameObject.AddComponent<FlickGesture>();
-            // フリックの検知感度を変えたい際に変更可能
+
+            // FlickGesture の設定
             GetComponent<FlickGesture>().MinDistance = 0.2f;
             GetComponent<FlickGesture>().FlickTime = 0.2f;
         }

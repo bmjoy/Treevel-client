@@ -8,6 +8,8 @@ using UnityEngine.Rendering.PostProcessing;
 namespace Project.Scripts.GamePlayScene.Panel
 {
     [RequireComponent(typeof(Animation))]
+    [RequireComponent(typeof(PostProcessVolume))]
+    [RequireComponent(typeof(SpriteGlowEffect))]
     public class NumberPanelController : DynamicPanelController
     {
         /// <summary>
@@ -42,9 +44,15 @@ namespace Project.Scripts.GamePlayScene.Panel
             _anim = GetComponent<Animation>();
             _anim.AddClip(_deadAnimation, _deadAnimation.name);
 
-            // 光らせるためのコンポーネントをアタッチ
-            AddPostProcessVolume();
-            AddSpriteGlowEffect();
+            // PostProcessVolume の設定
+            GetComponent<PostProcessVolume>().isGlobal = true;
+            var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
+            GetComponent<PostProcessVolume>().profile = profile;
+
+            // SpriteGlowEffect の設定
+            GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
+            GetComponent<SpriteGlowEffect>().GlowBrightness = 3.0f;
+            GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
         }
 
         protected override void Start()
@@ -109,28 +117,6 @@ namespace Project.Scripts.GamePlayScene.Panel
 
             // 失敗状態に移行する
             gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
-        }
-
-        /// <summary>
-        /// PostProcessVolume のアタッチ
-        /// </summary>
-        private void AddPostProcessVolume()
-        {
-            gameObject.AddComponent<PostProcessVolume>();
-            GetComponent<PostProcessVolume>().isGlobal = true;
-            var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
-            GetComponent<PostProcessVolume>().profile = profile;
-        }
-
-        /// <summary>
-        /// SpriteGlowEffect のアタッチ
-        /// </summary>
-        private void AddSpriteGlowEffect()
-        {
-            gameObject.AddComponent<SpriteGlowEffect>();
-            GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
-            GetComponent<SpriteGlowEffect>().GlowBrightness = 3.0f;
-            GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
         }
     }
 }
