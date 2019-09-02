@@ -122,7 +122,7 @@ namespace Project.Scripts.GamePlayScene
         public void CheckClear()
         {
             GameObject[] panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
-            if (panels.Any(panel => panel.GetComponent<NumberPanelController>().adapted == false)) return;
+            if (panels.Any(panel => panel.GetComponent<NumberPanelController>().Adapted == false)) return;
             // 全ての数字パネルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
         }

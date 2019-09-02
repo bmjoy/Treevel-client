@@ -23,7 +23,11 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルがゴールタイルにいるかどうか
         /// </summary>
-        [NonSerialized] public bool adapted;
+        public bool Adapted
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// 失敗時のアニメーション
@@ -47,9 +51,9 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Start();
             // 初期状態で最終タイルにいるかどうかの状態を変える
-            adapted = transform.parent.gameObject == _finalTile;
+            Adapted = transform.parent.gameObject == _finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
-            GetComponent<SpriteGlowEffect>().enabled = adapted;
+            GetComponent<SpriteGlowEffect>().enabled = Adapted;
         }
 
         /// <summary>
@@ -85,11 +89,11 @@ namespace Project.Scripts.GamePlayScene.Panel
             base.UpdateTile(targetTile);
 
             // 最終タイルにいるかどうかで状態を変える
-            adapted = transform.parent.gameObject == _finalTile;
+            Adapted = transform.parent.gameObject == _finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
-            GetComponent<SpriteGlowEffect>().enabled = adapted;
+            GetComponent<SpriteGlowEffect>().enabled = Adapted;
             // adapted が true になっていれば (必要条件) 成功判定をする
-            if (adapted) gamePlayDirector.CheckClear();
+            if (Adapted) gamePlayDirector.CheckClear();
         }
 
         /// <summary>
