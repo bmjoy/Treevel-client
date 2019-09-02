@@ -18,12 +18,13 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルの番号
         /// </summary>
-        private int panelNum;
+        private int _panelNum;
 
         /// <summary>
         /// パネルがゴールタイルにいるかどうか
         /// </summary>
         [NonSerialized] public bool adapted;
+
         /// <summary>
         /// 失敗時のアニメーション
         /// </summary>
@@ -62,7 +63,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             Initialize(initialTileNum);
             name = PanelName.NUMBER_PANEL + panelNum;
             _finalTile = TileLibrary.GetTile(finalTileNum);
-            this.panelNum = panelNum;
+            this._panelNum = panelNum;
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="panelNum"> 取得したいパネルの番号 </param>
         public GameObject GetNumberPanel(int panelNum)
         {
-            if (this.panelNum == panelNum) {
+            if (this._panelNum == panelNum) {
                 return gameObject;
             }
 

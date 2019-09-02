@@ -12,10 +12,12 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// 攻撃されたときのアニメーション
         /// </summary>
         [SerializeField] private AnimationClip _attackedAnimation;
+
         /// <summary>
         /// パネルが銃弾の攻撃に耐えられる回数
         /// </summary>
         [SerializeField] private int _maxLife = 3;
+
         /// <summary>
         /// 残ってる回数
         /// </summary>
