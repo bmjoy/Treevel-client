@@ -6,6 +6,7 @@ using Project.Scripts.GamePlayScene.Bullet;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -24,28 +25,35 @@ namespace Project.Scripts.GamePlayScene
 
             List<IEnumerator> coroutines = new List<IEnumerator>();
 
+
             switch (stageId) {
                 case 1:
-                    // 銃弾実体生成
-                    // 銃弾を生成しない
-                    /* 特殊タイル -> 数字パネル -> 特殊パネル */
-                    // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
-                    new List<Dictionary<string, int>>() {
-                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
-                    }
-                    );
-                    // 特殊パネル作成
-                    panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
-                    panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
+                    // ステージデータ読み込む
+                    StageData stageData = Resources.Load<StageData>("GameDatas/Stages/1");
+
+                    panelGenerator.CreatePanels(stageData.PanelDatas);
+
                     break;
+                    // // 銃弾実体生成
+                    // // 銃弾を生成しない
+                    // /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    // // 数字パネル作成
+                    // panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    // new List<Dictionary<string, int>>() {
+                    //     PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+                    //                                        PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+                    //                                        PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+                    //                                        PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+                    //                                        PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+                    //                                        PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+                    //                                        PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+                    //                                        PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+                    // }
+                    // );
+                    // // 特殊パネル作成
+                    // panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
+                    // panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
+                    // break;
                 case 2:
                     // 銃弾実体生成
                     // NormalCartridgeを生成する
