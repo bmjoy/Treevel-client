@@ -27,11 +27,11 @@
 >
 > Parameters -> lowerCamelCase
 >
-> Fields (not private) -> lowerCamelCase
+> Fields (not private or protected) -> lowerCamelCase
 >
-> Instance fields (private) -> _lowerCamelCase
+> Instance fields (private or protected) -> _lowerCamelCase
 >
-> Static field (private) -> _lowerCamelCase
+> Static field (private or protected) -> _lowerCamelCase
 >
 > Constant fields (not private) -> ALL_UPPER
 >
