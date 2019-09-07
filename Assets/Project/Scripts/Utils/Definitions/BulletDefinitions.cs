@@ -62,8 +62,7 @@
     /// <summary>
     /// 弾丸の種類
     /// </summary>
-    public enum EBulletType
-    {
+    public enum EBulletType {
         NormalCartridge,
         TurnCartridge,
         RandomCartridge,

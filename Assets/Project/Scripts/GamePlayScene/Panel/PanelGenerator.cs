@@ -63,9 +63,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 
         public void CreatePanels(IDictionary<int, PanelData> panelDatas)
         {
-            foreach(PanelData panelData in panelDatas.Values) {
-                switch (panelData.type)
-                {
+            foreach (PanelData panelData in panelDatas.Values) {
+                switch (panelData.type) {
                     case EPanelType.Number:
                         int panelNum = int.Parse(panelData.parameters[0]);
                         int finalTileNum = int.Parse(panelData.parameters[1]);
@@ -79,9 +78,8 @@ namespace Project.Scripts.GamePlayScene.Panel
             // _tileGenerator.MakeRelations();
             _tileGenerator.CreateNormalTiles();
 
-            foreach(PanelData panelData in panelDatas.Values) {
-                switch (panelData.type)
-                {
+            foreach (PanelData panelData in panelDatas.Values) {
+                switch (panelData.type) {
                     case EPanelType.Number:
                         int panelNum = int.Parse(panelData.parameters[0]);
                         int initialTileNum = panelData.position;

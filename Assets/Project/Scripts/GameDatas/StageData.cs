@@ -9,7 +9,8 @@ namespace Project.Scripts.GameDatas
     public class StageData : ScriptableObject
     {
         [System.Serializable]
-        private class BulletGroup {
+        private class BulletGroup
+        {
             public float appearTime;
             public float interval;
             public bool loop;
@@ -17,14 +18,16 @@ namespace Project.Scripts.GameDatas
         }
 
         [System.Serializable]
-        private class Bullet {
+        private class Bullet
+        {
             public EBulletType type;
             public int ratio;
             public List<string> parameters;
         }
 
         [System.Serializable]
-        public class PanelData {
+        public class PanelData
+        {
             private const string PARAMETER_TOOLTIP = "Dynamic： None\nStatic: None\nNumber: 1. number, 2. target position\nLife: 1. number, 2. target position, 3. life";
             public int position;
             public EPanelType type;
@@ -41,7 +44,8 @@ namespace Project.Scripts.GameDatas
         }
 
         [System.Serializable]
-        private class Tile{
+        private class Tile
+        {
 
         }
         [System.Serializable] public class PanelDictionary : SerializableDictionaryBase<int, PanelData> {}
@@ -52,6 +56,11 @@ namespace Project.Scripts.GameDatas
 
 
 
-        public PanelDictionary PanelDatas {get {return panels;} }
+        public PanelDictionary PanelDatas
+        {
+            get {
+                return panels;
+            }
+        }
     }
 }

@@ -10,8 +10,7 @@
         public const string NUMBER_PANEL = "NumberPanel";
     }
 
-    public enum EPanelType
-    {
+    public enum EPanelType {
         Dynamic,
         Static,
         Number,
