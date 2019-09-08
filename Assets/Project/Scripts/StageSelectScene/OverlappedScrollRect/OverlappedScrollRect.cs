@@ -24,7 +24,8 @@ namespace Project.Scripts.StageSelectScene.OverlappedScrollRect
                 // イベント情報を親へ伝える
                 parent.OnDrag(eventData);
             });
-            base.OnDrag(eventData);
+            else
+                base.OnDrag(eventData);
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
