@@ -55,7 +55,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         protected void FixedUpdate()
         {
             // 奥行き方向に移動させる(見た目の変化はない)
-            transform.Translate(new Vector3(0, 0, -1) * speed, Space.World);
+            transform.Translate(Vector3.back * speed, Space.World);
         }
 
         protected override void OnFail()
