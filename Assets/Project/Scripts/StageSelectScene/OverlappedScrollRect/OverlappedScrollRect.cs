@@ -21,9 +21,9 @@ namespace Project.Scripts.StageSelectScene.OverlappedScrollRect
         {
             if (_routeToParent)
                 transform.TransmitParentEventSystemHandler<IDragHandler>((parent) => {
-                    // イベント情報を親へ伝える
-                    parent.OnDrag(eventData);
-                });
+                // イベント情報を親へ伝える
+                parent.OnDrag(eventData);
+            });
             base.OnDrag(eventData);
         }
 
@@ -40,9 +40,9 @@ namespace Project.Scripts.StageSelectScene.OverlappedScrollRect
 
             if (_routeToParent)
                 transform.TransmitParentEventSystemHandler<IBeginDragHandler>((parent) => {
-                    // イベント情報を親に伝える
-                    parent.OnBeginDrag(eventData);
-                });
+                // イベント情報を親に伝える
+                parent.OnBeginDrag(eventData);
+            });
             else
                 base.OnBeginDrag(eventData);
         }
@@ -51,9 +51,9 @@ namespace Project.Scripts.StageSelectScene.OverlappedScrollRect
         {
             if (_routeToParent)
                 transform.TransmitParentEventSystemHandler<IEndDragHandler>((parent) => {
-                    // イベント情報を親に伝える
-                    parent.OnEndDrag(eventData);
-                });
+                // イベント情報を親に伝える
+                parent.OnEndDrag(eventData);
+            });
             else
                 base.OnEndDrag(eventData);
 
