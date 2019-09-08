@@ -89,7 +89,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
                 // 同レイヤーのオブジェクトの描画順序の制御
                 hole.GetComponent<Renderer>().sortingOrder = bulletId;
-                StartCoroutine(holeScript.CollisionCheck());
             }
         }
 

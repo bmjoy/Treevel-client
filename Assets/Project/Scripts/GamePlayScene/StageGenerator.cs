@@ -365,6 +365,36 @@ namespace Project.Scripts.GamePlayScene
                     panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
                     panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
                     break;
+                case 1003:
+                    // ライフ付きパネル
+                    // 銃弾実体生成
+                    // ランダムな銃弾をランダムな引数で生成する
+                    coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
+                            appearanceTime: 1.0f,
+                            interval: 5.0f,
+                            loop: true,
+                    bulletGenerators: new List<GameObject>() {
+                        bulletGroupGenerator.CreateRandomNormalHoleGenerator(10, new int[] {1, 1, 1, 1, 1}, new int[] {1, 1, 1}),
+                                                                             bulletGroupGenerator.CreateRandomAimingHoleGenerator(10, new int[] {1, 1, 1, 1, 1, 1, 1, 1})
+                    }));
+                    /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    // 数字パネル作成
+                    panelGenerator.PrepareTilesAndCreateLifeNumberPanels(
+                    new List<Dictionary<string, int>>() {
+                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
+                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
+                    }
+                    );
+                    // 特殊パネル作成
+                    panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
+                    panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
+                    break;
                 default:
                     throw new NotImplementedException();
             }
