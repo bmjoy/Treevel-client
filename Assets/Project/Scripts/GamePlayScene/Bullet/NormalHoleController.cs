@@ -103,12 +103,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (transform.position.z < 0) return;
-            // 数字パネルとの衝突
             if (other.gameObject.CompareTag(TagName.NUMBER_PANEL)) {
+                // 数字パネルとの衝突
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 gameObject.transform.parent = other.transform;
             } else if (other.gameObject.CompareTag(TagName.DUMMY_PANEL)) {
+                // ダミーパネルとの衝突
                 gameObject.transform.parent = other.transform;
             }
         }
