@@ -30,6 +30,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
         protected override void Awake()
         {
             base.Awake();
+            // タイルとパネルの間のレイヤー(Hole)に描画する
+            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
             transform.localScale = new Vector2(HoleSize.WIDTH / originalWidth, HoleSize.HEIGHT / originalHeight) *
             LOCAL_SCALE;
         }
@@ -104,15 +106,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (transform.position.z < 0) return;
+            // パネルとの衝突
             if (other.gameObject.CompareTag(TagName.NUMBER_PANEL)) {
                 // 数字パネルとの衝突
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-                gameObject.transform.parent = other.transform;
-            } else if (other.gameObject.CompareTag(TagName.DUMMY_PANEL)) {
-                // ダミーパネルとの衝突
-                gameObject.transform.parent = other.transform;
             }
+            // パネルより手前のレイヤー(BULLET)に描画する
+            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
+            // holeを衝突したパネルに追従させる
+            gameObject.transform.parent = other.transform;
         }
     }
 }
