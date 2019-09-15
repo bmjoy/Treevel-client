@@ -25,7 +25,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 各フレームの透明度の減少量
         /// </summary>
-        protected float alphaChange = 1.0f / HOLE_DISPLAYED_FRAMES;
+        private float alphaChange = 1.0f / HOLE_DISPLAYED_FRAMES;
+
         protected override void Awake()
         {
             base.Awake();
