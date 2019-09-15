@@ -4,6 +4,7 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -276,6 +277,25 @@ namespace Project.Scripts.GamePlayScene
         {
             // StageSelectSceneに戻る
             SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
+        }
+
+        /// <summary>
+        /// Twitter 投稿ボタン押下時の処理．
+        /// </summary>
+        public void ShareButtonDown()
+        {
+            print("For Debug");
+            // 投稿用のテキスト
+            var text = "ステージ" + stageId + "番を" + _resultText.GetComponent<Text>().text;
+            // URL 用に加工
+            text = UnityWebRequest.EscapeURL(text);
+
+            // 投稿用のハッシュタグ
+            var hashTags = "NumberBullet,ナンバレ";
+            hashTags = UnityWebRequest.EscapeURL(hashTags);
+
+            // Twitter 投稿画面へ
+            Application.OpenURL("https://twitter.com/intent/tweet?text=" + text + "&hashtags=" + hashTags);
         }
 
         /// <summary>
