@@ -4,7 +4,7 @@ ConfigReset,リセット,Reset
 ConfigVibration,振動,Vibration
 ConfigVolume,音量,Volume
 GameFailure,失敗,Failure
-GameSuccess,成功,GameSuccess
+GameSuccess,成功,Success
 GameResult,結果,Result
 GameRetry,リトライ,Retry
 GameWarning,アプリがバックグラウンドに移動しました,The app has moved to the background
