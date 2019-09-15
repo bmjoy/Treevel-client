@@ -9,6 +9,7 @@ TagManager:
   - BulletWarning
   - Tile
   - GraphUi
+  - DummyPanel
   layers:
   - Default
   - TransparentFX
