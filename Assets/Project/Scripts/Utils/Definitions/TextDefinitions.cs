@@ -18,7 +18,7 @@ namespace Project.Scripts.Utils.Definitions
         StageFirst,      // ステージ1
         StageSecond,     // ステージ2
         StageThird,      // ステージ3
-        StageFourth,     // ステージ4 
+        StageFourth,     // ステージ4
         Turorial,        // チュートリアル
     }
 }
