@@ -11,7 +11,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 表示フレーム数
         /// </summary>
-        private const int HOLE_DISPLAYED_FRAMES = 25;
+        private const int HOLE_DISPLAYED_FRAMES = 100;
 
         /// <summary>
         /// 出現する行
@@ -22,6 +22,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// </summary>
         protected int column;
 
+        /// <summary>
+        /// 各フレームの透明度の減少量
+        /// </summary>
+        protected float alphaChange = 1.0f / HOLE_DISPLAYED_FRAMES;
         protected override void Awake()
         {
             base.Awake();
@@ -54,10 +58,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 奥行き方向に移動させる(見た目の変化はない)
             transform.Translate(Vector3.back * speed, Space.World);
+            // 透明度をあげてだんだんと見えなくする
+            gameObject.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, alphaChange);
         }
 
         protected override void OnFail()
         {
+            alphaChange = 0.0f;
         }
 
         /// <summary>
@@ -94,13 +101,19 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            // 数字パネルとの衝突以外は考えない
-            if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) return;
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (transform.position.z < 0) return;
-
-            // 衝突したオブジェクトは赤色に変える
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            // 数字パネルとの衝突
+            if (other.gameObject.CompareTag(TagName.NUMBER_PANEL))
+            {
+                // 衝突したオブジェクトは赤色に変える
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                gameObject.transform.parent = other.transform;
+            }
+            else if(other.gameObject.CompareTag(TagName.DUMMY_PANEL))
+            {
+                gameObject.transform.parent = other.transform;
+            }
         }
     }
 }
