@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
-using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine;
 
 namespace Project.Scripts.GameDatas
@@ -48,15 +47,13 @@ namespace Project.Scripts.GameDatas
         {
 
         }
-        [System.Serializable] public class PanelDictionary : SerializableDictionaryBase<int, PanelData> {}
-
         [SerializeField] private int id;
-        [SerializeField, ID("position")] private PanelDictionary panels;
-        [SerializeField] List<BulletGroup> bulletGroups;
+        [SerializeField] private List<PanelData> panels;
+        [SerializeField] private List<BulletGroup> bulletGroups;
 
 
 
-        public PanelDictionary PanelDatas
+        public List<PanelData> PanelDatas
         {
             get {
                 return panels;

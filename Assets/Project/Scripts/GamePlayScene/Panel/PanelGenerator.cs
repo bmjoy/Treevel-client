@@ -61,9 +61,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             _tileGenerator = FindObjectOfType<TileGenerator>();
         }
 
-        public void CreatePanels(IDictionary<int, PanelData> panelDatas)
+        public void CreatePanels(ICollection<PanelData> panelDatas)
         {
-            foreach (PanelData panelData in panelDatas.Values) {
+            foreach (PanelData panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
                         int panelNum = int.Parse(panelData.parameters[0]);
@@ -78,7 +78,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             // _tileGenerator.MakeRelations();
             _tileGenerator.CreateNormalTiles();
 
-            foreach (PanelData panelData in panelDatas.Values) {
+            foreach (PanelData panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
                         int panelNum = int.Parse(panelData.parameters[0]);

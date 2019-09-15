@@ -14,79 +14,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   panels:
-    reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
-      isExpanded: 1
-      label:
-        m_Text: Keys
-        m_Image: {fileID: 0}
-        m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
-      elementDisplayType: 0
-      elementNameProperty: 
-      elementNameOverride: 
-      elementIcon: {fileID: 0}
-    reqReferences: {fileID: 0}
-    isExpanded: 1
-    _keyValues: 0400000005000000060000000700000008000000090000000a0000000e000000030000000f000000
-    _keys: 0400000005000000060000000700000008000000090000000a0000000e000000030000000f000000
-    _values:
-    - position: 4
-      type: 2
-      parameters:
-      - 1
-      - 4
-    - position: 5
-      type: 2
-      parameters:
-      - 2
-      - 5
-    - position: 6
-      type: 2
-      parameters:
-      - 3
-      - 6
-    - position: 7
-      type: 2
-      parameters:
-      - 4
-      - 7
-    - position: 8
-      type: 2
-      parameters:
-      - 5
-      - 8
-    - position: 9
-      type: 2
-      parameters:
-      - 6
-      - 9
-    - position: 10
-      type: 2
-      parameters:
-      - 7
-      - 10
-    - position: 14
-      type: 2
-      parameters:
-      - 8
-      - 11
-    - position: 3
-      type: 1
-      parameters:
-      - 8
-      - 11
-    - position: 15
-      type: 0
-      parameters:
-      - 8
-      - 11
+  - position: 3
+    type: 0
+    parameters: []
+  - position: 4
+    type: 2
+    parameters:
+    - 1
+    - 4
+  - position: 5
+    type: 2
+    parameters:
+    - 2
+    - 5
+  - position: 6
+    type: 2
+    parameters:
+    - 3
+    - 6
+  - position: 7
+    type: 2
+    parameters:
+    - 4
+    - 7
+  - position: 8
+    type: 2
+    parameters:
+    - 5
+    - 8
+  - position: 9
+    type: 2
+    parameters:
+    - 6
+    - 9
+  - position: 10
+    type: 2
+    parameters:
+    - 7
+    - 10
+  - position: 14
+    type: 2
+    parameters:
+    - 8
+    - 11
+  - position: 15
+    type: 1
+    parameters: []
   bulletGroups: []
