@@ -20,5 +20,6 @@ namespace Project.Scripts.Utils.Definitions
         StageThird,      // ステージ3
         StageFourth,     // ステージ4
         Turorial,        // チュートリアル
+        GameTweet,       // ゲーム結果のツイート
     }
 }
