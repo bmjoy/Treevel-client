@@ -2,8 +2,8 @@
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.UIComponents;
 using Project.Scripts.Utils.PlayerPrefsUtils;
-using Project.Scripts.Utils.TextUtils;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -225,7 +225,7 @@ namespace Project.Scripts.GamePlayScene
             if (OnSucceed != null) OnSucceed();
             EndProcess();
             _successAudioSource.Play();
-            _resultText.GetComponent<Text>().text = LanguageUtility.GetText(ETextIndex.GameSuccess);
+            _resultText.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameSuccess;
             var ss = StageStatus.Get(stageId);
             // クリア済みにする
             ss.ClearStage(stageId);
@@ -240,7 +240,7 @@ namespace Project.Scripts.GamePlayScene
         {
             if (OnFail != null) OnFail();
             EndProcess();
-            _resultText.GetComponent<Text>().text = LanguageUtility.GetText(ETextIndex.GameFailure);
+            _resultText.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameFailure;
             _failureAudioSource.Play();
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);
