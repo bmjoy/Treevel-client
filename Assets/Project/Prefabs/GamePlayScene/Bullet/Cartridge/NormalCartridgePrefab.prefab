@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 114617676760384634}
   - component: {fileID: 8667623524509177951}
   - component: {fileID: 5685266870691338383}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NormalCartridgePrefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}

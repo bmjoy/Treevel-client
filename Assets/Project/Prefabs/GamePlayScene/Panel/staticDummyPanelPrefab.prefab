@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4470369291969820}
   - component: {fileID: 212957416217724866}
   - component: {fileID: 114688854412061546}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: staticDummyPanelPrefab
   m_TagString: DummyPanel
   m_Icon: {fileID: 0}

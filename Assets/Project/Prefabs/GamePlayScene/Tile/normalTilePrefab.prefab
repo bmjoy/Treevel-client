@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4482315734691428}
   - component: {fileID: 212720884470728028}
   - component: {fileID: 114202185148520404}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: normalTilePrefab
   m_TagString: Tile
   m_Icon: {fileID: 0}

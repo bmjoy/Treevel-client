@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 114564193246404582}
   - component: {fileID: -2112501252169391278}
   - component: {fileID: 7432704729882775510}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: NormalHolePrefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
