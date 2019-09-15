@@ -17,8 +17,6 @@ namespace Project.Scripts.RecordScene
 
         [SerializeField] private GameObject _successLinePrefab;
 
-        private readonly Dictionary<EStageLevel, GameObject> _levelText = new Dictionary<EStageLevel, GameObject>();
-
         private readonly Dictionary<EStageLevel, GameObject> _percentageText = new Dictionary<EStageLevel, GameObject>();
 
         private readonly Dictionary<EStageLevel, GameObject> _graphArea = new Dictionary<EStageLevel, GameObject>();
@@ -80,8 +78,6 @@ namespace Project.Scripts.RecordScene
         {
             // GameObject の準備
             GetGameObjects(stageLevel);
-            // タイトルの変更
-            _levelText[stageLevel].GetComponent<Text>().text = StageInfo.LevelName[stageLevel];
             // 成功割合の描画
             DrawPercentage(stageLevel);
             // 棒グラフの描画
@@ -98,9 +94,6 @@ namespace Project.Scripts.RecordScene
         {
             // Canvas -> SnapScrollView -> Viewport -> Content -> ${stageLevel} を取得
             var level = GameObject.Find(stageLevel.ToString()).transform;
-
-            // ${stageLevel} -> Level を取得
-            _levelText.Add(stageLevel, level.Find("Level").gameObject);
             // ${stageLevel} -> Percentage を取得
             _percentageText.Add(stageLevel, level.Find("Percentage").gameObject);
             // ${stageLevel} -> GraphArea を取得
