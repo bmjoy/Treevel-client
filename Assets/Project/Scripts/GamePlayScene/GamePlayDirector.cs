@@ -106,6 +106,21 @@ namespace Project.Scripts.GamePlayScene
             UnifyDisplay(_resultWindow);
 
             SetAudioSources();
+
+            SceneManager.activeSceneChanged += ActiveScenceChanged;
+        }
+
+        /// <summary>
+        /// アクティブシーンが切り替わった時に呼ばれる
+        /// </summary>
+        /// <param name="thisScene"> 切り替わる前のシーン </param>
+        /// <param name="nextScene"> 切り替わる後のシーン </param>
+        private void ActiveScenceChanged(Scene thisScene, Scene nextScene)
+        {
+            if (nextScene.name == SceneName.GAME_PLAY_SCENE) {
+                // 一時停止ボタンを有効にする
+                _pauseButton.SetActive(true);
+            }
         }
 
         private void Start()
@@ -214,6 +229,9 @@ namespace Project.Scripts.GamePlayScene
             // 番号に合わせたステージの作成
             StageGenerator.CreateStages(stageId);
 
+            // 一時停止ボタンを有効にする
+            _pauseButton.SetActive(true);
+
             // 状態を変更する
             Dispatch(EGameState.Playing);
         }
@@ -263,6 +281,8 @@ namespace Project.Scripts.GamePlayScene
         {
             _playingAudioSource.Stop();
             _resultWindow.SetActive(true);
+            // 一時停止ボタンを無効にする
+            _pauseButton.SetActive(false);
         }
 
         /// <summary>
@@ -416,6 +436,11 @@ namespace Project.Scripts.GamePlayScene
             audioSource.time = time;
             audioSource.loop = loop;
             audioSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME) * volumeRate;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.activeSceneChanged -= ActiveScenceChanged;
         }
     }
 }
