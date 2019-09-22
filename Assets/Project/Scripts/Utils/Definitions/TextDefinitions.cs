@@ -15,10 +15,10 @@ namespace Project.Scripts.Utils.Definitions
         GameWarning,     // ゲーム中にアプリを閉じた時の注意
         LanguageJapanese,   // 日本語
         LanguageEnglish,    // 英語
-        StageFirst,      // ステージ1
-        StageSecond,     // ステージ2
-        StageThird,      // ステージ3
-        StageFourth,     // ステージ4
+        LevelFirst,      // レベル1
+        LevelSecond,     // レベル2
+        LevelThird,      // レベル3
+        LevelFourth,     // レベル4
         Turorial,        // チュートリアル
         GameTweet,       // ゲーム結果のツイート
     }

@@ -10,9 +10,9 @@ GameRetry,リトライ,Retry
 GameWarning,アプリがバックグラウンドに移動しました,The app has moved to the background
 LanguageJapanese,日本語,Japanese
 LanguageEnglish,英語,English
-StageFirst,かんたん,Easy
-StageSecond,ふつう,Normal
-StageThird,むずかしい,Hard
-StageFourth,げきむず,VeryHard 
+LevelFirst,かんたん,Easy
+LevelSecond,ふつう,Normal
+LevelThird,むずかしい,Hard
+LevelFourth,げきむず,VeryHard 
 Turorial,あそびかた,Tutorial
 GameTweet,投稿,Tweet
