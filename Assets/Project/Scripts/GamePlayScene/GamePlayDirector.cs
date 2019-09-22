@@ -128,9 +128,16 @@ namespace Project.Scripts.GamePlayScene
             GameOpening();
         }
 
+        /// <summary>
+        /// アプリがバックグラウンドに移動する、または
+        /// バックグラウンドから戻ってくる時に呼ばれる
+        /// </summary>
+        /// <param name="pauseStatus"></param>
         private void OnApplicationPause(bool pauseStatus)
         {
-            if (pauseStatus) { // アプリがバックグラウンドに移動した時
+            // GamePlaySceneがアクティブかどうか
+            bool isActiveScene = SceneManager.GetActiveScene().name == SceneName.GAME_PLAY_SCENE;
+            if (pauseStatus && isActiveScene) { // アプリがバックグラウンドに移動した時
                 if (Dispatch(EGameState.Failure)) {
                     // 警告ウィンドウを表示
                     _warningText.SetActive(true);
