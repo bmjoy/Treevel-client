@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
@@ -17,6 +18,7 @@ namespace Project.Scripts.GamePlayScene
         private const string RESULT_NAME = "Result";
         private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
+        private const string PAUSE_BUTTON_NAME = "PauseButton";
 
         public delegate void ChangeAction();
 
@@ -71,6 +73,11 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _stageNumberText;
 
         /// <summary>
+        /// 一時停止ボタン
+        /// </summary>
+        private GameObject _pauseButton;
+
+        /// <summary>
         /// プレイ中の BGM
         /// </summary>
         private AudioSource _playingAudioSource;
@@ -93,6 +100,8 @@ namespace Project.Scripts.GamePlayScene
             _warningText = _resultWindow.transform.Find(WARNING_NAME).gameObject;
 
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
+
+            _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
 
             UnifyDisplay(_resultWindow);
 
@@ -293,6 +302,33 @@ namespace Project.Scripts.GamePlayScene
 
             // Twitter 投稿画面へ
             Application.OpenURL("https://twitter.com/intent/tweet?text=" + text + "&hashtags=" + hashTags);
+        }
+
+        /// <summary>
+        /// 一時停止ボタン押下時の処理
+        /// </summary>
+        public void PauseButtonDown()
+        {
+            // ゲーム内の時間を一時停止する
+            Time.timeScale = 0.0f;
+            // 一時停止ボタンを無効にする
+            _pauseButton.SetActive(false);
+            // 一時停止シーンをロードする
+            StartCoroutine(LoadGamePauseScene());
+        }
+
+        /// <summary>
+        /// 一時停止シーンをロードする
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator LoadGamePauseScene()
+        {
+            SceneManager.LoadScene(SceneName.GAME_PAUSE_SCENE, LoadSceneMode.Additive);
+            var scene = SceneManager.GetSceneByName(SceneName.GAME_PAUSE_SCENE);
+            while (!scene.isLoaded) {
+                yield return null;
+            }
+            SceneManager.SetActiveScene(scene);
         }
 
         /// <summary>
