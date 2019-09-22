@@ -11,7 +11,8 @@ namespace Project.Scripts.GamePauseScene
         /// <summary>
         /// ゲーム再開ボタン押下時の処理
         /// </summary>
-        public void BackButtonDown(){
+        public void BackButtonDown()
+        {
             Time.timeScale = 1.0f;
             // 今のシーンをアンロード
             SceneManager.UnloadSceneAsync(SceneName.GAME_PAUSE_SCENE);
