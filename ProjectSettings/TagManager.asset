@@ -9,6 +9,7 @@ TagManager:
   - BulletWarning
   - Tile
   - GraphUi
+  - DummyPanel
   layers:
   - Default
   - TransparentFX
@@ -19,10 +20,10 @@ TagManager:
   - 
   - 
   - SpriteGlow
-  - 
-  - 
-  - 
-  - 
+  - Cartridge
+  - Hole
+  - Panel
+  - Tile
   - 
   - 
   - 

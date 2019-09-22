@@ -11,7 +11,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 表示フレーム数
         /// </summary>
-        private const int HOLE_DISPLAYED_FRAMES = 25;
+        private const int HOLE_DISPLAYED_FRAMES = 100;
 
         /// <summary>
         /// 出現する行
@@ -22,9 +22,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// </summary>
         protected int column;
 
+        /// <summary>
+        /// 各フレームの透明度の減少量
+        /// </summary>
+        private float _alphaChange = 1.0f / HOLE_DISPLAYED_FRAMES;
+
         protected override void Awake()
         {
             base.Awake();
+            // タイルとパネルの間のレイヤー(Hole)に描画する
+            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
             transform.localScale = new Vector2(HoleSize.WIDTH / originalWidth, HoleSize.HEIGHT / originalHeight) *
             LOCAL_SCALE;
         }
@@ -54,10 +61,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 奥行き方向に移動させる(見た目の変化はない)
             transform.Translate(Vector3.back * speed, Space.World);
+            // 透明度をあげてだんだんと見えなくする
+            gameObject.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, _alphaChange);
         }
 
         protected override void OnFail()
         {
+            _alphaChange = 0.0f;
         }
 
         /// <summary>
@@ -94,13 +104,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            // 数字パネルとの衝突以外は考えない
-            if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) return;
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (transform.position.z < 0) return;
-
-            // 衝突したオブジェクトは赤色に変える
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            // パネルとの衝突
+            if (other.gameObject.CompareTag(TagName.NUMBER_PANEL)) {
+                // 数字パネルとの衝突
+                // 衝突したオブジェクトは赤色に変える
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            // パネルより手前のレイヤー(BULLET)に描画する
+            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
+            // holeを衝突したパネルに追従させる
+            gameObject.transform.parent = other.transform;
         }
     }
 }

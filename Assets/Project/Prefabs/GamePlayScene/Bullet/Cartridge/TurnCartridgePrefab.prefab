@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 114569484378481306}
   - component: {fileID: -1925789541212344210}
   - component: {fileID: 1937630506875268259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TurnCartridgePrefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}

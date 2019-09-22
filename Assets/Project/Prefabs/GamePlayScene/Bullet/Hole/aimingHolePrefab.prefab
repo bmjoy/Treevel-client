@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 114936374060992412}
   - component: {fileID: 1768844315502914671}
   - component: {fileID: -8451264784571383085}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: aimingHolePrefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e93bb1090ee40df9c1955892d209e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0.05
 --- !u!61 &1768844315502914671
 BoxCollider2D:
   m_ObjectHideFlags: 0

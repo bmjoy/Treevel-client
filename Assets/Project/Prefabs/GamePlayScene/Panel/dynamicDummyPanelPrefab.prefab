@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 114989368649593642}
   - component: {fileID: -2211765263296871505}
   - component: {fileID: -7919264550677916442}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: dynamicDummyPanelPrefab
-  m_TagString: Untagged
+  m_TagString: DummyPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
