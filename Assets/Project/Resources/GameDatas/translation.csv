@@ -16,3 +16,6 @@ LevelThird,むずかしい,Hard
 LevelFourth,げきむず,VeryHard 
 Turorial,あそびかた,Tutorial
 GameTweet,投稿,Tweet
+GamePause,一時停止中,Pause
+GamePauseBack,再開,Resume
+GamePauseQuit,諦める,GiveUp

@@ -21,5 +21,8 @@ namespace Project.Scripts.Utils.Definitions
         LevelFourth,     // レベル4
         Turorial,        // チュートリアル
         GameTweet,       // ゲーム結果のツイート
+        GamePause,       // ゲーム一時停止
+        GamePauseBack,   // ゲームの再開
+        GamePauseQuit,   // ゲームを諦める
     }
 }
