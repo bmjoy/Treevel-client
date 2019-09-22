@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 各フレームの透明度の減少量
         /// </summary>
-        private float alphaChange = 1.0f / HOLE_DISPLAYED_FRAMES;
+        private float _alphaChange = 1.0f / HOLE_DISPLAYED_FRAMES;
 
         protected override void Awake()
         {
@@ -62,12 +62,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
             // 奥行き方向に移動させる(見た目の変化はない)
             transform.Translate(Vector3.back * speed, Space.World);
             // 透明度をあげてだんだんと見えなくする
-            gameObject.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, alphaChange);
+            gameObject.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, _alphaChange);
         }
 
         protected override void OnFail()
         {
-            alphaChange = 0.0f;
+            _alphaChange = 0.0f;
         }
 
         /// <summary>
