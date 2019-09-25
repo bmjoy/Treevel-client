@@ -43,19 +43,8 @@ namespace Project.Scripts.StageSelectScene
         private void Draw()
         {
             foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
-                UpdateText(stageLevel);
                 MakeButtons(stageLevel);
             }
-        }
-
-        /// <summary>
-        /// テキストを更新する
-        /// </summary>
-        /// <param name="stageLevel"> 変更するテキストの難易度 </param>
-        private static void UpdateText(EStageLevel stageLevel)
-        {
-            var text = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + stageLevel + "/Level").GetComponent<Text>();
-            text.text = StageInfo.LevelName[stageLevel];
         }
 
         /// <summary>

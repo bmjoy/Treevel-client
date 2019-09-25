@@ -2,6 +2,7 @@
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.UIComponents;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,10 +15,7 @@ namespace Project.Scripts.GamePlayScene
     {
         private const string RESULT_WINDOW_NAME = "ResultWindow";
         private const string RESULT_NAME = "Result";
-        private const string SUCCESS_TEXT = "成功！";
-        private const string FAILURE_TEXT = "失敗！";
         private const string WARNING_NAME = "Warning";
-        private const string WARNING_TEXT = "アプリが\nバックグラウンドに\n移動しました";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
 
         public delegate void ChangeAction();
@@ -93,7 +91,6 @@ namespace Project.Scripts.GamePlayScene
 
             _resultText = _resultWindow.transform.Find(RESULT_NAME).gameObject;
             _warningText = _resultWindow.transform.Find(WARNING_NAME).gameObject;
-            _warningText.GetComponent<Text>().text = WARNING_TEXT;
 
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
@@ -228,7 +225,7 @@ namespace Project.Scripts.GamePlayScene
             if (OnSucceed != null) OnSucceed();
             EndProcess();
             _successAudioSource.Play();
-            _resultText.GetComponent<Text>().text = SUCCESS_TEXT;
+            _resultText.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameSuccess;
             var ss = StageStatus.Get(stageId);
             // クリア済みにする
             ss.ClearStage(stageId);
@@ -243,8 +240,8 @@ namespace Project.Scripts.GamePlayScene
         {
             if (OnFail != null) OnFail();
             EndProcess();
+            _resultText.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameFailure;
             _failureAudioSource.Play();
-            _resultText.GetComponent<Text>().text = FAILURE_TEXT;
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);
             ss.IncFailureNum(stageId);

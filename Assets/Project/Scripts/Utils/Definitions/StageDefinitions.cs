@@ -38,18 +38,6 @@ namespace Project.Scripts.Utils.Definitions
         };
 
         /// <summary>
-        /// 難易度ごとに固有の難易度名
-        /// </summary>
-        /// TODO: 今後，多言語対応に組み込む
-        public static readonly Dictionary<EStageLevel, string> LevelName = new Dictionary<EStageLevel, string>()
-        {
-            {EStageLevel.Easy, "簡単"},
-            {EStageLevel.Normal, "普通"},
-            {EStageLevel.Hard, "ムズイ"},
-            {EStageLevel.VeryHard, "激ムズ"}
-        };
-
-        /// <summary>
         /// 難易度ごとに固有のボタン色
         /// </summary>
         /// TODO: 今後，インスペクタから変更できるようにする
