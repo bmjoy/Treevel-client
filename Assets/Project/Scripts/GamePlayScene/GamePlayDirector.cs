@@ -19,6 +19,7 @@ namespace Project.Scripts.GamePlayScene
         private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string PAUSE_WINDOW_NAME = "PauseWindow";
+        private const string PAUSE_BACKGROUND = "PauseBackground";
         private const string PAUSE_BUTTON_NAME = "PauseButton";
 
         public delegate void ChangeAction();
@@ -74,6 +75,11 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _pauseWindow;
 
         /// <summary>
+        /// 一時停止中の背景
+        /// </summary>
+        private GameObject _pauseBackground;
+
+        /// <summary>
         /// 一時停止ボタン
         /// </summary>
         private GameObject _pauseButton;
@@ -108,6 +114,7 @@ namespace Project.Scripts.GamePlayScene
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
             _pauseWindow = GameObject.Find(PAUSE_WINDOW_NAME);
+            _pauseBackground = GameObject.Find(PAUSE_BACKGROUND);
             _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
 
             UnifyDisplay(_resultWindow);
@@ -239,6 +246,8 @@ namespace Project.Scripts.GamePlayScene
 
             // 一時停止ウィンドウを非表示
             _pauseWindow.SetActive(false);
+            // 一時停止背景を非表示
+            _pauseBackground.SetActive(false);
             // 一時停止ボタンを有効にする
             _pauseButton.SetActive(true);
 
@@ -351,6 +360,8 @@ namespace Project.Scripts.GamePlayScene
             _pauseButton.SetActive(false);
             // 一時停止ウィンドウを表示する
             _pauseWindow.SetActive(true);
+            // 一時停止背景を表示する
+            _pauseBackground.SetActive(true);
         }
 
         /// <summary>
@@ -362,6 +373,8 @@ namespace Project.Scripts.GamePlayScene
             _pauseButton.SetActive(true);
             // 一時停止ウィンドウを非表示にする
             _pauseWindow.SetActive(false);
+            // 一時停止背景を非表示にする
+            _pauseBackground.SetActive(false);
             // ゲーム内の時間を元に戻す
             Time.timeScale = 1.0f;
         }
