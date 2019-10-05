@@ -18,6 +18,7 @@ namespace Project.Scripts.GamePlayScene
         private const string RESULT_NAME = "Result";
         private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
+        private const string PAUSE_WINDOW_NAME = "PauseWindow";
         private const string PAUSE_BUTTON_NAME = "PauseButton";
 
         public delegate void ChangeAction();
@@ -68,14 +69,19 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _warningText;
 
         /// <summary>
-        /// ステージ id 表示用のテキスト
+        /// 一時停止ウィンドウ
         /// </summary>
-        private GameObject _stageNumberText;
+        private GameObject _pauseWindow;
 
         /// <summary>
         /// 一時停止ボタン
         /// </summary>
         private GameObject _pauseButton;
+
+        /// <summary>
+        /// ステージ id 表示用のテキスト
+        /// </summary>
+        private GameObject _stageNumberText;
 
         /// <summary>
         /// プレイ中の BGM
@@ -101,26 +107,12 @@ namespace Project.Scripts.GamePlayScene
 
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
+            _pauseWindow = GameObject.Find(PAUSE_WINDOW_NAME);
             _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
 
             UnifyDisplay(_resultWindow);
 
             SetAudioSources();
-
-            SceneManager.activeSceneChanged += ActiveScenceChanged;
-        }
-
-        /// <summary>
-        /// アクティブシーンが切り替わった時に呼ばれる
-        /// </summary>
-        /// <param name="thisScene"> 切り替わる前のシーン </param>
-        /// <param name="nextScene"> 切り替わる後のシーン </param>
-        private void ActiveScenceChanged(Scene thisScene, Scene nextScene)
-        {
-            if (nextScene.name == SceneName.GAME_PLAY_SCENE) {
-                // 一時停止ボタンを有効にする
-                _pauseButton.SetActive(true);
-            }
         }
 
         private void Start()
@@ -135,13 +127,29 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="pauseStatus"></param>
         private void OnApplicationPause(bool pauseStatus)
         {
-            // GamePlaySceneがアクティブかどうか
-            bool isActiveScene = SceneManager.GetActiveScene().name == SceneName.GAME_PLAY_SCENE;
-            if (pauseStatus && isActiveScene) { // アプリがバックグラウンドに移動した時
+            if (pauseStatus && _pauseButton.activeSelf) { // 一時停止以外でアプリがバックグラウンドに移動した時
                 if (Dispatch(EGameState.Failure)) {
                     // 警告ウィンドウを表示
                     _warningText.SetActive(true);
+                    // 失敗回数をインクリメント
+                    var ss = StageStatus.Get(GamePlayDirector.stageId);
+                    ss.IncFailureNum(GamePlayDirector.stageId);
                 }
+            }
+        }
+
+        /// <summary>
+        /// アプリが終了した時に呼ばれる
+        /// 一時停止中に呼ばれたならゲーム失敗時の処理を行う
+        /// </summary>
+        private void OnApplicationQuit()
+        {
+            // 一時停止中かどうかを調べる
+            if(!_pauseButton.activeSelf && !_resultWindow.activeSelf)
+            {
+                // 一時停止中なら失敗回数をインクリメント
+                var ss = StageStatus.Get(GamePlayDirector.stageId);
+                ss.IncFailureNum(GamePlayDirector.stageId);
             }
         }
 
@@ -230,14 +238,16 @@ namespace Project.Scripts.GamePlayScene
             // 結果ウィンドウを非表示
             _resultWindow.SetActive(false);
 
+            // 一時停止ウィンドウを非表示
+            _pauseWindow.SetActive(false);
+            // 一時停止ボタンを有効にする
+            _pauseButton.SetActive(true);
+
             // 警告ウィンドウを非表示
             _warningText.SetActive(false);
 
             // 番号に合わせたステージの作成
             StageGenerator.CreateStages(stageId);
-
-            // 一時停止ボタンを有効にする
-            _pauseButton.SetActive(true);
 
             // 状態を変更する
             Dispatch(EGameState.Playing);
@@ -340,22 +350,35 @@ namespace Project.Scripts.GamePlayScene
             Time.timeScale = 0.0f;
             // 一時停止ボタンを無効にする
             _pauseButton.SetActive(false);
-            // 一時停止シーンをロードする
-            StartCoroutine(LoadGamePauseScene());
+            // 一時停止ウィンドウを表示する
+            _pauseWindow.SetActive(true);
         }
 
         /// <summary>
-        /// 一時停止シーンをロードする
+        /// ゲーム再開ボタン押下時の処理
         /// </summary>
-        /// <returns></returns>
-        public IEnumerator LoadGamePauseScene()
+        public void PauseBackButtonDown()
         {
-            SceneManager.LoadScene(SceneName.GAME_PAUSE_SCENE, LoadSceneMode.Additive);
-            var scene = SceneManager.GetSceneByName(SceneName.GAME_PAUSE_SCENE);
-            while (!scene.isLoaded) {
-                yield return null;
-            }
-            SceneManager.SetActiveScene(scene);
+            // 一時停止ボタンを有効にする
+            _pauseButton.SetActive(true);
+            // 一時停止ウィンドウを非表示にする
+            _pauseWindow.SetActive(false);
+            // ゲーム内の時間を元に戻す
+            Time.timeScale = 1.0f;
+        }
+
+        /// <summary>
+        /// ゲームを諦めるボタン押下時の処理
+        /// </summary>
+        public void PauseQuitButtonDown()
+        {
+            // 失敗回数をインクリメント
+            var ss = StageStatus.Get(GamePlayDirector.stageId);
+            ss.IncFailureNum(GamePlayDirector.stageId);
+            // ゲーム内の時間を元に戻す
+            Time.timeScale = 1.0f;
+            // StageSelectSceneに戻る
+            SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
 
         /// <summary>
@@ -443,11 +466,6 @@ namespace Project.Scripts.GamePlayScene
             audioSource.time = time;
             audioSource.loop = loop;
             audioSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME) * volumeRate;
-        }
-
-        private void OnDisable()
-        {
-            SceneManager.activeSceneChanged -= ActiveScenceChanged;
         }
     }
 }
