@@ -145,8 +145,7 @@ namespace Project.Scripts.GamePlayScene
         private void OnApplicationQuit()
         {
             // 一時停止中かどうかを調べる
-            if(!_pauseButton.activeSelf && !_resultWindow.activeSelf)
-            {
+            if (!_pauseButton.activeSelf && !_resultWindow.activeSelf) {
                 // 一時停止中なら失敗回数をインクリメント
                 var ss = StageStatus.Get(GamePlayDirector.stageId);
                 ss.IncFailureNum(GamePlayDirector.stageId);
