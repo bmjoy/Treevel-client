@@ -134,14 +134,9 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="pauseStatus"></param>
         private void OnApplicationPause(bool pauseStatus)
         {
-            if (pauseStatus && _pauseButton.activeSelf) { // 一時停止以外でアプリがバックグラウンドに移動した時
-                if (Dispatch(EGameState.Failure)) {
-                    // 警告ウィンドウを表示
-                    _warningText.SetActive(true);
-                    // 失敗回数をインクリメント
-                    var ss = StageStatus.Get(GamePlayDirector.stageId);
-                    ss.IncFailureNum(GamePlayDirector.stageId);
-                }
+            if (pauseStatus) { // アプリがバックグラウンドに移動した時
+                // 一時停止扱いとする
+                PauseButtonDown();
             }
         }
 
@@ -151,8 +146,8 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private void OnApplicationQuit()
         {
-            // 一時停止中かどうかを調べる
-            if (!_pauseButton.activeSelf && !_resultWindow.activeSelf) {
+            // ゲーム終了時かどうかを調べる
+            if (!_resultWindow.activeSelf) {
                 // 一時停止中なら失敗回数をインクリメント
                 var ss = StageStatus.Get(GamePlayDirector.stageId);
                 ss.IncFailureNum(GamePlayDirector.stageId);
