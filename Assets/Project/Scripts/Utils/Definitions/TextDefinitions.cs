@@ -24,5 +24,6 @@ namespace Project.Scripts.Utils.Definitions
         GamePause,       // ゲーム一時停止
         GamePauseBack,   // ゲームの再開
         GamePauseQuit,   // ゲームを諦める
+        GameBack,        // ステージ選択画面へ戻る
     }
 }
