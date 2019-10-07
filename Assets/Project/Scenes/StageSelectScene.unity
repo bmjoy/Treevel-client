@@ -351,7 +351,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Normal
+  m_Text: "\u3075\u3064\u3046"
   _textIndex: 12
 --- !u!1 &513244090
 GameObject:
@@ -769,7 +769,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'VeryHard '
+  m_Text: "\u3052\u304D\u3080\u305A"
   _textIndex: 14
 --- !u!1 &1095860206
 GameObject:
@@ -1403,8 +1403,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Easy
+  m_Text: "\u304B\u3093\u305F\u3093"
   _textIndex: 11
+--- !u!224 &1788011956 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5516472073009240669, guid: 48d0f5da9aeda4b42ad9eb03ed71958d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1318188735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1816831020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1570,7 +1576,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Hard
+  m_Text: "\u3080\u305A\u304B\u3057\u3044"
   _textIndex: 13
 --- !u!1 &1855029234
 GameObject:
@@ -1787,6 +1793,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064837505}
   m_CullTransparentMesh: 0
+--- !u!224 &2065905787 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3530007683359684582, guid: c2d06662606ab469393fe431ecdc78ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1097520117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2066156669
 GameObject:
   m_ObjectHideFlags: 0
