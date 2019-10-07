@@ -123,10 +123,11 @@ namespace Project.Scripts.StageSelectScene
         /// ロード中にアニメーションを動かすために非同期にロードする
         /// </summary>
         /// <returns></returns>
-        private IEnumerator LoadGamePlayScene(){
+        private IEnumerator LoadGamePlayScene()
+        {
             yield return new WaitForSeconds(1f);
             var async = SceneManager.LoadSceneAsync(SceneName.GAME_PLAY_SCENE);
-            while(!async.isDone) {
+            while (!async.isDone) {
                 yield return null;
             }
         }
