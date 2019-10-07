@@ -441,7 +441,7 @@ namespace Project.Scripts.GamePlayScene
             var currentRatio = (float) Screen.width / Screen.height;
             // 許容するアスペクト比の誤差
             const float aspectRatioError = 0.001f;
-            if (currentRatio < targetRatio - aspectRatioError || targetRatio+aspectRatioError < currentRatio) {
+            if (currentRatio < targetRatio - aspectRatioError || targetRatio + aspectRatioError < currentRatio) {
                 // ゲーム盤面以外を埋める背景画像を表示する
                 var background = Instantiate(_backgroundPrefab);
                 background.transform.position = new Vector2(0f, 0f);
