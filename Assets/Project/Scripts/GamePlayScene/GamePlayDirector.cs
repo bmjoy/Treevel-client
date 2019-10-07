@@ -4,6 +4,7 @@ using System.Linq;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.UIComponents;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -54,6 +55,11 @@ namespace Project.Scripts.GamePlayScene
         /// ゲームの現状態
         /// </summary>
         public EGameState state = EGameState.Opening;
+
+        /// <summary>
+        /// ゲーム画面以外を埋める背景
+        /// </summary>
+        [SerializeField] private GameObject _backgroundPrefab;
 
         /// <summary>
         /// 結果ウィンドウ
@@ -118,7 +124,7 @@ namespace Project.Scripts.GamePlayScene
             _pauseBackground = GameObject.Find(PAUSE_BACKGROUND);
             _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
 
-            UnifyDisplay(_resultWindow);
+            StartCoroutine(UnifyDisplay());
 
             SetAudioSources();
         }
@@ -427,7 +433,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="resultWindow"> 結果ウィンドウ </param>
         /// Bug: ゲーム画面遷移時にカメラ範囲が狭くなることがある
-        private static void UnifyDisplay(GameObject resultWindow)
+        private IEnumerator UnifyDisplay()
         {
             // 想定するデバイスのアスペクト比
             const float targetRatio = WindowSize.WIDTH / WindowSize.HEIGHT;
@@ -435,20 +441,38 @@ namespace Project.Scripts.GamePlayScene
             var currentRatio = (float) Screen.width / Screen.height;
             // 許容するアスペクト比の誤差
             const float aspectRatioError = 0.001f;
-            if (currentRatio > targetRatio + aspectRatioError) {
-                // 横長のデバイスの場合
-                var ratio = targetRatio / currentRatio;
-                var rectX = (1 - ratio) / 2f;
-                Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
-                // 結果ウィンドウも変える
-                resultWindow.transform.localScale = new Vector2(ratio, ratio);
-            } else if (currentRatio < targetRatio - aspectRatioError) {
-                // 縦長のデバイスの場合
-                var ratio = currentRatio / targetRatio;
-                var rectY = (1 - ratio) / 2f;
-                Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
-                // 結果ウィンドウも変える
-                resultWindow.transform.localScale = new Vector2(ratio, ratio);
+            if (currentRatio < targetRatio - aspectRatioError || targetRatio+aspectRatioError < currentRatio) {
+                // ゲーム盤面以外を埋める背景画像を表示する
+                var background = Instantiate(_backgroundPrefab);
+                background.transform.position = new Vector2(0f, 0f);
+                var originalWidth = background.GetComponent<SpriteRenderer>().size.x;
+                var originalHeight = background.GetComponent<SpriteRenderer>().size.y;
+                var ratio = 0f;
+                if (currentRatio > targetRatio + aspectRatioError) {
+                    // 横長のデバイスの場合
+                    ratio = targetRatio / currentRatio;
+                    var rectX = (1 - ratio) / 2f;
+                    background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight);
+                    // 背景を描画するために1フレーム待つ
+                    yield return null;
+                    Destroy(background);
+                    Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
+                    // カメラの描画範囲を縮小させ、縮小させた範囲の背景を取り除くために1フレーム待つ
+                    yield return null;
+                } else if (currentRatio < targetRatio - aspectRatioError) {
+                    // 縦長のデバイスの場合
+                    ratio = currentRatio / targetRatio;
+                    var rectY = (1 - ratio) / 2f;
+                    background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight / ratio);
+                    yield return null;
+                    Destroy(background);
+                    Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
+                    yield return null;
+                }
+                // 結果ウィンドウの大きさを変える
+                _resultWindow.transform.localScale = new Vector2(ratio, ratio);
+                // 一時停止ウィンドウの大きさを変える
+                _pauseWindow.transform.localScale = new Vector2(ratio, ratio);
             }
         }
 
