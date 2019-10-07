@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Project.Scripts.GamePlayScene;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
@@ -16,12 +17,19 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] protected GameObject stageButtonPrefab;
 
-        /// <summary>
-        /// ゲーム画面のためのダミー背景
-        /// </summary>
-        [SerializeField] protected GameObject dummyBackgroundPrefab;
-
         private SnapScrollView _snapScrollView;
+
+        private const string LOADING_BACKGROUND = "LoadingBackground";
+        private const string LOADING = "Loading";
+
+        /// <summary>
+        /// ロード中の背景
+        /// </summary>
+        private GameObject _loadingBackground;
+        /// <summary>
+        /// ロード中のアニメーション
+        /// </summary>
+        private GameObject _loading;
 
         private void Awake()
         {
@@ -31,6 +39,12 @@ namespace Project.Scripts.StageSelectScene
             _snapScrollView.MaxPage = Enum.GetNames(typeof(ELevelName)).Length - 1;
             // ページの横幅の設定
             _snapScrollView.PageSize = Screen.width;
+            // ロード中背景を非表示にする
+            _loadingBackground = GameObject.Find(LOADING_BACKGROUND);
+            _loadingBackground.SetActive(false);
+            // ロードアニメーションを非表示にする
+            _loading = GameObject.Find(LOADING);
+            _loading.SetActive(false);
 
             // TODO: 非同期で呼び出す
             // 各ステージの選択ボタンなどを描画する
@@ -96,13 +110,25 @@ namespace Project.Scripts.StageSelectScene
             ss.IncChallengeNum(stageId);
             // ステージ番号を渡す
             GamePlayDirector.stageId = stageId;
-            // 背景画像をCanvasの下に置く
-            var canvas = FindObjectOfType<Canvas>().gameObject.transform;
-            var background = Instantiate(dummyBackgroundPrefab);
-            background.transform.SetParent(canvas, false);
-
+            // ロード中の背景を表示する
+            _loadingBackground.SetActive(true);
+            // ロード中のアニメーションを開始する
+            _loading.SetActive(true);
             // シーン遷移
-            SceneManager.LoadScene(SceneName.GAME_PLAY_SCENE);
+            StartCoroutine(LoadGamePlayScene());;
+        }
+
+        /// <summary>
+        /// GamePlaySceneに遷移する
+        /// ロード中にアニメーションを動かすために非同期にロードする
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator LoadGamePlayScene(){
+            yield return new WaitForSeconds(1f);
+            var async = SceneManager.LoadSceneAsync(SceneName.GAME_PLAY_SCENE);
+            while(!async.isDone) {
+                yield return null;
+            }
         }
     }
 }
