@@ -26,9 +26,9 @@ namespace Project.Scripts.ConfigScene
         private static void ResetButtonDown()
         {
             // 全ステージをリセット
-            foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
-                var stageNum = StageInfo.Num[stageLevel];
-                var stageStartId = StageInfo.StageStartId[stageLevel];
+            foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) {
+                var stageNum = LevelInfo.Num[levelName];
+                var stageStartId = LevelInfo.StageStartId[levelName];
 
                 for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
                     StageStatus.Reset(stageId);
