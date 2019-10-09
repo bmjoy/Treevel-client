@@ -135,7 +135,7 @@ namespace Project.Scripts.GamePlayScene
         private void OnApplicationPause(bool pauseStatus)
         {
             // アプリがバックグラウンドに移動した時
-            if (pauseStatus && (state==EGameState.Opening || state==EGameState.Playing)) {
+            if (pauseStatus && (state == EGameState.Opening || state == EGameState.Playing)) {
                 // 一時停止扱いとする
                 PauseButtonDown();
             }
