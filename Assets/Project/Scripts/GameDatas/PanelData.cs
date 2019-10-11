@@ -9,7 +9,7 @@ namespace Project.Scripts.GameDatas
     public class PanelData
     {
         public EPanelType type;
-        [Range(1,15)] public int position;
+        [Range(1, 15)] public int position;
         public short number;
         public short targetPos;
         public short life;

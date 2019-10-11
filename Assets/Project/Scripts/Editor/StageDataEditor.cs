@@ -30,16 +30,15 @@ public class StageDataEditor : Editor
                         using (var checkScope = new EditorGUI.ChangeCheckScope()) {
                             EditorGUI.indentLevel++;
                             EditorGUILayout.PropertyField(panelPosProp);
-                            panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type") ,(EPanelType)panelTypeProp.enumValueIndex);
+                            panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
 
                             if (checkScope.changed) {
                                 serializedObject.ApplyModifiedProperties();
                                 serializedObject.Update();
                             }
 
-                            switch((EPanelType)panelTypeProp.enumValueIndex) {
-                                case EPanelType.Number:
-                                    {
+                            switch ((EPanelType)panelTypeProp.enumValueIndex) {
+                                case EPanelType.Number: {
                                         SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
                                         SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
                                         EditorGUILayout.PropertyField(numberProp);
@@ -47,8 +46,7 @@ public class StageDataEditor : Editor
                                     }
                                     break;
 
-                                case EPanelType.LifeNumber:
-                                    {
+                                case EPanelType.LifeNumber: {
                                         SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
                                         SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
                                         SerializedProperty lifeProp = panelDataProp.FindPropertyRelative("life");
