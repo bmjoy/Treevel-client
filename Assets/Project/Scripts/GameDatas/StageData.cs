@@ -25,31 +25,13 @@ namespace Project.Scripts.GameDatas
         }
 
         [System.Serializable]
-        public class PanelData
-        {
-            private const string PARAMETER_TOOLTIP = "Dynamic： None\nStatic: None\nNumber: 1. number, 2. target position\nLife: 1. number, 2. target position, 3. life";
-            public int position;
-            public EPanelType type;
-
-            // TODO: draw parameter list after panel type selected;
-            /// <summary>
-            /// パネルのパラメータ
-            /// Dynamic： None
-            /// Static: None
-            /// Number: 1. number, 2. target position
-            /// Life: 1. number, 2. target position, 3. life
-            /// </summary>
-            [Tooltip(PARAMETER_TOOLTIP)] public List<string> parameters;
-        }
-
-        [System.Serializable]
         private class Tile
         {
 
         }
         [SerializeField] private int id;
-        [SerializeField] private List<PanelData> panels;
         [SerializeField] private List<BulletGroup> bulletGroups;
+        [SerializeField] private List<PanelData> panels;
 
 
 

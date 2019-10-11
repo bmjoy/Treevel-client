@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
@@ -66,11 +67,8 @@ namespace Project.Scripts.GamePlayScene.Panel
             foreach (PanelData panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
-                        int panelNum = int.Parse(panelData.parameters[0]);
-                        int finalTileNum = int.Parse(panelData.parameters[1]);
-
                         // 数字タイルの作成
-                        _tileGenerator.CreateNumberTile(panelNum, finalTileNum);
+                        _tileGenerator.CreateNumberTile(panelData.number, panelData.targetPos);
                         break;
                 }
             }
@@ -81,13 +79,8 @@ namespace Project.Scripts.GamePlayScene.Panel
             foreach (PanelData panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
-                        int panelNum = int.Parse(panelData.parameters[0]);
-                        int initialTileNum = panelData.position;
-                        int finalTileNum = int.Parse(panelData.parameters[1]);
-
-                        // _tileGenerator.CreateNumberTile(panelNum, finalTileNum);
-                        var panel = Instantiate(_numberPanelPrefabs[panelNum - 1]);
-                        panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
+                        var panel = Instantiate(_numberPanelPrefabs[panelData.number - 1]);
+                        panel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.position, panelData.targetPos);
                         break;
                     case EPanelType.Dynamic:
                         CreateDynamicDummyPanel(panelData.position);
