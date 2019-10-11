@@ -15,6 +15,7 @@ namespace Project.Scripts.GamePlayScene
     public class GamePlayDirector : MonoBehaviour
     {
         private const string RESULT_WINDOW_NAME = "ResultWindow";
+        private const string SHARE_BUTTON_NAME = "ShareButton";
         private const string RESULT_NAME = "Result";
         private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
@@ -91,6 +92,11 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _pauseButton;
 
         /// <summary>
+        /// 投稿ボタン
+        /// </summary>
+        private GameObject _shareButton;
+
+        /// <summary>
         /// ステージ id 表示用のテキスト
         /// </summary>
         private GameObject _stageNumberText;
@@ -113,6 +119,7 @@ namespace Project.Scripts.GamePlayScene
         private void Awake()
         {
             _resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
+            _shareButton = GameObject.Find(SHARE_BUTTON_NAME);
 
             _resultText = _resultWindow.transform.Find(RESULT_NAME).gameObject;
             _warningText = _resultWindow.transform.Find(WARNING_NAME).gameObject;
@@ -300,6 +307,8 @@ namespace Project.Scripts.GamePlayScene
             EndProcess();
             _resultText.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameFailure;
             _failureAudioSource.Play();
+            // 失敗時は投稿ボタンを表示しない
+            _shareButton.SetActive(false);
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);
             ss.IncFailureNum(stageId);
