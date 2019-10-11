@@ -26,8 +26,8 @@ ExportedObj/
 
 # For Rider
 .idea/*
-Assets/Plugins/*
-Assets/Plugins.meta
+Assets/Plugins/Editor/*
+Assets/Plugins/Editor.meta
 
 # For VSCode
 .vscode/launch.json
