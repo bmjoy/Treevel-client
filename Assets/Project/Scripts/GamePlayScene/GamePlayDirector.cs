@@ -41,7 +41,8 @@ namespace Project.Scripts.GamePlayScene
             Opening,
             Playing,
             Success,
-            Failure
+            Failure,
+            Pausing
         }
 
         /// <summary>
@@ -135,24 +136,19 @@ namespace Project.Scripts.GamePlayScene
         private void OnApplicationPause(bool pauseStatus)
         {
             // アプリがバックグラウンドに移動した時
-            if (pauseStatus && (state == EGameState.Opening || state == EGameState.Playing)) {
+            if (pauseStatus) {
                 // 一時停止扱いとする
-                PauseButtonDown();
+                Dispatch(EGameState.Pausing);
             }
         }
 
         /// <summary>
         /// アプリが終了した時に呼ばれる
-        /// 一時停止中に呼ばれたならゲーム失敗時の処理を行う
         /// </summary>
         private void OnApplicationQuit()
         {
-            // ゲーム終了時かどうかを調べる
-            if (!_resultWindow.activeSelf) {
-                // 一時停止中なら失敗回数をインクリメント
-                var ss = StageStatus.Get(GamePlayDirector.stageId);
-                ss.IncFailureNum(GamePlayDirector.stageId);
-            }
+            // ゲーム失敗扱いとする
+            Dispatch(EGameState.Failure);
         }
 
         /// <summary>
@@ -184,8 +180,8 @@ namespace Project.Scripts.GamePlayScene
 
                     break;
                 case EGameState.Playing:
-                    // `Opening`からの遷移のみを許す
-                    if (state == EGameState.Opening) {
+                    // `Opening`と`Pausing`からの遷移のみを許す
+                    if (state == EGameState.Opening || state == EGameState.Pausing) {
                         state = nextState;
                         GamePlaying();
                         return true;
@@ -202,10 +198,19 @@ namespace Project.Scripts.GamePlayScene
 
                     break;
                 case EGameState.Failure:
+                    // `Playing`と`Pausing`からの遷移のみ許す
+                    if (state == EGameState.Playing || state == EGameState.Pausing) {
+                        state = nextState;
+                        GameFail();
+                        return true;
+                    }
+
+                    break;
+                case EGameState.Pausing:
                     // `Playing`からの遷移のみ許す
                     if (state == EGameState.Playing) {
                         state = nextState;
-                        GameFail();
+                        PauseButtonDown();
                         return true;
                     }
 
@@ -373,6 +378,8 @@ namespace Project.Scripts.GamePlayScene
             _pauseBackground.SetActive(false);
             // ゲーム内の時間を元に戻す
             Time.timeScale = 1.0f;
+            // ゲームプレイ状態に遷移する
+            Dispatch(EGameState.Playing);
         }
 
         /// <summary>
