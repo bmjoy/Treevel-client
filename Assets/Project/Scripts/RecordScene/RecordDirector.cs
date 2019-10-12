@@ -17,9 +17,9 @@ namespace Project.Scripts.RecordScene
 
         [SerializeField] private GameObject _successLinePrefab;
 
-        private readonly Dictionary<EStageLevel, GameObject> _percentageText = new Dictionary<EStageLevel, GameObject>();
+        private readonly Dictionary<ELevelName, GameObject> _percentageText = new Dictionary<ELevelName, GameObject>();
 
-        private readonly Dictionary<EStageLevel, GameObject> _graphArea = new Dictionary<EStageLevel, GameObject>();
+        private readonly Dictionary<ELevelName, GameObject> _graphArea = new Dictionary<ELevelName, GameObject>();
 
         private SnapScrollView _snapScrollView;
 
@@ -54,7 +54,7 @@ namespace Project.Scripts.RecordScene
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
-            _snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
+            _snapScrollView.MaxPage = Enum.GetNames(typeof(ELevelName)).Length - 1;
             // ページの横幅の設定
             _snapScrollView.PageSize = Screen.width;
 
@@ -67,21 +67,21 @@ namespace Project.Scripts.RecordScene
         /// </summary>
         private void Draw()
         {
-            foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) StartCoroutine(DrawEach(stageLevel));
+            foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) StartCoroutine(DrawEach(levelName));
         }
 
         /// <summary>
         /// 各難易度の画面を描画する
         /// </summary>
-        /// <param name="stageLevel"> 難易度 </param>
-        private IEnumerator DrawEach(EStageLevel stageLevel)
+        /// <param name="levelName"> 難易度 </param>
+        private IEnumerator DrawEach(ELevelName levelName)
         {
             // GameObject の準備
-            GetGameObjects(stageLevel);
+            GetGameObjects(levelName);
             // 成功割合の描画
-            DrawPercentage(stageLevel);
+            DrawPercentage(levelName);
             // 棒グラフの描画
-            DrawGraph(stageLevel);
+            DrawGraph(levelName);
 
             yield return null;
         }
@@ -89,25 +89,25 @@ namespace Project.Scripts.RecordScene
         /// <summary>
         /// 各難易度に必要な GameObject を取得
         /// </summary>
-        /// <param name="stageLevel"> 難易度 </param>
-        private void GetGameObjects(EStageLevel stageLevel)
+        /// <param name="levelName"> 難易度 </param>
+        private void GetGameObjects(ELevelName levelName)
         {
-            // Canvas -> SnapScrollView -> Viewport -> Content -> ${stageLevel} を取得
-            var level = GameObject.Find(stageLevel.ToString()).transform;
-            // ${stageLevel} -> Percentage を取得
-            _percentageText.Add(stageLevel, level.Find("Percentage").gameObject);
-            // ${stageLevel} -> GraphArea を取得
-            _graphArea.Add(stageLevel, level.Find("GraphArea").gameObject);
+            // Canvas -> SnapScrollView -> Viewport -> Content -> ${levelName} を取得
+            var level = GameObject.Find(levelName.ToString()).transform;
+            // ${levelName} -> Percentage を取得
+            _percentageText.Add(levelName, level.Find("Percentage").gameObject);
+            // ${levelName} -> GraphArea を取得
+            _graphArea.Add(levelName, level.Find("GraphArea").gameObject);
         }
 
         /// <summary>
         /// 難易度に合わせた成功割合を描画する
         /// </summary>
-        /// <param name="stageLevel"> 難易度 </param>
-        private void DrawPercentage(EStageLevel stageLevel)
+        /// <param name="levelName"> 難易度 </param>
+        private void DrawPercentage(ELevelName levelName)
         {
-            var stageNum = StageInfo.Num[stageLevel];
-            var stageStartId = StageInfo.StageStartId[stageLevel];
+            var stageNum = LevelInfo.Num[levelName];
+            var stageStartId = LevelInfo.StageStartId[levelName];
 
             var successStageNum = 0;
 
@@ -121,20 +121,20 @@ namespace Project.Scripts.RecordScene
 
             var successPercentage = (successStageNum / (float) stageNum) * 100;
 
-            _percentageText[stageLevel].GetComponent<Text>().text = successPercentage + "%";
+            _percentageText[levelName].GetComponent<Text>().text = successPercentage + "%";
         }
 
         /// <summary>
         /// 難易度に合わせた棒グラフを描画する
         /// </summary>
-        /// <param name="stageLevel"> 難易度 </param>
-        private void DrawGraph(EStageLevel stageLevel)
+        /// <param name="levelName"> 難易度 </param>
+        private void DrawGraph(ELevelName levelName)
         {
-            var stageNum = StageInfo.Num[stageLevel];
-            var stageStartId = StageInfo.StageStartId[stageLevel];
+            var stageNum = LevelInfo.Num[levelName];
+            var stageStartId = LevelInfo.StageStartId[levelName];
 
             // 描画するパネル
-            var graphAreaContent = _graphArea[stageLevel].GetComponent<RectTransform>();
+            var graphAreaContent = _graphArea[levelName].GetComponent<RectTransform>();
 
             // グラフ間の隙間の横幅 -> stageNum個のグラフと(stageNum + 1)個の隙間
             var blankWidth = (RIGHT_POSITION - LEFT_POSITION) / (stageNum * GRAPH_WIDTH_RATIO + (stageNum + 1));
@@ -150,9 +150,9 @@ namespace Project.Scripts.RecordScene
 
             // 目盛を書き換える
             if (maxScale > 0) {
-                _graphArea[stageLevel].transform.Find("Scale4-Value").gameObject.GetComponent<Text>().text = maxScale.ToString();
-                _graphArea[stageLevel].transform.Find("Scale3-Value").gameObject.GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
-                _graphArea[stageLevel].transform.Find("Scale2-Value").gameObject.GetComponent<Text>().text = (maxScale / 3).ToString();
+                _graphArea[levelName].transform.Find("Scale4-Value").gameObject.GetComponent<Text>().text = maxScale.ToString();
+                _graphArea[levelName].transform.Find("Scale3-Value").gameObject.GetComponent<Text>().text = (maxScale * 2 / 3).ToString();
+                _graphArea[levelName].transform.Find("Scale2-Value").gameObject.GetComponent<Text>().text = (maxScale / 3).ToString();
             }
 
             // ステージ番号

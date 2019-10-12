@@ -28,7 +28,7 @@ namespace Project.Scripts.StageSelectScene
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
-            _snapScrollView.MaxPage = Enum.GetNames(typeof(EStageLevel)).Length - 1;
+            _snapScrollView.MaxPage = Enum.GetNames(typeof(ELevelName)).Length - 1;
             // ページの横幅の設定
             _snapScrollView.PageSize = Screen.width;
 
@@ -42,23 +42,23 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private void Draw()
         {
-            foreach (EStageLevel stageLevel in Enum.GetValues(typeof(EStageLevel))) {
-                MakeButtons(stageLevel);
+            foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) {
+                MakeButtons(levelName);
             }
         }
 
         /// <summary>
         /// ボタンを配置する
         /// </summary>
-        /// <param name="stageLevel"> 配置するボタンの難易度 </param>
-        private void MakeButtons(EStageLevel stageLevel)
+        /// <param name="levelName"> 配置するボタンの難易度 </param>
+        private void MakeButtons(ELevelName levelName)
         {
-            var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + stageLevel + "/ScrollView/Viewport/Content/Buttons").GetComponent<RectTransform>();
+            var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + levelName + "/ScrollView/Viewport/Content/Buttons").GetComponent<RectTransform>();
 
             // TODO: 今後，難易度ごとにボタン配置を変える必要がある
-            for (var i = 0; i < StageInfo.Num[stageLevel]; i++) {
+            for (var i = 0; i < LevelInfo.Num[levelName]; i++) {
                 // ステージを一意に定めるID
-                var stageId = StageInfo.StageStartId[stageLevel] + i;
+                var stageId = LevelInfo.StageStartId[levelName] + i;
                 // ボタンインスタンスを生成
                 var button = Instantiate(stageButtonPrefab);
                 // 名前
@@ -70,7 +70,7 @@ namespace Project.Scripts.StageSelectScene
                 // クリック時のリスナー
                 button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
                 // Buttonの色
-                button.GetComponent<Image>().color = StageInfo.LevelColor[stageLevel];
+                button.GetComponent<Image>().color = LevelInfo.LevelColor[levelName];
                 // Buttonの位置
                 var rectTransform = button.GetComponent<RectTransform>();
                 // 下部のマージン : 0.05f
