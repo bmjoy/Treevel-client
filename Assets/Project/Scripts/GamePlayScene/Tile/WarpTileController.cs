@@ -13,7 +13,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         // warpTileのエフェクト
         [SerializeField, NonEditable] private GameObject _warpTileEffectPrefab;
 
-        public void Start() {
+        public void Start()
+        {
             var warpTileEffect = Instantiate(_warpTileEffectPrefab);
             warpTileEffect.transform.position = gameObject.transform.position;
             warpTileEffect.GetComponent<Animation>().Play();
@@ -41,7 +42,8 @@ namespace Project.Scripts.GamePlayScene.Tile
             }
         }
 
-        private IEnumerator WarpPanel(GameObject panel) {
+        private IEnumerator WarpPanel(GameObject panel)
+        {
             // warpTileの粒子アニメーション
             GetComponent<ParticleSystem>().Play();
             var anim = panel.GetComponent<Animation>();
