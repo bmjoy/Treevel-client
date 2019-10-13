@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
@@ -17,6 +18,9 @@ namespace Project.Scripts.GamePlayScene
         private const string RESULT_NAME = "Result";
         private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
+        private const string PAUSE_WINDOW_NAME = "PauseWindow";
+        private const string PAUSE_BACKGROUND = "PauseBackground";
+        private const string PAUSE_BUTTON_NAME = "PauseButton";
 
         public delegate void ChangeAction();
 
@@ -37,7 +41,8 @@ namespace Project.Scripts.GamePlayScene
             Opening,
             Playing,
             Success,
-            Failure
+            Failure,
+            Pausing
         }
 
         /// <summary>
@@ -64,6 +69,21 @@ namespace Project.Scripts.GamePlayScene
         /// 結果ウィンドウ上の警告用テキスト
         /// </summary>
         private GameObject _warningText;
+
+        /// <summary>
+        /// 一時停止ウィンドウ
+        /// </summary>
+        private GameObject _pauseWindow;
+
+        /// <summary>
+        /// 一時停止中の背景
+        /// </summary>
+        private GameObject _pauseBackground;
+
+        /// <summary>
+        /// 一時停止ボタン
+        /// </summary>
+        private GameObject _pauseButton;
 
         /// <summary>
         /// ステージ id 表示用のテキスト
@@ -94,6 +114,10 @@ namespace Project.Scripts.GamePlayScene
 
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
+            _pauseWindow = GameObject.Find(PAUSE_WINDOW_NAME);
+            _pauseBackground = GameObject.Find(PAUSE_BACKGROUND);
+            _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
+
             UnifyDisplay(_resultWindow);
 
             SetAudioSources();
@@ -104,14 +128,27 @@ namespace Project.Scripts.GamePlayScene
             GameOpening();
         }
 
+        /// <summary>
+        /// アプリがバックグラウンドに移動する、または
+        /// バックグラウンドから戻ってくる時に呼ばれる
+        /// </summary>
+        /// <param name="pauseStatus"></param>
         private void OnApplicationPause(bool pauseStatus)
         {
-            if (pauseStatus) { // アプリがバックグラウンドに移動した時
-                if (Dispatch(EGameState.Failure)) {
-                    // 警告ウィンドウを表示
-                    _warningText.SetActive(true);
-                }
+            // アプリがバックグラウンドに移動した時
+            if (pauseStatus) {
+                // 一時停止扱いとする
+                Dispatch(EGameState.Pausing);
             }
+        }
+
+        /// <summary>
+        /// アプリが終了した時に呼ばれる
+        /// </summary>
+        private void OnApplicationQuit()
+        {
+            // ゲーム失敗扱いとする
+            Dispatch(EGameState.Failure);
         }
 
         /// <summary>
@@ -143,8 +180,8 @@ namespace Project.Scripts.GamePlayScene
 
                     break;
                 case EGameState.Playing:
-                    // `Opening`からの遷移のみを許す
-                    if (state == EGameState.Opening) {
+                    // `Opening`と`Pausing`からの遷移のみを許す
+                    if (state == EGameState.Opening || state == EGameState.Pausing) {
                         state = nextState;
                         GamePlaying();
                         return true;
@@ -161,10 +198,19 @@ namespace Project.Scripts.GamePlayScene
 
                     break;
                 case EGameState.Failure:
+                    // `Playing`と`Pausing`からの遷移のみ許す
+                    if (state == EGameState.Playing || state == EGameState.Pausing) {
+                        state = nextState;
+                        GameFail();
+                        return true;
+                    }
+
+                    break;
+                case EGameState.Pausing:
                     // `Playing`からの遷移のみ許す
                     if (state == EGameState.Playing) {
                         state = nextState;
-                        GameFail();
+                        GamePausing();
                         return true;
                     }
 
@@ -198,6 +244,13 @@ namespace Project.Scripts.GamePlayScene
 
             // 結果ウィンドウを非表示
             _resultWindow.SetActive(false);
+
+            // 一時停止ウィンドウを非表示
+            _pauseWindow.SetActive(false);
+            // 一時停止背景を非表示
+            _pauseBackground.SetActive(false);
+            // 一時停止ボタンを有効にする
+            _pauseButton.SetActive(true);
 
             // 警告ウィンドウを非表示
             _warningText.SetActive(false);
@@ -248,12 +301,29 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
+        /// 一時停止状態の処理
+        /// </summary>
+        private void GamePausing()
+        {
+            // ゲーム内の時間を一時停止する
+            Time.timeScale = 0.0f;
+            // 一時停止ボタンを無効にする
+            _pauseButton.SetActive(false);
+            // 一時停止ウィンドウを表示する
+            _pauseWindow.SetActive(true);
+            // 一時停止背景を表示する
+            _pauseBackground.SetActive(true);
+        }
+
+        /// <summary>
         /// ゲーム終了時の共通処理
         /// </summary>
         private void EndProcess()
         {
             _playingAudioSource.Stop();
             _resultWindow.SetActive(true);
+            // 一時停止ボタンを無効にする
+            _pauseButton.SetActive(false);
         }
 
         /// <summary>
@@ -293,6 +363,45 @@ namespace Project.Scripts.GamePlayScene
 
             // Twitter 投稿画面へ
             Application.OpenURL("https://twitter.com/intent/tweet?text=" + text + "&hashtags=" + hashTags);
+        }
+
+        /// <summary>
+        /// 一時停止ボタン押下時の処理
+        /// </summary>
+        public void PauseButtonDown()
+        {
+            Dispatch(EGameState.Pausing);
+        }
+
+        /// <summary>
+        /// ゲーム再開ボタン押下時の処理
+        /// </summary>
+        public void PauseBackButtonDown()
+        {
+            // 一時停止ボタンを有効にする
+            _pauseButton.SetActive(true);
+            // 一時停止ウィンドウを非表示にする
+            _pauseWindow.SetActive(false);
+            // 一時停止背景を非表示にする
+            _pauseBackground.SetActive(false);
+            // ゲーム内の時間を元に戻す
+            Time.timeScale = 1.0f;
+            // ゲームプレイ状態に遷移する
+            Dispatch(EGameState.Playing);
+        }
+
+        /// <summary>
+        /// ゲームを諦めるボタン押下時の処理
+        /// </summary>
+        public void PauseQuitButtonDown()
+        {
+            // 失敗回数をインクリメント
+            var ss = StageStatus.Get(GamePlayDirector.stageId);
+            ss.IncFailureNum(GamePlayDirector.stageId);
+            // ゲーム内の時間を元に戻す
+            Time.timeScale = 1.0f;
+            // StageSelectSceneに戻る
+            SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
 
         /// <summary>

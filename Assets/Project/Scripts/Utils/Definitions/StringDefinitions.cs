@@ -8,6 +8,7 @@
         public const string MENU_SELECT_SCENE = "MenuSelectScene";
         public const string STAGE_SELECT_SCENE = "StageSelectScene";
         public const string GAME_PLAY_SCENE = "GamePlayScene";
+        public const string GAME_PAUSE_SCENE = "GamePauseScene";
         public const string RECORD_SCENE = "RecordScene";
         public const string TUTORIAL_SCENE = "TutorialScene";
         public const string CONFIG_SCENE = "ConfigScene";
