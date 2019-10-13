@@ -210,7 +210,7 @@ namespace Project.Scripts.GamePlayScene
                     // `Playing`からの遷移のみ許す
                     if (state == EGameState.Playing) {
                         state = nextState;
-                        PauseButtonDown();
+                        GamePausing();
                         return true;
                     }
 
@@ -301,6 +301,21 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
+        /// 一時停止状態の処理
+        /// </summary>
+        private void GamePausing()
+        {
+            // ゲーム内の時間を一時停止する
+            Time.timeScale = 0.0f;
+            // 一時停止ボタンを無効にする
+            _pauseButton.SetActive(false);
+            // 一時停止ウィンドウを表示する
+            _pauseWindow.SetActive(true);
+            // 一時停止背景を表示する
+            _pauseBackground.SetActive(true);
+        }
+
+        /// <summary>
         /// ゲーム終了時の共通処理
         /// </summary>
         private void EndProcess()
@@ -355,14 +370,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void PauseButtonDown()
         {
-            // ゲーム内の時間を一時停止する
-            Time.timeScale = 0.0f;
-            // 一時停止ボタンを無効にする
-            _pauseButton.SetActive(false);
-            // 一時停止ウィンドウを表示する
-            _pauseWindow.SetActive(true);
-            // 一時停止背景を表示する
-            _pauseBackground.SetActive(true);
+            Dispatch(EGameState.Pausing);
         }
 
         /// <summary>
