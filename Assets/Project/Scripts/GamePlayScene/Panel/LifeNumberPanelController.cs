@@ -29,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             _maxLife = Mathf.Max(_maxLife, 1); // MaxLifeの最小値を１にする
             _currentLife = _maxLife;
 
-            _anim.AddClip(_attackedAnimation, _attackedAnimation.name);
+            _anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTCKED);
         }
 
         /// <summary>

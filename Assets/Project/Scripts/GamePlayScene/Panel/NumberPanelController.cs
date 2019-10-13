@@ -47,7 +47,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Awake();
             _anim = GetComponent<Animation>();
-            _anim.AddClip(_deadAnimation, _deadAnimation.name);
+            _anim.AddClip(_deadAnimation, AnimationClipName.NUMBER_PANEL_DEAD);
 
             // PostProcessVolume の設定
             GetComponent<PostProcessVolume>().isGlobal = true;

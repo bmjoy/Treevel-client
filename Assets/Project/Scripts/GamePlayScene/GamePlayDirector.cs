@@ -484,16 +484,16 @@ namespace Project.Scripts.GamePlayScene
             // Playing
             gameObject.AddComponent<AudioSource>();
             _playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-            SetAudioSource(clipName: ClipName.PLAYING, audioSource: _playingAudioSource, time: 2.0f, loop: true,
+            SetAudioSource(clipName: AudioClipName.PLAYING, audioSource: _playingAudioSource, time: 2.0f, loop: true,
                 volumeRate: 0.25f);
             // Success
             gameObject.AddComponent<AudioSource>();
             _successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-            SetAudioSource(clipName: ClipName.SUCCESS, audioSource: _successAudioSource);
+            SetAudioSource(clipName: AudioClipName.SUCCESS, audioSource: _successAudioSource);
             // Failure
             gameObject.AddComponent<AudioSource>();
             _failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-            SetAudioSource(clipName: ClipName.FAILURE, audioSource: _failureAudioSource);
+            SetAudioSource(clipName: AudioClipName.FAILURE, audioSource: _failureAudioSource);
         }
 
         /// <summary>
