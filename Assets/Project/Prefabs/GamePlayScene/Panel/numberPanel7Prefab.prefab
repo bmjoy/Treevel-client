@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e84251c113f49baab52aa39ff49b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
+  warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
+    type: 2}
   _deadAnimation: {fileID: 7400000, guid: 594ed3ef43ae0448587bed753a2434e6, type: 2}
 --- !u!111 &-222748813905418208
 Animation:

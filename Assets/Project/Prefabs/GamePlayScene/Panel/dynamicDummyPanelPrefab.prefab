@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 114989368649593642}
   - component: {fileID: -2211765263296871505}
   - component: {fileID: -7919264550677916442}
+  - component: {fileID: 6174364387037006770}
   m_Layer: 11
   m_Name: dynamicDummyPanelPrefab
   m_TagString: DummyPanel
@@ -94,6 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950d269fc9172489aa122df63e8d3008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
+  warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
+    type: 2}
 --- !u!61 &-2211765263296871505
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -154,3 +158,18 @@ MonoBehaviour:
   minDistance: 1
   movementThreshold: 0.5
   direction: 0
+--- !u!111 &6174364387037006770
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667971508019858}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
