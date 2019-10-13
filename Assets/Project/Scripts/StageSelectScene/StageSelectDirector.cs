@@ -125,7 +125,6 @@ namespace Project.Scripts.StageSelectScene
         /// <returns></returns>
         private IEnumerator LoadGamePlayScene()
         {
-            yield return new WaitForSeconds(1f);
             var async = SceneManager.LoadSceneAsync(SceneName.GAME_PLAY_SCENE);
             while (!async.isDone) {
                 yield return null;
