@@ -4,7 +4,6 @@ using System.Linq;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.UIComponents;
-using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.Networking;
