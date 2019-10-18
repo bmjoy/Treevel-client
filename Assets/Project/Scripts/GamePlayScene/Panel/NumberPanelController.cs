@@ -38,6 +38,11 @@ namespace Project.Scripts.GamePlayScene.Panel
 
         protected Animation _anim;
 
+        /// <summary>
+        /// 自身が壊されたかどうか
+        /// </summary>
+        protected bool _dead = false;
+
         protected override void Awake()
         {
             base.Awake();
@@ -117,8 +122,40 @@ namespace Project.Scripts.GamePlayScene.Panel
             // 失敗演出
             _anim.Play(_deadAnimation.name, PlayMode.StopAll);
 
+            // 自身が破壊された
+            _dead = true;
+
             // 失敗状態に移行する
             gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
+        }
+
+        /// <summary>
+        /// ゲーム成功時の処理
+        /// </summary>
+        protected override void OnSucceed()
+        {
+            base.OnSucceed();
+            EndProcess();
+        }
+
+        /// <summary>
+        /// ゲーム失敗時の処理
+        /// </summary>
+        protected override void OnFail()
+        {
+            base.OnFail();
+            EndProcess();
+        }
+
+        /// <summary>
+        /// ゲーム終了時の共通処理
+        /// </summary>
+        private void EndProcess()
+        {
+            // 自身が破壊されてない場合には，全ての自身のアニメーションを停止
+            if (!_dead) {
+                _anim.Stop();
+            }
         }
     }
 }

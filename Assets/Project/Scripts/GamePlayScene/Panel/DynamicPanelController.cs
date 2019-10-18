@@ -97,7 +97,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// ゲーム成功時の処理
         /// </summary>
-        private void OnSucceed()
+        protected virtual void OnSucceed()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
         }
@@ -105,7 +105,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// ゲーム失敗時の処理
         /// </summary>
-        private void OnFail()
+        protected virtual void OnFail()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
         }

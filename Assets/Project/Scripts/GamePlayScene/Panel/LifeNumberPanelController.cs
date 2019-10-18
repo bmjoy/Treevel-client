@@ -42,7 +42,11 @@ namespace Project.Scripts.GamePlayScene.Panel
             if (other.tag == TagName.BULLET && other.gameObject.transform.position.z >= 0) {
                 --_currentLife;
                 if (_currentLife <= 0) {
+                    // 失敗演出
                     _anim.Play(_deadAnimation.name, PlayMode.StopAll);
+
+                    // 自身が破壊された
+                    _dead = true;
 
                     // 失敗状態に移行する
                     gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
