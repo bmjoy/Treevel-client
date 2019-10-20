@@ -16,9 +16,10 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// すべてのステージを一気に読み込む
         /// </summary>
-        static StageGenerator () {
+        static StageGenerator()
+        {
             var stageDataList = Resources.LoadAll("GameDatas/Stages/");
-            foreach(StageData stageData in stageDataList) {
+            foreach (StageData stageData in stageDataList) {
                 if (!stageDataMap.ContainsKey(stageData.Id)) {
                     stageDataMap.Add(stageData.Id, stageData);
                 }

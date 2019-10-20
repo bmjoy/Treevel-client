@@ -29,7 +29,8 @@ namespace Project.Scripts.GameDatas
             }
         }
 
-        public int Id {
+        public int Id
+        {
             get {
                 return id;
             }
