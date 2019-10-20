@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
+using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene.Bullet
 {
@@ -64,6 +65,33 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             bulletId = short.MinValue;
             startTime = Time.time;
+        }
+
+        public List<IEnumerator> CreateBulletGroups(ICollection<BulletGroupData> bulletGroupList)
+        {
+            var coroutines = new List<IEnumerator>();
+            foreach (var bulletGroup in bulletGroupList)
+            {
+                List<GameObject> bulletList = new List<GameObject>();
+                foreach (var bulletData in bulletGroup.bullets) {
+                    switch (bulletData.type) {
+                        case EBulletType.NormalCartridge:
+                            bulletList.Add(this.CreateNormalCartridgeGenerator(
+                                bulletData.ratio,
+                                bulletData.direction,
+                                bulletData.row
+                            ));
+                            break;
+                    }
+                }
+                coroutines.Add(CreateBulletGroup(
+                    bulletGroup.appearTime,
+                    bulletGroup.interval,
+                    bulletGroup.loop,
+                    bulletList
+                ));
+            }
+            return coroutines;
         }
 
         /// <summary>

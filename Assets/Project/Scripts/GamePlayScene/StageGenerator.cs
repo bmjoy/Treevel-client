@@ -28,13 +28,14 @@ namespace Project.Scripts.GamePlayScene
 
             switch (stageId) {
                 case 1:
-                    // ステージデータ読み込む
-                    StageData stageData = Resources.Load<StageData>("GameDatas/Stages/1_1");
-
-                    panelGenerator.CreatePanels(stageData.PanelDatas);
-
-                    break;
                 case 2:
+                    // ステージデータ読み込む
+                    StageData stageData = Resources.Load<StageData>($"GameDatas/Stages/1_{stageId}");
+
+                    tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
+                    panelGenerator.CreatePanels(stageData.PanelDatas);
+                    coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
+
                     // 銃弾実体生成
                     // NormalCartridgeを生成する
                     coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
@@ -47,20 +48,6 @@ namespace Project.Scripts.GamePlayScene
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
                     // 特殊タイル作成
-                    tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
-                    // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
-                    new List<Dictionary<string, int>>() {
-                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 1, finalTileNum: 4),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 3, finalTileNum: 5),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 5, finalTileNum: 6),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 6, finalTileNum: 7),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 11, finalTileNum: 9),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 13, finalTileNum: 10),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 15, finalTileNum: 11)
-                    }
-                    );
                     break;
                 case 3:
                     // 銃弾実体生成
