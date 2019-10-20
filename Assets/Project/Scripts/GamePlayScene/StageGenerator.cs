@@ -12,6 +12,19 @@ namespace Project.Scripts.GamePlayScene
 {
     public class StageGenerator : MonoBehaviour
     {
+        static private Dictionary<int, StageData> stageDataMap = new Dictionary<int, StageData>();
+        /// <summary>
+        /// すべてのステージを一気に読み込む
+        /// </summary>
+        static StageGenerator () {
+            var stageDataList = Resources.LoadAll("GameDatas/Stages/");
+            foreach(StageData stageData in stageDataList) {
+                if (!stageDataMap.ContainsKey(stageData.Id)) {
+                    stageDataMap.Add(stageData.Id, stageData);
+                }
+            }
+        }
+
         /// <summary>
         /// ステージを作成する
         /// </summary>
@@ -25,30 +38,21 @@ namespace Project.Scripts.GamePlayScene
 
             List<IEnumerator> coroutines = new List<IEnumerator>();
 
+            // ステージデータ読み込む
+            if (stageDataMap.ContainsKey(stageId)) {
+                StageData stageData = stageDataMap[stageId];
 
+                tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
+                panelGenerator.CreatePanels(stageData.PanelDatas);
+                coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
+
+                // 銃弾一括生成
+                bulletGroupGenerator.CreateBulletGroups(coroutines);
+                return; // NotImplementedExceptionを回避するため
+            }
+
+            // TODO 全ステージデータを作成
             switch (stageId) {
-                case 1:
-                case 2:
-                    // ステージデータ読み込む
-                    StageData stageData = Resources.Load<StageData>($"GameDatas/Stages/1_{stageId}");
-
-                    tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
-                    panelGenerator.CreatePanels(stageData.PanelDatas);
-                    coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
-
-                    // 銃弾実体生成
-                    // NormalCartridgeを生成する
-                    coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
-                            appearanceTime: 3.0f,
-                            interval: 5.0f,
-                            loop: true,
-                    bulletGenerators: new List<GameObject>() {
-                        bulletGroupGenerator.CreateNormalCartridgeGenerator(ratio: 100,
-                            cartridgeDirection: ECartridgeDirection.ToLeft, row: ERow.First)
-                    }));
-                    /* 特殊タイル -> 数字パネル -> 特殊パネル */
-                    // 特殊タイル作成
-                    break;
                 case 3:
                     // 銃弾実体生成
                     // TurnCartridgeを生成する

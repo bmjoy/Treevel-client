@@ -28,5 +28,11 @@ namespace Project.Scripts.GameDatas
                 return bulletGroups;
             }
         }
+
+        public int Id {
+            get {
+                return id;
+            }
+        }
     }
 }
