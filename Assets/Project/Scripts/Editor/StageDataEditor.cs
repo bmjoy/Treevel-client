@@ -88,7 +88,7 @@ public class StageDataEditor : Editor
                             SerializedProperty bulletDataProp = bulletListProp.GetArrayElementAtIndex(i);
 
                             bulletDataProp.isExpanded = EditorGUILayout.Foldout(bulletDataProp.isExpanded, $"Bullet {j + 1}");
-                            if(bulletDataProp.isExpanded) {
+                            if (bulletDataProp.isExpanded) {
                                 SerializedProperty bulletTypeProp = bulletDataProp.FindPropertyRelative("type");
                                 bulletTypeProp.enumValueIndex = (int)(EBulletType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBulletType)bulletTypeProp.enumValueIndex);
 
@@ -97,8 +97,8 @@ public class StageDataEditor : Editor
                                             EditorGUILayout.PropertyField(bulletDataProp.FindPropertyRelative("ratio"));
                                             EditorGUILayout.PropertyField(bulletDataProp.FindPropertyRelative("direction"));
                                             EditorGUILayout.PropertyField(bulletDataProp.FindPropertyRelative("row"));
-                                        break;
-                                    }
+                                            break;
+                                        }
                                 }
                             }
                         }
