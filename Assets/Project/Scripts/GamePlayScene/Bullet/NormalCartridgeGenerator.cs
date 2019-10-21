@@ -86,6 +86,38 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this.randomColumn = randomColumn;
         }
 
+        /// <summary>
+        /// RandomCartridge、NormalCartridge共通初期化メソッド
+        ///
+        /// 使用例：
+        /// <code>
+        /// // NormalCartridgeの場合
+        /// Initialize(ratio, cartridgeDirection /*random 以外*/, (int)row /*ERowかEColumnをintに変換 */);
+        /// // RandomNormalCartridgeの場合
+        /// Initialize(ratio, ECartrideDirection.Random, -1, randomCartridgeDirection, randomColumn);
+        /// </code>
+        /// </summary>
+        /// <param name="ratio">Generatorの出現割合</param>
+        /// <param name="cartridgeDirection">移動方向</param>
+        /// <param name="line">移動する行／列</param>
+        /// <param name="randomCartridgeDirection">移動方向の重み</param>
+        /// <param name="randomRow">移動する行の重み</param>
+        /// <param name="randomColumn">移動する列の重み</param>
+        public void Initialize(int ratio,
+                               ECartridgeDirection cartridgeDirection,
+                               int line = -1,
+                               int[] randomCartridgeDirection = null,
+                               int[] randomRow = null,
+                               int[] randomColumn = null)
+        {
+            this.ratio = ratio;
+            this.cartridgeDirection = cartridgeDirection;
+            this.line = line;
+            this.randomCartridgeDirection = randomCartridgeDirection;
+            this.randomRow = randomRow;
+            this.randomColumn = randomColumn;
+        }
+
         public override IEnumerator CreateBullet(int bulletId)
         {
             // 銃弾の移動方向を指定する

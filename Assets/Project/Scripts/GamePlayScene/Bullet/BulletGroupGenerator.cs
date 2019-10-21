@@ -74,11 +74,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 List<GameObject> bulletList = new List<GameObject>();
                 foreach (var bulletData in bulletGroup.bullets) {
                     switch (bulletData.type) {
+                        case EBulletType.RandomCartridge:
                         case EBulletType.NormalCartridge:
                             bulletList.Add(this.CreateNormalCartridgeGenerator(
                                     bulletData.ratio,
                                     bulletData.direction,
-                                    bulletData.row
+                                    bulletData.line,
+                                    bulletData.randomCartridgeDirection.ToArray(),
+                                    bulletData.randomRow.ToArray(),
+                                    bulletData.randomColumn.ToArray()
                                 ));
                             break;
                     }
@@ -125,6 +129,31 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 全てのBulletGroupを停止させる
             StopAllCoroutines();
+        }
+
+        /// <summary>
+        /// NormalCartridge、RandomNormalCartridgeのジェネレーターを生成する共通メソッド
+        /// <see cref="NormalCartridgeGenerator.Initialize(int, ECartridgeDirection, int, int[], int[], int[])"/>
+        /// </summary>
+        /// <param name="ratio"></param>
+        /// <param name="cartridgeDirection"></param>
+        /// <param name="line"></param>
+        /// <param name="randomCartridgeDirection"></param>
+        /// <param name="randomRow"></param>
+        /// <param name="randomColumn"></param>
+        /// <returns></returns>
+        public GameObject CreateNormalCartridgeGenerator(
+                int ratio,
+                ECartridgeDirection cartridgeDirection,
+                int line,
+                int[] randomCartridgeDirection,
+                int[] randomRow,
+                int[] randomColumn
+        ) {
+            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
+            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
+            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, randomCartridgeDirection, randomRow, randomColumn);
+            return cartridgeGenerator;
         }
 
         /// <summary>

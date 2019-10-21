@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Attributes;
 
 namespace Project.Scripts.GameDatas
 {
@@ -11,8 +12,11 @@ namespace Project.Scripts.GameDatas
         public EBulletType type;
         public int ratio;
 
-        public ERow row;
-        public EColumn column;
+        public int line;
+
         public ECartridgeDirection direction;
+        public List<int> randomCartridgeDirection;
+        public List<int> randomRow;
+        public List<int> randomColumn;
     }
 }
