@@ -128,5 +128,34 @@ namespace Project.Scripts.GamePlayScene.Panel
             // 失敗状態に移行する
             gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
         }
+
+        /// <summary>
+        /// ゲーム成功時の処理
+        /// </summary>
+        protected override void OnSucceed()
+        {
+            base.OnSucceed();
+            EndProcess();
+        }
+
+        /// <summary>
+        /// ゲーム失敗時の処理
+        /// </summary>
+        protected override void OnFail()
+        {
+            base.OnFail();
+            EndProcess();
+        }
+
+        /// <summary>
+        /// ゲーム終了時の共通処理
+        /// </summary>
+        private void EndProcess()
+        {
+            // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
+            if (!_dead) {
+                _anim.wrapMode = WrapMode.Default;
+            }
+        }
     }
 }
