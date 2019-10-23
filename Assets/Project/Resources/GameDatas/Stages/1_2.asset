@@ -20,7 +20,7 @@ MonoBehaviour:
     bullets:
     - type: 0
       ratio: 100
-      line: -1
+      line: 1
       direction: 1
       randomCartridgeDirection: 
       randomRow: 

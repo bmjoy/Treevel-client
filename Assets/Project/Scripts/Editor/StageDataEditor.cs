@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
@@ -18,8 +18,9 @@ public class StageDataEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
+        EditorGUI.BeginChangeCheck();
 
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
         _panelDatasProp.isExpanded = EditorGUILayout.Foldout(_panelDatasProp.isExpanded, new GUIContent("Panels"));
         EditorGUILayout.PropertyField(_panelDatasProp.FindPropertyRelative("Array.size"));
         if (_panelDatasProp.isExpanded) {
@@ -144,7 +145,10 @@ public class StageDataEditor : Editor
             }
         }
 
-
+        // Set object dirty, this will make it be saved after saving the project.
+        if (EditorGUI.EndChangeCheck()) {
+            EditorUtility.SetDirty(serializedObject.targetObject);
+        }
         serializedObject.ApplyModifiedProperties();
     }
 }
