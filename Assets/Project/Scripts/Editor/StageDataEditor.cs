@@ -31,37 +31,30 @@ public class StageDataEditor : Editor
 
                 panelDataProp.isExpanded = EditorGUILayout.Foldout(panelDataProp.isExpanded, $"Panel {i + 1}");
                 if (panelDataProp.isExpanded) {
-                    using (var checkScope = new EditorGUI.ChangeCheckScope()) {
-                        EditorGUI.indentLevel++;
-                        EditorGUILayout.PropertyField(panelPosProp);
-                        panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.PropertyField(panelPosProp);
+                    panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
 
-                        if (checkScope.changed) {
-                            serializedObject.ApplyModifiedProperties();
-                            serializedObject.Update();
-                        }
+                    switch ((EPanelType)panelTypeProp.enumValueIndex) {
+                        case EPanelType.Number: {
+                                SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
+                                SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
+                                EditorGUILayout.PropertyField(numberProp);
+                                EditorGUILayout.PropertyField(targetPosProp);
+                            }
+                            break;
 
-                        switch ((EPanelType)panelTypeProp.enumValueIndex) {
-                            case EPanelType.Number: {
-                                    SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
-                                    SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
-                                    EditorGUILayout.PropertyField(numberProp);
-                                    EditorGUILayout.PropertyField(targetPosProp);
-                                }
-                                break;
-
-                            case EPanelType.LifeNumber: {
-                                    SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
-                                    SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
-                                    SerializedProperty lifeProp = panelDataProp.FindPropertyRelative("life");
-                                    EditorGUILayout.PropertyField(numberProp);
-                                    EditorGUILayout.PropertyField(targetPosProp);
-                                    EditorGUILayout.PropertyField(lifeProp);
-                                }
-                                break;
-                        }
-                        EditorGUI.indentLevel--;
+                        case EPanelType.LifeNumber: {
+                                SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
+                                SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
+                                SerializedProperty lifeProp = panelDataProp.FindPropertyRelative("life");
+                                EditorGUILayout.PropertyField(numberProp);
+                                EditorGUILayout.PropertyField(targetPosProp);
+                                EditorGUILayout.PropertyField(lifeProp);
+                            }
+                            break;
                     }
+                    EditorGUI.indentLevel--;
                 }
             }
         }
