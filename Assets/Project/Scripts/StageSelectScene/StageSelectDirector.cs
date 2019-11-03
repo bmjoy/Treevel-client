@@ -17,6 +17,11 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] protected GameObject stageButtonPrefab;
 
+        /// <summary>
+        /// 概要を表示するポップアップ
+        /// </summary>
+        private GameObject _popupWindow;
+
         private SnapScrollView _snapScrollView;
 
         private const string LOADING_BACKGROUND = "LoadingBackground";
@@ -45,6 +50,9 @@ namespace Project.Scripts.StageSelectScene
             // ロードアニメーションを非表示にする
             _loading = GameObject.Find(LOADING);
             _loading.SetActive(false);
+            // ポップアップウィンドウを非表示にする
+            _popupWindow = GameObject.Find("PopupWindow");
+            _popupWindow.SetActive(false);
 
             // TODO: 非同期で呼び出す
             // 各ステージの選択ボタンなどを描画する
@@ -98,13 +106,30 @@ namespace Project.Scripts.StageSelectScene
         }
 
         /// <summary>
-        /// ステージ選択画面からゲーム選択画面へ移動する
+        /// タッチされたステージの概要を表示
         /// </summary>
         /// <param name="clickedButton"> タッチされたボタン </param>
         private void StageButtonDown(GameObject clickedButton)
         {
             // タップされたステージidを取得（暫定的にボタンの名前）
             var stageId = int.Parse(clickedButton.name);
+
+            if (PlayerPrefs.GetInt(PlayerPrefsKeys.DO_NOT_SHOW, 0) == 0) {
+                // ポップアップを表示する
+                _popupWindow.GetComponent<PopupWindow>().Initialize(stageId);
+                _popupWindow.SetActive(true);
+            }
+            else {
+                GoToGame(stageId);
+            }
+        }
+
+        /// <summary>
+        /// ステージ選択画面からゲーム選択画面へ移動する
+        /// </summary>
+        /// <param name="stageId"> ステージID </param>
+        public void GoToGame(int stageId)
+        {
             // 挑戦回数をインクリメント
             var ss = StageStatus.Get(stageId);
             ss.IncChallengeNum(stageId);
@@ -115,7 +140,7 @@ namespace Project.Scripts.StageSelectScene
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
             // シーン遷移
-            StartCoroutine(LoadGamePlayScene());;
+            StartCoroutine(LoadGamePlayScene());
         }
 
         /// <summary>
