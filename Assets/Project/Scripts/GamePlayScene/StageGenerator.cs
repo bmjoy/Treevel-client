@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GameDatas;
+using System.Linq;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -18,12 +19,8 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         static StageGenerator()
         {
-            var stageDataList = Resources.LoadAll("GameDatas/Stages/");
-            foreach (StageData stageData in stageDataList) {
-                if (!stageDataMap.ContainsKey(stageData.Id)) {
-                    stageDataMap.Add(stageData.Id, stageData);
-                }
-            }
+            var stageDataList = Resources.LoadAll<StageData>("GameDatas/Stages/");
+            stageDataMap = stageDataList.ToDictionary(x => x.Id);
         }
 
         /// <summary>
