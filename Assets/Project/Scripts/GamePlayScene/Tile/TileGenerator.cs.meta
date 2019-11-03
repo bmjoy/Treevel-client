@@ -3,7 +3,17 @@ guid: 633aaf5d1ee7d4e199e9bb156394d2b4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _numberTile1Prefab: {instanceID: 0}
+  - _numberTile2Prefab: {instanceID: 0}
+  - _numberTile3Prefab: {instanceID: 0}
+  - _numberTile4Prefab: {instanceID: 0}
+  - _numberTile5Prefab: {instanceID: 0}
+  - _numberTile6Prefab: {instanceID: 0}
+  - _numberTile7Prefab: {instanceID: 0}
+  - _numberTile8Prefab: {instanceID: 0}
+  - _normalTilePrefab: {instanceID: 0}
+  - _warpTilePrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
