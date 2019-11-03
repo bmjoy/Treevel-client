@@ -19,7 +19,7 @@ namespace Project.Scripts.MenuSelectScene
         private void Awake()
         {
             // 初期シーンのロード
-            StartCoroutine(ChangeScene(SceneName.STAGE_SELECT_SCENE));
+            StartCoroutine(ChangeScene(SceneName.LEVEL_SELECT_SCENE));
         }
 
         /// <summary>

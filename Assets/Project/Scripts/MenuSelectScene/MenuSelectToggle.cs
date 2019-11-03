@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Project.Scripts.Utils.Definitions;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,8 @@ namespace Project.Scripts.MenuSelectScene
             // ONになった場合のみ処理
             if (isOn) {
                 var nowScene = MenuSelectDirector.Instance.NowScene;
+                var previousScene = nowScene;
+                if(nowScene == SceneName.LEVEL_SELECT_SCENE) nowScene = SceneName.STAGE_SELECT_SCENE;
 
                 // 現在チェックされている Toggle を取得
                 var checkedToggle = GameObject.Find(nowScene.Replace("Scene", ""));
@@ -36,7 +39,7 @@ namespace Project.Scripts.MenuSelectScene
                 if (checkedToggle != null) {
                     checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
                     // 今のシーンをアンロード
-                    SceneManager.UnloadSceneAsync(nowScene);
+                    SceneManager.UnloadSceneAsync(previousScene);
                     // 新しいシーンをロード
                     StartCoroutine(MenuSelectDirector.Instance.ChangeScene(name + "Scene"));
                 }

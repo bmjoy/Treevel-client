@@ -41,6 +41,8 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _loading;
 
+        public static int levelName;
+
         private void Awake()
         {
             // 取得
@@ -75,9 +77,9 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private void Draw()
         {
-            foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) {
-                MakeButtons(levelName);
-            }
+            // foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) {
+                MakeButtons((ELevelName)Enum.ToObject(typeof(ELevelName), levelName));
+            // }
         }
 
         /// <summary>
@@ -86,7 +88,7 @@ namespace Project.Scripts.StageSelectScene
         /// <param name="levelName"> 配置するボタンの難易度 </param>
         private void MakeButtons(ELevelName levelName)
         {
-            var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + levelName + "/ScrollView/Viewport/Content/Buttons").GetComponent<RectTransform>();
+            var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + "Easy" + "/ScrollView/Viewport/Content/Buttons").GetComponent<RectTransform>();
 
             // TODO: 今後，難易度ごとにボタン配置を変える必要がある
             for (var i = 0; i < LevelInfo.Num[levelName]; i++) {
