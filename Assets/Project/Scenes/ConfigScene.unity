@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 17352302}
   - component: {fileID: 17352301}
   m_Layer: 5
-  m_Name: Dummy3
+  m_Name: DoNotShow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Volume
+  m_Text: "\u97F3\u91CF"
   _textIndex: 3
 --- !u!222 &125786994
 CanvasRenderer:
@@ -1578,7 +1578,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Setting
+  m_Text: "\u8A2D\u5B9A"
   _textIndex: 0
 --- !u!222 &437239863
 CanvasRenderer:
@@ -3129,7 +3129,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Vibration
+  m_Text: "\u632F\u52D5"
   _textIndex: 2
 --- !u!222 &1112527335
 CanvasRenderer:
@@ -3299,7 +3299,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Japanese
+  m_Text: "\u65E5\u672C\u8A9E"
   _textIndex: 9
 --- !u!222 &1221212383
 CanvasRenderer:
@@ -3491,7 +3491,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30C0\u30DF\u30FC3"
+  m_Text: "\u30B9\u30C6\u30FC\u30B8\u306E\u6982\u8981\u3092\u8868\u793A\u3059\u308B\u304B"
 --- !u!222 &1288638483
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3570,7 +3570,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Reset
+  m_Text: "\u30EA\u30BB\u30C3\u30C8"
   _textIndex: 1
 --- !u!222 &1353298369
 CanvasRenderer:
@@ -4080,6 +4080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1733236790}
   - component: {fileID: 1733236791}
+  - component: {fileID: 1733236792}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -4156,6 +4157,18 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
+--- !u!114 &1733236792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733236789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875a9407a11c4ac89dcb0206fad76509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1912585354
 GameObject:
   m_ObjectHideFlags: 0
