@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
@@ -296,8 +297,6 @@ namespace Project.Scripts.GamePlayScene
             ss.ClearStage(stageId);
             // 成功回数をインクリメント
             ss.IncSuccessNum(stageId);
-            // スクリーンショットを撮る
-            ScreenCapture.CaptureScreenshot("Assets/StreamingAssets/SuccessScreenShot.png");
         }
 
         /// <summary>
@@ -363,11 +362,15 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// 投稿ボタン押下時の処理．
+        /// 投稿ボタン押下時の処理
         /// </summary>
         public void ShareButtonDown()
         {
-            print("For Debug");
+            StartCoroutine(Share());
+        }
+
+        private IEnumerator Share()
+        {
             // 投稿用のテキスト
             var text = "ステージ" + stageId + "番を" + _resultText.GetComponent<Text>().text;
             // URL 用に加工
@@ -377,8 +380,17 @@ namespace Project.Scripts.GamePlayScene
             var hashTags = "NumberBullet,ナンバレ";
             hashTags = UnityWebRequest.EscapeURL(hashTags);
 
+            // スクリーンショットを撮る
+            const string imgPath = "Assets/StreamingAssets/SuccessScreenShot.png";
+            ScreenCapture.CaptureScreenshot(imgPath);
+
+            while (true) {
+                if (File.Exists(imgPath)) break;
+                yield return null;
+            }
+
             // シェア画面へ
-            SocialConnector.SocialConnector.Share(text, "", "Assets/StreamingAssets/SuccessScreenShot.png");
+            SocialConnector.SocialConnector.Share(text, "", imgPath);
         }
 
         /// <summary>
