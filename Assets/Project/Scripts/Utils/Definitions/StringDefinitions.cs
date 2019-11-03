@@ -6,6 +6,7 @@
     public static class SceneName
     {
         public const string MENU_SELECT_SCENE = "MenuSelectScene";
+        public const string LEVEL_SELECT_SCENE = "LevelSelectScene";
         public const string STAGE_SELECT_SCENE = "StageSelectScene";
         public const string GAME_PLAY_SCENE = "GamePlayScene";
         public const string GAME_PAUSE_SCENE = "GamePauseScene";
