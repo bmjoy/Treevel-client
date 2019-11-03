@@ -52,8 +52,7 @@ namespace Project.Scripts.StageSelectScene
             _doNotShow = transform.Find("DoNotShow").gameObject;
             _closeWindow = transform.Find("CloseWindow").gameObject;
 
-            _doNotShow.GetComponent<Toggle>().onValueChanged.AddListener(delegate
-            {
+            _doNotShow.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
                 ToggleValueChanged(_doNotShow.GetComponent<Toggle>());
             });
         }

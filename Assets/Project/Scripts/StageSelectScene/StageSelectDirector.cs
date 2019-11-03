@@ -118,8 +118,7 @@ namespace Project.Scripts.StageSelectScene
                 // ポップアップを表示する
                 _popupWindow.GetComponent<PopupWindow>().Initialize(stageId);
                 _popupWindow.SetActive(true);
-            }
-            else {
+            } else {
                 GoToGame(stageId);
             }
         }
