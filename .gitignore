@@ -32,3 +32,6 @@ Assets/Plugins/Editor.meta
 # For VSCode
 .vscode/launch.json
 .vscode/settings.json
+
+# For screen shot
+Assets/StreamingAssets/*

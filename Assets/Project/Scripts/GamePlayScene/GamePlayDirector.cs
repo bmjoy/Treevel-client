@@ -296,6 +296,8 @@ namespace Project.Scripts.GamePlayScene
             ss.ClearStage(stageId);
             // 成功回数をインクリメント
             ss.IncSuccessNum(stageId);
+            // スクリーンショットを撮る
+            ScreenCapture.CaptureScreenshot("Assets/StreamingAssets/SuccessScreenShot.png");
         }
 
         /// <summary>
@@ -361,7 +363,7 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// Twitter 投稿ボタン押下時の処理．
+        /// 投稿ボタン押下時の処理．
         /// </summary>
         public void ShareButtonDown()
         {
@@ -375,8 +377,8 @@ namespace Project.Scripts.GamePlayScene
             var hashTags = "NumberBullet,ナンバレ";
             hashTags = UnityWebRequest.EscapeURL(hashTags);
 
-            // Twitter 投稿画面へ
-            Application.OpenURL("https://twitter.com/intent/tweet?text=" + text + "&hashtags=" + hashTags);
+            // シェア画面へ
+            SocialConnector.SocialConnector.Share(text, "", "Assets/StreamingAssets/SuccessScreenShot.png");
         }
 
         /// <summary>
