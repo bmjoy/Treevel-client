@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 
@@ -24,6 +25,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             // 初期位置にするタイルを取得
             var initialTile = TileLibrary.GetTile(initialTileNum);
+            var script = initialTile.GetComponent<NormalTileController>();
+            script.hasPanel = true;
             transform.parent = initialTile.transform;
             transform.position = initialTile.transform.position;
         }

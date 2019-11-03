@@ -99,11 +99,14 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="targetTile"> パネルの移動先となるタイル </param>
         protected virtual void UpdateTile(GameObject targetTile)
         {
+            // 移動先のタイルのスクリプト
+            var targetScript = targetTile.GetComponent<NormalTileController>();
             // 移動先にタイルがなければ何もしない
             if (targetTile == null) return;
             // 移動先のタイルに子パネルがあれば何もしない
-            if (targetTile.transform.childCount != 0) return;
+            if (targetScript.hasPanel) return;
             // 親タイルの更新
+            transform.parent.GetComponent<NormalTileController>().LeavePanel(gameObject);
             transform.parent = targetTile.transform;
             // 親タイルへ移動
             transform.position = transform.parent.position;

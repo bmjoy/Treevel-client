@@ -10,16 +10,6 @@ namespace Project.Scripts.GamePlayScene.Tile
         // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
 
-        // warpTileのエフェクト
-        [SerializeField, NonEditable] private GameObject _warpTileEffectPrefab;
-
-        public void Start()
-        {
-            var warpTileEffect = Instantiate(_warpTileEffectPrefab);
-            warpTileEffect.transform.position = gameObject.transform.position;
-            warpTileEffect.GetComponent<Animation>().Play();
-        }
-
         /// <summary>
         /// 初期化
         /// </summary>
@@ -36,7 +26,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <inheritdoc />
         public override void HandlePanel(GameObject panel)
         {
-            if (_pairTile.transform.childCount == 0) {
+            base.HandlePanel(panel);
+            // pair tileに子パネルがないならワープさせる
+            if (!_pairTile.GetComponent<NormalTileController>().hasPanel) {
                 // ワープ演出
                 StartCoroutine(WarpPanel(panel));
             }
@@ -52,7 +44,9 @@ namespace Project.Scripts.GamePlayScene.Tile
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
             // panelの座標の更新
+            LeavePanel(panel);
             panel.transform.parent = _pairTile.transform;
+            _pairTile.GetComponent<NormalTileController>().hasPanel = true;
             panel.transform.position = _pairTile.transform.position;
             // panelがワープから戻るアニメーション
             anim.Play(AnimationClipName.PANEL_WARP_REVERSE);
