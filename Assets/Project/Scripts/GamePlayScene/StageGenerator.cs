@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public class StageGenerator : MonoBehaviour
+    public class StageGenerator
     {
         static private Dictionary<int, StageData> stageDataMap = new Dictionary<int, StageData>();
         /// <summary>
