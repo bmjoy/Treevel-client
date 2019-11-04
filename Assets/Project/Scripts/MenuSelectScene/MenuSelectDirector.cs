@@ -28,6 +28,8 @@ namespace Project.Scripts.MenuSelectScene
         /// <param name="sceneName"> シーン名 </param>
         public IEnumerator ChangeScene(string sceneName)
         {
+            // シーンの保存
+            NowScene = sceneName;
             // シーンをロード
             SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
             // シーンがロードされるのを待つ
@@ -38,8 +40,6 @@ namespace Project.Scripts.MenuSelectScene
 
             // 指定したシーン名をアクティブにする
             SceneManager.SetActiveScene(scene);
-            // シーンの保存
-            NowScene = sceneName;
         }
     }
 }
