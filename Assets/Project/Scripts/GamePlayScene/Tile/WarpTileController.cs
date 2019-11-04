@@ -7,9 +7,24 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class WarpTileController : NormalTileController
     {
+        protected GamePlayDirector gamePlayDirector;
+
         // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
 
+        /// <summary>
+        /// warpTile上のeffect
+        /// </summary>
+        private GameObject warpTileEffect;
+
+        private void Awake() {
+            warpTileEffect = transform.Find("warpTileEffectPrefab").gameObject;
+        }
+
+        private void Start() {
+            gamePlayDirector = FindObjectOfType<GamePlayDirector>();
+        }
+        
         /// <summary>
         /// 初期化
         /// </summary>
@@ -21,6 +36,35 @@ namespace Project.Scripts.GamePlayScene.Tile
             base.Initialize(position, tileNum);
             name = TileName.WARP_TILE;
             this._pairTile = pairTile;
+        }
+
+        private void OnEnable()
+        {
+            GamePlayDirector.OnSucceed += OnSucceed;
+            GamePlayDirector.OnFail += OnFail;
+        }
+
+        private void OnDisable()
+        {
+            GamePlayDirector.OnSucceed -= OnSucceed;
+            GamePlayDirector.OnFail -= OnFail;
+        }
+
+        private void OnSucceed() {
+            EndProcess();
+        }
+
+        private void OnFail() {
+            EndProcess();
+        }
+
+        private void EndProcess() {
+            // 粒子アニメーションの生成を止める
+            GetComponent<ParticleSystem>().Stop();
+            // すでに生成された粒子を止める
+            GetComponent<ParticleSystem>().Clear();
+            // warpTileEffectを止める
+            warpTileEffect.GetComponent<Animation>().Stop();
         }
 
         /// <inheritdoc />
