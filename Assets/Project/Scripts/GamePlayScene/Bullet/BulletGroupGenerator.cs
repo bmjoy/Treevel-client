@@ -90,9 +90,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                     bulletData.ratio,
                                     bulletData.direction,
                                     bulletData.line,
-                                    bulletData.turnDirections.Cast<int>().ToArray() , // map ECartridgeDirection to int
+                                    bulletData.turnDirections.Cast<int>().ToArray(),  // map ECartridgeDirection to int
                                     bulletData.turnLines.ToArray()
-                            ));
+                                ));
                             break;
                     }
                 }
@@ -152,26 +152,28 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <param name="randomColumn"></param>
         /// <returns></returns>
         public GameObject CreateNormalCartridgeGenerator(
-                int ratio,
-                ECartridgeDirection cartridgeDirection,
-                int line,
-                int[] randomCartridgeDirection,
-                int[] randomRow,
-                int[] randomColumn
-        ) {
+            int ratio,
+            ECartridgeDirection cartridgeDirection,
+            int line,
+            int[] randomCartridgeDirection,
+            int[] randomRow,
+            int[] randomColumn
+        )
+        {
             var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, randomCartridgeDirection, randomRow, randomColumn);
             return cartridgeGenerator;
         }
 
-        public GameObject CreateTurnCartridgeGenerator (
+        public GameObject CreateTurnCartridgeGenerator(
             int ratio,
             ECartridgeDirection cartridgeDirection,
             int line,
             int[] turnDirection,
             int[] turnLine
-        ) {
+        )
+        {
             var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, turnDirection, turnLine);
