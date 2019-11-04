@@ -65,7 +65,8 @@
     public enum EBulletType {
         NormalCartridge,
         TurnCartridge,
-        RandomCartridge,
+        RandomNormalCartridge,
+        RandomTurnCartridge,
         NormalHole,
         AimingHole,
         RandomHole,

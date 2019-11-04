@@ -15,6 +15,11 @@ namespace Project.Scripts.GameDatas
         public int line;
 
         public ECartridgeDirection direction;
+
+        public List<ECartridgeDirection> turnDirections;
+
+        public List<int> turnLines;
+
         public List<int> randomCartridgeDirection;
         public List<int> randomRow;
         public List<int> randomColumn;

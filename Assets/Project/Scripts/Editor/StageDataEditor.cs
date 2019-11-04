@@ -133,6 +133,35 @@ public class StageDataEditor : Editor
                                     DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
                                     break;
                                 }
+                            case EBulletType.TurnCartridge: {
+                                    if (directionProp.intValue == (int)ECartridgeDirection.Random)
+                                        directionProp.intValue = (int)ECartridgeDirection.ToLeft;
+
+                                    directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Direction"),
+                                            selected: (ECartridgeDirection)directionProp.intValue,
+                                            checkEnabled: (eType) => {
+                                                return (ECartridgeDirection)eType != ECartridgeDirection.Random;
+                                            },
+                                            includeObsolete: false
+                                    );
+
+                                    switch ((ECartridgeDirection)directionProp.intValue) {
+                                        case ECartridgeDirection.ToLeft:
+                                        case ECartridgeDirection.ToRight:
+                                            lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(new GUIContent("Row"), (ERow)lineProp.intValue);
+                                            break;
+                                        case ECartridgeDirection.ToBottom:
+                                        case ECartridgeDirection.ToUp:
+                                            lineProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(new GUIContent("Column"), (EColumn)lineProp.intValue);
+                                            break;
+                                    }
+
+                                    // TODO pair constraint of turnDirections/tunrLines
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("turnDirections"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("turnLines"));
+                                    break;
+                                }
                         }
                     }
                 });
