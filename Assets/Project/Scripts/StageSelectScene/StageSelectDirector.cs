@@ -22,6 +22,11 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _popupWindow;
 
+        /// <summary>
+        /// 概要ポップアップの背景
+        /// </summary>
+        private GameObject _popupBackground;
+
         private SnapScrollView _snapScrollView;
 
         private const string LOADING_BACKGROUND = "LoadingBackground";
@@ -50,9 +55,12 @@ namespace Project.Scripts.StageSelectScene
             // ロードアニメーションを非表示にする
             _loading = GameObject.Find(LOADING);
             _loading.SetActive(false);
-            // ポップアップウィンドウを非表示にする
             _popupWindow = GameObject.Find("PopupWindow");
-            _popupWindow.SetActive(false);
+
+            // ポップアップ背景を非表示にする
+            _popupBackground = GameObject.Find("DummyBackground");
+            _popupBackground.GetComponent<Button>().onClick.AddListener(() => _popupBackground.SetActive(false));
+            _popupBackground.SetActive(false);
 
             // TODO: 非同期で呼び出す
             // 各ステージの選択ボタンなどを描画する
@@ -115,9 +123,10 @@ namespace Project.Scripts.StageSelectScene
             var stageId = int.Parse(clickedButton.name);
 
             if (PlayerPrefs.GetInt(PlayerPrefsKeys.DO_NOT_SHOW, 0) == 0) {
-                // ポップアップを表示する
+                // ポップアップ背景を表示する
+                _popupBackground.SetActive(true);
+                // ポップアップを初期化する
                 _popupWindow.GetComponent<PopupWindow>().Initialize(stageId);
-                _popupWindow.SetActive(true);
             } else {
                 GoToGame(stageId);
             }
