@@ -37,11 +37,6 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _doNotShow;
 
-        /// <summary>
-        /// ウィンドウを閉じるボタン
-        /// </summary>
-        private GameObject _closeWindow;
-
         private void Awake()
         {
             _stageId = transform.Find("StageId").gameObject;
@@ -50,7 +45,6 @@ namespace Project.Scripts.StageSelectScene
             _appearingBullets = transform.Find("AppearingBullets").gameObject;
             _goToGame = transform.Find("GoToGame").gameObject;
             _doNotShow = transform.Find("DoNotShow").gameObject;
-            _closeWindow = transform.Find("CloseWindow").gameObject;
 
             _doNotShow.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
                 ToggleValueChanged(_doNotShow.GetComponent<Toggle>());
@@ -77,9 +71,6 @@ namespace Project.Scripts.StageSelectScene
 
             // ゲームを開始するボタン
             _goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(stageId));
-
-            // ウィンドウを閉じるボタン
-            _closeWindow.GetComponent<Button>().onClick.AddListener(() => gameObject.SetActive(false));
         }
 
         private static void ToggleValueChanged(Toggle toggle)
