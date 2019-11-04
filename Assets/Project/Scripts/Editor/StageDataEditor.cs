@@ -74,7 +74,7 @@ public class StageDataEditor : Editor
             }
         }
     }
-    private void DrawBulletGroupList ()
+    private void DrawBulletGroupList()
     {
         DrawArrayProperty(_bulletGroupDatasProp, (bulletGroupDataProp, index) => {
             bulletGroupDataProp.isExpanded = EditorGUILayout.Foldout(bulletGroupDataProp.isExpanded, $"Bullet Group {index + 1}");
@@ -98,13 +98,13 @@ public class StageDataEditor : Editor
                         switch ((EBulletType)bulletTypeProp.enumValueIndex) {
                             case EBulletType.NormalCartridge: {
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("Direction"),
-                                        selected: (ECartridgeDirection)directionProp.intValue,
-                                        checkEnabled: (eType) => { // ランダムは選択不能にする
-                                            return (ECartridgeDirection)eType != ECartridgeDirection.Random;
-                                        },
-                                        includeObsolete: false
-                                    );
+                                            label: new GUIContent("Direction"),
+                                            selected: (ECartridgeDirection)directionProp.intValue,
+                                    checkEnabled: (eType) => { // ランダムは選択不能にする
+                                        return (ECartridgeDirection)eType != ECartridgeDirection.Random;
+                                    },
+                                    includeObsolete: false
+                                        );
 
                                     switch ((ECartridgeDirection)directionProp.intValue) {
                                         case ECartridgeDirection.ToLeft:
@@ -119,20 +119,20 @@ public class StageDataEditor : Editor
                                     break;
                                 }
                             case EBulletType.RandomNormalCartridge: {
-                                directionProp.intValue = (int)(ECartridgeDirection.Random);
-                                directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("Direction"),
-                                        selected: (ECartridgeDirection)directionProp.intValue,
-                                        checkEnabled: (eType) => {
-                                            return (ECartridgeDirection)eType == ECartridgeDirection.Random;
-                                        },
-                                        includeObsolete: false
-                                    );
-                                DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
-                                DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
-                                DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
-                                break;
-                            }
+                                    directionProp.intValue = (int)(ECartridgeDirection.Random);
+                                    directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Direction"),
+                                            selected: (ECartridgeDirection)directionProp.intValue,
+                                    checkEnabled: (eType) => {
+                                        return (ECartridgeDirection)eType == ECartridgeDirection.Random;
+                                    },
+                                    includeObsolete: false
+                                        );
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
+                                    break;
+                                }
                         }
                     }
                 });
