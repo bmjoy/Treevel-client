@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene
     public class GamePlayDirector : MonoBehaviour
     {
         private const string RESULT_WINDOW_NAME = "ResultWindow";
-        private const string SHARE_BUTTON_NAME = "ShareButton";
+        private const string SHARE_BUTTON_NAME = "ResultShareButton";
         private const string RESULT_NAME = "Result";
         private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
