@@ -384,8 +384,8 @@ namespace Project.Scripts.GamePlayScene
             const string imgPath = "Assets/StreamingAssets/SuccessScreenShot.png";
             ScreenCapture.CaptureScreenshot(imgPath);
 
-            while (true) {
-                if (File.Exists(imgPath)) break;
+            // スクリーンショットが保存されるのを待つ
+            while (!File.Exists(imgPath)) {
                 yield return null;
             }
 
