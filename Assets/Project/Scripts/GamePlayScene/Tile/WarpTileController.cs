@@ -61,7 +61,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         private void EndProcess() {
             // 粒子アニメーションの生成を止める
             GetComponent<ParticleSystem>().Stop();
-            // すでに生成された粒子を止める
+            // すでに生成された粒子を消す
             GetComponent<ParticleSystem>().Clear();
             // warpTileEffectを止める
             warpTileEffect.GetComponent<Animation>().Stop();
