@@ -35,3 +35,6 @@ Assets/Plugins/Editor.meta
 
 # For screen shot
 Assets/StreamingAssets/*
+
+# Do not igonore .gitkeep
+!.gitkeep
