@@ -11,7 +11,7 @@
     /// <summary>
     /// クリップの名前
     /// </summary>
-    public static class ClipName
+    public static class AudioClipName
     {
         public const string PLAYING = "playing";
         public const string SUCCESS = "success";

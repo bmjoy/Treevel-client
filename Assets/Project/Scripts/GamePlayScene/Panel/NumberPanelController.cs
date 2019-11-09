@@ -7,7 +7,6 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-    [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
     public class NumberPanelController : DynamicPanelController
@@ -36,8 +35,6 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// </summary>
         [SerializeField] protected AnimationClip _deadAnimation;
 
-        protected Animation _anim;
-
         /// <summary>
         /// 自身が壊されたかどうか
         /// </summary>
@@ -46,8 +43,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         protected override void Awake()
         {
             base.Awake();
-            _anim = GetComponent<Animation>();
-            _anim.AddClip(_deadAnimation, _deadAnimation.name);
+            _anim.AddClip(_deadAnimation, AnimationClipName.NUMBER_PANEL_DEAD);
 
             // PostProcessVolume の設定
             GetComponent<PostProcessVolume>().isGlobal = true;

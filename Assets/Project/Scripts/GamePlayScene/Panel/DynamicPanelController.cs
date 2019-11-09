@@ -6,11 +6,24 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
+    [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(FlickGesture))]
     public class DynamicPanelController : PanelController
     {
         protected GamePlayDirector gamePlayDirector;
+
+        protected Animation _anim;
+
+        /// <summary>
+        /// ワープタイルでワープする時のアニメーション
+        /// </summary>
+        [SerializeField] protected AnimationClip warpAnimation;
+        
+        /// <summary>
+        /// ワープタイルでワープした後のアニメーション
+        /// </summary>
+        [SerializeField] protected AnimationClip warpReverseAnimation;
 
         protected override void Awake()
         {
@@ -20,6 +33,11 @@ namespace Project.Scripts.GamePlayScene.Panel
             // FlickGesture の設定
             GetComponent<FlickGesture>().MinDistance = 0.2f;
             GetComponent<FlickGesture>().FlickTime = 0.2f;
+
+            // アニメーションの追加
+            _anim = GetComponent<Animation>();
+            _anim.AddClip(warpAnimation, AnimationClipName.PANEL_WARP);
+            _anim.AddClip(warpReverseAnimation, AnimationClipName.PANEL_WARP_REVERSE);
         }
 
         protected virtual void Start()
@@ -82,11 +100,14 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="targetTile"> パネルの移動先となるタイル </param>
         protected virtual void UpdateTile(GameObject targetTile)
         {
+            // 移動先のタイルのスクリプト
+            var targetScript = targetTile.GetComponent<NormalTileController>();
             // 移動先にタイルがなければ何もしない
             if (targetTile == null) return;
             // 移動先のタイルに子パネルがあれば何もしない
-            if (targetTile.transform.childCount != 0) return;
+            if (targetScript.hasPanel) return;
             // 親タイルの更新
+            transform.parent.GetComponent<NormalTileController>().LeavePanel(gameObject);
             transform.parent = targetTile.transform;
             // 親タイルへ移動
             transform.position = transform.parent.position;
@@ -100,6 +121,9 @@ namespace Project.Scripts.GamePlayScene.Panel
         protected virtual void OnSucceed()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            // アニメーションを止める
+            _anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
+            _anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
         }
 
         /// <summary>
@@ -108,6 +132,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         protected virtual void OnFail()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            _anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
+            _anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
         }
     }
 }

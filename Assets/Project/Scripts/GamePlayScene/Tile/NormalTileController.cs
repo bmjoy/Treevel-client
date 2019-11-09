@@ -28,7 +28,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         private int _tileNum;
 
-        private void Awake()
+        /// <summary>
+        /// タイルに乗っているパネルの有無
+        /// </summary>
+        public bool hasPanel = false;
+
+        protected virtual void Awake()
         {
             var tileWidth = GetComponent<SpriteRenderer>().size.x;
             var tileHeight = GetComponent<SpriteRenderer>().size.y;
@@ -58,7 +63,6 @@ namespace Project.Scripts.GamePlayScene.Tile
             if (this._tileNum == tileNum) {
                 return gameObject;
             }
-
             return null;
         }
 
@@ -83,6 +87,16 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <param name="panel"></param>
         public virtual void HandlePanel(GameObject panel)
         {
+            hasPanel = true;
+        }
+
+        /// <summary>
+        /// このタイル上のパネルが移動した場合の処理
+        /// </summary>
+        /// <param name="panel"></param>
+        public void LeavePanel(GameObject panel)
+        {
+            hasPanel = false;
         }
     }
 }
