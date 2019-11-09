@@ -1,5 +1,6 @@
 ﻿using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
+using TouchScript.Gestures;
 using UnityEngine;
 using System.Collections;
 
@@ -75,6 +76,8 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private IEnumerator WarpPanel(GameObject panel)
         {
+            // panelをフリックできないようにする
+            panel.GetComponent<FlickGesture>().enabled = false;
             // warpTileの粒子アニメーション
             GetComponent<ParticleSystem>().Play();
             var anim = panel.GetComponent<Animation>();
@@ -89,6 +92,10 @@ namespace Project.Scripts.GamePlayScene.Tile
             panel.transform.position = _pairTile.transform.position;
             // panelがワープから戻るアニメーション
             anim.Play(AnimationClipName.PANEL_WARP_REVERSE);
+            // アニメーションの終了を待つ
+            while (anim.isPlaying) yield return new WaitForFixedUpdate();
+            // panelをフリックできるようにする
+            panel.GetComponent<FlickGesture>().enabled = true;
         }
     }
 }
