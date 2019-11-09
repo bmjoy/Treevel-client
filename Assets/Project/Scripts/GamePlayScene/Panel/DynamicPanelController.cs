@@ -19,6 +19,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// ワープタイルでワープする時のアニメーション
         /// </summary>
         [SerializeField] protected AnimationClip warpAnimation;
+        
         /// <summary>
         /// ワープタイルでワープした後のアニメーション
         /// </summary>

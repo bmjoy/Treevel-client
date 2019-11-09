@@ -7,8 +7,6 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class WarpTileController : NormalTileController
     {
-        protected GamePlayDirector gamePlayDirector;
-
         // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
 
@@ -19,10 +17,6 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private void Awake() {
             warpTileEffect = transform.Find("warpTileEffectPrefab").gameObject;
-        }
-
-        private void Start() {
-            gamePlayDirector = FindObjectOfType<GamePlayDirector>();
         }
         
         /// <summary>
