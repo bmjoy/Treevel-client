@@ -33,7 +33,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         public bool hasPanel = false;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             var tileWidth = GetComponent<SpriteRenderer>().size.x;
             var tileHeight = GetComponent<SpriteRenderer>().size.y;

@@ -15,7 +15,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         private GameObject warpTileEffect;
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             warpTileEffect = transform.Find("warpTileEffectPrefab").gameObject;
         }
         
