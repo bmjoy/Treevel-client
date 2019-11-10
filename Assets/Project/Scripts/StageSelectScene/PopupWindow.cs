@@ -30,7 +30,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ゲームを開始するボタン
         /// </summary>
-        private GameObject _goToGame;
+        public GameObject goToGame;
 
         /// <summary>
         /// 今後ウィンドウを表示するかのボタン
@@ -43,7 +43,7 @@ namespace Project.Scripts.StageSelectScene
             _stageDifficulty = transform.Find("StageDifficulty").gameObject;
             _clearPercentage = transform.Find("ClearPercentage").gameObject;
             _appearingBullets = transform.Find("AppearingBullets").gameObject;
-            _goToGame = transform.Find("GoToGame").gameObject;
+            goToGame = transform.Find("GoToGame").gameObject;
             _doNotShow = transform.Find("DoNotShow").gameObject;
 
             _doNotShow.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
@@ -70,7 +70,7 @@ namespace Project.Scripts.StageSelectScene
             // _appearingBullets... = ...
 
             // ゲームを開始するボタン
-            _goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(stageId));
+            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(stageId));
         }
 
         private static void ToggleValueChanged(Toggle toggle)

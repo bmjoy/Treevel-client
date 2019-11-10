@@ -59,7 +59,11 @@ namespace Project.Scripts.StageSelectScene
 
             // ポップアップ背景を非表示にする
             _popupBackground = GameObject.Find("PopupBackground");
-            _popupBackground.GetComponent<Button>().onClick.AddListener(() => _popupBackground.SetActive(false));
+            _popupBackground.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                _popupWindow.GetComponent<PopupWindow>().goToGame.GetComponent<Button>().onClick.RemoveAllListeners();
+                _popupBackground.SetActive(false);
+            });
             _popupBackground.SetActive(false);
 
             // TODO: 非同期で呼び出す
