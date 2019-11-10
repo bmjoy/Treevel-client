@@ -13,10 +13,15 @@ namespace Project.Scripts.LevelSelectScene
     [RequireComponent(typeof(TapGesture))]
     public class LevelTreeController : MonoBehaviour
     {
-        // 木のレベル
-        [SerializeField] private int _level;
-        // 木のid
-        [SerializeField] private int _treeId;
+        /// <summary>
+        /// 木のレベル
+        /// </summary>
+        [SerializeField] private ELevelName _level;
+
+        /// <summary>
+        /// 木のId
+        /// </summary>
+        [SerializeField] private ETreeName _treeId;
 
         private BoxCollider2D _collider;
         private float _originalWidth;
@@ -33,7 +38,8 @@ namespace Project.Scripts.LevelSelectScene
 
         public void HandleTap(object sender, EventArgs e)
         {
-            StageSelectDirector.levelName = _level-1;
+            StageSelectDirector.levelName = _level;
+            StageSelectDirector.treeId = _treeId;
             // StageSelect Toggle に結びつけるSceneを変更する
             GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>().SetSceneName(SceneName.STAGE_SELECT_SCENE);
             SceneManager.UnloadSceneAsync(SceneName.LEVEL_SELECT_SCENE);

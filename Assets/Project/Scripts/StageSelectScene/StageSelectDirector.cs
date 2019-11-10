@@ -41,7 +41,15 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _loading;
 
-        public static int levelName;
+        /// <summary>
+        /// 木のレベル
+        /// </summary>
+        public static ELevelName levelName;
+
+        /// <summary>
+        /// 木のId
+        /// </summary>
+        public static ETreeName treeId;
 
         private void Awake()
         {
@@ -77,22 +85,20 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private void Draw()
         {
-            // foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) {
-                MakeButtons((ELevelName)Enum.ToObject(typeof(ELevelName), levelName));
-            // }
+            MakeButtons();
         }
 
         /// <summary>
         /// ボタンを配置する
         /// </summary>
-        /// <param name="levelName"> 配置するボタンの難易度 </param>
-        private void MakeButtons(ELevelName levelName)
+        private void MakeButtons()
         {
             var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + "Easy" + "/ScrollView/Viewport/Content/Buttons").GetComponent<RectTransform>();
 
             // TODO: 今後，難易度ごとにボタン配置を変える必要がある
-            for (var i = 0; i < LevelInfo.Num[levelName]; i++) {
+            for (var i = 0; i < TreeInfo.Num[treeId]; i++) {
                 // ステージを一意に定めるID
+                // TODO: stageIdは(levelName, treeId)から決める(競合しないように未実装にしてある)
                 var stageId = LevelInfo.StageStartId[levelName] + i;
                 // ボタンインスタンスを生成
                 var button = Instantiate(stageButtonPrefab);
@@ -146,7 +152,9 @@ namespace Project.Scripts.StageSelectScene
             // 挑戦回数をインクリメント
             var ss = StageStatus.Get(stageId);
             ss.IncChallengeNum(stageId);
-            // ステージ番号を渡す
+            // ステージ情報を渡す
+            GamePlayDirector.levelName = levelName;
+            GamePlayDirector.treeId = treeId;
             GamePlayDirector.stageId = stageId;
             // ロード中の背景を表示する
             _loadingBackground.SetActive(true);
