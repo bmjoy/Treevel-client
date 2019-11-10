@@ -27,42 +27,42 @@ MonoBehaviour:
       randomColumn: 
   panels:
   - type: 2
-    position: 1
+    initPos: 1
     number: 1
     targetPos: 4
     life: 0
   - type: 2
-    position: 3
+    initPos: 3
     number: 2
     targetPos: 5
     life: 0
   - type: 2
-    position: 5
+    initPos: 5
     number: 3
     targetPos: 6
     life: 0
   - type: 2
-    position: 6
+    initPos: 6
     number: 4
     targetPos: 7
     life: 0
   - type: 2
-    position: 8
+    initPos: 8
     number: 5
     targetPos: 8
     life: 0
   - type: 2
-    position: 11
+    initPos: 11
     number: 6
     targetPos: 9
     life: 0
   - type: 2
-    position: 13
+    initPos: 13
     number: 7
     targetPos: 10
     life: 0
   - type: 2
-    position: 15
+    initPos: 15
     number: 8
     targetPos: 11
     life: 0

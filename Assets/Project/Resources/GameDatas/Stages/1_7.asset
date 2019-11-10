@@ -32,42 +32,42 @@ MonoBehaviour:
       randomTurnColumn: 0a0000000a0000000a0000000a0000000a000000
   panels:
   - type: 2
-    position: 4
+    initPos: 4
     number: 1
     targetPos: 4
     life: 0
   - type: 2
-    position: 5
+    initPos: 5
     number: 2
     targetPos: 5
     life: 0
   - type: 2
-    position: 6
+    initPos: 6
     number: 3
     targetPos: 6
     life: 0
   - type: 2
-    position: 7
+    initPos: 7
     number: 4
     targetPos: 7
     life: 0
   - type: 2
-    position: 8
+    initPos: 8
     number: 5
     targetPos: 8
     life: 0
   - type: 2
-    position: 9
+    initPos: 9
     number: 6
     targetPos: 9
     life: 0
   - type: 2
-    position: 10
+    initPos: 10
     number: 7
     targetPos: 10
     life: 0
   - type: 2
-    position: 14
+    initPos: 14
     number: 8
     targetPos: 11
     life: 0

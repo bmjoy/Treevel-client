@@ -80,13 +80,13 @@ namespace Project.Scripts.GamePlayScene.Panel
                 switch (panelData.type) {
                     case EPanelType.Number:
                         var panel = Instantiate(_numberPanelPrefabs[panelData.number - 1]);
-                        panel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.position, panelData.targetPos);
+                        panel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
                         break;
                     case EPanelType.Dynamic:
-                        CreateDynamicDummyPanel(panelData.position);
+                        CreateDynamicDummyPanel(panelData.initPos);
                         break;
                     case EPanelType.Static:
-                        CreateStaticDummyPanel(panelData.position);
+                        CreateStaticDummyPanel(panelData.initPos);
                         break;
                 }
             }

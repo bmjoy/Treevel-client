@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
@@ -44,7 +44,7 @@ public class StageDataEditor : Editor
         if (_panelDatasProp.isExpanded) {
             for (int i = 0 ; i < _panelDatasProp.arraySize ; i++) {
                 SerializedProperty panelDataProp = _panelDatasProp.GetArrayElementAtIndex(i);
-                SerializedProperty panelPosProp = panelDataProp.FindPropertyRelative("position");
+                SerializedProperty panelPosProp = panelDataProp.FindPropertyRelative("initPos");
                 SerializedProperty panelTypeProp = panelDataProp.FindPropertyRelative("type");
 
                 panelDataProp.isExpanded = EditorGUILayout.Foldout(panelDataProp.isExpanded, $"Panel {i + 1}");
