@@ -20,3 +20,4 @@ GamePause,一時停止中,Pause
 GamePauseBack,再開,Resume
 GamePauseQuit,諦める,GiveUp
 GameBack,戻る,Stage Menu
+ConfigHideOverview,ステージの概要を表示しない,Hide overview of stage

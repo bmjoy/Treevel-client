@@ -3467,7 +3467,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1288638480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6095efb3f7c9740c28c449abd9d848b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -3485,13 +3485,14 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 100
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30B9\u30C6\u30FC\u30B8\u306E\u6982\u8981\u3092\u8868\u793A\u3057\u306A\u3044"
+  _textIndex: 4
 --- !u!222 &1288638483
 CanvasRenderer:
   m_ObjectHideFlags: 0

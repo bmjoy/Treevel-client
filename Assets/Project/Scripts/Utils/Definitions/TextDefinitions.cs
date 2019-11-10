@@ -25,5 +25,6 @@ namespace Project.Scripts.Utils.Definitions
         GamePauseBack,   // ゲームの再開
         GamePauseQuit,   // ゲームを諦める
         GameBack,        // ステージ選択画面へ戻る
+        ConfigHideOverview,    // ステージの概要の表示を隠すかどうか
     }
 }
