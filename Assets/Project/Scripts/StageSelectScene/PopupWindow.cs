@@ -1,5 +1,4 @@
-﻿using System;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
