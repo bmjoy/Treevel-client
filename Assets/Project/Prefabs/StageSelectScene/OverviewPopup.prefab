@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 3585425055979313497}
   - component: {fileID: 3585425055979313510}
   m_Layer: 5
-  m_Name: DoNotShow
+  m_Name: HideOverview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 3585425056827976460}
   - component: {fileID: 3585425056827976458}
   m_Layer: 5
-  m_Name: PopupWindow
+  m_Name: OverviewPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,6 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6932f1a34c024666855c23fc1636104e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goToGame: {fileID: 0}
 --- !u!1 &3585425056838449602
 GameObject:
   m_ObjectHideFlags: 0

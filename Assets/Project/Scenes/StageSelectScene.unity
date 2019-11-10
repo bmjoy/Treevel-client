@@ -1976,7 +1976,7 @@ PrefabInstance:
     - target: {fileID: 3585425056827976462, guid: c69d8a8760be44426bfdd6805ded5f74,
         type: 3}
       propertyPath: m_Name
-      value: PopupWindow
+      value: OverviewPopup
       objectReference: {fileID: 0}
     - target: {fileID: 3585425056827976463, guid: c69d8a8760be44426bfdd6805ded5f74,
         type: 3}

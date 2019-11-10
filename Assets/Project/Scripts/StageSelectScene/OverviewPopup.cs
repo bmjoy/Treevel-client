@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
 {
-    public class PopupWindow : MonoBehaviour
+    public class OverviewPopup : MonoBehaviour
     {
         /// <summary>
         /// ステージID
@@ -34,7 +34,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 今後ウィンドウを表示するかのボタン
         /// </summary>
-        private GameObject _doNotShow;
+        private GameObject _hideOverview;
 
         private void Awake()
         {
@@ -43,10 +43,10 @@ namespace Project.Scripts.StageSelectScene
             _clearPercentage = transform.Find("ClearPercentage").gameObject;
             _appearingBullets = transform.Find("AppearingBullets").gameObject;
             goToGame = transform.Find("GoToGame").gameObject;
-            _doNotShow = transform.Find("DoNotShow").gameObject;
+            _hideOverview = transform.Find("HideOverview").gameObject;
 
-            _doNotShow.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
-                ToggleValueChanged(_doNotShow.GetComponent<Toggle>());
+            _hideOverview.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
+                ToggleValueChanged(_hideOverview.GetComponent<Toggle>());
             });
         }
 
