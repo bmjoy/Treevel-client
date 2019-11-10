@@ -4,19 +4,19 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 
 namespace Project.Scripts.ConfigScene
 {
-    public class DoNotShowController : MonoBehaviour
+    public class HideOverviewController : MonoBehaviour
     {
         /// <summary>
         /// 概要を表示するかのトグル
         /// </summary>
-        private Toggle _doNotShowToggle;
+        private Toggle _hideOverviewToggle;
 
         private void Awake()
         {
-            _doNotShowToggle = GetComponent<Toggle>();
-            _doNotShowToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsKeys.DO_NOT_SHOW, 0) == 1;
-            _doNotShowToggle.onValueChanged.AddListener(delegate {
-                ToggleValueChanged(_doNotShowToggle);
+            _hideOverviewToggle = GetComponent<Toggle>();
+            _hideOverviewToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsKeys.DO_NOT_SHOW, 0) == 1;
+            _hideOverviewToggle.onValueChanged.AddListener(delegate {
+                ToggleValueChanged(_hideOverviewToggle);
             });
         }
 

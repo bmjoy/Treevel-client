@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 17352302}
   - component: {fileID: 17352301}
   m_Layer: 5
-  m_Name: DoNotShow
+  m_Name: HideOverview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
