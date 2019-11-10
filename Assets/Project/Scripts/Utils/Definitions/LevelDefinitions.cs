@@ -58,10 +58,10 @@ namespace Project.Scripts.Utils.Definitions
         /// TODO: 今後，インスペクタから変更できるようにする
         public static readonly Dictionary<ELevelName, Color> LevelColor = new Dictionary<ELevelName, Color>()
         {
-            {ELevelName.Easy, Color.magenta},
-            {ELevelName.Normal, Color.green},
-            {ELevelName.Hard, Color.yellow},
-            {ELevelName.VeryHard, Color.cyan}
+            {ELevelName.Easy, new Color(1.0f, 0.65f, 0.78f)},
+            {ELevelName.Normal, new Color(0.64f, 0.91f, 0.38f)},
+            {ELevelName.Hard, new Color(0.93f, 0.38f, 0.10f)},
+            {ELevelName.VeryHard, new Color(0.67f, 0.76f, 0.76f)}
         };
     }
 }
