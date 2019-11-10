@@ -23,5 +23,9 @@ namespace Project.Scripts.GameDatas
         public List<int> randomCartridgeDirection;
         public List<int> randomRow;
         public List<int> randomColumn;
+
+        public List<int> randomTurnDirection;
+        public List<int> randomTurnRow;
+        public List<int> randomTurnColumn;
     }
 }

@@ -103,10 +103,8 @@ public class StageDataEditor : Editor
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
                                             selected: (ECartridgeDirection)directionProp.intValue,
-                                    checkEnabled: (eType) => { // ランダムは選択不能にする
-                                        return (ECartridgeDirection)eType != ECartridgeDirection.Random;
-                                    },
-                                    includeObsolete: false
+                                            checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random,　// ランダムは選択不能にする
+                                            includeObsolete: false
                                         );
 
                                     switch ((ECartridgeDirection)directionProp.intValue) {
@@ -126,10 +124,8 @@ public class StageDataEditor : Editor
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
                                             selected: (ECartridgeDirection)directionProp.intValue,
-                                    checkEnabled: (eType) => {
-                                        return (ECartridgeDirection)eType == ECartridgeDirection.Random;
-                                    },
-                                    includeObsolete: false
+                                            checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
+                                            includeObsolete: false
                                         );
                                     DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
                                     DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
@@ -137,17 +133,15 @@ public class StageDataEditor : Editor
                                     break;
                                 }
                             case EBulletType.TurnCartridge: {
-                                    if (directionProp.intValue == (int)ECartridgeDirection.Random)
+                                    if (directionProp.intValue == (int)ECartridgeDirection.Random) // 方向がランダムの場合強制に変える
                                         directionProp.intValue = (int)ECartridgeDirection.ToLeft;
 
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
                                             selected: (ECartridgeDirection)directionProp.intValue,
-                                            checkEnabled: (eType) => {
-                                                return (ECartridgeDirection)eType != ECartridgeDirection.Random;
-                                            },
+                                            checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random,
                                             includeObsolete: false
-                                    );
+                                        );
 
                                     switch ((ECartridgeDirection)directionProp.intValue) {
                                         case ECartridgeDirection.ToLeft:
@@ -165,6 +159,23 @@ public class StageDataEditor : Editor
                                     DrawArrayProperty(bulletDataProp.FindPropertyRelative("turnLines"));
                                     break;
                                 }
+                            case EBulletType.RandomTurnCartridge: {
+                                    directionProp.intValue = (int)(ECartridgeDirection.Random);
+                                    directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Direction"),
+                                            selected: (ECartridgeDirection)directionProp.intValue,
+                                            checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
+                                            includeObsolete: false
+                                        );
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnDirection"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnRow"));
+                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnColumn"));
+                                break;
+                            }
+
                         }
                     }
                 });

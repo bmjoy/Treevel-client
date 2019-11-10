@@ -94,6 +94,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                     bulletData.turnLines.ToArray()
                                 ));
                             break;
+                        case EBulletType.RandomTurnCartridge:
+                            bulletList.Add(this.CreateRandomTurnCartridgeGenerator(
+                                    bulletData.ratio,
+                                    bulletData.randomCartridgeDirection.ToArray(),
+                                    bulletData.randomRow.ToArray(),
+                                    bulletData.randomColumn.ToArray(),
+                                    bulletData.randomTurnDirection.ToArray(),
+                                    bulletData.randomRow.ToArray(),
+                                    bulletData.randomColumn.ToArray()
+                            ));
+                        break;
                     }
                 }
                 coroutines.Add(CreateBulletGroup(
