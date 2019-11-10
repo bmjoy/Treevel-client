@@ -19,11 +19,12 @@ namespace Project.Scripts.Utils.Definitions
         LevelSecond,     // レベル2
         LevelThird,      // レベル3
         LevelFourth,     // レベル4
-        Turorial,        // チュートリアル
+        Tutorial,        // チュートリアル
         GameTweet,       // ゲーム結果のツイート
         GamePause,       // ゲーム一時停止
         GamePauseBack,   // ゲームの再開
         GamePauseQuit,   // ゲームを諦める
         GameBack,        // ステージ選択画面へ戻る
+        ConfigHideOverview,    // ステージの概要の表示を隠すかどうか
     }
 }
