@@ -11,8 +11,10 @@ public class StageDataEditor : Editor
     private SerializedProperty _panelDatasProp;
     private SerializedProperty _bulletGroupDatasProp;
 
+    private StageData _src;
     public void OnEnable()
     {
+        _src = target as StageData;
         _panelDatasProp = serializedObject.FindProperty("panels");
         _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
     }
@@ -29,6 +31,7 @@ public class StageDataEditor : Editor
 
         // Set object dirty, this will make it be saved after saving the project.
         if (EditorGUI.EndChangeCheck()) {
+            Undo.RecordObject(_src, _src.name);
             EditorUtility.SetDirty(serializedObject.targetObject);
         }
         serializedObject.ApplyModifiedProperties();
