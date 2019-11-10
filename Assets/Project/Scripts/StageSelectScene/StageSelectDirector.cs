@@ -25,7 +25,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 概要ポップアップの背景
         /// </summary>
-        private GameObject _popupBackground;
+        private GameObject _overviewPopupBackground;
 
         private SnapScrollView _snapScrollView;
 
@@ -58,12 +58,12 @@ namespace Project.Scripts.StageSelectScene
             _overviewPopup = GameObject.Find("OverviewPopup");
 
             // ポップアップ背景を非表示にする
-            _popupBackground = GameObject.Find("PopupBackground");
-            _popupBackground.GetComponent<Button>().onClick.AddListener(() => {
-                _popupBackground.SetActive(false);
+            _overviewPopupBackground = GameObject.Find("OverviewPopupBackground");
+            _overviewPopupBackground.GetComponent<Button>().onClick.AddListener(() => {
                 _overviewPopup.GetComponent<OverviewPopup>().goToGame.GetComponent<Button>().onClick.RemoveAllListeners();
+                _overviewPopupBackground.SetActive(false);
             });
-            _popupBackground.SetActive(false);
+            _overviewPopupBackground.SetActive(false);
 
             // TODO: 非同期で呼び出す
             // 各ステージの選択ボタンなどを描画する
@@ -127,7 +127,7 @@ namespace Project.Scripts.StageSelectScene
 
             if (PlayerPrefs.GetInt(PlayerPrefsKeys.DO_NOT_SHOW, 0) == 0) {
                 // ポップアップ背景を表示する
-                _popupBackground.SetActive(true);
+                _overviewPopupBackground.SetActive(true);
                 // ポップアップを初期化する
                 _overviewPopup.GetComponent<OverviewPopup>().Initialize(stageId);
             } else {

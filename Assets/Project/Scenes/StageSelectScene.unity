@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 1052226764}
   - component: {fileID: 1052226763}
   m_Layer: 5
-  m_Name: PopupBackground
+  m_Name: OverviewPopupBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
