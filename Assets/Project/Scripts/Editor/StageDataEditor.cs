@@ -103,7 +103,7 @@ public class StageDataEditor : Editor
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
                                             selected: (ECartridgeDirection)directionProp.intValue,
-                                            checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random,　// ランダムは選択不能にする
+                                            checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random, // ランダムは選択不能にする
                                             includeObsolete: false
                                         );
 
@@ -173,8 +173,8 @@ public class StageDataEditor : Editor
                                     DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnDirection"));
                                     DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnRow"));
                                     DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnColumn"));
-                                break;
-                            }
+                                    break;
+                                }
 
                         }
                     }

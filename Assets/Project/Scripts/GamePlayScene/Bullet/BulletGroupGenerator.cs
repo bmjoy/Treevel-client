@@ -103,8 +103,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                     bulletData.randomTurnDirection.ToArray(),
                                     bulletData.randomRow.ToArray(),
                                     bulletData.randomColumn.ToArray()
-                            ));
-                        break;
+                                ));
+                            break;
                     }
                 }
                 coroutines.Add(CreateBulletGroup(
