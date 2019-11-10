@@ -19,7 +19,7 @@ namespace Project.Scripts.Utils.Definitions
         LevelSecond,     // レベル2
         LevelThird,      // レベル3
         LevelFourth,     // レベル4
-        Turorial,        // チュートリアル
+        Tutorial,        // チュートリアル
         GameTweet,       // ゲーム結果のツイート
         GamePause,       // ゲーム一時停止
         GamePauseBack,   // ゲームの再開
