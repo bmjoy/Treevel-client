@@ -16,8 +16,8 @@ namespace Project.Scripts.ConfigScene
         {
             _doNotShowToggle = GetComponent<Toggle>();
             _doNotShowToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsKeys.DO_NOT_SHOW, 0) == 1;
-            _doNotShowToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
-                ToggleValueChanged(_doNotShowToggle.GetComponent<Toggle>());
+            _doNotShowToggle.onValueChanged.AddListener(delegate {
+                ToggleValueChanged(_doNotShowToggle);
             });
         }
 
