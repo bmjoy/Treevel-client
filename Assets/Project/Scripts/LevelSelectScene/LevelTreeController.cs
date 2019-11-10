@@ -33,8 +33,9 @@ namespace Project.Scripts.LevelSelectScene
 
         public void HandleTap(object sender, EventArgs e)
         {
-            print(this.name);
             StageSelectDirector.levelName = _level-1;
+            // StageSelect Toggle に結びつけるSceneを変更する
+            GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>().SetSceneName(SceneName.STAGE_SELECT_SCENE);
             SceneManager.UnloadSceneAsync(SceneName.LEVEL_SELECT_SCENE);
             StartCoroutine(MenuSelectDirector.Instance.ChangeScene(SceneName.STAGE_SELECT_SCENE));
         }

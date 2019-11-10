@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene
 {
-    public class MenuSelectToggle : Toggle
+    public class TransitionSelfToggle : MenuSelectToggle
     {
+        private string _tiedScene;
+
         protected override void Awake()
         {
             base.Awake();
-            onValueChanged.AddListener(delegate {
-                ToggleValueChanged(gameObject);
-            });
+            _tiedScene = SceneName.LEVEL_SELECT_SCENE;
         }
 
         /// <summary>
@@ -30,15 +30,13 @@ namespace Project.Scripts.MenuSelectScene
             // ONになった場合のみ処理
             if (isOn) {
                 // 現在チェックされている Toggle を取得
-                // LevelSelectSceneの時はStageSelect Toggleを選択する
                 var nowScene = MenuSelectDirector.Instance.NowScene;
-                if (nowScene == SceneName.LEVEL_SELECT_SCENE) nowScene = SceneName.STAGE_SELECT_SCENE;
                 var checkedToggle = GameObject.Find(nowScene.Replace("Scene", ""));
 
                 if (checkedToggle != null) {
-                    checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
+                    if (nowScene != SceneName.STAGE_SELECT_SCENE) checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
                     // 今のシーンをアンロード
-                    SceneManager.UnloadSceneAsync(checkedToggle.GetComponent<MenuSelectToggle>().GetSceneName());
+                    SceneManager.UnloadSceneAsync(nowScene);
                     // 新しいシーンをロード
                     StartCoroutine(MenuSelectDirector.Instance.ChangeScene(GetSceneName()));
                 }
@@ -55,17 +53,28 @@ namespace Project.Scripts.MenuSelectScene
 
             if (!IsActive() || !IsInteractable())
                 return;
-
+            
+            // StageSelctSceneにある時のみ、再度押すとLevelSelectSceneに遷移する
+            if (isOn && _tiedScene == SceneName.STAGE_SELECT_SCENE) {
+                _tiedScene = SceneName.LEVEL_SELECT_SCENE;
+                isOn = true;
+                ToggleValueChanged(gameObject);
+            }
             // ON 状態のものを OFF にすることは許さない
-            if (!isOn) isOn = true;
+            else if (!isOn) isOn = true;
         }
 
+
         /// <summary>
-        /// Toggleに紐づいているscene nameを返す
+        /// Toggleに紐づいているscene nameを返す(Toggle nameと必ずしも一致しない)
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetSceneName() {
-            return name + "Scene";
+        protected override string GetSceneName() {
+            return _tiedScene;
+        }
+
+        public void SetSceneName(string sceneName) {
+            _tiedScene = sceneName;
         }
     }
 }
