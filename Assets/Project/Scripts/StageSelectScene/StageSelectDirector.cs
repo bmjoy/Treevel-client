@@ -58,7 +58,7 @@ namespace Project.Scripts.StageSelectScene
             _popupWindow = GameObject.Find("PopupWindow");
 
             // ポップアップ背景を非表示にする
-            _popupBackground = GameObject.Find("DummyBackground");
+            _popupBackground = GameObject.Find("PopupBackground");
             _popupBackground.GetComponent<Button>().onClick.AddListener(() => _popupBackground.SetActive(false));
             _popupBackground.SetActive(false);
 

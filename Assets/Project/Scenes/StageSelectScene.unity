@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 1052226764}
   - component: {fileID: 1052226763}
   m_Layer: 5
-  m_Name: DummyBackground
+  m_Name: PopupBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2036,7 +2036,7 @@ PrefabInstance:
     - target: {fileID: 3585425056827976463, guid: c69d8a8760be44426bfdd6805ded5f74,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3585425056827976463, guid: c69d8a8760be44426bfdd6805ded5f74,
         type: 3}
