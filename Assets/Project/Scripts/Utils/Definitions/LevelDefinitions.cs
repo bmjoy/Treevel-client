@@ -16,8 +16,21 @@ namespace Project.Scripts.Utils.Definitions
     public static class LevelInfo
     {
         /// <summary>
+        /// 各レベルの木の種類数
+        /// </summary>
+        public static readonly Dictionary<ELevelName, int> TreeNum = new Dictionary<ELevelName, int>()
+        {
+            {ELevelName.Easy, 2},
+            {ELevelName.Normal, 1},
+            {ELevelName.Hard, 1},
+            {ELevelName.VeryHard, 1}
+        };
+
+        /// <summary>
         /// ステージ数
         /// </summary>
+        /// TODO: StageSelectSceneで木に応じたステージ数を表示するときは使っていない
+        ///       RecordSceneで使っているので残しているが、将来的にはTreeDefinition.TreeInfo.Numを使う
         public static readonly Dictionary<ELevelName, int> Num = new Dictionary<ELevelName, int>()
         {
             {ELevelName.Easy, 10},
@@ -29,6 +42,8 @@ namespace Project.Scripts.Utils.Definitions
         /// <summary>
         /// ステージ id の開始値
         /// </summary>
+        /// TODO: 今後、StageStartIdから一意にステージを選択するのではなく、
+        ///       (LevelId, TreeId, StageId)の組で一意にステージを選択する
         public static readonly Dictionary<ELevelName, int> StageStartId = new Dictionary<ELevelName, int>()
         {
             {ELevelName.Easy, 1},
