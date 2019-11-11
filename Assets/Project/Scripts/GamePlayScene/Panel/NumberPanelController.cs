@@ -116,7 +116,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             if (other.gameObject.transform.position.z < 0) return;
 
             // 失敗演出
-            _anim.Play(_deadAnimation.name, PlayMode.StopAll);
+            _anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
 
             // 自身が破壊された
             _dead = true;
