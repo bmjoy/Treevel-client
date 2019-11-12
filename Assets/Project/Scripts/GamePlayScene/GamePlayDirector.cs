@@ -366,7 +366,10 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void ShareButtonDown()
         {
-            StartCoroutine(Share());
+            // Unity エディタ上では実行しない
+            #if !UNITY_EDITOR
+                StartCoroutine(Share());
+            #endif
         }
 
         private IEnumerator Share()
