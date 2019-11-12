@@ -368,7 +368,7 @@ namespace Project.Scripts.GamePlayScene
         {
             // Unity エディタ上では実行しない
             #if !UNITY_EDITOR
-                StartCoroutine(Share());
+            StartCoroutine(Share());
             #endif
         }
 
