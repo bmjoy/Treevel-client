@@ -43,7 +43,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                 --_currentLife;
                 if (_currentLife <= 0) {
                     // 失敗演出
-                    _anim.Play(_deadAnimation.name, PlayMode.StopAll);
+                    _anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
 
                     // 自身が破壊された
                     _dead = true;
@@ -53,10 +53,10 @@ namespace Project.Scripts.GamePlayScene.Panel
                 } else if (_currentLife == 1) {
                     // ループさせて危機感っぽい
                     _anim.wrapMode = WrapMode.Loop;
-                    _anim.Play(_attackedAnimation.name, PlayMode.StopAll);
+                    _anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTCKED, PlayMode.StopAll);
                 } else {
                     _anim.clip = _attackedAnimation;
-                    _anim.Play(_attackedAnimation.name, PlayMode.StopAll);
+                    _anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTCKED, PlayMode.StopAll);
                 }
             }
         }
