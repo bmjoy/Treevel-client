@@ -96,8 +96,8 @@ public class StageDataEditor : Editor
                         SerializedProperty directionProp = bulletDataProp.FindPropertyRelative("direction");
                         SerializedProperty lineProp = bulletDataProp.FindPropertyRelative("line");
                         bulletTypeProp.enumValueIndex = (int)(EBulletType)EditorGUILayout.EnumPopup(
-                                label:new GUIContent("Type"), 
-                                selected:(EBulletType)bulletTypeProp.enumValueIndex, 
+                                label: new GUIContent("Type"),
+                                selected: (EBulletType)bulletTypeProp.enumValueIndex,
                                 checkEnabled: (eType) => (int)(EBulletType)eType < (int)EBulletType.NormalHole, // TODO: 実装したら外す
                                 includeObsolete: false
                             );
