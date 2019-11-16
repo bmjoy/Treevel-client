@@ -16,7 +16,7 @@ namespace Project.Scripts.LevelSelectScene
         /// <summary>
         /// 木のレベル
         /// </summary>
-        [SerializeField] private ELevelName _level;
+        [SerializeField] private ELevelName _levelName;
 
         /// <summary>
         /// 木のId
@@ -38,7 +38,7 @@ namespace Project.Scripts.LevelSelectScene
 
         public void HandleTap(object sender, EventArgs e)
         {
-            StageSelectDirector.levelName = _level;
+            StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
             // StageSelect Toggle に結びつけるSceneを変更する
             GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>().SetSceneName(SceneName.STAGE_SELECT_SCENE);
