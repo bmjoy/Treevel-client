@@ -18,6 +18,7 @@ namespace Project.Scripts.Utils.Definitions
         /// <summary>
         /// 各レベルの木の種類数
         /// </summary>
+        /// TODO: 実際にある各レベルの木の数で決める
         public static readonly Dictionary<ELevelName, int> TreeNum = new Dictionary<ELevelName, int>()
         {
             {ELevelName.Easy, 2},

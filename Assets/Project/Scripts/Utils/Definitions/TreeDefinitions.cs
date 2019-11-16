@@ -19,6 +19,7 @@ namespace Project.Scripts.Utils.Definitions
         /// <summary>
         /// ステージ数
         /// </summary>
+        /// TODO: 実際にある木のステージ数で決める
         public static readonly Dictionary<ETreeName, int> Num = new Dictionary<ETreeName, int>()
         {
             {ETreeName.CherryBlossom, 10},
