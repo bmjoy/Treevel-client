@@ -6,19 +6,9 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public class GamePausePopup : MonoBehaviour
+    public class Pause : MonoBehaviour
     {
         private GamePlayDirector _gamePlayDirector;
-
-        /// <summary>
-        /// ゲーム再開ボタン
-        /// </summary>
-        private GameObject _backButton;
-
-        /// <summary>
-        /// ゲーム終了ボタン
-        /// </summary>
-        private GameObject _quitButton;
 
         /// <summary>
         /// 一時停止ボタン
@@ -30,12 +20,22 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private GameObject _pauseBackground;
 
+        /// <summary>
+        /// ゲーム再開ボタン
+        /// </summary>
+        private GameObject _backButton;
+
+        /// <summary>
+        /// ゲーム終了ボタン
+        /// </summary>
+        private GameObject _quitButton;
+
         void Awake()
         {
-            _backButton = transform.Find("PauseBackButton").gameObject;
-            _quitButton = transform.Find("PauseQuitButton").gameObject;
             _pauseButton = GameObject.Find("PauseButton").gameObject;
-            _pauseBackground = GameObject.Find("PauseBackground").gameObject;
+            _pauseBackground = transform.Find("PauseBackground").gameObject;
+            _backButton = transform.Find("PausePopup/PauseBackButton").gameObject;
+            _quitButton = transform.Find("PausePopup/PauseQuitButton").gameObject;
             _backButton.GetComponent<Button>().onClick.AddListener(PauseBackButtonDown);
             _quitButton.GetComponent<Button>().onClick.AddListener(PauseQuitButtonDown);
         }
@@ -54,8 +54,6 @@ namespace Project.Scripts.GamePlayScene
             _pauseButton.SetActive(true);
             // 一時停止ポップアップを非表示にする
             gameObject.SetActive(false);
-            // 一時停止背景を非表示にする
-            _pauseBackground.SetActive(false);
             // ゲーム内の時間を元に戻す
             Time.timeScale = 1.0f;
             // ゲームプレイ状態に遷移する
