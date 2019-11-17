@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
-
+using Project.Scripts.GameDatas;
+using System.Linq;
 namespace Project.Scripts.GamePlayScene.Bullet
 {
     public class BulletGroupGenerator : SingletonObject<BulletGroupGenerator>
@@ -66,6 +67,56 @@ namespace Project.Scripts.GamePlayScene.Bullet
             startTime = Time.time;
         }
 
+        public List<IEnumerator> CreateBulletGroups(ICollection<BulletGroupData> bulletGroupList)
+        {
+            var coroutines = new List<IEnumerator>();
+            foreach (var bulletGroup in bulletGroupList) {
+                List<GameObject> bulletList = new List<GameObject>();
+                foreach (var bulletData in bulletGroup.bullets) {
+                    switch (bulletData.type) {
+                        case EBulletType.RandomNormalCartridge:
+                        case EBulletType.NormalCartridge:
+                            bulletList.Add(this.CreateNormalCartridgeGenerator(
+                                    bulletData.ratio,
+                                    bulletData.direction,
+                                    bulletData.line,
+                                    bulletData.randomCartridgeDirection.ToArray(),
+                                    bulletData.randomRow.ToArray(),
+                                    bulletData.randomColumn.ToArray()
+                                ));
+                            break;
+                        case EBulletType.TurnCartridge:
+                            bulletList.Add(this.CreateTurnCartridgeGenerator(
+                                    bulletData.ratio,
+                                    bulletData.direction,
+                                    bulletData.line,
+                                    bulletData.turnDirections.Cast<int>().ToArray(),  // map ECartridgeDirection to int
+                                    bulletData.turnLines.ToArray()
+                                ));
+                            break;
+                        case EBulletType.RandomTurnCartridge:
+                            bulletList.Add(this.CreateRandomTurnCartridgeGenerator(
+                                    bulletData.ratio,
+                                    bulletData.randomCartridgeDirection.ToArray(),
+                                    bulletData.randomRow.ToArray(),
+                                    bulletData.randomColumn.ToArray(),
+                                    bulletData.randomTurnDirection.ToArray(),
+                                    bulletData.randomRow.ToArray(),
+                                    bulletData.randomColumn.ToArray()
+                                ));
+                            break;
+                    }
+                }
+                coroutines.Add(CreateBulletGroup(
+                        bulletGroup.appearTime,
+                        bulletGroup.interval,
+                        bulletGroup.loop,
+                        bulletList
+                    ));
+            }
+            return coroutines;
+        }
+
         /// <summary>
         /// BulletGroupの生成
         /// </summary>
@@ -98,6 +149,46 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 全てのBulletGroupを停止させる
             StopAllCoroutines();
+        }
+
+        /// <summary>
+        /// NormalCartridge、RandomNormalCartridgeのジェネレーターを生成する共通メソッド
+        /// <see cref="NormalCartridgeGenerator.Initialize(int, ECartridgeDirection, int, int[], int[], int[])"/>
+        /// </summary>
+        /// <param name="ratio"></param>
+        /// <param name="cartridgeDirection"></param>
+        /// <param name="line"></param>
+        /// <param name="randomCartridgeDirection"></param>
+        /// <param name="randomRow"></param>
+        /// <param name="randomColumn"></param>
+        /// <returns></returns>
+        public GameObject CreateNormalCartridgeGenerator(
+            int ratio,
+            ECartridgeDirection cartridgeDirection,
+            int line,
+            int[] randomCartridgeDirection,
+            int[] randomRow,
+            int[] randomColumn
+        )
+        {
+            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
+            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
+            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, randomCartridgeDirection, randomRow, randomColumn);
+            return cartridgeGenerator;
+        }
+
+        public GameObject CreateTurnCartridgeGenerator(
+            int ratio,
+            ECartridgeDirection cartridgeDirection,
+            int line,
+            int[] turnDirection,
+            int[] turnLine
+        )
+        {
+            var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
+            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
+            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, turnDirection, turnLine);
+            return cartridgeGenerator;
         }
 
         /// <summary>

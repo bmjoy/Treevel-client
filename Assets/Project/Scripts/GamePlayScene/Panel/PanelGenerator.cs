@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
+using static Project.Scripts.GameDatas.StageData;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
@@ -57,6 +60,36 @@ namespace Project.Scripts.GamePlayScene.Panel
             };
 
             _tileGenerator = FindObjectOfType<TileGenerator>();
+        }
+
+        public void CreatePanels(ICollection<PanelData> panelDatas)
+        {
+            foreach (PanelData panelData in panelDatas) {
+                switch (panelData.type) {
+                    case EPanelType.Number:
+                        // 数字タイルの作成
+                        _tileGenerator.CreateNumberTile(panelData.number, panelData.targetPos);
+                        break;
+                }
+            }
+
+            // _tileGenerator.MakeRelations();
+            _tileGenerator.CreateNormalTiles();
+
+            foreach (PanelData panelData in panelDatas) {
+                switch (panelData.type) {
+                    case EPanelType.Number:
+                        var panel = Instantiate(_numberPanelPrefabs[panelData.number - 1]);
+                        panel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
+                        break;
+                    case EPanelType.Dynamic:
+                        CreateDynamicDummyPanel(panelData.initPos);
+                        break;
+                    case EPanelType.Static:
+                        CreateStaticDummyPanel(panelData.initPos);
+                        break;
+                }
+            }
         }
 
         /// <summary>

@@ -47,6 +47,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         private int[] _randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
+
+        public void Initialize(
+                int ratio,
+                ECartridgeDirection direction,
+                int line,
+                int[] turnDirection,
+                int[] turnLine)
+        {
+            Initialize(ratio, direction, line);
+            this._turnDirection = turnDirection;
+            this._turnLine = turnLine;
+        }
         /// <summary>
         /// 特定の行を移動し、特定の列で特定の方向に曲がるTurnHoleを生成するGeneratorの初期化
         /// </summary>
