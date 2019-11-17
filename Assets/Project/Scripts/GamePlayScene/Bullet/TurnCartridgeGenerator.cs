@@ -20,6 +20,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
         [SerializeField] private GameObject _turnCartridgeWarningPrefab;
 
         /// <summary>
+        /// 銃弾が生成されてから動き始めるまでのフレーム数
+        /// </summary>
+        public static int TURN_CARTRIDGE_WAITING_FRAMES;
+
+        /// <summary>
         /// 曲がる方向
         /// </summary>
         [CanBeNull] private int[] _turnDirection = null;
@@ -47,18 +52,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         private int[] _randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
-
-        public void Initialize(
-                int ratio,
-                ECartridgeDirection direction,
-                int line,
-                int[] turnDirection,
-                int[] turnLine)
+        protected override void Awake() {
+            base.Awake();
+            TURN_CARTRIDGE_WAITING_FRAMES = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
+        }
+        
+        public void Initialize(int ratio, ECartridgeDirection direction, int line, int[] turnDirection, int[] turnLine)
         {
             Initialize(ratio, direction, line);
             this._turnDirection = turnDirection;
             this._turnLine = turnLine;
         }
+
         /// <summary>
         /// 特定の行を移動し、特定の列で特定の方向に曲がるTurnHoleを生成するGeneratorの初期化
         /// </summary>
@@ -144,10 +149,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
             var bulletMotionVector =
                 warningScript.Initialize(ECartridgeType.Turn, nextCartridgeDirection, nextCartridgeLine);
 
-            // 警告の表示時間だけ待つ
-            for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
-            // 警告を削除する
-            Destroy(warning);
+            // 銃弾を生成するまで待つ
+            for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES - TURN_CARTRIDGE_WAITING_FRAMES; index++) yield return new WaitForFixedUpdate();
 
             // ゲームが続いているなら銃弾を作成する
             if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
@@ -179,6 +182,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
 
                 // 同レイヤーのオブジェクトの描画順序の制御
                 cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
+
+                // 警告を削除する
+                for (int index = 0; index < TURN_CARTRIDGE_WAITING_FRAMES; index++) yield return new WaitForFixedUpdate();
+                Destroy(warning);
             }
         }
 
