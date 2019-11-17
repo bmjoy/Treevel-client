@@ -52,7 +52,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 警告表示後から銃弾が警告座標に到達するフレーム数
         /// </summary>
-        private const int _RUNNING_FRAME = 30;
+        private const int _RUNNING_FRAMES = 30;
 
         /// <summary>
         /// 回転中の銃弾の速さ (円周(= 回転半径 * 2 * pi)の4分の1をフレーム数で割る)
@@ -222,7 +222,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する
             Destroy(_warning);
-            for (var index = 0; index < _RUNNING_FRAME; index++) yield return new WaitForFixedUpdate();
+            for (var index = 0; index < _RUNNING_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 銃弾を回転させる
             StartCoroutine(RotateCartridge(turnAngle));
             yield break;
