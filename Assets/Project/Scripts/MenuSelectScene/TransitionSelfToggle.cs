@@ -21,7 +21,7 @@ namespace Project.Scripts.MenuSelectScene
         /// トグルの状態が変更した場合の処理
         /// </summary>
         /// <param name="toggle"> 変更したトグル </param>
-        protected virtual void ToggleValueChanged(GameObject toggle)
+        protected override void ToggleValueChanged(GameObject toggle)
         {
             #if UNITY_EDITOR
             if (!EditorApplication.isPlaying) return;
