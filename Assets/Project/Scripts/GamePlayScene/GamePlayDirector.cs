@@ -78,7 +78,7 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _warningText;
 
         /// <summary>
-        /// 一時停止ウィンドウ
+        /// 一時停止ポップアップ
         /// </summary>
         private GameObject _pausePopup;
 
@@ -258,7 +258,7 @@ namespace Project.Scripts.GamePlayScene
             // 結果ウィンドウを非表示
             _resultWindow.SetActive(false);
 
-            // 一時停止ウィンドウを非表示
+            // 一時停止ポップアップを非表示
             _pausePopup.SetActive(false);
             // 一時停止背景を非表示
             _pauseBackground.SetActive(false);
@@ -324,7 +324,7 @@ namespace Project.Scripts.GamePlayScene
             Time.timeScale = 0.0f;
             // 一時停止ボタンを無効にする
             _pauseButton.SetActive(false);
-            // 一時停止ウィンドウを表示する
+            // 一時停止ポップアップを表示する
             _pausePopup.SetActive(true);
             // 一時停止背景を表示する
             _pauseBackground.SetActive(true);
@@ -465,7 +465,7 @@ namespace Project.Scripts.GamePlayScene
                 }
                 // 結果ウィンドウの大きさを変える
                 _resultWindow.transform.localScale = new Vector2(ratio, ratio);
-                // 一時停止ウィンドウの大きさを変える
+                // 一時停止ポップアップの大きさを変える
                 _pausePopup.transform.localScale = new Vector2(ratio, ratio);
             }
         }

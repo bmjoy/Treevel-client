@@ -52,7 +52,7 @@ namespace Project.Scripts.GamePlayScene
         {
             // 一時停止ボタンを有効にする
             _pauseButton.SetActive(true);
-            // 一時停止ウィンドウを非表示にする
+            // 一時停止ポップアップを非表示にする
             gameObject.SetActive(false);
             // 一時停止背景を非表示にする
             _pauseBackground.SetActive(false);
