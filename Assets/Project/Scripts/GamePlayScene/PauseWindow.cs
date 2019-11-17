@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public class Pause : MonoBehaviour
+    public class PauseWindow : MonoBehaviour
     {
         private GamePlayDirector _gamePlayDirector;
 
@@ -52,7 +52,7 @@ namespace Project.Scripts.GamePlayScene
         {
             // 一時停止ボタンを有効にする
             _pauseButton.SetActive(true);
-            // 一時停止ポップアップを非表示にする
+            // 一時停止ウィンドウを非表示にする
             gameObject.SetActive(false);
             // ゲーム内の時間を元に戻す
             Time.timeScale = 1.0f;
