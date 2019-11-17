@@ -405,37 +405,6 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// ゲーム再開ボタン押下時の処理
-        /// </summary>
-        public void PauseBackButtonDown()
-        {
-            // 一時停止ボタンを有効にする
-            _pauseButton.SetActive(true);
-            // 一時停止ウィンドウを非表示にする
-            _pauseWindow.SetActive(false);
-            // 一時停止背景を非表示にする
-            _pauseBackground.SetActive(false);
-            // ゲーム内の時間を元に戻す
-            Time.timeScale = 1.0f;
-            // ゲームプレイ状態に遷移する
-            Dispatch(EGameState.Playing);
-        }
-
-        /// <summary>
-        /// ゲームを諦めるボタン押下時の処理
-        /// </summary>
-        public void PauseQuitButtonDown()
-        {
-            // 失敗回数をインクリメント
-            var ss = StageStatus.Get(GamePlayDirector.stageId);
-            ss.IncFailureNum(GamePlayDirector.stageId);
-            // ゲーム内の時間を元に戻す
-            Time.timeScale = 1.0f;
-            // StageSelectSceneに戻る
-            SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
-        }
-
-        /// <summary>
         /// タイル・パネル・銃弾オブジェクトの削除
         /// </summary>
         private static void CleanObject()
