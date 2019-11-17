@@ -342,15 +342,6 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// 戻るボタン押下時の処理
-        /// </summary>
-        public void BackButtonDown()
-        {
-            // StageSelectSceneに戻る
-            SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
-        }
-
-        /// <summary>
         /// 投稿ボタン押下時の処理
         /// </summary>
         public void ShareButtonDown()
