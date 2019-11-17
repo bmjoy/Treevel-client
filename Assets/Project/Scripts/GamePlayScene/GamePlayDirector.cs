@@ -20,7 +20,7 @@ namespace Project.Scripts.GamePlayScene
         private const string RESULT_NAME = "Result";
         private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
-        private const string PAUSE_WINDOW_NAME = "PauseWindow";
+        private const string PAUSE_POPUP_NAME = "PausePopup";
         private const string PAUSE_BACKGROUND = "PauseBackground";
         private const string PAUSE_BUTTON_NAME = "PauseButton";
 
@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 一時停止ウィンドウ
         /// </summary>
-        private GameObject _pauseWindow;
+        private GameObject _pausePopup;
 
         /// <summary>
         /// 一時停止中の背景
@@ -127,7 +127,7 @@ namespace Project.Scripts.GamePlayScene
 
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
-            _pauseWindow = GameObject.Find(PAUSE_WINDOW_NAME);
+            _pausePopup = GameObject.Find(PAUSE_POPUP_NAME);
             _pauseBackground = GameObject.Find(PAUSE_BACKGROUND);
             _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
 
@@ -259,7 +259,7 @@ namespace Project.Scripts.GamePlayScene
             _resultWindow.SetActive(false);
 
             // 一時停止ウィンドウを非表示
-            _pauseWindow.SetActive(false);
+            _pausePopup.SetActive(false);
             // 一時停止背景を非表示
             _pauseBackground.SetActive(false);
             // 一時停止ボタンを有効にする
@@ -325,7 +325,7 @@ namespace Project.Scripts.GamePlayScene
             // 一時停止ボタンを無効にする
             _pauseButton.SetActive(false);
             // 一時停止ウィンドウを表示する
-            _pauseWindow.SetActive(true);
+            _pausePopup.SetActive(true);
             // 一時停止背景を表示する
             _pauseBackground.SetActive(true);
         }
@@ -466,7 +466,7 @@ namespace Project.Scripts.GamePlayScene
                 // 結果ウィンドウの大きさを変える
                 _resultWindow.transform.localScale = new Vector2(ratio, ratio);
                 // 一時停止ウィンドウの大きさを変える
-                _pauseWindow.transform.localScale = new Vector2(ratio, ratio);
+                _pausePopup.transform.localScale = new Vector2(ratio, ratio);
             }
         }
 
