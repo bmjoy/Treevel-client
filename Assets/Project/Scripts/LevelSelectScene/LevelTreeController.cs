@@ -1,16 +1,13 @@
-﻿using System;
-using Project.Scripts.MenuSelectScene;
+﻿using Project.Scripts.MenuSelectScene;
 using Project.Scripts.StageSelectScene;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using TouchScript.Gestures;
+using UnityEngine.UI;
 
 namespace Project.Scripts.LevelSelectScene
 {
-    [RequireComponent(typeof(BoxCollider2D))]
-    [RequireComponent(typeof(TapGesture))]
+    [RequireComponent(typeof(Button))]
     public class LevelTreeController : MonoBehaviour
     {
         /// <summary>
@@ -23,20 +20,11 @@ namespace Project.Scripts.LevelSelectScene
         /// </summary>
         [SerializeField] private ETreeName _treeId;
 
-        private BoxCollider2D _collider;
-        private float _originalWidth;
-        private float _originalHeight;
-
         void Awake() {
-            _collider = GetComponent<BoxCollider2D>();
-            // 元々の画像サイズの取得
-            _originalWidth = GetComponent<SpriteRenderer>().size.x;
-            _originalHeight = GetComponent<SpriteRenderer>().size.y;
-            // colliderの大きさを画像サイズに合わせる
-            gameObject.GetComponent<BoxCollider2D>().size = new Vector2(_originalHeight, _originalWidth);
+            gameObject.GetComponent<Button>().onClick.AddListener(TreeButtonDown);
         }
 
-        public void HandleTap(object sender, EventArgs e)
+        public void TreeButtonDown()
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
@@ -44,16 +32,6 @@ namespace Project.Scripts.LevelSelectScene
             GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>().SetSceneName(SceneName.STAGE_SELECT_SCENE);
             SceneManager.UnloadSceneAsync(SceneName.LEVEL_SELECT_SCENE);
             StartCoroutine(MenuSelectDirector.Instance.ChangeScene(SceneName.STAGE_SELECT_SCENE));
-        }
-
-        private void OnEnable()
-        {
-            GetComponent<TapGesture>().Tapped += HandleTap;
-        }
-
-        private void OnDisable()
-        {
-            GetComponent<TapGesture>().Tapped -= HandleTap;
         }
     }
 }
