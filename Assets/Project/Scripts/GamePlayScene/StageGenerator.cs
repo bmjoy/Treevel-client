@@ -311,36 +311,6 @@ namespace Project.Scripts.GamePlayScene
                     panelGenerator.CreateDynamicDummyPanel(initialTileNum: 3);
                     panelGenerator.CreateStaticDummyPanel(initialTileNum: 15);
                     break;
-                case 1004:
-                // 銃弾実体生成
-                    // TurnCartridgeを生成する
-                    coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
-                            appearanceTime: 1.0f,
-                            interval: 5.0f,
-                            loop: true,
-                    bulletGenerators: new List<GameObject>() {
-                        bulletGroupGenerator.CreateTurnCartridgeGenerator(ratio: 100,
-                            cartridgeDirection: ECartridgeDirection.ToLeft, row: ERow.First,
-                            turnDirection: new int[] {(int) ECartridgeDirection.ToBottom, (int) ECartridgeDirection.ToLeft, (int) ECartridgeDirection.ToUp, (int) ECartridgeDirection.ToLeft},
-                            turnLine: new int[] {(int) EColumn.Right, (int) ERow.Second, (int) EColumn.Left, (int) ERow.First})
-                    }));
-                    /* 特殊タイル -> 数字パネル -> 特殊パネル */
-                    // 特殊タイル作成
-                    tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
-                    // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
-                    new List<Dictionary<string, int>>() {
-                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 7, finalTileNum: 4),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 8, finalTileNum: 5),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 9, finalTileNum: 6),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 10, finalTileNum: 7),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 11, finalTileNum: 8),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 12, finalTileNum: 9),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 13, finalTileNum: 10),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
-                    }
-                    );
-                    break;
                 default:
                     throw new NotImplementedException();
             }
