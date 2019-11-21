@@ -16,8 +16,6 @@ namespace Project.Scripts.GamePlayScene
     public class GamePlayDirector : MonoBehaviour
     {
         private const string RESULT_WINDOW_NAME = "ResultPopup";
-        private const string SHARE_BUTTON_NAME = "ResultShareButton";
-        private const string RESULT_NAME = "ResultTitle";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string PAUSE_WINDOW_NAME = "PauseWindow";
         private const string PAUSE_BUTTON_NAME = "PauseButton";
@@ -66,11 +64,6 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _resultWindow;
 
         /// <summary>
-        /// 結果ウィンドウ上の結果用テキスト
-        /// </summary>
-        private GameObject _resultText;
-
-        /// <summary>
         /// 一時停止ウィンドウ
         /// </summary>
         private GameObject _pauseWindow;
@@ -79,11 +72,6 @@ namespace Project.Scripts.GamePlayScene
         /// 一時停止ボタン
         /// </summary>
         private GameObject _pauseButton;
-
-        /// <summary>
-        /// 投稿ボタン
-        /// </summary>
-        private GameObject _shareButton;
 
         /// <summary>
         /// ステージ id 表示用のテキスト
@@ -108,9 +96,6 @@ namespace Project.Scripts.GamePlayScene
         private void Awake()
         {
             _resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
-            _shareButton = GameObject.Find(SHARE_BUTTON_NAME);
-
-            _resultText = _resultWindow.transform.Find(RESULT_NAME).gameObject;
 
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
@@ -269,15 +254,14 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private void GameSucceed()
         {
-            if (OnSucceed != null) OnSucceed();
             EndProcess();
             _successAudioSource.Play();
-            _resultText.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameSuccess;
             var ss = StageStatus.Get(stageId);
             // クリア済みにする
             ss.ClearStage(stageId);
             // 成功回数をインクリメント
             ss.IncSuccessNum(stageId);
+            OnSucceed?.Invoke();
         }
 
         /// <summary>
@@ -285,15 +269,12 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private void GameFail()
         {
-            if (OnFail != null) OnFail();
             EndProcess();
-            _resultText.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameFailure;
             _failureAudioSource.Play();
-            // 失敗時は投稿ボタンを表示しない
-            _shareButton.SetActive(false);
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);
             ss.IncFailureNum(stageId);
+            OnFail?.Invoke();
         }
 
         /// <summary>
@@ -318,61 +299,6 @@ namespace Project.Scripts.GamePlayScene
             _resultWindow.SetActive(true);
             // 一時停止ボタンを無効にする
             _pauseButton.SetActive(false);
-        }
-
-        /// <summary>
-        /// リトライボタン押下時の処理
-        /// </summary>
-        public void RetryButtonDown()
-        {
-            // 挑戦回数をインクリメント
-            var ss = StageStatus.Get(stageId);
-            ss.IncChallengeNum(stageId);
-            Dispatch(EGameState.Opening);
-        }
-
-        /// <summary>
-        /// 戻るボタン押下時の処理
-        /// </summary>
-        public void BackButtonDown()
-        {
-            // StageSelectSceneに戻る
-            SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
-        }
-
-        /// <summary>
-        /// 投稿ボタン押下時の処理
-        /// </summary>
-        public void ShareButtonDown()
-        {
-            // Unity エディタ上では実行しない
-            #if !UNITY_EDITOR
-            StartCoroutine(Share());
-            #endif
-        }
-
-        private IEnumerator Share()
-        {
-            // 投稿用のテキスト
-            var text = "ステージ" + stageId + "番を" + _resultText.GetComponent<Text>().text;
-            // URL 用に加工
-            text = UnityWebRequest.EscapeURL(text);
-
-            // 投稿用のハッシュタグ
-            var hashTags = "NumberBullet,ナンバレ";
-            hashTags = UnityWebRequest.EscapeURL(hashTags);
-
-            // スクリーンショットを撮る
-            const string imgPath = "Assets/StreamingAssets/SuccessScreenShot.png";
-            ScreenCapture.CaptureScreenshot(imgPath);
-
-            // スクリーンショットが保存されるのを待つ
-            while (!File.Exists(imgPath)) {
-                yield return null;
-            }
-
-            // シェア画面へ
-            SocialConnector.SocialConnector.Share(text, "", imgPath);
         }
 
         /// <summary>
