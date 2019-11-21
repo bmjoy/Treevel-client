@@ -18,7 +18,6 @@ namespace Project.Scripts.GamePlayScene
         private const string RESULT_WINDOW_NAME = "ResultWindow";
         private const string SHARE_BUTTON_NAME = "ResultShareButton";
         private const string RESULT_NAME = "Result";
-        private const string WARNING_NAME = "Warning";
         private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string PAUSE_WINDOW_NAME = "PauseWindow";
         private const string PAUSE_BUTTON_NAME = "PauseButton";
@@ -72,11 +71,6 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _resultText;
 
         /// <summary>
-        /// 結果ウィンドウ上の警告用テキスト
-        /// </summary>
-        private GameObject _warningText;
-
-        /// <summary>
         /// 一時停止ウィンドウ
         /// </summary>
         private GameObject _pauseWindow;
@@ -117,7 +111,6 @@ namespace Project.Scripts.GamePlayScene
             _shareButton = GameObject.Find(SHARE_BUTTON_NAME);
 
             _resultText = _resultWindow.transform.Find(RESULT_NAME).gameObject;
-            _warningText = _resultWindow.transform.Find(WARNING_NAME).gameObject;
 
             _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
 
@@ -255,9 +248,6 @@ namespace Project.Scripts.GamePlayScene
             _pauseWindow.SetActive(false);
             // 一時停止ボタンを有効にする
             _pauseButton.SetActive(true);
-
-            // 警告ウィンドウを非表示
-            _warningText.SetActive(false);
 
             // 番号に合わせたステージの作成
             StageGenerator.CreateStages(stageId);
