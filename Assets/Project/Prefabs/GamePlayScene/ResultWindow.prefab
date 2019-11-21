@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 5723118930346447772}
   - component: {fileID: 5723118930346447773}
   m_Layer: 5
-  m_Name: Result
+  m_Name: ResultTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ PrefabInstance:
     - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
       propertyPath: m_Name
-      value: RetryButton
+      value: ResultRetryButton
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
       propertyPath: m_Name
-      value: ShareButton
+      value: ResultShareButton
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
@@ -455,7 +455,7 @@ PrefabInstance:
     - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
       propertyPath: m_Name
-      value: BackButton
+      value: ResultBackButton
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
