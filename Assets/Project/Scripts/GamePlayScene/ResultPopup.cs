@@ -95,7 +95,6 @@ namespace Project.Scripts.GamePlayScene
             SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
 
-
         /// <summary>
         /// 投稿ボタン押下時の処理
         /// </summary>
