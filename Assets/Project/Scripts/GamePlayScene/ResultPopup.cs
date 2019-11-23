@@ -54,11 +54,13 @@ namespace Project.Scripts.GamePlayScene
         private void OnEnable()
         {
             GamePlayDirector.OnSucceed += OnSucceed;
+            GamePlayDirector.OnFail += OnFail;
         }
 
         private void OnDisable()
         {
-            GamePlayDirector.OnFail += OnFail;
+            GamePlayDirector.OnSucceed -= OnSucceed;
+            GamePlayDirector.OnFail -= OnFail;
         }
 
         private void OnSucceed()
