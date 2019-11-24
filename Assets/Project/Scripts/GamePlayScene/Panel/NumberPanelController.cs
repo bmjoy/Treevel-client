@@ -7,8 +7,6 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-    [RequireComponent(typeof(PostProcessVolume))]
-    [RequireComponent(typeof(SpriteGlowEffect))]
     public class NumberPanelController : DynamicPanelController
     {
         /// <summary>
@@ -44,16 +42,6 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Awake();
             _anim.AddClip(_deadAnimation, AnimationClipName.NUMBER_PANEL_DEAD);
-
-            // PostProcessVolume の設定
-            GetComponent<PostProcessVolume>().isGlobal = true;
-            var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
-            GetComponent<PostProcessVolume>().profile = profile;
-
-            // SpriteGlowEffect の設定
-            GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
-            GetComponent<SpriteGlowEffect>().GlowBrightness = 3.0f;
-            GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
         }
 
         protected override void Start()
@@ -77,6 +65,18 @@ namespace Project.Scripts.GamePlayScene.Panel
             name = PanelName.NUMBER_PANEL + panelNum;
             _finalTile = TileLibrary.GetTile(finalTileNum);
             this._panelNum = panelNum;
+
+            // PostProcessVolume の設定
+            gameObject.AddComponent<PostProcessVolume>();
+            GetComponent<PostProcessVolume>().isGlobal = true;
+            var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
+            GetComponent<PostProcessVolume>().profile = profile;
+
+            // SpriteGlowEffect の設定
+            gameObject.AddComponent<SpriteGlowEffect>();
+            GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
+            GetComponent<SpriteGlowEffect>().GlowBrightness = 3.0f;
+            GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
         }
 
         /// <summary>

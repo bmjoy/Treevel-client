@@ -10,14 +10,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     public class PanelGenerator : SingletonObject<PanelGenerator>
     {
-        [SerializeField] private GameObject _numberPanel1Prefab;
-        [SerializeField] private GameObject _numberPanel2Prefab;
-        [SerializeField] private GameObject _numberPanel3Prefab;
-        [SerializeField] private GameObject _numberPanel4Prefab;
-        [SerializeField] private GameObject _numberPanel5Prefab;
-        [SerializeField] private GameObject _numberPanel6Prefab;
-        [SerializeField] private GameObject _numberPanel7Prefab;
-        [SerializeField] private GameObject _numberPanel8Prefab;
+        [SerializeField] private GameObject _numberPanelPrefab;
         [SerializeField] private GameObject _lifeNumberPanel1Prefab;
         [SerializeField] private GameObject _lifeNumberPanel2Prefab;
         [SerializeField] private GameObject _lifeNumberPanel3Prefab;
@@ -30,24 +23,12 @@ namespace Project.Scripts.GamePlayScene.Panel
         [SerializeField] private GameObject _staticDummyPanelPrefab;
         [SerializeField] private GameObject _dynamicDummyPanelPrefab;
 
-        private List<GameObject> _numberPanelPrefabs;
         private List<GameObject> _lifeNumberPanelPrefabs;
 
         private TileGenerator _tileGenerator;
 
         private void Awake()
         {
-            _numberPanelPrefabs = new List<GameObject> {
-                _numberPanel1Prefab,
-                _numberPanel2Prefab,
-                _numberPanel3Prefab,
-                _numberPanel4Prefab,
-                _numberPanel5Prefab,
-                _numberPanel6Prefab,
-                _numberPanel7Prefab,
-                _numberPanel8Prefab
-            };
-
             _lifeNumberPanelPrefabs = new List<GameObject> {
                 _lifeNumberPanel1Prefab,
                 _lifeNumberPanel2Prefab,
@@ -79,7 +60,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             foreach (PanelData panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
-                        var panel = Instantiate(_numberPanelPrefabs[panelData.number - 1]);
+                        var panel = Instantiate(_numberPanelPrefab);
+                        var sprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelData.number);
+                        panel.GetComponent<SpriteRenderer>().sprite = sprite;
                         panel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
                         break;
                     case EPanelType.Dynamic:
@@ -115,7 +98,9 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var initialTileNum = numberPanelParam["initialTileNum"];
                 var finalTileNum = numberPanelParam["finalTileNum"];
                 // 数字パネルの作成
-                var panel = Instantiate(_numberPanelPrefabs[panelNum - 1]);
+                var panel = Instantiate(_numberPanelPrefab);
+                var sprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelNum);
+                panel.GetComponent<SpriteRenderer>().sprite = sprite;
                 panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
