@@ -29,9 +29,10 @@ namespace Project.Scripts.LevelSelectScene
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
             // StageSelect Toggle に結びつけるSceneを変更する
-            GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>().SetSceneName(SceneName.STAGE_SELECT_SCENE);
-            SceneManager.UnloadSceneAsync(SceneName.LEVEL_SELECT_SCENE);
-            StartCoroutine(MenuSelectDirector.Instance.ChangeScene(SceneName.STAGE_SELECT_SCENE));
+            var nowToggle = GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>();
+            SceneManager.UnloadSceneAsync(nowToggle.GetSceneName());
+            nowToggle._isTransition = true;
+            StartCoroutine(MenuSelectDirector.Instance.ChangeScene());
         }
     }
 }

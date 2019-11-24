@@ -9,39 +9,16 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class TransitionSelfToggle : MenuSelectToggle
     {
-        private string _tiedScene;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _tiedScene = SceneName.LEVEL_SELECT_SCENE;
-        }
-
         /// <summary>
-        /// トグルの状態が変更した場合の処理
+        /// ON状態でToggleを押せるかどうか
         /// </summary>
-        /// <param name="toggle"> 変更したトグル </param>
-        protected override void ToggleValueChanged(GameObject toggle)
-        {
-            #if UNITY_EDITOR
-            if (!EditorApplication.isPlaying) return;
-            #endif
-
-            // ONになった場合のみ処理
-            if (isOn) {
-                // 現在チェックされている Toggle を取得
-                var nowScene = MenuSelectDirector.Instance.NowScene;
-                var checkedToggle = GameObject.Find(nowScene.Replace("Scene", ""));
-
-                if (checkedToggle != null) {
-                    if (nowScene != SceneName.STAGE_SELECT_SCENE) checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
-                    // 今のシーンをアンロード
-                    SceneManager.UnloadSceneAsync(nowScene);
-                    // 新しいシーンをロード
-                    StartCoroutine(MenuSelectDirector.Instance.ChangeScene(GetSceneName()));
-                }
-            }
+        /// <value></value>
+        public bool _isTransition {
+            private get;
+            set;
         }
+
+        [SerializeField] private ESceneName tiedSecondSceneName;
 
         /// <summary>
         /// ToggleGroup の AllowSwitchOff=false を再現
@@ -54,9 +31,10 @@ namespace Project.Scripts.MenuSelectScene
             if (!IsActive() || !IsInteractable())
                 return;
             
-            // StageSelctSceneにある時のみ、再度押すとLevelSelectSceneに遷移する
-            if (isOn && _tiedScene == SceneName.STAGE_SELECT_SCENE) {
-                _tiedScene = SceneName.LEVEL_SELECT_SCENE;
+            // ON状態で自身を押下可能なとき
+            if (isOn && _isTransition) {
+                SceneManager.UnloadSceneAsync(GetSceneName());
+                _isTransition = false;
                 isOn = true;
                 ToggleValueChanged(gameObject);
             }
@@ -64,17 +42,13 @@ namespace Project.Scripts.MenuSelectScene
             else if (!isOn) isOn = true;
         }
 
-
         /// <summary>
-        /// Toggleに紐づいているscene nameを返す(Toggle nameと必ずしも一致しない)
+        /// Toggleに紐づいているscene nameを返す
         /// </summary>
         /// <returns></returns>
-        protected override string GetSceneName() {
-            return _tiedScene;
-        }
-
-        public void SetSceneName(string sceneName) {
-            _tiedScene = sceneName;
+        public override string GetSceneName() {
+            if(!_isTransition) return tiedSceneName.ToString();
+            return tiedSecondSceneName.ToString();
         }
     }
 }

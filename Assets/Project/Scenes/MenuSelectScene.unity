@@ -463,6 +463,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+  tiedSceneName: 0
+  tiedSecondSceneName: 1
 --- !u!1 &363406124
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +549,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+  tiedSceneName: 4
 --- !u!1 &495686807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,6 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05a80b6a33a847f0b8626ded5098be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowToggle: {fileID: 249835472}
 --- !u!4 &1352383784
 Transform:
   m_ObjectHideFlags: 0
@@ -1371,6 +1375,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+  tiedSceneName: 3
 --- !u!1 &2101929066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,3 +1533,4 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+  tiedSceneName: 2
