@@ -77,7 +77,7 @@ public class StageDataEditor : Editor
             }
         }
     }
-    
+
     private void DrawBulletGroupList()
     {
         this.DrawArrayProperty(_bulletGroupDatasProp, (bulletGroupDataProp, index) => {

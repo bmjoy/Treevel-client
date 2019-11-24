@@ -39,7 +39,8 @@ public static class EditorExtension
         DrawArrayPropoeryImpl(property, action);
     }
 
-    private static void DrawArrayPropoeryImpl(SerializedProperty property, Action<SerializedProperty, int> action = null) {
+    private static void DrawArrayPropoeryImpl(SerializedProperty property, Action<SerializedProperty, int> action = null)
+    {
         if (property.isExpanded) {
             for (int i = 0 ; i < property.arraySize ; ++i) {
                 var arrayElementProperty = property.GetArrayElementAtIndex(i);
