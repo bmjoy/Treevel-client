@@ -9,17 +9,17 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージID
         /// </summary>
-        private GameObject _stageId;
+        private Text _stageIdText;
 
         /// <summary>
         /// ステージ難易度
         /// </summary>
-        private GameObject _stageDifficulty;
+        private Text _stageDifficulty;
 
         /// <summary>
         /// クリア割合
         /// </summary>
-        private GameObject _clearPercentage;
+        private Text _clearPercentage;
 
         /// <summary>
         /// 出現する銃弾
@@ -36,11 +36,13 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _hideOverview;
 
+        private int _stageId;
+
         private void Awake()
         {
-            _stageId = transform.Find("StageId").gameObject;
-            _stageDifficulty = transform.Find("StageDifficulty").gameObject;
-            _clearPercentage = transform.Find("ClearPercentage").gameObject;
+            _stageIdText = transform.Find("StageId").GetComponent<Text>();
+            _stageDifficulty = transform.Find("StageDifficulty").GetComponent<Text>();
+            _clearPercentage = transform.Find("ClearPercentage").GetComponent<Text>();
             _appearingBullets = transform.Find("AppearingBullets").gameObject;
             goToGame = transform.Find("GoToGame").gameObject;
             _hideOverview = transform.Find("HideOverview").gameObject;
@@ -48,16 +50,24 @@ namespace Project.Scripts.StageSelectScene
             _hideOverview.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
                 ToggleValueChanged(_hideOverview.GetComponent<Toggle>());
             });
+
+            // ゲームを開始するボタン
+            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(_stageId));
         }
 
         /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="stageId"> ステージID </param>
-        public void Initialize(int stageId)
+        public void SetStageId(int stageId)
+        {
+            _stageId = stageId;
+        }
+
+        void OnEnable()
         {
             // ステージID
-            _stageId.GetComponent<Text>().text = stageId.ToString();
+            _stageIdText.text = _stageId.ToString();
 
             // TODO:ステージが"ステージ難易度"を持ったら実装
             // _stageDifficulty.GetComponent<Text>().text = ...
@@ -67,9 +77,6 @@ namespace Project.Scripts.StageSelectScene
 
             // TODO:ステージが"出現する銃弾"を持ったら実装
             // _appearingBullets... = ...
-
-            // ゲームを開始するボタン
-            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(stageId));
         }
 
         private static void ToggleValueChanged(Toggle toggle)
