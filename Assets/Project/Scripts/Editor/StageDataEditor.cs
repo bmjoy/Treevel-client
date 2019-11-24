@@ -132,9 +132,9 @@ public class StageDataEditor : Editor
                                             checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
                                             includeObsolete: false
                                         );
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
                                     break;
                                 }
                             case EBulletType.TurnCartridge: {
@@ -172,15 +172,14 @@ public class StageDataEditor : Editor
                                             checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
                                             includeObsolete: false
                                         );
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnDirection"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnRow"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnColumn"));
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                                    DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
                                     break;
                                 }
-
                         }
                     }
                 });
@@ -201,6 +200,36 @@ public class StageDataEditor : Editor
 
         property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, property.displayName);
         EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
+        if (property.isExpanded) {
+            for (int i = 0 ; i < property.arraySize ; ++i) {
+                var arrayElementProperty = property.GetArrayElementAtIndex(i);
+                if (action != null) {
+                    action.Invoke(arrayElementProperty, i);
+                } else {
+                    EditorGUILayout.PropertyField(arrayElementProperty, new GUIContent(arrayElementProperty.displayName));
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 配列の大きさを制限した配列を描画する
+    /// <see cref="StageDataEditor.DrawArrayProperty(SerializedProperty, Action{SerializedProperty, int})"/>
+    /// </summary>
+    /// <param name="property"></param>
+    /// <param name="size"></param>
+    /// <param name="action"></param>
+    private static void DrawFixedSizeArrayProperty(SerializedProperty property, int size, Action<SerializedProperty, int> action = null)
+    {
+        if (!property.isArray)
+            return;
+
+        property.arraySize = size;
+        property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, property.displayName);
+        GUI.enabled = false;
+        EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
+        GUI.enabled = true;
+
         if (property.isExpanded) {
             for (int i = 0 ; i < property.arraySize ; ++i) {
                 var arrayElementProperty = property.GetArrayElementAtIndex(i);
