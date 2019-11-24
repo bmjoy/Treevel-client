@@ -1211,5 +1211,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1667971508019858, guid: 74ed1e4c608194da3ae4de7b8cab8e1f,
         type: 3}
+    - target: {fileID: 9174233405867935281, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+        type: 3}
+      propertyPath: _lifeNumberPanelPrefab
+      value: 
+      objectReference: {fileID: 1556909149041080, guid: 79c31b5cff9214d36b391b9bd737af98,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b5c0cdc5b6c47d290daf348c206ff3, type: 3}

@@ -11,35 +11,15 @@ namespace Project.Scripts.GamePlayScene.Panel
     public class PanelGenerator : SingletonObject<PanelGenerator>
     {
         [SerializeField] private GameObject _numberPanelPrefab;
-        [SerializeField] private GameObject _lifeNumberPanel1Prefab;
-        [SerializeField] private GameObject _lifeNumberPanel2Prefab;
-        [SerializeField] private GameObject _lifeNumberPanel3Prefab;
-        [SerializeField] private GameObject _lifeNumberPanel4Prefab;
-        [SerializeField] private GameObject _lifeNumberPanel5Prefab;
-        [SerializeField] private GameObject _lifeNumberPanel6Prefab;
-        [SerializeField] private GameObject _lifeNumberPanel7Prefab;
-        [SerializeField] private GameObject _lifeNumberPanel8Prefab;
+        [SerializeField] private GameObject _lifeNumberPanelPrefab;
 
         [SerializeField] private GameObject _staticDummyPanelPrefab;
         [SerializeField] private GameObject _dynamicDummyPanelPrefab;
-
-        private List<GameObject> _lifeNumberPanelPrefabs;
 
         private TileGenerator _tileGenerator;
 
         private void Awake()
         {
-            _lifeNumberPanelPrefabs = new List<GameObject> {
-                _lifeNumberPanel1Prefab,
-                _lifeNumberPanel2Prefab,
-                _lifeNumberPanel3Prefab,
-                _lifeNumberPanel4Prefab,
-                _lifeNumberPanel5Prefab,
-                _lifeNumberPanel6Prefab,
-                _lifeNumberPanel7Prefab,
-                _lifeNumberPanel8Prefab
-            };
-
             _tileGenerator = FindObjectOfType<TileGenerator>();
         }
 
@@ -124,7 +104,9 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var initialTileNum = numberPanelParam["initialTileNum"];
                 var finalTileNum = numberPanelParam["finalTileNum"];
                 // 数字パネルの作成
-                var panel = Instantiate(_lifeNumberPanelPrefabs[panelNum - 1]);
+                var panel = Instantiate(_lifeNumberPanelPrefab);
+                var sprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelNum);
+                panel.GetComponent<SpriteRenderer>().sprite = sprite;
                 panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
