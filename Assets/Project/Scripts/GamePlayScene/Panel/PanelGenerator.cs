@@ -51,6 +51,12 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.Static:
                         CreateStaticDummyPanel(panelData.initPos);
                         break;
+                    case EPanelType.LifeNumber:
+                        var lifeNumberPanel = Instantiate(_lifeNumberPanelPrefab);
+                        var lifeNumberPanelSprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelData.number);
+                        lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
+                        lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
+                        break;
                 }
             }
         }

@@ -32,6 +32,13 @@ namespace Project.Scripts.GamePlayScene.Panel
             _anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTCKED);
         }
 
+        public void Initialize(int panelNum, int initialTileNum, int finalTileNum, int life)
+        {
+            base.Initialize(panelNum, initialTileNum, finalTileNum);
+            _maxLife = life;
+            _currentLife = _maxLife;
+        }
+
         /// <summary>
         /// Sent when another object enters a trigger collider attached to this
         /// object (2D physics only).
