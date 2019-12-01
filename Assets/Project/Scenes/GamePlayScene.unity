@@ -1124,84 +1124,72 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3798100570565638183}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &9174233404074516584
+--- !u!1001 &9154051164657734112
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9174233405867935280, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 2814147467378885362, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_Name
       value: PanelGenerator
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935282, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
+    - target: {fileID: 3974147559816917646, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9174233405867935281, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
-        type: 3}
-      propertyPath: _numberPanelPrefab
-      value: 
-      objectReference: {fileID: 1667971508019858, guid: 74ed1e4c608194da3ae4de7b8cab8e1f,
-        type: 3}
-    - target: {fileID: 9174233405867935281, guid: b1b5c0cdc5b6c47d290daf348c206ff3,
-        type: 3}
-      propertyPath: _lifeNumberPanelPrefab
-      value: 
-      objectReference: {fileID: 1556909149041080, guid: 79c31b5cff9214d36b391b9bd737af98,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b5c0cdc5b6c47d290daf348c206ff3, type: 3}
