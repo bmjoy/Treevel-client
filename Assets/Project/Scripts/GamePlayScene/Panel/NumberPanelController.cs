@@ -44,7 +44,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Awake();
             _anim.AddClip(_deadAnimation, AnimationClipName.NUMBER_PANEL_DEAD);
-            
+
             // PostProcessVolume の設定
             GetComponent<PostProcessVolume>().isGlobal = true;
             var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
