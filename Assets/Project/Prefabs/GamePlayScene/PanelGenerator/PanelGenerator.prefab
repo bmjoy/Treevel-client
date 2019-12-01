@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9174233405867935280
+--- !u!1 &2814147467378885362
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9174233405867935282}
-  - component: {fileID: 9174233405867935281}
+  - component: {fileID: 3974147559816917646}
+  - component: {fileID: 1908110823865241984}
   m_Layer: 0
   m_Name: PanelGenerator
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9174233405867935282
+--- !u!4 &3974147559816917646
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9174233405867935280}
+  m_GameObject: {fileID: 2814147467378885362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,49 +31,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9174233405867935281
+--- !u!114 &1908110823865241984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9174233405867935280}
+  m_GameObject: {fileID: 2814147467378885362}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4749476458d4ce197e12e743e43472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberPanel1Prefab: {fileID: 1556909149041080, guid: 3cbdb3aba45c048d381ec09975dfb843,
+  _numberPanelPrefab: {fileID: 1667971508019858, guid: 74ed1e4c608194da3ae4de7b8cab8e1f,
     type: 3}
-  _numberPanel2Prefab: {fileID: 1740829354581646, guid: dbd25ee4b364c4271a584fca923352db,
-    type: 3}
-  _numberPanel3Prefab: {fileID: 1821297137846638, guid: 489fd281dd9ed4639a4f30419568d561,
-    type: 3}
-  _numberPanel4Prefab: {fileID: 1666121162928382, guid: 67d1f410b60704677bb6c0826bb03b2d,
-    type: 3}
-  _numberPanel5Prefab: {fileID: 1105968026340254, guid: 92596bcac6d264e30af64bfb0e39a161,
-    type: 3}
-  _numberPanel6Prefab: {fileID: 1534627393435266, guid: 43b466b59451544b081a6b1c95a36a63,
-    type: 3}
-  _numberPanel7Prefab: {fileID: 1523037386814182, guid: d57e96bd849524229ae9cf4f96056123,
-    type: 3}
-  _numberPanel8Prefab: {fileID: 1353637230828172, guid: 4a225671eee6844d8945c6357a1c0958,
-    type: 3}
-  _lifeNumberPanel1Prefab: {fileID: 1556909149041080, guid: 701fb842b9b8d4ccab9b463117833e69,
-    type: 3}
-  _lifeNumberPanel2Prefab: {fileID: 1556909149041080, guid: bd7553ea0d46c4a189f84d61c00391f4,
-    type: 3}
-  _lifeNumberPanel3Prefab: {fileID: 1556909149041080, guid: 8a72bd3d2166849f193ffee9955c835a,
-    type: 3}
-  _lifeNumberPanel4Prefab: {fileID: 1556909149041080, guid: 79ad1538e29e34280905cce55c58f7bf,
-    type: 3}
-  _lifeNumberPanel5Prefab: {fileID: 1556909149041080, guid: 5dd80f06244774e1abefb859cffc1806,
-    type: 3}
-  _lifeNumberPanel6Prefab: {fileID: 1556909149041080, guid: 7b056d0daa1ea4b1b9cb6eac0058021f,
-    type: 3}
-  _lifeNumberPanel7Prefab: {fileID: 1556909149041080, guid: e9c4da8d9eff64504a014d80d9bd46cf,
-    type: 3}
-  _lifeNumberPanel8Prefab: {fileID: 1556909149041080, guid: 5e7e3020e1ed24f25a220ce4aba4118d,
+  _lifeNumberPanelPrefab: {fileID: 1556909149041080, guid: 79c31b5cff9214d36b391b9bd737af98,
     type: 3}
   _staticDummyPanelPrefab: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
     type: 3}
