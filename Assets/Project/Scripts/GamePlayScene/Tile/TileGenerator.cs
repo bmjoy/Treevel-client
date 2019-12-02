@@ -71,7 +71,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             // パネルに合わせたタイルを選択
             var numberTile = Instantiate(_numberTilePrefab);
             var sprite = Resources.Load<Sprite>("Textures/Tile/numberTile" + panelNum);
-            numberTile.GetComponent<SpriteRenderer>().sprite = sprite;
+            if (sprite != null) numberTile.GetComponent<SpriteRenderer>().sprite = sprite;
 
             var tilePosition = GetTilePosition(tileNum);
 
