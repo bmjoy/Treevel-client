@@ -113,7 +113,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var panel = Instantiate(_lifeNumberPanelPrefab);
                 var sprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelNum);
                 if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
-                panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
+                panel.GetComponent<LifeNumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
 
