@@ -7,33 +7,12 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        [SerializeField] private GameObject _numberTile1Prefab;
-        [SerializeField] private GameObject _numberTile2Prefab;
-        [SerializeField] private GameObject _numberTile3Prefab;
-        [SerializeField] private GameObject _numberTile4Prefab;
-        [SerializeField] private GameObject _numberTile5Prefab;
-        [SerializeField] private GameObject _numberTile6Prefab;
-        [SerializeField] private GameObject _numberTile7Prefab;
-        [SerializeField] private GameObject _numberTile8Prefab;
+        [SerializeField] private GameObject _numberTilePrefab;
         [SerializeField] private GameObject _normalTilePrefab;
         [SerializeField] private GameObject _warpTilePrefab;
 
-        private List<GameObject> _numberTilePrefabs;
         private readonly GameObject[,] _tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
 
-        private void Awake()
-        {
-            _numberTilePrefabs = new List<GameObject> {
-                _numberTile1Prefab,
-                _numberTile2Prefab,
-                _numberTile3Prefab,
-                _numberTile4Prefab,
-                _numberTile5Prefab,
-                _numberTile6Prefab,
-                _numberTile7Prefab,
-                _numberTile8Prefab
-            };
-        }
 
         /// <summary>
         /// 普通タイルの作成
@@ -90,7 +69,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         public void CreateNumberTile(int panelNum, int tileNum)
         {
             // パネルに合わせたタイルを選択
-            var numberTile = Instantiate(_numberTilePrefabs[panelNum - 1]);
+            var numberTile = Instantiate(_numberTilePrefab);
+            var sprite = Resources.Load<Sprite>("Textures/Tile/numberTile" + panelNum);
+            if (sprite != null) numberTile.GetComponent<SpriteRenderer>().sprite = sprite;
 
             var tilePosition = GetTilePosition(tileNum);
 
