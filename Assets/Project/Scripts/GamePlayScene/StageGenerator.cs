@@ -7,22 +7,12 @@ using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GameDatas;
-using System.Linq;
+using Project.Scripts.Utils;
 
 namespace Project.Scripts.GamePlayScene
 {
     public class StageGenerator
     {
-        static private Dictionary<int, StageData> stageDataMap = new Dictionary<int, StageData>();
-        /// <summary>
-        /// すべてのステージを一気に読み込む
-        /// </summary>
-        static StageGenerator()
-        {
-            var stageDataList = Resources.LoadAll<StageData>("GameDatas/Stages/");
-            stageDataMap = stageDataList.ToDictionary(x => x.Id);
-        }
-
         /// <summary>
         /// ステージを作成する
         /// </summary>
@@ -37,9 +27,8 @@ namespace Project.Scripts.GamePlayScene
             List<IEnumerator> coroutines = new List<IEnumerator>();
 
             // ステージデータ読み込む
-            if (stageDataMap.ContainsKey(stageId)) {
-                StageData stageData = stageDataMap[stageId];
-
+            StageData stageData = GameDataBase.Instance.GetStage(stageId);
+            if (stageId == stageData.Id) {
                 tileGenerator.CreateTiles(stageData.TileDatas);
                 panelGenerator.CreatePanels(stageData.PanelDatas);
                 coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
