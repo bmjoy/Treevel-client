@@ -63,8 +63,9 @@ namespace Project.Scripts.GamePlayScene
                             column: EColumn.Left)
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    panelGenerator.CreateNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -91,8 +92,9 @@ namespace Project.Scripts.GamePlayScene
                         bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: new int[] {1})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    panelGenerator.CreateNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -120,8 +122,9 @@ namespace Project.Scripts.GamePlayScene
                                                     randomRow: new int[] {100, 5, 5, 5, 100}, randomColumn: new int[] {100, 10, 0}),
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    panelGenerator.CreateNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -148,8 +151,9 @@ namespace Project.Scripts.GamePlayScene
                                         randomRow: new int[] {100, 20, 20, 20, 100}, randomColumn: new int[] {30, 100, 30})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    panelGenerator.CreateNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -175,8 +179,9 @@ namespace Project.Scripts.GamePlayScene
                                                                                randomNumberPanel: new int[] {10, 0, 10, 0, 10, 0, 10, 10})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    panelGenerator.CreateNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -211,8 +216,9 @@ namespace Project.Scripts.GamePlayScene
                                            randomNumberPanel: new int[] {10, 10, 10, 10, 10, 10, 10, 10})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    panelGenerator.CreateNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -232,8 +238,9 @@ namespace Project.Scripts.GamePlayScene
                     // 銃弾実体生成
                     // 銃弾を生成しない
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateNumberPanels(
+                    panelGenerator.CreateNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -264,8 +271,9 @@ namespace Project.Scripts.GamePlayScene
                                                     cartridgeDirection: ECartridgeDirection.Random, row: ERow.Random)
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateLifeNumberPanels(
+                    panelGenerator.CreateLifeNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
@@ -294,8 +302,9 @@ namespace Project.Scripts.GamePlayScene
                                                                              bulletGroupGenerator.CreateRandomAimingHoleGenerator(10, new int[] {1, 1, 1, 1, 1, 1, 1, 1})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
+                    tileGenerator.CreateNormalTiles();
                     // 数字パネル作成
-                    panelGenerator.PrepareTilesAndCreateLifeNumberPanels(
+                    panelGenerator.CreateLifeNumberPanels(
                     new List<Dictionary<string, int>>() {
                         PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
                                                            PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
