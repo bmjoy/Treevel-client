@@ -42,7 +42,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.Number:
                         var panel = Instantiate(_numberPanelPrefab);
                         var sprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelData.number);
-                        panel.GetComponent<SpriteRenderer>().sprite = sprite;
+                        if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
                         panel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
                         break;
                     case EPanelType.Dynamic:
@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                 // 数字パネルの作成
                 var panel = Instantiate(_numberPanelPrefab);
                 var sprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelNum);
-                panel.GetComponent<SpriteRenderer>().sprite = sprite;
+                if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
                 panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
@@ -106,7 +106,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                 // 数字パネルの作成
                 var panel = Instantiate(_lifeNumberPanelPrefab);
                 var sprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelNum);
-                panel.GetComponent<SpriteRenderer>().sprite = sprite;
+                if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
                 panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
