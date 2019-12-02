@@ -5,18 +5,20 @@ using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 
-namespace Project.Scripts.Utils {
+namespace Project.Scripts.Utils
+{
     public class GameDataBase : SingletonObject<GameDataBase>
     {
         private static  Dictionary<int, StageData> _stageDataMap = new Dictionary<int, StageData>();
 
-        void Awake ()
+        void Awake()
         {
             // TODO: 非同期で読み込み
             Load();
         }
 
-        private static void Load() {
+        private static void Load()
+        {
             Debug.Log("Start Loading Game Data.");
             var stageDataList = Resources.LoadAll<StageData>("GameDatas/Stages/");
             _stageDataMap = stageDataList.ToDictionary(x => x.Id);
@@ -24,9 +26,10 @@ namespace Project.Scripts.Utils {
             Debug.Log("Loading Game Data Finished.");
         }
 
-        public StageData GetStage(int id) {
+        public StageData GetStage(int id)
+        {
             // ステージがない場合デフォルトとしてステージ1を返す
-            return _stageDataMap?[id] ?? _stageDataMap[1]; 
+            return _stageDataMap?[id] ?? _stageDataMap[1];
         }
     }
 }
