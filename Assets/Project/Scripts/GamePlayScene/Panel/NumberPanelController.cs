@@ -14,7 +14,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルのゴールとなるタイル
         /// </summary>
-        private GameObject _finalTile;
+        public GameObject finalTile;
 
         /// <summary>
         /// パネルの番号
@@ -60,7 +60,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Start();
             // 初期状態で最終タイルにいるかどうかの状態を変える
-            Adapted = transform.parent.gameObject == _finalTile;
+            Adapted = transform.parent.gameObject == finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
             GetComponent<SpriteGlowEffect>().enabled = Adapted;
         }
@@ -75,7 +75,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             Initialize(initialTileNum);
             name = PanelName.NUMBER_PANEL + panelNum;
-            _finalTile = TileLibrary.GetTile(finalTileNum);
+            finalTile = TileLibrary.GetTile(finalTileNum);
             this._panelNum = panelNum;
         }
 
@@ -98,7 +98,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             base.UpdateTile(targetTile);
 
             // 最終タイルにいるかどうかで状態を変える
-            Adapted = transform.parent.gameObject == _finalTile;
+            Adapted = transform.parent.gameObject == finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
             GetComponent<SpriteGlowEffect>().enabled = Adapted;
             // adapted が true になっていれば (必要条件) 成功判定をする
