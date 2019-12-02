@@ -77,9 +77,10 @@ public class StageDataEditor : Editor
             }
         }
     }
+
     private void DrawBulletGroupList()
     {
-        DrawArrayProperty(_bulletGroupDatasProp, (bulletGroupDataProp, index) => {
+        this.DrawArrayProperty(_bulletGroupDatasProp, (bulletGroupDataProp, index) => {
             bulletGroupDataProp.isExpanded = EditorGUILayout.Foldout(bulletGroupDataProp.isExpanded, $"Bullet Group {index + 1}");
             if (bulletGroupDataProp.isExpanded) {
                 EditorGUI.indentLevel++;
@@ -89,7 +90,7 @@ public class StageDataEditor : Editor
                 EditorGUILayout.PropertyField(bulletGroupDataProp.FindPropertyRelative("loop"));
 
                 SerializedProperty bulletListProp = bulletGroupDataProp.FindPropertyRelative("bullets");
-                DrawArrayProperty(bulletListProp, (bulletDataProp, index2) => {
+                this.DrawArrayProperty(bulletListProp, (bulletDataProp, index2) => {
                     bulletDataProp.isExpanded = EditorGUILayout.Foldout(bulletDataProp.isExpanded, $"Bullet {index2 + 1}");
                     if (bulletDataProp.isExpanded) {
                         SerializedProperty bulletTypeProp = bulletDataProp.FindPropertyRelative("type");
@@ -132,9 +133,9 @@ public class StageDataEditor : Editor
                                             checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
                                             includeObsolete: false
                                         );
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
                                     break;
                                 }
                             case EBulletType.TurnCartridge: {
@@ -160,8 +161,8 @@ public class StageDataEditor : Editor
                                     }
 
                                     // TODO pair constraint of turnDirections/tunrLines
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("turnDirections"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("turnLines"));
+                                    this.DrawArrayProperty(bulletDataProp.FindPropertyRelative("turnDirections"));
+                                    this.DrawArrayProperty(bulletDataProp.FindPropertyRelative("turnLines"));
                                     break;
                                 }
                             case EBulletType.RandomTurnCartridge: {
@@ -172,44 +173,19 @@ public class StageDataEditor : Editor
                                             checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
                                             includeObsolete: false
                                         );
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnDirection"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnRow"));
-                                    DrawArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnColumn"));
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
                                     break;
                                 }
-
                         }
                     }
                 });
                 EditorGUI.indentLevel--;
             }
         });
-    }
-
-    /// <summary>
-    /// List、Arrayなどの配列型のPropertyを描画するメソッド
-    /// </summary>
-    /// <param name="property">描画する対象、配列である必要がある</param>
-    /// <param name="action">配列に格納する要素に対する描画処理、nullの場合はEditorGUI.PropertyFieldを使う</param>
-    private static void DrawArrayProperty(SerializedProperty property, Action<SerializedProperty, int> action = null)
-    {
-        if (!property.isArray)
-            return;
-
-        property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, property.displayName);
-        EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
-        if (property.isExpanded) {
-            for (int i = 0 ; i < property.arraySize ; ++i) {
-                var arrayElementProperty = property.GetArrayElementAtIndex(i);
-                if (action != null) {
-                    action.Invoke(arrayElementProperty, i);
-                } else {
-                    EditorGUILayout.PropertyField(arrayElementProperty, new GUIContent(arrayElementProperty.displayName));
-                }
-            }
-        }
     }
 }
