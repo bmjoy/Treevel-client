@@ -77,8 +77,6 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var sprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelNum);
                 if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
                 panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
-                // 数字パネルのゴール番号に合わせて，タイルの画像を変更
-                panel.GetComponent<NumberPanelController>().finalTile.GetComponent<NormalTileController>().SetSprite(panelNum);
             }
         }
 
@@ -94,8 +92,6 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var sprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelNum);
                 if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
                 panel.GetComponent<LifeNumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
-                // 数字パネルのゴール番号に合わせて，タイルの画像を変更
-                panel.GetComponent<LifeNumberPanelController>().finalTile.GetComponent<NormalTileController>().SetSprite(panelNum);
             }
         }
 
