@@ -40,10 +40,10 @@ namespace Project.Scripts.GamePlayScene.Panel
             foreach (PanelData panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
-                        var panel = Instantiate(_numberPanelPrefab);
-                        var sprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelData.number);
-                        if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
-                        panel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
+                        var numberPanel = Instantiate(_numberPanelPrefab);
+                        var numberPanelSprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelData.number);
+                        if (numberPanelSprite != null) numberPanel.GetComponent<SpriteRenderer>().sprite = numberPanelSprite;
+                        numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
                         break;
                     case EPanelType.Dynamic:
                         CreateDynamicDummyPanel(panelData.initPos);
@@ -54,7 +54,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.LifeNumber:
                         var lifeNumberPanel = Instantiate(_lifeNumberPanelPrefab);
                         var lifeNumberPanelSprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelData.number);
-                        lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
+                        if (lifeNumberPanelSprite != null) lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
                         lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
                         break;
                 }
