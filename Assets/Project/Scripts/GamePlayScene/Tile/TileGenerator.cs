@@ -2,6 +2,7 @@
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using System.Collections.Generic;
+using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
@@ -12,6 +13,22 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private readonly GameObject[,] _tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
 
+        public void CreateTiles(ICollection<TileData> tileDatas)
+        {
+            foreach (TileData tileData in tileDatas) {
+                switch (tileData.type) {
+                    case ETileType.Normal:
+                        CreateNormalTile(tileData.number);
+                        break;
+                    case ETileType.Warp:
+                        CreateWarpTiles(tileData.number, tileData.pairNumber);
+                        break;
+                }
+            }
+
+            // Normal Tile は明示的に作らなくても，一括作成可能
+            CreateNormalTiles();
+        }
 
         /// <summary>
         /// 普通タイルの作成
@@ -38,6 +55,17 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             // タイルの位置関係を作成する
             MakeRelations(_tiles);
+        }
+
+        public void CreateNormalTile(int tileNum)
+        {
+            var normalTile = Instantiate(_normalTilePrefab);
+
+            var normalTilePosition = GetTilePosition(tileNum);
+
+            normalTile.GetComponent<NormalTileController>().Initialize(normalTilePosition, tileNum);
+
+            SetTile(tileNum, normalTile);
         }
 
         /// <summary>

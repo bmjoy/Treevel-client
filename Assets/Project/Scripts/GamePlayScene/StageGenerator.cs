@@ -40,7 +40,7 @@ namespace Project.Scripts.GamePlayScene
             if (stageDataMap.ContainsKey(stageId)) {
                 StageData stageData = stageDataMap[stageId];
 
-                tileGenerator.CreateWarpTiles(firstTileNum: 2, secondTileNum: 14);
+                tileGenerator.CreateTiles(stageData.TileDatas);
                 panelGenerator.CreatePanels(stageData.PanelDatas);
                 coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
 

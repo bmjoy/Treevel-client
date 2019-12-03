@@ -6,14 +6,17 @@ namespace Project.Scripts.GameDatas
     [CreateAssetMenu(fileName = "stage.asset", menuName = "Stage")]
     public class StageData : ScriptableObject
     {
-        [System.Serializable]
-        private class Tile
-        {
-
-        }
         [SerializeField] private int id;
         [SerializeField] private List<BulletGroupData> bulletGroups;
         [SerializeField] private List<PanelData> panels;
+        [SerializeField] private List<TileData> tiles;
+
+        public List<TileData> TileDatas
+        {
+            get {
+                return tiles;
+            }
+        }
 
         public List<PanelData> PanelDatas
         {

@@ -8,4 +8,9 @@
         public const string NORMAL_TILE = "NormalTile";
         public const string WARP_TILE = "WarpTile";
     }
+
+    public enum ETileType {
+        Normal,
+        Warp,
+    }
 }
