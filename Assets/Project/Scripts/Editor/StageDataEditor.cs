@@ -58,7 +58,8 @@ public class StageDataEditor : Editor
                     tileTypeProp.enumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
 
                     switch ((ETileType)tileTypeProp.enumValueIndex) {
-                        case ETileType.Normal: break;
+                        case ETileType.Normal:
+                            break;
                         case ETileType.Warp: {
                                 SerializedProperty pairNumberProp = tileDataProp.FindPropertyRelative("pairNumber");
                                 EditorGUILayout.PropertyField(pairNumberProp);
