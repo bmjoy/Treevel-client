@@ -1,4 +1,5 @@
 ﻿using System;
+using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using SpriteGlow;
@@ -76,6 +77,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             Initialize(initialTileNum);
             name = PanelName.NUMBER_PANEL + panelNum;
             _finalTile = TileLibrary.GetTile(finalTileNum);
+            _finalTile.GetComponent<NormalTileController>().SetSprite(panelNum);
             this._panelNum = panelNum;
         }
 

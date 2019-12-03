@@ -65,19 +65,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// 必要なタイルを準備してから，数字パネルを作成する
         /// </summary>
         /// <param name="numberPanelParams"> ComvartToDictionary によって変換された辞書型リスト </param>
-        public void PrepareTilesAndCreateNumberPanels(List<Dictionary<string, int>> numberPanelParams)
+        public void CreateNumberPanels(List<Dictionary<string, int>> numberPanelParams)
         {
-            foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
-                // パラメータの取得
-                var panelNum = numberPanelParam["panelNum"];
-                var finalTileNum = numberPanelParam["finalTileNum"];
-                // 数字タイルの作成
-                _tileGenerator.CreateNumberTile(panelNum, finalTileNum);
-            }
-
-            // ノーマルタイルの一括作成
-            _tileGenerator.CreateNormalTiles();
-
             foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
                 // パラメータの取得
                 var panelNum = numberPanelParam["panelNum"];
@@ -91,19 +80,8 @@ namespace Project.Scripts.GamePlayScene.Panel
             }
         }
 
-        public void PrepareTilesAndCreateLifeNumberPanels(List<Dictionary<string, int>> numberPanelParams)
+        public void CreateLifeNumberPanels(List<Dictionary<string, int>> numberPanelParams)
         {
-            foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
-                // パラメータの取得
-                var panelNum = numberPanelParam["panelNum"];
-                var finalTileNum = numberPanelParam["finalTileNum"];
-                // 数字タイルの作成
-                _tileGenerator.CreateNumberTile(panelNum, finalTileNum);
-            }
-
-            // ノーマルタイルの一括作成
-            _tileGenerator.CreateNormalTiles();
-
             foreach (Dictionary<string, int> numberPanelParam in numberPanelParams) {
                 // パラメータの取得
                 var panelNum = numberPanelParam["panelNum"];
@@ -113,7 +91,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                 var panel = Instantiate(_lifeNumberPanelPrefab);
                 var sprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelNum);
                 if (sprite != null) panel.GetComponent<SpriteRenderer>().sprite = sprite;
-                panel.GetComponent<NumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
+                panel.GetComponent<LifeNumberPanelController>().Initialize(panelNum, initialTileNum, finalTileNum);
             }
         }
 

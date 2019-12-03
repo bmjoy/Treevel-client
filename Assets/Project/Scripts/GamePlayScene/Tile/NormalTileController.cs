@@ -98,5 +98,15 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             hasPanel = false;
         }
+
+        /// <summary>
+        /// 番号に合わせた画像に変更
+        /// </summary>
+        /// <param name="panelNum"> このタイルをゴールとするパネルの番号 </param>
+        public void SetSprite(int panelNum)
+        {
+            var sprite = Resources.Load<Sprite>("Textures/Tile/numberTile" + panelNum);
+            if (sprite != null) GetComponent<SpriteRenderer>().sprite = sprite;
+        }
     }
 }
