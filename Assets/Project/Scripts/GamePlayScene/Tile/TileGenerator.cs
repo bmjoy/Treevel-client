@@ -7,7 +7,6 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        [SerializeField] private GameObject _numberTilePrefab;
         [SerializeField] private GameObject _normalTilePrefab;
         [SerializeField] private GameObject _warpTilePrefab;
 
@@ -59,25 +58,6 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             SetTile(firstTileNum, firstTile);
             SetTile(secondTileNum, secondTile);
-        }
-
-        /// <summary>
-        /// ナンバータイルの作成
-        /// </summary>
-        /// <param name="panelNum"> ゴールとして受け入れるパネルの番号 </param>
-        /// <param name="tileNum"> タイルの番号 </param>
-        public void CreateNumberTile(int panelNum, int tileNum)
-        {
-            // パネルに合わせたタイルを選択
-            var numberTile = Instantiate(_numberTilePrefab);
-            var sprite = Resources.Load<Sprite>("Textures/Tile/numberTile" + panelNum);
-            if (sprite != null) numberTile.GetComponent<SpriteRenderer>().sprite = sprite;
-
-            var tilePosition = GetTilePosition(tileNum);
-
-            numberTile.GetComponent<NumberTileController>().Initialize(tilePosition, tileNum);
-
-            SetTile(tileNum, numberTile);
         }
 
         /// <summary>
