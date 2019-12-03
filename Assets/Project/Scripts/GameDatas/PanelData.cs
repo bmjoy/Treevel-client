@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GameDatas
