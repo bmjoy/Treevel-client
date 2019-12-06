@@ -65,3 +65,4 @@ MonoBehaviour:
     number: 0
     targetPos: 0
     life: 0
+  tiles: []
