@@ -16,7 +16,7 @@ public static class EditorExtension
 
         property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, property.displayName);
         EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
-        DrawArrayPropoeryImpl(property, action);
+        DrawArrayPropertyImpl(property, action);
     }
 
     /// <summary>
@@ -36,10 +36,10 @@ public static class EditorExtension
         GUI.enabled = false;
         EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
         GUI.enabled = true;
-        DrawArrayPropoeryImpl(property, action);
+        DrawArrayPropertyImpl(property, action);
     }
 
-    private static void DrawArrayPropoeryImpl(SerializedProperty property, Action<SerializedProperty, int> action = null)
+    private static void DrawArrayPropertyImpl(SerializedProperty property, Action<SerializedProperty, int> action = null)
     {
         if (property.isExpanded) {
             for (int i = 0 ; i < property.arraySize ; ++i) {
