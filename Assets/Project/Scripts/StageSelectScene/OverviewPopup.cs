@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Project.Scripts.Utils;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -66,6 +67,8 @@ namespace Project.Scripts.StageSelectScene
 
         void OnEnable()
         {
+            var stageData = GameDataBase.Instance.GetStage(_stageId);
+
             // ステージID
             _stageIdText.text = _stageId.ToString();
 
@@ -74,9 +77,17 @@ namespace Project.Scripts.StageSelectScene
 
             // TODO:サーバで全ユーザのデータを持ったら実装
             // _clearPercentage.GetComponent<Text>().text = ...
-
-            // TODO:ステージが"出現する銃弾"を持ったら実装
-            // _appearingBullets... = ...
+            
+            var overviewBullets = stageData.OverviewBullets;
+            for (int i = 1 ; i <= 3 ; ++i) {
+                var bulletOverviewPanel = _appearingBullets.transform.Find($"GimmickOverview{i}");
+                if (overviewBullets.Count >= i) {
+                    bulletOverviewPanel.GetComponentInChildren<Text>().text = overviewBullets[i - 1].ToString();
+                    bulletOverviewPanel.gameObject.SetActive(true);
+                } else {
+                    bulletOverviewPanel.gameObject.SetActive(false);
+                }
+            }
         }
 
         private static void ToggleValueChanged(Toggle toggle)
