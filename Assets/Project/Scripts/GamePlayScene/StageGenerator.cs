@@ -51,32 +51,6 @@ namespace Project.Scripts.GamePlayScene
 
             // TODO 全ステージデータを作成
             switch (stageId) {
-                case 5:
-                    // 銃弾実体生成
-                    // AimingHoleを生成する
-                    coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
-                            appearanceTime: 1.0f,
-                            interval: 5.0f,
-                            loop: true,
-                    bulletGenerators: new List<GameObject>() {
-                        bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanels: new int[] {1})
-                    }));
-                    /* 特殊タイル -> 数字パネル -> 特殊パネル */
-                    tileGenerator.CreateNormalTiles();
-                    // 数字パネル作成
-                    panelGenerator.CreateNumberPanels(
-                    new List<Dictionary<string, int>>() {
-                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
-                    }
-                    );
-                    break;
                 case 6:
                     // 銃弾実体生成
                     // ランダムな引数でNormalCartridgeを生成する
