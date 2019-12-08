@@ -115,6 +115,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                 bulletData.randomColumn.ToArray()
                             ));
                             break;
+                        case EBulletType.AimingHole:
+                            bulletList.Add(this.CreateAimingHoleGenerator(
+                                bulletData.ratio,
+                                bulletData.aimingPanels.ToArray()
+                            ));
+                            break;
                     }
                 }
                 coroutines.Add(CreateBulletGroup(

@@ -20,7 +20,7 @@ namespace Project.Scripts.GameDatas
 
         public List<int> turnLines;
 
-        public List<int> aimingPanles;
+        [Range(1, 15)] public List<int> aimingPanels;
 
         public List<int> randomCartridgeDirection;
         public List<int> randomRow;
