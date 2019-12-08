@@ -69,6 +69,7 @@
         RandomTurnCartridge,
         NormalHole,
         AimingHole,
-        RandomHole,
+        RandomNormalHole,
+        RandomAimingHole,
     }
 }
