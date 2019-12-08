@@ -113,7 +113,7 @@ public class StageDataEditor : Editor
                         bulletTypeProp.enumValueIndex = (int)(EBulletType)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("Type"),
                                 selected: (EBulletType)bulletTypeProp.enumValueIndex,
-                                checkEnabled: (eType) => (int)(EBulletType)eType < (int)EBulletType.RandomAimingHole, // TODO: 実装したら外す
+                                checkEnabled: (eType) => (true),
                                 includeObsolete: false
                             );
 
@@ -255,6 +255,7 @@ public class StageDataEditor : Editor
                                     break;
                                 }
                             case EBulletType.RandomAimingHole: {
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _panelDatasProp.arraySize);
                                     break;
                                 }
                         }

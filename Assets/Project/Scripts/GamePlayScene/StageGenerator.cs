@@ -81,34 +81,6 @@ namespace Project.Scripts.GamePlayScene
                     }
                     );
                     break;
-                case 9:
-                    // 銃弾実体生成
-                    // ランダムな引数でAimingHoleを生成する
-                    coroutines.Add(bulletGroupGenerator.CreateBulletGroup(
-                            appearanceTime: 1.0f,
-                            interval: 5.0f,
-                            loop: true,
-                    bulletGenerators: new List<GameObject>() {
-                        bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanels: null),
-                                                                       bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100,
-                                                                               randomNumberPanels: new int[] {10, 0, 10, 0, 10, 0, 10, 10})
-                    }));
-                    /* 特殊タイル -> 数字パネル -> 特殊パネル */
-                    tileGenerator.CreateNormalTiles();
-                    // 数字パネル作成
-                    panelGenerator.CreateNumberPanels(
-                    new List<Dictionary<string, int>>() {
-                        PanelGenerator.ComvartToDictionary(panelNum: 1, initialTileNum: 4, finalTileNum: 4),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 2, initialTileNum: 5, finalTileNum: 5),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 3, initialTileNum: 6, finalTileNum: 6),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 4, initialTileNum: 7, finalTileNum: 7),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 5, initialTileNum: 8, finalTileNum: 8),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 6, initialTileNum: 9, finalTileNum: 9),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 7, initialTileNum: 10, finalTileNum: 10),
-                                                           PanelGenerator.ComvartToDictionary(panelNum: 8, initialTileNum: 14, finalTileNum: 11)
-                    }
-                    );
-                    break;
                 case 10:
                     // 銃弾実体生成
                     // ランダムな銃弾をランダムな引数で生成する

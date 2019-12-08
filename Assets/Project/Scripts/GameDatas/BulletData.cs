@@ -30,6 +30,6 @@ namespace Project.Scripts.GameDatas
         public List<int> randomTurnRow;
         public List<int> randomTurnColumn;
 
-
+        public List<int> randomNumberPanels;
     }
 }

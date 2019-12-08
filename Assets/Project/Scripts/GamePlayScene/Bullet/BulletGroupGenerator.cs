@@ -121,6 +121,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                 bulletData.aimingPanels.ToArray()
                             ));
                             break;
+                        case EBulletType.RandomAimingHole:
+                            bulletList.Add(this.CreateRandomAimingHoleGenerator(
+                                bulletData.ratio,
+                                bulletData.randomNumberPanels.ToArray()
+                            ));
+                            break;
                     }
                 }
                 coroutines.Add(CreateBulletGroup(
