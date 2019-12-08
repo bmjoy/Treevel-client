@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using Project.Scripts.Utils.Definitions;
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -8,6 +10,16 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class MenuSelectToggle : Toggle
     {
+        protected enum ESceneName {
+            LevelSelectScene, 
+            StageSelectScene,
+            RecordScene,
+            TutorialScene,
+            ConfigScene,
+        }
+
+        [SerializeField] protected ESceneName tiedSceneName;
+
         protected override void Awake()
         {
             base.Awake();
@@ -20,26 +32,20 @@ namespace Project.Scripts.MenuSelectScene
         /// トグルの状態が変更した場合の処理
         /// </summary>
         /// <param name="toggle"> 変更したトグル </param>
-        private void ToggleValueChanged(GameObject toggle)
+        protected void ToggleValueChanged(GameObject toggle)
         {
             #if UNITY_EDITOR
             if (!EditorApplication.isPlaying) return;
             #endif
 
-            // ONになった場合のみ処理
             if (isOn) {
-                var nowScene = MenuSelectDirector.Instance.NowScene;
-
-                // 現在チェックされている Toggle を取得
-                var checkedToggle = GameObject.Find(nowScene.Replace("Scene", ""));
-
-                if (checkedToggle != null) {
-                    checkedToggle.GetComponent<MenuSelectToggle>().isOn = false;
-                    // 今のシーンをアンロード
-                    SceneManager.UnloadSceneAsync(nowScene);
-                    // 新しいシーンをロード
-                    StartCoroutine(MenuSelectDirector.Instance.ChangeScene(name + "Scene"));
-                }
+                // ONになった場合の処理
+                // Toggleに基づいて表示されているシーンを更新
+                MenuSelectDirector.Instance.SetNowScene(this);
+            } else {
+                // OFFになった場合の処理
+                // シーンをアンロード
+                SceneManager.UnloadSceneAsync(GetSceneName());
             }
         }
 
@@ -56,6 +62,14 @@ namespace Project.Scripts.MenuSelectScene
 
             // ON 状態のものを OFF にすることは許さない
             if (!isOn) isOn = true;
+        }
+
+        /// <summary>
+        /// Toggleに紐づいているscene nameを返す
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetSceneName() {
+            return tiedSceneName.ToString();
         }
     }
 }

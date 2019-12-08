@@ -44,6 +44,16 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
+        /// 木のレベル
+        /// </summary>
+        public static ELevelName levelName;
+
+        /// <summary>
+        /// 木のId
+        /// </summary>
+        public static ETreeName treeId;
+
+        /// <summary>
         /// ステージ id
         /// </summary>
         public static int stageId;
@@ -224,7 +234,7 @@ namespace Project.Scripts.GamePlayScene
             print("-------------------------------");
 
             // 現在のステージ番号を格納
-            _stageNumberText.GetComponent<Text>().text = stageId.ToString();
+            _stageNumberText.GetComponent<Text>().text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageId.ToString();
 
             // 結果ウィンドウを非表示
             _resultWindow.SetActive(false);
