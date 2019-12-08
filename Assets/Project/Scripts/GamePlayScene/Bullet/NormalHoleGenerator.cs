@@ -66,6 +66,35 @@ namespace Project.Scripts.GamePlayScene.Bullet
             this._randomColumn = randomColumn;
         }
 
+        /// <summary>
+        /// RandomNormalHole、NormalHole共通初期化メソッド
+        ///
+        /// 使用例：
+        /// <code>
+        /// // NormalHoleの場合
+        /// Initialize(ratio, row, column /*random 以外*/);
+        /// // RandomNormalHoleの場合
+        /// Initialize(ratio, ERow.Random, EColumn.Random, randomRow, randomColumn);
+        /// </code>
+        /// </summary>
+        /// <param name="ratio">Generatorの出現割合</param>
+        /// <param name="row">出現する行</param>
+        /// <param name="column">出現する列</param>
+        /// <param name="randomRow">出現する行の重み</param>
+        /// <param name="randomColumn">出現する列の重み</param>
+        public void Initialize(int ratio,
+                               ERow row,
+                               EColumn column,
+                               int[] randomRow = null,
+                               int[] randomColumn = null)
+        {
+            this.ratio = ratio;
+            this._row = (int) row;
+            this._column = (int) column;
+            this._randomRow = randomRow;
+            this._randomColumn = randomColumn;
+        }
+
         public override IEnumerator CreateBullet(int bulletId)
         {
             // 出現する行および列を指定する

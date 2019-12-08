@@ -110,18 +110,18 @@ public class StageDataEditor : Editor
                     bulletDataProp.isExpanded = EditorGUILayout.Foldout(bulletDataProp.isExpanded, $"Bullet {index2 + 1}");
                     if (bulletDataProp.isExpanded) {
                         SerializedProperty bulletTypeProp = bulletDataProp.FindPropertyRelative("type");
-                        SerializedProperty directionProp = bulletDataProp.FindPropertyRelative("direction");
-                        SerializedProperty lineProp = bulletDataProp.FindPropertyRelative("line");
                         bulletTypeProp.enumValueIndex = (int)(EBulletType)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("Type"),
                                 selected: (EBulletType)bulletTypeProp.enumValueIndex,
-                                checkEnabled: (eType) => (int)(EBulletType)eType < (int)EBulletType.NormalHole, // TODO: 実装したら外す
+                                checkEnabled: (eType) => (int)(EBulletType)eType < (int)EBulletType.AimingHole, // TODO: 実装したら外す
                                 includeObsolete: false
                             );
 
                         EditorGUILayout.PropertyField(bulletDataProp.FindPropertyRelative("ratio"));
                         switch ((EBulletType)bulletTypeProp.enumValueIndex) {
                             case EBulletType.NormalCartridge: {
+                                    SerializedProperty directionProp = bulletDataProp.FindPropertyRelative("direction");
+                                    SerializedProperty lineProp = bulletDataProp.FindPropertyRelative("line");
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
                                             selected: (ECartridgeDirection)directionProp.intValue,
@@ -142,6 +142,8 @@ public class StageDataEditor : Editor
                                     break;
                                 }
                             case EBulletType.RandomNormalCartridge: {
+                                    SerializedProperty directionProp = bulletDataProp.FindPropertyRelative("direction");
+                                    SerializedProperty lineProp = bulletDataProp.FindPropertyRelative("line");
                                     directionProp.intValue = (int)(ECartridgeDirection.Random);
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
@@ -155,6 +157,8 @@ public class StageDataEditor : Editor
                                     break;
                                 }
                             case EBulletType.TurnCartridge: {
+                                    SerializedProperty directionProp = bulletDataProp.FindPropertyRelative("direction");
+                                    SerializedProperty lineProp = bulletDataProp.FindPropertyRelative("line");
                                     if (directionProp.intValue == (int)ECartridgeDirection.Random) // 方向がランダムの場合強制に変える
                                         directionProp.intValue = (int)ECartridgeDirection.ToLeft;
 
@@ -182,6 +186,8 @@ public class StageDataEditor : Editor
                                     break;
                                 }
                             case EBulletType.RandomTurnCartridge: {
+                                    SerializedProperty directionProp = bulletDataProp.FindPropertyRelative("direction");
+                                    SerializedProperty lineProp = bulletDataProp.FindPropertyRelative("line");
                                     directionProp.intValue = (int)(ECartridgeDirection.Random);
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
@@ -195,6 +201,32 @@ public class StageDataEditor : Editor
                                     this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
                                     this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnRow"), Enum.GetValues(typeof(ERow)).Length - 1);
                                     this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomTurnColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
+                                    break;
+                                }
+                            case EBulletType.NormalHole: {
+                                    SerializedProperty rowProp = bulletDataProp.FindPropertyRelative("row");
+                                    SerializedProperty columnProp = bulletDataProp.FindPropertyRelative("column");
+                                    rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Row"),
+                                            selected: (ERow)rowProp.intValue,
+                                            checkEnabled: (eType) => (ERow)eType != ERow.Random, // ランダムは選択不能にする
+                                            includeObsolete: false
+                                        );
+                                    columnProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Column"),
+                                            selected: (EColumn)columnProp.intValue,
+                                            checkEnabled: (eType) => (EColumn)eType != EColumn.Random, // ランダムは選択不能にする
+                                            includeObsolete: false
+                                        );
+                                    break;
+                                }
+                            case EBulletType.AimingHole: {
+                                    break;
+                                }
+                            case EBulletType.RandomNormalHole: {
+                                    break;
+                                }
+                            case EBulletType.RandomAimingHole: {
                                     break;
                                 }
                         }

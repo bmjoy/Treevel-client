@@ -105,6 +105,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                     bulletData.randomColumn.ToArray()
                                 ));
                             break;
+                        case EBulletType.NormalHole:
+                        case EBulletType.RandomNormalHole:
+                            bulletList.Add(this.CreateNormalHoleGenerator(
+                                bulletData.ratio,
+                                bulletData.row,
+                                bulletData.column,
+                                bulletData.randomRow.ToArray(),
+                                bulletData.randomColumn.ToArray()
+                            ));
+                            break;
                     }
                 }
                 coroutines.Add(CreateBulletGroup(
@@ -302,6 +312,30 @@ namespace Project.Scripts.GamePlayScene.Bullet
             cartridgeGeneratorScript.Initialize(ratio, randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
                 randomTurnColumn);
             return cartridgeGenerator;
+        }
+
+        /// <summary>
+        /// NormalHole、RandomNormalHoleのジェネレーターを生成する共通メソッド
+        /// <see cref="NormalHoleGenerator.Initialize(int, ERow, EColumn, int[], int[])"/>
+        /// </summary>
+        /// <param name="ratio"></param>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        /// <param name="randomRow"></param>
+        /// <param name="randomColumn"></param>
+        /// <returns></returns>
+        public GameObject CreateNormalHoleGenerator(
+            int ratio,
+            ERow row,
+            EColumn column,
+            int[] randomRow,
+            int[] randomColumn
+        )
+        {
+            var holeGenerator = Instantiate(_normalHoleGeneratorPrefab);
+            var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
+            holeGeneratorScript.Initialize(ratio, row, column, randomRow, randomColumn);
+            return holeGenerator;
         }
 
         /// <summary>
