@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54e76f6c0ff74f77be74b799ca8ccc8, type: 3}
   m_Name: 1_5
   m_EditorClassIdentifier: 
-  id: 0
+  id: 5
   bulletGroups:
   - appearTime: 1
     interval: 5
@@ -26,14 +26,14 @@ MonoBehaviour:
       direction: 1
       turnDirections: 0000000000000000
       turnLines: 
-      aimingPanels: 01000000
+      aimingPanels: 0100000002000000
       randomCartridgeDirection: 00000000000000000000000000000000
       randomRow: 0000000000000000000000000000000000000000
       randomColumn: 000000000000000000000000
       randomTurnDirection: 00000000000000000000000000000000
       randomTurnRow: 0000000000000000000000000000000000000000
       randomTurnColumn: 000000000000000000000000
-      randomNumberPanel: 
+      randomNumberPanels: 
   panels:
   - type: 2
     initPos: 4
@@ -73,5 +73,5 @@ MonoBehaviour:
   - type: 2
     initPos: 14
     number: 8
-    targetPos: 14
+    targetPos: 12
     life: 0

@@ -33,7 +33,7 @@ MonoBehaviour:
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberPanel: 
+      randomNumberPanels: 
   panels:
   - type: 2
     initPos: 4
