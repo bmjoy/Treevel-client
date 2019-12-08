@@ -54,8 +54,8 @@ public class StageDataEditor : Editor
                     case ETileType.Normal:
                         break;
                     case ETileType.Warp: {
-                        EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
-                    }
+                            EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
+                        }
                         break;
                 }
                 EditorGUI.indentLevel--;
@@ -74,16 +74,16 @@ public class StageDataEditor : Editor
 
                 switch ((EPanelType)panelTypeProp.enumValueIndex) {
                     case EPanelType.Number: {
-                        EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
-                        EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
-                    }
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
+                        }
                         break;
 
                     case EPanelType.LifeNumber: {
-                        EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
-                        EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
-                        EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
-                    }
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
+                        }
                         break;
                 }
                 EditorGUI.indentLevel--;
