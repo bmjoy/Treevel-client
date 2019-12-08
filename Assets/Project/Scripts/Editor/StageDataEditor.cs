@@ -122,6 +122,8 @@ public class StageDataEditor : Editor
                             case EBulletType.NormalCartridge: {
                                     SerializedProperty directionProp = bulletDataProp.FindPropertyRelative("direction");
                                     SerializedProperty lineProp = bulletDataProp.FindPropertyRelative("line");
+                                    if (directionProp.intValue == (int)ECartridgeDirection.Random) // 方向がランダムの場合強制に変える
+                                        directionProp.intValue = (int)ECartridgeDirection.ToLeft;
                                     directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Direction"),
                                             selected: (ECartridgeDirection)directionProp.intValue,
