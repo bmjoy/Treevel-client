@@ -27,7 +27,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             var initialTile = TileLibrary.GetTile(initialTileNum);
             var script = initialTile.GetComponent<NormalTileController>();
             script.hasPanel = true;
-            transform.parent = initialTile.transform;
+            transform.SetParent(initialTile.transform);
             transform.position = initialTile.transform.position;
         }
     }
