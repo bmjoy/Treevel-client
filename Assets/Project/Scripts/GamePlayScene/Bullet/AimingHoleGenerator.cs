@@ -26,7 +26,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 次に参照するaimingPanelsのindex
         /// </summary>
-        private int _aimingHoleCount = 0;
+        private int _aimingHoleCount = 1;
 
         /// <summary>
         /// AimingHoleが撃ち抜くNumberPanelの確率
