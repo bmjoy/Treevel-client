@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene
                             interval: 5.0f,
                             loop: true,
                     bulletGenerators: new List<GameObject>() {
-                        bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: new int[] {1})
+                        bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanels: new int[] {1})
                     }));
                     /* 特殊タイル -> 数字パネル -> 特殊パネル */
                     tileGenerator.CreateNormalTiles();
@@ -174,7 +174,7 @@ namespace Project.Scripts.GamePlayScene
                             interval: 5.0f,
                             loop: true,
                     bulletGenerators: new List<GameObject>() {
-                        bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanel: null),
+                        bulletGroupGenerator.CreateAimingHoleGenerator(ratio: 100, aimingPanels: null),
                                                                        bulletGroupGenerator.CreateRandomAimingHoleGenerator(ratio: 100,
                                                                                randomNumberPanel: new int[] {10, 0, 10, 0, 10, 0, 10, 10})
                     }));

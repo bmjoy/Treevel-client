@@ -21,10 +21,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 撃ち抜くNumberanelの番号配列
         /// </summary>
-        [CanBeNull] private int[] _aimingPanel = null;
+        [CanBeNull] private int[] _aimingPanels = null;
 
         /// <summary>
-        /// 次に参照するaimingPanelのindex
+        /// 次に参照するaimingPanelsのindex
         /// </summary>
         private int _aimingHoleCount = 0;
 
@@ -38,11 +38,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// 特定のNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="aimingPanel"> 撃ち抜くNumberPanelの配列 </param>
-        public void Initialize(int ratio, int[] aimingPanel)
+        /// <param name="aimingPanels"> 撃ち抜くNumberPanelの配列 </param>
+        public void Initialize(int ratio, int[] aimingPanels)
         {
             this.ratio = ratio;
-            this._aimingPanel = aimingPanel;
+            this._aimingPanels = aimingPanels;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public override IEnumerator CreateBullet(int bulletId)
         {
             // どのNumberPanelを撃つか指定する
-            int[] nextAimingPanel = _aimingPanel ?? new int[] {GetNumberPanel()};
+            int[] nextAimingPanel = _aimingPanels ?? new int[] {GetNumberPanel()};
 
             // 警告の作成
             var warning = Instantiate(_aimingHoleWarningPrefab);

@@ -341,13 +341,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// 特定のNumberPanelの親タイルを撃つAimingHole
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="aimingPanel"> 銃弾が出現するNumberPanel </param>
+        /// <param name="aimingPanels"> 銃弾が出現するNumberPanel </param>
         /// <returns></returns>
-        public GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanel)
+        public GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanels)
         {
             var holeGenerator = Instantiate(_aimingHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
-            holeGeneratorScript.Initialize(ratio, aimingPanel);
+            holeGeneratorScript.Initialize(ratio, aimingPanels);
             return holeGenerator;
         }
 
