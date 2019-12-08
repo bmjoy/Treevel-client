@@ -8,6 +8,7 @@ using System;
 [CanEditMultipleObjects]
 public class StageDataEditor : Editor
 {
+    private SerializedProperty _tileDatasProp;
     private SerializedProperty _panelDatasProp;
     private SerializedProperty _bulletGroupDatasProp;
 
@@ -15,6 +16,7 @@ public class StageDataEditor : Editor
     public void OnEnable()
     {
         _src = target as StageData;
+        _tileDatasProp = serializedObject.FindProperty("tiles");
         _panelDatasProp = serializedObject.FindProperty("panels");
         _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
     }
@@ -24,6 +26,8 @@ public class StageDataEditor : Editor
         EditorGUI.BeginChangeCheck();
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
+
+        DrawTileList();
 
         DrawPanelList();
 
@@ -37,45 +41,57 @@ public class StageDataEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
+    private void DrawTileList()
+    {
+        this.DrawArrayProperty(_tileDatasProp, (tileDataProp, index) => {
+            tileDataProp.isExpanded = EditorGUILayout.Foldout(tileDataProp.isExpanded, $"Tile {index + 1}");
+            if (tileDataProp.isExpanded) {
+                EditorGUI.indentLevel++;
+
+                EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("number"));
+
+                SerializedProperty tileTypeProp = tileDataProp.FindPropertyRelative("type");
+                tileTypeProp.enumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
+
+                switch ((ETileType)tileTypeProp.enumValueIndex) {
+                    case ETileType.Normal:
+                        break;
+                    case ETileType.Warp: {
+                            EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
+                        }
+                        break;
+                }
+                EditorGUI.indentLevel--;
+            }
+        });
+    }
+
     private void DrawPanelList()
     {
-        _panelDatasProp.isExpanded = EditorGUILayout.Foldout(_panelDatasProp.isExpanded, new GUIContent("Panels"));
-        EditorGUILayout.PropertyField(_panelDatasProp.FindPropertyRelative("Array.size"));
-        if (_panelDatasProp.isExpanded) {
-            for (int i = 0 ; i < _panelDatasProp.arraySize ; i++) {
-                SerializedProperty panelDataProp = _panelDatasProp.GetArrayElementAtIndex(i);
-                SerializedProperty panelPosProp = panelDataProp.FindPropertyRelative("initPos");
+        this.DrawArrayProperty(_panelDatasProp, (panelDataProp, index) => {
+            panelDataProp.isExpanded = EditorGUILayout.Foldout(panelDataProp.isExpanded, $"Panel {index + 1}");
+            if (panelDataProp.isExpanded) {
+                EditorGUI.indentLevel++;
                 SerializedProperty panelTypeProp = panelDataProp.FindPropertyRelative("type");
+                panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
 
-                panelDataProp.isExpanded = EditorGUILayout.Foldout(panelDataProp.isExpanded, $"Panel {i + 1}");
-                if (panelDataProp.isExpanded) {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(panelPosProp);
-                    panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
+                switch ((EPanelType)panelTypeProp.enumValueIndex) {
+                    case EPanelType.Number: {
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
+                        }
+                        break;
 
-                    switch ((EPanelType)panelTypeProp.enumValueIndex) {
-                        case EPanelType.Number: {
-                                SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
-                                SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
-                                EditorGUILayout.PropertyField(numberProp);
-                                EditorGUILayout.PropertyField(targetPosProp);
-                            }
-                            break;
-
-                        case EPanelType.LifeNumber: {
-                                SerializedProperty numberProp = panelDataProp.FindPropertyRelative("number");
-                                SerializedProperty targetPosProp = panelDataProp.FindPropertyRelative("targetPos");
-                                SerializedProperty lifeProp = panelDataProp.FindPropertyRelative("life");
-                                EditorGUILayout.PropertyField(numberProp);
-                                EditorGUILayout.PropertyField(targetPosProp);
-                                EditorGUILayout.PropertyField(lifeProp);
-                            }
-                            break;
-                    }
-                    EditorGUI.indentLevel--;
+                    case EPanelType.LifeNumber: {
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
+                        }
+                        break;
                 }
+                EditorGUI.indentLevel--;
             }
-        }
+        });
     }
 
     private void DrawBulletGroupList()

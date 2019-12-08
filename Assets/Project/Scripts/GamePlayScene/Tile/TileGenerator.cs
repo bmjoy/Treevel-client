@@ -2,17 +2,33 @@
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using System.Collections.Generic;
+using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        [SerializeField] private GameObject _numberTilePrefab;
         [SerializeField] private GameObject _normalTilePrefab;
         [SerializeField] private GameObject _warpTilePrefab;
 
         private readonly GameObject[,] _tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
 
+        public void CreateTiles(ICollection<TileData> tileDatas)
+        {
+            foreach (TileData tileData in tileDatas) {
+                switch (tileData.type) {
+                    case ETileType.Normal:
+                        CreateNormalTile(tileData.number);
+                        break;
+                    case ETileType.Warp:
+                        CreateWarpTiles(tileData.number, tileData.pairNumber);
+                        break;
+                }
+            }
+
+            // Normal Tile は明示的に作らなくても，一括作成可能
+            CreateNormalTiles();
+        }
 
         /// <summary>
         /// 普通タイルの作成
@@ -41,6 +57,17 @@ namespace Project.Scripts.GamePlayScene.Tile
             MakeRelations(_tiles);
         }
 
+        public void CreateNormalTile(int tileNum)
+        {
+            var normalTile = Instantiate(_normalTilePrefab);
+
+            var normalTilePosition = GetTilePosition(tileNum);
+
+            normalTile.GetComponent<NormalTileController>().Initialize(normalTilePosition, tileNum);
+
+            SetTile(tileNum, normalTile);
+        }
+
         /// <summary>
         /// ワープタイルの作成 (2つで1組)
         /// </summary>
@@ -59,25 +86,6 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             SetTile(firstTileNum, firstTile);
             SetTile(secondTileNum, secondTile);
-        }
-
-        /// <summary>
-        /// ナンバータイルの作成
-        /// </summary>
-        /// <param name="panelNum"> ゴールとして受け入れるパネルの番号 </param>
-        /// <param name="tileNum"> タイルの番号 </param>
-        public void CreateNumberTile(int panelNum, int tileNum)
-        {
-            // パネルに合わせたタイルを選択
-            var numberTile = Instantiate(_numberTilePrefab);
-            var sprite = Resources.Load<Sprite>("Textures/Tile/numberTile" + panelNum);
-            if (sprite != null) numberTile.GetComponent<SpriteRenderer>().sprite = sprite;
-
-            var tilePosition = GetTilePosition(tileNum);
-
-            numberTile.GetComponent<NumberTileController>().Initialize(tilePosition, tileNum);
-
-            SetTile(tileNum, numberTile);
         }
 
         /// <summary>

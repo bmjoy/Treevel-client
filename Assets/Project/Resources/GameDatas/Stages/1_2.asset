@@ -22,9 +22,14 @@ MonoBehaviour:
       ratio: 100
       line: 1
       direction: 1
+      turnDirections: 
+      turnLines: 
       randomCartridgeDirection: 
       randomRow: 
       randomColumn: 
+      randomTurnDirection: 
+      randomTurnRow: 
+      randomTurnColumn: 
   panels:
   - type: 2
     initPos: 1
@@ -66,3 +71,4 @@ MonoBehaviour:
     number: 8
     targetPos: 11
     life: 0
+  tiles: []

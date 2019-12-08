@@ -28,18 +28,6 @@ namespace Project.Scripts.GamePlayScene.Panel
             foreach (PanelData panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
-                        // 数字タイルの作成
-                        _tileGenerator.CreateNumberTile(panelData.number, panelData.targetPos);
-                        break;
-                }
-            }
-
-            // _tileGenerator.MakeRelations();
-            _tileGenerator.CreateNormalTiles();
-
-            foreach (PanelData panelData in panelDatas) {
-                switch (panelData.type) {
-                    case EPanelType.Number:
                         var numberPanel = Instantiate(_numberPanelPrefab);
                         var numberPanelSprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelData.number);
                         if (numberPanelSprite != null) numberPanel.GetComponent<SpriteRenderer>().sprite = numberPanelSprite;
