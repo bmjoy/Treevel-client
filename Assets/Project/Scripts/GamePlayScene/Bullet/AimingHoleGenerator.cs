@@ -32,7 +32,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// AimingHoleが撃ち抜くNumberPanelの確率
         /// </summary>
         /// <returns></returns>
-        private int[] _randomNumberPanel = BulletLibrary.GetInitialArray(StageSize.NUMBER_PANEL_NUM);
+        private int[] _randomNumberPanels = BulletLibrary.GetInitialArray(StageSize.NUMBER_PANEL_NUM);
 
         /// <summary>
         /// 特定のNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
@@ -50,10 +50,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// </summary>
         /// <param name="ratio"> Generatorの出現確率 </param>
         /// <param name="randomNumberPanel"> 撃ちぬくNumberPanelの確率 </param>
-        public void InitializeRandom(int ratio, int[] randomNumberPanel)
+        public void InitializeRandom(int ratio, int[] randomNumberPanels)
         {
             this.ratio = ratio;
-            this._randomNumberPanel = randomNumberPanel;
+            this._randomNumberPanels = randomNumberPanels;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -87,7 +87,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         private int GetNumberPanel()
         {
-            var index = BulletLibrary.SamplingArrayIndex(_randomNumberPanel) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomNumberPanels) + 1;
             return index;
         }
     }
