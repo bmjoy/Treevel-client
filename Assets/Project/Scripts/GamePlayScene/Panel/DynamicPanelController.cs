@@ -19,7 +19,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// ワープタイルでワープする時のアニメーション
         /// </summary>
         [SerializeField] protected AnimationClip warpAnimation;
-        
+
         /// <summary>
         /// ワープタイルでワープした後のアニメーション
         /// </summary>
@@ -108,7 +108,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             if (targetScript.hasPanel) return;
             // 親タイルの更新
             transform.parent.GetComponent<NormalTileController>().LeavePanel(gameObject);
-            transform.parent = targetTile.transform;
+            transform.SetParent(targetTile.transform);
             // 親タイルへ移動
             transform.position = transform.parent.position;
             // 親タイルの副作用

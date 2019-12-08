@@ -16,11 +16,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         private GameObject warpTileEffect;
 
-        protected override void Awake() {
+        protected override void Awake()
+        {
             base.Awake();
             warpTileEffect = transform.Find("warpTileEffectPrefab").gameObject;
         }
-        
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -46,15 +47,18 @@ namespace Project.Scripts.GamePlayScene.Tile
             GamePlayDirector.OnFail -= OnFail;
         }
 
-        private void OnSucceed() {
+        private void OnSucceed()
+        {
             EndProcess();
         }
 
-        private void OnFail() {
+        private void OnFail()
+        {
             EndProcess();
         }
 
-        private void EndProcess() {
+        private void EndProcess()
+        {
             // 粒子アニメーションの生成を止める
             GetComponent<ParticleSystem>().Stop();
             // すでに生成された粒子を消す
@@ -87,7 +91,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
             // panelの座標の更新
             LeavePanel(panel);
-            panel.transform.parent = _pairTile.transform;
+            panel.transform.SetParent(_pairTile.transform);
             _pairTile.GetComponent<NormalTileController>().hasPanel = true;
             panel.transform.position = _pairTile.transform.position;
             // panelがワープから戻るアニメーション

@@ -115,7 +115,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             // パネルより手前のレイヤー(BULLET)に描画する
             gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
             // holeを衝突したパネルに追従させる
-            gameObject.transform.parent = other.transform;
+            gameObject.transform.SetParent(other.transform);
         }
     }
 }
