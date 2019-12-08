@@ -47,6 +47,9 @@ public class StageDataEditor : Editor
             tileDataProp.isExpanded = EditorGUILayout.Foldout(tileDataProp.isExpanded, $"Tile {index + 1}");
             if (tileDataProp.isExpanded) {
                 EditorGUI.indentLevel++;
+
+                EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("number"));
+
                 SerializedProperty tileTypeProp = tileDataProp.FindPropertyRelative("type");
                 tileTypeProp.enumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
 
