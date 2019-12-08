@@ -20,16 +20,20 @@ MonoBehaviour:
     bullets:
     - type: 0
       ratio: 100
+      row: 0
+      column: 0
       line: 1
       direction: 1
       turnDirections: 
       turnLines: 
+      aimingPanels: 
       randomCartridgeDirection: 
       randomRow: 
       randomColumn: 
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
+      randomNumberPanels: 
   panels:
   - type: 2
     initPos: 1
