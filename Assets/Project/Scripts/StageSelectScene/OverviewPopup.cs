@@ -32,11 +32,6 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public GameObject goToGame;
 
-        /// <summary>
-        /// 今後ウィンドウを表示するかのボタン
-        /// </summary>
-        private GameObject _hideOverview;
-
         private int _stageId;
 
         private void Awake()
@@ -46,11 +41,6 @@ namespace Project.Scripts.StageSelectScene
             _clearPercentage = transform.Find("ClearPercentage").GetComponent<Text>();
             _appearingBullets = transform.Find("AppearingBullets").gameObject;
             goToGame = transform.Find("GoToGame").gameObject;
-            _hideOverview = transform.Find("HideOverview").gameObject;
-
-            _hideOverview.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
-                ToggleValueChanged(_hideOverview.GetComponent<Toggle>());
-            });
 
             // ゲームを開始するボタン
             goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(_stageId));
@@ -88,11 +78,6 @@ namespace Project.Scripts.StageSelectScene
                     bulletOverviewPanel.gameObject.SetActive(false);
                 }
             }
-        }
-
-        private static void ToggleValueChanged(Toggle toggle)
-        {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.DO_NOT_SHOW, toggle.isOn ? 1 : 0);
         }
     }
 }
