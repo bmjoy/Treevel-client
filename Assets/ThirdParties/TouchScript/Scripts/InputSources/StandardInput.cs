@@ -467,7 +467,7 @@ namespace TouchScript.InputSources
             mouseHandler = new MouseHandler(addPointer, updatePointer, pressPointer, releasePointer, removePointer, cancelPointer);
             mouseHandler.EmulateSecondMousePointer = emulateSecondMousePointer;
             /*
-                copyright (c) 2019 Keisuke Yamakawa and other contributors.
+                Copyright (c) 2019 Keisuke Yamakawa and other contributors.
                 // Debug.Log("[TouchScript] Initialized Unity mouse input.");
             */
         }
@@ -484,7 +484,7 @@ namespace TouchScript.InputSources
         {
             touchHandler = new TouchHandler(addPointer, updatePointer, pressPointer, releasePointer, removePointer, cancelPointer);
             /*
-                copyright (c) 2019 Keisuke Yamakawa and other contributors.
+                Copyright (c) 2019 Keisuke Yamakawa and other contributors.
                 // Debug.Log("[TouchScript] Initialized Unity touch input.");
             */
         }
