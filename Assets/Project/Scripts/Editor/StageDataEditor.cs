@@ -112,9 +112,7 @@ public class StageDataEditor : Editor
                         SerializedProperty bulletTypeProp = bulletDataProp.FindPropertyRelative("type");
                         bulletTypeProp.enumValueIndex = (int)(EBulletType)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("Type"),
-                                selected: (EBulletType)bulletTypeProp.enumValueIndex,
-                                checkEnabled: (eType) => (true),
-                                includeObsolete: false
+                                selected: (EBulletType)bulletTypeProp.enumValueIndex
                             );
 
                         EditorGUILayout.PropertyField(bulletDataProp.FindPropertyRelative("ratio"));
