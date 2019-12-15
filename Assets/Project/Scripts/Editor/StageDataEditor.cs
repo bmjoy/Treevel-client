@@ -3,6 +3,7 @@ using UnityEditor;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using System;
+using System.Linq;
 
 [CustomEditor(typeof(StageData))]
 [CanEditMultipleObjects]
@@ -12,6 +13,8 @@ public class StageDataEditor : Editor
     private SerializedProperty _panelDatasProp;
     private SerializedProperty _bulletGroupDatasProp;
 
+    private int _numOfNumberPanels = 0;
+
     private StageData _src;
     public void OnEnable()
     {
@@ -19,6 +22,7 @@ public class StageDataEditor : Editor
         _tileDatasProp = serializedObject.FindProperty("tiles");
         _panelDatasProp = serializedObject.FindProperty("panels");
         _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
+        _numOfNumberPanels = _src.PanelDatas != null ? _src.PanelDatas.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() : 0;
     }
 
     public override void OnInspectorGUI()
@@ -35,10 +39,10 @@ public class StageDataEditor : Editor
 
         // Set object dirty, this will make it be saved after saving the project.
         if (EditorGUI.EndChangeCheck()) {
-            Undo.RecordObject(_src, _src.name);
             EditorUtility.SetDirty(serializedObject.targetObject);
+            serializedObject.ApplyModifiedProperties();
+            _numOfNumberPanels = _src.PanelDatas != null ? _src.PanelDatas.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() : 0;
         }
-        serializedObject.ApplyModifiedProperties();
     }
 
     private void DrawTileList()
@@ -228,7 +232,7 @@ public class StageDataEditor : Editor
                                     SerializedProperty aimingPanelsProp = bulletDataProp.FindPropertyRelative("aimingPanels");
                                     for (int i = 0 ; i < aimingPanelsProp.arraySize ; i++) {
                                         SerializedProperty aimingPanelProp = aimingPanelsProp.GetArrayElementAtIndex(i);
-                                        aimingPanelProp.intValue = Math.Min(aimingPanelProp.intValue, _panelDatasProp.arraySize);
+                                        aimingPanelProp.intValue = Math.Min(aimingPanelProp.intValue, _numOfNumberPanels);
                                     }
                                     this.DrawArrayProperty(aimingPanelsProp);
                                     break;
@@ -255,7 +259,7 @@ public class StageDataEditor : Editor
                                     break;
                                 }
                             case EBulletType.RandomAimingHole: {
-                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _panelDatasProp.arraySize);
+                                    this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _numOfNumberPanels);
                                     break;
                                 }
                         }
