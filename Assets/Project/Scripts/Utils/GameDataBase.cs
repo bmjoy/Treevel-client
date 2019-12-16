@@ -30,7 +30,7 @@ namespace Project.Scripts.Utils
         {
             if (_stageDataMap.ContainsKey(id))
                 return _stageDataMap[id];
-            else 
+            else
                 return null;
         }
     }

@@ -62,7 +62,7 @@ namespace Project.Scripts.StageSelectScene
             // ステージID
             _stageIdText.text = _stageId.ToString();
 
-            if (stageData == null) 
+            if (stageData == null)
                 return;
 
             // TODO:ステージが"ステージ難易度"を持ったら実装
