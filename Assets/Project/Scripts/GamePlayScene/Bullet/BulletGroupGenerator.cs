@@ -105,6 +105,28 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                     bulletData.randomColumn.ToArray()
                                 ));
                             break;
+                        case EBulletType.NormalHole:
+                        case EBulletType.RandomNormalHole:
+                            bulletList.Add(this.CreateNormalHoleGenerator(
+                                bulletData.ratio,
+                                bulletData.row,
+                                bulletData.column,
+                                bulletData.randomRow.ToArray(),
+                                bulletData.randomColumn.ToArray()
+                            ));
+                            break;
+                        case EBulletType.AimingHole:
+                            bulletList.Add(this.CreateAimingHoleGenerator(
+                                bulletData.ratio,
+                                bulletData.aimingPanels.ToArray()
+                            ));
+                            break;
+                        case EBulletType.RandomAimingHole:
+                            bulletList.Add(this.CreateRandomAimingHoleGenerator(
+                                bulletData.ratio,
+                                bulletData.randomNumberPanels.ToArray()
+                            ));
+                            break;
                     }
                 }
                 coroutines.Add(CreateBulletGroup(
@@ -305,6 +327,30 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         /// <summary>
+        /// NormalHole、RandomNormalHoleのジェネレーターを生成する共通メソッド
+        /// <see cref="NormalHoleGenerator.Initialize(int, ERow, EColumn, int[], int[])"/>
+        /// </summary>
+        /// <param name="ratio"></param>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        /// <param name="randomRow"></param>
+        /// <param name="randomColumn"></param>
+        /// <returns></returns>
+        public GameObject CreateNormalHoleGenerator(
+            int ratio,
+            ERow row,
+            EColumn column,
+            int[] randomRow,
+            int[] randomColumn
+        )
+        {
+            var holeGenerator = Instantiate(_normalHoleGeneratorPrefab);
+            var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
+            holeGeneratorScript.Initialize(ratio, row, column, randomRow, randomColumn);
+            return holeGenerator;
+        }
+
+        /// <summary>
         /// NormalHoleのGeneratorを生成する
         /// 特定の行、特定の列を撃つNormalHole
         /// </summary>
@@ -341,13 +387,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// 特定のNumberPanelの親タイルを撃つAimingHole
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="aimingPanel"> 銃弾が出現するNumberPanel </param>
+        /// <param name="aimingPanels"> 銃弾が出現するNumberPanel </param>
         /// <returns></returns>
-        public GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanel)
+        public GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanels)
         {
             var holeGenerator = Instantiate(_aimingHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
-            holeGeneratorScript.Initialize(ratio, aimingPanel);
+            holeGeneratorScript.Initialize(ratio, aimingPanels);
             return holeGenerator;
         }
 
@@ -356,13 +402,13 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// ランダムなNumberPanelの親タイルを撃つAimingHole
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="randomNumberPanel"> 銃弾が出現するNumberPanelの重み</param>
+        /// <param name="randomNumberPanels"> 銃弾が出現するNumberPanelの重み</param>
         /// <returns></returns>
-        public GameObject CreateRandomAimingHoleGenerator(int ratio, int[] randomNumberPanel)
+        public GameObject CreateRandomAimingHoleGenerator(int ratio, int[] randomNumberPanels)
         {
             var holeGenerator = Instantiate(_aimingHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
-            holeGeneratorScript.InitializeRandom(ratio, randomNumberPanel);
+            holeGeneratorScript.InitializeRandom(ratio, randomNumberPanels);
             return holeGenerator;
         }
     }
