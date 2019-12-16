@@ -31,7 +31,7 @@ public class StageDataEditor : Editor
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
 
-        DrawOverviewBullets();
+        DrawOverviewGimmicks();
 
         DrawTileList();
 
@@ -47,9 +47,9 @@ public class StageDataEditor : Editor
         }
     }
 
-    private void DrawOverviewBullets()
+    private void DrawOverviewGimmicks()
     {
-        this.DrawArrayProperty(serializedObject.FindProperty("overviewBullets"));
+        this.DrawArrayProperty(serializedObject.FindProperty("overviewGimmicks"));
     }
 
     private void DrawTileList()

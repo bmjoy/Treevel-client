@@ -71,7 +71,7 @@ namespace Project.Scripts.StageSelectScene
             // TODO:サーバで全ユーザのデータを持ったら実装
             // _clearPercentage.GetComponent<Text>().text = ...
 
-            var overviewBullets = stageData.OverviewBullets;
+            var overviewBullets = stageData.OverviewGimmicks;
             for (int i = 1 ; i <= 3 ; ++i) {
                 var bulletOverviewPanel = _appearingBullets.transform.Find($"GimmickOverview{i}");
                 if (overviewBullets.Count >= i) {

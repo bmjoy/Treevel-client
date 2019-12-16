@@ -11,7 +11,7 @@ namespace Project.Scripts.GameDatas
         [SerializeField] private List<BulletGroupData> bulletGroups;
         [SerializeField] private List<PanelData> panels;
         [SerializeField] private List<TileData> tiles;
-        [SerializeField] private List<EBulletType> overviewBullets;
+        [SerializeField] private List<EBulletType> overviewGimmicks;
 
         public List<TileData> TileDatas
         {
@@ -41,10 +41,10 @@ namespace Project.Scripts.GameDatas
             }
         }
 
-        public List<EBulletType> OverviewBullets
+        public List<EBulletType> OverviewGimmicks
         {
             get {
-                return overviewBullets;
+                return overviewGimmicks;
             }
         }
     }

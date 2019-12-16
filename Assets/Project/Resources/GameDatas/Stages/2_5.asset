@@ -76,4 +76,4 @@ MonoBehaviour:
     targetPos: 11
     life: 2
   tiles: []
-  overviewBullets: 01000000
+  overviewGimmicks: 
