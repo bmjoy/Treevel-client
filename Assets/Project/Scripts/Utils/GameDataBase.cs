@@ -28,8 +28,10 @@ namespace Project.Scripts.Utils
 
         public StageData GetStage(int id)
         {
-            // ステージがない場合デフォルトとしてステージ1を返す
-            return _stageDataMap?[id] ?? _stageDataMap[1];
+            if (_stageDataMap.ContainsKey(id))
+                return _stageDataMap[id];
+            else 
+                return null;
         }
     }
 }

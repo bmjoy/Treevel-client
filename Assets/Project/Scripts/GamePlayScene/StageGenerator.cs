@@ -28,7 +28,7 @@ namespace Project.Scripts.GamePlayScene
 
             // ステージデータ読み込む
             StageData stageData = GameDataBase.Instance.GetStage(stageId);
-            if (stageId == stageData.Id) {
+            if (stageData != null) {
                 tileGenerator.CreateTiles(stageData.TileDatas);
                 panelGenerator.CreatePanels(stageData.PanelDatas);
                 coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
