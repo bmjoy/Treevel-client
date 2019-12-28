@@ -108,24 +108,24 @@ namespace Project.Scripts.GamePlayScene.Bullet
                         case EBulletType.NormalHole:
                         case EBulletType.RandomNormalHole:
                             bulletList.Add(this.CreateNormalHoleGenerator(
-                                bulletData.ratio,
-                                bulletData.row,
-                                bulletData.column,
-                                bulletData.randomRow.ToArray(),
-                                bulletData.randomColumn.ToArray()
-                            ));
+                                    bulletData.ratio,
+                                    bulletData.row,
+                                    bulletData.column,
+                                    bulletData.randomRow.ToArray(),
+                                    bulletData.randomColumn.ToArray()
+                                ));
                             break;
                         case EBulletType.AimingHole:
                             bulletList.Add(this.CreateAimingHoleGenerator(
-                                bulletData.ratio,
-                                bulletData.aimingPanels.ToArray()
-                            ));
+                                    bulletData.ratio,
+                                    bulletData.aimingPanels.ToArray()
+                                ));
                             break;
                         case EBulletType.RandomAimingHole:
                             bulletList.Add(this.CreateRandomAimingHoleGenerator(
-                                bulletData.ratio,
-                                bulletData.randomNumberPanels.ToArray()
-                            ));
+                                    bulletData.ratio,
+                                    bulletData.randomNumberPanels.ToArray()
+                                ));
                             break;
                     }
                 }
