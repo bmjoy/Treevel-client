@@ -15,12 +15,12 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージ難易度
         /// </summary>
-        private Text _stageDifficulty;
+        private Text _stageDifficultyText;
 
         /// <summary>
         /// クリア割合
         /// </summary>
-        private Text _clearPercentage;
+        private Text _clearPercentageText;
 
         /// <summary>
         /// 出現する銃弾
@@ -37,8 +37,8 @@ namespace Project.Scripts.StageSelectScene
         private void Awake()
         {
             _stageIdText = transform.Find("StageId").GetComponent<Text>();
-            _stageDifficulty = transform.Find("StageDifficulty").GetComponent<Text>();
-            _clearPercentage = transform.Find("ClearPercentage").GetComponent<Text>();
+            _stageDifficultyText = transform.Find("StageDifficulty").GetComponent<Text>();
+            _clearPercentageText = transform.Find("ClearPercentage").GetComponent<Text>();
             _appearingBullets = transform.Find("AppearingBullets").gameObject;
             goToGame = transform.Find("GoToGame").gameObject;
 
