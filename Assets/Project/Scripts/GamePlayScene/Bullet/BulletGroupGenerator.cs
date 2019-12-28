@@ -101,8 +101,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
                                     bulletData.randomRow.ToArray(),
                                     bulletData.randomColumn.ToArray(),
                                     bulletData.randomTurnDirection.ToArray(),
-                                    bulletData.randomRow.ToArray(),
-                                    bulletData.randomColumn.ToArray()
+                                    bulletData.randomTurnRow.ToArray(),
+                                    bulletData.randomTurnColumn.ToArray()
                                 ));
                             break;
                         case EBulletType.NormalHole:
