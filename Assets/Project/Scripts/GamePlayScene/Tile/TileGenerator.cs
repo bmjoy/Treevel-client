@@ -102,7 +102,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             // 列 (0~2)
             var column = tileNum % StageSize.COLUMN;
             // 作成するタイルのx,y座標
-            var positionX = TileSize.WIDTH * (column - 1);
+            var positionX = TileSize.WIDTH * (column - StageSize.COLUMN / 2);
             var positionY = TileSize.HEIGHT * (StageSize.ROW / 2 - row);
 
             return new Vector2(positionX, positionY);
