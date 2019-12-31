@@ -76,6 +76,7 @@ public class StageDataEditor : Editor
             panelDataProp.isExpanded = EditorGUILayout.Foldout(panelDataProp.isExpanded, $"Panel {index + 1}");
             if (panelDataProp.isExpanded) {
                 EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
                 SerializedProperty panelTypeProp = panelDataProp.FindPropertyRelative("type");
                 panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
 
