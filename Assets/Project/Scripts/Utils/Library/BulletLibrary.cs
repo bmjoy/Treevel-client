@@ -13,9 +13,7 @@ namespace Project.Scripts.Utils.Library
         /// <param name="position"> 座標 </param>
         public static(int, int) GetRowAndColumn(Vector2 position)
         {
-            // 最上タイルのy座標
-            const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
-            int row = (int)Math.Round((topTilePositionY - position.y) / TileSize.HEIGHT, MidpointRounding.AwayFromZero) + 1;
+            int row = (int)Math.Round(position.y / TileSize.HEIGHT, MidpointRounding.AwayFromZero) + StageSize.ROW / 2 + 1;
             int column = (int)Math.Round((position.x / TileSize.WIDTH) + 1, MidpointRounding.AwayFromZero) + 1;
             return (row, column);
         }
