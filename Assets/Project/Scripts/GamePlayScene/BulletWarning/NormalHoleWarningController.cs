@@ -20,7 +20,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
         public void Initialize(int row, int column)
         {
             transform.position =
-                new Vector2(TileSize.WIDTH * (column - 2), TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - row));
+                new Vector2(TileSize.WIDTH * (column - ((StageSize.COLUMN / 2 + 1))), TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - row));
         }
     }
 }

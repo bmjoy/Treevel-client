@@ -50,12 +50,12 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                     bulletMotionVector = Vector2.right;
                     break;
                 case ECartridgeDirection.ToUp:
-                    warningPosition = new Vector2(TileSize.WIDTH * (line - 2),
+                    warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
                         -WindowSize.HEIGHT / 2);
                     bulletMotionVector = Vector2.up;
                     break;
                 case ECartridgeDirection.ToBottom:
-                    warningPosition = new Vector2(TileSize.WIDTH * (line - 2),
+                    warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
                         WindowSize.HEIGHT / 2);
                     bulletMotionVector = Vector2.down;
                     break;

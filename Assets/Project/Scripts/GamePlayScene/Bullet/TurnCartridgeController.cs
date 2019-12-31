@@ -150,7 +150,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
             for (var index = 0; index < turnDirection.Length; index++) {
                 // 警告の座標
                 _turnPoint[index] = cartridgePosition * cartridgeMotionVector.Transposition().Abs() + new Vector2(
-                        TileSize.WIDTH * (turnLine[index] - 2),
+                        TileSize.WIDTH * (turnLine[index] - (StageSize.COLUMN / 2 + 1)),
                         TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - turnLine[index])) * cartridgeMotionVector.Abs();
                 // 1フレームあたりの回転の角度
                 _turnAngle[index] = _turnDirection[index] % 2 == 1 ? 90 : -90;
