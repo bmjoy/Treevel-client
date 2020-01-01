@@ -52,11 +52,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         private int[] _randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
-        protected override void Awake() {
+        protected override void Awake()
+        {
             base.Awake();
             TURN_CARTRIDGE_WAITING_FRAMES = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
         }
-        
+
         public void Initialize(int ratio, ECartridgeDirection direction, int line, int[] turnDirection, int[] turnLine)
         {
             Initialize(ratio, direction, line);
