@@ -10,30 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a54e76f6c0ff74f77be74b799ca8ccc8, type: 3}
-  m_Name: 1_7
+  m_Name: 2_1
   m_EditorClassIdentifier: 
-  id: 7
-  bulletGroups:
-  - appearTime: 1
-    interval: 5
-    loop: 1
-    bullets:
-    - type: 3
-      ratio: 100
-      row: 0
-      column: 0
-      line: 1
-      direction: -1
-      turnDirections: 04000000020000000300000001000000
-      turnLines: 01000000020000000300000001000000
-      aimingPanels: 
-      randomCartridgeDirection: 0a0000000a0000000a0000000a000000
-      randomRow: 0100000000000000000000000000000000000000
-      randomColumn: 640000000000000000000000
-      randomTurnDirection: 64000000640000006400000064000000
-      randomTurnRow: 0100000000000000000000000000000000000000
-      randomTurnColumn: 000000000a0000000a000000
-      randomNumberPanels: 
+  id: 1001
+  bulletGroups: []
   panels:
   - type: 2
     initPos: 4
@@ -75,5 +55,14 @@ MonoBehaviour:
     number: 8
     targetPos: 11
     life: 0
+  - type: 0
+    initPos: 3
+    number: 0
+    targetPos: 0
+    life: 0
+  - type: 1
+    initPos: 15
+    number: 0
+    targetPos: 0
+    life: 0
   tiles: []
-  overviewGimmicks: 
