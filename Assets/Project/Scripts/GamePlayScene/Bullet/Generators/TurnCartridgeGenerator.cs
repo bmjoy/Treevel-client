@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using JetBrains.Annotations;
+using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class TurnCartridgeGenerator : NormalCartridgeGenerator
     {

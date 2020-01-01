@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Project.Scripts.Utils.Patterns;
-using Project.Scripts.Utils.Definitions;
-using UnityEngine;
-using Project.Scripts.GameDatas;
 using System.Linq;
-namespace Project.Scripts.GamePlayScene.Bullet
+using Project.Scripts.GameDatas;
+using Project.Scripts.GamePlayScene.Bullet.Controllers;
+using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
+using UnityEngine;
+
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class BulletGroupGenerator : SingletonObject<BulletGroupGenerator>
     {

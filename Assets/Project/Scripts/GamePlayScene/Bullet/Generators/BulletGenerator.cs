@@ -1,9 +1,9 @@
-﻿﻿using Project.Scripts.Utils.Definitions;
-using System;
+﻿using System;
 using System.Collections;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public abstract class BulletGenerator : MonoBehaviour
     {

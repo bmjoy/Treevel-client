@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using Project.Scripts.GamePlayScene.Bullet.Generators;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
     public class TurnCartridgeController : NormalCartridgeController
     {
@@ -112,7 +113,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 if(_waiting) {
                     // 待機中
                     _waitingTime--;
-                    if(_waitingTime == 0) 
+                    if(_waitingTime == 0)
                     _waiting = false;
                 } else {
                     if (_rotating) {

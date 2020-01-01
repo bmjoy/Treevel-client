@@ -3,7 +3,7 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
     public class NormalCartridgeController : BulletController
     {

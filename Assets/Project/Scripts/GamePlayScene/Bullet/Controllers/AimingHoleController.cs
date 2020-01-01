@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Project.Scripts.Utils.Library;
+﻿using Project.Scripts.Utils.Library;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
     public class AimingHoleController : NormalHoleController
     {

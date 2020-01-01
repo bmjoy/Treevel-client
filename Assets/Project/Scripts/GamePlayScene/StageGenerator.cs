@@ -8,6 +8,8 @@ using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
+using System.Linq;
+using Project.Scripts.GamePlayScene.Bullet.Generators;
 
 namespace Project.Scripts.GamePlayScene
 {
