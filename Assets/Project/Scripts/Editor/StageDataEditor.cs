@@ -134,6 +134,8 @@ public class StageDataEditor : Editor
                                             includeObsolete: false
                                         );
 
+                                    if (lineProp.intValue == (int)ERow.Random) // 行(列)がランダムの場合強制に変える
+                                        lineProp.intValue = (int)ERow.First;
                                     switch ((ECartridgeDirection)directionProp.intValue) {
                                         case ECartridgeDirection.ToLeft:
                                         case ECartridgeDirection.ToRight:
@@ -156,6 +158,13 @@ public class StageDataEditor : Editor
                                             checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
                                             includeObsolete: false
                                         );
+                                    lineProp.intValue = (int)(ERow.Random);
+                                    lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Line"),
+                                            selected: (ERow)lineProp.intValue,
+                                            checkEnabled: (eType) => (ERow)eType == ERow.Random,
+                                            includeObsolete: false
+                                        );
                                     this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
                                     this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
                                     this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
@@ -174,6 +183,9 @@ public class StageDataEditor : Editor
                                             includeObsolete: false
                                         );
 
+                                    
+                                    if (lineProp.intValue == (int)ERow.Random) // 行(列)がランダムの場合強制に変える
+                                        lineProp.intValue = (int)ERow.First;
                                     switch ((ECartridgeDirection)directionProp.intValue) {
                                         case ECartridgeDirection.ToLeft:
                                         case ECartridgeDirection.ToRight:
@@ -198,6 +210,13 @@ public class StageDataEditor : Editor
                                             label: new GUIContent("Direction"),
                                             selected: (ECartridgeDirection)directionProp.intValue,
                                             checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
+                                            includeObsolete: false
+                                        );
+                                    lineProp.intValue = (int)(ERow.Random);
+                                    lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Line"),
+                                            selected: (ERow)lineProp.intValue,
+                                            checkEnabled: (eType) => (ERow)eType == ERow.Random,
                                             includeObsolete: false
                                         );
                                     this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
