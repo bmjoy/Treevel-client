@@ -58,6 +58,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
             TURN_CARTRIDGE_WAITING_FRAMES = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
         }
 
+        /// <summary>
+        /// TurnCartridgeを生成するGeneratorの初期化
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="direction" 移動する方向 ></param>
+        /// <param name="line"> 移動する行(列) </param>
+        /// <param name="turnDirection"> 曲がる方向 </param>
+        /// <param name="turnLine"> 曲がる行(列) </param>
         public void Initialize(int ratio, ECartridgeDirection direction, int line, int[] turnDirection, int[] turnLine)
         {
             Initialize(ratio, direction, line);
@@ -66,39 +74,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         /// <summary>
-        /// 特定の行を移動し、特定の列で特定の方向に曲がるTurnHoleを生成するGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 移動方向 </param>
-        /// <param name="row"> 移動する行 </param>
-        /// <param name="turnDirection"> 曲がる方向 </param>
-        /// <param name="turnLine"> 曲がる列 </param>
-        public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, ERow row, int[] turnDirection,
-            int[] turnLine)
-        {
-            Initialize(ratio, cartridgeDirection, row);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
-        }
-
-        /// <summary>
-        /// 特定の列を移動し、特定の行で特定の方向に曲がるTurnHoleを生成するGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 移動方向 </param>
-        /// <param name="column"> 移動する列 </param>
-        /// <param name="turnDirection"> 曲がる方向 </param>
-        /// <param name="turnLine"> 曲がる行 </param>
-        public void Initialize(int ratio, ECartridgeDirection cartridgeDirection, EColumn column, int[] turnDirection,
-            int[] turnLine)
-        {
-            Initialize(ratio, cartridgeDirection, column);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
-        }
-
-        /// <summary>
-        /// ランダムな行(または列)を移動し、ランダムな列でランダムな方向に曲がるTurnHoleを生成するGeneratorの初期化
+        /// ランダムな行(または列)を移動し、ランダムな列でランダムな方向に曲がるTurnCartridgeを生成するGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合 </param>
         /// <param name="randomCartridgeDirection"> 移動する方向の重み </param>

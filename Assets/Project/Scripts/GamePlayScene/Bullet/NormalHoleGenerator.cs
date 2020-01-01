@@ -41,32 +41,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
         private int[] _randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         /// <summary>
-        /// 特定の行、特定の列に出現するNormalHoleを生成するGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="row"> 出現する行 </param>
-        /// <param name="column"> 出現する列 </param>
-        public void Initialize(int ratio, ERow row, EColumn column)
-        {
-            this.ratio = ratio;
-            this._row = (int) row;
-            this._column = (int) column;
-        }
-
-        /// <summary>
-        /// ランダムな行、ランダムな列に出現するNormalHoleを生成するGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio">　Generatorの出現確率 </param>
-        /// <param name="randomRow"> 出現する行の重み </param>
-        /// <param name="randomColumn"> 出現する列の重み </param>
-        public void Initialize(int ratio, int[] randomRow, int[] randomColumn)
-        {
-            this.ratio = ratio;
-            this._randomRow = randomRow;
-            this._randomColumn = randomColumn;
-        }
-
-        /// <summary>
         /// RandomNormalHole、NormalHole共通初期化メソッド
         ///
         /// 使用例：
