@@ -58,10 +58,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="randomRow">出現する行の重み</param>
         /// <param name="randomColumn">出現する列の重み</param>
         public void Initialize(int ratio,
-                               ERow row,
-                               EColumn column,
-                               int[] randomRow = null,
-                               int[] randomColumn = null)
+            ERow row,
+            EColumn column,
+            int[] randomRow = null,
+            int[] randomColumn = null)
         {
             this.ratio = ratio;
             this._row = (int) row;

@@ -105,11 +105,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="randomRow">移動する行の重み</param>
         /// <param name="randomColumn">移動する列の重み</param>
         public void Initialize(int ratio,
-                               ECartridgeDirection cartridgeDirection,
-                               int line = -1,
-                               int[] randomCartridgeDirection = null,
-                               int[] randomRow = null,
-                               int[] randomColumn = null)
+            ECartridgeDirection cartridgeDirection,
+            int line = -1,
+            int[] randomCartridgeDirection = null,
+            int[] randomRow = null,
+            int[] randomColumn = null)
         {
             this.ratio = ratio;
             this.cartridgeDirection = cartridgeDirection;

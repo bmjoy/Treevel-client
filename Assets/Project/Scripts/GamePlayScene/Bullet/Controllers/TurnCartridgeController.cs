@@ -110,11 +110,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
                         _warningIndex++;
                 }
 
-                if(_waiting) {
+                if (_waiting) {
                     // 待機中
                     _waitingTime--;
-                    if(_waitingTime == 0)
-                    _waiting = false;
+                    if (_waitingTime == 0)
+                        _waiting = false;
                 } else {
                     if (_rotating) {
                         // 回転中
