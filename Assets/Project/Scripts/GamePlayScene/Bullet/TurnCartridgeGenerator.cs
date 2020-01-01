@@ -262,7 +262,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         private int GetTurnRow()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomRow) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomTurnRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
@@ -272,7 +272,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         private int GetTurnColumn()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomColumn) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomTurnColumn) + 1;
             return (int) Enum.ToObject(typeof(EColumn), index);
         }
     }
