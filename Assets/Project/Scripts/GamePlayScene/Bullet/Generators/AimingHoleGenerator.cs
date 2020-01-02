@@ -14,6 +14,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// AimingHoleのPrefab
         /// </summary>
         [SerializeField] private GameObject _aimingHolePrefab;
+
         /// <summary>
         /// AimingHoleWarningのPrefab
         /// </summary>

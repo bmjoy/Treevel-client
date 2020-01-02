@@ -15,6 +15,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// TurnCartridgeのPrefab
         /// </summary>
         [SerializeField] private GameObject _turnCartridgePrefab;
+
         /// <summary>
         /// TurnCartridgeWarningのPrefab
         /// </summary>

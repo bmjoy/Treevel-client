@@ -30,7 +30,7 @@ namespace Project.Scripts.MenuSelectScene
 
             if (!IsActive() || !IsInteractable())
                 return;
-            
+
             // ON状態で自身を押下可能なとき
             if (isOn && _isTransition) {
                 SceneManager.UnloadSceneAsync(GetSceneName());

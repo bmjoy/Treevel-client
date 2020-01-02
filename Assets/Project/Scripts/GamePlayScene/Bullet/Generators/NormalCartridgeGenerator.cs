@@ -14,6 +14,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// NormalCartridgeのPrefab
         /// </summary>
         [SerializeField] private GameObject _normalCartridgePrefab;
+
         /// <summary>
         /// NormalCartridgeWarningのPrefab
         /// </summary>

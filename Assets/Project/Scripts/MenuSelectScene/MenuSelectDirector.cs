@@ -14,7 +14,7 @@ namespace Project.Scripts.MenuSelectScene
         /// 初期値はStageSelectToggle
         /// </summary>
         [SerializeField] private MenuSelectToggle nowToggle;
-        
+
         private void Awake()
         {
             // 初期シーンのロード

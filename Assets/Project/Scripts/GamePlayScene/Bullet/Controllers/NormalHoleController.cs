@@ -17,6 +17,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// 出現する行
         /// </summary>
         protected int row;
+
         /// <summary>
         /// 出現する列
         /// </summary>
@@ -106,14 +107,17 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         {
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (transform.position.z < 0) return;
+
             // パネルとの衝突
             if (other.gameObject.CompareTag(TagName.NUMBER_PANEL)) {
                 // 数字パネルとの衝突
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             }
+
             // パネルより手前のレイヤー(BULLET)に描画する
             gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
+
             // holeを衝突したパネルに追従させる
             gameObject.transform.SetParent(other.transform);
         }

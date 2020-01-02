@@ -14,6 +14,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// NormalHoleのPrefab
         /// </summary>
         [SerializeField] private GameObject _normalHolePrefab;
+
         /// <summary>
         /// NormalHoleWarningのPrefab
         /// </summary>
