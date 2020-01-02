@@ -31,7 +31,7 @@ namespace Project.Scripts.LevelSelectScene
             // StageSelect Toggle に結びつけるSceneを変更する
             var nowToggle = GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>();
             SceneManager.UnloadSceneAsync(nowToggle.GetSceneName());
-            nowToggle._isTransition = true;
+            nowToggle.IsTransition = true;
             StartCoroutine(MenuSelectDirector.Instance.ChangeScene());
         }
     }

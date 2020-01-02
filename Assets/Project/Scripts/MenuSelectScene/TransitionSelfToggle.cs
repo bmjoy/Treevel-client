@@ -11,7 +11,7 @@ namespace Project.Scripts.MenuSelectScene
         /// ON状態でToggleを押せるかどうか
         /// </summary>
         /// <value></value>
-        public bool _isTransition {
+        public bool IsTransition {
             private get;
             set;
         }
@@ -30,9 +30,9 @@ namespace Project.Scripts.MenuSelectScene
                 return;
 
             // ON状態で自身を押下可能なとき
-            if (isOn && _isTransition) {
+            if (isOn && IsTransition) {
                 SceneManager.UnloadSceneAsync(GetSceneName());
-                _isTransition = false;
+                IsTransition = false;
                 isOn = true;
                 ToggleValueChanged(gameObject);
             }
@@ -44,8 +44,9 @@ namespace Project.Scripts.MenuSelectScene
         /// Toggleに紐づいているscene nameを返す
         /// </summary>
         /// <returns></returns>
-        public override string GetSceneName() {
-            if(!_isTransition) return tiedSceneName.ToString();
+        public override string GetSceneName()
+        {
+            if (!IsTransition) return tiedSceneName.ToString();
             return tiedSecondSceneName.ToString();
         }
     }

@@ -34,17 +34,17 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// 失敗時のアニメーション
         /// </summary>
-        [SerializeField] protected AnimationClip _deadAnimation;
+        [SerializeField] protected AnimationClip deadAnimation;
 
         /// <summary>
         /// 自身が壊されたかどうか
         /// </summary>
-        protected bool _dead = false;
+        protected bool dead = false;
 
         protected override void Awake()
         {
             base.Awake();
-            _anim.AddClip(_deadAnimation, AnimationClipName.NUMBER_PANEL_DEAD);
+            anim.AddClip(deadAnimation, AnimationClipName.NUMBER_PANEL_DEAD);
 
             // PostProcessVolume の設定
             GetComponent<PostProcessVolume>().isGlobal = true;
@@ -118,10 +118,10 @@ namespace Project.Scripts.GamePlayScene.Panel
             if (other.gameObject.transform.position.z < 0) return;
 
             // 失敗演出
-            _anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
+            anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
 
             // 自身が破壊された
-            _dead = true;
+            dead = true;
 
             // 失敗状態に移行する
             gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
@@ -151,8 +151,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         private void EndProcess()
         {
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
-            if (!_dead) {
-                _anim.wrapMode = WrapMode.Default;
+            if (!dead) {
+                anim.wrapMode = WrapMode.Default;
             }
         }
     }

@@ -29,7 +29,7 @@ namespace Project.Scripts.GamePlayScene
             var coroutines = new List<IEnumerator>();
 
             // ステージデータ読み込む
-            StageData stageData = GameDataBase.Instance.GetStage(stageId);
+            var stageData = GameDataBase.Instance.GetStage(stageId);
             if (stageData != null) {
                 tileGenerator.CreateTiles(stageData.TileDatas);
                 panelGenerator.CreatePanels(stageData.PanelDatas);

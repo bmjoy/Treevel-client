@@ -34,7 +34,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// 移動方向の重み
         /// </summary>
         /// <returns></returns>
-        private int[] randomCartridgeDirection =
+        private int[] _randomCartridgeDirection =
             BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         public void Initialize(int ratio, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
         {
             this.ratio = ratio;
-            this.randomCartridgeDirection = randomCartridgeDirection;
+            _randomCartridgeDirection = randomCartridgeDirection;
             this.randomRow = randomRow;
             this.randomColumn = randomColumn;
         }
@@ -115,7 +115,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             this.ratio = ratio;
             this.cartridgeDirection = cartridgeDirection;
             this.line = line;
-            this.randomCartridgeDirection = randomCartridgeDirection;
+            _randomCartridgeDirection = randomCartridgeDirection;
             this.randomRow = randomRow;
             this.randomColumn = randomColumn;
         }
@@ -175,7 +175,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <returns></returns>
         protected ECartridgeDirection GetCartridgeDirection()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomCartridgeDirection) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomCartridgeDirection) + 1;
             return (ECartridgeDirection) Enum.ToObject(typeof(ECartridgeDirection), index);
         }
 

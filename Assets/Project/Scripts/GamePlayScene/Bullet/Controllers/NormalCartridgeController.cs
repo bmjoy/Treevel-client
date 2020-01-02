@@ -10,7 +10,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 銃弾が存在することを許す画面外の余幅
         /// </summary>
-        [NonSerialized] public float additionalMargin = 0.00001f;
+        [NonSerialized] private const float _ADDITIONAL_MARGIN = 0.00001f;
+
         /// <summary>
         /// 銃弾の移動ベクトル
         /// </summary>
@@ -43,11 +44,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         {
             // Check if bullet goes out of window
             if (transform.position.x <
-                -((WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin) ||
-                transform.position.x > (WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin ||
+                -((WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + _ADDITIONAL_MARGIN) ||
+                transform.position.x > (WindowSize.WIDTH + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + _ADDITIONAL_MARGIN ||
                 transform.position.y <
-                -((WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin) ||
-                transform.position.y > (WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + additionalMargin)
+                -((WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + _ADDITIONAL_MARGIN) ||
+                transform.position.y > (WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2 + _ADDITIONAL_MARGIN)
                 Destroy(gameObject);
         }
 

@@ -80,7 +80,7 @@ namespace Project.Scripts.Editor
 
             // Undoに登録
             Undo.RegisterCreatedObjectUndo(parent == null ? obj : parent, "Create Multi Language Text");
-            Undo.CollapseUndoOperations(groupID);
+            Undo.CollapseUndoOperations(groupId);
             Selection.activeGameObject = obj;
         }
 

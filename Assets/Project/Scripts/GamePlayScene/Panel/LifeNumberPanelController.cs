@@ -29,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             _maxLife = Mathf.Max(_maxLife, 1); // MaxLifeの最小値を１にする
             _currentLife = _maxLife;
 
-            _anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTCKED);
+            anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED);
         }
 
         public void Initialize(int panelNum, int initialTileNum, int finalTileNum, int life)
@@ -46,24 +46,24 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="other">The other Collider2D involved in this collision.</param>
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == TagName.BULLET && other.gameObject.transform.position.z >= 0) {
+            if (other.CompareTag(TagName.BULLET) && other.gameObject.transform.position.z >= 0) {
                 --_currentLife;
                 if (_currentLife <= 0) {
                     // 失敗演出
-                    _anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
+                    anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
 
                     // 自身が破壊された
-                    _dead = true;
+                    dead = true;
 
                     // 失敗状態に移行する
                     gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
                 } else if (_currentLife == 1) {
                     // ループさせて危機感っぽい
-                    _anim.wrapMode = WrapMode.Loop;
-                    _anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTCKED, PlayMode.StopAll);
+                    anim.wrapMode = WrapMode.Loop;
+                    anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
                 } else {
-                    _anim.clip = _attackedAnimation;
-                    _anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTCKED, PlayMode.StopAll);
+                    anim.clip = _attackedAnimation;
+                    anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
                 }
             }
         }

@@ -27,8 +27,8 @@ namespace Project.Scripts.ConfigScene
         {
             // 全ステージをリセット
             foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) {
-                var stageNum = LevelInfo.Num[levelName];
-                var stageStartId = LevelInfo.StageStartId[levelName];
+                var stageNum = LevelInfo.NUM[levelName];
+                var stageStartId = LevelInfo.STAGE_START_ID[levelName];
 
                 for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
                     StageStatus.Reset(stageId);

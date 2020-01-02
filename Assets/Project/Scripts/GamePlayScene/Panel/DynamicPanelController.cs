@@ -13,7 +13,7 @@ namespace Project.Scripts.GamePlayScene.Panel
     {
         protected GamePlayDirector gamePlayDirector;
 
-        protected Animation _anim;
+        protected Animation anim;
 
         /// <summary>
         /// ワープタイルでワープする時のアニメーション
@@ -35,9 +35,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             GetComponent<FlickGesture>().FlickTime = 0.2f;
 
             // アニメーションの追加
-            _anim = GetComponent<Animation>();
-            _anim.AddClip(warpAnimation, AnimationClipName.PANEL_WARP);
-            _anim.AddClip(warpReverseAnimation, AnimationClipName.PANEL_WARP_REVERSE);
+            anim = GetComponent<Animation>();
+            anim.AddClip(warpAnimation, AnimationClipName.PANEL_WARP);
+            anim.AddClip(warpReverseAnimation, AnimationClipName.PANEL_WARP_REVERSE);
         }
 
         protected virtual void Start()
@@ -77,19 +77,19 @@ namespace Project.Scripts.GamePlayScene.Panel
             // 方向検知に加えて，上下と左右の変化量を比べることで，検知精度をあげる
             if (x > 0 && Math.Abs(x) >= Math.Abs(y)) {
                 // 右
-                var rightTile = parentTile._rightTile;
+                var rightTile = parentTile.rightTile;
                 UpdateTile(rightTile);
             } else if (x < 0 && Math.Abs(x) >= Math.Abs(y)) {
                 // 左
-                var leftTile = parentTile._leftTile;
+                var leftTile = parentTile.leftTile;
                 UpdateTile(leftTile);
             } else if (y > 0 && Math.Abs(y) >= Math.Abs(x)) {
                 // 上
-                var upperTile = parentTile._upperTile;
+                var upperTile = parentTile.upperTile;
                 UpdateTile(upperTile);
             } else if (y < 0 && Math.Abs(y) >= Math.Abs(x)) {
                 // 下
-                var lowerTile = parentTile._lowerTile;
+                var lowerTile = parentTile.lowerTile;
                 UpdateTile(lowerTile);
             }
         }
@@ -122,8 +122,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
             // アニメーションを止める
-            _anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
-            _anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
+            anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
+            anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
         }
 
         /// <summary>
@@ -132,8 +132,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         protected virtual void OnFail()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
-            _anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
-            _anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
+            anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
+            anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
         }
     }
 }

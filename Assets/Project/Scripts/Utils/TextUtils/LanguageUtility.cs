@@ -20,7 +20,7 @@ namespace Project.Scripts.Utils.TextUtils
     {
         private static ELanguage _currentLanguage;
         private static Dictionary<KeyValuePair<ELanguage, ETextIndex>, string> _stringTable;
-        private static string DATA_PATH = "GameDatas/translation";
+        private const string _DATA_PATH = "GameDatas/translation";
 
         public delegate void LanguageChangeEvent();
         public static event LanguageChangeEvent OnLanguageChange;

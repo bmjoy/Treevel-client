@@ -24,7 +24,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// 銃弾が生成されてから動き始めるまでのフレーム数
         /// </summary>
-        public static int TURN_CARTRIDGE_WAITING_FRAMES;
+        public static int turnCartridgeWaitingFrames;
 
         /// <summary>
         /// 曲がる方向
@@ -57,7 +57,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         protected override void Awake()
         {
             base.Awake();
-            TURN_CARTRIDGE_WAITING_FRAMES = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
+            turnCartridgeWaitingFrames = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                 warningScript.Initialize(ECartridgeType.Turn, nextCartridgeDirection, nextCartridgeLine);
 
             // 銃弾を生成するまで待つ
-            for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES - TURN_CARTRIDGE_WAITING_FRAMES; index++) yield return new WaitForFixedUpdate();
+            for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES - turnCartridgeWaitingFrames; index++) yield return new WaitForFixedUpdate();
 
             // ゲームが続いているなら銃弾を作成する
             if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;

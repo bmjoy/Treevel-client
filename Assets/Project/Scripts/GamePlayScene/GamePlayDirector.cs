@@ -15,10 +15,10 @@ namespace Project.Scripts.GamePlayScene
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        private const string RESULT_WINDOW_NAME = "ResultPopup";
-        private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
-        private const string PAUSE_WINDOW_NAME = "PauseWindow";
-        private const string PAUSE_BUTTON_NAME = "PauseButton";
+        private const string _RESULT_WINDOW_NAME = "ResultPopup";
+        private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
+        private const string _PAUSE_WINDOW_NAME = "PauseWindow";
+        private const string _PAUSE_BUTTON_NAME = "PauseButton";
 
         public delegate void ChangeAction();
 
@@ -105,12 +105,12 @@ namespace Project.Scripts.GamePlayScene
 
         private void Awake()
         {
-            _resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
+            _resultWindow = GameObject.Find(_RESULT_WINDOW_NAME);
 
-            _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
+            _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME);
 
-            _pauseWindow = GameObject.Find(PAUSE_WINDOW_NAME);
-            _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
+            _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
+            _pauseButton = GameObject.Find(_PAUSE_BUTTON_NAME);
 
             StartCoroutine(UnifyDisplay());
 
