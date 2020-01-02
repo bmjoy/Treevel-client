@@ -30,7 +30,7 @@ namespace Project.Scripts.UIComponents
         /// <summary>
         /// 言語が変更されたときに発火するイベント
         /// </summary>
-        public void OnLanguageChanged()
+        private void OnLanguageChanged()
         {
             text = LanguageUtility.GetText(TextIndex);
         }
