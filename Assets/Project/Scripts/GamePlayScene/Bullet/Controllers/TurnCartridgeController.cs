@@ -136,8 +136,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         {
             // 銃弾に必要な引数を受け取る
             Initialize(direction, line, motionVector);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
+            _turnDirection = turnDirection;
+            _turnLine = turnLine;
             // 表示する全ての警告の座標および回転の角度を計算
             var cartridgePosition = transform.position;
             var cartridgeMotionVector = motionVector;
