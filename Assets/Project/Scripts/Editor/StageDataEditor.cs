@@ -196,11 +196,11 @@ public class StageDataEditor : Editor
                                 );
                             lineProp.intValue = (int)(ERow.Random);
                             lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                label: new GUIContent("Line"),
-                                selected: (ERow)lineProp.intValue,
-                                checkEnabled: (eType) => (ERow)eType == ERow.Random,
-                                includeObsolete: false
-                            );
+                                    label: new GUIContent("Line"),
+                                    selected: (ERow)lineProp.intValue,
+                                    checkEnabled: (eType) => (ERow)eType == ERow.Random,
+                                    includeObsolete: false
+                                );
                             this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
                             this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
                             this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
@@ -256,11 +256,11 @@ public class StageDataEditor : Editor
                                 );
                             lineProp.intValue = (int)(ERow.Random);
                             lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                label: new GUIContent("Line"),
-                                selected: (ERow)lineProp.intValue,
-                                checkEnabled: (eType) => (ERow)eType == ERow.Random,
-                                includeObsolete: false
-                            );
+                                    label: new GUIContent("Line"),
+                                    selected: (ERow)lineProp.intValue,
+                                    checkEnabled: (eType) => (ERow)eType == ERow.Random,
+                                    includeObsolete: false
+                                );
                             this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
                             this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
                             this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);

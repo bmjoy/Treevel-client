@@ -45,8 +45,7 @@ namespace Project.Scripts.MenuSelectScene
         /// <returns></returns>
         public override string GetSceneName()
         {
-            if (!IsTransition) return tiedSceneName.ToString();
-            return tiedSecondSceneName.ToString();
+            return !IsTransition ? tiedSceneName.ToString() : tiedSecondSceneName.ToString();
         }
     }
 }

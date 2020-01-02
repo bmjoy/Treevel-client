@@ -10,7 +10,7 @@ namespace Project.Scripts.UIComponents
     /// </summary>
     public class MultiLanguageText : Text
     {
-        [SerializeField] ETextIndex _textIndex;
+        [SerializeField] private ETextIndex _textIndex;
 
         /// <summary>
         /// TextIndex が設定される同時にテキストを取得して設定する

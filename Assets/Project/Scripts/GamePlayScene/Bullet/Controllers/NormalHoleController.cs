@@ -42,7 +42,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <param name="row"> 出現する行 </param>
         /// <param name="column"> 出現する列 </param>
         /// <param name="holeWarningPosition"> 警告の座標 </param>
-        public virtual void Initialize(int row, int column, Vector2 holeWarningPosition)
+        public void Initialize(int row, int column, Vector2 holeWarningPosition)
         {
             this.row = row;
             this.column = column;

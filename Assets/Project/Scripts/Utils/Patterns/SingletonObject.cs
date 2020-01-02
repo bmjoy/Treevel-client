@@ -44,8 +44,7 @@ namespace Project.Scripts.Utils.Patterns
                             " is needed in the scene, so '" + singleton +
                             "' was created with DontDestroyOnLoad.");
                     } else {
-                        Debug.Log("[Singleton] Using instance already created: " +
-                            _instance.gameObject.name);
+                        // Debug.Log("[Singleton] Using instance already created: " + _instance.gameObject.name);
                     }
 
                     return _instance;
