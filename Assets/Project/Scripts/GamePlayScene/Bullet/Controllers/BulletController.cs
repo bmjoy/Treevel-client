@@ -7,6 +7,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(Rigidbody2D))]
+
     // Bulletに共通したフィールド、メソッドの定義
     public abstract class BulletController : MonoBehaviour
     {
@@ -19,6 +20,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// 元画像の横幅
         /// </summary>
         [NonSerialized] protected float originalWidth;
+
         /// <summary>
         /// 元画像の縦幅
         /// </summary>

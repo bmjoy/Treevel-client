@@ -31,6 +31,7 @@ namespace Project.Scripts.StageSelectScene
         /// ロード中の背景
         /// </summary>
         private GameObject _loadingBackground;
+
         /// <summary>
         /// ロード中のアニメーション
         /// </summary>
