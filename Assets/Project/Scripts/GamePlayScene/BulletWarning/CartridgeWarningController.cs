@@ -31,6 +31,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                     var sprite = Resources.Load<Sprite>("Textures/BulletWarning/turnWarning");
                     gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
                     break;
+                case ECartridgeType.Random:
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -59,6 +61,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                         WindowSize.HEIGHT / 2);
                     bulletMotionVector = Vector2.down;
                     break;
+                case ECartridgeDirection.Random:
+                    throw new NotImplementedException();
                 default:
                     throw new NotImplementedException();
             }

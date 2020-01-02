@@ -24,6 +24,8 @@ namespace Project.Scripts.GamePlayScene.Tile
                     case ETileType.Warp:
                         CreateWarpTiles(tileData.number, tileData.pairNumber);
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 

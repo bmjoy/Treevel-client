@@ -36,6 +36,8 @@ namespace Project.Scripts.GamePlayScene.Panel
                         if (lifeNumberPanelSprite != null) lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
                         lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }

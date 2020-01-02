@@ -129,6 +129,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                                     bulletData.randomNumberPanels.ToArray()
                                 ));
                             break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
                 }
                 coroutines.Add(CreateBulletGroup(
