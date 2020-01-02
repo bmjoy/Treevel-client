@@ -222,12 +222,12 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
         /// <param name="randomTurnRow"> 曲がる行の重み </param>
         /// <param name="randomTurnColumn"> 曲がる列の重み</param>
-        public GameObject CreateRandomTurnCartridgeGenerator(int ratio, int[] randomCartridgedirection, int[] randomRow, int[] randomColumn,
+        public GameObject CreateRandomTurnCartridgeGenerator(int ratio, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
             var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, randomCartridgedirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
+            cartridgeGeneratorScript.Initialize(ratio, randomCartridgeDirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
                 randomTurnColumn);
             return cartridgeGenerator;
         }
