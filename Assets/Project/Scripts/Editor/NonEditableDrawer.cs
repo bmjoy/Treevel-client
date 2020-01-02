@@ -5,7 +5,7 @@ using Project.Scripts.Utils.Attributes;
 namespace Project.Scripts.Editor
 {
     [CustomPropertyDrawer(typeof(NonEditableAttribute))]
-    public class NonEditableDrawer : UnityEditor.PropertyDrawer
+    public class NonEditableDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {

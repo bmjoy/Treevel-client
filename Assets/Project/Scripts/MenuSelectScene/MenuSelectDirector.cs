@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene
 {

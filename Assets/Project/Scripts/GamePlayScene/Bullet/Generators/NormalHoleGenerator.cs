@@ -65,10 +65,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             int[] randomColumn = null)
         {
             this.ratio = ratio;
-            this._row = (int) row;
-            this._column = (int) column;
-            this._randomRow = randomRow;
-            this._randomColumn = randomColumn;
+            _row = (int) row;
+            _column = (int) column;
+            _randomRow = randomRow;
+            _randomColumn = randomColumn;
         }
 
         public override IEnumerator CreateBullet(int bulletId)

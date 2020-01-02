@@ -1,6 +1,4 @@
-﻿using Project.Scripts.Utils.Definitions;
-using System.Collections;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;

@@ -13,8 +13,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
     /// </summary>
     public class BulletGroupController : MonoBehaviour
     {
-        private GamePlayDirector gamePlayDirector;
-
         private BulletGroupGenerator _bulletGroupGenerator;
 
         /// <summary>
@@ -76,11 +74,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             List<GameObject> bulletGenerators)
         {
             _random = new System.Random();
-            gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-            this._appearanceTime = appearanceTime;
-            this._interval = interval;
-            this._loop = loop;
-            this._bulletGenerators = bulletGenerators;
+            _appearanceTime = appearanceTime;
+            _interval = interval;
+            _loop = loop;
+            _bulletGenerators = bulletGenerators;
             _bulletGeneratorRatio = new int[bulletGenerators.Count];
             for (var index = 0; index < bulletGenerators.Count; index++) {
                 _bulletGeneratorRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;

@@ -71,8 +71,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         public void Initialize(int ratio, ECartridgeDirection direction, int line, int[] turnDirection, int[] turnLine)
         {
             Initialize(ratio, direction, line);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
+            _turnDirection = turnDirection;
+            _turnLine = turnLine;
         }
 
         /// <summary>
@@ -90,9 +90,9 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
             Initialize(ratio, randomCartridgeDirection, randomRow, randomColumn);
-            this._randomTurnDirections = randomTurnDirections;
-            this._randomTurnRow = randomTurnRow;
-            this._randomTurnColumn = randomTurnColumn;
+            _randomTurnDirections = randomTurnDirections;
+            _randomTurnRow = randomTurnRow;
+            _randomTurnColumn = randomTurnColumn;
         }
 
         public override IEnumerator CreateBullet(int bulletId)

@@ -44,7 +44,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         public void Initialize(int ratio, int[] aimingPanels)
         {
             this.ratio = ratio;
-            this._aimingPanels = aimingPanels;
+            _aimingPanels = aimingPanels;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         public void InitializeRandom(int ratio, int[] randomNumberPanels)
         {
             this.ratio = ratio;
-            this._randomNumberPanels = randomNumberPanels;
+            _randomNumberPanels = randomNumberPanels;
         }
 
         public override IEnumerator CreateBullet(int bulletId)

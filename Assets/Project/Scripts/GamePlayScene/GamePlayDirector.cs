@@ -223,16 +223,6 @@ namespace Project.Scripts.GamePlayScene
         {
             CleanObject();
 
-            // StageStatusのデバッグ用
-            var stageStatus = StageStatus.Get(stageId);
-            var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
-            print("-------------------------------");
-            print("ステージ" + stageId + "番は" + tmp + "です");
-            print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
-            print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
-            print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
-            print("-------------------------------");
-
             // 現在のステージ番号を格納
             _stageNumberText.GetComponent<Text>().text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageId.ToString();
 
