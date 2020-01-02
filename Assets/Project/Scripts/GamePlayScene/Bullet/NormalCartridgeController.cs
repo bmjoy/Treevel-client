@@ -68,10 +68,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 -(WindowSize.HEIGHT + CartridgeSize.WIDTH * LOCAL_SCALE) / 2) * motionVector;
             // 移動方向に垂直な方向の初期座標
             var orthogonalMotionVector = motionVector.Transposition().Abs();
-            var orthogonalMotionVectorPosition = new Vector2(TileSize.WIDTH * (line - 2),
-                WindowSize.HEIGHT * 0.5f -
-                (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f) -
-                TileSize.HEIGHT * (line - 1)) * orthogonalMotionVector;
+            var orthogonalMotionVectorPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
+                TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - line)) * orthogonalMotionVector;
             // 銃弾の座標の初期位置
             transform.position = motionVectorPosition + orthogonalMotionVectorPosition;
             // 銃弾画像の向きを反転させるかどうか

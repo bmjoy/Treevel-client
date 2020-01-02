@@ -16,9 +16,6 @@
     {
         public const float WIDTH = WindowSize.WIDTH * 0.22f;
         public const float HEIGHT = WIDTH;
-
-        // タイル群の上端位置を指定
-        public const float MARGIN_TOP = WindowSize.HEIGHT * 0.15f;
     }
 
     /// <summary>

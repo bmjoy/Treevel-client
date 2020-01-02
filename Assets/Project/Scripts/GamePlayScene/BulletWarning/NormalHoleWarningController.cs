@@ -19,9 +19,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
         /// <param name="column"> 出現する列 </param>
         public void Initialize(int row, int column)
         {
-            const float topTilePositionY = WindowSize.HEIGHT * 0.5f - (TileSize.MARGIN_TOP + TileSize.HEIGHT * 0.5f);
             transform.position =
-                new Vector2(TileSize.WIDTH * (column - 2), topTilePositionY - TileSize.HEIGHT * (row - 1));
+                new Vector2(TileSize.WIDTH * (column - ((StageSize.COLUMN / 2 + 1))), TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - row));
         }
     }
 }
