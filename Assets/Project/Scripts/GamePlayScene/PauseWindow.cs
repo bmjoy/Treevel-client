@@ -16,11 +16,6 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _pauseButton;
 
         /// <summary>
-        /// 一時停止中の背景
-        /// </summary>
-        private GameObject _pauseBackground;
-
-        /// <summary>
         /// ゲーム再開ボタン
         /// </summary>
         private GameObject _backButton;
@@ -33,7 +28,6 @@ namespace Project.Scripts.GamePlayScene
         private void Awake()
         {
             _pauseButton = GameObject.Find("PauseButton").gameObject;
-            _pauseBackground = transform.Find("PauseBackground").gameObject;
             _backButton = transform.Find("PausePopup/PauseBackButton").gameObject;
             _quitButton = transform.Find("PausePopup/PauseQuitButton").gameObject;
             _backButton.GetComponent<Button>().onClick.AddListener(PauseBackButtonDown);

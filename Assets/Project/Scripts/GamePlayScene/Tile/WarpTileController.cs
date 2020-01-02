@@ -32,7 +32,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             base.Initialize(position, tileNum);
             name = TileName.WARP_TILE;
-            this._pairTile = pairTile;
+            _pairTile = pairTile;
         }
 
         private void OnEnable()
