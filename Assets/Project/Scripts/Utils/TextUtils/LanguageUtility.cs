@@ -80,9 +80,7 @@ namespace Project.Scripts.Utils.TextUtils
 
         public static ELanguage CurrentLanguage
         {
-            get {
-                return _currentLanguage;
-            }
+            get => _currentLanguage;
             set {
                 _currentLanguage = value;
                 OnLanguageChange.Invoke();

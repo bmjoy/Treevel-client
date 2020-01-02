@@ -18,14 +18,12 @@ namespace Project.Scripts.UIComponents
         /// <value></value>
         public ETextIndex TextIndex
         {
-            get {
-                return _textIndex;
-            }
+            get => _textIndex;
             set {
-                if (_textIndex != value) {
-                    _textIndex = value;
-                    text = LanguageUtility.GetText(_textIndex);
-                }
+                if (_textIndex == value) return;
+
+                _textIndex = value;
+                text = LanguageUtility.GetText(_textIndex);
             }
         }
 

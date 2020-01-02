@@ -13,39 +13,14 @@ namespace Project.Scripts.GameDatas
         [SerializeField] private List<BulletGroupData> bulletGroups;
         [SerializeField] private List<EBulletType> overviewGimmicks;
 
-        public List<TileData> TileDatas
-        {
-            get {
-                return tiles;
-            }
-        }
+        public int Id => id;
 
-        public List<PanelData> PanelDatas
-        {
-            get {
-                return panels;
-            }
-        }
+        public List<TileData> TileDatas => tiles;
 
-        public List<BulletGroupData> BulletGroups
-        {
-            get {
-                return bulletGroups;
-            }
-        }
+        public List<PanelData> PanelDatas => panels;
 
-        public int Id
-        {
-            get {
-                return id;
-            }
-        }
+        public List<BulletGroupData> BulletGroups => bulletGroups;
 
-        public List<EBulletType> OverviewGimmicks
-        {
-            get {
-                return overviewGimmicks;
-            }
-        }
+        public List<EBulletType> OverviewGimmicks => overviewGimmicks;
     }
 }

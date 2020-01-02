@@ -22,11 +22,7 @@
         public static T Instance {
             get {
                 lock (_lock) {
-                    if (_instance == null) {
-                        _instance = new T();
-                    }
-
-                    return _instance;
+                    return _instance ?? (_instance = new T());
                 }
             }
         }

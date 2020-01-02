@@ -88,11 +88,9 @@ namespace Project.Scripts.StageSelectScene
                 // TODO: stageIdは(levelName, treeId)から決める(競合しないように未実装にしてある)
                 var stageId = LevelInfo.STAGE_START_ID[levelName] + i;
                 // ボタンインスタンスを生成
-                var button = Instantiate(stageButtonPrefab);
+                var button = Instantiate(stageButtonPrefab, content, false);
                 // 名前
                 button.name = stageId.ToString();
-                // 親ディレクトリ
-                button.transform.SetParent(content, false);
                 // 表示テキスト
                 button.GetComponentInChildren<Text>().text = "ステージ" + stageId + "へ";
                 // クリック時のリスナー

@@ -87,11 +87,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="panelNum"> 取得したいパネルの番号 </param>
         public GameObject GetNumberPanel(int panelNum)
         {
-            if (this._panelNum == panelNum) {
-                return gameObject;
-            }
-
-            return null;
+            return _panelNum == panelNum ? gameObject : null;
         }
 
         /// <inheritdoc />
