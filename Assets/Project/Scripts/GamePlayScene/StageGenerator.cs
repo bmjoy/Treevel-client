@@ -35,7 +35,6 @@ namespace Project.Scripts.GamePlayScene
 
                 // 銃弾一括生成
                 bulletGroupGenerator.CreateBulletGroups(coroutines);
-                return; // NotImplementedExceptionを回避するため
             }
             else
             {
