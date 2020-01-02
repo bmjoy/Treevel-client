@@ -31,8 +31,8 @@ namespace Project.Scripts.Utils.Definitions
         /// ステージ数
         /// </summary>
         /// TODO: StageSelectSceneで木に応じたステージ数を表示するときは使っていない
-        ///       RecordSceneで使っているので残しているが、将来的にはTreeDefinition.TreeInfo.Numを使う
         public static readonly Dictionary<ELevelName, int> Num = new Dictionary<ELevelName, int>()
+        /// RecordSceneで使っているので残しているが、将来的にはTreeDefinition.TreeInfo.Numを使う
         {
             {ELevelName.Easy, 10},
             {ELevelName.Normal, 10},

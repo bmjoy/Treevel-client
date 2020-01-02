@@ -24,7 +24,6 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// シーンを変更する
         /// </summary>
-        /// <param name="sceneName"> シーン名 </param>
         public IEnumerator ChangeScene()
         {
             string nowSceneName = nowToggle.GetSceneName();
@@ -41,7 +40,7 @@ namespace Project.Scripts.MenuSelectScene
         }
 
         /// <summary>
-        /// 
+        /// トグルを押されたときの処理
         /// </summary>
         /// <param name="toggle"></param>
         public void SetNowScene(MenuSelectToggle toggle) {

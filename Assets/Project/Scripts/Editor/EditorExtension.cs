@@ -21,7 +21,7 @@ public static class EditorExtension
 
     /// <summary>
     /// 配列の大きさを制限した配列を描画する
-    /// <see cref="StageDataEditor.DrawArrayProperty(SerializedProperty, Action{SerializedProperty, int})"/>
+    /// <see cref="DrawArrayProperty(Editor, SerializedProperty, Action{SerializedProperty, int})"/>
     /// </summary>
     /// <param name="property"></param>
     /// <param name="size"></param>
