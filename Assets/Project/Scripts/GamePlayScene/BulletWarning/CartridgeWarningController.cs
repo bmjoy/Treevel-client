@@ -67,8 +67,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                     throw new NotImplementedException();
             }
 
-            warningPosition = warningPosition + Vector2.Scale(bulletMotionVector,
-                    new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
+            warningPosition += Vector2.Scale(bulletMotionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
             transform.position = warningPosition;
             return bulletMotionVector;
         }

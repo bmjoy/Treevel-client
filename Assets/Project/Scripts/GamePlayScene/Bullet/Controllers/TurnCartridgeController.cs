@@ -58,8 +58,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 回転中の銃弾の速さ (円周(= 回転半径 * 2 * pi)の4分の1をフレーム数で割る)
         /// </summary>
-        private float _rotatingSpeed =
-            ((PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) * 2f * (float) Math.PI / 4f / _COUNT;
+        private const float _ROTATING_SPEED = ((PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) * 2f * (float) Math.PI / 4f / _COUNT;
 
         /// <summary>
         /// 銃弾が回転しているかどうかを表す状態

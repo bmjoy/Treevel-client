@@ -33,8 +33,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             base.Awake();
             // タイルとパネルの間のレイヤー(Hole)に描画する
             gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
-            transform.localScale = new Vector2(HoleSize.WIDTH / originalWidth, HoleSize.HEIGHT / originalHeight) *
-            LOCAL_SCALE;
+            transform.localScale = new Vector2(HoleSize.WIDTH / originalWidth, HoleSize.HEIGHT / originalHeight) * LOCAL_SCALE;
         }
 
         /// <summary>
