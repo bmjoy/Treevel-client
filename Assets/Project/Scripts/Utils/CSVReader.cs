@@ -18,10 +18,10 @@ namespace Project.Scripts.Utils
         /// <returns>文字列の二次元配列</returns>
         public static List<string[]> LoadCSV(string path)
         {
-            List<string[]> result = new List<string[]>();
-            TextAsset csvFile = Resources.Load<TextAsset>(path);
+            var result = new List<string[]>();
+            var csvFile = Resources.Load<TextAsset>(path);
 
-            StringReader stringReader = new StringReader(csvFile.text);
+            var stringReader = new StringReader(csvFile.text);
 
             while (stringReader.Peek() != -1) {
                 result.Add(line.Split(','));

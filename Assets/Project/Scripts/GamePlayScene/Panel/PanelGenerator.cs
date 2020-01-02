@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 
         public void CreatePanels(ICollection<PanelData> panelDatas)
         {
-            foreach (PanelData panelData in panelDatas) {
+            foreach (var panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
                         var numberPanel = Instantiate(_numberPanelPrefab);

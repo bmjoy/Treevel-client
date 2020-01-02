@@ -139,8 +139,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             this._turnDirection = turnDirection;
             this._turnLine = turnLine;
             // 表示する全ての警告の座標および回転の角度を計算
-            Vector2 cartridgePosition = transform.position;
-            Vector2 cartridgeMotionVector = motionVector;
+            var cartridgePosition = transform.position;
+            var cartridgeMotionVector = motionVector;
             _turnAngle = new float[turnDirection.Length];
             _turnPoint = new Vector2[turnDirection.Length];
             for (var index = 0; index < turnDirection.Length; index++) {

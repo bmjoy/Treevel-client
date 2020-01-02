@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         public void CreateTiles(ICollection<TileData> tileDatas)
         {
-            foreach (TileData tileData in tileDatas) {
+            foreach (var tileData in tileDatas) {
                 switch (tileData.type) {
                     case ETileType.Normal:
                         CreateNormalTile(tileData.number);
