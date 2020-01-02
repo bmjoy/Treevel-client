@@ -73,7 +73,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         {
             var coroutines = new List<IEnumerator>();
             foreach (var bulletGroup in bulletGroupList) {
-                List<GameObject> bulletList = new List<GameObject>();
+                var bulletList = new List<GameObject>();
                 foreach (var bulletData in bulletGroup.bullets) {
                     switch (bulletData.type) {
                         case EBulletType.RandomNormalCartridge:

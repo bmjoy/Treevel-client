@@ -30,7 +30,7 @@ namespace Project.Scripts.Utils.TextUtils
             if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {
                 _currentLanguage = MyPlayerPrefs.GetObject<ELanguage>(PlayerPrefsKeys.LANGUAGE);
             } else {
-                string systemLanguage = Application.systemLanguage.ToString();
+                var systemLanguage = Application.systemLanguage.ToString();
                 if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
                     _currentLanguage = ELanguage.Japanese;
                 }
@@ -49,17 +49,17 @@ namespace Project.Scripts.Utils.TextUtils
         public static void Load()
         {
             _stringTable = new Dictionary<KeyValuePair<ELanguage, ETextIndex>, string>();
-            List<string[]> datas = CSVReader.LoadCSV(DATA_PATH);
+            var datas = CSVReader.LoadCSV(_DATA_PATH);
 
             // skip headers
-            for (int i = 1; i < datas.Count; i++) {
-                string[] line = datas[i];
+            for (var i = 1; i < datas.Count; i++) {
+                var line = datas[i];
 
                 ETextIndex index;
                 if (ETextIndex.TryParse(line[0], out index)) {
                     foreach (ELanguage language in Enum.GetValues(typeof(ELanguage))) {
-                        KeyValuePair<ELanguage, ETextIndex> key = new KeyValuePair<ELanguage, ETextIndex>(language, index);
-                        string newText = line[(int)language + 1];
+                        var key = new KeyValuePair<ELanguage, ETextIndex>(language, index);
+                        var newText = line[(int)language + 1];
                         _stringTable.Add(key, newText);
                     }
                 } else {
@@ -69,7 +69,7 @@ namespace Project.Scripts.Utils.TextUtils
         }
         public static string GetText(ETextIndex index)
         {
-            KeyValuePair<ELanguage, ETextIndex> key = new KeyValuePair<ELanguage, ETextIndex>(_currentLanguage, index);
+            var key = new KeyValuePair<ELanguage, ETextIndex>(_currentLanguage, index);
             if (_stringTable.ContainsKey(key)) {
                 return _stringTable[key];
             } else {

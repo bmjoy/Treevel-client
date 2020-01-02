@@ -24,7 +24,7 @@ namespace Project.Scripts.MenuSelectScene
         /// </summary>
         public IEnumerator ChangeScene()
         {
-            string nowSceneName = nowToggle.GetSceneName();
+            var nowSceneName = nowToggle.GetSceneName();
             // シーンをロード
             SceneManager.LoadScene(nowSceneName, LoadSceneMode.Additive);
             // シーンがロードされるのを待つ

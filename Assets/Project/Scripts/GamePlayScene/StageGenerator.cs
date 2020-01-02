@@ -26,7 +26,7 @@ namespace Project.Scripts.GamePlayScene
             var panelGenerator = PanelGenerator.Instance;
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
 
-            List<IEnumerator> coroutines = new List<IEnumerator>();
+            var coroutines = new List<IEnumerator>();
 
             // ステージデータ読み込む
             StageData stageData = GameDataBase.Instance.GetStage(stageId);

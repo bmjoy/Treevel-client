@@ -150,7 +150,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void CheckClear()
         {
-            GameObject[] panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
+            var panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
             if (panels.Any(panel => panel.GetComponent<NumberPanelController>().Adapted == false)) return;
             // 全ての数字パネルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
@@ -314,13 +314,13 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private static void CleanObject()
         {
-            GameObject[] tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
+            var tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
             foreach (var tile in tiles) {
                 // タイルの削除 (に伴いパネルも削除される)
                 DestroyImmediate(tile);
             }
 
-            GameObject[] bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
+            var bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
             foreach (var bullet in bullets) {
                 // 銃弾の削除
                 DestroyImmediate(bullet);

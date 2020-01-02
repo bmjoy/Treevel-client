@@ -16,7 +16,7 @@ namespace Project.Scripts.Editor
 
         public override void OnInspectorGUI()
         {
-            MultiLanguageText uiText = (MultiLanguageText)target;
+            var uiText = (MultiLanguageText)target;
 
             base.OnInspectorGUI();
 
@@ -32,13 +32,13 @@ namespace Project.Scripts.Editor
         [MenuItem("GameObject/UI/Multi Language Text")]
         public static void CreateMultiLanguageText(MenuCommand menuCommand)
         {
-            GameObject selection = menuCommand.context as GameObject;
-            GameObject obj = new GameObject("Multi Language Text", typeof(MultiLanguageText));
+            var selection = menuCommand.context as GameObject;
+            var obj = new GameObject("Multi Language Text", typeof(MultiLanguageText));
             GameObject parent = null;
 
             // 選択なしの状態：Canvasを探してその下に置く
             if (selection == null) {
-                Canvas canvas = FindObjectOfType<Canvas>();
+                var canvas = FindObjectOfType<Canvas>();
                 if (canvas != null) {
                     GameObjectUtility.SetParentAndAlign(obj, canvas.gameObject);
                 } else {
@@ -67,11 +67,11 @@ namespace Project.Scripts.Editor
 
             // EventSystemを一緒にUndoするためにUndo Group使う
             Undo.RecordObject(obj, "Create Multi Language Text");
-            int groupID = Undo.GetCurrentGroup();
+            var groupId = Undo.GetCurrentGroup();
 
             // EventSystem がなければ作成
             if (FindObjectOfType<EventSystem>() == null) {
-                GameObject eventSystem = new GameObject("Event System",
+                var eventSystem = new GameObject("Event System",
                     typeof(EventSystem),
                     typeof(StandaloneInputModule)
                 );
@@ -90,8 +90,8 @@ namespace Project.Scripts.Editor
         /// <returns>作成したキャンバスゲームオブジェクト</returns>
         private static GameObject CreateAndInitializeCanvas()
         {
-            GameObject obj = new GameObject("Canvas");
-            Canvas canvas = obj.AddComponent<Canvas>();
+            var obj = new GameObject("Canvas");
+            var canvas = obj.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
             CanvasScaler scaler = obj.AddComponent<CanvasScaler>();
