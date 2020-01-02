@@ -20,11 +20,11 @@ namespace Project.Scripts.LevelSelectScene
         /// </summary>
         [SerializeField] private ETreeName _treeId;
 
-        void Awake() {
+        private void Awake() {
             gameObject.GetComponent<Button>().onClick.AddListener(TreeButtonDown);
         }
 
-        public void TreeButtonDown()
+        private void TreeButtonDown()
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;

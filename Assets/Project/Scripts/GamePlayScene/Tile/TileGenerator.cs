@@ -57,7 +57,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             MakeRelations(_tiles);
         }
 
-        public void CreateNormalTile(int tileNum)
+        private void CreateNormalTile(int tileNum)
         {
             var normalTile = Instantiate(_normalTilePrefab);
 
@@ -73,7 +73,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        public void CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTile = Instantiate(_warpTilePrefab);
             var secondTile = Instantiate(_warpTilePrefab);

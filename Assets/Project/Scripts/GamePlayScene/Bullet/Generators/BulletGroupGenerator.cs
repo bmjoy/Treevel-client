@@ -186,7 +186,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="randomRow"></param>
         /// <param name="randomColumn"></param>
         /// <returns></returns>
-        public GameObject CreateNormalCartridgeGenerator(
+        private GameObject CreateNormalCartridgeGenerator(
             int ratio,
             ECartridgeDirection cartridgeDirection,
             int line,
@@ -201,7 +201,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             return cartridgeGenerator;
         }
 
-        public GameObject CreateTurnCartridgeGenerator(
+        private GameObject CreateTurnCartridgeGenerator(
             int ratio,
             ECartridgeDirection cartridgeDirection,
             int line,
@@ -247,7 +247,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="randomRow"></param>
         /// <param name="randomColumn"></param>
         /// <returns></returns>
-        public GameObject CreateNormalHoleGenerator(
+        private GameObject CreateNormalHoleGenerator(
             int ratio,
             ERow row,
             EColumn column,
@@ -268,7 +268,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="ratio"> Generatorの出現割合 </param>
         /// <param name="aimingPanels"> 銃弾が出現するNumberPanel </param>
         /// <returns></returns>
-        public GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanels)
+        private GameObject CreateAimingHoleGenerator(int ratio, int[] aimingPanels)
         {
             var holeGenerator = Instantiate(_aimingHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();

@@ -13,7 +13,7 @@ using Project.Scripts.GamePlayScene.Bullet.Generators;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public class StageGenerator
+    public static class StageGenerator
     {
         /// <summary>
         /// ステージを作成する

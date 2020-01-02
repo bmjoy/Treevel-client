@@ -30,7 +30,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private GameObject _quitButton;
 
-        void Awake()
+        private void Awake()
         {
             _pauseButton = GameObject.Find("PauseButton").gameObject;
             _pauseBackground = transform.Find("PauseBackground").gameObject;
@@ -40,7 +40,7 @@ namespace Project.Scripts.GamePlayScene
             _quitButton.GetComponent<Button>().onClick.AddListener(PauseQuitButtonDown);
         }
 
-        void Start()
+        private void Start()
         {
             _gamePlayDirector = FindObjectOfType<GamePlayDirector>();
         }
@@ -48,7 +48,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ゲーム再開ボタン押下時の処理
         /// </summary>
-        public void PauseBackButtonDown()
+        private void PauseBackButtonDown()
         {
             // 一時停止ボタンを有効にする
             _pauseButton.SetActive(true);
@@ -63,7 +63,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ゲーム終了ボタン押下時の処理
         /// </summary>
-        public void PauseQuitButtonDown()
+        private static void PauseQuitButtonDown()
         {
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(GamePlayDirector.stageId);

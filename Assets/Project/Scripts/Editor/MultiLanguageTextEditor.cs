@@ -11,7 +11,7 @@ namespace Project.Scripts.Editor
     public class MultiLanguageTextEditor : UnityEditor.UI.TextEditor
     {
         #region GUI_STRINGS
-        private static GUIContent TEXT_INDEX = new GUIContent("Text Index", "Text Index");
+        private static readonly GUIContent TEXT_INDEX = new GUIContent("Text Index", "Text Index");
         #endregion
 
         public override void OnInspectorGUI()

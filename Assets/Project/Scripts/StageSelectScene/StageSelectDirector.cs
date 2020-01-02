@@ -156,7 +156,7 @@ namespace Project.Scripts.StageSelectScene
         /// ロード中にアニメーションを動かすために非同期にロードする
         /// </summary>
         /// <returns></returns>
-        private IEnumerator LoadGamePlayScene()
+        private static IEnumerator LoadGamePlayScene()
         {
             var async = SceneManager.LoadSceneAsync(SceneName.GAME_PLAY_SCENE);
             while (!async.isDone) {

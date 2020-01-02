@@ -18,11 +18,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 元画像の横幅
         /// </summary>
-        [NonSerialized] public float originalWidth;
+        [NonSerialized] protected float originalWidth;
         /// <summary>
         /// 元画像の縦幅
         /// </summary>
-        [NonSerialized] public float originalHeight;
+        [NonSerialized] protected float originalHeight;
 
         protected GamePlayDirector gamePlayDirector;
 

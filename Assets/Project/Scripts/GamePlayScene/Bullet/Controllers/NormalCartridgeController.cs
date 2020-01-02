@@ -14,7 +14,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 銃弾の移動ベクトル
         /// </summary>
-        [NonSerialized] public Vector2 motionVector;
+        [NonSerialized] protected Vector2 motionVector;
 
         protected override void Awake()
         {
