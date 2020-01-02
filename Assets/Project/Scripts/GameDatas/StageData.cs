@@ -8,9 +8,9 @@ namespace Project.Scripts.GameDatas
     public class StageData : ScriptableObject
     {
         [SerializeField] private int id;
-        [SerializeField] private List<BulletGroupData> bulletGroups;
-        [SerializeField] private List<PanelData> panels;
         [SerializeField] private List<TileData> tiles;
+        [SerializeField] private List<PanelData> panels;
+        [SerializeField] private List<BulletGroupData> bulletGroups;
         [SerializeField] private List<EBulletType> overviewGimmicks;
 
         public List<TileData> TileDatas
