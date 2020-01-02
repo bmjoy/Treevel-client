@@ -94,8 +94,8 @@ namespace Project.Scripts.Editor
             var canvas = obj.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-            CanvasScaler scaler = obj.AddComponent<CanvasScaler>();
-            GraphicRaycaster raycaster = obj.AddComponent<GraphicRaycaster>();
+            obj.AddComponent<CanvasScaler>();
+            obj.AddComponent<GraphicRaycaster>();
 
             return obj;
         }

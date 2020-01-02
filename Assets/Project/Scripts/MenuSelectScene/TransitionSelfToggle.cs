@@ -10,7 +10,6 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// ON状態でToggleを押せるかどうか
         /// </summary>
-        /// <value></value>
         public bool IsTransition {
             private get;
             set;
