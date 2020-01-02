@@ -214,97 +214,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
         }
 
         /// <summary>
-        /// NormalCartridgeのGeneratorを生成する
-        /// 横方向、特定の行を移動するNormalCartridge
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合</param>
-        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
-        /// <param name="row"> 銃弾の出現する行 </param>
-        /// <returns></returns>
-        public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row)
-        {
-            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row);
-            return cartridgeGenerator;
-        }
-
-        /// <summary>
-        /// NormalCartridgeのGeneratorを生成する
-        /// 縦方向、特定の列を移動するNormalCartridge
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
-        /// <param name="column"> 銃弾の出現する列</param>
-        /// <returns></returns>
-        public GameObject CreateNormalCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection,
-            EColumn column)
-        {
-            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column);
-            return cartridgeGenerator;
-        }
-
-        /// <summary>
-        /// NormalCartridgeのGeneratorを生成する
-        /// ランダムな行(または列)を移動するNormalCartridge
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合</param>
-        /// <param name="randomCartridgeDirection"> 銃弾の移動方向の重み </param>
-        /// <param name="randomRow"> 銃弾の出現する行の重み </param>
-        /// <param name="randomColumn"> 銃弾の出現する列の重み </param>
-        /// <returns></returns>
-        public GameObject CreateRandomNormalCartridgeGenerator(int ratio,
-            int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
-        {
-            var cartridgeGenerator = Instantiate(_normalCartridgeGeneratorPrefab);
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, randomCartridgeDirection, randomRow,
-                randomColumn);
-            return cartridgeGenerator;
-        }
-
-        /// <summary>
-        /// TurnCartridgeのGeneratorを生成する
-        /// 横方向、特定の行を移動し、特定の場所で特定の方向に曲がるTurnCartridge
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
-        /// <param name="row">銃弾の出現する行 </param>
-        /// <param name="turnDirection"> 曲がる方向 </param>
-        /// <param name="turnLine"> 曲がる列 </param>
-        /// <returns></returns>
-        public GameObject CreateTurnCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection, ERow row,
-            int[] turnDirection = null, int[] turnLine = null)
-        {
-            var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, row, turnDirection, turnLine);
-            return cartridgeGenerator;
-        }
-
-        /// <summary>
-        /// TurnCartridgeのGeneratorを生成する
-        /// 縦方向、特定の列を移動し、特定の場所で特定の方向に曲がるTurnCartridge
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
-        /// <param name="column">銃弾の出現する列 </param>
-        /// <param name="turnDirection"> 曲がる方向 </param>
-        /// <param name="turnLine"> 曲がる行 </param>
-        /// <returns></returns>
-        public GameObject CreateTurnCartridgeGenerator(int ratio, ECartridgeDirection cartridgeDirection,
-            EColumn column,
-            int[] turnDirection = null, int[] turnLine = null)
-        {
-            var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, column, turnDirection, turnLine);
-            return cartridgeGenerator;
-        }
-
-        /// <summary>
         /// TurnCartridgeのGeneratorを生成する
         /// ランダムな行(または列)を移動し、ランダムな場所でランダムな方向に曲がるTurnCartridge
         /// </summary>
@@ -347,38 +256,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
             var holeGenerator = Instantiate(_normalHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
             holeGeneratorScript.Initialize(ratio, row, column, randomRow, randomColumn);
-            return holeGenerator;
-        }
-
-        /// <summary>
-        /// NormalHoleのGeneratorを生成する
-        /// 特定の行、特定の列を撃つNormalHole
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="row"> 銃弾が出現する行 </param>
-        /// <param name="column"> 銃弾が出現する列 </param>
-        /// <returns></returns>
-        public GameObject CreateNormalHoleGenerator(int ratio, ERow row, EColumn column)
-        {
-            var holeGenerator = Instantiate(_normalHoleGeneratorPrefab);
-            var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
-            holeGeneratorScript.Initialize(ratio, row, column);
-            return holeGenerator;
-        }
-
-        /// <summary>
-        /// NormalHoleのGeneratorを生成する
-        /// ランダムな行、ランダムな列を撃つNormalHole
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="randomRow"> 銃弾が出現する行の重み </param>
-        /// <param name="randomColumn"> 銃弾が出現する列の重み </param>
-        /// <returns></returns>
-        public GameObject CreateRandomNormalHoleGenerator(int ratio, int[] randomRow, int[] randomColumn)
-        {
-            var holeGenerator = Instantiate(_normalHoleGeneratorPrefab);
-            var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
-            holeGeneratorScript.Initialize(ratio, randomRow, randomColumn);
             return holeGenerator;
         }
 
