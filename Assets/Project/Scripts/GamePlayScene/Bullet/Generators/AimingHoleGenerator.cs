@@ -21,7 +21,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         [SerializeField] private GameObject _aimingHoleWarningPrefab;
 
         /// <summary>
-        /// 撃ち抜くNumberanelの番号配列
+        /// 撃ち抜くNumberPanelの番号配列
         /// </summary>
         [CanBeNull] private int[] _aimingPanels = null;
 
@@ -51,7 +51,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// ランダムなNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="randomNumberPanel"> 撃ちぬくNumberPanelの確率 </param>
+        /// <param name="randomNumberPanels"> 撃ちぬくNumberPanelの確率 </param>
         public void InitializeRandom(int ratio, int[] randomNumberPanels)
         {
             this.ratio = ratio;

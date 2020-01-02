@@ -66,7 +66,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// BulletGroupの初期化
         /// </summary>
         /// <param name="startTime"> ゲームの開始時刻 </param>
-        /// <param name="appearanceTime"> 銃弾生成の開始時刻</param>
+        /// <param name="appearanceTime"> 銃弾生成の開始時刻 </param>
         /// <param name="interval"> 銃弾生成の時間間隔 </param>
         /// <param name="loop"> 銃弾生成の繰り返しの有無 </param>
         /// <param name="bulletGenerators"> BulletGeneratorの配列 </param>
@@ -87,7 +87,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 銃弾生成時刻を管理し、銃弾を生成する
         /// </summary>
-        /// <returns></returns>
         public IEnumerator CreateBullets()
         {
             var currentTime = Time.time;

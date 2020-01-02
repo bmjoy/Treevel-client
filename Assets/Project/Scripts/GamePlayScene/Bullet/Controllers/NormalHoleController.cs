@@ -73,7 +73,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// NumberPanelとの当たり判定
         /// </summary>
-        /// <returns></returns>
+        /// FIXME: 消したい
         [Obsolete("このメソッドは使われておりません")]
         public IEnumerator CollisionCheck()
         {

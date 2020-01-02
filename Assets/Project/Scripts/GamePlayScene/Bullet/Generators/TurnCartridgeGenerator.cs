@@ -39,19 +39,16 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// 曲がる方向の重み
         /// </summary>
-        /// <returns></returns>
         private int[] _randomTurnDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
         /// <summary>
         /// 曲がる行の重み
         /// </summary>
-        /// <returns></returns>
         private int[] _randomTurnRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         /// <summary>
         /// 曲がる列の重み
         /// </summary>
-        /// <returns></returns>
         private int[] _randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         protected override void Awake()
@@ -174,7 +171,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// </summary>
         /// <param name="direction"></param>
         /// <param name="line"></param>
-        /// <returns></returns>
         private int GetRandomTurnDirection(ECartridgeDirection direction, int line)
         {
             var randomTurnDirection = 0;
@@ -249,7 +245,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// 曲がる行を重みに基づき決定する
         /// </summary>
-        /// <returns></returns>
         private int GetTurnRow()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomTurnRow) + 1;
@@ -259,7 +254,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// 曲がる列を重みに基づき決定する
         /// </summary>
-        /// <returns></returns>
         private int GetTurnColumn()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomTurnColumn) + 1;

@@ -65,7 +65,6 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// Toggleに紐づいているscene nameを返す
         /// </summary>
-        /// <returns></returns>
         public virtual string GetSceneName()
         {
             return tiedSceneName.ToString();

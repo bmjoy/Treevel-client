@@ -18,6 +18,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 曲がる行(または列)の配列
         /// </summary>
+        /// FIXME: 使われてない
         private int[] _turnLine;
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 曲がる方向に応じて表示分けする警告画像の名前
         /// </summary>
-        /// <value></value>
+        /// FIXME: 使われてない
         private enum _ETurnWarning {
             TurnLeft,
             TurnRight,

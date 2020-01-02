@@ -160,10 +160,12 @@ public class StageDataEditor : Editor
                             directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
                                     label: new GUIContent("Direction"),
                                     selected: (ECartridgeDirection)directionProp.intValue,
-                                    checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random, // ランダムは選択不能にする
+                                    // ランダムは選択不能にする
+                                    checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random,
                                     includeObsolete: false
                                 );
-                            if (lineProp.intValue == (int)ERow.Random) // 行(列)がランダムの場合強制に変える
+                            if (lineProp.intValue == (int)ERow.Random)
+                                // 行(列)がランダムの場合強制に変える
                                 lineProp.intValue = (int)ERow.First;
                             switch ((ECartridgeDirection)directionProp.intValue) {
                                 case ECartridgeDirection.ToLeft:
@@ -219,7 +221,8 @@ public class StageDataEditor : Editor
                                     checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random,
                                     includeObsolete: false
                                 );
-                            if (lineProp.intValue == (int)ERow.Random) // 行(列)がランダムの場合強制に変える
+                            if (lineProp.intValue == (int)ERow.Random)
+                                // 行(列)がランダムの場合強制に変える
                                 lineProp.intValue = (int)ERow.First;
                             switch ((ECartridgeDirection)directionProp.intValue) {
                                 case ECartridgeDirection.ToLeft:
@@ -282,14 +285,16 @@ public class StageDataEditor : Editor
                             rowProp.intValue  =  (int)(ERow)EditorGUILayout.EnumPopup(
                                     label:  new GUIContent("Row"),
                                     selected:  (ERow)rowProp.intValue,
-                                    checkEnabled:  (eType)  =>  (ERow)eType  !=  ERow.Random,   // ランダムは選択不能にする
+                                    // ランダムは選択不能にする
+                                    checkEnabled:  (eType)  =>  (ERow)eType  !=  ERow.Random,
                                     includeObsolete:  false
                                 );
 
                             columnProp.intValue  =  (int)(ERow)EditorGUILayout.EnumPopup(
                                     label:  new GUIContent("Column"),
                                     selected:  (EColumn)columnProp.intValue,
-                                    checkEnabled:  (eType)  =>  (EColumn)eType  !=  EColumn.Random,   // ランダムは選択不能にする
+                                    // ランダムは選択不能にする
+                                    checkEnabled:  (eType)  =>  (EColumn)eType  !=  EColumn.Random,
                                     includeObsolete:  false
                                 );
 
