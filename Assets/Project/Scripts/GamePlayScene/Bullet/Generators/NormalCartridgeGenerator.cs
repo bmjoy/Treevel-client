@@ -40,12 +40,12 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// 移動する行の重み
         /// </summary>
-        protected int[] randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
+        private int[] _randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         /// <summary>
         /// 移動する列の重み
         /// </summary>
-        protected int[] randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
+        private int[] _randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         /// <summary>
         /// 特定の行を移動するNormalCartridgeを生成するGeneratorの初期化
@@ -84,8 +84,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         {
             this.ratio = ratio;
             _randomCartridgeDirection = randomCartridgeDirection;
-            this.randomRow = randomRow;
-            this.randomColumn = randomColumn;
+            _randomRow = randomRow;
+            _randomColumn = randomColumn;
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             this.cartridgeDirection = cartridgeDirection;
             this.line = line;
             _randomCartridgeDirection = randomCartridgeDirection;
-            this.randomRow = randomRow;
-            this.randomColumn = randomColumn;
+            _randomRow = randomRow;
+            _randomColumn = randomColumn;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -185,7 +185,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <returns></returns>
         protected int GetRow()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomRow) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
@@ -195,7 +195,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <returns></returns>
         protected int GetColumn()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomColumn) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomColumn) + 1;
             return (int) Enum.ToObject(typeof(EColumn), index);
         }
     }

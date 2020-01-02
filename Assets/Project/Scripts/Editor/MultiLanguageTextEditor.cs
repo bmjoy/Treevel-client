@@ -11,7 +11,7 @@ namespace Project.Scripts.Editor
     public class MultiLanguageTextEditor : UnityEditor.UI.TextEditor
     {
         #region GUI_STRINGS
-        private static readonly GUIContent TEXT_INDEX = new GUIContent("Text Index", "Text Index");
+        private static readonly GUIContent _TEXT_INDEX = new GUIContent("Text Index", "Text Index");
         #endregion
 
         public override void OnInspectorGUI()
@@ -21,7 +21,7 @@ namespace Project.Scripts.Editor
             base.OnInspectorGUI();
 
             EditorGUI.BeginChangeCheck();
-            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(TEXT_INDEX, uiText.TextIndex);
+            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(_TEXT_INDEX, uiText.TextIndex);
         }
 
         /// <summary>
