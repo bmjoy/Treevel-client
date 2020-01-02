@@ -41,9 +41,10 @@ namespace Project.Scripts.MenuSelectScene
         /// トグルを押されたときの処理
         /// </summary>
         /// <param name="toggle"></param>
-        public void SetNowScene(MenuSelectToggle toggle) {
+        public void SetNowScene(MenuSelectToggle toggle)
+        {
             // 現在シーンに紐づいているToggleをOFFにする
-            if(nowToggle != toggle) {
+            if (nowToggle != toggle) {
                 nowToggle.isOn = false;
                 nowToggle = toggle;
             }

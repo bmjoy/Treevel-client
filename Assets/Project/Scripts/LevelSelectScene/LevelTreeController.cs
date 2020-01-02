@@ -20,7 +20,8 @@ namespace Project.Scripts.LevelSelectScene
         /// </summary>
         [SerializeField] private ETreeName _treeId;
 
-        private void Awake() {
+        private void Awake()
+        {
             gameObject.GetComponent<Button>().onClick.AddListener(TreeButtonDown);
         }
 

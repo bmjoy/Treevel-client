@@ -9,7 +9,7 @@ namespace Project.Scripts.MenuSelectScene
     public class MenuSelectToggle : Toggle
     {
         protected enum ESceneName {
-            LevelSelectScene, 
+            LevelSelectScene,
             StageSelectScene,
             RecordScene,
             TutorialScene,
@@ -66,7 +66,8 @@ namespace Project.Scripts.MenuSelectScene
         /// Toggleに紐づいているscene nameを返す
         /// </summary>
         /// <returns></returns>
-        public virtual string GetSceneName() {
+        public virtual string GetSceneName()
+        {
             return tiedSceneName.ToString();
         }
     }
