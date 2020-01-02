@@ -18,12 +18,13 @@ public class StageDataEditor : Editor
     private StageData _src;
     public void OnEnable()
     {
-        _src = target as StageData;
         _tileDatasProp = serializedObject.FindProperty("tiles");
         _panelDatasProp = serializedObject.FindProperty("panels");
         _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
-        _numOfNumberPanels = _src.PanelDatas != null ? _src.PanelDatas.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() : 0;
 
+        _src = target as StageData;
+        if (_src != null)
+            _numOfNumberPanels = _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() ?? 0;
     }
 
     public override void OnInspectorGUI()

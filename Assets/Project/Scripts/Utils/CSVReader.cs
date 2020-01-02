@@ -24,8 +24,8 @@ namespace Project.Scripts.Utils
             var stringReader = new StringReader(csvFile.text);
 
             while (stringReader.Peek() != -1) {
-                result.Add(line.Split(','));
                 var line = stringReader.ReadLine();
+                if (line != null) result.Add(line.Split(','));
             }
 
             return result;

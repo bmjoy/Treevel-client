@@ -83,7 +83,7 @@ namespace Project.Scripts.Utils.TextUtils
             get => _currentLanguage;
             set {
                 _currentLanguage = value;
-                OnLanguageChange.Invoke();
+                OnLanguageChange?.Invoke();
 
                 // PlayerPrefsに保存
                 MyPlayerPrefs.SetObject(PlayerPrefsKeys.LANGUAGE, _currentLanguage);
