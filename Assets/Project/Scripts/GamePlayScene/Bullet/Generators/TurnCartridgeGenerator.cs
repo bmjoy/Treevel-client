@@ -181,19 +181,29 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             // 最上行または最下行を移動している場合
             if ((direction == ECartridgeDirection.ToLeft || direction == ECartridgeDirection.ToRight) &&
                 (line == (int) ERow.First || line == (int) ERow.Fifth)) {
-                if (line == (int) ERow.First) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToBottom;
-                } else if (line == (int) ERow.Fifth) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToUp;
+                switch (line) {
+                    case (int) ERow.First:
+                        randomTurnDirection = (int) ECartridgeDirection.ToBottom;
+                        break;
+                    case (int) ERow.Fifth:
+                        randomTurnDirection = (int) ECartridgeDirection.ToUp;
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
             // 最左列または最も最右列を移動している場合
             else if ((direction == ECartridgeDirection.ToUp || direction == ECartridgeDirection.ToBottom) &&
                 (line == (int) EColumn.Left || line == (int) EColumn.Right)) {
-                if (line == (int) EColumn.Left) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToRight;
-                } else if (line == (int) EColumn.Right) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToLeft;
+                switch (line) {
+                    case (int) EColumn.Left:
+                        randomTurnDirection = (int) ECartridgeDirection.ToRight;
+                        break;
+                    case (int) EColumn.Right:
+                        randomTurnDirection = (int) ECartridgeDirection.ToLeft;
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
             // 上記以外の場合(ランダムに決定する)
