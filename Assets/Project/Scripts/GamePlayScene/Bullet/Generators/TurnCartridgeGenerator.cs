@@ -132,40 +132,41 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES - TURN_CARTRIDGE_WAITING_FRAMES; index++) yield return new WaitForFixedUpdate();
 
             // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                int[] nextCartridgeTurnDirection = _turnDirection ?? new int[] {
-                    GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)
-                };
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
 
-                int[] nextCartridgeTurnLine = _turnLine;
-                if (nextCartridgeTurnLine == null) {
-                    switch (nextCartridgeDirection) {
-                        case ECartridgeDirection.ToLeft:
-                        case ECartridgeDirection.ToRight:
-                            nextCartridgeTurnLine = new int[] {GetTurnColumn()};
-                            break;
-                        case ECartridgeDirection.ToUp:
-                        case ECartridgeDirection.ToBottom:
-                            nextCartridgeTurnLine = new int[] {GetTurnRow()};
-                            break;
-                        case ECartridgeDirection.Random:
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
+            var nextCartridgeTurnDirection = _turnDirection ?? new int[] {
+                GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)
+            };
+
+            var nextCartridgeTurnLine = _turnLine;
+            if (nextCartridgeTurnLine == null) {
+                switch (nextCartridgeDirection) {
+                    case ECartridgeDirection.ToLeft:
+                    case ECartridgeDirection.ToRight:
+                        nextCartridgeTurnLine = new int[] {GetTurnColumn()};
+                        break;
+                    case ECartridgeDirection.ToUp:
+                    case ECartridgeDirection.ToBottom:
+                        nextCartridgeTurnLine = new int[] {GetTurnRow()};
+                        break;
+                    case ECartridgeDirection.Random:
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
-
-                var cartridge = Instantiate(_turnCartridgePrefab);
-                cartridge.GetComponent<TurnCartridgeController>().Initialize(nextCartridgeDirection, nextCartridgeLine,
-                    bulletMotionVector, nextCartridgeTurnDirection, nextCartridgeTurnLine);
-
-                // 同レイヤーのオブジェクトの描画順序の制御
-                cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
-
-                // 警告を削除する
-                for (int index = 0; index < TURN_CARTRIDGE_WAITING_FRAMES; index++) yield return new WaitForFixedUpdate();
-                Destroy(warning);
             }
+
+            var cartridge = Instantiate(_turnCartridgePrefab);
+            cartridge.GetComponent<TurnCartridgeController>().Initialize(nextCartridgeDirection, nextCartridgeLine,
+                bulletMotionVector, nextCartridgeTurnDirection, nextCartridgeTurnLine);
+
+            // 同レイヤーのオブジェクトの描画順序の制御
+            cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
+
+            // 警告を削除する
+            for (var index = 0; index < turnCartridgeWaitingFrames; index++) yield return new WaitForFixedUpdate();
+            Destroy(warning);
+
         }
 
         /// <summary>

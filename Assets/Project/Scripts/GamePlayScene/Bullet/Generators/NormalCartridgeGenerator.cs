@@ -158,15 +158,15 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             // 警告を削除する
             Destroy(warning);
 
-            // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                var cartridge = Instantiate(_normalCartridgePrefab);
-                cartridge.GetComponent<NormalCartridgeController>()
-                .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
 
-                // 同レイヤーのオブジェクトの描画順序の制御
-                cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
-            }
+            // ゲームが続いているなら銃弾を作成する
+            var cartridge = Instantiate(_normalCartridgePrefab);
+            cartridge.GetComponent<NormalCartridgeController>()
+            .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
+
+            // 同レイヤーのオブジェクトの描画順序の制御
+            cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
         }
 
         /// <summary>

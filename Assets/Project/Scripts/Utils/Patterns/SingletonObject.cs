@@ -20,32 +20,32 @@ namespace Project.Scripts.Utils.Patterns
                 lock (_lock) {
                     // instance がない場合、シーンで探すか、新しく作成。
                     // instance すでに値を持ってる場合そのまま返す。
+                    if (_instance != null) return _instance;
+
+                    _instance = (T) FindObjectOfType(typeof(T));
+
+                    // クラスTを持つオブジェクトが二つ以上あったらおかしいのでエラーを出す
+                    if (FindObjectsOfType(typeof(T)).Length > 1) {
+                        Debug.LogError("[Singleton] Something went really wrong " +
+                                       " - there should never be more than 1 singleton!" +
+                                       " Reopenning the scene might fix it.");
+                        return _instance;
+                    }
+
+                    // シーンに存在しない場合新しくオブジェクトを作成し、アタッチする。
                     if (_instance == null) {
-                        _instance = (T) FindObjectOfType(typeof(T));
+                        var singleton = new GameObject();
+                        _instance = singleton.AddComponent<T>();
+                        singleton.name = "_" + typeof(T).ToString();
 
-                        // クラスTを持つオブジェクトが二つ以上あったらおかしいのでエラーを出す
-                        if (FindObjectsOfType(typeof(T)).Length > 1) {
-                            Debug.LogError("[Singleton] Something went really wrong " +
-                                " - there should never be more than 1 singleton!" +
-                                " Reopenning the scene might fix it.");
-                            return _instance;
-                        }
+                        DontDestroyOnLoad(singleton);
 
-                        // シーンに存在しない場合新しくオブジェクトを作成し、アタッチする。
-                        if (_instance == null) {
-                            var singleton = new GameObject();
-                            _instance = singleton.AddComponent<T>();
-                            singleton.name = "_" + typeof(T).ToString();
-
-                            DontDestroyOnLoad(singleton);
-
-                            Debug.Log("[Singleton] An instance of " + typeof(T) +
-                                " is needed in the scene, so '" + singleton +
-                                "' was created with DontDestroyOnLoad.");
-                        } else {
-                            Debug.Log("[Singleton] Using instance already created: " +
-                                _instance.gameObject.name);
-                        }
+                        Debug.Log("[Singleton] An instance of " + typeof(T) +
+                                  " is needed in the scene, so '" + singleton +
+                                  "' was created with DontDestroyOnLoad.");
+                    } else {
+                        Debug.Log("[Singleton] Using instance already created: " +
+                                  _instance.gameObject.name);
                     }
 
                     return _instance;

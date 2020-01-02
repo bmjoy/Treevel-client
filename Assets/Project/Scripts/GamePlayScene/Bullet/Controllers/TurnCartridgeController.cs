@@ -99,30 +99,31 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 
         protected override void FixedUpdate()
         {
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                // 警告を表示するタイミングかどうかを毎フレーム監視する
-                _warningTiming[_warningIndex]--;
-                if (_warningTiming[_warningIndex] == 0) {
-                    // 警告を表示、その後、銃弾の回転
-                    StartCoroutine(rotateCoroutines[_warningIndex]);
-                    // 次の警告の表示タイミングを監視する
-                    if (_warningIndex != _turnDirection.Length - 1)
-                        _warningIndex++;
-                }
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) return;
 
-                if (_waiting) {
-                    // 待機中
-                    _waitingTime--;
-                    if (_waitingTime == 0)
-                        _waiting = false;
+            // 警告を表示するタイミングかどうかを毎フレーム監視する
+            _warningTiming[_warningIndex]--;
+
+            if (_warningTiming[_warningIndex] == 0) {
+                // 警告を表示、その後、銃弾の回転
+                StartCoroutine(_rotateCoroutines[_warningIndex]);
+                // 次の警告の表示タイミングを監視する
+                if (_warningIndex != _turnDirection.Length - 1)
+                    _warningIndex++;
+            }
+
+            if (_waiting) {
+                // 待機中
+                _waitingTime--;
+                if (_waitingTime == 0)
+                    _waiting = false;
+            } else {
+                if (_rotating) {
+                    // 回転中
+                    transform.Translate(motionVector * _ROTATING_SPEED, Space.World);
                 } else {
-                    if (_rotating) {
-                        // 回転中
-                        transform.Translate(motionVector * _rotatingSpeed, Space.World);
-                    } else {
-                        // 直進中
-                        transform.Translate(motionVector * speed, Space.World);
-                    }
+                    // 直進中
+                    transform.Translate(motionVector * speed, Space.World);
                 }
             }
         }

@@ -41,14 +41,15 @@ public static class EditorExtension
 
     private static void DrawArrayPropertyImpl(SerializedProperty property, Action<SerializedProperty, int> action = null)
     {
-        if (property.isExpanded) {
-            for (int i = 0 ; i < property.arraySize ; ++i) {
-                var arrayElementProperty = property.GetArrayElementAtIndex(i);
-                if (action != null) {
-                    action.Invoke(arrayElementProperty, i);
-                } else {
-                    EditorGUILayout.PropertyField(arrayElementProperty, new GUIContent(arrayElementProperty.displayName));
-                }
+        if (!property.isExpanded) return;
+
+        for (var i = 0 ; i < property.arraySize ; ++i) {
+            var arrayElementProperty = property.GetArrayElementAtIndex(i);
+
+            if (action != null) {
+                action.Invoke(arrayElementProperty, i);
+            } else {
+                EditorGUILayout.PropertyField(arrayElementProperty, new GUIContent(arrayElementProperty.displayName));
             }
         }
     }

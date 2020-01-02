@@ -87,14 +87,14 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             // 警告を削除する
             Destroy(warning);
 
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
+
             // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                var hole = Instantiate(_normalHolePrefab);
-                var holeScript = hole.GetComponent<NormalHoleController>();
-                holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
-                // 同レイヤーのオブジェクトの描画順序の制御
-                hole.GetComponent<Renderer>().sortingOrder = bulletId;
-            }
+            var hole = Instantiate(_normalHolePrefab);
+            var holeScript = hole.GetComponent<NormalHoleController>();
+            holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
+            // 同レイヤーのオブジェクトの描画順序の制御
+            hole.GetComponent<Renderer>().sortingOrder = bulletId;
         }
 
         /// <summary>
