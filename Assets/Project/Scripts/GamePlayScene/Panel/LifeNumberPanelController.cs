@@ -46,25 +46,25 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="other">The other Collider2D involved in this collision.</param>
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(TagName.BULLET) && other.gameObject.transform.position.z >= 0) {
-                --_currentLife;
-                if (_currentLife <= 0) {
-                    // 失敗演出
-                    anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
+            if (!other.CompareTag(TagName.BULLET) || other.gameObject.transform.position.z < 0) return;
 
-                    // 自身が破壊された
-                    dead = true;
+            --_currentLife;
+            if (_currentLife <= 0) {
+                // 失敗演出
+                anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
 
-                    // 失敗状態に移行する
-                    gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
-                } else if (_currentLife == 1) {
-                    // ループさせて危機感っぽい
-                    anim.wrapMode = WrapMode.Loop;
-                    anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
-                } else {
-                    anim.clip = _attackedAnimation;
-                    anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
-                }
+                // 自身が破壊された
+                dead = true;
+
+                // 失敗状態に移行する
+                gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
+            } else if (_currentLife == 1) {
+                // ループさせて危機感っぽい
+                anim.wrapMode = WrapMode.Loop;
+                anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
+            } else {
+                anim.clip = _attackedAnimation;
+                anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
             }
         }
     }
