@@ -20,12 +20,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 概要を表示するポップアップ
         /// </summary>
-        private GameObject _overviewPopup;
-
-        /// <summary>
-        /// 概要ポップアップの背景
-        /// </summary>
-        private GameObject _overviewPopupBackground;
+        [SerializeField] private OverviewPopup _overviewPopup;
 
         private SnapScrollView _snapScrollView;
 
@@ -65,15 +60,7 @@ namespace Project.Scripts.StageSelectScene
             // ロードアニメーションを非表示にする
             _loading = GameObject.Find(LOADING);
             _loading.SetActive(false);
-            _overviewPopup = GameObject.Find("OverviewPopup");
-
-            // ポップアップ背景を非表示にする
-            _overviewPopupBackground = GameObject.Find("OverviewPopupBackground");
-            _overviewPopupBackground.GetComponent<Button>().onClick.AddListener(() => {
-                _overviewPopup.GetComponent<OverviewPopup>().goToGame.GetComponent<Button>().onClick.RemoveAllListeners();
-                _overviewPopupBackground.SetActive(false);
-            });
-            _overviewPopupBackground.SetActive(false);
+            _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
 
             // TODO: 非同期で呼び出す
             // 各ステージの選択ボタンなどを描画する
@@ -134,10 +121,10 @@ namespace Project.Scripts.StageSelectScene
             var stageId = int.Parse(clickedButton.name);
 
             if (PlayerPrefs.GetInt(PlayerPrefsKeys.DO_NOT_SHOW, 0) == 0) {
-                // ポップアップ背景を表示する
-                _overviewPopupBackground.SetActive(true);
                 // ポップアップを初期化する
-                _overviewPopup.GetComponent<OverviewPopup>().Initialize(stageId);
+                _overviewPopup.GetComponent<OverviewPopup>().SetStageId(stageId);
+                // ポップアップを表示する
+                _overviewPopup.gameObject.SetActive(true);
             } else {
                 GoToGame(stageId);
             }

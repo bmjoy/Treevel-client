@@ -31,6 +31,8 @@ public class StageDataEditor : Editor
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
 
+        DrawOverviewGimmicks();
+
         DrawTileList();
 
         DrawPanelList();
@@ -43,6 +45,11 @@ public class StageDataEditor : Editor
             serializedObject.ApplyModifiedProperties();
             _numOfNumberPanels = _src.PanelDatas != null ? _src.PanelDatas.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() : 0;
         }
+    }
+
+    private void DrawOverviewGimmicks()
+    {
+        this.DrawArrayProperty(serializedObject.FindProperty("overviewGimmicks"));
     }
 
     private void DrawTileList()

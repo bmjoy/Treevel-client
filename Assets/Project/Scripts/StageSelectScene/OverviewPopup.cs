@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Project.Scripts.Utils;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,17 +10,17 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージID
         /// </summary>
-        private GameObject _stageId;
+        private Text _stageIdText;
 
         /// <summary>
         /// ステージ難易度
         /// </summary>
-        private GameObject _stageDifficulty;
+        private Text _stageDifficultyText;
 
         /// <summary>
         /// クリア割合
         /// </summary>
-        private GameObject _clearPercentage;
+        private Text _clearPercentageText;
 
         /// <summary>
         /// 出現する銃弾
@@ -31,33 +32,38 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public GameObject goToGame;
 
-        /// <summary>
-        /// 今後ウィンドウを表示するかのボタン
-        /// </summary>
-        private GameObject _hideOverview;
+        private int _stageId;
 
         private void Awake()
         {
-            _stageId = transform.Find("StageId").gameObject;
-            _stageDifficulty = transform.Find("StageDifficulty").gameObject;
-            _clearPercentage = transform.Find("ClearPercentage").gameObject;
+            _stageIdText = transform.Find("StageId").GetComponent<Text>();
+            _stageDifficultyText = transform.Find("StageDifficulty").GetComponent<Text>();
+            _clearPercentageText = transform.Find("ClearPercentage").GetComponent<Text>();
             _appearingBullets = transform.Find("AppearingBullets").gameObject;
             goToGame = transform.Find("GoToGame").gameObject;
-            _hideOverview = transform.Find("HideOverview").gameObject;
 
-            _hideOverview.GetComponent<Toggle>().onValueChanged.AddListener(delegate {
-                ToggleValueChanged(_hideOverview.GetComponent<Toggle>());
-            });
+            // ゲームを開始するボタン
+            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(_stageId));
         }
 
         /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="stageId"> ステージID </param>
-        public void Initialize(int stageId)
+        public void SetStageId(int stageId)
         {
+            _stageId = stageId;
+        }
+
+        void OnEnable()
+        {
+            var stageData = GameDataBase.Instance.GetStage(_stageId);
+
             // ステージID
-            _stageId.GetComponent<Text>().text = stageId.ToString();
+            _stageIdText.text = _stageId.ToString();
+
+            if (stageData == null)
+                return;
 
             // TODO:ステージが"ステージ難易度"を持ったら実装
             // _stageDifficulty.GetComponent<Text>().text = ...
@@ -65,16 +71,16 @@ namespace Project.Scripts.StageSelectScene
             // TODO:サーバで全ユーザのデータを持ったら実装
             // _clearPercentage.GetComponent<Text>().text = ...
 
-            // TODO:ステージが"出現する銃弾"を持ったら実装
-            // _appearingBullets... = ...
-
-            // ゲームを開始するボタン
-            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(stageId));
-        }
-
-        private static void ToggleValueChanged(Toggle toggle)
-        {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.DO_NOT_SHOW, toggle.isOn ? 1 : 0);
+            var overviewBullets = stageData.OverviewGimmicks;
+            for (int i = 1 ; i <= 3 ; ++i) {
+                var bulletOverviewPanel = _appearingBullets.transform.Find($"GimmickOverview{i}");
+                if (overviewBullets.Count >= i) {
+                    bulletOverviewPanel.GetComponentInChildren<Text>().text = overviewBullets[i - 1].ToString();
+                    bulletOverviewPanel.gameObject.SetActive(true);
+                } else {
+                    bulletOverviewPanel.gameObject.SetActive(false);
+                }
+            }
         }
     }
 }
