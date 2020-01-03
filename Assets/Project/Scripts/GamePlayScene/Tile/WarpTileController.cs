@@ -1,8 +1,8 @@
-﻿using Project.Scripts.Utils.Attributes;
+﻿using System.Collections;
+using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
-using System.Collections;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {

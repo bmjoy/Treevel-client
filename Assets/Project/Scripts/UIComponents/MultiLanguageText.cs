@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.TextUtils;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Project.Scripts.UIComponents
 {

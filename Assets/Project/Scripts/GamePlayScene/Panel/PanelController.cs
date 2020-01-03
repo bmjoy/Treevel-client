@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Project.Scripts.GamePlayScene.Tile;
+﻿using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {

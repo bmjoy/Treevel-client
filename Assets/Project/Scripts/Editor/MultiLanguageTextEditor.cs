@@ -1,9 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
-using Project.Scripts.UIComponents;
+﻿using Project.Scripts.UIComponents;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine.UI;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Project.Scripts.Editor
 {

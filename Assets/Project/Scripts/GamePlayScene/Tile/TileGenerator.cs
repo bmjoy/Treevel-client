@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
-using System.Collections.Generic;
-using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
