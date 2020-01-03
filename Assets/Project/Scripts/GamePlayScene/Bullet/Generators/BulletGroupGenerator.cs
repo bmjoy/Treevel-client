@@ -79,7 +79,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                     switch (bulletData.type) {
                         case EBulletType.RandomNormalCartridge:
                         case EBulletType.NormalCartridge:
-                            bulletList.Add(this.CreateNormalCartridgeGenerator(
+                            bulletList.Add(CreateNormalCartridgeGenerator(
                                     bulletData.ratio,
                                     bulletData.direction,
                                     bulletData.line,
@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                                 ));
                             break;
                         case EBulletType.TurnCartridge:
-                            bulletList.Add(this.CreateTurnCartridgeGenerator(
+                            bulletList.Add(CreateTurnCartridgeGenerator(
                                     bulletData.ratio,
                                     bulletData.direction,
                                     bulletData.line,
@@ -99,7 +99,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                                 ));
                             break;
                         case EBulletType.RandomTurnCartridge:
-                            bulletList.Add(this.CreateRandomTurnCartridgeGenerator(
+                            bulletList.Add(CreateRandomTurnCartridgeGenerator(
                                     bulletData.ratio,
                                     bulletData.randomCartridgeDirection.ToArray(),
                                     bulletData.randomRow.ToArray(),
@@ -111,7 +111,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                             break;
                         case EBulletType.NormalHole:
                         case EBulletType.RandomNormalHole:
-                            bulletList.Add(this.CreateNormalHoleGenerator(
+                            bulletList.Add(CreateNormalHoleGenerator(
                                     bulletData.ratio,
                                     bulletData.row,
                                     bulletData.column,
@@ -120,13 +120,13 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                                 ));
                             break;
                         case EBulletType.AimingHole:
-                            bulletList.Add(this.CreateAimingHoleGenerator(
+                            bulletList.Add(CreateAimingHoleGenerator(
                                     bulletData.ratio,
                                     bulletData.aimingPanels.ToArray()
                                 ));
                             break;
                         case EBulletType.RandomAimingHole:
-                            bulletList.Add(this.CreateRandomAimingHoleGenerator(
+                            bulletList.Add(CreateRandomAimingHoleGenerator(
                                     bulletData.ratio,
                                     bulletData.randomNumberPanels.ToArray()
                                 ));
@@ -152,7 +152,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="interval"> 銃弾生成の時間間隔 </param>
         /// <param name="loop"> 銃弾生成の繰り返しの有無 </param>
         /// <param name="bulletGenerators"></param>
-        public IEnumerator CreateBulletGroup(float appearanceTime, float interval, bool loop,
+        private IEnumerator CreateBulletGroup(float appearanceTime, float interval, bool loop,
             List<GameObject> bulletGenerators)
         {
             var bulletGroup = Instantiate(bulletGroupControllerPrefab);
@@ -182,6 +182,12 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// NormalCartridge、RandomNormalCartridgeのジェネレーターを生成する共通メソッド
         /// <see cref="NormalCartridgeGenerator.Initialize(int, ECartridgeDirection, int, int[], int[], int[])"/>
         /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
+        /// <param name="line"> 銃弾の出現する行(列)</param>
+        /// <param name="randomCartridgeDirection"> 銃弾の移動方向の重み </param>
+        /// <param name="randomRow"> 銃弾の出現する行の重み </param>
+        /// <param name="randomColumn"> 銃弾の出現する列の重み </param>
         private GameObject CreateNormalCartridgeGenerator(
             int ratio,
             ECartridgeDirection cartridgeDirection,
@@ -197,6 +203,15 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             return cartridgeGenerator;
         }
 
+        /// <summary>
+        /// TurnCartridgeのジェネレーターを生成する共通メソッド
+        /// <see cref="TurnCartridgeGenerator.Initialize(int, ECartridgeDirection, int, int[], int[])"/>
+        /// </summary>
+        /// <param name="ratio"> Generatorの出現割合 </param>
+        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
+        /// <param name="line"> 銃弾の出現する行(列)</param>
+        /// <param name="turnDirection"> 銃弾の曲がる方向 </param>
+        /// <param name="turnLine"> 銃弾の曲がる行(列) </param>
         private GameObject CreateTurnCartridgeGenerator(
             int ratio,
             ECartridgeDirection cartridgeDirection,
@@ -221,8 +236,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="randomColumn"> 銃弾の出現する列の重み</param>
         /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
         /// <param name="randomTurnRow"> 曲がる行の重み </param>
-        /// <param name="randomTurnColumn"> 曲がる列の重み</param>
-        public GameObject CreateRandomTurnCartridgeGenerator(int ratio, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
+        /// <param name="randomTurnColumn"> 曲がる列の重み </param>
+        private GameObject CreateRandomTurnCartridgeGenerator(int ratio, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
             var cartridgeGenerator = Instantiate(_turnCartridgeGeneratorPrefab);
@@ -274,8 +289,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// ランダムなNumberPanelの親タイルを撃つAimingHole
         /// </summary>
         /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="randomNumberPanels"> 銃弾が出現するNumberPanelの重み</param>
-        public GameObject CreateRandomAimingHoleGenerator(int ratio, int[] randomNumberPanels)
+        /// <param name="randomNumberPanels"> 銃弾が出現するNumberPanelの重み </param>
+        private GameObject CreateRandomAimingHoleGenerator(int ratio, int[] randomNumberPanels)
         {
             var holeGenerator = Instantiate(_aimingHoleGeneratorPrefab);
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
