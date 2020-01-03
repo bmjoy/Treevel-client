@@ -1,6 +1,4 @@
-﻿using Project.Scripts.Utils.Definitions;
-using System.Collections;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -11,7 +9,7 @@ namespace Project.Scripts.MenuSelectScene
     public class MenuSelectToggle : Toggle
     {
         protected enum ESceneName {
-            LevelSelectScene, 
+            LevelSelectScene,
             StageSelectScene,
             RecordScene,
             TutorialScene,
@@ -67,8 +65,8 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// Toggleに紐づいているscene nameを返す
         /// </summary>
-        /// <returns></returns>
-        public virtual string GetSceneName() {
+        public virtual string GetSceneName()
+        {
             return tiedSceneName.ToString();
         }
     }

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
@@ -31,6 +31,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                     var sprite = Resources.Load<Sprite>("Textures/BulletWarning/turnWarning");
                     gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
                     break;
+                case ECartridgeType.Random:
+                    throw new NotImplementedException();
                 default:
                     throw new NotImplementedException();
             }
@@ -59,12 +61,13 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                         WindowSize.HEIGHT / 2);
                     bulletMotionVector = Vector2.down;
                     break;
+                case ECartridgeDirection.Random:
+                    throw new NotImplementedException();
                 default:
                     throw new NotImplementedException();
             }
 
-            warningPosition = warningPosition + Vector2.Scale(bulletMotionVector,
-                    new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
+            warningPosition += Vector2.Scale(bulletMotionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
             transform.position = warningPosition;
             return bulletMotionVector;
         }

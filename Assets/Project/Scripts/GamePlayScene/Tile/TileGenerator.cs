@@ -1,8 +1,9 @@
-﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
-using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
 using Project.Scripts.GameDatas;
+using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
@@ -15,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         public void CreateTiles(ICollection<TileData> tileDatas)
         {
-            foreach (TileData tileData in tileDatas) {
+            foreach (var tileData in tileDatas) {
                 switch (tileData.type) {
                     case ETileType.Normal:
                         CreateNormalTile(tileData.number);
@@ -23,6 +24,8 @@ namespace Project.Scripts.GamePlayScene.Tile
                     case ETileType.Warp:
                         CreateWarpTiles(tileData.number, tileData.pairNumber);
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -57,7 +60,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             MakeRelations(_tiles);
         }
 
-        public void CreateNormalTile(int tileNum)
+        private void CreateNormalTile(int tileNum)
         {
             var normalTile = Instantiate(_normalTilePrefab);
 
@@ -73,7 +76,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        public void CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTile = Instantiate(_warpTilePrefab);
             var secondTile = Instantiate(_warpTilePrefab);

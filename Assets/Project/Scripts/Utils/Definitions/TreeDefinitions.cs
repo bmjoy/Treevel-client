@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace Project.Scripts.Utils.Definitions
 {
@@ -20,7 +19,7 @@ namespace Project.Scripts.Utils.Definitions
         /// ステージ数
         /// </summary>
         /// TODO: 実際にある木のステージ数で決める
-        public static readonly Dictionary<ETreeName, int> Num = new Dictionary<ETreeName, int>()
+        public static readonly Dictionary<ETreeName, int> NUM = new Dictionary<ETreeName, int>()
         {
             {ETreeName.CherryBlossom, 10},
             {ETreeName.Plum, 10},

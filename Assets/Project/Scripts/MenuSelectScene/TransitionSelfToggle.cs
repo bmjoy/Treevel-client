@@ -1,6 +1,4 @@
-﻿using Project.Scripts.Utils.Definitions;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,8 +10,7 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// ON状態でToggleを押せるかどうか
         /// </summary>
-        /// <value></value>
-        public bool _isTransition {
+        public bool IsTransition {
             private get;
             set;
         }
@@ -30,11 +27,11 @@ namespace Project.Scripts.MenuSelectScene
 
             if (!IsActive() || !IsInteractable())
                 return;
-            
+
             // ON状態で自身を押下可能なとき
-            if (isOn && _isTransition) {
+            if (isOn && IsTransition) {
                 SceneManager.UnloadSceneAsync(GetSceneName());
-                _isTransition = false;
+                IsTransition = false;
                 isOn = true;
                 ToggleValueChanged(gameObject);
             }
@@ -46,9 +43,9 @@ namespace Project.Scripts.MenuSelectScene
         /// Toggleに紐づいているscene nameを返す
         /// </summary>
         /// <returns></returns>
-        public override string GetSceneName() {
-            if(!_isTransition) return tiedSceneName.ToString();
-            return tiedSecondSceneName.ToString();
+        public override string GetSceneName()
+        {
+            return !IsTransition ? tiedSceneName.ToString() : tiedSecondSceneName.ToString();
         }
     }
 }

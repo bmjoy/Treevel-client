@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(Rigidbody2D))]
+
     // Bulletに共通したフィールド、メソッドの定義
     public abstract class BulletController : MonoBehaviour
     {
@@ -18,11 +19,12 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 元画像の横幅
         /// </summary>
-        [NonSerialized] public float originalWidth;
+        [NonSerialized] protected float originalWidth;
+
         /// <summary>
         /// 元画像の縦幅
         /// </summary>
-        [NonSerialized] public float originalHeight;
+        [NonSerialized] protected float originalHeight;
 
         protected GamePlayDirector gamePlayDirector;
 

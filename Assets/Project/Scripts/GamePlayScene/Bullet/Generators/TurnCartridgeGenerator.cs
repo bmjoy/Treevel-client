@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using JetBrains.Annotations;
+using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class TurnCartridgeGenerator : NormalCartridgeGenerator
     {
@@ -14,6 +15,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// TurnCartridgeのPrefab
         /// </summary>
         [SerializeField] private GameObject _turnCartridgePrefab;
+
         /// <summary>
         /// TurnCartridgeWarningのPrefab
         /// </summary>
@@ -22,7 +24,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 銃弾が生成されてから動き始めるまでのフレーム数
         /// </summary>
-        public static int TURN_CARTRIDGE_WAITING_FRAMES;
+        public static int turnCartridgeWaitingFrames;
 
         /// <summary>
         /// 曲がる方向
@@ -37,25 +39,22 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 曲がる方向の重み
         /// </summary>
-        /// <returns></returns>
         private int[] _randomTurnDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
         /// <summary>
         /// 曲がる行の重み
         /// </summary>
-        /// <returns></returns>
         private int[] _randomTurnRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         /// <summary>
         /// 曲がる列の重み
         /// </summary>
-        /// <returns></returns>
         private int[] _randomTurnColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         protected override void Awake()
         {
             base.Awake();
-            TURN_CARTRIDGE_WAITING_FRAMES = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
+            turnCartridgeWaitingFrames = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
         }
 
         /// <summary>
@@ -69,8 +68,8 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public void Initialize(int ratio, ECartridgeDirection direction, int line, int[] turnDirection, int[] turnLine)
         {
             Initialize(ratio, direction, line);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
+            _turnDirection = turnDirection;
+            _turnLine = turnLine;
         }
 
         /// <summary>
@@ -88,9 +87,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
             Initialize(ratio, randomCartridgeDirection, randomRow, randomColumn);
-            this._randomTurnDirections = randomTurnDirections;
-            this._randomTurnRow = randomTurnRow;
-            this._randomTurnColumn = randomTurnColumn;
+            _randomTurnDirections = randomTurnDirections;
+            _randomTurnRow = randomTurnRow;
+            _randomTurnColumn = randomTurnColumn;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -127,43 +126,44 @@ namespace Project.Scripts.GamePlayScene.Bullet
                 warningScript.Initialize(ECartridgeType.Turn, nextCartridgeDirection, nextCartridgeLine);
 
             // 銃弾を生成するまで待つ
-            for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES - TURN_CARTRIDGE_WAITING_FRAMES; index++) yield return new WaitForFixedUpdate();
+            for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES - turnCartridgeWaitingFrames; index++) yield return new WaitForFixedUpdate();
 
             // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                int[] nextCartridgeTurnDirection = _turnDirection ?? new int[] {
-                    GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)
-                };
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
 
-                int[] nextCartridgeTurnLine = _turnLine;
-                if (nextCartridgeTurnLine == null) {
-                    switch (nextCartridgeDirection) {
-                        case ECartridgeDirection.ToLeft:
-                        case ECartridgeDirection.ToRight:
-                            nextCartridgeTurnLine = new int[] {GetTurnColumn()};
-                            break;
-                        case ECartridgeDirection.ToUp:
-                        case ECartridgeDirection.ToBottom:
-                            nextCartridgeTurnLine = new int[] {GetTurnRow()};
-                            break;
-                        case ECartridgeDirection.Random:
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
+            var nextCartridgeTurnDirection = _turnDirection ?? new int[] {
+                GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)
+            };
+
+            var nextCartridgeTurnLine = _turnLine;
+            if (nextCartridgeTurnLine == null) {
+                switch (nextCartridgeDirection) {
+                    case ECartridgeDirection.ToLeft:
+                    case ECartridgeDirection.ToRight:
+                        nextCartridgeTurnLine = new int[] {GetTurnColumn()};
+                        break;
+                    case ECartridgeDirection.ToUp:
+                    case ECartridgeDirection.ToBottom:
+                        nextCartridgeTurnLine = new int[] {GetTurnRow()};
+                        break;
+                    case ECartridgeDirection.Random:
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
-
-                var cartridge = Instantiate(_turnCartridgePrefab);
-                cartridge.GetComponent<TurnCartridgeController>().Initialize(nextCartridgeDirection, nextCartridgeLine,
-                    bulletMotionVector, nextCartridgeTurnDirection, nextCartridgeTurnLine);
-
-                // 同レイヤーのオブジェクトの描画順序の制御
-                cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
-
-                // 警告を削除する
-                for (int index = 0; index < TURN_CARTRIDGE_WAITING_FRAMES; index++) yield return new WaitForFixedUpdate();
-                Destroy(warning);
             }
+
+            var cartridge = Instantiate(_turnCartridgePrefab);
+            cartridge.GetComponent<TurnCartridgeController>().Initialize(nextCartridgeDirection, nextCartridgeLine,
+                bulletMotionVector, nextCartridgeTurnDirection, nextCartridgeTurnLine);
+
+            // 同レイヤーのオブジェクトの描画順序の制御
+            cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
+
+            // 警告を削除する
+            for (var index = 0; index < turnCartridgeWaitingFrames; index++) yield return new WaitForFixedUpdate();
+            Destroy(warning);
+
         }
 
         /// <summary>
@@ -171,26 +171,35 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// </summary>
         /// <param name="direction"></param>
         /// <param name="line"></param>
-        /// <returns></returns>
         private int GetRandomTurnDirection(ECartridgeDirection direction, int line)
         {
             var randomTurnDirection = 0;
             // 最上行または最下行を移動している場合
             if ((direction == ECartridgeDirection.ToLeft || direction == ECartridgeDirection.ToRight) &&
                 (line == (int) ERow.First || line == (int) ERow.Fifth)) {
-                if (line == (int) ERow.First) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToBottom;
-                } else if (line == (int) ERow.Fifth) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToUp;
+                switch (line) {
+                    case (int) ERow.First:
+                        randomTurnDirection = (int) ECartridgeDirection.ToBottom;
+                        break;
+                    case (int) ERow.Fifth:
+                        randomTurnDirection = (int) ECartridgeDirection.ToUp;
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
             // 最左列または最も最右列を移動している場合
             else if ((direction == ECartridgeDirection.ToUp || direction == ECartridgeDirection.ToBottom) &&
                 (line == (int) EColumn.Left || line == (int) EColumn.Right)) {
-                if (line == (int) EColumn.Left) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToRight;
-                } else if (line == (int) EColumn.Right) {
-                    randomTurnDirection = (int) ECartridgeDirection.ToLeft;
+                switch (line) {
+                    case (int) EColumn.Left:
+                        randomTurnDirection = (int) ECartridgeDirection.ToRight;
+                        break;
+                    case (int) EColumn.Right:
+                        randomTurnDirection = (int) ECartridgeDirection.ToLeft;
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
             // 上記以外の場合(ランダムに決定する)
@@ -236,7 +245,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 曲がる行を重みに基づき決定する
         /// </summary>
-        /// <returns></returns>
         private int GetTurnRow()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomTurnRow) + 1;
@@ -246,7 +254,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 曲がる列を重みに基づき決定する
         /// </summary>
-        /// <returns></returns>
         private int GetTurnColumn()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomTurnColumn) + 1;

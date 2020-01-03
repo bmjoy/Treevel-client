@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections;
-using System.IO;
 using System.Linq;
-using Project.Scripts.Utils.Definitions;
 using Project.Scripts.GamePlayScene.Panel;
-using Project.Scripts.UIComponents;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Project.Scripts.GamePlayScene
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        private const string RESULT_WINDOW_NAME = "ResultPopup";
-        private const string STAGE_NUMBER_TEXT_NAME = "StageNumberText";
-        private const string PAUSE_WINDOW_NAME = "PauseWindow";
-        private const string PAUSE_BUTTON_NAME = "PauseButton";
+        private const string _RESULT_WINDOW_NAME = "ResultPopup";
+        private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
+        private const string _PAUSE_WINDOW_NAME = "PauseWindow";
+        private const string _PAUSE_BUTTON_NAME = "PauseButton";
 
         public delegate void ChangeAction();
 
@@ -105,12 +101,12 @@ namespace Project.Scripts.GamePlayScene
 
         private void Awake()
         {
-            _resultWindow = GameObject.Find(RESULT_WINDOW_NAME);
+            _resultWindow = GameObject.Find(_RESULT_WINDOW_NAME);
 
-            _stageNumberText = GameObject.Find(STAGE_NUMBER_TEXT_NAME);
+            _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME);
 
-            _pauseWindow = GameObject.Find(PAUSE_WINDOW_NAME);
-            _pauseButton = GameObject.Find(PAUSE_BUTTON_NAME);
+            _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
+            _pauseButton = GameObject.Find(_PAUSE_BUTTON_NAME);
 
             StartCoroutine(UnifyDisplay());
 
@@ -150,7 +146,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void CheckClear()
         {
-            GameObject[] panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
+            var panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
             if (panels.Any(panel => panel.GetComponent<NumberPanelController>().Adapted == false)) return;
             // 全ての数字パネルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
@@ -222,16 +218,6 @@ namespace Project.Scripts.GamePlayScene
         private void GameOpening()
         {
             CleanObject();
-
-            // StageStatusのデバッグ用
-            var stageStatus = StageStatus.Get(stageId);
-            var tmp = stageStatus.passed ? "クリア済み" : "未クリア";
-            print("-------------------------------");
-            print("ステージ" + stageId + "番は" + tmp + "です");
-            print("ステージ" + stageId + "番の挑戦回数は" + stageStatus.challengeNum + "回です");
-            print("ステージ" + stageId + "番の成功回数は" + stageStatus.successNum + "回です");
-            print("ステージ" + stageId + "番の失敗回数は" + stageStatus.failureNum + "回です");
-            print("-------------------------------");
 
             // 現在のステージ番号を格納
             _stageNumberText.GetComponent<Text>().text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageId.ToString();
@@ -324,13 +310,13 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private static void CleanObject()
         {
-            GameObject[] tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
+            var tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
             foreach (var tile in tiles) {
                 // タイルの削除 (に伴いパネルも削除される)
                 DestroyImmediate(tile);
             }
 
-            GameObject[] bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
+            var bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
             foreach (var bullet in bullets) {
                 // 銃弾の削除
                 DestroyImmediate(bullet);
@@ -350,39 +336,40 @@ namespace Project.Scripts.GamePlayScene
             var currentRatio = (float) Screen.width / Screen.height;
             // 許容するアスペクト比の誤差
             const float aspectRatioError = 0.001f;
-            if (currentRatio < targetRatio - aspectRatioError || targetRatio + aspectRatioError < currentRatio) {
-                // ゲーム盤面以外を埋める背景画像を表示する
-                var background = Instantiate(_backgroundPrefab);
-                background.transform.position = new Vector2(0f, 0f);
-                var originalWidth = background.GetComponent<SpriteRenderer>().size.x;
-                var originalHeight = background.GetComponent<SpriteRenderer>().size.y;
-                var ratio = 0f;
-                if (currentRatio > targetRatio + aspectRatioError) {
-                    // 横長のデバイスの場合
-                    ratio = targetRatio / currentRatio;
-                    var rectX = (1 - ratio) / 2f;
-                    background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight);
-                    // 背景を描画するために1フレーム待つ
-                    yield return null;
-                    Destroy(background);
-                    Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
-                    // カメラの描画範囲を縮小させ、縮小させた範囲の背景を取り除くために1フレーム待つ
-                    yield return null;
-                } else if (currentRatio < targetRatio - aspectRatioError) {
-                    // 縦長のデバイスの場合
-                    ratio = currentRatio / targetRatio;
-                    var rectY = (1 - ratio) / 2f;
-                    background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight / ratio);
-                    yield return null;
-                    Destroy(background);
-                    Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
-                    yield return null;
-                }
-                // 結果ウィンドウの大きさを変える
-                _resultWindow.transform.localScale = new Vector2(ratio, ratio);
-                // 一時停止ウィンドウの大きさを変える
-                _pauseWindow.transform.localScale = new Vector2(ratio, ratio);
+
+            if ((targetRatio - aspectRatioError <= currentRatio) && (currentRatio <= (targetRatio + aspectRatioError))) yield break;
+
+            // ゲーム盤面以外を埋める背景画像を表示する
+            var background = Instantiate(_backgroundPrefab);
+            background.transform.position = new Vector2(0f, 0f);
+            var originalWidth = background.GetComponent<SpriteRenderer>().size.x;
+            var originalHeight = background.GetComponent<SpriteRenderer>().size.y;
+            var ratio = 0f;
+            if (currentRatio > targetRatio + aspectRatioError) {
+                // 横長のデバイスの場合
+                ratio = targetRatio / currentRatio;
+                var rectX = (1 - ratio) / 2f;
+                background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight);
+                // 背景を描画するために1フレーム待つ
+                yield return null;
+                Destroy(background);
+                if (Camera.main != null) Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
+                // カメラの描画範囲を縮小させ、縮小させた範囲の背景を取り除くために1フレーム待つ
+                yield return null;
+            } else if (currentRatio < targetRatio - aspectRatioError) {
+                // 縦長のデバイスの場合
+                ratio = currentRatio / targetRatio;
+                var rectY = (1 - ratio) / 2f;
+                background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight / ratio);
+                yield return null;
+                Destroy(background);
+                if (Camera.main != null) Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
+                yield return null;
             }
+            // 結果ウィンドウの大きさを変える
+            _resultWindow.transform.localScale = new Vector2(ratio, ratio);
+            // 一時停止ウィンドウの大きさを変える
+            _pauseWindow.transform.localScale = new Vector2(ratio, ratio);
         }
 
         /// <summary>

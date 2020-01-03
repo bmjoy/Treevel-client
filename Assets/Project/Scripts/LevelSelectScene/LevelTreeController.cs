@@ -20,18 +20,19 @@ namespace Project.Scripts.LevelSelectScene
         /// </summary>
         [SerializeField] private ETreeName _treeId;
 
-        void Awake() {
+        private void Awake()
+        {
             gameObject.GetComponent<Button>().onClick.AddListener(TreeButtonDown);
         }
 
-        public void TreeButtonDown()
+        private void TreeButtonDown()
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
             // StageSelect Toggle に結びつけるSceneを変更する
             var nowToggle = GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>();
             SceneManager.UnloadSceneAsync(nowToggle.GetSceneName());
-            nowToggle._isTransition = true;
+            nowToggle.IsTransition = true;
             StartCoroutine(MenuSelectDirector.Instance.ChangeScene());
         }
     }

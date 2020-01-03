@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using Project.Scripts.Utils.Attributes;
+﻿using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
@@ -9,19 +9,22 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <summary>
         /// 右にあるタイル
         /// </summary>
-        [NonEditable] public GameObject _rightTile;
+        [NonEditable] public GameObject rightTile;
+
         /// <summary>
         /// 左にあるタイル
         /// </summary>
-        [NonEditable] public GameObject _leftTile;
+        [NonEditable] public GameObject leftTile;
+
         /// <summary>
         /// 上にあるタイル
         /// </summary>
-        [NonEditable] public GameObject _upperTile;
+        [NonEditable] public GameObject upperTile;
+
         /// <summary>
         /// 下にあるタイル
         /// </summary>
-        [NonEditable] public GameObject _lowerTile;
+        [NonEditable] public GameObject lowerTile;
 
         /// <summary>
         /// タイルの番号
@@ -60,10 +63,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <returns></returns>
         public GameObject GetTile(int tileNum)
         {
-            if (this._tileNum == tileNum) {
-                return gameObject;
-            }
-            return null;
+            return _tileNum == tileNum ? gameObject : null;
         }
 
         /// <summary>
@@ -75,10 +75,10 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <param name="lowerTile"> 下のタイル </param>
         public void MakeRelation(GameObject rightTile, GameObject leftTile, GameObject upperTile, GameObject lowerTile)
         {
-            this._rightTile = rightTile;
-            this._leftTile = leftTile;
-            this._upperTile = upperTile;
-            this._lowerTile = lowerTile;
+            this.rightTile = rightTile;
+            this.leftTile = leftTile;
+            this.upperTile = upperTile;
+            this.lowerTile = lowerTile;
         }
 
         /// <summary>

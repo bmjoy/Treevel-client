@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using Project.Scripts.GamePlayScene.Bullet.Generators;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
     public class TurnCartridgeController : NormalCartridgeController
     {
@@ -17,6 +18,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 曲がる行(または列)の配列
         /// </summary>
+        /// NOTE: 今後利用する可能性あり
         private int[] _turnLine;
 
         /// <summary>
@@ -57,8 +59,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 回転中の銃弾の速さ (円周(= 回転半径 * 2 * pi)の4分の1をフレーム数で割る)
         /// </summary>
-        private float _rotatingSpeed =
-            ((PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) * 2f * (float) Math.PI / 4f / _COUNT;
+        private const float _ROTATING_SPEED = ((PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) * 2f * (float) Math.PI / 4f / _COUNT;
 
         /// <summary>
         /// 銃弾が回転しているかどうかを表す状態
@@ -73,17 +74,17 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 銃弾が動き始めるまでの残りのフレーム数
         /// </summary>
-        private int _waitingTime = TurnCartridgeGenerator.TURN_CARTRIDGE_WAITING_FRAMES;
+        private int _waitingTime = TurnCartridgeGenerator.turnCartridgeWaitingFrames;
 
         /// <summary>
         /// 警告を表示し、銃弾を回転させるcoroutineの配列
         /// </summary>
-        private IEnumerator[] rotateCoroutines;
+        private IEnumerator[] _rotateCoroutines;
 
         /// <summary>
         /// 曲がる方向に応じて表示分けする警告画像の名前
         /// </summary>
-        /// <value></value>
+        /// NOTE: 画像をLoadする際の画像名のenumとして利用
         private enum _ETurnWarning {
             turnLeft,
             turnRight,
@@ -91,37 +92,33 @@ namespace Project.Scripts.GamePlayScene.Bullet
             turnBottom
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
-
         protected override void FixedUpdate()
         {
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                // 警告を表示するタイミングかどうかを毎フレーム監視する
-                _warningTiming[_warningIndex]--;
-                if (_warningTiming[_warningIndex] == 0) {
-                    // 警告を表示、その後、銃弾の回転
-                    StartCoroutine(rotateCoroutines[_warningIndex]);
-                    // 次の警告の表示タイミングを監視する
-                    if (_warningIndex != _turnDirection.Length - 1)
-                        _warningIndex++;
-                }
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) return;
 
-                if(_waiting) {
-                    // 待機中
-                    _waitingTime--;
-                    if(_waitingTime == 0) 
+            // 警告を表示するタイミングかどうかを毎フレーム監視する
+            _warningTiming[_warningIndex]--;
+
+            if (_warningTiming[_warningIndex] == 0) {
+                // 警告を表示、その後、銃弾の回転
+                StartCoroutine(_rotateCoroutines[_warningIndex]);
+                // 次の警告の表示タイミングを監視する
+                if (_warningIndex != _turnDirection.Length - 1)
+                    _warningIndex++;
+            }
+
+            if (_waiting) {
+                // 待機中
+                _waitingTime--;
+                if (_waitingTime == 0)
                     _waiting = false;
+            } else {
+                if (_rotating) {
+                    // 回転中
+                    transform.Translate(motionVector * _ROTATING_SPEED, Space.World);
                 } else {
-                    if (_rotating) {
-                        // 回転中
-                        transform.Translate(motionVector * _rotatingSpeed, Space.World);
-                    } else {
-                        // 直進中
-                        transform.Translate(motionVector * speed, Space.World);
-                    }
+                    // 直進中
+                    transform.Translate(motionVector * speed, Space.World);
                 }
             }
         }
@@ -140,11 +137,11 @@ namespace Project.Scripts.GamePlayScene.Bullet
         {
             // 銃弾に必要な引数を受け取る
             Initialize(direction, line, motionVector);
-            this._turnDirection = turnDirection;
-            this._turnLine = turnLine;
+            _turnDirection = turnDirection;
+            _turnLine = turnLine;
             // 表示する全ての警告の座標および回転の角度を計算
-            Vector2 cartridgePosition = transform.position;
-            Vector2 cartridgeMotionVector = motionVector;
+            var cartridgePosition = transform.position;
+            var cartridgeMotionVector = motionVector;
             _turnAngle = new float[turnDirection.Length];
             _turnPoint = new Vector2[turnDirection.Length];
             for (var index = 0; index < turnDirection.Length; index++) {
@@ -164,15 +161,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
             // 1つ目の警告を表示させるタイミングを求める
             // 警告座標に到達する時間(= 銃弾が進む距離 / 銃弾の速さ)のNフレーム前が表示タイミング
             _warningTiming = new int[turnDirection.Length];
-            _warningTiming[0] = TurnCartridgeGenerator.TURN_CARTRIDGE_WAITING_FRAMES + (int)Math.Round((Vector2.Distance(transform.position, _turnPoint[0]) - (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) / speed - BulletWarningParameter.WARNING_DISPLAYED_FRAMES - _RUNNING_FRAMES, MidpointRounding.AwayFromZero);
+            _warningTiming[0] = TurnCartridgeGenerator.turnCartridgeWaitingFrames + (int)Math.Round((Vector2.Distance(transform.position, _turnPoint[0]) - (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) / speed - BulletWarningParameter.WARNING_DISPLAYED_FRAMES - _RUNNING_FRAMES, MidpointRounding.AwayFromZero);
             // 警告の表示および銃弾が回転する挙動を特定のタイミングで発火できるようにcoroutineにセットする
-            rotateCoroutines = new IEnumerator[turnDirection.Length];
-            rotateCoroutines[0] = DisplayTurnWarning(_turnPoint[0], _turnDirection[0], _turnAngle[0]);
+            _rotateCoroutines = new IEnumerator[turnDirection.Length];
+            _rotateCoroutines[0] = DisplayTurnWarning(_turnPoint[0], _turnDirection[0], _turnAngle[0]);
             for (var index = 1; index < turnDirection.Length; index++) {
                 // 1つ前の警告の表示タイミングから何フレーム後に表示させるかを求める
                 // 警告座標に到達する時間(= 1つ前の表示タイミングのNフレーム後 + 銃弾が回転にかかるフレーム数 + (警告と警告との距離) / 銃弾の速さ)のNフレーム前
                 _warningTiming[index] = (int)Math.Round(_COUNT + (Vector2.Distance(_turnPoint[index - 1], _turnPoint[index]) - (PanelSize.WIDTH - CartridgeSize.WIDTH)) / speed, MidpointRounding.AwayFromZero);
-                rotateCoroutines[index] = DisplayTurnWarning(_turnPoint[index], _turnDirection[index], _turnAngle[index]);
+                _rotateCoroutines[index] = DisplayTurnWarning(_turnPoint[index], _turnDirection[index], _turnAngle[index]);
             }
         }
 
@@ -211,16 +208,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         private IEnumerator DisplayTurnWarning(Vector2 warningPosition, int turnDirection, float turnAngle)
         {
-            var _warning = Instantiate(_normalCartridgeWarningPrefab);
+            var warning = Instantiate(_normalCartridgeWarningPrefab);
             // 同レイヤーのオブジェクトの描画順序の制御
-            _warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
+            warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
             // warningの位置・大きさ等の設定
-            var warningScript = _warning.GetComponent<CartridgeWarningController>();
+            var warningScript = warning.GetComponent<CartridgeWarningController>();
             warningScript.Initialize(warningPosition, Enum.GetName(typeof(_ETurnWarning), turnDirection - 1));
             // 警告の表示時間だけ待つ
             for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する
-            Destroy(_warning);
+            Destroy(warning);
             for (var index = 0; index < _RUNNING_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 銃弾を回転させる
             StartCoroutine(RotateCartridge(turnAngle));

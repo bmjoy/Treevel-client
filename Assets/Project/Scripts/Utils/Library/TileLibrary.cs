@@ -14,7 +14,7 @@ namespace Project.Scripts.Utils.Library
         /// <returns> タイルオブジェクト </returns>
         public static GameObject GetTile(int tileNum)
         {
-            GameObject[] tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
+            var tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
 
             foreach (var tile in tiles) {
                 var script = tile.GetComponent<NormalTileController>();

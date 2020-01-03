@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
+using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class NormalCartridgeGenerator : BulletGenerator
     {
@@ -13,6 +14,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// NormalCartridgeのPrefab
         /// </summary>
         [SerializeField] private GameObject _normalCartridgePrefab;
+
         /// <summary>
         /// NormalCartridgeWarningのPrefab
         /// </summary>
@@ -32,18 +34,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// 移動方向の重み
         /// </summary>
         /// <returns></returns>
-        private int[] randomCartridgeDirection =
+        private int[] _randomCartridgeDirection =
             BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
 
         /// <summary>
         /// 移動する行の重み
         /// </summary>
-        protected int[] randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
+        private int[] _randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         /// <summary>
         /// 移動する列の重み
         /// </summary>
-        protected int[] randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
+        private int[] _randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         /// <summary>
         /// 特定の行を移動するNormalCartridgeを生成するGeneratorの初期化
@@ -81,9 +83,9 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public void Initialize(int ratio, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn)
         {
             this.ratio = ratio;
-            this.randomCartridgeDirection = randomCartridgeDirection;
-            this.randomRow = randomRow;
-            this.randomColumn = randomColumn;
+            _randomCartridgeDirection = randomCartridgeDirection;
+            _randomRow = randomRow;
+            _randomColumn = randomColumn;
         }
 
         /// <summary>
@@ -104,18 +106,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <param name="randomRow">移動する行の重み</param>
         /// <param name="randomColumn">移動する列の重み</param>
         public void Initialize(int ratio,
-                               ECartridgeDirection cartridgeDirection,
-                               int line = -1,
-                               int[] randomCartridgeDirection = null,
-                               int[] randomRow = null,
-                               int[] randomColumn = null)
+            ECartridgeDirection cartridgeDirection,
+            int line = -1,
+            int[] randomCartridgeDirection = null,
+            int[] randomRow = null,
+            int[] randomColumn = null)
         {
             this.ratio = ratio;
             this.cartridgeDirection = cartridgeDirection;
             this.line = line;
-            this.randomCartridgeDirection = randomCartridgeDirection;
-            this.randomRow = randomRow;
-            this.randomColumn = randomColumn;
+            _randomCartridgeDirection = randomCartridgeDirection;
+            _randomRow = randomRow;
+            _randomColumn = randomColumn;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -156,15 +158,15 @@ namespace Project.Scripts.GamePlayScene.Bullet
             // 警告を削除する
             Destroy(warning);
 
-            // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                var cartridge = Instantiate(_normalCartridgePrefab);
-                cartridge.GetComponent<NormalCartridgeController>()
-                .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
 
-                // 同レイヤーのオブジェクトの描画順序の制御
-                cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
-            }
+            // ゲームが続いているなら銃弾を作成する
+            var cartridge = Instantiate(_normalCartridgePrefab);
+            cartridge.GetComponent<NormalCartridgeController>()
+            .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
+
+            // 同レイヤーのオブジェクトの描画順序の制御
+            cartridge.GetComponent<Renderer>().sortingOrder = bulletId;
         }
 
         /// <summary>
@@ -173,7 +175,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         protected ECartridgeDirection GetCartridgeDirection()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomCartridgeDirection) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomCartridgeDirection) + 1;
             return (ECartridgeDirection) Enum.ToObject(typeof(ECartridgeDirection), index);
         }
 
@@ -183,7 +185,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         protected int GetRow()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomRow) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomRow) + 1;
             return (int) Enum.ToObject(typeof(ERow), index);
         }
 
@@ -193,7 +195,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <returns></returns>
         protected int GetColumn()
         {
-            var index = BulletLibrary.SamplingArrayIndex(randomColumn) + 1;
+            var index = BulletLibrary.SamplingArrayIndex(_randomColumn) + 1;
             return (int) Enum.ToObject(typeof(EColumn), index);
         }
     }

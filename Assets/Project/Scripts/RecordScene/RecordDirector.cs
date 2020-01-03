@@ -26,22 +26,22 @@ namespace Project.Scripts.RecordScene
         /* 以下，グラフ描画 UI 周りの配置設定 */
 
         // 棒グラフ描画範囲の左端
-        private const float LEFT_POSITION = 0.1f;
+        private const float _LEFT_POSITION = 0.1f;
 
         // 棒グラフ描画範囲の右端
-        private const float RIGHT_POSITION = 0.95f;
+        private const float _RIGHT_POSITION = 0.95f;
 
         // 棒グラフ本体の上端
-        private const float TOP_POSITION = 0.9f;
+        private const float _TOP_POSITION = 0.9f;
 
         // 棒グラフ本体の下端
-        private const float BOTTOM_POSITION = 0.15f;
+        private const float _BOTTOM_POSITION = 0.15f;
 
         // 棒グラフの横幅が隙間の何倍か
-        private const float GRAPH_WIDTH_RATIO = 1.0f;
+        private const float _GRAPH_WIDTH_RATIO = 1.0f;
 
         // ステージ番号の下端
-        private const float BOTTOM_STAGE_NUM_POSITION = 0.05f;
+        private const float _BOTTOM_STAGE_NUM_POSITION = 0.05f;
 
         // 成功している場合のグラフの色
         [SerializeField] private Color _successGraphColor = Color.cyan;
@@ -106,8 +106,8 @@ namespace Project.Scripts.RecordScene
         /// <param name="levelName"> 難易度 </param>
         private void DrawPercentage(ELevelName levelName)
         {
-            var stageNum = LevelInfo.Num[levelName];
-            var stageStartId = LevelInfo.StageStartId[levelName];
+            var stageNum = LevelInfo.NUM[levelName];
+            var stageStartId = LevelInfo.STAGE_START_ID[levelName];
 
             var successStageNum = 0;
 
@@ -130,17 +130,17 @@ namespace Project.Scripts.RecordScene
         /// <param name="levelName"> 難易度 </param>
         private void DrawGraph(ELevelName levelName)
         {
-            var stageNum = LevelInfo.Num[levelName];
-            var stageStartId = LevelInfo.StageStartId[levelName];
+            var stageNum = LevelInfo.NUM[levelName];
+            var stageStartId = LevelInfo.STAGE_START_ID[levelName];
 
             // 描画するパネル
             var graphAreaContent = _graphArea[levelName].GetComponent<RectTransform>();
 
             // グラフ間の隙間の横幅 -> stageNum個のグラフと(stageNum + 1)個の隙間
-            var blankWidth = (RIGHT_POSITION - LEFT_POSITION) / (stageNum * GRAPH_WIDTH_RATIO + (stageNum + 1));
+            var blankWidth = (_RIGHT_POSITION - _LEFT_POSITION) / (stageNum * _GRAPH_WIDTH_RATIO + (stageNum + 1));
 
             // 棒グラフの横幅
-            var graphWidth = blankWidth * GRAPH_WIDTH_RATIO;
+            var graphWidth = blankWidth * _GRAPH_WIDTH_RATIO;
 
             // 挑戦回数の最大値を求める
             var maxChallengeNum = GetMaxChallengeNum(stageNum, stageStartId);
@@ -158,7 +158,7 @@ namespace Project.Scripts.RecordScene
             // ステージ番号
             var stageName = 1;
             // 描画する棒グラフの左端を示す
-            var left = LEFT_POSITION;
+            var left = _LEFT_POSITION;
 
             for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
                 // 左端と右端の更新
@@ -168,35 +168,32 @@ namespace Project.Scripts.RecordScene
                 var stageStatus = StageStatus.Get(stageId);
 
                 /* ステージ番号の配置 */
-                var stageNumUi = Instantiate(_stageNumPrefab);
-                stageNumUi.transform.SetParent(graphAreaContent, false);
+                var stageNumUi = Instantiate(_stageNumPrefab, graphAreaContent, false);
                 stageNumUi.GetComponent<Text>().text = stageName.ToString();
-                stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, BOTTOM_STAGE_NUM_POSITION);
-                stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, BOTTOM_POSITION);
+                stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, _BOTTOM_STAGE_NUM_POSITION);
+                stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, _BOTTOM_POSITION);
 
                 /* 棒グラフの配置 */
-                var graphUi = Instantiate(_graphPrefab);
-                graphUi.transform.SetParent(graphAreaContent, false);
+                var graphUi = Instantiate(_graphPrefab, graphAreaContent, false);
 
                 // 挑戦回数に応じた棒グラフの上端
-                var graphMaxY = BOTTOM_POSITION;
+                var graphMaxY = _BOTTOM_POSITION;
 
                 if (maxChallengeNum != 0) {
                     // 挑戦回数を用いて，棒グラフの高さを描画範囲に正規化する
-                    graphMaxY = (TOP_POSITION - BOTTOM_POSITION) * (stageStatus.challengeNum / maxScale) + BOTTOM_POSITION;
+                    graphMaxY = (_TOP_POSITION - _BOTTOM_POSITION) * (stageStatus.challengeNum / maxScale) + _BOTTOM_POSITION;
                 }
 
-                graphUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, BOTTOM_POSITION);
+                graphUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, _BOTTOM_POSITION);
                 graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, graphMaxY);
 
                 if (stageStatus.passed) {
                     /* 成功している場合は，色を水色にして，成功した際の挑戦回数も示す */
                     graphUi.GetComponent<Image>().color = _successGraphColor;
 
-                    var successLineUi = Instantiate(_successLinePrefab);
-                    successLineUi.transform.SetParent(graphAreaContent, false);
-                    var successY = (TOP_POSITION - BOTTOM_POSITION) * (stageStatus.firstSuccessNum / maxScale) +
-                        BOTTOM_POSITION;
+                    var successLineUi = Instantiate(_successLinePrefab, graphAreaContent, false);
+                    var successY = (_TOP_POSITION - _BOTTOM_POSITION) * (stageStatus.firstSuccessNum / maxScale) +
+                        _BOTTOM_POSITION;
                     successLineUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, successY);
                     successLineUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, successY);
                 } else {

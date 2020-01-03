@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using JetBrains.Annotations;
+using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class AimingHoleGenerator : NormalHoleGenerator
     {
@@ -13,13 +14,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// AimingHoleのPrefab
         /// </summary>
         [SerializeField] private GameObject _aimingHolePrefab;
+
         /// <summary>
         /// AimingHoleWarningのPrefab
         /// </summary>
         [SerializeField] private GameObject _aimingHoleWarningPrefab;
 
         /// <summary>
-        /// 撃ち抜くNumberanelの番号配列
+        /// 撃ち抜くNumberPanelの番号配列
         /// </summary>
         [CanBeNull] private int[] _aimingPanels = null;
 
@@ -42,18 +44,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
         public void Initialize(int ratio, int[] aimingPanels)
         {
             this.ratio = ratio;
-            this._aimingPanels = aimingPanels;
+            _aimingPanels = aimingPanels;
         }
 
         /// <summary>
         /// ランダムなNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="randomNumberPanel"> 撃ちぬくNumberPanelの確率 </param>
+        /// <param name="randomNumberPanels"> 撃ちぬくNumberPanelの確率 </param>
         public void InitializeRandom(int ratio, int[] randomNumberPanels)
         {
             this.ratio = ratio;
-            this._randomNumberPanels = randomNumberPanels;
+            _randomNumberPanels = randomNumberPanels;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -71,14 +73,14 @@ namespace Project.Scripts.GamePlayScene.Bullet
             // 警告を削除する
             Destroy(warning);
 
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
+
             // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                var hole = Instantiate(_aimingHolePrefab);
-                var holeScript = hole.GetComponent<AimingHoleController>();
-                holeScript.Initialize(warning.transform.position);
-                // 同レイヤーのオブジェクトの描画順序の制御
-                hole.GetComponent<Renderer>().sortingOrder = bulletId;
-            }
+            var hole = Instantiate(_aimingHolePrefab);
+            var holeScript = hole.GetComponent<AimingHoleController>();
+            holeScript.Initialize(warning.transform.position);
+            // 同レイヤーのオブジェクトの描画順序の制御
+            hole.GetComponent<Renderer>().sortingOrder = bulletId;
         }
 
         /// <summary>

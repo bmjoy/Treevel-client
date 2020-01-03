@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Linq;
 using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.Utils.Library
 {
@@ -13,8 +13,8 @@ namespace Project.Scripts.Utils.Library
         /// <param name="position"> 座標 </param>
         public static(int, int) GetRowAndColumn(Vector2 position)
         {
-            int row = (int)Math.Round(position.y / TileSize.HEIGHT, MidpointRounding.AwayFromZero) + StageSize.ROW / 2 + 1;
-            int column = (int)Math.Round(position.x / TileSize.WIDTH, MidpointRounding.AwayFromZero) + StageSize.COLUMN / 2 + 1;
+            var row = (int)Math.Round(position.y / TileSize.HEIGHT, MidpointRounding.AwayFromZero) + StageSize.ROW / 2 + 1;
+            var column = (int)Math.Round(position.x / TileSize.WIDTH, MidpointRounding.AwayFromZero) + StageSize.COLUMN / 2 + 1;
             return (row, column);
         }
 

@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene
 {
@@ -14,7 +12,7 @@ namespace Project.Scripts.MenuSelectScene
         /// 初期値はStageSelectToggle
         /// </summary>
         [SerializeField] private MenuSelectToggle nowToggle;
-        
+
         private void Awake()
         {
             // 初期シーンのロード
@@ -24,10 +22,9 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// シーンを変更する
         /// </summary>
-        /// <param name="sceneName"> シーン名 </param>
         public IEnumerator ChangeScene()
         {
-            string nowSceneName = nowToggle.GetSceneName();
+            var nowSceneName = nowToggle.GetSceneName();
             // シーンをロード
             SceneManager.LoadScene(nowSceneName, LoadSceneMode.Additive);
             // シーンがロードされるのを待つ
@@ -41,12 +38,13 @@ namespace Project.Scripts.MenuSelectScene
         }
 
         /// <summary>
-        /// 
+        /// トグルを押されたときの処理
         /// </summary>
         /// <param name="toggle"></param>
-        public void SetNowScene(MenuSelectToggle toggle) {
+        public void SetNowScene(MenuSelectToggle toggle)
+        {
             // 現在シーンに紐づいているToggleをOFFにする
-            if(nowToggle != toggle) {
+            if (nowToggle != toggle) {
                 nowToggle.isOn = false;
                 nowToggle = toggle;
             }

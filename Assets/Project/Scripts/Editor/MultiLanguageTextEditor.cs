@@ -1,9 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
-using Project.Scripts.UIComponents;
+﻿using Project.Scripts.UIComponents;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine.UI;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Project.Scripts.Editor
 {
@@ -11,17 +11,17 @@ namespace Project.Scripts.Editor
     public class MultiLanguageTextEditor : UnityEditor.UI.TextEditor
     {
         #region GUI_STRINGS
-        private static GUIContent TEXT_INDEX = new GUIContent("Text Index", "Text Index");
+        private static readonly GUIContent _TEXT_INDEX = new GUIContent("Text Index", "Text Index");
         #endregion
 
         public override void OnInspectorGUI()
         {
-            MultiLanguageText uiText = (MultiLanguageText)target;
+            var uiText = (MultiLanguageText)target;
 
             base.OnInspectorGUI();
 
             EditorGUI.BeginChangeCheck();
-            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(TEXT_INDEX, uiText.TextIndex);
+            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(_TEXT_INDEX, uiText.TextIndex);
         }
 
         /// <summary>
@@ -32,13 +32,13 @@ namespace Project.Scripts.Editor
         [MenuItem("GameObject/UI/Multi Language Text")]
         public static void CreateMultiLanguageText(MenuCommand menuCommand)
         {
-            GameObject selection = menuCommand.context as GameObject;
-            GameObject obj = new GameObject("Multi Language Text", typeof(MultiLanguageText));
+            var selection = menuCommand.context as GameObject;
+            var obj = new GameObject("Multi Language Text", typeof(MultiLanguageText));
             GameObject parent = null;
 
             // 選択なしの状態：Canvasを探してその下に置く
             if (selection == null) {
-                Canvas canvas = FindObjectOfType<Canvas>();
+                var canvas = FindObjectOfType<Canvas>();
                 if (canvas != null) {
                     GameObjectUtility.SetParentAndAlign(obj, canvas.gameObject);
                 } else {
@@ -67,11 +67,11 @@ namespace Project.Scripts.Editor
 
             // EventSystemを一緒にUndoするためにUndo Group使う
             Undo.RecordObject(obj, "Create Multi Language Text");
-            int groupID = Undo.GetCurrentGroup();
+            var groupId = Undo.GetCurrentGroup();
 
             // EventSystem がなければ作成
             if (FindObjectOfType<EventSystem>() == null) {
-                GameObject eventSystem = new GameObject("Event System",
+                var eventSystem = new GameObject("Event System",
                     typeof(EventSystem),
                     typeof(StandaloneInputModule)
                 );
@@ -80,7 +80,7 @@ namespace Project.Scripts.Editor
 
             // Undoに登録
             Undo.RegisterCreatedObjectUndo(parent == null ? obj : parent, "Create Multi Language Text");
-            Undo.CollapseUndoOperations(groupID);
+            Undo.CollapseUndoOperations(groupId);
             Selection.activeGameObject = obj;
         }
 
@@ -90,12 +90,12 @@ namespace Project.Scripts.Editor
         /// <returns>作成したキャンバスゲームオブジェクト</returns>
         private static GameObject CreateAndInitializeCanvas()
         {
-            GameObject obj = new GameObject("Canvas");
-            Canvas canvas = obj.AddComponent<Canvas>();
+            var obj = new GameObject("Canvas");
+            var canvas = obj.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-            CanvasScaler scaler = obj.AddComponent<CanvasScaler>();
-            GraphicRaycaster raycaster = obj.AddComponent<GraphicRaycaster>();
+            obj.AddComponent<CanvasScaler>();
+            obj.AddComponent<GraphicRaycaster>();
 
             return obj;
         }

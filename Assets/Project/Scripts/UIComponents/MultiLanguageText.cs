@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.TextUtils;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Project.Scripts.UIComponents
 {
@@ -10,7 +10,7 @@ namespace Project.Scripts.UIComponents
     /// </summary>
     public class MultiLanguageText : Text
     {
-        [SerializeField] ETextIndex _textIndex;
+        [SerializeField] private ETextIndex _textIndex;
 
         /// <summary>
         /// TextIndex が設定される同時にテキストを取得して設定する
@@ -18,21 +18,19 @@ namespace Project.Scripts.UIComponents
         /// <value></value>
         public ETextIndex TextIndex
         {
-            get {
-                return _textIndex;
-            }
+            get => _textIndex;
             set {
-                if (_textIndex != value) {
-                    _textIndex = value;
-                    text = LanguageUtility.GetText(_textIndex);
-                }
+                if (_textIndex == value) return;
+
+                _textIndex = value;
+                text = LanguageUtility.GetText(_textIndex);
             }
         }
 
         /// <summary>
         /// 言語が変更されたときに発火するイベント
         /// </summary>
-        public void OnLanguageChanged()
+        private void OnLanguageChanged()
         {
             text = LanguageUtility.GetText(TextIndex);
         }

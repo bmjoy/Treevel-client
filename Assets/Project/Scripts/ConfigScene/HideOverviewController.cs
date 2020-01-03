@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Utils.PlayerPrefsUtils;
+using UnityEngine;
 using UnityEngine.UI;
-using Project.Scripts.Utils.PlayerPrefsUtils;
 
 namespace Project.Scripts.ConfigScene
 {

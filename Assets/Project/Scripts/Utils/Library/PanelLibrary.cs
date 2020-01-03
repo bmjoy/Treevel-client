@@ -13,7 +13,7 @@ namespace Project.Scripts.Utils.Library
         /// <returns> Number Panel オブジェクト </returns>
         public static GameObject GetPanel(int panelNum)
         {
-            GameObject[] numberPanels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
+            var numberPanels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
 
             foreach (var numberPanel in numberPanels) {
                 var script = numberPanel.GetComponent<NumberPanelController>();

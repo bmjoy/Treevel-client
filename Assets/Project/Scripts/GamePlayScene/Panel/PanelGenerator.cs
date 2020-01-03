@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Project.Scripts.GameDatas;
-using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
-using static Project.Scripts.GameDatas.StageData;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
@@ -12,20 +11,12 @@ namespace Project.Scripts.GamePlayScene.Panel
     {
         [SerializeField] private GameObject _numberPanelPrefab;
         [SerializeField] private GameObject _lifeNumberPanelPrefab;
-
         [SerializeField] private GameObject _staticDummyPanelPrefab;
         [SerializeField] private GameObject _dynamicDummyPanelPrefab;
 
-        private TileGenerator _tileGenerator;
-
-        private void Awake()
-        {
-            _tileGenerator = FindObjectOfType<TileGenerator>();
-        }
-
         public void CreatePanels(ICollection<PanelData> panelDatas)
         {
-            foreach (PanelData panelData in panelDatas) {
+            foreach (var panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
                         var numberPanel = Instantiate(_numberPanelPrefab);
@@ -45,6 +36,8 @@ namespace Project.Scripts.GamePlayScene.Panel
                         if (lifeNumberPanelSprite != null) lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
                         lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }

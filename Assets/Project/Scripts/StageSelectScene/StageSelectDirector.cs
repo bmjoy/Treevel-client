@@ -24,13 +24,14 @@ namespace Project.Scripts.StageSelectScene
 
         private SnapScrollView _snapScrollView;
 
-        private const string LOADING_BACKGROUND = "LoadingBackground";
-        private const string LOADING = "Loading";
+        private const string _LOADING_BACKGROUND = "LoadingBackground";
+        private const string _LOADING = "Loading";
 
         /// <summary>
         /// ロード中の背景
         /// </summary>
         private GameObject _loadingBackground;
+
         /// <summary>
         /// ロード中のアニメーション
         /// </summary>
@@ -55,10 +56,10 @@ namespace Project.Scripts.StageSelectScene
             // ページの横幅の設定
             _snapScrollView.PageSize = Screen.width;
             // ロード中背景を非表示にする
-            _loadingBackground = GameObject.Find(LOADING_BACKGROUND);
+            _loadingBackground = GameObject.Find(_LOADING_BACKGROUND);
             _loadingBackground.SetActive(false);
             // ロードアニメーションを非表示にする
-            _loading = GameObject.Find(LOADING);
+            _loading = GameObject.Find(_LOADING);
             _loading.SetActive(false);
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
 
@@ -83,22 +84,20 @@ namespace Project.Scripts.StageSelectScene
             var content = GameObject.Find("Canvas/SnapScrollView/Viewport/Content/" + "Easy" + "/ScrollView/Viewport/Content/Buttons").GetComponent<RectTransform>();
 
             // TODO: 今後，難易度ごとにボタン配置を変える必要がある
-            for (var i = 0; i < TreeInfo.Num[treeId]; i++) {
+            for (var i = 0; i < TreeInfo.NUM[treeId]; i++) {
                 // ステージを一意に定めるID
                 // TODO: stageIdは(levelName, treeId)から決める(競合しないように未実装にしてある)
-                var stageId = LevelInfo.StageStartId[levelName] + i;
+                var stageId = LevelInfo.STAGE_START_ID[levelName] + i;
                 // ボタンインスタンスを生成
-                var button = Instantiate(stageButtonPrefab);
+                var button = Instantiate(stageButtonPrefab, content, false);
                 // 名前
                 button.name = stageId.ToString();
-                // 親ディレクトリ
-                button.transform.SetParent(content, false);
                 // 表示テキスト
                 button.GetComponentInChildren<Text>().text = "ステージ" + stageId + "へ";
                 // クリック時のリスナー
                 button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
                 // Buttonの色
-                button.GetComponent<Image>().color = LevelInfo.LevelColor[levelName];
+                button.GetComponent<Image>().color = LevelInfo.LEVEL_COLOR[levelName];
                 // Buttonの位置
                 var rectTransform = button.GetComponent<RectTransform>();
                 // 下部のマージン : 0.05f
@@ -156,7 +155,7 @@ namespace Project.Scripts.StageSelectScene
         /// ロード中にアニメーションを動かすために非同期にロードする
         /// </summary>
         /// <returns></returns>
-        private IEnumerator LoadGamePlayScene()
+        private static IEnumerator LoadGamePlayScene()
         {
             var async = SceneManager.LoadSceneAsync(SceneName.GAME_PLAY_SCENE);
             while (!async.isDone) {

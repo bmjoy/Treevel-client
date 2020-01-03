@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 戻るボタン押下時の処理
         /// </summary>
-        private void BackButtonDown()
+        private static void BackButtonDown()
         {
             // StageSelectSceneに戻る
             SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
@@ -98,7 +98,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 投稿ボタン押下時の処理
         /// </summary>
-        private void ShareButtonDown()
+        private static void ShareButtonDown()
         {
             // Unity エディタ上では実行しない
             #if !UNITY_EDITOR

@@ -1,15 +1,17 @@
-﻿﻿using Project.Scripts.Utils.Definitions;
-using System;
+﻿using System;
 using System.Collections;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public abstract class BulletGenerator : MonoBehaviour
     {
         protected GamePlayDirector gamePlayDirector;
 
-        // Generatorの出現する確率
+        /// <summary>
+        /// Generatorの出現する確率
+        /// </summary>
         [NonSerialized] public int ratio = BulletGeneratorParameter.INITIAL_RATIO;
 
         protected virtual void Awake()

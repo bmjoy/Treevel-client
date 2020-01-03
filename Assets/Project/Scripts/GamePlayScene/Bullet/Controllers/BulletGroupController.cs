@@ -1,19 +1,18 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts.GamePlayScene.Bullet.Generators;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
     /// <summary>
     /// 銃弾の生成時刻、生成する銃弾の種類を管理する
     /// </summary>
     public class BulletGroupController : MonoBehaviour
     {
-        private GamePlayDirector gamePlayDirector;
-
         private BulletGroupGenerator _bulletGroupGenerator;
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// BulletGroupの初期化
         /// </summary>
         /// <param name="startTime"> ゲームの開始時刻 </param>
-        /// <param name="appearanceTime"> 銃弾生成の開始時刻</param>
+        /// <param name="appearanceTime"> 銃弾生成の開始時刻 </param>
         /// <param name="interval"> 銃弾生成の時間間隔 </param>
         /// <param name="loop"> 銃弾生成の繰り返しの有無 </param>
         /// <param name="bulletGenerators"> BulletGeneratorの配列 </param>
@@ -75,11 +74,10 @@ namespace Project.Scripts.GamePlayScene.Bullet
             List<GameObject> bulletGenerators)
         {
             _random = new System.Random();
-            gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-            this._appearanceTime = appearanceTime;
-            this._interval = interval;
-            this._loop = loop;
-            this._bulletGenerators = bulletGenerators;
+            _appearanceTime = appearanceTime;
+            _interval = interval;
+            _loop = loop;
+            _bulletGenerators = bulletGenerators;
             _bulletGeneratorRatio = new int[bulletGenerators.Count];
             for (var index = 0; index < bulletGenerators.Count; index++) {
                 _bulletGeneratorRatio[index] = bulletGenerators[index].GetComponent<BulletGenerator>().ratio;
@@ -89,7 +87,6 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <summary>
         /// 銃弾生成時刻を管理し、銃弾を生成する
         /// </summary>
-        /// <returns></returns>
         public IEnumerator CreateBullets()
         {
             var currentTime = Time.time;

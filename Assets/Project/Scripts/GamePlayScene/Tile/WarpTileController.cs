@@ -1,8 +1,8 @@
-﻿using Project.Scripts.Utils.Attributes;
+﻿using System.Collections;
+using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
-using System.Collections;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
@@ -14,12 +14,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <summary>
         /// warpTile上のeffect
         /// </summary>
-        private GameObject warpTileEffect;
+        private GameObject _warpTileEffect;
 
         protected override void Awake()
         {
             base.Awake();
-            warpTileEffect = transform.Find("warpTileEffectPrefab").gameObject;
+            _warpTileEffect = transform.Find("warpTileEffectPrefab").gameObject;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             base.Initialize(position, tileNum);
             name = TileName.WARP_TILE;
-            this._pairTile = pairTile;
+            _pairTile = pairTile;
         }
 
         private void OnEnable()
@@ -64,7 +64,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             // すでに生成された粒子を消す
             GetComponent<ParticleSystem>().Clear();
             // warpTileEffectを止める
-            warpTileEffect.GetComponent<Animation>().Stop();
+            _warpTileEffect.GetComponent<Animation>().Stop();
         }
 
         /// <inheritdoc />

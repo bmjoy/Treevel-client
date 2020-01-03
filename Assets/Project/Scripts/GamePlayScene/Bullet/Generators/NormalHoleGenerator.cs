@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
+using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
+using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bullet
+namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class NormalHoleGenerator : BulletGenerator
     {
@@ -13,6 +14,7 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// NormalHoleのPrefab
         /// </summary>
         [SerializeField] private GameObject _normalHolePrefab;
+
         /// <summary>
         /// NormalHoleWarningのPrefab
         /// </summary>
@@ -57,16 +59,16 @@ namespace Project.Scripts.GamePlayScene.Bullet
         /// <param name="randomRow">出現する行の重み</param>
         /// <param name="randomColumn">出現する列の重み</param>
         public void Initialize(int ratio,
-                               ERow row,
-                               EColumn column,
-                               int[] randomRow = null,
-                               int[] randomColumn = null)
+            ERow row,
+            EColumn column,
+            int[] randomRow = null,
+            int[] randomColumn = null)
         {
             this.ratio = ratio;
-            this._row = (int) row;
-            this._column = (int) column;
-            this._randomRow = randomRow;
-            this._randomColumn = randomColumn;
+            _row = (int) row;
+            _column = (int) column;
+            _randomRow = randomRow;
+            _randomColumn = randomColumn;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -81,18 +83,18 @@ namespace Project.Scripts.GamePlayScene.Bullet
             var warningScript = warning.GetComponent<NormalHoleWarningController>();
             warningScript.Initialize(nextHoleRow, nextHoleColumn);
             // 警告の表示時間だけ待つ
-            for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
+            for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する
             Destroy(warning);
 
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
+
             // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state == GamePlayDirector.EGameState.Playing) {
-                var hole = Instantiate(_normalHolePrefab);
-                var holeScript = hole.GetComponent<NormalHoleController>();
-                holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
-                // 同レイヤーのオブジェクトの描画順序の制御
-                hole.GetComponent<Renderer>().sortingOrder = bulletId;
-            }
+            var hole = Instantiate(_normalHolePrefab);
+            var holeScript = hole.GetComponent<NormalHoleController>();
+            holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
+            // 同レイヤーのオブジェクトの描画順序の制御
+            hole.GetComponent<Renderer>().sortingOrder = bulletId;
         }
 
         /// <summary>

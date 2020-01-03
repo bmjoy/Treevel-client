@@ -1,17 +1,18 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Project.Scripts.GamePlayScene.Bullet;
+using System.Linq;
+using Project.Scripts.GameDatas;
+using Project.Scripts.GamePlayScene.Bullet.Generators;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
+using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public class StageGenerator
+    public static class StageGenerator
     {
         /// <summary>
         /// ステージを作成する
@@ -24,10 +25,10 @@ namespace Project.Scripts.GamePlayScene
             var panelGenerator = PanelGenerator.Instance;
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
 
-            List<IEnumerator> coroutines = new List<IEnumerator>();
+            var coroutines = new List<IEnumerator>();
 
             // ステージデータ読み込む
-            StageData stageData = GameDataBase.Instance.GetStage(stageId);
+            var stageData = GameDataBase.Instance.GetStage(stageId);
             if (stageData != null) {
                 tileGenerator.CreateTiles(stageData.TileDatas);
                 panelGenerator.CreatePanels(stageData.PanelDatas);
