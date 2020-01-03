@@ -32,7 +32,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                     gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
                     break;
                 case ECartridgeType.Random:
-                    break;
+                    throw new NotImplementedException();
                 default:
                     throw new NotImplementedException();
             }

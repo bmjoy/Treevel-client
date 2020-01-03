@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 曲がる行(または列)の配列
         /// </summary>
-        /// FIXME: 使われてない
+        /// NOTE: 今後利用する可能性あり
         private int[] _turnLine;
 
         /// <summary>
@@ -84,12 +84,12 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 曲がる方向に応じて表示分けする警告画像の名前
         /// </summary>
-        /// FIXME: 使われてない
+        /// NOTE: 画像をLoadする際の画像名のenumとして利用
         private enum _ETurnWarning {
-            TurnLeft,
-            TurnRight,
-            TurnUp,
-            TurnBottom
+            turnLeft,
+            turnRight,
+            turnUp,
+            turnBottom
         }
 
         protected override void FixedUpdate()

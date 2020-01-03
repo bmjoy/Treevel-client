@@ -49,7 +49,7 @@ namespace Project.Scripts.Utils.TextUtils
         public static void Load()
         {
             _stringTable = new Dictionary<KeyValuePair<ELanguage, ETextIndex>, string>();
-            var datas = CSVReader.LoadCSV(_DATA_PATH);
+            List<string[]> datas = CSVReader.LoadCSV(_DATA_PATH);
 
             // skip headers
             for (var i = 1; i < datas.Count; i++) {

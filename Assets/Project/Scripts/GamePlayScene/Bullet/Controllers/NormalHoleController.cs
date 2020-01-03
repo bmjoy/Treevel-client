@@ -70,38 +70,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             _alphaChange = 0.0f;
         }
 
-        /// <summary>
-        /// NumberPanelとの当たり判定
-        /// </summary>
-        /// FIXME: 消したい
-        [Obsolete("このメソッドは使われておりません")]
-        public IEnumerator CollisionCheck()
-        {
-            var gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-            var tile = TileLibrary.GetTile(row, column);
-            if (tile.transform.childCount != 0) {
-                // 銃弾の出現するタイル上にパネルが存在する
-                var panel = tile.transform.GetChild(0);
-                if (panel.CompareTag(TagName.NUMBER_PANEL)) {
-                    // 銃弾の出現するタイル上に数字パネルが存在する
-                    // 当たり判定が起きる
-                    gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-                    gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
-                } else {
-                    // 銃弾の出現するタイル上に数字パネル以外のタイルが存在する
-                    // 当たり判定は起きない
-                    yield return new WaitForSeconds(_HOLE_DISPLAYED_FRAMES / 50);
-                    Destroy(gameObject);
-                }
-            } else {
-                // 銃弾の出現するタイル上にパネルが存在しない
-                // タイルとパネルの間のレイヤー(Hole)に描画する
-                gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.HOLE;
-                yield return new WaitForSeconds(_HOLE_DISPLAYED_FRAMES / 50);
-                Destroy(gameObject);
-            }
-        }
-
         protected override void OnTriggerEnter2D(Collider2D other)
         {
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
