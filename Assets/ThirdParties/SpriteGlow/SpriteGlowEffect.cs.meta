@@ -11,10 +11,7 @@ defaultReferences:
             type: 2
 }
 executionOrder: 0
-icon:
-{
-    instanceID: 0
-}
+icon: {instanceID: 0}
 userData:
 assetBundleName:
 assetBundleVariant:
