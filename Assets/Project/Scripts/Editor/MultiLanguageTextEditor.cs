@@ -21,7 +21,18 @@ namespace Project.Scripts.Editor
             base.OnInspectorGUI();
 
             EditorGUI.BeginChangeCheck();
-            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(_TEXT_INDEX, uiText.TextIndex);
+
+            ETextIndex currentTextIndex;
+            if (!System.Enum.TryParse<ETextIndex>(uiText.IndexStr, out currentTextIndex)) {
+                currentTextIndex = ETextIndex.Error;
+            }
+            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(_TEXT_INDEX, currentTextIndex);
+
+
+            if (!EditorGUI.EndChangeCheck()) return;
+
+            EditorUtility.SetDirty(serializedObject.targetObject);
+            serializedObject.ApplyModifiedProperties();
         }
 
         /// <summary>
