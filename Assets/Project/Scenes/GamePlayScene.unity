@@ -1065,6 +1065,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1126943607490740007, guid: bcbe9f3b3c5db4dab84b8cb55946d747,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u4E00\u6642\u505C\u6B62\u4E2D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1126943607490740007, guid: bcbe9f3b3c5db4dab84b8cb55946d747,
+        type: 3}
+      propertyPath: _indexStr
+      value: GamePause
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcbe9f3b3c5db4dab84b8cb55946d747, type: 3}
 --- !u!1001 &5723118929261642196
@@ -1078,11 +1088,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ResultPopup
-      objectReference: {fileID: 0}
-    - target: {fileID: 5723118930208174234, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5723118930208174235, guid: 38df95ff559d540b7b005fc170e98692,
         type: 3}
@@ -1199,46 +1204,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5723118930789531683, guid: 38df95ff559d540b7b005fc170e98692,
+    - target: {fileID: 5723118930346447773, guid: 38df95ff559d540b7b005fc170e98692,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
+      propertyPath: _indexStr
+      value: GameResult
       objectReference: {fileID: 0}
-    - target: {fileID: 5723118930789531683, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 846922436559535352, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_Name
-      value: ResultBackButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 846922437269898117, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_Name
-      value: ResultShareButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 5723118930230732831, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_Name
-      value: ResultRetryButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 846922436559535358, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1638029896}
-    - target: {fileID: 846922437269898115, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1638029896}
-    - target: {fileID: 5723118930230732825, guid: 38df95ff559d540b7b005fc170e98692,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1638029896}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38df95ff559d540b7b005fc170e98692, type: 3}
 --- !u!224 &9042073102754128979 stripped

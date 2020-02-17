@@ -729,8 +729,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u97F3\u91CF"
-  _textIndex: 3
+  m_Text: Volume
+  _indexStr: ConfigVolume
 --- !u!222 &125786994
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: English
-  _textIndex: 10
+  _indexStr: LanguageEnglish
 --- !u!222 &232928218
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1548,8 +1548,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8A2D\u5B9A"
-  _textIndex: 0
+  m_Text: Setting
+  _indexStr: Config
 --- !u!222 &437239863
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3076,8 +3076,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u632F\u52D5"
-  _textIndex: 2
+  m_Text: Vibration
+  _indexStr: ConfigVibration
 --- !u!222 &1112527335
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3244,7 +3244,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u65E5\u672C\u8A9E"
-  _textIndex: 9
+  _indexStr: LanguageJapanese
 --- !u!222 &1221212383
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3432,8 +3432,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30B9\u30C6\u30FC\u30B8\u306E\u6982\u8981\u3092\u8868\u793A\u3057\u306A\u3044"
-  _textIndex: 21
+  m_Text: Hide overview of stage
+  _indexStr: ConfigHideOverview
 --- !u!222 &1288638483
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3510,8 +3510,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EA\u30BB\u30C3\u30C8"
-  _textIndex: 1
+  m_Text: Result
+  _indexStr: GameResult
 --- !u!222 &1353298369
 CanvasRenderer:
   m_ObjectHideFlags: 0

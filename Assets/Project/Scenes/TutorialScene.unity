@@ -354,7 +354,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u3042\u305D\u3073\u304B\u305F"
-  _textIndex: 15
+  _indexStr: Tutorial
 --- !u!222 &1482979023
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -10,7 +10,11 @@ namespace Project.Scripts.UIComponents
     /// </summary>
     public class MultiLanguageText : Text
     {
-        [SerializeField] private ETextIndex _textIndex;
+        private ETextIndex _textIndex;
+
+        // 列挙値に対応する文字列
+        [SerializeField] private string _indexStr;
+        public string IndexStr => _indexStr;
 
         /// <summary>
         /// TextIndex が設定される同時にテキストを取得して設定する
@@ -18,11 +22,12 @@ namespace Project.Scripts.UIComponents
         /// <value></value>
         public ETextIndex TextIndex
         {
-            get => _textIndex;
+            get => _textIndex.CompareTo(ETextIndex.Error) == 0 ? (ETextIndex)System.Enum.Parse(typeof(ETextIndex), _indexStr) : _textIndex;
             set {
                 if (_textIndex == value) return;
 
                 _textIndex = value;
+                _indexStr = System.Enum.GetName(typeof(ETextIndex), _textIndex);
                 text = LanguageUtility.GetText(_textIndex);
             }
         }
