@@ -100,10 +100,10 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="targetTile"> パネルの移動先となるタイル </param>
         protected virtual void UpdateTile(GameObject targetTile)
         {
-            // 移動先のタイルのスクリプト
-            var targetScript = targetTile.GetComponent<NormalTileController>();
             // 移動先にタイルがなければ何もしない
             if (targetTile == null) return;
+            // 移動先のタイルのスクリプト
+            var targetScript = targetTile.GetComponent<NormalTileController>();
             // 移動先のタイルに子パネルがあれば何もしない
             if (targetScript.hasPanel) return;
             // 親タイルの更新
