@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
@@ -85,6 +86,11 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _stageNumberText;
 
         /// <summary>
+        /// タイマー表示用のテキスト
+        /// </summary>
+        private GameObject _timerText;
+
+        /// <summary>
         /// プレイ中の BGM
         /// </summary>
         private AudioSource _playingAudioSource;
@@ -99,11 +105,17 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private AudioSource _failureAudioSource;
 
+        /// <summary>
+        /// タイマー
+        /// </summary>
+        private CustomTimer _customTimer;
+
         private void Awake()
         {
             _resultWindow = GameObject.Find(_RESULT_WINDOW_NAME);
 
             _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME);
+            _timerText = GameObject.Find("TimerText");
 
             _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
             _pauseButton = GameObject.Find(_PAUSE_BUTTON_NAME);
@@ -233,6 +245,11 @@ namespace Project.Scripts.GamePlayScene
             // 番号に合わせたステージの作成
             StageGenerator.CreateStages(stageId);
 
+            // 時間の計測
+            _customTimer = gameObject.AddComponent<CustomTimer>();
+            _customTimer.Initialize(_timerText.GetComponent<Text>());
+            _customTimer.StartTimer();
+
             // 状態を変更する
             Dispatch(EGameState.Playing);
         }
@@ -295,6 +312,8 @@ namespace Project.Scripts.GamePlayScene
             _resultWindow.SetActive(true);
             // 一時停止ボタンを無効にする
             _pauseButton.SetActive(false);
+            // タイマーを止める
+            _customTimer.StopTimer();
         }
 
         /// <summary>
