@@ -56,7 +56,7 @@ namespace Project.Scripts.Utils
             if (!_active) return;
 
             // 秒数を更新
-            _second = (int) (Time.time - _startTime);
+            _second = (int)(Time.time - _startTime);
 
             if (_timerText == null) return;
 
