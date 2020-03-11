@@ -56,7 +56,7 @@ namespace Project.Scripts.Utils
         private void Update()
         {
             // 秒数を更新
-            _second = Math.Round(Time.time - _startTime, 1, MidpointRounding.AwayFromZero);
+            _second = Time.time - _startTime;
 
             if (_timerText == null) return;
 
