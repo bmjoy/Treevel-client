@@ -246,8 +246,11 @@ namespace Project.Scripts.GamePlayScene
             StageGenerator.CreateStages(stageId);
 
             // 時間の計測
-            _customTimer = gameObject.AddComponent<CustomTimer>();
-            _customTimer.Initialize(_timerText.GetComponent<Text>());
+            if (GetComponent<CustomTimer>() == null) {
+                _customTimer = gameObject.AddComponent<CustomTimer>();
+                _customTimer.Initialize(_timerText.GetComponent<Text>());
+            }
+
             _customTimer.StartTimer();
 
             // 状態を変更する
