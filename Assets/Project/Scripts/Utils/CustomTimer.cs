@@ -56,7 +56,7 @@ namespace Project.Scripts.Utils
         private void Update()
         {
             // 秒数を更新
-            _second = Time.time - _startTime;
+            _second += Time.deltaTime;
 
             if (_timerText == null) return;
 
