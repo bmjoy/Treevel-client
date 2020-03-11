@@ -17,11 +17,6 @@ namespace Project.Scripts.Utils
         private double _second;
 
         /// <summary>
-        /// タイマーが動き始めた時間
-        /// </summary>
-        private double _startTime;
-
-        /// <summary>
         /// 初期化 (表示 UI あり)
         /// </summary>
         public void Initialize(Text timerText)
@@ -41,7 +36,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         public void StartTimer()
         {
-            _startTime = Time.time;
+            _second = 0;
             enabled = true;
         }
 
@@ -59,6 +54,8 @@ namespace Project.Scripts.Utils
             _second += Time.deltaTime;
 
             if (_timerText == null) return;
+
+            if (_second - int.Parse(_timerText.text) < 1) return;
 
             // 更新した秒数 (整数) をテキストオブジェクトに表示
             var timeStr = Math.Floor(_second).ToString();
