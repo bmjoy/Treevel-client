@@ -36,6 +36,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         public void StartTimer()
         {
+            _timerText.text = "0";
             _second = 0;
             enabled = true;
         }
