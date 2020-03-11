@@ -14,6 +14,7 @@ namespace Project.Scripts.GamePlayScene
     {
         private const string _RESULT_WINDOW_NAME = "ResultPopup";
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
+        private const string _TIMER_TEXT_NAME = "TimerText";
         private const string _PAUSE_WINDOW_NAME = "PauseWindow";
         private const string _PAUSE_BUTTON_NAME = "PauseButton";
 
@@ -115,7 +116,7 @@ namespace Project.Scripts.GamePlayScene
             _resultWindow = GameObject.Find(_RESULT_WINDOW_NAME);
 
             _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME);
-            _timerText = GameObject.Find("TimerText");
+            _timerText = GameObject.Find(_TIMER_TEXT_NAME);
 
             _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
             _pauseButton = GameObject.Find(_PAUSE_BUTTON_NAME);
