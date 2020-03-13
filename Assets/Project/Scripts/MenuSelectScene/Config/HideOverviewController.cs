@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.ConfigScene
+namespace Project.Scripts.MenuSelectScene.Config
 {
     public class HideOverviewController : MonoBehaviour
     {

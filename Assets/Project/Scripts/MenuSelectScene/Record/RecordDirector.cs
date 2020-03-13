@@ -7,7 +7,7 @@ using SnapScroll;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.RecordScene
+namespace Project.Scripts.MenuSelectScene.Record
 {
     public class RecordDirector : MonoBehaviour
     {
