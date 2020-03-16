@@ -1,11 +1,10 @@
-﻿using Project.Scripts.MenuSelectScene;
-using Project.Scripts.StageSelectScene;
+﻿using Project.Scripts.StageSelectScene;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Project.Scripts.LevelSelectScene
+namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(Button))]
     public class LevelTreeController : MonoBehaviour
@@ -29,11 +28,7 @@ namespace Project.Scripts.LevelSelectScene
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
-            // StageSelect Toggle に結びつけるSceneを変更する
-            var nowToggle = GameObject.Find("StageSelect").GetComponent<TransitionSelfToggle>();
-            SceneManager.UnloadSceneAsync(nowToggle.GetSceneName());
-            nowToggle.IsTransition = true;
-            StartCoroutine(MenuSelectDirector.Instance.ChangeScene());
+            SceneManager.LoadSceneAsync("StageSelectScene");
         }
     }
 }

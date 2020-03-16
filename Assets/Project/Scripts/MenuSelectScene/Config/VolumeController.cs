@@ -3,7 +3,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.ConfigScene
+namespace Project.Scripts.MenuSelectScene.Config
 {
     public class VolumeController : MonoBehaviour
     {
