@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Project.Scripts.GamePlayScene;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
@@ -147,20 +148,7 @@ namespace Project.Scripts.StageSelectScene
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
             // シーン遷移
-            StartCoroutine(LoadGamePlayScene());
-        }
-
-        /// <summary>
-        /// GamePlaySceneに遷移する
-        /// ロード中にアニメーションを動かすために非同期にロードする
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerator LoadGamePlayScene()
-        {
-            var async = SceneManager.LoadSceneAsync(SceneName.GAME_PLAY_SCENE);
-            while (!async.isDone) {
-                yield return null;
-            }
+            AddressableAssetManager.Instance.LoadScene(SceneName.GAME_PLAY_SCENE);
         }
     }
 }

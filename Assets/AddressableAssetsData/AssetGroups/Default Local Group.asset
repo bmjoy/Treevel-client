@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 36fdf415407fc4d90bf691d9413d4847
   m_SerializeEntries:
   - m_GUID: 47c09d9777db0433eab6b66eac0abee4
-    m_Address: Assets/Project/Scenes/MenuSelectScene.unity
+    m_Address: MenuSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
@@ -29,6 +29,11 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - m_GUID: dcec7563bff464223b7c21f17f5902f5
+    m_Address: GamePlayScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: 
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:

@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Utils;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -65,7 +66,7 @@ namespace Project.Scripts.GamePlayScene
             // ゲーム内の時間を元に戻す
             Time.timeScale = 1.0f;
             // StageSelectSceneに戻る
-            SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
+            AddressableAssetManager.Instance.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.IO;
 using Project.Scripts.UIComponents;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
@@ -92,7 +93,7 @@ namespace Project.Scripts.GamePlayScene
         private static void BackButtonDown()
         {
             // StageSelectSceneに戻る
-            SceneManager.LoadScene(SceneName.MENU_SELECT_SCENE);
+            AddressableAssetManager.Instance.LoadScene(SceneName.STAGE_SELECT_SCENE);
         }
 
         /// <summary>
