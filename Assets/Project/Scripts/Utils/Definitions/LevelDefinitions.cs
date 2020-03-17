@@ -21,10 +21,10 @@ namespace Project.Scripts.Utils.Definitions
         /// TODO: 実際にある各レベルの木の数で決める
         public static readonly Dictionary<ELevelName, int> TREE_NUM = new Dictionary<ELevelName, int>()
         {
-            {ELevelName.Easy, 2},
-            {ELevelName.Normal, 1},
-            {ELevelName.Hard, 1},
-            {ELevelName.VeryHard, 1}
+            {ELevelName.Easy, 3},
+            {ELevelName.Normal, 3},
+            {ELevelName.Hard, 3},
+            {ELevelName.VeryHard, 3}
         };
 
         /// <summary>
