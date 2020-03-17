@@ -5,25 +5,27 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/Scenes/MenuSelectScene.unity
     guid: 47c09d9777db0433eab6b66eac0abee4
-  - enabled: 1
-    path: Assets/Project/Scenes/RecordScene.unity
+  - enabled: 0
+    path: 
     guid: 18cf95513fb264923b06e37802106396
-  - enabled: 1
-    path: Assets/Project/Scenes/TutorialScene.unity
+  - enabled: 0
+    path: 
     guid: 4c58e4497d73f446a97f095eb60e0f49
-  - enabled: 1
-    path: Assets/Project/Scenes/ConfigScene.unity
+  - enabled: 0
+    path: 
     guid: faae0a216de3f4763a9095c08f1a3573
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/Scenes/GamePlayScene.unity
     guid: dcec7563bff464223b7c21f17f5902f5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/Scenes/StageSelectScene.unity
     guid: bd321d6187a974e9e808df4b07e0b634
-  - enabled: 1
-    path: Assets/Project/Scenes/LevelSelectScene.unity
+  - enabled: 0
+    path: 
     guid: 173f038f3cfb7476a92155a9061883d6
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: e820ac43ca1f64515a53deeca63430e6,
+      type: 2}

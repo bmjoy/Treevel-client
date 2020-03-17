@@ -1,7 +1,7 @@
 ﻿using Project.Scripts.StageSelectScene;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
@@ -28,7 +28,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
-            SceneManager.LoadSceneAsync("StageSelectScene");
+            AddressableAssetManager.Instance.LoadScene(SceneName.STAGE_SELECT_SCENE);
         }
     }
 }
