@@ -29,11 +29,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - m_GUID: c992eb222563c460d84bff90f23a0b42
+    m_Address: Assets/Project/Prefabs/ProgressBar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - m_GUID: dcec7563bff464223b7c21f17f5902f5
     m_Address: GamePlayScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: 
+    m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
