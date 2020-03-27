@@ -32,14 +32,14 @@ namespace Project.Scripts.MenuSelectScene
         // Start is called before the first frame update
         void Start()
         {
-            // キャバスがなければ作る
+            // キャンバスがなければ作る
             if (GetComponentInChildren<Canvas>() == null) {
                 gameObject.AddComponent<Canvas>();
             }
 
             var canvas = GetComponentInChildren<Canvas>().transform;
 
-            // キャナバスの下にプログレスバーの実体を生成
+            // キャンバスの下にプログレスバーの実体を生成
             _progressBar.InstantiateAsync(canvas).Completed += (obj) => {
                 ProgressBar = obj.Result.GetComponentInChildren<ProgressBar>();
             };
