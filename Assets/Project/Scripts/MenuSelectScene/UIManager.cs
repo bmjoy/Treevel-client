@@ -22,11 +22,15 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// プログレスバーのインスタンス
         /// </summary>
-        public ProgressBar ProgressBar { get; private set; }
+        public ProgressBar ProgressBar
+        {
+            get;
+            private set;
+        }
 
         void Awake()
         {
-            DontDestroyOnLoad(gameObject);    
+            DontDestroyOnLoad(gameObject);
         }
 
         // Start is called before the first frame update
