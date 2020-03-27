@@ -26,7 +26,8 @@ namespace Project.Scripts.UIComponents
         /// </summary>
         [SerializeField] private Text _progressText;
 
-        public float Progress {
+        public float Progress
+        {
             get => _progress;
             set {
                 if (Mathf.Abs(_progress - value) < THRESHOLD)
