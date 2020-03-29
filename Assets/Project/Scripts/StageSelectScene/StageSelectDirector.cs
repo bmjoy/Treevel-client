@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using Project.Scripts.GamePlayScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
@@ -165,6 +163,9 @@ namespace Project.Scripts.StageSelectScene
             _loadingBackground.SetActive(true);
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
+
+            AddressableAssetManager.LoadStageDependecies(stageId);
+
             // シーン遷移
             AddressableAssetManager.LoadScene(SceneName.GAME_PLAY_SCENE);
         }

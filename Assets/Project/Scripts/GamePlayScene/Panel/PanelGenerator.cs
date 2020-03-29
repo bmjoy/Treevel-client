@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
@@ -16,6 +17,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         [SerializeField] private AssetReferenceGameObject _staticDummyPanelPrefab;
         [SerializeField] private AssetReferenceGameObject _dynamicDummyPanelPrefab;
 
+        [SerializeField] private AssetLabelReference _panelLabel;
+
         public void CreatePanels(ICollection<PanelData> panelDatas)
         {
             foreach (var panelData in panelDatas) {
@@ -23,7 +26,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.Number:
                         AddressableAssetManager.Instantiate(_numberPanelPrefab.RuntimeKey).Completed += (op) => {
                             var numberPanel = op.Result;
-                            var numberPanelSprite = Resources.Load<Sprite>("Textures/Panel/numberPanel" + panelData.number);
+                            var numberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"numberPanel{panelData.number}").Result;
                             if (numberPanelSprite != null) numberPanel.GetComponent<SpriteRenderer>().sprite = numberPanelSprite;
                             numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
                         };
@@ -37,7 +40,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.LifeNumber:
                         AddressableAssetManager.Instantiate(_lifeNumberPanelPrefab.RuntimeKey).Completed += (op) => {
                             var lifeNumberPanel = op.Result;
-                            var lifeNumberPanelSprite = Resources.Load<Sprite>("Textures/Panel/lifeNumberPanel" + panelData.number);
+                            var lifeNumberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"lifeNumberPanel{panelData.number}").Result;
                             if (lifeNumberPanelSprite != null) lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
                             lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
                         };

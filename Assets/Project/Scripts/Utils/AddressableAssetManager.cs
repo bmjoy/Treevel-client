@@ -1,11 +1,12 @@
-using System.Collections.Generic;
-using Project.Scripts.Utils.Patterns;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using Project.Scripts.MenuSelectScene;
+using Project.Scripts.GameDatas;
+using System.Threading.Tasks;
 
 namespace Project.Scripts.Utils
 {
@@ -22,7 +23,7 @@ namespace Project.Scripts.Utils
         /// <typeparam name="string">アッセとのアドレス（キー）</typeparam>
         /// <typeparam name="AsyncOperationHandle">ロードに用いたハンドル</typeparam>
         /// <returns></returns>
-        static private readonly Dictionary<string, AsyncOperationHandle> _loadedAssets = new Dictionary<string, AsyncOperationHandle>();
+        static private readonly Dictionary<object, AsyncOperationHandle> _loadedAssets = new Dictionary<object, AsyncOperationHandle>();
 
         /// <summary>
         /// AASを初期化
@@ -38,6 +39,46 @@ namespace Project.Scripts.Utils
                 }
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TObject"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        static public AsyncOperationHandle<TObject> LoadAsset<TObject> (object key)
+        {
+            if (_loadedAssets.ContainsKey(key)) {
+                return _loadedAssets[key].Convert<TObject>();
+            }
+
+            var op = Addressables.LoadAssetAsync<TObject>(key);
+
+            _loadedAssets.Add(key, op);
+
+            UIManager.Instance.ProgressBar.Load(op);
+            
+            return op;
+        }
+
+        /// <summary>
+        /// ロードしたアセットを取得する
+        /// （ロードしていなければロードするまで待つ）
+        /// </summary>
+        /// <typeparam name="TObject"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        static public async Task<TObject> GetAsset<TObject> (object key)
+        {
+            if (_loadedAssets.ContainsKey(key)) {
+                return _loadedAssets[key].Convert<TObject>().Result;
+            }
+
+            await LoadAsset<TObject>(key).Task;
+
+            return _loadedAssets[key].Convert<TObject>().Result;
+        }
+
 
         /// <summary>
         /// シーンをロードする
@@ -109,6 +150,37 @@ namespace Project.Scripts.Utils
             var op = Addressables.InstantiateAsync(key, parent, instantiateInWorldSpace);
 
             return op;
+        }
+
+
+        /// <summary>
+        /// ステージに必要なアセットをロード
+        /// </summary>
+        /// <param name="stageId"></param>
+        internal static void LoadStageDependecies(int stageId)
+        {
+            StageData stage = GameDataBase.Instance.GetStage(stageId);
+
+            stage.PanelDatas.ForEach((panelData) => {
+                switch (panelData.type) {
+                    case Definitions.EPanelType.Dynamic:
+                        LoadAsset<GameObject>("dynamicDummyPanelPrefab");
+                        LoadAsset<Sprite>("dynamicDummyPanel");
+                        break;
+                    case Definitions.EPanelType.Static:
+                        LoadAsset<GameObject>("staticDummyPanelPrefab");
+                        LoadAsset<Sprite>("staticDummyPanel");
+                        break;
+                    case Definitions.EPanelType.Number:
+                        LoadAsset<GameObject>("numberPanelPrefab");
+                        LoadAsset<Sprite>($"numberPanel{panelData.number}");
+                        break;
+                    case Definitions.EPanelType.LifeNumber:
+                        LoadAsset<GameObject>("lifeNumberPanelPrefab");
+                        LoadAsset<Sprite>($"lifeNumberPanel{panelData.number}");
+                        break;
+                }
+            });
         }
     }
 }
