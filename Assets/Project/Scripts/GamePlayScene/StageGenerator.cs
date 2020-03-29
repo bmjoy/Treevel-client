@@ -28,7 +28,7 @@ namespace Project.Scripts.GamePlayScene
                 await tileGenerator.CreateTiles(stageData.TileDatas);
 
                 PanelGenerator.CreatePanels(stageData.PanelDatas);
-                var coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
+                var coroutines = await bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
 
                 // 銃弾一括生成
                 bulletGroupGenerator.CreateBulletGroups(coroutines);
