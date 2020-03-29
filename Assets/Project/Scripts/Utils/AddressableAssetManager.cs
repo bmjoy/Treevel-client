@@ -148,7 +148,7 @@ namespace Project.Scripts.Utils
         public static AsyncOperationHandle<GameObject> Instantiate(object key, Transform parent = null, bool instantiateInWorldSpace = false)
         {
             var op = Addressables.InstantiateAsync(key, parent, instantiateInWorldSpace);
-
+            
             return op;
         }
 
@@ -178,6 +178,17 @@ namespace Project.Scripts.Utils
                     case Definitions.EPanelType.LifeNumber:
                         LoadAsset<GameObject>("lifeNumberPanelPrefab");
                         LoadAsset<Sprite>($"lifeNumberPanel{panelData.number}");
+                        break;
+                }
+            });
+
+            stage.TileDatas.ForEach(tileDate => {
+                switch (tileDate.type) {
+                    case Definitions.ETileType.Normal:
+                        LoadAsset<GameObject>("normalTilePrefab");
+                        break;
+                    case Definitions.ETileType.Warp:
+                        LoadAsset<GameObject>("warpTilePrefab");
                         break;
                 }
             });

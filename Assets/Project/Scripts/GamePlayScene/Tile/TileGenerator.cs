@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Project.Scripts.GameDatas;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
@@ -9,12 +11,9 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        [SerializeField] private GameObject _normalTilePrefab;
-        [SerializeField] private GameObject _warpTilePrefab;
-
         private readonly GameObject[,] _tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
 
-        public void CreateTiles(ICollection<TileData> tileDatas)
+        public async Task CreateTiles(ICollection<TileData> tileDatas)
         {
             foreach (var tileData in tileDatas) {
                 switch (tileData.type) {
@@ -30,13 +29,16 @@ namespace Project.Scripts.GamePlayScene.Tile
             }
 
             // Normal Tile は明示的に作らなくても，一括作成可能
-            CreateNormalTiles();
+            await CreateNormalTiles();
+
+            // タイルの位置関係を作成する
+            MakeRelations(_tiles);
         }
 
         /// <summary>
         /// 普通タイルの作成
         /// </summary>
-        public void CreateNormalTiles()
+        public async Task CreateNormalTiles()
         {
             for (var tileNum = 1; tileNum <= StageSize.TILE_NUM; tileNum++) {
                 // 行 (0~4)
@@ -47,28 +49,21 @@ namespace Project.Scripts.GamePlayScene.Tile
                 // 既に他タイルを作成している場合はスルー
                 if (_tiles[row, column] != null) continue;
 
-                var tile = Instantiate(_normalTilePrefab);
-
-                var tilePosition = GetTilePosition(tileNum);
-
-                tile.GetComponent<NormalTileController>().Initialize(tilePosition, tileNum);
-
-                SetTile(tileNum, tile);
+                await CreateNormalTile(tileNum);
             }
-
-            // タイルの位置関係を作成する
-            MakeRelations(_tiles);
         }
 
-        private void CreateNormalTile(int tileNum)
+        private async Task<GameObject> CreateNormalTile(int tileNum)
         {
-            var normalTile = Instantiate(_normalTilePrefab);
+            var normalTile = await AddressableAssetManager.Instantiate("normalTilePrefab").Task;
 
             var normalTilePosition = GetTilePosition(tileNum);
 
             normalTile.GetComponent<NormalTileController>().Initialize(normalTilePosition, tileNum);
 
             SetTile(tileNum, normalTile);
+
+            return normalTile;
         }
 
         /// <summary>
@@ -76,10 +71,10 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        private void CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private async void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
-            var firstTile = Instantiate(_warpTilePrefab);
-            var secondTile = Instantiate(_warpTilePrefab);
+            var firstTile = await AddressableAssetManager.Instantiate("warpTilePrefab").Task;
+            var secondTile = await AddressableAssetManager.Instantiate("warpTilePrefab").Task;
 
             var firstTilePosition = GetTilePosition(firstTileNum);
             var secondTilePosition = GetTilePosition(secondTileNum);

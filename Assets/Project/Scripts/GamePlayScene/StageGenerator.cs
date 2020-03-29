@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Bullet.Generators;
@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="stageId"> ステージ id </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
-        public static void CreateStages(int stageId)
+        public static async void CreateStages(int stageId)
         {
             var tileGenerator = TileGenerator.Instance;
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
@@ -24,7 +24,9 @@ namespace Project.Scripts.GamePlayScene
             // ステージデータ読み込む
             var stageData = GameDataBase.Instance.GetStage(stageId);
             if (stageData != null) {
-                tileGenerator.CreateTiles(stageData.TileDatas);
+                // パネルの作成はタイルに依存するため、タイルの生成が終わるまで待つ
+                await tileGenerator.CreateTiles(stageData.TileDatas);
+
                 PanelGenerator.CreatePanels(stageData.PanelDatas);
                 var coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
 
