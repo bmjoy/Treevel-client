@@ -24,6 +24,20 @@ namespace Project.Scripts.Utils
         /// <returns></returns>
         static private readonly Dictionary<string, AsyncOperationHandle> _loadedAssets = new Dictionary<string, AsyncOperationHandle>();
 
+        /// <summary>
+        /// AASを初期化
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod]
+        static public void Initalize()
+        {
+            Addressables.InitializeAsync().Completed += (obj) => {
+                if (obj.Status == AsyncOperationStatus.Succeeded) {
+                    _initialized = true;
+                } else {
+                    throw new System.Exception("Fail to initialize Addressable Asset System.");
+                }
+            };
+        }
 
         /// <summary>
         /// シーンをロードする
