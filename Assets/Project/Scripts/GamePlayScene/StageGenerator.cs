@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Bullet.Generators;
@@ -21,14 +21,12 @@ namespace Project.Scripts.GamePlayScene
             var tileGenerator = TileGenerator.Instance;
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
 
-            var coroutines = new List<IEnumerator>();
-
             // ステージデータ読み込む
             var stageData = GameDataBase.Instance.GetStage(stageId);
             if (stageData != null) {
                 tileGenerator.CreateTiles(stageData.TileDatas);
                 PanelGenerator.CreatePanels(stageData.PanelDatas);
-                coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
+                var coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
 
                 // 銃弾一括生成
                 bulletGroupGenerator.CreateBulletGroups(coroutines);
