@@ -47,33 +47,27 @@ namespace Project.Scripts.Utils
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
         static public AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            // 辞書にシーンのインスタンスが入ってる場合
-            if (_loadedAssets.ContainsKey(sceneName)) {
-                var scene = ((SceneInstance)_loadedAssets[sceneName].Result).Scene;
+            //// 辞書にシーンのインスタンスが入ってる場合
+            //if (loadSceneMode != LoadSceneMode.Single && _loadedAssets.ContainsKey(sceneName)) {
+            //    var scene = ((SceneInstance)_loadedAssets[sceneName].Result).Scene;
 
-                if (!scene.isLoaded) {
-                    // 自動でアンロードされたら削除（他のシーンがSingleでロードした時）
-                    _loadedAssets.Remove(sceneName);
-                } else {
-                    // シーンがすでにロードしている
-                    return default;
-                }
-            }
+            //    if (!scene.isLoaded) {
+            //        // 自動でアンロードされたら削除（他のシーンがSingleでロードした時）
+            //        _loadedAssets.Remove(sceneName);
+            //    } else {
+            //        // シーンがすでにロードしている
+            //        return default;
+            //    }
+            //}
 
             var ret = Addressables.LoadSceneAsync(sceneName, loadSceneMode);
 
-            // プログレスバーを表示
-            UIManager.Instance.ShowProgress(ret);
+            // 辞書に追加
+            //_loadedAssets.Add(sceneName, ret);
 
-            ret.Completed += (obj) => {
-                if (obj.Status == AsyncOperationStatus.Succeeded) {
-                    // ロード完了したら、ハンドルを保存する（今後アンロードするために）
-                    _loadedAssets.Add(sceneName, ret);
-                } else {
-                    // TODO popup error message box, return to top
-                    Debug.LogError($"Load Scene {sceneName} Failed.");
-                }
-            };
+            // プログレスバーを表示
+            UIManager.Instance.ProgressBar.Load(ret);
+
             return ret;
         }
 
