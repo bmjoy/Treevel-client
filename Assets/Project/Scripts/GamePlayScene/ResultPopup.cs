@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.IO;
 using Project.Scripts.UIComponents;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Library;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -93,7 +95,7 @@ namespace Project.Scripts.GamePlayScene
         private static void BackButtonDown()
         {
             // StageSelectSceneに戻る
-            AddressableAssetManager.Instance.LoadScene(SceneName.STAGE_SELECT_SCENE);
+            TreeLibrary.LoadStageSelectScene(GamePlayDirector.levelName);
         }
 
         /// <summary>
