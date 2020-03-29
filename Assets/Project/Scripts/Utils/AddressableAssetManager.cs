@@ -9,17 +9,13 @@ using Project.Scripts.MenuSelectScene;
 
 namespace Project.Scripts.Utils
 {
-    public class AddressableAssetManager : Singleton<AddressableAssetManager>
+    public static class AddressableAssetManager
     {
         /// <summary>
         /// あとでアンロードするために保持するロードした各シーンのハンドル
         /// </summary>
-        private readonly Dictionary<string, SceneInstance> _loadedScenes;
+        static private readonly Dictionary<string, SceneInstance> _loadedScenes = new Dictionary<string, SceneInstance>();
 
-        public AddressableAssetManager()
-        {
-            _loadedScenes = new Dictionary<string, SceneInstance>();
-        }
 
         /// <summary>
         /// シーンをロードする
@@ -27,7 +23,7 @@ namespace Project.Scripts.Utils
         /// <param name="sceneName">ロードするシーンのaddress</param>
         /// <param name="loadSceneMode">ロードモード（Single/Additive)を指定</param>
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
-        public AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        static public AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             // 辞書にシーンのインスタンスが入ってる場合
             if (_loadedScenes.ContainsKey(sceneName)) {
@@ -64,7 +60,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         /// <param name="sceneName">アンロードするシーンのaddress</param>
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
-        public AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
+        static public AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
         {
             // シーンがロードしていなければ終了
             if (!_loadedScenes.ContainsKey(sceneName))

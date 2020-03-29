@@ -66,7 +66,7 @@ namespace Project.Scripts.GamePlayScene
             // ゲーム内の時間を元に戻す
             Time.timeScale = 1.0f;
             // StageSelectSceneに戻る
-            AddressableAssetManager.Instance.LoadScene(SceneName.MENU_SELECT_SCENE);
+            AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
     }
 }
