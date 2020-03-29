@@ -15,11 +15,9 @@ MonoBehaviour:
   m_GroupName: Packed Assets
   m_Data:
     m_SerializedData: []
-  m_GUID: 8f864bf0c7b5142f585c1a17b629e9d8
+  m_GUID: 2a594695adf6f4da4a32d9052e23fee2
   m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
-    m_Schemas:
-    - {fileID: 11400000, guid: bbe13f79e03fa45c4a75e735932cde60, type: 2}
-    - {fileID: 11400000, guid: 60a8bbcead7334dc28698c1b65a22bbe, type: 2}
+    m_Schemas: []

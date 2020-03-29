@@ -41,6 +41,22 @@ MonoBehaviour:
       PublicKeyToken=null
     m_MainAsset: {fileID: 102900000, guid: 6cb6fca6a4b44457bb8a9762f4238b0b, type: 3}
     m_TargetAsset: {fileID: 102900000, guid: 6cb6fca6a4b44457bb8a9762f4238b0b, type: 3}
+  - m_GUID: 74ed1e4c608194da3ae4de7b8cab8e1f
+    m_Address: Assets/Project/Prefabs/GamePlayScene/Panel/numberPanelPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 79c31b5cff9214d36b391b9bd737af98
+    m_Address: Assets/Project/Prefabs/GamePlayScene/Panel/lifeNumberPanelPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: bd321d6187a974e9e808df4b07e0b634
     m_Address: SpringStageSelectScene
     m_ReadOnly: 0
@@ -55,6 +71,24 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cc35221e1f2c54ae8ba023299eb797d3
+    m_Address: Assets/Project/Prefabs/GamePlayScene/Panel/staticDummyPanelPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d16fddeae14184ddf8c14eba3f866b67
+    m_Address: Assets/Project/Prefabs/GamePlayScene/Panel/dynamicDummyPanelPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: dcec7563bff464223b7c21f17f5902f5
     m_Address: GamePlayScene
     m_ReadOnly: 0

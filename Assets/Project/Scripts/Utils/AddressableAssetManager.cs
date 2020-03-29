@@ -102,5 +102,19 @@ namespace Project.Scripts.Utils
 
             return ret;
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="parent"></param>
+        /// <param name="instantiateInWorldSpace"></param>
+        /// <returns></returns>
+        public static AsyncOperationHandle<GameObject> Instantiate(object key, Transform parent = null, bool instantiateInWorldSpace = false)
+        {
+            var op = Addressables.InstantiateAsync(key, parent, instantiateInWorldSpace);
+
+            return op;
+        }
     }
 }

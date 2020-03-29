@@ -43,11 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba4749476458d4ce197e12e743e43472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberPanelPrefab: {fileID: 1667971508019858, guid: 74ed1e4c608194da3ae4de7b8cab8e1f,
-    type: 3}
-  _lifeNumberPanelPrefab: {fileID: 1556909149041080, guid: 79c31b5cff9214d36b391b9bd737af98,
-    type: 3}
-  _staticDummyPanelPrefab: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
-    type: 3}
-  _dynamicDummyPanelPrefab: {fileID: 1667971508019858, guid: d16fddeae14184ddf8c14eba3f866b67,
-    type: 3}
+  _numberPanelPrefab:
+    m_AssetGUID: 74ed1e4c608194da3ae4de7b8cab8e1f
+    m_SubObjectName: 
+  _lifeNumberPanelPrefab:
+    m_AssetGUID: 79c31b5cff9214d36b391b9bd737af98
+    m_SubObjectName: 
+  _staticDummyPanelPrefab:
+    m_AssetGUID: cc35221e1f2c54ae8ba023299eb797d3
+    m_SubObjectName: 
+  _dynamicDummyPanelPrefab:
+    m_AssetGUID: d16fddeae14184ddf8c14eba3f866b67
+    m_SubObjectName: 
