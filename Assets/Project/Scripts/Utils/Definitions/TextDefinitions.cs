@@ -27,5 +27,6 @@ namespace Project.Scripts.Utils.Definitions
         LevelThird,      // レベル3
         LevelFourth,     // レベル4
         Tutorial,        // チュートリアル
+        Downloading,     // ダウンロード中...
     }
 }

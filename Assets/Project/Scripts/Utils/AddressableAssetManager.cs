@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using Project.Scripts.MenuSelectScene;
 
 namespace Project.Scripts.Utils
 {
@@ -43,7 +44,8 @@ namespace Project.Scripts.Utils
 
             var ret = Addressables.LoadSceneAsync(sceneName, loadSceneMode);
 
-            // TODO show progress bar
+            // プログレスバーを表示
+            UIManager.Instance.ShowProgress(ret);
 
             ret.Completed += (obj) => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
