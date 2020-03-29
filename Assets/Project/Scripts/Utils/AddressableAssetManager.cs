@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +16,14 @@ namespace Project.Scripts.Utils
         /// </summary>
         static private readonly Dictionary<string, SceneInstance> _loadedScenes = new Dictionary<string, SceneInstance>();
 
+        /// <summary>
+        /// アンロードのためにハンドルを一時保存
+        /// </summary>
+        /// <typeparam name="string">アッセとのアドレス（キー）</typeparam>
+        /// <typeparam name="AsyncOperationHandle">ロードに用いたハンドル</typeparam>
+        /// <returns></returns>
+        static private readonly Dictionary<string, AsyncOperationHandle> _loadedAssets = new Dictionary<string, AsyncOperationHandle>();
+
 
         /// <summary>
         /// シーンをロードする
@@ -26,12 +34,12 @@ namespace Project.Scripts.Utils
         static public AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             // 辞書にシーンのインスタンスが入ってる場合
-            if (_loadedScenes.ContainsKey(sceneName)) {
-                var scene = _loadedScenes[sceneName].Scene;
+            if (_loadedAssets.ContainsKey(sceneName)) {
+                var scene = ((SceneInstance)_loadedAssets[sceneName].Result).Scene;
 
                 if (!scene.isLoaded) {
                     // 自動でアンロードされたら削除（他のシーンがSingleでロードした時）
-                    _loadedScenes.Remove(sceneName);
+                    _loadedAssets.Remove(sceneName);
                 } else {
                     // シーンがすでにロードしている
                     return default;
@@ -46,7 +54,7 @@ namespace Project.Scripts.Utils
             ret.Completed += (obj) => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     // ロード完了したら、ハンドルを保存する（今後アンロードするために）
-                    _loadedScenes.Add(sceneName, ret.Result);
+                    _loadedAssets.Add(sceneName, ret);
                 } else {
                     // TODO popup error message box, return to top
                     Debug.LogError($"Load Scene {sceneName} Failed.");
