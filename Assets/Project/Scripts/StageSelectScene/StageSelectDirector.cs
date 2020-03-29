@@ -81,7 +81,7 @@ namespace Project.Scripts.StageSelectScene
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
-            _snapScrollView.MaxPage = Enum.GetNames(typeof(ELevelName)).Length - 1;
+            _snapScrollView.MaxPage = LevelInfo.TREE_NUM[levelName] - 1;
             // ページの横幅の設定
             _snapScrollView.PageSize = Screen.width;
             // ロード中背景を非表示にする
