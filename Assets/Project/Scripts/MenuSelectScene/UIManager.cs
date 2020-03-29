@@ -28,13 +28,13 @@ namespace Project.Scripts.MenuSelectScene
             private set;
         }
 
-        void Awake()
+        private void Awake()
         {
             DontDestroyOnLoad(gameObject);
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             // キャンバスがなければ作る
             if (GetComponentInChildren<Canvas>() == null) {
@@ -62,7 +62,7 @@ namespace Project.Scripts.MenuSelectScene
         /// 受け取った<code>AsyncOperationHandle</code>に基づきプログレスを表示する
         /// </summary>
         /// <param name="handle">監視するプロセス</param>
-        public void ShowProgress(AsyncOperationHandle handle)
+        private void ShowProgress(AsyncOperationHandle handle)
         {
             ShowProgressBar(true);
             StartCoroutine(ShowProgress_Impl(handle));
