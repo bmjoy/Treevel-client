@@ -12,9 +12,9 @@ namespace Project.Scripts.Utils
     public static class AddressableAssetManager
     {
         /// <summary>
-        /// あとでアンロードするために保持するロードした各シーンのハンドル
+        /// 初期化フラグ
         /// </summary>
-        static private readonly Dictionary<string, SceneInstance> _loadedScenes = new Dictionary<string, SceneInstance>();
+        static private bool _initialized = false;
 
         /// <summary>
         /// アンロードのためにハンドルを一時保存
@@ -71,15 +71,15 @@ namespace Project.Scripts.Utils
         static public AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
         {
             // シーンがロードしていなければ終了
-            if (!_loadedScenes.ContainsKey(sceneName))
+            if (!_loadedAssets.ContainsKey(sceneName))
                 return default;
 
-            var handle = _loadedScenes[sceneName];
+            var handle = _loadedAssets[sceneName];
             var ret = Addressables.UnloadSceneAsync(handle);
             ret.Completed += (obj) => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     // アンロード終了後、辞書から削除
-                    _loadedScenes.Remove(sceneName);
+                    _loadedAssets.Remove(sceneName);
                 } else {
                     // TODO popup error message box, return to top
                     Debug.LogError($"Unload Scene {sceneName} Failed.");
