@@ -53,7 +53,7 @@ namespace Project.Scripts.MenuSelectScene
         /// プログレスバーを表示／非表示
         /// </summary>
         /// <param name="show"></param>
-        public void ShowProgressBar(bool show)
+        private void ShowProgressBar(bool show)
         {
             ProgressBar.gameObject.SetActive(show);
         }
@@ -62,7 +62,7 @@ namespace Project.Scripts.MenuSelectScene
         /// 受け取った<code>AsyncOperationHandle</code>に基づきプログレスを表示する
         /// </summary>
         /// <param name="handle">監視するプロセス</param>
-        private void ShowProgress(AsyncOperationHandle handle)
+        public void ShowProgress(AsyncOperationHandle handle)
         {
             ShowProgressBar(true);
             StartCoroutine(ShowProgress_Impl(handle));
