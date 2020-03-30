@@ -19,7 +19,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木のId
         /// </summary>
-        [SerializeField] private ETreeName _treeId;
+        [SerializeField] private ETreeId _treeId;
 
         private void Awake()
         {

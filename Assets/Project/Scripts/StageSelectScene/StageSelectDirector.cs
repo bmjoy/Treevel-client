@@ -50,7 +50,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 木のId
         /// </summary>
-        public static ETreeName treeId;
+        public static ETreeId treeId;
 
         /// <summary>
         /// 1つidの小さい木を表示するボタン

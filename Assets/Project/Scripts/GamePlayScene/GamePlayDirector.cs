@@ -49,7 +49,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 木のId
         /// </summary>
-        public static ETreeName treeId;
+        public static ETreeId treeId;
 
         /// <summary>
         /// ステージ id

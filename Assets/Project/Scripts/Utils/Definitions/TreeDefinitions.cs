@@ -5,7 +5,7 @@ namespace Project.Scripts.Utils.Definitions
     /// <summary>
     /// 木一覧
     /// </summary>
-    public enum ETreeName {
+    public enum ETreeId {
         Spring_1 = 1,   // 春の木
         Spring_2 = 2,
         Spring_3 = 3,
@@ -26,20 +26,20 @@ namespace Project.Scripts.Utils.Definitions
         /// ステージ数
         /// </summary>
         /// TODO: 実際にある木のステージ数で決める
-        public static readonly Dictionary<ETreeName, int> NUM = new Dictionary<ETreeName, int>()
+        public static readonly Dictionary<ETreeId, int> NUM = new Dictionary<ETreeId, int>()
         {
-            {ETreeName.Spring_1, 10},
-            {ETreeName.Spring_2, 10},
-            {ETreeName.Spring_3, 10},
-            {ETreeName.Summer_1, 10},
-            {ETreeName.Summer_2, 10},
-            {ETreeName.Summer_3, 10},
-            {ETreeName.Automn_1, 10},
-            {ETreeName.Automn_2, 10},
-            {ETreeName.Automn_3, 10},
-            {ETreeName.Winter_1, 10},
-            {ETreeName.Winter_2, 10},
-            {ETreeName.Winter_3, 10},
+            {ETreeId.Spring_1, 10},
+            {ETreeId.Spring_2, 10},
+            {ETreeId.Spring_3, 10},
+            {ETreeId.Summer_1, 10},
+            {ETreeId.Summer_2, 10},
+            {ETreeId.Summer_3, 10},
+            {ETreeId.Automn_1, 10},
+            {ETreeId.Automn_2, 10},
+            {ETreeId.Automn_3, 10},
+            {ETreeId.Winter_1, 10},
+            {ETreeId.Winter_2, 10},
+            {ETreeId.Winter_3, 10},
         };
     }
 }
