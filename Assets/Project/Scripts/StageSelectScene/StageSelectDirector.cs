@@ -132,7 +132,7 @@ namespace Project.Scripts.StageSelectScene
         private void MakeButtons()
         {
             // 指定したレベルの全ての木の描画
-            for (var i =0; i < LevelInfo.TREE_NUM[levelName]; i++) {
+            for (var i = 0; i < LevelInfo.TREE_NUM[levelName]; i++) {
                 // TODO: 選択した木を開くようにScrollViewを変更する
                 for (var j = 0; j < TreeInfo.NUM[treeId]; j++) {
                     // ButtonのGameObjectを取得する
