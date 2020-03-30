@@ -2,9 +2,12 @@
 using System.Collections;
 using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
@@ -13,12 +16,12 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// NormalCartridgeのPrefab
         /// </summary>
-        [SerializeField] private GameObject _normalCartridgePrefab;
+        [SerializeField] private AssetReferenceGameObject _normalCartridgePrefab;
 
         /// <summary>
         /// NormalCartridgeWarningのPrefab
         /// </summary>
-        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
+        [SerializeField] private AssetReferenceGameObject _normalCartridgeWarningPrefab;
 
         /// <summary>
         /// 銃弾の移動方向
@@ -147,11 +150,16 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             }
 
             // warningの作成
-            var warning = Instantiate(_normalCartridgeWarningPrefab);
+            AsyncOperationHandle<GameObject> warnignOp;
+            yield return warnignOp = _normalCartridgeWarningPrefab.InstantiateAsync();
+            var warning = warnignOp.Result;
+
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<CartridgeWarningController>();
             var bulletMotionVector =
                 warningScript.Initialize(ECartridgeType.Normal, nextCartridgeDirection, nextCartridgeLine);
+            
+            warning.SetActive(true);
 
             // 警告の表示時間だけ待つ
             for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
@@ -161,7 +169,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
 
             // ゲームが続いているなら銃弾を作成する
-            var cartridge = Instantiate(_normalCartridgePrefab);
+            AsyncOperationHandle<GameObject> cartridgeOp;
+            yield return cartridgeOp = _normalCartridgePrefab.InstantiateAsync();
+            var cartridge = cartridgeOp.Result;
+
             cartridge.GetComponent<NormalCartridgeController>()
             .Initialize(nextCartridgeDirection, nextCartridgeLine, bulletMotionVector);
 

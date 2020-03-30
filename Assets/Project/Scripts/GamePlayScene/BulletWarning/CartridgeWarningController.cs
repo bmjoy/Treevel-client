@@ -69,6 +69,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
             warningPosition += Vector2.Scale(bulletMotionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
             transform.position = warningPosition;
+            GetComponent<SpriteRenderer>().enabled = true;
             return bulletMotionVector;
         }
 

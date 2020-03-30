@@ -38,6 +38,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         {
             this.motionVector = motionVector;
             SetInitialPosition(direction, line);
+            GetComponent<SpriteRenderer>().enabled = true;
+            GetComponent<Collider2D>().enabled = true;
         }
 
         protected void Update()

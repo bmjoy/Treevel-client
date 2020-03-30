@@ -23,19 +23,25 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 1971231480067746, guid: 079830519aa1340d4a1bc23578ee4bd5,
-      type: 3}
-    m_TargetAsset: {fileID: 1971231480067746, guid: 079830519aa1340d4a1bc23578ee4bd5,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 2ecfcf13f9b644b299762e3cb5d83175
     m_Address: TurnCartridgeGeneratorPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 1840753890305500, guid: 2ecfcf13f9b644b299762e3cb5d83175,
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5c3345c91aa904fb3b34b886dbba2c82
+    m_Address: NormalCartridgePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 1336118223516990, guid: 5c3345c91aa904fb3b34b886dbba2c82,
       type: 3}
-    m_TargetAsset: {fileID: 1840753890305500, guid: 2ecfcf13f9b644b299762e3cb5d83175,
+    m_TargetAsset: {fileID: 1336118223516990, guid: 5c3345c91aa904fb3b34b886dbba2c82,
       type: 3}
   - m_GUID: 862747cb8118c47788f9eb458f7096c7
     m_Address: NormalCartridgeGeneratorPrefab
@@ -43,9 +49,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 1198175920480986, guid: 862747cb8118c47788f9eb458f7096c7,
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a0a9ef946321e42c5b13cf5e58916734
+    m_Address: NormalCartridgeWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
       type: 3}
-    m_TargetAsset: {fileID: 1198175920480986, guid: 862747cb8118c47788f9eb458f7096c7,
+    m_TargetAsset: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
       type: 3}
   - m_GUID: f4001e6d3634a4e47b8c225f2f769939
     m_Address: NormalHoleGeneratorPrefab
@@ -53,10 +67,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 1016726232043914, guid: f4001e6d3634a4e47b8c225f2f769939,
-      type: 3}
-    m_TargetAsset: {fileID: 1016726232043914, guid: f4001e6d3634a4e47b8c225f2f769939,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
