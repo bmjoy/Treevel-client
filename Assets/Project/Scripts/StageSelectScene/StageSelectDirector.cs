@@ -73,8 +73,9 @@ namespace Project.Scripts.StageSelectScene
         private GameObject _treeName;
 
         // TODO: SnapScrollが働いたときの更新処理
-        //       隣の木に移動するButtonが押せるかどうか
-        //       木の名前を更新する
+        //       - 隣の木に移動するButtonが押せるかどうか(端では押せない)を更新する
+        //       - 木の名前を表示するテキストを更新する
+        //       - 選択している木のidを更新する
 
         private void Awake()
         {
