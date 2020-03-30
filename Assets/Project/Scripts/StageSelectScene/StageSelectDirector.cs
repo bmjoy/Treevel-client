@@ -31,6 +31,7 @@ namespace Project.Scripts.StageSelectScene
         private const string _RIGHTBUTTON = "RightButton";
         private const string _BACKBUTTON = "BackButton";
         private const string _TREENAME = "TreeName";
+        private const string _TREECANVAS = "TreeCanvas";
 
         /// <summary>
         /// ロード中の背景
@@ -84,7 +85,8 @@ namespace Project.Scripts.StageSelectScene
             // ページの最大値を設定
             _snapScrollView.MaxPage = LevelInfo.TREE_NUM[levelName] - 1;
             // ページの横幅の設定
-            _snapScrollView.PageSize = Screen.width;
+            var scaleRatio = GameObject.Find(_TREECANVAS).GetComponent<CanvasScaler>().matchWidthOrHeight;
+            _snapScrollView.PageSize = Screen.width * Mathf.Exp((1f - scaleRatio) * Mathf.Log(IdealDeviceSize.WIDTH / Screen.width) + scaleRatio * Mathf.Log(IdealDeviceSize.HEIGHT / Screen.height));
             // ロード中背景を非表示にする
             _loadingBackground = GameObject.Find(_LOADING_BACKGROUND);
             _loadingBackground.SetActive(false);
@@ -137,7 +139,7 @@ namespace Project.Scripts.StageSelectScene
                 // TODO: 選択した木を開くようにScrollViewを変更する
                 for (var j = 0; j < TreeInfo.NUM[treeId]; j++) {
                     // ButtonのGameObjectを取得する
-                    var button = GameObject.Find("Canvas/Trees/SnapScrollView/Viewport/Content/" + "Tree" + (i+1) + "/Stage" + (j+1));
+                    var button = GameObject.Find(_TREECANVAS + "/Trees/SnapScrollView/Viewport/Content/" + "Tree" + (i+1) + "/Stage" + (j+1));
                     // クリック時のリスナー
                     button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
                     // TODO: ステージを選択できるか、ステージをクリアしたかどうかでButtonの表示を変更する
