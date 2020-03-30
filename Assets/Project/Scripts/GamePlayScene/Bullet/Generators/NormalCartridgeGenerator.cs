@@ -150,9 +150,9 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             }
 
             // warningの作成
-            AsyncOperationHandle<GameObject> warnignOp;
-            yield return warnignOp = _normalCartridgeWarningPrefab.InstantiateAsync();
-            var warning = warnignOp.Result;
+            AsyncOperationHandle<GameObject> warningOp;
+            yield return warningOp = _normalCartridgeWarningPrefab.InstantiateAsync();
+            var warning = warningOp.Result;
 
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<CartridgeWarningController>();
