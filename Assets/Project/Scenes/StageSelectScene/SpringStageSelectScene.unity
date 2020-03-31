@@ -2100,8 +2100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e683be72bb7884d409dc92427647bd00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageButtonPrefab: {fileID: 1236724618390060, guid: e88ee036a5fc34075a20671c1eb8c11a,
-    type: 3}
   _overviewPopup: {fileID: 3585425056529443015}
 --- !u!1001 &882196330
 PrefabInstance:

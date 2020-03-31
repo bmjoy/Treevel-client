@@ -14,11 +14,6 @@ namespace Project.Scripts.StageSelectScene
     public class StageSelectDirector : MonoBehaviour
     {
         /// <summary>
-        /// ステージボタンの Prefab
-        /// </summary>
-        [SerializeField] protected GameObject stageButtonPrefab;
-
-        /// <summary>
         /// 概要を表示するポップアップ
         /// </summary>
         [SerializeField] private OverviewPopup _overviewPopup;
@@ -112,7 +107,6 @@ namespace Project.Scripts.StageSelectScene
         private void DrawTreeName()
         {
             // TODO: 現在表示している木の名前に更新する
-            _treeName.GetComponentInChildren<Text>().text = treeId.ToString();
         }
 
         /// <summary>
