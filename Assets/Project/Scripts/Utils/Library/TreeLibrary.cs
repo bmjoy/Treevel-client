@@ -10,7 +10,8 @@ namespace Project.Scripts.Utils.Library
         /// レベルに応じたStageSelectSceneをロードする
         /// </summary>
         /// <param name="sceneName"> 木のレベル </param>
-        public static void LoadStageSelectScene(ELevelName levelName) {
+        public static void LoadStageSelectScene(ELevelName levelName)
+        {
             switch (levelName) {
                 case ELevelName.Easy:
                     AddressableAssetManager.LoadScene(SceneName.SPRING_STAGE_SELECT_SCENE);

@@ -86,7 +86,8 @@ namespace Project.Scripts.StageSelectScene
         /// リサイズ後のキャンバスサイズを取得してSnapScrollViewのPageSizeを変更する
         /// </summary>
         /// <returns></returns>
-        private IEnumerator SetPageSize() {
+        private IEnumerator SetPageSize()
+        {
             // リサイズが終わるまで待つ
             yield return new WaitForEndOfFrame();
             _snapScrollView.PageSize = GameObject.Find(_TREECANVAS).GetComponent<RectTransform> ().sizeDelta.x;
