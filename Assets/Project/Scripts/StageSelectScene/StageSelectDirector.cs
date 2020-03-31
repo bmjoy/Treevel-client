@@ -85,15 +85,7 @@ namespace Project.Scripts.StageSelectScene
             // ページの最大値を設定
             _snapScrollView.MaxPage = LevelInfo.TREE_NUM[levelName] - 1;
             // ページの横幅の設定
-            var scaleRatio = GameObject.Find(_TREECANVAS).GetComponent<CanvasScaler>().matchWidthOrHeight;
-            _snapScrollView.PageSize = Screen.width * Mathf.Exp((1f - scaleRatio) * Mathf.Log(IdealDeviceSize.WIDTH / Screen.width) + scaleRatio * Mathf.Log(IdealDeviceSize.HEIGHT / Screen.height));
-            // ロード中背景を非表示にする
-            _loadingBackground = GameObject.Find(_LOADING_BACKGROUND);
-            _loadingBackground.SetActive(false);
-            // ロードアニメーションを非表示にする
-            _loading = GameObject.Find(_LOADING);
-            _loading.SetActive(false);
-            _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
+            StartCoroutine(SetPageSize(_snapScrollView));
 
             // UIの設定
             _leftButton = GameObject.Find(_LEFTBUTTON);
@@ -110,6 +102,24 @@ namespace Project.Scripts.StageSelectScene
 
             // TODO: 表示している木の名前を描画する
             DrawTreeName();
+
+            // ロード中背景を非表示にする
+            _loadingBackground = GameObject.Find(_LOADING_BACKGROUND);
+            _loadingBackground.SetActive(false);
+            // ロードアニメーションを非表示にする
+            _loading = GameObject.Find(_LOADING);
+            _loading.SetActive(false);
+            _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
+        }
+
+        /// <summary>
+        /// リサイズ後のキャンバスサイズを取得してSnapScrollViewのPageSizeを変更する
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator SetPageSize() {
+            // リサイズが終わるまで待つ
+            yield return new WaitForEndOfFrame();
+            _snapScrollView.PageSize = GameObject.Find(_TREECANVAS).GetComponent<RectTransform> ().sizeDelta.x;
         }
 
         /// <summary>

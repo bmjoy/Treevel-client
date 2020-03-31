@@ -10,15 +10,6 @@
     }
 
     /// <summary>
-    /// 理想的なデバイスのサイズ
-    /// </summary>
-    public static class IdealDeviceSize
-    {
-        public const float WIDTH = 1125;
-        public const float HEIGHT = 2436;
-    }
-
-    /// <summary>
     /// タイルの大きさ
     /// </summary>
     public static class TileSize
