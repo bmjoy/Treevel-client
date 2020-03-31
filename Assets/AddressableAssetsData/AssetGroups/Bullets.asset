@@ -33,6 +33,16 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 54efcbe26ca3e4ec8a6e8d784bc57960
+    m_Address: NormalHolePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
+      type: 3}
+    m_TargetAsset: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
+      type: 3}
   - m_GUID: 5c3345c91aa904fb3b34b886dbba2c82
     m_Address: NormalCartridgePrefab
     m_ReadOnly: 0
@@ -47,10 +57,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 1834930760170460, guid: 642a60a13eb7641fd8bca7401db9c1f6,
-      type: 3}
-    m_TargetAsset: {fileID: 1834930760170460, guid: 642a60a13eb7641fd8bca7401db9c1f6,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 862747cb8118c47788f9eb458f7096c7
     m_Address: NormalCartridgeGeneratorPrefab
     m_ReadOnly: 0
@@ -75,6 +83,16 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: fdbcd1924c8b54021949ea21ae3ba36e
+    m_Address: NormalHoleWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 1410919219006700, guid: fdbcd1924c8b54021949ea21ae3ba36e,
+      type: 3}
+    m_TargetAsset: {fileID: 1410919219006700, guid: fdbcd1924c8b54021949ea21ae3ba36e,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
