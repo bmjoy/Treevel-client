@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Project.Scripts.GamePlayScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
@@ -191,7 +192,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void BackButtonDown()
         {
-            AddressableAssetManager.Instance.LoadScene(SceneName.MENU_SELECT_SCENE);
+            AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
     }
 }
