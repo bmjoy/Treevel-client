@@ -1,6 +1,8 @@
-﻿using Project.Scripts.StageSelectScene;
+﻿using System;
+using Project.Scripts.StageSelectScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Library;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +19,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木のId
         /// </summary>
-        [SerializeField] private ETreeName _treeId;
+        [SerializeField] private ETreeId _treeId;
 
         private void Awake()
         {
@@ -28,7 +30,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
-            AddressableAssetManager.Instance.LoadScene(SceneName.STAGE_SELECT_SCENE);
+            TreeLibrary.LoadStageSelectScene(_levelName);
         }
     }
 }

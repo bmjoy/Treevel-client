@@ -7,7 +7,10 @@
     {
         public const string MENU_SELECT_SCENE = "MenuSelectScene";
         public const string LEVEL_SELECT_SCENE = "LevelSelectScene";
-        public const string STAGE_SELECT_SCENE = "StageSelectScene";
+        public const string SPRING_STAGE_SELECT_SCENE = "SpringStageSelectScene";
+        public const string SUMMER_STAGE_SELECT_SCENE = "SummerStageSelectScene";
+        public const string AUTOMN_STAGE_SELECT_SCENE = "AutomnStageSelectScene";
+        public const string WINTER_STAGE_SELECT_SCENE = "WinterStageSelectScene";
         public const string GAME_PLAY_SCENE = "GamePlayScene";
         public const string GAME_PAUSE_SCENE = "GamePauseScene";
         public const string RECORD_SCENE = "RecordScene";
