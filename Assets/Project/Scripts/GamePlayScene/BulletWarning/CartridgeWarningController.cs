@@ -83,6 +83,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
             transform.position = position;
             var sprite = Resources.Load<Sprite>("Textures/BulletWarning/" + imageName);
             gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+            GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

@@ -16,12 +16,12 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// NormalCartridgeのPrefab
         /// </summary>
-        [SerializeField] private AssetReferenceGameObject _normalCartridgePrefab;
+        [SerializeField] protected AssetReferenceGameObject _cartridgePrefab;
 
         /// <summary>
         /// NormalCartridgeWarningのPrefab
         /// </summary>
-        [SerializeField] private AssetReferenceGameObject _normalCartridgeWarningPrefab;
+        [SerializeField] protected AssetReferenceGameObject _cartridgeWarningPrefab;
 
         /// <summary>
         /// 銃弾の移動方向
@@ -151,7 +151,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
 
             // warningの作成
             AsyncOperationHandle<GameObject> warningOp;
-            yield return warningOp = _normalCartridgeWarningPrefab.InstantiateAsync();
+            yield return warningOp = _cartridgeWarningPrefab.InstantiateAsync();
             var warning = warningOp.Result;
 
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
@@ -168,7 +168,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
 
             // ゲームが続いているなら銃弾を作成する
             AsyncOperationHandle<GameObject> cartridgeOp;
-            yield return cartridgeOp = _normalCartridgePrefab.InstantiateAsync();
+            yield return cartridgeOp = _cartridgePrefab.InstantiateAsync();
             var cartridge = cartridgeOp.Result;
 
             cartridge.GetComponent<NormalCartridgeController>()
