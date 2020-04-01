@@ -157,7 +157,7 @@ namespace Project.Scripts.Utils
         /// ステージに必要なアセットをロード
         /// </summary>
         /// <param name="stageId"></param>
-        internal static void LoadStageDependecies(int stageId)
+        internal static void LoadStageDependencies(int stageId)
         {
             StageData stage = GameDataBase.Instance.GetStage(stageId);
 
@@ -182,8 +182,8 @@ namespace Project.Scripts.Utils
                 }
             });
 
-            stage.TileDatas.ForEach(tileDate => {
-                switch (tileDate.type) {
+            stage.TileDatas.ForEach(tileData => {
+                switch (tileData.type) {
                     case Definitions.ETileType.Normal:
                         LoadAsset<GameObject>("normalTilePrefab");
                         break;

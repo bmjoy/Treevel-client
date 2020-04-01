@@ -166,7 +166,7 @@ namespace Project.Scripts.StageSelectScene
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
 
-            AddressableAssetManager.LoadStageDependecies(stageId);
+            AddressableAssetManager.LoadStageDependencies(stageId);
 
             // シーン遷移
             AddressableAssetManager.LoadScene(SceneName.GAME_PLAY_SCENE);
