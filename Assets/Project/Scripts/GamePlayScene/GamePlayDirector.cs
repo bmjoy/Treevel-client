@@ -389,10 +389,6 @@ namespace Project.Scripts.GamePlayScene
                 if (Camera.main != null) Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
                 yield return null;
             }
-            // 結果ウィンドウの大きさを変える
-            _resultWindow.transform.localScale = new Vector2(ratio, ratio);
-            // 一時停止ウィンドウの大きさを変える
-            _pauseWindow.transform.localScale = new Vector2(ratio, ratio);
         }
 
         /// <summary>

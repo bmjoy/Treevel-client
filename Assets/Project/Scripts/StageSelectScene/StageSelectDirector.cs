@@ -161,6 +161,8 @@ namespace Project.Scripts.StageSelectScene
             GamePlayDirector.levelName = levelName;
             GamePlayDirector.treeId = treeId;
             GamePlayDirector.stageId = stageId;
+            // ポップアップを非表示にする
+            _overviewPopup.gameObject.SetActive(false);
             // ロード中の背景を表示する
             _loadingBackground.SetActive(true);
             // ロード中のアニメーションを開始する
