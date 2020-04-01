@@ -41,9 +41,9 @@ namespace Project.Scripts.Utils
         }
 
         /// <summary>
-        /// 
+        /// アセットをロードする
         /// </summary>
-        /// <typeparam name="TObject"></typeparam>
+        /// <typeparam name="TObject">ロードするアセットの型</typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
         static public AsyncOperationHandle<TObject> LoadAsset<TObject> (object key)
@@ -57,7 +57,7 @@ namespace Project.Scripts.Utils
             _loadedAssets.Add(key, op);
 
             UIManager.Instance.ProgressBar.Load(op);
-            
+
             return op;
         }
 
@@ -139,16 +139,16 @@ namespace Project.Scripts.Utils
         }
 
         /// <summary>
-        ///
+        /// プレハブを実体化させる
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="parent"></param>
-        /// <param name="instantiateInWorldSpace"></param>
+        /// <param name="key">キー（アドレス）</param>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
         /// <returns></returns>
         public static AsyncOperationHandle<GameObject> Instantiate(object key, Transform parent = null, bool instantiateInWorldSpace = false)
         {
             var op = Addressables.InstantiateAsync(key, parent, instantiateInWorldSpace);
-            
+
             return op;
         }
 
