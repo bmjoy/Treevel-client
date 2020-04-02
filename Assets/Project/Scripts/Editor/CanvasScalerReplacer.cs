@@ -36,7 +36,7 @@ namespace Project.Scripts.Editor
         {
             EditorGUILayout.PropertyField(_referenceResolutionProp);
             EditorGUILayout.PropertyField(_matchWidthOrHeightProp);
-            if (GUILayout.Button("Replace All Canvases"))
+            if (GUILayout.Button("Replace All CanvasScalers"))
             {
                 ReplaceCanvasScalerInAllScene();
                 // シーンに変更があることをUnity側に通知
