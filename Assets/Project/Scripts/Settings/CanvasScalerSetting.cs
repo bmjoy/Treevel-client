@@ -6,7 +6,7 @@ namespace Project.Scripts.Settings
     {
         [SerializeField] private Vector2 referenceResolution;
 
-        [SerializeField] private float matchWidthOrHeight;
+        [SerializeField] [Range(0, 1)] private float matchWidthOrHeight;
 
         public Vector2 ReferenceResolution => referenceResolution;
 
