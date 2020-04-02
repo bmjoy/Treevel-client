@@ -77,8 +77,8 @@ namespace Project.Scripts.Editor
         /// <returns></returns>
         private static bool ReplaceCanvasScalerInScene() {
             // シーン内の全てのCanvasオブジェクトの取得
-            var canvases = Object.FindObjectsOfType(typeof(Canvas)) as Canvas[];
             if(canvases.Length == 0) return false;
+            var canvases = Resources.FindObjectsOfTypeAll(typeof(Canvas)) as Canvas[];
             foreach (var canvas in canvases)
             {
                 // CanvasScalerコンポーネントを必ず持たせる
