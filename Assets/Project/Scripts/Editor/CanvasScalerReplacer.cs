@@ -5,7 +5,8 @@ using UnityEditor.SceneManagement;
 using Project.Scripts.Settings;
 
 namespace Project.Scripts.Editor
-{public class CanvasScalerReplacer : UnityEditor.EditorWindow
+{
+    public class CanvasScalerReplacer : UnityEditor.EditorWindow
     {
         /// <summary>
         /// CanvasScalerの変数 : 理想的なデバイスの大きさ
@@ -46,19 +47,21 @@ namespace Project.Scripts.Editor
         /// <summary>
         /// 全てのシーンのCanvasScalerを変更する
         /// </summary>
-        private static void ReplaceCanvasScalerInAllScene() {
+        private static void ReplaceCanvasScalerInAllScene()
+        {
             // 現在のシーン
             string currentScene = EditorSceneManager.GetActiveScene().path;
             // プロジェクト内の全てのシーン名を取得
-            string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new string[] {"Assets/Project"});
-            for (int i = 0; i < sceneGuids.Length; i++) {
+            string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new string[] { "Assets/Project" });
+            for (int i = 0; i < sceneGuids.Length; i++)
+            {
                 string guid = sceneGuids[i];
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 // プログレスバーを表示
                 EditorUtility.DisplayProgressBar("", path, (float)i / (float)sceneGuids.Length);
                 // シーンを開く
                 EditorSceneManager.OpenScene(path);
-                Debug.Log(AssetDatabase.LoadMainAssetAtPath (path));
+                Debug.Log(AssetDatabase.LoadMainAssetAtPath(path));
                 // 開いているシーンのCanvasScalerの設定
                 if (ReplaceCanvasScalerInScene())
                     // 変更があれば保存
@@ -75,14 +78,15 @@ namespace Project.Scripts.Editor
         /// 現在開いているシーンの全てのCanvasScalerを変更する
         /// </summary>
         /// <returns></returns>
-        private static bool ReplaceCanvasScalerInScene() {
+        private static bool ReplaceCanvasScalerInScene()
+        {
             // シーン内の全てのCanvasオブジェクトの取得
-            if(canvases.Length == 0) return false;
             var canvases = Resources.FindObjectsOfTypeAll(typeof(Canvas)) as Canvas[];
+            if (canvases.Length == 0) return false;
             foreach (var canvas in canvases)
             {
                 // CanvasScalerコンポーネントを必ず持たせる
-                if(canvas.GetComponentInChildren<CanvasScaler>() == null)
+                if (canvas.GetComponentInChildren<CanvasScaler>() == null)
                 {
                     canvas.gameObject.AddComponent<CanvasScaler>();
                 }
