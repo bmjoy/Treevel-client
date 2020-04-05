@@ -29,12 +29,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// </summary>
         public GameObject bulletGroupControllerPrefab;
 
-        // 各銃弾のGeneratorのprefab
-        [SerializeField] private GameObject _normalCartridgeGeneratorPrefab;
-        [SerializeField] private GameObject _turnCartridgeGeneratorPrefab;
-        [SerializeField] private GameObject _normalHoleGeneratorPrefab;
-        [SerializeField] private GameObject _aimingHoleGeneratorPrefab;
-
         /// <summary>
         /// ゲームの開始時刻
         /// </summary>
