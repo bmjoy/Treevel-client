@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
 
             // ステージデータ読み込む
-            var stageData = GameDataBase.Instance.GetStage(stageId);
+            var stageData = GameDataBase.GetStage(stageId);
             if (stageData != null) {
                 // パネルの作成はタイルに依存するため、タイルの生成が終わるまで待つ
                 await tileGenerator.CreateTiles(stageData.TileDatas);
