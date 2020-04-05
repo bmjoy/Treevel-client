@@ -17,26 +17,109 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 52dde2e2b4fd843bfb781a540a37ccb8
   m_SerializeEntries:
+  - m_GUID: 002d879f7321744279709540f5b88837
+    m_Address: numberTile6
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 002d879f7321744279709540f5b88837, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 002d879f7321744279709540f5b88837, type: 3}
   - m_GUID: 10615e735d661461a88777d89755bf0e
     m_Address: normalTilePrefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Tile
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 1202584627454472, guid: 10615e735d661461a88777d89755bf0e,
       type: 3}
     m_TargetAsset: {fileID: 1202584627454472, guid: 10615e735d661461a88777d89755bf0e,
       type: 3}
+  - m_GUID: 621ad890756e54e6d93e52c8911cfcc3
+    m_Address: numberTile1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 621ad890756e54e6d93e52c8911cfcc3, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 621ad890756e54e6d93e52c8911cfcc3, type: 3}
+  - m_GUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
+    m_Address: numberTile5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 6b27d5e8cb48e4d3b8e9df348aa185c6, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 6b27d5e8cb48e4d3b8e9df348aa185c6, type: 3}
+  - m_GUID: 7049c28bb2d914c02abfad034c3d08ca
+    m_Address: numberTile7
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 7049c28bb2d914c02abfad034c3d08ca, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 7049c28bb2d914c02abfad034c3d08ca, type: 3}
+  - m_GUID: 75c32df0ab0684c329e34ac831a5c9b3
+    m_Address: numberTile4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 75c32df0ab0684c329e34ac831a5c9b3, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 75c32df0ab0684c329e34ac831a5c9b3, type: 3}
   - m_GUID: 8bd35c0dfc09c48479577e2b43dcac03
     m_Address: warpTilePrefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Tile
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 2281809373051226156, guid: 8bd35c0dfc09c48479577e2b43dcac03,
       type: 3}
     m_TargetAsset: {fileID: 2281809373051226156, guid: 8bd35c0dfc09c48479577e2b43dcac03,
       type: 3}
+  - m_GUID: b8f7dbec862e143b98cf342ad4b46952
+    m_Address: numberTile8
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: b8f7dbec862e143b98cf342ad4b46952, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: b8f7dbec862e143b98cf342ad4b46952, type: 3}
+  - m_GUID: c9a3fc44eeb594f8dacee529949d6a51
+    m_Address: numberTile2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: c9a3fc44eeb594f8dacee529949d6a51, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: c9a3fc44eeb594f8dacee529949d6a51, type: 3}
+  - m_GUID: f3cb79b18e6fa4e548c931f68d35a3e8
+    m_Address: numberTile3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: f3cb79b18e6fa4e548c931f68d35a3e8, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: f3cb79b18e6fa4e548c931f68d35a3e8, type: 3}
+  - m_GUID: ffe46475264d046fc9f9d1a8e8546ccf
+    m_Address: normalTile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: ffe46475264d046fc9f9d1a8e8546ccf, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: ffe46475264d046fc9f9d1a8e8546ccf, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:

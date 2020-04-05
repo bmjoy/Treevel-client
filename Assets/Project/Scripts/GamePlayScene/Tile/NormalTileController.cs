@@ -1,6 +1,8 @@
-﻿using Project.Scripts.Utils.Attributes;
+﻿using Project.Scripts.Utils;
+using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
@@ -103,9 +105,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// 番号に合わせた画像に変更
         /// </summary>
         /// <param name="panelNum"> このタイルをゴールとするパネルの番号 </param>
-        public void SetSprite(int panelNum)
+        public async void SetSprite(int panelNum)
         {
-            var sprite = Resources.Load<Sprite>("Textures/Tile/numberTile" + panelNum);
+            var sprite = await Addressables.LoadAssetAsync<Sprite>($"numberTile{panelNum}").Task;
             if (sprite != null) GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }

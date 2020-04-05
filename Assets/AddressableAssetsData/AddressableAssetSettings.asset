@@ -69,6 +69,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - Panel
+    - Tile
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: ec738e3e12a1445dfb9aa50871201ebc, type: 2}
