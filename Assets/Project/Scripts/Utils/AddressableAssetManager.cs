@@ -6,7 +6,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using Project.Scripts.MenuSelectScene;
 using Project.Scripts.GameDatas;
-using System.Threading.Tasks;
+using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.Utils
 {
@@ -162,20 +162,20 @@ namespace Project.Scripts.Utils
             stage.PanelDatas.ForEach((panelData) => {
                 switch (panelData.type) {
                     case Definitions.EPanelType.Dynamic:
-                        LoadAsset<GameObject>("dynamicDummyPanelPrefab");
-                        LoadAsset<Sprite>("dynamicDummyPanel");
+                        LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_PANEL_PREFAB);
+                        LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_PANEL_SPRITE);
                         break;
                     case Definitions.EPanelType.Static:
-                        LoadAsset<GameObject>("staticDummyPanelPrefab");
-                        LoadAsset<Sprite>("staticDummyPanel");
+                        LoadAsset<GameObject>(Address.STATIC_DUMMY_PANEL_PREFAB);
+                        LoadAsset<Sprite>(Address.STATIC_DUMMY_PANEL_SPRITE);
                         break;
                     case Definitions.EPanelType.Number:
-                        LoadAsset<GameObject>("numberPanelPrefab");
-                        LoadAsset<Sprite>($"numberPanel{panelData.number}");
+                        LoadAsset<GameObject>(Address.NUMBER_PANEL_PREFAB);
+                        LoadAsset<Sprite>($"{Address.NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
                         break;
                     case Definitions.EPanelType.LifeNumber:
-                        LoadAsset<GameObject>("lifeNumberPanelPrefab");
-                        LoadAsset<Sprite>($"lifeNumberPanel{panelData.number}");
+                        LoadAsset<GameObject>(Address.LIFE_NUMBER_PANEL_PREFAB);
+                        LoadAsset<Sprite>($"{Address.LIFE_NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
                         break;
                 }
             });
@@ -183,10 +183,10 @@ namespace Project.Scripts.Utils
             stage.TileDatas.ForEach(tileData => {
                 switch (tileData.type) {
                     case Definitions.ETileType.Normal:
-                        LoadAsset<GameObject>("normalTilePrefab");
+                        LoadAsset<GameObject>(Address.NORMAL_TILE_PREFAB);
                         break;
                     case Definitions.ETileType.Warp:
-                        LoadAsset<GameObject>("warpTilePrefab");
+                        LoadAsset<GameObject>(Address.WARP_TILE_PREFAB);
                         break;
                 }
             });

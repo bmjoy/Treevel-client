@@ -14,9 +14,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             foreach (var panelData in panelDatas) {
                 switch (panelData.type) {
                     case EPanelType.Number:
-                        AddressableAssetManager.Instantiate("numberPanelPrefab").Completed += (op) => {
+                        AddressableAssetManager.Instantiate(Address.NUMBER_PANEL_PREFAB).Completed += (op) => {
                             var numberPanel = op.Result;
-                            var numberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"numberPanel{panelData.number}");
+                            var numberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
                             if (numberPanelSprite != null) numberPanel.GetComponent<SpriteRenderer>().sprite = numberPanelSprite;
                             numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
                         };
@@ -28,9 +28,9 @@ namespace Project.Scripts.GamePlayScene.Panel
                         CreateStaticDummyPanel(panelData.initPos);
                         break;
                     case EPanelType.LifeNumber:
-                        AddressableAssetManager.Instantiate("lifeNumberPanelPrefab").Completed += (op) => {
+                        AddressableAssetManager.Instantiate(Address.LIFE_NUMBER_PANEL_PREFAB).Completed += (op) => {
                             var lifeNumberPanel = op.Result;
-                            var lifeNumberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"lifeNumberPanel{panelData.number}");
+                            var lifeNumberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.LIFE_NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
                             if (lifeNumberPanelSprite != null) lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
                             lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
                         };
@@ -47,7 +47,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="initialTileNum"> 配置するタイルの番号 </param>
         private static void CreateStaticDummyPanel(int initialTileNum)
         {
-            AddressableAssetManager.Instantiate("staticDummyPanelPrefab").Completed += (op) => {
+            AddressableAssetManager.Instantiate(Address.STATIC_DUMMY_PANEL_PREFAB).Completed += (op) => {
                 var panel = op.Result;
                 panel.GetComponent<StaticPanelController>().Initialize(initialTileNum);
             };
@@ -59,7 +59,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
         private static void CreateDynamicDummyPanel(int initialTileNum)
         {
-            AddressableAssetManager.Instantiate("dynamicDummyPanelPrefab").Completed += (op) => {
+            AddressableAssetManager.Instantiate(Address.DYNAMIC_DUMMY_PANEL_PREFAB).Completed += (op) => {
                 var panel = op.Result;
                 panel.GetComponent<DynamicPanelController>().Initialize(initialTileNum);
             };

@@ -193,7 +193,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             int[] randomColumn
         )
         {
-            var cartridgeGenerator = await AddressableAssetManager.Instantiate("NormalCartridgeGeneratorPrefab").Task;
+            var cartridgeGenerator = await AddressableAssetManager.Instantiate(Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB).Task;
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, randomCartridgeDirection, randomRow, randomColumn);
             return cartridgeGenerator;
@@ -216,7 +216,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             int[] turnLine
         )
         {
-            var cartridgeGenerator = await AddressableAssetManager.Instantiate("TurnCartridgeGeneratorPrefab").Task;
+            var cartridgeGenerator = await AddressableAssetManager.Instantiate(Address.TURN_CARTRIDGE_GENERATOR_PREFAB).Task;
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, turnDirection, turnLine);
             return cartridgeGenerator;
@@ -236,7 +236,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         private async Task<GameObject> CreateRandomTurnCartridgeGenerator(int ratio, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
             int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
         {
-            var cartridgeGenerator = await AddressableAssetManager.Instantiate("TurnCartridgeGeneratorPrefab").Task;
+            var cartridgeGenerator = await AddressableAssetManager.Instantiate(Address.TURN_CARTRIDGE_GENERATOR_PREFAB).Task;
             var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
             cartridgeGeneratorScript.Initialize(ratio, randomCartridgeDirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
                 randomTurnColumn);
@@ -260,7 +260,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             int[] randomColumn
         )
         {
-            var holeGenerator = await AddressableAssetManager.Instantiate("NormalHoleGeneratorPrefab").Task;
+            var holeGenerator = await AddressableAssetManager.Instantiate(Address.NORMAL_HOLE_GENERATOR_PREFAB).Task;
             var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
             holeGeneratorScript.Initialize(ratio, row, column, randomRow, randomColumn);
             return holeGenerator;
@@ -274,7 +274,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="aimingPanels"> 銃弾が出現するNumberPanel </param>
         private async Task<GameObject> CreateAimingHoleGenerator(int ratio, int[] aimingPanels)
         {
-            var holeGenerator = await AddressableAssetManager.Instantiate("AimingHoleGeneratorPrefab").Task;
+            var holeGenerator = await AddressableAssetManager.Instantiate(Address.AIMING_HOLE_GENERATOR_PREFAB).Task;
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
             holeGeneratorScript.Initialize(ratio, aimingPanels);
             return holeGenerator;
@@ -288,7 +288,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <param name="randomNumberPanels"> 銃弾が出現するNumberPanelの重み </param>
         private async Task<GameObject> CreateRandomAimingHoleGenerator(int ratio, int[] randomNumberPanels)
         {
-            var holeGenerator = await AddressableAssetManager.Instantiate("AimingHoleGeneratorPrefab").Task;
+            var holeGenerator = await AddressableAssetManager.Instantiate(Address.AIMING_HOLE_GENERATOR_PREFAB).Task;
             var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
             holeGeneratorScript.InitializeRandom(ratio, randomNumberPanels);
             return holeGenerator;

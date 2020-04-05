@@ -55,7 +55,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private async Task<GameObject> CreateNormalTile(int tileNum)
         {
-            var normalTile = await AddressableAssetManager.Instantiate("normalTilePrefab").Task;
+            var normalTile = await AddressableAssetManager.Instantiate(Address.NORMAL_TILE_PREFAB).Task;
 
             var normalTilePosition = GetTilePosition(tileNum);
 
@@ -73,8 +73,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <param name="secondTileNum"> ワープタイル2 </param>
         private async void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
-            var firstTile = await AddressableAssetManager.Instantiate("warpTilePrefab").Task;
-            var secondTile = await AddressableAssetManager.Instantiate("warpTilePrefab").Task;
+            var firstTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
+            var secondTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
 
             var firstTilePosition = GetTilePosition(firstTileNum);
             var secondTilePosition = GetTilePosition(secondTileNum);

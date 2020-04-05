@@ -107,7 +107,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <param name="panelNum"> このタイルをゴールとするパネルの番号 </param>
         public async void SetSprite(int panelNum)
         {
-            var sprite = await Addressables.LoadAssetAsync<Sprite>($"numberTile{panelNum}").Task;
+            // TODO 事前にロードを行って、ここはセットだけ
+            var sprite = await Addressables.LoadAssetAsync<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelNum}").Task;
             if (sprite != null) GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
