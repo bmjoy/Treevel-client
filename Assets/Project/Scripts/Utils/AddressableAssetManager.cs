@@ -63,20 +63,18 @@ namespace Project.Scripts.Utils
 
         /// <summary>
         /// ロードしたアセットを取得する
-        /// （ロードしていなければロードするまで待つ）
         /// </summary>
         /// <typeparam name="TObject"></typeparam>
-        /// <param name="key"></param>
+        /// <param name="key">アドレス</param>
         /// <returns></returns>
-        static public async Task<TObject> GetAsset<TObject> (object key)
+        static public TObject GetAsset<TObject> (object key)
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>().Result;
+            } else {
+                Debug.LogWarning($"Asset with key:{key} is not loaded.");
+                return default;
             }
-
-            await LoadAsset<TObject>(key).Task;
-
-            return _loadedAssets[key].Convert<TObject>().Result;
         }
 
 

@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.Number:
                         AddressableAssetManager.Instantiate("numberPanelPrefab").Completed += (op) => {
                             var numberPanel = op.Result;
-                            var numberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"numberPanel{panelData.number}").Result;
+                            var numberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"numberPanel{panelData.number}");
                             if (numberPanelSprite != null) numberPanel.GetComponent<SpriteRenderer>().sprite = numberPanelSprite;
                             numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
                         };
@@ -30,7 +30,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.LifeNumber:
                         AddressableAssetManager.Instantiate("lifeNumberPanelPrefab").Completed += (op) => {
                             var lifeNumberPanel = op.Result;
-                            var lifeNumberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"lifeNumberPanel{panelData.number}").Result;
+                            var lifeNumberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"lifeNumberPanel{panelData.number}");
                             if (lifeNumberPanelSprite != null) lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
                             lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
                         };
