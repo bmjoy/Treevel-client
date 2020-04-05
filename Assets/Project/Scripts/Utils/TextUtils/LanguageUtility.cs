@@ -36,7 +36,7 @@ namespace Project.Scripts.Utils.TextUtils
                 }
             }
 
-            Load();
+            LoadTranslationData();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Project.Scripts.Utils.TextUtils
         [UnityEditor.Callbacks.DidReloadScripts]
         [UnityEditor.MenuItem("Tools/Load Text")]
         #endif
-        public static void Load()
+        public static void LoadTranslationData()
         {
             _stringTable = new Dictionary<KeyValuePair<ELanguage, ETextIndex>, string>();
             List<string[]> datas = CSVReader.LoadCSV(_DATA_PATH);
