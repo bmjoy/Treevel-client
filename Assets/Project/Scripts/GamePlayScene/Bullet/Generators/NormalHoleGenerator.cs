@@ -90,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
 
             // 警告の位置を一時保存
-            Vector3 warningPos = warning.transform.position;
+            Vector2 warningPos = warning.transform.position;
 
             // 警告を削除する
             Destroy(warning);
