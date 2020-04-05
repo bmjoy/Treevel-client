@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
-    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(Rigidbody2D))]
 
     // Bulletに共通したフィールド、メソッドの定義
@@ -41,7 +41,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             // sortingLayerの設定
             gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
             // 衝突判定を有効にする
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            gameObject.GetComponent<Collider2D>().isTrigger = true;
             // 重力を用いた物理演算を行わない
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
             // GamePlayDirectorの取得

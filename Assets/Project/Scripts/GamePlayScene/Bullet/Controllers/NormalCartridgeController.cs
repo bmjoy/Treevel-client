@@ -22,10 +22,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             base.Awake();
             // 銃弾の先頭部分のみに当たり判定を与える
             const float betweenPanels = TileSize.WIDTH - PanelSize.WIDTH;
-            gameObject.GetComponent<BoxCollider2D>().offset =
-                new Vector2(-(originalWidth - betweenPanels) / 2, 0);
-            gameObject.GetComponent<BoxCollider2D>().size =
-                new Vector2(betweenPanels, originalHeight);
+            var collider =  gameObject.GetComponent<Collider2D>();
+            collider.offset = new Vector2(-(originalWidth - betweenPanels) / 2, 0);
+            if (collider is BoxCollider2D)
+                ((BoxCollider2D)collider).size = new Vector2(betweenPanels, originalHeight);
         }
 
         /// <summary>
