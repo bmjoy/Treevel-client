@@ -172,6 +172,8 @@ namespace Project.Scripts.Utils
                     case Definitions.EPanelType.Number:
                         LoadAsset<GameObject>(Address.NUMBER_PANEL_PREFAB);
                         LoadAsset<Sprite>($"{Address.NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
+                        // 対応するTileのSpriteを先に読み込む
+                        LoadAsset<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelData.number}");
                         break;
                     case Definitions.EPanelType.LifeNumber:
                         LoadAsset<GameObject>(Address.LIFE_NUMBER_PANEL_PREFAB);

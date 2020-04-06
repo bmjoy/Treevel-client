@@ -105,10 +105,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// 番号に合わせた画像に変更
         /// </summary>
         /// <param name="panelNum"> このタイルをゴールとするパネルの番号 </param>
-        public async void SetSprite(int panelNum)
+        public void SetSprite(int panelNum)
         {
-            // TODO 事前にロードを行って、ここはセットだけ
-            var sprite = await Addressables.LoadAssetAsync<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelNum}").Task;
+            var sprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelNum}");
             if (sprite != null) GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
