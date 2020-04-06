@@ -56,6 +56,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             transform.position = position;
             name = TileName.NORMAL_TILE;
             _tileNum = tileNum;
+            GetComponent<SpriteRenderer>().enabled = true;
         }
 
         /// <summary>

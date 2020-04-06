@@ -29,6 +29,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             script.hasPanel = true;
             transform.SetParent(initialTile.transform);
             transform.position = initialTile.transform.position;
+            GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }
