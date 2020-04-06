@@ -1,4 +1,5 @@
 ﻿using Project.Scripts.Utils.Library;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.BulletWarning
 {
@@ -18,6 +19,8 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
             var panel = PanelLibrary.GetPanel(panelNum);
             // 警告の表示位置をPanelと同じ位置にする
             transform.position = panel.transform.position;
+
+            GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

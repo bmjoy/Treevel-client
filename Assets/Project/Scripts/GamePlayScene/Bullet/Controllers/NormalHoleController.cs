@@ -49,6 +49,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             // 銃痕のz座標が0のときのみ衝突判定を行う
             // 銃痕の出現直後の1フレームで奥行き方向に移動する分を加算しておく
             transform.position = new Vector3(holeWarningPosition.x, holeWarningPosition.y, speed);
+            GetComponent<SpriteRenderer>().enabled = true;
         }
 
         protected void Update()

@@ -14,6 +14,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             transform.position = new Vector3(holeWarningPosition.x, holeWarningPosition.y, speed);
             // 座標から行と列を取得する
             (row, column) = BulletLibrary.GetRowAndColumn(holeWarningPosition);
+
+            GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

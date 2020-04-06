@@ -21,6 +21,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
         {
             transform.position =
                 new Vector2(TileSize.WIDTH * (column - ((StageSize.COLUMN / 2 + 1))), TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - row));
+            GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }
