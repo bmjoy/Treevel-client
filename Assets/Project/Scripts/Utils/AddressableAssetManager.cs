@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
@@ -195,6 +195,31 @@ namespace Project.Scripts.Utils
                     default:
                         throw new System.NotImplementedException();
                 }
+            });
+
+            stage.BulletGroups.ForEach(bulletGroup => {
+                bulletGroup.bullets.ForEach(bullet => {
+                    switch (bullet.type) {
+                        case EBulletType.NormalCartridge:
+                        case EBulletType.RandomNormalCartridge:
+                            LoadAsset<GameObject>(Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB);
+                            break;
+                        case EBulletType.TurnCartridge:
+                        case EBulletType.RandomTurnCartridge:
+                            LoadAsset<GameObject>(Address.TURN_CARTRIDGE_GENERATOR_PREFAB);
+                            break;
+                        case EBulletType.NormalHole:
+                        case EBulletType.RandomNormalHole:
+                            LoadAsset<GameObject>(Address.NORMAL_HOLE_GENERATOR_PREFAB);
+                            break;
+                        case EBulletType.AimingHole:
+                        case EBulletType.RandomAimingHole:
+                            LoadAsset<GameObject>(Address.AIMING_HOLE_GENERATOR_PREFAB);
+                            break;
+                        default:
+                            throw new System.NotImplementedException();
+                    }
+                });
             });
         }
     }
