@@ -56,15 +56,6 @@ namespace Project.Scripts.GamePlayScene.Panel
             GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
         }
 
-        protected override void Start()
-        {
-            base.Start();
-            // 初期状態で最終タイルにいるかどうかの状態を変える
-            Adapted = transform.parent.gameObject == _finalTile;
-            // 最終タイルにいるかどうかで，光らせるかを決める
-            GetComponent<SpriteGlowEffect>().enabled = Adapted;
-        }
-
         /// <summary>
         /// 初期化
         /// </summary>
@@ -78,6 +69,11 @@ namespace Project.Scripts.GamePlayScene.Panel
             _finalTile = TileLibrary.GetTile(finalTileNum);
             _finalTile.GetComponent<NormalTileController>().SetSprite(panelNum);
             _panelNum = panelNum;
+
+            // 初期状態で最終タイルにいるかどうかの状態を変える
+            Adapted = transform.parent.gameObject == _finalTile;
+            // 最終タイルにいるかどうかで，光らせるかを決める
+            GetComponent<SpriteGlowEffect>().enabled = Adapted;
         }
 
         /// <summary>

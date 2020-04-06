@@ -5,6 +5,8 @@ using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
@@ -13,12 +15,12 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// NormalHoleのPrefab
         /// </summary>
-        [SerializeField] private GameObject _normalHolePrefab;
+        [SerializeField] protected AssetReferenceGameObject _holePrefab;
 
         /// <summary>
         /// NormalHoleWarningのPrefab
         /// </summary>
-        [SerializeField] private GameObject _normalHoleWarningPrefab;
+        [SerializeField] protected AssetReferenceGameObject _holeWarningPrefab;
 
         /// <summary>
         ///  出現する行
@@ -78,21 +80,29 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             var nextHoleColumn = (_column == (int) EColumn.Random) ? GetColumn() : _column;
 
             // 警告の作成
-            var warning = Instantiate(_normalHoleWarningPrefab);
+            AsyncOperationHandle<GameObject> warningOp;
+            yield return warningOp = _holeWarningPrefab.InstantiateAsync();
+            var warning = warningOp.Result;
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<NormalHoleWarningController>();
             warningScript.Initialize(nextHoleRow, nextHoleColumn);
             // 警告の表示時間だけ待つ
             for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
+
+            // 警告の位置を一時保存
+            Vector2 warningPos = warning.transform.position;
+
             // 警告を削除する
             Destroy(warning);
 
             if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
 
             // ゲームが続いているなら銃弾を作成する
-            var hole = Instantiate(_normalHolePrefab);
+            AsyncOperationHandle<GameObject> holeOp;
+            yield return holeOp = _holePrefab.InstantiateAsync();
+            var hole = holeOp.Result;
             var holeScript = hole.GetComponent<NormalHoleController>();
-            holeScript.Initialize(nextHoleRow, nextHoleColumn, warning.transform.position);
+            holeScript.Initialize(nextHoleRow, nextHoleColumn, warningPos);
             // 同レイヤーのオブジェクトの描画順序の制御
             hole.GetComponent<Renderer>().sortingOrder = bulletId;
         }

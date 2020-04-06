@@ -5,21 +5,12 @@ using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class AimingHoleGenerator : NormalHoleGenerator
     {
-        /// <summary>
-        /// AimingHoleのPrefab
-        /// </summary>
-        [SerializeField] private GameObject _aimingHolePrefab;
-
-        /// <summary>
-        /// AimingHoleWarningのPrefab
-        /// </summary>
-        [SerializeField] private GameObject _aimingHoleWarningPrefab;
-
         /// <summary>
         /// 撃ち抜くNumberPanelの番号配列
         /// </summary>
@@ -64,21 +55,29 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             int[] nextAimingPanel = _aimingPanels ?? new int[] {GetNumberPanel()};
 
             // 警告の作成
-            var warning = Instantiate(_aimingHoleWarningPrefab);
+            AsyncOperationHandle<GameObject> warningOp;
+            yield return warningOp = _holeWarningPrefab.InstantiateAsync();
+            var warning = warningOp.Result;
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<AimingHoleWarningController>();
             warningScript.Initialize(nextAimingPanel, ref _aimingHoleCount);
             // 警告の表示時間だけ待つ
             for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
+
+            // 警告の位置を一時保存
+            Vector2 warningPos = warning.transform.position;
+
             // 警告を削除する
             Destroy(warning);
 
             if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
 
             // ゲームが続いているなら銃弾を作成する
-            var hole = Instantiate(_aimingHolePrefab);
+            AsyncOperationHandle<GameObject> holeOp;
+            yield return holeOp = _holePrefab.InstantiateAsync();
+            var hole = holeOp.Result;
             var holeScript = hole.GetComponent<AimingHoleController>();
-            holeScript.Initialize(warning.transform.position);
+            holeScript.Initialize(warningPos);
             // 同レイヤーのオブジェクトの描画順序の制御
             hole.GetComponent<Renderer>().sortingOrder = bulletId;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
                 case ECartridgeType.Normal:
                     break;
                 case ECartridgeType.Turn:
-                    var sprite = Resources.Load<Sprite>("Textures/BulletWarning/turnWarning");
+                    var sprite = AddressableAssetManager.GetAsset<Sprite>(Address.TURN_CARTRIDGE_WARNING_SPRITE);
                     gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
                     break;
                 case ECartridgeType.Random:
@@ -69,6 +70,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
 
             warningPosition += Vector2.Scale(bulletMotionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
             transform.position = warningPosition;
+            GetComponent<SpriteRenderer>().enabled = true;
             return bulletMotionVector;
         }
 
@@ -80,8 +82,9 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
         public void Initialize(Vector2 position, string imageName)
         {
             transform.position = position;
-            var sprite = Resources.Load<Sprite>("Textures/BulletWarning/" + imageName);
+            var sprite = AddressableAssetManager.GetAsset<Sprite>(imageName);
             gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+            GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

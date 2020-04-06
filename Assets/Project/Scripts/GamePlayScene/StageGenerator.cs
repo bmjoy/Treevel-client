@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bullet.Generators;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
@@ -19,26 +16,23 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="stageId"> ステージ id </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
-        public static void CreateStages(int stageId)
+        public static async void CreateStages(int stageId)
         {
             var tileGenerator = TileGenerator.Instance;
-            var panelGenerator = PanelGenerator.Instance;
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
-
-            var coroutines = new List<IEnumerator>();
 
             // ステージデータ読み込む
             var stageData = GameDataBase.Instance.GetStage(stageId);
             if (stageData != null) {
-                tileGenerator.CreateTiles(stageData.TileDatas);
-                panelGenerator.CreatePanels(stageData.PanelDatas);
-                coroutines = bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
+                // パネルの作成はタイルに依存するため、タイルの生成が終わるまで待つ
+                await tileGenerator.CreateTiles(stageData.TileDatas);
+
+                PanelGenerator.CreatePanels(stageData.PanelDatas);
+                var coroutines = await bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
 
                 // 銃弾一括生成
                 bulletGroupGenerator.CreateBulletGroups(coroutines);
-            }
-            else
-            {
+            } else {
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageId.ToString() + ".");
             }

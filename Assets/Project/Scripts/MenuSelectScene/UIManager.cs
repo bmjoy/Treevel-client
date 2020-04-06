@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using Project.Scripts.UIComponents;
+﻿using Project.Scripts.UIComponents;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Project.Scripts.MenuSelectScene
 {
@@ -47,34 +45,6 @@ namespace Project.Scripts.MenuSelectScene
             _progressBar.InstantiateAsync(canvas).Completed += (obj) => {
                 ProgressBar = obj.Result.GetComponentInChildren<ProgressBar>();
             };
-        }
-
-        /// <summary>
-        /// プログレスバーを表示／非表示
-        /// </summary>
-        /// <param name="show"></param>
-        private void ShowProgressBar(bool show)
-        {
-            ProgressBar.gameObject.SetActive(show);
-        }
-
-        /// <summary>
-        /// 受け取った<code>AsyncOperationHandle</code>に基づきプログレスを表示する
-        /// </summary>
-        /// <param name="handle">監視するプロセス</param>
-        public void ShowProgress(AsyncOperationHandle handle)
-        {
-            ShowProgressBar(true);
-            StartCoroutine(ShowProgress_Impl(handle));
-        }
-
-        private IEnumerator ShowProgress_Impl(AsyncOperationHandle handle)
-        {
-            while (!handle.IsDone) {
-                ProgressBar.Progress = handle.PercentComplete;
-                yield return null;
-            }
-            ShowProgressBar(false);
         }
     }
 }

@@ -24,7 +24,9 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: bfab886d0f2944e3abf27bb48efb7ee0, type: 2}
   - {fileID: 11400000, guid: 2def9eceafca74c988999c070bb73434, type: 2}
-  - {fileID: 11400000, guid: c08c02254fa2f4e7ca6958c8c242dc67, type: 2}
+  - {fileID: 11400000, guid: 9adf7ae2636554f07aecf3c2f0fe1343, type: 2}
+  - {fileID: 11400000, guid: 4a7a3932cccb24f4cb980c7d2e2e6a64, type: 2}
+  - {fileID: 11400000, guid: a825c317f72f84fa695942cc70013d10, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -34,7 +36,7 @@ MonoBehaviour:
     m_Profiles:
     - m_InheritedParent: 
       m_Id: 1a86b2cce39a8407c908544cfc0c53ee
-      m_ProfileName: Default
+      m_ProfileName: Develop
       m_Values:
       - m_Id: ff5642b6e5c0143dfa3cda541ede06c3
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
@@ -66,6 +68,8 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - Panel
+    - Tile
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: ec738e3e12a1445dfb9aa50871201ebc, type: 2}

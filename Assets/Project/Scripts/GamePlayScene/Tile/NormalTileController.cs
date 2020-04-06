@@ -1,6 +1,8 @@
-﻿using Project.Scripts.Utils.Attributes;
+﻿using Project.Scripts.Utils;
+using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
@@ -54,6 +56,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             transform.position = position;
             name = TileName.NORMAL_TILE;
             _tileNum = tileNum;
+            GetComponent<SpriteRenderer>().enabled = true;
         }
 
         /// <summary>
@@ -105,7 +108,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <param name="panelNum"> このタイルをゴールとするパネルの番号 </param>
         public void SetSprite(int panelNum)
         {
-            var sprite = Resources.Load<Sprite>("Textures/Tile/numberTile" + panelNum);
+            var sprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelNum}");
             if (sprite != null) GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }

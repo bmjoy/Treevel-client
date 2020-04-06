@@ -5,6 +5,8 @@ using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 {
@@ -24,7 +26,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// NormalWarningのPrefab
         /// </summary>
-        [SerializeField] private GameObject _normalCartridgeWarningPrefab;
+        [SerializeField] private AssetReferenceGameObject _normalCartridgeWarningPrefab;
 
         /// <summary>
         /// 警告を表示するフレームの配列
@@ -94,7 +96,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 
         protected override void FixedUpdate()
         {
-            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) return;
+            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing || _warningTiming == null) return;
 
             // 警告を表示するタイミングかどうかを毎フレーム監視する
             _warningTiming[_warningIndex]--;
@@ -208,7 +210,9 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <returns></returns>
         private IEnumerator DisplayTurnWarning(Vector2 warningPosition, int turnDirection, float turnAngle)
         {
-            var warning = Instantiate(_normalCartridgeWarningPrefab);
+            AsyncOperationHandle<GameObject> op;
+            yield return op = _normalCartridgeWarningPrefab.InstantiateAsync();
+            var warning = op.Result;
             // 同レイヤーのオブジェクトの描画順序の制御
             warning.GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
             // warningの位置・大きさ等の設定

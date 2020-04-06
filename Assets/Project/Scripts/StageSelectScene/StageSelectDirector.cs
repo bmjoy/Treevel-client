@@ -6,7 +6,6 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
@@ -87,7 +86,8 @@ namespace Project.Scripts.StageSelectScene
         /// リサイズ後のキャンバスサイズを取得してSnapScrollViewのPageSizeを変更する
         /// </summary>
         /// <returns></returns>
-        private IEnumerator SetPageSize() {
+        private IEnumerator SetPageSize()
+        {
             // リサイズが終わるまで待つ
             yield return new WaitForEndOfFrame();
             _snapScrollView.PageSize = GameObject.Find(_TREECANVAS).GetComponent<RectTransform> ().sizeDelta.x;
@@ -167,8 +167,11 @@ namespace Project.Scripts.StageSelectScene
             _loadingBackground.SetActive(true);
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
+
+            AddressableAssetManager.LoadStageDependencies(stageId);
+
             // シーン遷移
-            AddressableAssetManager.Instance.LoadScene(SceneName.GAME_PLAY_SCENE);
+            AddressableAssetManager.LoadScene(SceneName.GAME_PLAY_SCENE);
         }
 
         /// <summary>
@@ -192,7 +195,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void BackButtonDown()
         {
-            AddressableAssetManager.Instance.LoadScene(SceneName.MENU_SELECT_SCENE);
+            AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE);
         }
     }
 }

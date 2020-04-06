@@ -6,21 +6,13 @@ using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Project.Scripts.GamePlayScene.Bullet.Generators
 {
     public class TurnCartridgeGenerator : NormalCartridgeGenerator
     {
-        /// <summary>
-        /// TurnCartridgeのPrefab
-        /// </summary>
-        [SerializeField] private GameObject _turnCartridgePrefab;
-
-        /// <summary>
-        /// TurnCartridgeWarningのPrefab
-        /// </summary>
-        [SerializeField] private GameObject _turnCartridgeWarningPrefab;
-
         /// <summary>
         /// 銃弾が生成されてから動き始めるまでのフレーム数
         /// </summary>
@@ -119,7 +111,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             }
 
             // 警告の作成
-            var warning = Instantiate(_turnCartridgeWarningPrefab);
+            AsyncOperationHandle<GameObject> warningOp;
+            yield return warningOp = _cartridgeWarningPrefab.InstantiateAsync();
+            var warning = warningOp.Result;
+
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<CartridgeWarningController>();
             var bulletMotionVector =
@@ -153,7 +148,9 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                 }
             }
 
-            var cartridge = Instantiate(_turnCartridgePrefab);
+            AsyncOperationHandle<GameObject> cartridgeOp;
+            yield return cartridgeOp = _cartridgePrefab.InstantiateAsync();
+            var cartridge = cartridgeOp.Result;
             cartridge.GetComponent<TurnCartridgeController>().Initialize(nextCartridgeDirection, nextCartridgeLine,
                 bulletMotionVector, nextCartridgeTurnDirection, nextCartridgeTurnLine);
 

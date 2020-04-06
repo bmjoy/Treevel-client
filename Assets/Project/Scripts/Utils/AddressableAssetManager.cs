@@ -1,25 +1,82 @@
 ﻿using System.Collections.Generic;
-using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using Project.Scripts.MenuSelectScene;
+using Project.Scripts.GameDatas;
+using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.Utils
 {
-    public class AddressableAssetManager : Singleton<AddressableAssetManager>
+    public static class AddressableAssetManager
     {
         /// <summary>
-        /// あとでアンロードするために保持するロードした各シーンのハンドル
+        /// 初期化フラグ
         /// </summary>
-        private readonly Dictionary<string, SceneInstance> _loadedScenes;
+        static private bool _initialized = false;
 
-        public AddressableAssetManager()
+        /// <summary>
+        /// アンロードのためにハンドルを一時保存
+        /// </summary>
+        /// <typeparam name="string">アッセとのアドレス（キー）</typeparam>
+        /// <typeparam name="AsyncOperationHandle">ロードに用いたハンドル</typeparam>
+        /// <returns></returns>
+        static private readonly Dictionary<object, AsyncOperationHandle> _loadedAssets = new Dictionary<object, AsyncOperationHandle>();
+
+        /// <summary>
+        /// AASを初期化
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod]
+        static public void Initalize()
         {
-            _loadedScenes = new Dictionary<string, SceneInstance>();
+            Addressables.InitializeAsync().Completed += (obj) => {
+                if (obj.Status == AsyncOperationStatus.Succeeded) {
+                    _initialized = true;
+                } else {
+                    throw new System.Exception("Fail to initialize Addressable Asset System.");
+                }
+            };
         }
+
+        /// <summary>
+        /// アセットをロードする
+        /// </summary>
+        /// <typeparam name="TObject">ロードするアセットの型</typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        static public AsyncOperationHandle<TObject> LoadAsset<TObject> (object key)
+        {
+            if (_loadedAssets.ContainsKey(key)) {
+                return _loadedAssets[key].Convert<TObject>();
+            }
+
+            var op = Addressables.LoadAssetAsync<TObject>(key);
+
+            _loadedAssets.Add(key, op);
+
+            UIManager.Instance.ProgressBar.Load(op);
+
+            return op;
+        }
+
+        /// <summary>
+        /// ロードしたアセットを取得する
+        /// </summary>
+        /// <typeparam name="TObject"></typeparam>
+        /// <param name="key">アドレス</param>
+        /// <returns></returns>
+        static public TObject GetAsset<TObject> (object key)
+        {
+            if (_loadedAssets.ContainsKey(key)) {
+                return _loadedAssets[key].Convert<TObject>().Result;
+            } else {
+                Debug.LogWarning($"Asset with key:{key} is not loaded.");
+                return default;
+            }
+        }
+
 
         /// <summary>
         /// シーンをロードする
@@ -27,35 +84,29 @@ namespace Project.Scripts.Utils
         /// <param name="sceneName">ロードするシーンのaddress</param>
         /// <param name="loadSceneMode">ロードモード（Single/Additive)を指定</param>
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
-        public AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        static public AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            // 辞書にシーンのインスタンスが入ってる場合
-            if (_loadedScenes.ContainsKey(sceneName)) {
-                var scene = _loadedScenes[sceneName].Scene;
+            //// 辞書にシーンのインスタンスが入ってる場合
+            //if (loadSceneMode != LoadSceneMode.Single && _loadedAssets.ContainsKey(sceneName)) {
+            //    var scene = ((SceneInstance)_loadedAssets[sceneName].Result).Scene;
 
-                if (!scene.isLoaded) {
-                    // 自動でアンロードされたら削除（他のシーンがSingleでロードした時）
-                    _loadedScenes.Remove(sceneName);
-                } else {
-                    // シーンがすでにロードしている
-                    return default;
-                }
-            }
+            //    if (!scene.isLoaded) {
+            //        // 自動でアンロードされたら削除（他のシーンがSingleでロードした時）
+            //        _loadedAssets.Remove(sceneName);
+            //    } else {
+            //        // シーンがすでにロードしている
+            //        return default;
+            //    }
+            //}
 
             var ret = Addressables.LoadSceneAsync(sceneName, loadSceneMode);
 
-            // プログレスバーを表示
-            UIManager.Instance.ShowProgress(ret);
+            // 辞書に追加
+            //_loadedAssets.Add(sceneName, ret);
 
-            ret.Completed += (obj) => {
-                if (obj.Status == AsyncOperationStatus.Succeeded) {
-                    // ロード完了したら、ハンドルを保存する（今後アンロードするために）
-                    _loadedScenes.Add(sceneName, ret.Result);
-                } else {
-                    // TODO popup error message box, return to top
-                    Debug.LogError($"Load Scene {sceneName} Failed.");
-                }
-            };
+            // プログレスバーを表示
+            UIManager.Instance.ProgressBar.Load(ret);
+
             return ret;
         }
 
@@ -64,18 +115,18 @@ namespace Project.Scripts.Utils
         /// </summary>
         /// <param name="sceneName">アンロードするシーンのaddress</param>
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
-        public AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
+        static public AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
         {
             // シーンがロードしていなければ終了
-            if (!_loadedScenes.ContainsKey(sceneName))
+            if (!_loadedAssets.ContainsKey(sceneName))
                 return default;
 
-            var handle = _loadedScenes[sceneName];
+            var handle = _loadedAssets[sceneName];
             var ret = Addressables.UnloadSceneAsync(handle);
             ret.Completed += (obj) => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     // アンロード終了後、辞書から削除
-                    _loadedScenes.Remove(sceneName);
+                    _loadedAssets.Remove(sceneName);
                 } else {
                     // TODO popup error message box, return to top
                     Debug.LogError($"Unload Scene {sceneName} Failed.");
@@ -83,6 +134,98 @@ namespace Project.Scripts.Utils
             };
 
             return ret;
+        }
+
+        /// <summary>
+        /// プレハブを実体化させる
+        /// </summary>
+        /// <param name="key">キー（アドレス）</param>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
+        /// <returns></returns>
+        public static AsyncOperationHandle<GameObject> Instantiate(object key, Transform parent = null, bool instantiateInWorldSpace = false)
+        {
+            var op = Addressables.InstantiateAsync(key, parent, instantiateInWorldSpace);
+
+            return op;
+        }
+
+
+        /// <summary>
+        /// ステージに必要なアセットをロード
+        /// </summary>
+        /// <param name="stageId"></param>
+        internal static void LoadStageDependencies(int stageId)
+        {
+            StageData stage = GameDataBase.Instance.GetStage(stageId);
+
+            stage.PanelDatas.ForEach((panelData) => {
+                switch (panelData.type) {
+                    case Definitions.EPanelType.Dynamic:
+                        LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_PANEL_PREFAB);
+                        LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_PANEL_SPRITE);
+                        break;
+                    case Definitions.EPanelType.Static:
+                        LoadAsset<GameObject>(Address.STATIC_DUMMY_PANEL_PREFAB);
+                        LoadAsset<Sprite>(Address.STATIC_DUMMY_PANEL_SPRITE);
+                        break;
+                    case Definitions.EPanelType.Number:
+                        LoadAsset<GameObject>(Address.NUMBER_PANEL_PREFAB);
+                        LoadAsset<Sprite>($"{Address.NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
+                        // 対応するTileのSpriteを先に読み込む
+                        LoadAsset<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelData.number}");
+                        break;
+                    case Definitions.EPanelType.LifeNumber:
+                        LoadAsset<GameObject>(Address.LIFE_NUMBER_PANEL_PREFAB);
+                        LoadAsset<Sprite>($"{Address.LIFE_NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
+                        break;
+                    default:
+                        throw new System.NotImplementedException();
+                }
+            });
+
+            stage.TileDatas.ForEach(tileData => {
+                switch (tileData.type) {
+                    case Definitions.ETileType.Normal:
+                        LoadAsset<GameObject>(Address.NORMAL_TILE_PREFAB);
+                        break;
+                    case Definitions.ETileType.Warp:
+                        LoadAsset<GameObject>(Address.WARP_TILE_PREFAB);
+                        break;
+                    default:
+                        throw new System.NotImplementedException();
+                }
+            });
+
+            stage.BulletGroups.ForEach(bulletGroup => {
+                bulletGroup.bullets.ForEach(bullet => {
+                    switch (bullet.type) {
+                        case EBulletType.NormalCartridge:
+                        case EBulletType.RandomNormalCartridge:
+                            LoadAsset<GameObject>(Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB);
+                            break;
+                        case EBulletType.TurnCartridge:
+                        case EBulletType.RandomTurnCartridge:
+                            LoadAsset<GameObject>(Address.TURN_CARTRIDGE_GENERATOR_PREFAB);
+                            LoadAsset<Sprite>(Address.TURN_CARTRIDGE_WARNING_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_LEFT_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_RIGHT_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_TOP_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_BOTTOM_SPRITE);
+                            break;
+                        case EBulletType.NormalHole:
+                        case EBulletType.RandomNormalHole:
+                            LoadAsset<GameObject>(Address.NORMAL_HOLE_GENERATOR_PREFAB);
+                            break;
+                        case EBulletType.AimingHole:
+                        case EBulletType.RandomAimingHole:
+                            LoadAsset<GameObject>(Address.AIMING_HOLE_GENERATOR_PREFAB);
+                            break;
+                        default:
+                            throw new System.NotImplementedException();
+                    }
+                });
+            });
         }
     }
 }

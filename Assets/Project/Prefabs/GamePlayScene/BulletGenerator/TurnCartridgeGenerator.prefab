@@ -43,11 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2eb036c29ee4d678747b1213942ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalCartridgePrefab: {fileID: 1336118223516990, guid: 5c3345c91aa904fb3b34b886dbba2c82,
-    type: 3}
-  _normalCartridgeWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
-    type: 3}
-  _turnCartridgePrefab: {fileID: 1834930760170460, guid: 642a60a13eb7641fd8bca7401db9c1f6,
-    type: 3}
-  _turnCartridgeWarningPrefab: {fileID: 1368177469308104, guid: a0a9ef946321e42c5b13cf5e58916734,
-    type: 3}
+  _cartridgePrefab:
+    m_AssetGUID: 642a60a13eb7641fd8bca7401db9c1f6
+    m_SubObjectName: 
+  _cartridgeWarningPrefab:
+    m_AssetGUID: a0a9ef946321e42c5b13cf5e58916734
+    m_SubObjectName: 

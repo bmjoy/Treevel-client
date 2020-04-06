@@ -43,11 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e915e542ba6fd4843a16b59743f32438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalHolePrefab: {fileID: 1590802889344152, guid: 54efcbe26ca3e4ec8a6e8d784bc57960,
-    type: 3}
-  _normalHoleWarningPrefab: {fileID: 1410919219006700, guid: fdbcd1924c8b54021949ea21ae3ba36e,
-    type: 3}
-  _aimingHolePrefab: {fileID: 1225760507672674, guid: aba219999cff64bc3970ce8adba53fce,
-    type: 3}
-  _aimingHoleWarningPrefab: {fileID: 1827875136056974, guid: a0af620f27170486a819a947527a1c02,
-    type: 3}
+  _holePrefab:
+    m_AssetGUID: aba219999cff64bc3970ce8adba53fce
+    m_SubObjectName: 
+  _holeWarningPrefab:
+    m_AssetGUID: a0af620f27170486a819a947527a1c02
+    m_SubObjectName: 
