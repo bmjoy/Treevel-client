@@ -67,6 +67,11 @@
         // 銃弾関連
         public const string NORMAL_CARTRIDGE_GENERATOR_PREFAB = "NormalCartridgeGeneratorPrefab";
         public const string TURN_CARTRIDGE_GENERATOR_PREFAB = "TurnCartridgeGeneratorPrefab";
+        public const string TURN_CARTRIDGE_WARNING_SPRITE = "turnCartridgeWarning";
+        public const string TURN_WARNING_LEFT_SPRITE = "turnLeft";
+        public const string TURN_WARNING_RIGHT_SPRITE = "turnRight";
+        public const string TURN_WARNING_TOP_SPRITE = "turnTop";
+        public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
         public const string NORMAL_HOLE_GENERATOR_PREFAB = "NormalHoleGeneratorPrefab";
         public const string AIMING_HOLE_GENERATOR_PREFAB = "AimingHoleGeneratorPrefab";
     }

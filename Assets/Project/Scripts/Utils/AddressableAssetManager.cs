@@ -207,6 +207,11 @@ namespace Project.Scripts.Utils
                         case EBulletType.TurnCartridge:
                         case EBulletType.RandomTurnCartridge:
                             LoadAsset<GameObject>(Address.TURN_CARTRIDGE_GENERATOR_PREFAB);
+                            LoadAsset<Sprite>(Address.TURN_CARTRIDGE_WARNING_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_LEFT_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_RIGHT_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_TOP_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_BOTTOM_SPRITE);
                             break;
                         case EBulletType.NormalHole:
                         case EBulletType.RandomNormalHole:
