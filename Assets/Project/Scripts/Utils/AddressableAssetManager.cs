@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
@@ -177,6 +177,8 @@ namespace Project.Scripts.Utils
                         LoadAsset<GameObject>(Address.LIFE_NUMBER_PANEL_PREFAB);
                         LoadAsset<Sprite>($"{Address.LIFE_NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
                         break;
+                    default:
+                        throw new System.NotImplementedException();
                 }
             });
 
@@ -188,6 +190,8 @@ namespace Project.Scripts.Utils
                     case Definitions.ETileType.Warp:
                         LoadAsset<GameObject>(Address.WARP_TILE_PREFAB);
                         break;
+                    default:
+                        throw new System.NotImplementedException();
                 }
             });
         }
