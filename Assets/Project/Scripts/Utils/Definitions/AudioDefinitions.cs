@@ -13,8 +13,8 @@
     /// </summary>
     public static class AudioClipName
     {
-        public const string PLAYING = "playing";
-        public const string SUCCESS = "success";
-        public const string FAILURE = "failure";
+        public const string PLAYING = "Playing";
+        public const string SUCCESS = "Success";
+        public const string FAILURE = "Failure";
     }
 }
