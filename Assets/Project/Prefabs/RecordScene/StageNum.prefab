@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222123269205567022}
   - component: {fileID: 114270788252170842}
   m_Layer: 5
-  m_Name: stageNum
+  m_Name: StageNum
   m_TagString: GraphUi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
