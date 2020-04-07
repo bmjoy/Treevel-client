@@ -44,16 +44,6 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Awake();
             anim.AddClip(deadAnimation, AnimationClipName.NUMBER_PANEL_DEAD);
-
-            // PostProcessVolume の設定
-            GetComponent<PostProcessVolume>().isGlobal = true;
-            var profile = Resources.Load<PostProcessProfile>("PostProcessProfile/GamePlayScene/numberPanelPrefab");
-            GetComponent<PostProcessVolume>().profile = profile;
-
-            // SpriteGlowEffect の設定
-            GetComponent<SpriteGlowEffect>().GlowColor = new Color32(0, 255, 255, 255);
-            GetComponent<SpriteGlowEffect>().GlowBrightness = 3.0f;
-            GetComponent<SpriteGlowEffect>().OutlineWidth = 6;
         }
 
         /// <summary>
