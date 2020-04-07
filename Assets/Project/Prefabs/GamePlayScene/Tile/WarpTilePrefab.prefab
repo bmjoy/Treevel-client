@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9161798236827354113}
   - component: {fileID: 3862645212270556260}
   m_Layer: 12
-  m_Name: warpTilePrefab
+  m_Name: WarpTilePrefab
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 1314261683392928510}
   - component: {fileID: 7690263838578175062}
   m_Layer: 12
-  m_Name: warpTileEffectPrefab
+  m_Name: WarpTileEffectPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
