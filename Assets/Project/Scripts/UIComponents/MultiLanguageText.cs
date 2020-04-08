@@ -40,9 +40,9 @@ namespace Project.Scripts.UIComponents
             text = LanguageUtility.GetText(TextIndex);
         }
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
 
             // 言語変更するイベントを登録する
             LanguageUtility.OnLanguageChange += OnLanguageChanged;

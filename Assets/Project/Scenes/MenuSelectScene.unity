@@ -1114,6 +1114,9 @@ MonoBehaviour:
   _progressBar:
     m_AssetGUID: c992eb222563c460d84bff90f23a0b42
     m_SubObjectName: 
+  _errorMessageBoxRef:
+    m_AssetGUID: 891ff3f27a82b4ee1bdc3c86e8605fb6
+    m_SubObjectName: 
 --- !u!1 &227263651
 GameObject:
   m_ObjectHideFlags: 0
