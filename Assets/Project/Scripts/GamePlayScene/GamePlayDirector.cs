@@ -417,6 +417,9 @@ namespace Project.Scripts.GamePlayScene
                     default:
                         throw new Exception("Clip name invalid");
                 }
+
+                // ユーザの音量設定
+                audioSource.volume *= PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME);
             }
         }
     }
