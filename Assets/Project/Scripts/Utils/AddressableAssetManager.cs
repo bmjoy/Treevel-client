@@ -128,8 +128,7 @@ namespace Project.Scripts.Utils
                     // アンロード終了後、辞書から削除
                     _loadedAssets.Remove(sceneName);
                 } else {
-                    // TODO popup error message box, return to top
-                    Debug.LogError($"Unload Scene {sceneName} Failed.");
+                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadSceneError);
                 }
             };
 

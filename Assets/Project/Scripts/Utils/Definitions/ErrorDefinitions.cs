@@ -2,5 +2,6 @@
 {
     public enum EErrorCode {
         UnknownError,
+        LoadSceneError,     // シーンのロードに失敗
     }
 }

@@ -25,3 +25,4 @@ Error,エラー,ERROR
 Downloading,ダウンロード中...,Downloading...
 ErrorUnknown,不明なエラー,Unknwon Error
 ReturnToTitle,タイトルに戻る,Return to title
+ErrorLoadSceneFailed,ローディングが失敗しました,Failed to load
