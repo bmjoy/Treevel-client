@@ -190,9 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowColor: {r: 1, g: 1, b: 1, a: 1}
-  glowBrightness: 2
-  outlineWidth: 1
+  glowColor: {r: 0, g: 1, b: 1, a: 1}
+  glowBrightness: 3
+  outlineWidth: 6
   alphaThreshold: 0.01
   drawOutside: 0
   enableInstancing: 0
@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 0}
-  isGlobal: 0
+  sharedProfile: {fileID: 11400000, guid: 5cab2e1f0f1b042e7ae4f94aa66dfd89, type: 2}
+  isGlobal: 1
   blendDistance: 0
   weight: 1
   priority: 0

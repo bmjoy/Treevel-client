@@ -397,37 +397,30 @@ namespace Project.Scripts.GamePlayScene
         private void SetAudioSources()
         {
             // 各音源の設定
-            // Playing
-            gameObject.AddComponent<AudioSource>();
-            _playingAudioSource = gameObject.GetComponents<AudioSource>()[0];
-            SetAudioSource(clipName: AudioClipName.PLAYING, audioSource: _playingAudioSource, time: 2.0f, loop: true,
-                volumeRate: 0.25f);
-            // Success
-            gameObject.AddComponent<AudioSource>();
-            _successAudioSource = gameObject.GetComponents<AudioSource>()[1];
-            SetAudioSource(clipName: AudioClipName.SUCCESS, audioSource: _successAudioSource);
-            // Failure
-            gameObject.AddComponent<AudioSource>();
-            _failureAudioSource = gameObject.GetComponents<AudioSource>()[2];
-            SetAudioSource(clipName: AudioClipName.FAILURE, audioSource: _failureAudioSource);
-        }
+            // loop,volumeは予めInspectorで設定
+            var audioSources = gameObject.GetComponents<AudioSource>();
+            foreach (var audioSource in audioSources) {
+                switch (audioSource.clip.name) {
+                    case AudioClipName.PLAYING:
+                        _playingAudioSource = audioSource;
+                        _playingAudioSource.time = 2.0f; // 再生ポイントを2秒からにする
+                        break;
 
-        /// <summary>
-        /// 個々の音源のセットアップ
-        /// </summary>
-        /// <param name="clipName"> 音源名 </param>
-        /// <param name="audioSource"> 音源 </param>
-        /// <param name="time"> 開始時間 </param>
-        /// <param name="loop"> 繰り返しの有無 </param>
-        /// <param name="volumeRate"> 設定音量に対する比率 </param>
-        private static void SetAudioSource(string clipName, AudioSource audioSource, float time = 0.0f,
-            bool loop = false, float volumeRate = 1.0f)
-        {
-            var clip = Resources.Load<AudioClip>("Clips/GamePlayScene/" + clipName);
-            audioSource.clip = clip;
-            audioSource.time = time;
-            audioSource.loop = loop;
-            audioSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME) * volumeRate;
+                    case AudioClipName.SUCCESS:
+                        _successAudioSource = audioSource;
+                        break;
+
+                    case AudioClipName.FAILURE:
+                        _failureAudioSource = audioSource;
+                        break;
+
+                    default:
+                        throw new Exception("Clip name invalid");
+                }
+
+                // ユーザの音量設定
+                audioSource.volume *= PlayerPrefs.GetFloat(PlayerPrefsKeys.VOLUME, Audio.DEFAULT_VOLUME);
+            }
         }
     }
 }

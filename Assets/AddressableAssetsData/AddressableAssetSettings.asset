@@ -27,6 +27,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9adf7ae2636554f07aecf3c2f0fe1343, type: 2}
   - {fileID: 11400000, guid: 4a7a3932cccb24f4cb980c7d2e2e6a64, type: 2}
   - {fileID: 11400000, guid: a825c317f72f84fa695942cc70013d10, type: 2}
+  - {fileID: 11400000, guid: 6fc41474d5cef4c0c930a2e7a2075dc6, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -70,6 +71,7 @@ MonoBehaviour:
     - default
     - Panel
     - Tile
+    - Stage
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: ec738e3e12a1445dfb9aa50871201ebc, type: 2}

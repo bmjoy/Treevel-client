@@ -57,7 +57,7 @@ namespace Project.Scripts.StageSelectScene
 
         void OnEnable()
         {
-            var stageData = GameDataBase.Instance.GetStage(_stageId);
+            var stageData = GameDataBase.GetStage(_stageId);
 
             // ステージID
             _stageIdText.text = _stageId.ToString();

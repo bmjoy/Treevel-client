@@ -1,32 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Patterns;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Project.Scripts.Utils
 {
-    public class GameDataBase : SingletonObject<GameDataBase>
+    public static class GameDataBase
     {
         private static  Dictionary<int, StageData> _stageDataMap = new Dictionary<int, StageData>();
 
-        void Awake()
-        {
-            // TODO: 非同期で読み込み
-            Load();
-        }
-
+        [RuntimeInitializeOnLoadMethod]
         private static void Load()
         {
             Debug.Log("Start Loading Game Data.");
-            var stageDataList = Resources.LoadAll<StageData>("GameDatas/Stages/");
-            _stageDataMap = stageDataList.ToDictionary(x => x.Id);
+
+            // Stageラベルがついてる全てのアセットのアドレスを取得
+            Addressables.LoadResourceLocationsAsync("Stage").Completed += (op => {
+                var locations = op.Result;
+
+                // アドレス毎に読み込み、マップに追加
+                foreach (var location in locations) {
+                    Addressables.LoadAssetAsync<StageData>(location).Completed += (op1) => {
+                        var stage = op1.Result;
+                        lock (_stageDataMap) {
+                            _stageDataMap.Add(stage.Id, stage);
+                        }
+                    };
+                }
+            });
 
             Debug.Log("Loading Game Data Finished.");
         }
 
-        public StageData GetStage(int id)
+        public static StageData GetStage(int id)
         {
             if (_stageDataMap.ContainsKey(id))
                 return _stageDataMap[id];

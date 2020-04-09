@@ -157,7 +157,7 @@ namespace Project.Scripts.Utils
         /// <param name="stageId"></param>
         internal static void LoadStageDependencies(int stageId)
         {
-            StageData stage = GameDataBase.Instance.GetStage(stageId);
+            StageData stage = GameDataBase.GetStage(stageId);
 
             stage.PanelDatas.ForEach((panelData) => {
                 switch (panelData.type) {
