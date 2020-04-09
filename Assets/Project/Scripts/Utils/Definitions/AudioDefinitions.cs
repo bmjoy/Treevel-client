@@ -3,9 +3,14 @@
     public static class Audio
     {
         /// <summary>
-        /// デフォルトの音量
+        /// デフォルトのBGM
         /// </summary>
-        public const float DEFAULT_VOLUME = 0.5f;
+        public const float DEFAULT_BGM = 0.5f;
+
+        /// <summary>
+        /// デフォルトのSE
+        /// </summary>
+        public const float DEFAULT_SE = 0.5f;
     }
 
     /// <summary>
