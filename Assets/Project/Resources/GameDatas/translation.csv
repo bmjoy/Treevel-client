@@ -2,7 +2,9 @@ enum,JP,EN
 Config,設定,Setting
 ConfigReset,リセット,Reset
 ConfigVibration,振動,Vibration
-ConfigVolume,音量,Volume
+ConfigBGM,BGM,BGM
+ConfigSE,SE,SE
+ConfigStageDetailed,ステージ詳細,Stage detailed
 GameFailure,失敗,Failure
 GameSuccess,成功,Success
 GameResult,結果,Result
@@ -20,7 +22,6 @@ GamePause,一時停止中,Pause
 GamePauseBack,再開,Resume
 GamePauseQuit,諦める,GiveUp
 GameBack,戻る,Stage Menu
-ConfigHideOverview,ステージの概要を表示しない,Hide overview of stage
 Error,エラー,ERROR
 Downloading,ダウンロード中...,Downloading...
 ErrorUnknown,不明なエラー,Unknwon Error

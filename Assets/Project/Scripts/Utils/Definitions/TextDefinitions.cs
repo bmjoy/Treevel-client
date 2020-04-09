@@ -8,8 +8,9 @@ namespace Project.Scripts.Utils.Definitions
         Config,          // 設定
         ConfigReset,     // リセット
         ConfigVibration, // 振動
-        ConfigVolume,    // 音量
-        ConfigHideOverview,    // ステージの概要の表示を隠すかどうか
+        ConfigBGM,    // BGM
+        ConfigSE,    // SE
+        ConfigStageDetailed,    // ステージの概要の表示を隠すかどうか
         GameFailure,     // 失敗
         GameSuccess,     // 成功
         GameResult,      // 結果
