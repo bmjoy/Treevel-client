@@ -18,7 +18,6 @@ namespace Project.Scripts.MenuSelectScene
         [SerializeField]
         private AssetReferenceGameObject _progressBar;
 
-
         /// <summary>
         /// エラーメッセージのポップアップ
         /// 普段使われない予想なので、使うときだけロード、実体化させる
@@ -59,7 +58,7 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// エラーメッセージを表示
         /// </summary>
-        /// <param name="errorCode"></param>
+        /// <param name="errorCode">対応するエラーコード</param>
         public void ShowErrorMessage(EErrorCode errorCode)
         {
             var canvas = GetComponentInChildren<Canvas>().transform;
