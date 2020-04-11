@@ -46,12 +46,18 @@ public class ScaleContent : MonoBehaviour
     private const float _TOP_OFFSET = 1.0f;
     private const float _BOTTOM_OFFSET = 1.0f;
 
+    /// <summary>
+    /// 補正後のキャンバスの大きさ
+    /// </summary>
+    private Vector2 _scaledCanvas;
+
     private void Awake()
     {
         _scrollRect = GetComponent<ScrollRect>();
         _transformGesture = GetComponent<TransformGesture>();
+        _scaledCanvas = GameObject.Find("LevelSelect/Canvas").GetComponent<RectTransform> ().sizeDelta;
         // 初期位置の調整
-        _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(0, Screen.height/2, 0);
+        _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(0, _scaledCanvas.y/2, 0);
     }
 
     private void OnEnable()
@@ -102,8 +108,8 @@ public class ScaleContent : MonoBehaviour
 
         // _preObjectPointを常に、_newObjectPointに合わせる
         // スクリーン上の中点座標をContentのオブジェクト座標に変換する
-        var _preObjectPoint = ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (_preMeanPoint - new Vector3(Screen.width/2, Screen.height/2))) / _preScale;
-        var _newObjectPoint = ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (_newMeanPoint - new Vector3(Screen.width/2, Screen.height/2))) / _preScale;
+        var _preObjectPoint = ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (_preMeanPoint - new Vector3(_scaledCanvas.x/2, _scaledCanvas.y/2))) / _preScale;
+        var _newObjectPoint = ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (_newMeanPoint - new Vector3(_scaledCanvas.x/2, _scaledCanvas.y/2))) / _preScale;
         // 拡大縮小後の_preObjectPointの座標を求める
         var _scaledPreObjectPoint = _preObjectPoint * _newScale / _preScale;
         // _preObjectPointの座標と_newObjectPointの座標の差
@@ -111,22 +117,22 @@ public class ScaleContent : MonoBehaviour
 
         var _preLocalPosition = _content.GetComponent<RectTransform>().transform.localPosition;
         // 拡大縮小後Contentの外を表示しないようにする(左右方向)
-        if(_preLocalPosition.x + moveAmount.x >= (_LEFT_OFFSET * _newScale - 0.5f) * Screen.width)
+        if(_preLocalPosition.x + moveAmount.x >= (_LEFT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x)
         {
-            moveAmount.x = (_LEFT_OFFSET * _newScale - 0.5f) * Screen.width - _preLocalPosition.x;
+            moveAmount.x = (_LEFT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x - _preLocalPosition.x;
         }
-        else if(_preLocalPosition.x + moveAmount.x <= (-1) * ((_RIGHT_OFFSET * _newScale - 0.5f) * Screen.width))
+        else if(_preLocalPosition.x + moveAmount.x <= (-1) * ((_RIGHT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x))
         {
-            moveAmount.x = (-1) * ((_RIGHT_OFFSET * _newScale - 0.5f) * Screen.width) - _preLocalPosition.x;
+            moveAmount.x = (-1) * ((_RIGHT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x) - _preLocalPosition.x;
         }
         // 拡大縮小後Contentの外を表示しないようにする(上下方向)
-        if(_preLocalPosition.y + moveAmount.y <= (-1) * ((_TOP_OFFSET * _newScale - 0.5f) * Screen.height))
+        if(_preLocalPosition.y + moveAmount.y <= (-1) * ((_TOP_OFFSET * _newScale - 0.5f) * _scaledCanvas.y))
         {
-            moveAmount.y = (-1) * ((_TOP_OFFSET * _newScale - 0.5f) * Screen.height) - _preLocalPosition.y;
+            moveAmount.y = (-1) * ((_TOP_OFFSET * _newScale - 0.5f) * _scaledCanvas.y) - _preLocalPosition.y;
         }
-        else if(_preLocalPosition.y + moveAmount.y >= (_BOTTOM_OFFSET * _newScale - 0.5f) * Screen.height)
+        else if(_preLocalPosition.y + moveAmount.y >= (_BOTTOM_OFFSET * _newScale - 0.5f) * _scaledCanvas.y)
         {
-            moveAmount.y = (_BOTTOM_OFFSET * _newScale - 0.5f) * Screen.height - _preLocalPosition.y;
+            moveAmount.y = (_BOTTOM_OFFSET * _newScale - 0.5f) * _scaledCanvas.y - _preLocalPosition.y;
         }
         _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(moveAmount.x, moveAmount.y, 0);
 
