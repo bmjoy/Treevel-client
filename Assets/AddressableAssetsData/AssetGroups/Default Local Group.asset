@@ -81,6 +81,16 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
+  - m_GUID: 891ff3f27a82b4ee1bdc3c86e8605fb6
+    m_Address: ErrorMessageBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
+      type: 3}
+    m_TargetAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
+      type: 3}
   - m_GUID: bd321d6187a974e9e808df4b07e0b634
     m_Address: SpringStageSelectScene
     m_ReadOnly: 0

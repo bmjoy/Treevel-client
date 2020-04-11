@@ -28,5 +28,9 @@ namespace Project.Scripts.Utils.Definitions
         LevelFourth,     // レベル4
         Tutorial,        // チュートリアル
         Downloading,     // ダウンロード中...
+        ReturnToTitle,   // タイトルに戻る
+
+        ErrorTextStart = 10000, // ここからはエラーメッセージ
+        ErrorUnknown = ErrorTextStart, // 不明なエラー
     }
 }
