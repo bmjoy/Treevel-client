@@ -32,41 +32,42 @@ public class ScaleContent : MonoBehaviour
     /// <summary>
     /// 拡大率の上限
     /// </summary>
-    private static float _SCALE_MIN = 0.50f;
+    private const float _SCALE_MIN = 0.50f;
     /// <summary>
     /// 拡大率の下限
     /// </summary>
-    private static float _SCALE_MAX = 1.5f;
+    private const float _SCALE_MAX = 1.5f;
 
     /// <summary>
     /// Contentの余白(Screen何個分の余白があるか)
     /// </summary>
-    private static float _LEFT_OFFSET = 1.5f;
-    private static float _RIGHT_OFFSET = 1.5f;
-    private static float _TOP_OFFSET = 1.0f;
-    private static float _BOTTOM_OFFSET = 1.0f;
+    private const float _LEFT_OFFSET = 1.5f;
+    private const float _RIGHT_OFFSET = 1.5f;
+    private const float _TOP_OFFSET = 1.0f;
+    private const float _BOTTOM_OFFSET = 1.0f;
 
     private void Awake()
     {
         _scrollRect = GetComponent<ScrollRect>();
         _transformGesture = GetComponent<TransformGesture>();
+        // 初期位置の調整
         _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(0, Screen.height/2, 0);
     }
 
     private void OnEnable()
     {
         // 2点のタッチ開始時
-        _transformGesture.TransformStarted   += OnTransformStarted;
+        _transformGesture.TransformStarted += OnTransformStarted;
         // 2点のタッチ中
-        _transformGesture.Transformed        += OnTransformed;
+        _transformGesture.Transformed += OnTransformed;
         // 2点のタッチ終了時
         _transformGesture.TransformCompleted += OnTransformCompleted;
     }
 
     private void OnDisable()
     {
-        _transformGesture.TransformStarted   -= OnTransformStarted;
-        _transformGesture.Transformed        -= OnTransformed;
+        _transformGesture.TransformStarted -= OnTransformStarted;
+        _transformGesture.Transformed -= OnTransformed;
         _transformGesture.TransformCompleted -= OnTransformCompleted;
     }
 
@@ -139,7 +140,7 @@ public class ScaleContent : MonoBehaviour
 
     private void OnTransformCompleted( object sender, EventArgs e )
     {
-        // スクロールを解除する
+        // スクロール制限を解除する
         _scrollRect.enabled = true;
     }
 }
