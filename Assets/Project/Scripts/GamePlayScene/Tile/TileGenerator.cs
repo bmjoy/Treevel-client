@@ -16,8 +16,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         private void Awake()
         {
             // シーンに配置したタイルを初期化
-            for (int i = 0; i < StageSize.ROW ; ++i) {
-                for (int j = 0; j < StageSize.COLUMN; ++j) {
+            for (var i = 0; i < StageSize.ROW ; ++i) {
+                for (var j = 0; j < StageSize.COLUMN; ++j) {
                     var tileNum = i * StageSize.COLUMN + j + 1;
                     var currTile = transform.Find($"NormalTile{tileNum}").gameObject;
 
