@@ -101,6 +101,8 @@ namespace Project.Scripts.Editor
                     case EPanelType.Number: {
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
 
@@ -108,6 +110,8 @@ namespace Project.Scripts.Editor
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
                     case EPanelType.Dynamic:

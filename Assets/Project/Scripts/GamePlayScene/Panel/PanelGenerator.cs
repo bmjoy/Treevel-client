@@ -16,9 +16,9 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.Number:
                         AddressableAssetManager.Instantiate(Address.NUMBER_PANEL_PREFAB).Completed += (op) => {
                             var numberPanel = op.Result;
-                            var numberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
-                            if (numberPanelSprite != null) numberPanel.GetComponent<SpriteRenderer>().sprite = numberPanelSprite;
-                            numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos);
+                            var panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
+                            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
+                            numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelSprite, targetTileSprite);
                         };
                         break;
                     case EPanelType.Dynamic:
@@ -30,9 +30,9 @@ namespace Project.Scripts.GamePlayScene.Panel
                     case EPanelType.LifeNumber:
                         AddressableAssetManager.Instantiate(Address.LIFE_NUMBER_PANEL_PREFAB).Completed += (op) => {
                             var lifeNumberPanel = op.Result;
-                            var lifeNumberPanelSprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.LIFE_NUMBER_PANEL_SPRITE_PREFIX}{panelData.number}");
-                            if (lifeNumberPanelSprite != null) lifeNumberPanel.GetComponent<SpriteRenderer>().sprite = lifeNumberPanelSprite;
-                            lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelData.life);
+                            var panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
+                            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
+                            lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelSprite, targetTileSprite, panelData.life);
                         };
                         break;
                     default:

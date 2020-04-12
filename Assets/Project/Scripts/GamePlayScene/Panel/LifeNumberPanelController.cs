@@ -32,9 +32,9 @@ namespace Project.Scripts.GamePlayScene.Panel
             anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED);
         }
 
-        public void Initialize(int panelNum, int initialTileNum, int finalTileNum, int life)
+        public void Initialize(int panelNum, int initialTileNum, int finalTileNum, Sprite panelSprite, Sprite targetTileSprite, int life)
         {
-            base.Initialize(panelNum, initialTileNum, finalTileNum);
+            base.Initialize(panelNum, initialTileNum, finalTileNum, panelSprite, targetTileSprite);
             _maxLife = life;
             _currentLife = _maxLife;
         }

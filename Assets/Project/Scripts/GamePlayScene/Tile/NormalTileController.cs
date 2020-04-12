@@ -103,13 +103,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         }
 
         /// <summary>
-        /// 番号に合わせた画像に変更
+        /// タイルの画像を設定する
         /// </summary>
-        /// <param name="panelNum"> このタイルをゴールとするパネルの番号 </param>
-        public void SetSprite(int panelNum)
+        /// <param name="sprite">タイル画像</param>
+        public void SetSprite(Sprite sprite)
         {
-            var sprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelNum}");
-            if (sprite != null) GetComponent<SpriteRenderer>().sprite = sprite;
+            GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
 }

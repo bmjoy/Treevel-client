@@ -50,15 +50,17 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// 初期化
         /// </summary>
         /// <param name="panelNum"> パネルの番号 </param>
-        /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
-        /// <param name="finalTileNum"> パネルのゴールタイル </param>
-        public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
+        /// <param name="initialPos"> 最初に配置する位置 </param>
+        /// <param name="finalPos"> パネルの目標位置 </param>
+        public void Initialize(int panelNum, int initialPos, int finalPos, Sprite panelSprite, Sprite targetTileSprite)
         {
-            Initialize(initialTileNum);
+            Initialize(initialPos);
             name = PanelName.NUMBER_PANEL + panelNum;
-            _finalTile = TileLibrary.GetTile(finalTileNum);
-            _finalTile.GetComponent<NormalTileController>().SetSprite(panelNum);
             _panelNum = panelNum;
+            GetComponent<SpriteRenderer>().sprite = panelSprite;
+
+            _finalTile = TileLibrary.GetTile(finalPos);
+            _finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
 
             // 初期状態で最終タイルにいるかどうかの状態を変える
             Adapted = transform.parent.gameObject == _finalTile;
@@ -69,7 +71,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルの番号と一致していたら自身を返す
         /// </summary>
-        /// <param name="panelNum"> 取得したいパネルの番号 </param>
+        /// <param name="panelNum">取得したいパネルの番号</param>
         public GameObject GetNumberPanel(int panelNum)
         {
             return _panelNum == panelNum ? gameObject : null;
