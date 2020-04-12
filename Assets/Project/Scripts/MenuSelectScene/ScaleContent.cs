@@ -32,19 +32,19 @@ public class ScaleContent : MonoBehaviour
     /// <summary>
     /// 拡大率の上限
     /// </summary>
-    private const float _SCALE_MIN = 0.50f;
+    private const float _SCALE_MAX = 1.50f;
     /// <summary>
     /// 拡大率の下限
     /// </summary>
-    private const float _SCALE_MAX = 1.5f;
+    private const float _SCALE_MIN = 0.5f;
 
     /// <summary>
     /// Contentの余白(Screen何個分の余白があるか)
     /// </summary>
-    private const float _LEFT_OFFSET = 1.5f;
-    private const float _RIGHT_OFFSET = 1.5f;
-    private const float _TOP_OFFSET = 1.0f;
-    private const float _BOTTOM_OFFSET = 1.0f;
+    private static float _LEFT_OFFSET;
+    private static float _RIGHT_OFFSET;
+    private static float _TOP_OFFSET;
+    private static float _BOTTOM_OFFSET;
 
     /// <summary>
     /// 補正後のキャンバスの大きさ
@@ -56,6 +56,11 @@ public class ScaleContent : MonoBehaviour
         _scrollRect = GetComponent<ScrollRect>();
         _transformGesture = GetComponent<TransformGesture>();
         _scaledCanvas = GameObject.Find("LevelSelect/Canvas").GetComponent<RectTransform> ().sizeDelta;
+        // Contentの余白を取得
+        _LEFT_OFFSET = Mathf.Abs(_content.GetComponent<RectTransform>().anchorMin.x - _content.GetComponent<RectTransform>().pivot.x);
+        _RIGHT_OFFSET = _content.GetComponent<RectTransform>().anchorMax.x - _content.GetComponent<RectTransform>().pivot.x;
+        _TOP_OFFSET = _content.GetComponent<RectTransform>().anchorMax.y - _content.GetComponent<RectTransform>().pivot.y;
+        _BOTTOM_OFFSET = Mathf.Abs(_content.GetComponent<RectTransform>().anchorMin.y - _content.GetComponent<RectTransform>().pivot.y);
         // 初期位置の調整
         _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(0, _scaledCanvas.y/2, 0);
     }
@@ -101,39 +106,17 @@ public class ScaleContent : MonoBehaviour
         // 2点のタッチ開始時の距離と現在の距離の比から拡大率を求める
         var _newScale = _preScale * _newScreenDist / _preScreenDist;
         // 拡大率を閾値内に抑える
-        _newScale = Math.Min(_newScale, _SCALE_MAX);
-        _newScale = Math.Max(_newScale, _SCALE_MIN);
-        // Content空間での拡大縮小を行う
+        _newScale = Mathf.Clamp(_newScale, _SCALE_MIN, _SCALE_MAX);
+        // Contentの拡大縮小
         _content.GetComponent<RectTransform>().localScale = new Vector2(_newScale, _newScale);
 
-        // _preObjectPointを常に、_newObjectPointに合わせる
-        // スクリーン上の中点座標をContentのオブジェクト座標に変換する
-        var _preObjectPoint = ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (_preMeanPoint - new Vector3(_scaledCanvas.x/2, _scaledCanvas.y/2))) / _preScale;
-        var _newObjectPoint = ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (_newMeanPoint - new Vector3(_scaledCanvas.x/2, _scaledCanvas.y/2))) / _preScale;
-        // 拡大縮小後の_preObjectPointの座標を求める
-        var _scaledPreObjectPoint = _preObjectPoint * _newScale / _preScale;
-        // _preObjectPointの座標と_newObjectPointの座標の差
-        var moveAmount = _newObjectPoint - _scaledPreObjectPoint;
-
-        var _preLocalPosition = _content.GetComponent<RectTransform>().transform.localPosition;
-        // 拡大縮小後Contentの外を表示しないようにする(左右方向)
-        if(_preLocalPosition.x + moveAmount.x >= (_LEFT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x)
-        {
-            moveAmount.x = (_LEFT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x - _preLocalPosition.x;
-        }
-        else if(_preLocalPosition.x + moveAmount.x <= (-1) * ((_RIGHT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x))
-        {
-            moveAmount.x = (-1) * ((_RIGHT_OFFSET * _newScale - 0.5f) * _scaledCanvas.x) - _preLocalPosition.x;
-        }
-        // 拡大縮小後Contentの外を表示しないようにする(上下方向)
-        if(_preLocalPosition.y + moveAmount.y <= (-1) * ((_TOP_OFFSET * _newScale - 0.5f) * _scaledCanvas.y))
-        {
-            moveAmount.y = (-1) * ((_TOP_OFFSET * _newScale - 0.5f) * _scaledCanvas.y) - _preLocalPosition.y;
-        }
-        else if(_preLocalPosition.y + moveAmount.y >= (_BOTTOM_OFFSET * _newScale - 0.5f) * _scaledCanvas.y)
-        {
-            moveAmount.y = (_BOTTOM_OFFSET * _newScale - 0.5f) * _scaledCanvas.y - _preLocalPosition.y;
-        }
+        // 拡大縮小前の中点を拡大縮小後の中点に合わせるようにContentの平行移動量を求める
+        var _preContentPoint = ConvertFromScreenToContent(_preMeanPoint, _preScale);
+        var _newContentPoint = ConvertFromScreenToContent(_newMeanPoint, _preScale);
+        // Content空間での2点の差分
+        var moveAmount = _newContentPoint - _preContentPoint * _newScale / _preScale;
+        moveAmount = KeepInContent(moveAmount, _newScale);
+        // Contentの平行移動
         _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(moveAmount.x, moveAmount.y, 0);
 
         // 値の更新
@@ -142,6 +125,56 @@ public class ScaleContent : MonoBehaviour
         _preScreenDist = _newScreenDist;
         _preMeanPoint = _newMeanPoint;
         _preScale = _newScale;
+    }
+
+    /// <summary>
+    /// スクリーン空間の座標をContent空間の座標に変換する
+    /// </summary>
+    /// <param name="screenPoint"> スクリーン上の座標 </param>
+    /// <param name="scale"> Contentの拡大率 </param>
+    /// <returns> Content空間の座標 </returns>
+    private Vector3 ConvertFromScreenToContent(Vector3 screenCoordinate, float scale)
+    {
+        return ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (screenCoordinate - new Vector3(_scaledCanvas.x/2, _scaledCanvas.y/2))) / scale;
+    }
+
+    /// <summary>
+    /// 平行移動後にContentの外を表示しないようにする
+    /// </summary>
+    /// <param name="moveAmount"> 平行移動量 </param>
+    /// <param name="scale"> Contentの拡大率 </param>
+    /// <returns> 平行移動量 </returns>
+    private Vector2 KeepInContent(Vector2 moveAmount, float scale)
+    {
+        // 平行移動前のスクリーン中心のContent空間での座標
+        var _preLocalPosition = _content.GetComponent<RectTransform>().transform.localPosition;
+
+        // Contentの左端のチェック
+        var leftLimit = (_LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
+        if(_preLocalPosition.x + moveAmount.x >= leftLimit)
+        {
+            moveAmount.x = leftLimit - _preLocalPosition.x;
+        }
+        // Contentの右端のチェック
+        var rightLimit = (-1) * ((_RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
+        if(_preLocalPosition.x + moveAmount.x <= rightLimit)
+        {
+            moveAmount.x = rightLimit - _preLocalPosition.x;
+        }
+        // Contentの上端のチェック
+        var topLimit = (-1) * ((_TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
+        if(_preLocalPosition.y + moveAmount.y <= topLimit)
+        {
+            moveAmount.y = topLimit - _preLocalPosition.y;
+        }
+        // Contentの下端のチェック
+        var bottomLimit = (_BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
+        if(_preLocalPosition.y + moveAmount.y >= bottomLimit)
+        {
+            moveAmount.y = bottomLimit - _preLocalPosition.y;
+        }
+
+        return moveAmount;
     }
 
     private void OnTransformCompleted( object sender, EventArgs e )
