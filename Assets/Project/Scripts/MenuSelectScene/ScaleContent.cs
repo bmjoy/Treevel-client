@@ -55,14 +55,14 @@ public class ScaleContent : MonoBehaviour
     {
         _scrollRect = GetComponent<ScrollRect>();
         _transformGesture = GetComponent<TransformGesture>();
-        _scaledCanvas = GameObject.Find("LevelSelect/Canvas").GetComponent<RectTransform> ().sizeDelta;
+        _scaledCanvas = GameObject.Find("LevelSelect/Canvas").GetComponent<RectTransform>().sizeDelta;
         // Contentの余白を取得
         _LEFT_OFFSET = Mathf.Abs(_content.GetComponent<RectTransform>().anchorMin.x - _content.GetComponent<RectTransform>().pivot.x);
         _RIGHT_OFFSET = _content.GetComponent<RectTransform>().anchorMax.x - _content.GetComponent<RectTransform>().pivot.x;
         _TOP_OFFSET = _content.GetComponent<RectTransform>().anchorMax.y - _content.GetComponent<RectTransform>().pivot.y;
         _BOTTOM_OFFSET = Mathf.Abs(_content.GetComponent<RectTransform>().anchorMin.y - _content.GetComponent<RectTransform>().pivot.y);
         // 初期位置の調整
-        _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(0, _scaledCanvas.y/2, 0);
+        _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(0, _scaledCanvas.y / 2, 0);
     }
 
     private void OnEnable()
@@ -82,7 +82,7 @@ public class ScaleContent : MonoBehaviour
         _transformGesture.TransformCompleted -= OnTransformCompleted;
     }
 
-    private void OnTransformStarted( object sender, EventArgs e )
+    private void OnTransformStarted(object sender, EventArgs e)
     {
         // タッチ位置を取得
         _prePoint1 = _transformGesture.ActivePointers[0].Position;
@@ -95,7 +95,7 @@ public class ScaleContent : MonoBehaviour
         _scrollRect.enabled = false;
     }
 
-    private void OnTransformed( object sender, EventArgs e )
+    private void OnTransformed(object sender, EventArgs e)
     {
         // タッチ位置等の計算
         var _newPoint1 = _transformGesture.ActivePointers[0].Position;
@@ -135,7 +135,7 @@ public class ScaleContent : MonoBehaviour
     /// <returns> Content空間の座標 </returns>
     private Vector3 ConvertFromScreenToContent(Vector3 screenCoordinate, float scale)
     {
-        return ((-1)*_content.GetComponent<RectTransform>().transform.localPosition + (screenCoordinate - new Vector3(_scaledCanvas.x/2, _scaledCanvas.y/2))) / scale;
+        return ((-1) * _content.GetComponent<RectTransform>().transform.localPosition + (screenCoordinate - new Vector3(_scaledCanvas.x / 2, _scaledCanvas.y / 2))) / scale;
     }
 
     /// <summary>
@@ -151,25 +151,25 @@ public class ScaleContent : MonoBehaviour
 
         // Contentの左端のチェック
         var leftLimit = (_LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
-        if(_preLocalPosition.x + moveAmount.x >= leftLimit)
+        if (_preLocalPosition.x + moveAmount.x >= leftLimit)
         {
             moveAmount.x = leftLimit - _preLocalPosition.x;
         }
         // Contentの右端のチェック
         var rightLimit = (-1) * ((_RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
-        if(_preLocalPosition.x + moveAmount.x <= rightLimit)
+        if (_preLocalPosition.x + moveAmount.x <= rightLimit)
         {
             moveAmount.x = rightLimit - _preLocalPosition.x;
         }
         // Contentの上端のチェック
         var topLimit = (-1) * ((_TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
-        if(_preLocalPosition.y + moveAmount.y <= topLimit)
+        if (_preLocalPosition.y + moveAmount.y <= topLimit)
         {
             moveAmount.y = topLimit - _preLocalPosition.y;
         }
         // Contentの下端のチェック
         var bottomLimit = (_BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
-        if(_preLocalPosition.y + moveAmount.y >= bottomLimit)
+        if (_preLocalPosition.y + moveAmount.y >= bottomLimit)
         {
             moveAmount.y = bottomLimit - _preLocalPosition.y;
         }
@@ -177,7 +177,7 @@ public class ScaleContent : MonoBehaviour
         return moveAmount;
     }
 
-    private void OnTransformCompleted( object sender, EventArgs e )
+    private void OnTransformCompleted(object sender, EventArgs e)
     {
         // スクロール制限を解除する
         _scrollRect.enabled = true;
