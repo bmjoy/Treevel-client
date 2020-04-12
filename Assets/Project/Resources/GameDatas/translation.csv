@@ -1,10 +1,10 @@
 enum,JP,EN
-Config,設定,Setting
-ConfigReset,リセット,Reset
-ConfigVibration,振動,Vibration
-ConfigBGM,BGM,BGM
-ConfigSE,SE,SE
-ConfigStageDetails,ステージ詳細,Stage details
+SettingsTitle,設定,Settings
+SettingsReset,リセット,Reset
+SettingsVibration,振動,Vibration
+SettingsBGM,BGM,BGM
+SettingsSE,SE,SE
+SettingsStageDetails,ステージ詳細,Stage details
 GameFailure,失敗,Failure
 GameSuccess,成功,Success
 GameResult,結果,Result

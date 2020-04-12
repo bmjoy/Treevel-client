@@ -1,11 +1,8 @@
-﻿using System;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace Project.Scripts.MenuSelectScene.Config
+namespace Project.Scripts.MenuSelectScene.Settings
 {
     public class StageDetailsController : MonoBehaviour
     {

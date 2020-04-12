@@ -4,8 +4,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace Project.Scripts.MenuSelectScene.Config
+namespace Project.Scripts.MenuSelectScene.Settings
 {
     public class ResetController : MonoBehaviour
     {

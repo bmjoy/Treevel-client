@@ -15,7 +15,7 @@
         public const string GAME_PAUSE_SCENE = "GamePauseScene";
         public const string RECORD_SCENE = "RecordScene";
         public const string TUTORIAL_SCENE = "TutorialScene";
-        public const string CONFIG_SCENE = "ConfigScene";
+        public const string SETTINGS_SCENE = "SettingsScene";
     }
 
     /// <summary>

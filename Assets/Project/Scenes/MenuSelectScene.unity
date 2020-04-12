@@ -1524,7 +1524,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Reset
-  _indexStr: ConfigReset
+  _indexStr: SettingsReset
 --- !u!222 &319706600
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2001,7 +2001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 387558868}
   m_Layer: 0
-  m_Name: Config
+  m_Name: Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6323,7 +6323,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: SE
-  _indexStr: ConfigSE
+  _indexStr: SettingsSE
 --- !u!222 &1584064503
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7057,8 +7057,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Setting
-  _indexStr: Config
+  m_Text: Settings
+  _indexStr: SettingsTitle
 --- !u!222 &1687685338
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8036,7 +8036,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: BGM
-  _indexStr: ConfigBGM
+  _indexStr: SettingsBGM
 --- !u!222 &1936332908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8365,8 +8365,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
-  _indexStr: ConfigStageDetails
+  m_Text: Stage details
+  _indexStr: SettingsStageDetails
 --- !u!222 &2060715465
 CanvasRenderer:
   m_ObjectHideFlags: 0
