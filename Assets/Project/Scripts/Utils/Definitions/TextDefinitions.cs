@@ -10,7 +10,7 @@ namespace Project.Scripts.Utils.Definitions
         ConfigVibration, // 振動
         ConfigBGM,    // BGM
         ConfigSE,    // SE
-        ConfigStageDetailed,    // ステージの概要の表示を隠すかどうか
+        ConfigStageDetails,    // ステージの概要の表示を隠すかどうか
         GameFailure,     // 失敗
         GameSuccess,     // 成功
         GameResult,      // 結果

@@ -4,19 +4,19 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
 {
-    public class SwitchStageDetailedController : MonoBehaviour
+    public class SwitchStageDetailsController : MonoBehaviour
     {
         /// <summary>
         /// ステージ詳細を表示するかのトグル
         /// </summary>
-        private Toggle _switchStageDetailedToggle;
+        private Toggle _switchStageDetailsToggle;
 
         private void Awake()
         {
-            _switchStageDetailedToggle = GetComponent<Toggle>();
-            _switchStageDetailedToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsKeys.SHOW_DETAILED, 0) == 1;
-            _switchStageDetailedToggle.onValueChanged.AddListener(delegate {
-                ToggleValueChanged(_switchStageDetailedToggle);
+            _switchStageDetailsToggle = GetComponent<Toggle>();
+            _switchStageDetailsToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsKeys.SHOW_DETAILED, 0) == 1;
+            _switchStageDetailsToggle.onValueChanged.AddListener(delegate {
+                ToggleValueChanged(_switchStageDetailsToggle);
             });
         }
 

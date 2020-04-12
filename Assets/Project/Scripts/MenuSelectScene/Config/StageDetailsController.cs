@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.Config
 {
-    public class StageDetailedController : MonoBehaviour
+    public class StageDetailsController : MonoBehaviour
     {
         /// <summary>
         /// OFFボタン

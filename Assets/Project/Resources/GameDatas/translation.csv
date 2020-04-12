@@ -4,7 +4,7 @@ ConfigReset,リセット,Reset
 ConfigVibration,振動,Vibration
 ConfigBGM,BGM,BGM
 ConfigSE,SE,SE
-ConfigStageDetailed,ステージ詳細,Stage detailed
+ConfigStageDetails,ステージ詳細,Stage details
 GameFailure,失敗,Failure
 GameSuccess,成功,Success
 GameResult,結果,Result
