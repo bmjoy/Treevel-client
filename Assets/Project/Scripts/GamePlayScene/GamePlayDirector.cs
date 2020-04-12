@@ -333,10 +333,11 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private static void CleanObject()
         {
-            var tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
-            foreach (var tile in tiles) {
-                // タイルの削除 (に伴いパネルも削除される)
-                DestroyImmediate(tile);
+            // パネル関連のタグ全部取る必要ある（もしかしたらタグ統一した方がいい？）
+            var panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL).Concat(GameObject.FindGameObjectsWithTag(TagName.DUMMY_PANEL));
+            foreach (var panel in panels) {
+                // パネルの削除
+                DestroyImmediate(panel);
             }
 
             var bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);

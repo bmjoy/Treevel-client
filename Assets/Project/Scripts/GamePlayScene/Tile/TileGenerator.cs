@@ -13,57 +13,41 @@ namespace Project.Scripts.GamePlayScene.Tile
     {
         private readonly GameObject[,] _tiles = new GameObject[StageSize.ROW, StageSize.COLUMN];
 
+        private void Awake()
+        {
+            // シーンに配置したタイルを初期化
+            for (int i = 0; i < StageSize.ROW ; ++i) {
+                for (int j = 0; j < StageSize.COLUMN; ++j) {
+                    var tileNum = i * StageSize.COLUMN + j + 1;
+                    var currTile = transform.Find($"NormalTile{tileNum}").gameObject;
+
+                    _tiles[i, j] = currTile;
+
+                    // initialize tile
+                    currTile.GetComponent<NormalTileController>().Initialize(GetTilePosition(tileNum), tileNum);
+
+                    // show sprite
+                    currTile.GetComponent<SpriteRenderer>().enabled = true;
+                }
+            }
+        }
+
         public async Task CreateTiles(ICollection<TileData> tileDatas)
         {
             foreach (var tileData in tileDatas) {
                 switch (tileData.type) {
                     case ETileType.Normal:
-                        CreateNormalTile(tileData.number);
                         break;
                     case ETileType.Warp:
-                        CreateWarpTiles(tileData.number, tileData.pairNumber);
+                        await CreateWarpTiles(tileData.number, tileData.pairNumber);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
 
-            // Normal Tile は明示的に作らなくても，一括作成可能
-            await CreateNormalTiles();
-
             // タイルの位置関係を作成する
             MakeRelations(_tiles);
-        }
-
-        /// <summary>
-        /// 普通タイルの作成
-        /// </summary>
-        public async Task CreateNormalTiles()
-        {
-            for (var tileNum = 1; tileNum <= StageSize.TILE_NUM; tileNum++) {
-                // 行 (0~4)
-                var row = (tileNum - 1) / StageSize.COLUMN;
-                // 列 (0~2)
-                var column = (tileNum - 1) % StageSize.COLUMN;
-
-                // 既に他タイルを作成している場合はスルー
-                if (_tiles[row, column] != null) continue;
-
-                await CreateNormalTile(tileNum);
-            }
-        }
-
-        private async Task<GameObject> CreateNormalTile(int tileNum)
-        {
-            var normalTile = await AddressableAssetManager.Instantiate(Address.NORMAL_TILE_PREFAB).Task;
-
-            var normalTilePosition = GetTilePosition(tileNum);
-
-            normalTile.GetComponent<NormalTileController>().Initialize(normalTilePosition, tileNum);
-
-            SetTile(tileNum, normalTile);
-
-            return normalTile;
         }
 
         /// <summary>
@@ -71,7 +55,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        private async void CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private async Task CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
             var secondTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
@@ -117,6 +101,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             var row = (tileNum - 1) / StageSize.COLUMN;
             // 列 (0~2)
             var column = (tileNum - 1) % StageSize.COLUMN;
+
+            // すでにあったら削除
+            if (_tiles[row, column] != null) {
+                Destroy(_tiles[row, column]);
+            }
 
             _tiles[row, column] = tile;
         }
