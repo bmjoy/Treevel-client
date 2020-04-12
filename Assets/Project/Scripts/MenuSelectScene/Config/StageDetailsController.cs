@@ -10,12 +10,12 @@ namespace Project.Scripts.MenuSelectScene.Config
     public class StageDetailsController : MonoBehaviour
     {
         /// <summary>
-        /// OFFボタン
+        /// ONボタン
         /// </summary>
         private Button _onButton;
 
         /// <summary>
-        /// ONボタン
+        /// OFFボタン
         /// </summary>
         private Button _offButton;
 
