@@ -6,8 +6,9 @@
     public static class PlayerPrefsKeys
     {
         public const string STAGE_STATUS_KEY = "STAGE_STATUS_KEY";
-        public const string VOLUME = "VOLUME";
+        public const string BGM = "BGM";
+        public const string SE = "SE";
         public const string LANGUAGE = "LANGUAGE";
-        public const string DO_NOT_SHOW = "DO_NOT_SHOW";
+        public const string SHOW_DETAILED = "SHOW_DETAILED";
     }
 }

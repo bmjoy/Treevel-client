@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 3585425055979313510}
   - component: {fileID: 3077303942651452953}
   m_Layer: 5
-  m_Name: HideOverview
+  m_Name: SwitchStageDetailed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,7 +1017,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4ECA\u5F8C\u3053\u306E\u8868\u793A\u3092\u3057\u306A\u3044"
+  m_Text: "\u30B9\u30C6\u30FC\u30B8\u8A73\u7D30\u3092\u8868\u793A"
 --- !u!1 &5341919125379160057
 GameObject:
   m_ObjectHideFlags: 0

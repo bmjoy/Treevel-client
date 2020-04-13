@@ -5,11 +5,12 @@ namespace Project.Scripts.Utils.Definitions
     /// </summary>
     public enum ETextIndex {
         Error,           // ERROR
-        Config,          // 設定
-        ConfigReset,     // リセット
-        ConfigVibration, // 振動
-        ConfigVolume,    // 音量
-        ConfigHideOverview,    // ステージの概要の表示を隠すかどうか
+        SettingsTitle,          // 設定
+        SettingsReset,     // リセット
+        SettingsVibration, // 振動
+        SettingsBGM,    // BGM
+        SettingsSE,    // SE
+        SettingsStageDetails,    // ステージの概要の表示を隠すかどうか
         GameFailure,     // 失敗
         GameSuccess,     // 成功
         GameResult,      // 結果
