@@ -17,9 +17,10 @@ namespace Project.Scripts.GamePlayScene.Panel
         private GameObject _finalTile;
 
         /// <summary>
-        /// パネルの番号
+        /// パネルの初期位置
         /// </summary>
-        private int _panelNum;
+        private int _initPos;
+        public int InitialPos => _initPos;
 
         /// <summary>
         /// パネルがゴールタイルにいるかどうか
@@ -49,14 +50,12 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="panelNum"> パネルの番号 </param>
         /// <param name="initialPos"> 最初に配置する位置 </param>
         /// <param name="finalPos"> パネルの目標位置 </param>
-        public void Initialize(int panelNum, int initialPos, int finalPos, Sprite panelSprite, Sprite targetTileSprite)
+        public void Initialize(int initialPos, int finalPos, Sprite panelSprite, Sprite targetTileSprite)
         {
             Initialize(initialPos);
-            name = PanelName.NUMBER_PANEL + panelNum;
-            _panelNum = panelNum;
+            _initPos = initialPos;
             GetComponent<SpriteRenderer>().sprite = panelSprite;
 
             _finalTile = TileLibrary.GetTile(finalPos);
@@ -66,15 +65,6 @@ namespace Project.Scripts.GamePlayScene.Panel
             Adapted = transform.parent.gameObject == _finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
             GetComponent<SpriteGlowEffect>().enabled = Adapted;
-        }
-
-        /// <summary>
-        /// パネルの番号と一致していたら自身を返す
-        /// </summary>
-        /// <param name="panelNum">取得したいパネルの番号</param>
-        public GameObject GetNumberPanel(int panelNum)
-        {
-            return _panelNum == panelNum ? gameObject : null;
         }
 
         /// <inheritdoc />

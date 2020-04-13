@@ -99,7 +99,6 @@ namespace Project.Scripts.Editor
 
                 switch ((EPanelType)panelTypeProp.enumValueIndex) {
                     case EPanelType.Number: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
@@ -107,7 +106,6 @@ namespace Project.Scripts.Editor
                         break;
 
                     case EPanelType.LifeNumber: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));

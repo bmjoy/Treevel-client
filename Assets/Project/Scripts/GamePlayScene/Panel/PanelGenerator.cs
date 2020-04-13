@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                             var numberPanel = op.Result;
                             var panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
                             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
-                            numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelSprite, targetTileSprite);
+                            numberPanel.GetComponent<NumberPanelController>().Initialize(panelData.initPos, panelData.targetPos, panelSprite, targetTileSprite);
                         };
                         break;
                     case EPanelType.Dynamic:
@@ -32,7 +32,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                             var lifeNumberPanel = op.Result;
                             var panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
                             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
-                            lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.number, panelData.initPos, panelData.targetPos, panelSprite, targetTileSprite, panelData.life);
+                            lifeNumberPanel.GetComponent<LifeNumberPanelController>().Initialize(panelData.initPos, panelData.targetPos, panelSprite, targetTileSprite, panelData.life);
                         };
                         break;
                     default:
