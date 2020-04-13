@@ -17,7 +17,7 @@ namespace Project.Scripts.Utils.Library
         {
             var tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
             // タイルの番号がtileNumの唯一のタイルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
-            return tiles.Single(tile => tile.GetComponent<NormalTileController>()?.GetTile(tileNum) != null);
+            return tiles.Single(tile => tile.GetComponent<NormalTileController>()?.TileNumber == tileNum);
         }
 
         /// <summary>
