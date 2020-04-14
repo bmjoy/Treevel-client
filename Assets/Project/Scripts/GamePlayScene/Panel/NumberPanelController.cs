@@ -21,8 +21,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルの初期位置
         /// </summary>
-        private int _initPos;
-        public int InitialPos => _initPos;
+        private int _id;
+        public int Id => _id;
 
         /// <summary>
         /// パネルがゴールタイルにいるかどうか
@@ -62,7 +62,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
             Sprite targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
 
-            _initPos = initialPos;
+            _id = initialPos;
             GetComponent<SpriteRenderer>().sprite = panelSprite;
 
             _finalTile = TileLibrary.GetTile(finalPos);

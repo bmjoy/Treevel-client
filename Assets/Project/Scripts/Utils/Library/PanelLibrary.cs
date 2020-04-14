@@ -16,7 +16,7 @@ namespace Project.Scripts.Utils.Library
         {
             var numberPanels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
             // パネルの番号がpanelNumの唯一のパネルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
-            return numberPanels.Single(panel => panel.GetComponent<NumberPanelController>()?.InitialPos == panelNum);
+            return numberPanels.Single(panel => panel.GetComponent<NumberPanelController>()?.Id == panelNum);
         }
     }
 }
