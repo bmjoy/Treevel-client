@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.GameDatas;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
@@ -32,10 +33,10 @@ namespace Project.Scripts.GamePlayScene.Panel
             anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED);
         }
 
-        public void Initialize(int initialTileNum, int finalTileNum, Sprite panelSprite, Sprite targetTileSprite, int life)
+        public override void Initialize(PanelData panelData)
         {
-            base.Initialize(initialTileNum, finalTileNum, panelSprite, targetTileSprite);
-            _maxLife = life;
+            base.Initialize(panelData);
+            _maxLife = panelData.life;
             _currentLife = _maxLife;
         }
 

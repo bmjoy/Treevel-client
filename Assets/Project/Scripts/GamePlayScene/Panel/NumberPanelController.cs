@@ -1,4 +1,6 @@
-﻿using Project.Scripts.GamePlayScene.Tile;
+﻿using Project.Scripts.GameDatas;
+using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using SpriteGlow;
@@ -50,11 +52,16 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="initialPos"> 最初に配置する位置 </param>
-        /// <param name="finalPos"> パネルの目標位置 </param>
-        public void Initialize(int initialPos, int finalPos, Sprite panelSprite, Sprite targetTileSprite)
+        /// <param name="panelData">パネルデータ</param>
+        public override void Initialize(PanelData panelData)
         {
-            Initialize(initialPos);
+            base.Initialize(panelData);
+
+            int initialPos = panelData.initPos;
+            int finalPos = panelData.targetPos;
+            Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
+            Sprite targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
+
             _initPos = initialPos;
             GetComponent<SpriteRenderer>().sprite = panelSprite;
 

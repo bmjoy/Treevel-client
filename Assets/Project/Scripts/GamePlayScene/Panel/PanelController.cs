@@ -1,4 +1,5 @@
-﻿using Project.Scripts.GamePlayScene.Tile;
+﻿using Project.Scripts.GameDatas;
+using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
@@ -21,8 +22,9 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// 初期化
         /// </summary>
         /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
-        public void Initialize(int initialTileNum)
+        public virtual void Initialize(PanelData panelData)
         {
+            var initialTileNum = panelData.initPos;
             // 初期位置にするタイルを取得
             var initialTile = TileLibrary.GetTile(initialTileNum);
             var script = initialTile.GetComponent<NormalTileController>();
