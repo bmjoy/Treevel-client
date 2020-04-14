@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
+using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
@@ -88,8 +90,20 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <returns></returns>
         private int GetNumberPanel()
         {
-            var index = BulletLibrary.SamplingArrayIndex(_randomNumberPanels) + 1;
-            return index;
+            var index = BulletLibrary.SamplingArrayIndex(_randomNumberPanels);
+            return CalcPanelIdByRandomArrayIndex(index);
+        }
+
+        /// <summary>
+        /// 乱数配列のインデックスをパネルのIdに変換する
+        /// </summary>
+        /// <param name="index">_randomNumberPanelsから取ったインデックス</param>
+        /// <returns>パネルのID</returns>
+        private int CalcPanelIdByRandomArrayIndex(int index)
+        {
+            var panels = GameObject.FindObjectsOfType<NumberPanelController>();
+            var panelAtIndex = panels.OrderBy(panel => panel.Id).ElementAt(index);
+            return panelAtIndex.Id;
         }
     }
 }
