@@ -25,6 +25,7 @@ namespace Project.Scripts.Utils.Definitions
         GameNext,        // 次に進む
         LanguageJapanese,   // 日本語
         LanguageEnglish,    // 英語
+        StageSelectStartGame,     // ゲームを始める
         LevelFirst,      // レベル1
         LevelSecond,     // レベル2
         LevelThird,      // レベル3
