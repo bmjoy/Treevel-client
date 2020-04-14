@@ -10,7 +10,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     public static class PanelGenerator
     {
-        private static Dictionary<EPanelType, string> _prefabAddressableKeys = new Dictionary<EPanelType, string>(){
+        private static Dictionary<EPanelType, string> _prefabAddressableKeys = new Dictionary<EPanelType, string>()
+        {
             {EPanelType.Dynamic, Address.DYNAMIC_DUMMY_PANEL_PREFAB},
             {EPanelType.Static, Address.STATIC_DUMMY_PANEL_PREFAB},
             {EPanelType.Number, Address.NUMBER_PANEL_PREFAB},
