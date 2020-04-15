@@ -76,7 +76,7 @@ namespace Project.Scripts.GamePlayScene
         private void OnSucceed()
         {
             _resultTitle.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameSuccess;
-            
+
             // 成功時は，リトライボタン，戻るボタン，は表示しない
             _resultRetryButton.SetActive(false);
             _resultBackButton.SetActive(false);
