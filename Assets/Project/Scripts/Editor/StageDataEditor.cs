@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
@@ -342,7 +343,7 @@ namespace Project.Scripts.Editor
                                 break;
                             }
                         case EBulletType.RandomAimingHole: {
-                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _numOfNumberPanels);
+                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _numOfNumberPanels, RenderRandomNumberPanelsElement);
                                 break;
                             }
                         default:
@@ -351,6 +352,18 @@ namespace Project.Scripts.Editor
                 });
                 EditorGUI.indentLevel--;
             });
+        }
+
+        private void RenderRandomNumberPanelsElement(SerializedProperty elementProperty, int index)
+        {
+            var numberPanels = GetNumberPanels().OrderBy(x => x.initPos);
+            var panelId = numberPanels.ElementAt(index).initPos;
+            EditorGUILayout.PropertyField(elementProperty, new GUIContent($"Panel ID:{panelId}"));
+        }
+
+        private IEnumerable<PanelData> GetNumberPanels()
+        {
+            return _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber);
         }
     }
 }
