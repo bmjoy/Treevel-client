@@ -20,40 +20,40 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 結果表示用のテキスト
         /// </summary>
-        private GameObject _resultTitle;
+        private GameObject _title;
 
         /// <summary>
         /// リトライボタン
         /// </summary>
-        private GameObject _resultRetryButton;
+        private GameObject _retryButton;
 
         /// <summary>
         /// 戻るボタン
         /// </summary>
-        private GameObject _resultBackButton;
+        private GameObject _backButton;
 
         /// <summary>
         /// 次に進むボタン
         /// </summary>
-        private GameObject _resultNextButton;
+        private GameObject _nextButton;
 
         /// <summary>
         /// 投稿ボタン
         /// </summary>
-        private GameObject _resultShareButton;
+        private GameObject _shareButton;
 
         private void Awake()
         {
-            _resultTitle = transform.Find("ResultTitle").gameObject;
-            _resultRetryButton = transform.Find("ResultRetryButton").gameObject;
-            _resultBackButton = transform.Find("ResultBackButton").gameObject;
-            _resultNextButton = transform.Find("ResultNextButton").gameObject;
-            _resultShareButton = transform.Find("ResultShareButton").gameObject;
+            _title = transform.Find("Title").gameObject;
+            _retryButton = transform.Find("RetryButton").gameObject;
+            _backButton = transform.Find("BackButton").gameObject;
+            _nextButton = transform.Find("NextButton").gameObject;
+            _shareButton = transform.Find("ShareButton").gameObject;
 
-            _resultRetryButton.GetComponent<Button>().onClick.AddListener(RetryButtonDown);
-            _resultBackButton.GetComponent<Button>().onClick.AddListener(BackButtonDown);
-            _resultNextButton.GetComponent<Button>().onClick.AddListener(NextButtonDown);
-            _resultShareButton.GetComponent<Button>().onClick.AddListener(ShareButtonDown);
+            _retryButton.GetComponent<Button>().onClick.AddListener(RetryButtonDown);
+            _backButton.GetComponent<Button>().onClick.AddListener(BackButtonDown);
+            _nextButton.GetComponent<Button>().onClick.AddListener(NextButtonDown);
+            _shareButton.GetComponent<Button>().onClick.AddListener(ShareButtonDown);
         }
 
         private void Start()
@@ -75,20 +75,20 @@ namespace Project.Scripts.GamePlayScene
 
         private void OnSucceed()
         {
-            _resultTitle.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameSuccess;
+            _title.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameSuccess;
 
             // 成功時は，リトライボタン，戻るボタン，は表示しない
-            _resultRetryButton.SetActive(false);
-            _resultBackButton.SetActive(false);
+            _retryButton.SetActive(false);
+            _backButton.SetActive(false);
         }
 
         private void OnFail()
         {
-            _resultTitle.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameFailure;
+            _title.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameFailure;
 
             // 失敗時は，次に進むボタン，投稿ボタン，は表示しない
-            _resultNextButton.SetActive(false);
-            _resultShareButton.SetActive(false);
+            _nextButton.SetActive(false);
+            _shareButton.SetActive(false);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Project.Scripts.GamePlayScene
         private IEnumerator Share()
         {
             // 投稿用のテキスト
-            var text = "ステージ" + GamePlayDirector.stageId + "番を" + _resultTitle.GetComponent<Text>().text;
+            var text = "ステージ" + GamePlayDirector.stageId + "番を" + _title.GetComponent<Text>().text;
             // URL 用に加工
             text = UnityWebRequest.EscapeURL(text);
 
