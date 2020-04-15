@@ -21,6 +21,7 @@ namespace Project.Scripts.Utils.Definitions
         GamePauseBack,   // ゲームの再開
         GamePauseQuit,   // ゲームを諦める
         GameBack,        // ステージ選択画面へ戻る
+        GameNext,        // 次に進む
         LanguageJapanese,   // 日本語
         LanguageEnglish,    // 英語
         LevelFirst,      // レベル1

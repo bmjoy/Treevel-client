@@ -33,6 +33,11 @@ namespace Project.Scripts.GamePlayScene
         private GameObject _resultBackButton;
 
         /// <summary>
+        /// 次に進むボタン
+        /// </summary>
+        private GameObject _resultNextButton;
+
+        /// <summary>
         /// 投稿ボタン
         /// </summary>
         private GameObject _resultShareButton;
@@ -42,10 +47,12 @@ namespace Project.Scripts.GamePlayScene
             _resultTitle = transform.Find("ResultTitle").gameObject;
             _resultRetryButton = transform.Find("ResultRetryButton").gameObject;
             _resultBackButton = transform.Find("ResultBackButton").gameObject;
+            _resultNextButton = transform.Find("ResultNextButton").gameObject;
             _resultShareButton = transform.Find("ResultShareButton").gameObject;
 
             _resultRetryButton.GetComponent<Button>().onClick.AddListener(RetryButtonDown);
             _resultBackButton.GetComponent<Button>().onClick.AddListener(BackButtonDown);
+            _resultNextButton.GetComponent<Button>().onClick.AddListener(NextButtonDown);
             _resultShareButton.GetComponent<Button>().onClick.AddListener(ShareButtonDown);
         }
 
@@ -69,12 +76,18 @@ namespace Project.Scripts.GamePlayScene
         private void OnSucceed()
         {
             _resultTitle.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameSuccess;
+            
+            // 成功時は，リトライボタン，戻るボタン，は表示しない
+            _resultRetryButton.SetActive(false);
+            _resultBackButton.SetActive(false);
         }
 
         private void OnFail()
         {
             _resultTitle.GetComponent<MultiLanguageText>().TextIndex = ETextIndex.GameFailure;
-            // 失敗時は投稿ボタンを表示しない
+
+            // 失敗時は，次に進むボタン，投稿ボタン，は表示しない
+            _resultNextButton.SetActive(false);
             _resultShareButton.SetActive(false);
         }
 
@@ -93,6 +106,15 @@ namespace Project.Scripts.GamePlayScene
         /// 戻るボタン押下時の処理
         /// </summary>
         private static void BackButtonDown()
+        {
+            // StageSelectSceneに戻る
+            TreeLibrary.LoadStageSelectScene(GamePlayDirector.levelName);
+        }
+
+        /// <summary>
+        /// 次に進むボタン押下時の処理
+        /// </summary>
+        private static void NextButtonDown()
         {
             // StageSelectSceneに戻る
             TreeLibrary.LoadStageSelectScene(GamePlayDirector.levelName);
