@@ -181,8 +181,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7D50\u679C"
-  _indexStr: 
+  m_Text: Result
+  _indexStr: GameResult
 --- !u!1001 &846922437689543546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,10 +190,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5723118930208174235}
     m_Modifications:
-    - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
-      propertyPath: m_Name
-      value: ResultRetryButton
+      propertyPath: _indexStr
+      value: GameRetry
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_Text
+      value: Retry
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
@@ -305,10 +310,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+    - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
-      propertyPath: _indexStr
-      value: GameRetry
+      propertyPath: m_Name
+      value: ResultRetryButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03cfac2482f70425e95ac988698bbf47, type: 3}
@@ -325,10 +330,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5723118930208174235}
     m_Modifications:
-    - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
-      propertyPath: m_Name
-      value: ResultShareButton
+      propertyPath: m_Text
+      value: Tweet
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: _indexStr
+      value: GameTweet
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
@@ -440,15 +450,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+    - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
-      propertyPath: m_Text
-      value: "\u6295\u7A3F"
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
-        type: 3}
-      propertyPath: _indexStr
-      value: GameTweet
+      propertyPath: m_Name
+      value: ResultShareButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03cfac2482f70425e95ac988698bbf47, type: 3}
@@ -465,10 +470,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5723118930208174235}
     m_Modifications:
-    - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
-      propertyPath: m_Name
-      value: ResultBackButton
+      propertyPath: m_FontData.m_FontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_Text
+      value: Stage Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: _indexStr
+      value: GameBack
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
@@ -580,25 +600,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+    - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
-        type: 3}
-      propertyPath: m_FontData.m_MinSize
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
-        type: 3}
-      propertyPath: m_Text
-      value: "\u623B\u308B"
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
-        type: 3}
-      propertyPath: _indexStr
-      value: GameBack
+      propertyPath: m_Name
+      value: ResultBackButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03cfac2482f70425e95ac988698bbf47, type: 3}
