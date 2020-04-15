@@ -17,6 +17,14 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 4951f8159737447ba8ae521e4284726a
   m_SerializeEntries:
+  - m_GUID: 043ec374bab50405dbf75005d1a106bf
+    m_Address: oy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 043ec374bab50405dbf75005d1a106bf, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 043ec374bab50405dbf75005d1a106bf, type: 3}
   - m_GUID: 05e33fc634f2946648a856bb7e195599
     m_Address: lifeNumberPanel8
     m_ReadOnly: 0
@@ -44,6 +52,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 2800000, guid: 29710d3db6d314249a7702b4fcf39de4, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 29710d3db6d314249a7702b4fcf39de4, type: 3}
+  - m_GUID: 306499f0dbaa04cb386a1aa39a34d9e9
+    m_Address: gy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 306499f0dbaa04cb386a1aa39a34d9e9, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 306499f0dbaa04cb386a1aa39a34d9e9, type: 3}
+  - m_GUID: 3ad34613c20ab4a8f9d82c5e184a0f2a
+    m_Address: bvy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 3ad34613c20ab4a8f9d82c5e184a0f2a, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 3ad34613c20ab4a8f9d82c5e184a0f2a, type: 3}
   - m_GUID: 3e71494f40ea8454e97c37f324f3d39f
     m_Address: lifeNumberPanel4
     m_ReadOnly: 0
@@ -53,6 +77,14 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 2800000, guid: 3e71494f40ea8454e97c37f324f3d39f, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 3e71494f40ea8454e97c37f324f3d39f, type: 3}
+  - m_GUID: 3e7b664c3229c4b66a919e9db2641a63
+    m_Address: rp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 3e7b664c3229c4b66a919e9db2641a63, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 3e7b664c3229c4b66a919e9db2641a63, type: 3}
   - m_GUID: 41f716d06fdde47dc943a807354a489b
     m_Address: lifeNumberPanel5
     m_ReadOnly: 0
@@ -62,6 +94,14 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 2800000, guid: 41f716d06fdde47dc943a807354a489b, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 41f716d06fdde47dc943a807354a489b, type: 3}
+  - m_GUID: 44a494e351155459dbfee62492c655bd
+    m_Address: voy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 44a494e351155459dbfee62492c655bd, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 44a494e351155459dbfee62492c655bd, type: 3}
   - m_GUID: 607b919a004154fb5b8043ce025ffa8b
     m_Address: lifeNumberPanel2
     m_ReadOnly: 0
@@ -98,6 +138,14 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 2800000, guid: 84aa424be823f4562b197179ef326c71, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 84aa424be823f4562b197179ef326c71, type: 3}
+  - m_GUID: 8cacf29162ce544c6a91e04b672dda22
+    m_Address: bgy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: 8cacf29162ce544c6a91e04b672dda22, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 8cacf29162ce544c6a91e04b672dda22, type: 3}
   - m_GUID: 91e0d3f7067e1499c805ce6026b32bd6
     m_Address: numberPanel3
     m_ReadOnly: 0
@@ -152,6 +200,14 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 2800000, guid: cb970f58b70014a28bc61d79fca7b317, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: cb970f58b70014a28bc61d79fca7b317, type: 3}
+  - m_GUID: d4a70a4ce855e4182b6554908109825d
+    m_Address: ops
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 2800000, guid: d4a70a4ce855e4182b6554908109825d, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: d4a70a4ce855e4182b6554908109825d, type: 3}
   - m_GUID: df64f47fca508448c9bc702a060be7dc
     m_Address: lifeNumberPanel6
     m_ReadOnly: 0
