@@ -27,7 +27,7 @@ namespace Project.Scripts.Editor
 
             _src = target as StageData;
             if (_src != null)
-                _numOfNumberPanels = _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() ?? 0;
+                _numOfNumberPanels = GetNumberPanels()?.Count() ?? 0;
         }
 
         public override void OnInspectorGUI()
@@ -49,7 +49,7 @@ namespace Project.Scripts.Editor
 
             EditorUtility.SetDirty(serializedObject.targetObject);
             serializedObject.ApplyModifiedProperties();
-            _numOfNumberPanels = _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() ?? 0;
+            _numOfNumberPanels = GetNumberPanels()?.Count() ?? 0;
         }
 
         private void DrawOverviewGimmicks()
