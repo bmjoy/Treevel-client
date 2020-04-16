@@ -15,17 +15,15 @@ namespace Project.Scripts.GamePlayScene.Panel
             {EPanelType.LifeNumber, Address.LIFE_NUMBER_PANEL_PREFAB}
         };
 
-        public static void CreatePanels(ICollection<PanelData> panelDatas)
+        public static void CreatePanels(List<PanelData> panelDatas)
         {
-            foreach (var panelData in panelDatas) {
+            panelDatas.ForEach(async panelData => {
                 if (!_prefabAddressableKeys.ContainsKey(panelData.type))
-                    continue;
+                    return;
 
-                AddressableAssetManager.Instantiate(_prefabAddressableKeys[panelData.type]).Completed += (handle) => {
-                    var panel = handle.Result;
-                    panel.GetComponent<PanelController>().Initialize(panelData);
-                };
-            }
+                var panel = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[panelData.type]).Task;
+                panel.GetComponent<PanelController>().Initialize(panelData);
+            });
         }
     }
 }
