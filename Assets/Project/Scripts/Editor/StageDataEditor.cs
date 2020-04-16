@@ -96,10 +96,10 @@ namespace Project.Scripts.Editor
 
                 var panelTypeProp = panelDataProp.FindPropertyRelative("type");
                 panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
+                EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
 
                 switch ((EPanelType)panelTypeProp.enumValueIndex) {
                     case EPanelType.Number: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
@@ -107,7 +107,6 @@ namespace Project.Scripts.Editor
                         break;
 
                     case EPanelType.LifeNumber: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
@@ -116,7 +115,6 @@ namespace Project.Scripts.Editor
                         break;
                     case EPanelType.Dynamic:
                     case EPanelType.Static:
-                        EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
