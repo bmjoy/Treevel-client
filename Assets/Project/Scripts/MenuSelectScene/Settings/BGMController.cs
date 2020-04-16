@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using System;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,12 +22,30 @@ namespace Project.Scripts.MenuSelectScene.Settings
             });
         }
 
+        private void OnEnable()
+        {
+            ToDefaultController.OnUpdate += OnUpdate;
+        }
+
+        private void OnDisable()
+        {
+            ToDefaultController.OnUpdate -= OnUpdate;
+        }
+
         /// <summary>
         /// BGMスライダーが変化した場合の処理
         /// </summary>
         private void ValueChangeCheck()
         {
             PlayerPrefs.SetFloat(PlayerPrefsKeys.BGM, _BGMSlider.value);
+        }
+
+        /// <summary>
+        /// デフォルト設定に戻された時に呼ばれる
+        /// </summary>
+        private void OnUpdate()
+        {
+            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Default.BGM);
         }
     }
 }

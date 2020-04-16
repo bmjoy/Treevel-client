@@ -1,6 +1,7 @@
 ﻿using System;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
+using Project.Scripts.Utils.TextUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,13 @@ namespace Project.Scripts.MenuSelectScene.Settings
 {
     public class ToDefaultController : MonoBehaviour
     {
+        public delegate void ChangeAction();
+
+        /// <summary>
+        /// 失敗時のイベント
+        /// </summary>
+        public static event ChangeAction OnUpdate;
+
         /// <summary>
         /// デフォルトに戻すボタン
         /// </summary>
@@ -28,6 +36,11 @@ namespace Project.Scripts.MenuSelectScene.Settings
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.BGM);
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.SE);
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_DETAILS);
+
+            // Canvasの更新
+            OnUpdate?.Invoke();
+            // 言語の更新
+            LanguageUtility.CurrentLanguage = Default.LANGUAGE;
         }
     }
 }
