@@ -420,7 +420,7 @@ namespace Project.Scripts.GamePlayScene
                 }
 
                 // ユーザの音量設定
-                audioSource.volume *= PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Audio.DEFAULT_BGM);
+                audioSource.volume *= PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Default.BGM);
             }
         }
     }

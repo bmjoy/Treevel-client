@@ -15,7 +15,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         private void Awake()
         {
             _BGMSlider = GetComponent<Slider>();
-            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Audio.DEFAULT_BGM);
+            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Default.BGM);
             _BGMSlider.onValueChanged.AddListener(delegate {
                 ValueChangeCheck();
             });

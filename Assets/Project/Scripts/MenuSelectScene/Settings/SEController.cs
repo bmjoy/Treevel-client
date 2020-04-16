@@ -15,7 +15,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         private void Awake()
         {
             _SESlider = GetComponent<Slider>();
-            _SESlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.SE, Audio.DEFAULT_SE);
+            _SESlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.SE, Default.SE);
             _SESlider.onValueChanged.AddListener(delegate {
                 ValueChangeCheck();
             });
