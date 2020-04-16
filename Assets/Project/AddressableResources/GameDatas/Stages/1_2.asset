@@ -19,8 +19,8 @@ MonoBehaviour:
     initPos: 1
     targetPos: 4
     panelSprite:
-      m_AssetGUID: 6a6b75adbaa3d4155bac201a3b28e45d
-      m_SubObjectName: numberPanel1
+      m_AssetGUID: e818ab84c8cdf4bda87fa832b24d4f16
+      m_SubObjectName: 1_b
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
@@ -29,8 +29,8 @@ MonoBehaviour:
     initPos: 3
     targetPos: 5
     panelSprite:
-      m_AssetGUID: 6f35d8b0a82b148c6adaa20ea5d85678
-      m_SubObjectName: numberPanel2
+      m_AssetGUID: 8a9fc0e7c3606410f96e0ff4d2fcbd89
+      m_SubObjectName: 2_g
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
@@ -39,8 +39,8 @@ MonoBehaviour:
     initPos: 5
     targetPos: 6
     panelSprite:
-      m_AssetGUID: 91e0d3f7067e1499c805ce6026b32bd6
-      m_SubObjectName: numberPanel3
+      m_AssetGUID: 4f2f69d4e1eba4c90b43aeee24944e5a
+      m_SubObjectName: 3_o
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
@@ -49,8 +49,8 @@ MonoBehaviour:
     initPos: 6
     targetPos: 7
     panelSprite:
-      m_AssetGUID: b249dc30ba03c4849bd8ca5e860f2bf7
-      m_SubObjectName: numberPanel4
+      m_AssetGUID: eb4cf5d6d54524f2697dfe9ea7cdcb8e
+      m_SubObjectName: 4_p
     targetTileSprite:
       m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
       m_SubObjectName: numberTile4
@@ -59,8 +59,8 @@ MonoBehaviour:
     initPos: 8
     targetPos: 8
     panelSprite:
-      m_AssetGUID: cb970f58b70014a28bc61d79fca7b317
-      m_SubObjectName: numberPanel5
+      m_AssetGUID: 49a45c841a78a40d88c6f6381d3a4047
+      m_SubObjectName: 5_r
     targetTileSprite:
       m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
       m_SubObjectName: numberTile5
@@ -69,8 +69,8 @@ MonoBehaviour:
     initPos: 11
     targetPos: 9
     panelSprite:
-      m_AssetGUID: bb9357ee64c4d44cd94c66f5fb8210d0
-      m_SubObjectName: numberPanel6
+      m_AssetGUID: 11aa24a33708845baa52d895bf928590
+      m_SubObjectName: 6_s
     targetTileSprite:
       m_AssetGUID: 002d879f7321744279709540f5b88837
       m_SubObjectName: numberTile6
@@ -79,8 +79,8 @@ MonoBehaviour:
     initPos: 13
     targetPos: 10
     panelSprite:
-      m_AssetGUID: 84aa424be823f4562b197179ef326c71
-      m_SubObjectName: numberPanel7
+      m_AssetGUID: d7309125babe0487dafb81b50203e52e
+      m_SubObjectName: 7_v
     targetTileSprite:
       m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
       m_SubObjectName: numberTile7
@@ -89,8 +89,8 @@ MonoBehaviour:
     initPos: 15
     targetPos: 11
     panelSprite:
-      m_AssetGUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-      m_SubObjectName: numberPanel8
+      m_AssetGUID: e20bd75f6fe65412e9ba128655794bfa
+      m_SubObjectName: 8_y
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
