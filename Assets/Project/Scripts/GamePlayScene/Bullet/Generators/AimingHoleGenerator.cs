@@ -101,8 +101,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <returns>パネルのID</returns>
         private int CalcPanelIdByRandomArrayIndex(int index)
         {
-            var panels = GameObject.FindObjectsOfType<NumberPanelController>();
-            var panelAtIndex = panels.OrderBy(panel => panel.Id).ElementAt(index);
+            var panels = PanelLibrary.OrderedNumberPanels;
+            var panelAtIndex = panels.ElementAt(index);
             return panelAtIndex.Id;
         }
     }

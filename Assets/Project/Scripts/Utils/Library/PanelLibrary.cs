@@ -18,5 +18,16 @@ namespace Project.Scripts.Utils.Library
             // パネルの番号がpanelNumの唯一のパネルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
             return numberPanels.Single(panel => panel.GetComponent<NumberPanelController>()?.Id == panelNum);
         }
+
+        private static NumberPanelController[] _orderedPanels = null;
+        public static NumberPanelController[] OrderedNumberPanels
+        {
+            get {
+                if (_orderedPanels == null) {
+                    _orderedPanels = GameObject.FindObjectsOfType<NumberPanelController>().OrderBy(panel => panel.Id).ToArray();
+                }
+                return _orderedPanels;
+            }
+        }
     }
 }
