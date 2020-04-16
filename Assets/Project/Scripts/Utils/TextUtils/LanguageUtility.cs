@@ -32,7 +32,7 @@ namespace Project.Scripts.Utils.TextUtils
             } else {
                 var systemLanguage = Application.systemLanguage.ToString();
                 if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
-                    _currentLanguage = ELanguage.Japanese;
+                    _currentLanguage = Default.LANGUAGE;
                 }
             }
 
