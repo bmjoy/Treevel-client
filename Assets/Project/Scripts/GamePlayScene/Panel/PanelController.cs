@@ -17,6 +17,10 @@ namespace Project.Scripts.GamePlayScene.Panel
             var panelHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
             // パネルの初期設定
             transform.localScale = new Vector2(PanelSize.WIDTH / panelWidth, PanelSize.HEIGHT / panelHeight);
+
+            if (GetComponent<Collider2D>() is BoxCollider2D) {
+                GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
+            }
             GetComponent<Renderer>().sortingLayerName = SortingLayerName.PANEL;
         }
 
