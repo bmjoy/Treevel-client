@@ -62,6 +62,9 @@ namespace Project.Scripts.GamePlayScene.Panel
 
             _id = initialPos;
             GetComponent<SpriteRenderer>().sprite = panelSprite;
+            #if UNITY_EDITOR
+            name = PanelName.NUMBER_PANEL + _id.ToString();
+            #endif
 
             base.Initialize(panelData);
 

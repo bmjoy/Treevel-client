@@ -28,8 +28,9 @@ namespace Project.Scripts.GamePlayScene.Panel
         protected override void Awake()
         {
             base.Awake();
+            #if UNITY_EDITOR
             name = PanelName.DYNAMIC_DUMMY_PANEL;
-
+            #endif
             // FlickGesture の設定
             GetComponent<FlickGesture>().MinDistance = 0.2f;
             GetComponent<FlickGesture>().FlickTime = 0.2f;

@@ -7,7 +7,9 @@ namespace Project.Scripts.GamePlayScene.Panel
         protected override void Awake()
         {
             base.Awake();
+            #if UNITY_EDITOR
             name = PanelName.STATIC_DUMMY_PANEL;
+            #endif
         }
     }
 }
