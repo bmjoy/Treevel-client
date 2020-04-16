@@ -1,4 +1,5 @@
-﻿using Project.Scripts.GamePlayScene.Panel;
+﻿using System.Linq;
+using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -14,16 +15,19 @@ namespace Project.Scripts.Utils.Library
         public static GameObject GetPanel(int panelNum)
         {
             var numberPanels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
+            // パネルの番号がpanelNumの唯一のパネルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
+            return numberPanels.Single(panel => panel.GetComponent<NumberPanelController>()?.Id == panelNum);
+        }
 
-            foreach (var numberPanel in numberPanels) {
-                var script = numberPanel.GetComponent<NumberPanelController>();
-
-                if (script.GetNumberPanel(panelNum) != null) {
-                    return numberPanel;
+        private static NumberPanelController[] _orderedPanels = null;
+        public static NumberPanelController[] OrderedNumberPanels
+        {
+            get {
+                if (_orderedPanels == null) {
+                    _orderedPanels = GameObject.FindObjectsOfType<NumberPanelController>().OrderBy(panel => panel.Id).ToArray();
                 }
+                return _orderedPanels;
             }
-
-            return null;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Project.Scripts.GamePlayScene.Tile;
+﻿using Project.Scripts.GameDatas;
+using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using SpriteGlow;
@@ -17,9 +19,10 @@ namespace Project.Scripts.GamePlayScene.Panel
         private GameObject _finalTile;
 
         /// <summary>
-        /// パネルの番号
+        /// パネルの初期位置
         /// </summary>
-        private int _panelNum;
+        private int _id;
+        public int Id => _id;
 
         /// <summary>
         /// パネルがゴールタイルにいるかどうか
@@ -49,30 +52,29 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="panelNum"> パネルの番号 </param>
-        /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
-        /// <param name="finalTileNum"> パネルのゴールタイル </param>
-        public void Initialize(int panelNum, int initialTileNum, int finalTileNum)
+        /// <param name="panelData">パネルデータ</param>
+        public override void Initialize(PanelData panelData)
         {
-            Initialize(initialTileNum);
-            name = PanelName.NUMBER_PANEL + panelNum;
-            _finalTile = TileLibrary.GetTile(finalTileNum);
-            _finalTile.GetComponent<NormalTileController>().SetSprite(panelNum);
-            _panelNum = panelNum;
+            int initialPos = panelData.initPos;
+            int finalPos = panelData.targetPos;
+            Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
+            Sprite targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
+
+            _id = initialPos;
+            GetComponent<SpriteRenderer>().sprite = panelSprite;
+            #if UNITY_EDITOR
+            name = PanelName.NUMBER_PANEL + _id.ToString();
+            #endif
+
+            base.Initialize(panelData);
+
+            _finalTile = TileLibrary.GetTile(finalPos);
+            _finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
 
             // 初期状態で最終タイルにいるかどうかの状態を変える
             Adapted = transform.parent.gameObject == _finalTile;
             // 最終タイルにいるかどうかで，光らせるかを決める
             GetComponent<SpriteGlowEffect>().enabled = Adapted;
-        }
-
-        /// <summary>
-        /// パネルの番号と一致していたら自身を返す
-        /// </summary>
-        /// <param name="panelNum"> 取得したいパネルの番号 </param>
-        public GameObject GetNumberPanel(int panelNum)
-        {
-            return _panelNum == panelNum ? gameObject : null;
         }
 
         /// <inheritdoc />

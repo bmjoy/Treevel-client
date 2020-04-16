@@ -1,8 +1,6 @@
-﻿using Project.Scripts.Utils;
-using Project.Scripts.Utils.Attributes;
+﻿using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
@@ -32,6 +30,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// タイルの番号
         /// </summary>
         private int _tileNum;
+        public int TileNumber => _tileNum;
 
         /// <summary>
         /// タイルに乗っているパネルの有無
@@ -57,16 +56,6 @@ namespace Project.Scripts.GamePlayScene.Tile
             name = TileName.NORMAL_TILE;
             _tileNum = tileNum;
             GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        /// <summary>
-        /// タイルの番号と一致していたら自身を返す
-        /// </summary>
-        /// <param name="tileNum"> タイルの番号 </param>
-        /// <returns></returns>
-        public GameObject GetTile(int tileNum)
-        {
-            return _tileNum == tileNum ? gameObject : null;
         }
 
         /// <summary>
@@ -103,13 +92,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         }
 
         /// <summary>
-        /// 番号に合わせた画像に変更
+        /// タイルの画像を設定する
         /// </summary>
-        /// <param name="panelNum"> このタイルをゴールとするパネルの番号 </param>
-        public void SetSprite(int panelNum)
+        /// <param name="sprite">タイル画像</param>
+        public void SetSprite(Sprite sprite)
         {
-            var sprite = AddressableAssetManager.GetAsset<Sprite>($"{Address.NUMBER_TILE_SPRITE_PREFIX}{panelNum}");
-            if (sprite != null) GetComponent<SpriteRenderer>().sprite = sprite;
+            GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
 }

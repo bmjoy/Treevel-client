@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
@@ -26,7 +27,7 @@ namespace Project.Scripts.Editor
 
             _src = target as StageData;
             if (_src != null)
-                _numOfNumberPanels = _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() ?? 0;
+                _numOfNumberPanels = GetNumberPanels()?.Count() ?? 0;
         }
 
         public override void OnInspectorGUI()
@@ -48,7 +49,7 @@ namespace Project.Scripts.Editor
 
             EditorUtility.SetDirty(serializedObject.targetObject);
             serializedObject.ApplyModifiedProperties();
-            _numOfNumberPanels = _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber).Count() ?? 0;
+            _numOfNumberPanels = GetNumberPanels()?.Count() ?? 0;
         }
 
         private void DrawOverviewGimmicks()
@@ -92,26 +93,27 @@ namespace Project.Scripts.Editor
                 if (!panelDataProp.isExpanded) return;
 
                 EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
 
                 var panelTypeProp = panelDataProp.FindPropertyRelative("type");
                 panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
+                EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
 
                 switch ((EPanelType)panelTypeProp.enumValueIndex) {
                     case EPanelType.Number: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
 
                     case EPanelType.LifeNumber: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("number"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
+                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
                     case EPanelType.Dynamic:
-                        break;
                     case EPanelType.Static:
                         break;
                     default:
@@ -339,7 +341,7 @@ namespace Project.Scripts.Editor
                                 break;
                             }
                         case EBulletType.RandomAimingHole: {
-                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _numOfNumberPanels);
+                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _numOfNumberPanels, RenderRandomNumberPanelsElement);
                                 break;
                             }
                         default:
@@ -348,6 +350,18 @@ namespace Project.Scripts.Editor
                 });
                 EditorGUI.indentLevel--;
             });
+        }
+
+        private void RenderRandomNumberPanelsElement(SerializedProperty elementProperty, int index)
+        {
+            var numberPanels = GetNumberPanels().OrderBy(x => x.initPos);
+            var panelId = numberPanels.ElementAt(index).initPos;
+            EditorGUILayout.PropertyField(elementProperty, new GUIContent($"Panel ID:{panelId}"));
+        }
+
+        private IEnumerable<PanelData> GetNumberPanels()
+        {
+            return _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber);
         }
     }
 }

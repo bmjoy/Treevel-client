@@ -1,4 +1,5 @@
-﻿using Project.Scripts.GamePlayScene.Tile;
+﻿using System.Linq;
+using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -15,16 +16,8 @@ namespace Project.Scripts.Utils.Library
         public static GameObject GetTile(int tileNum)
         {
             var tiles = GameObject.FindGameObjectsWithTag(TagName.TILE);
-
-            foreach (var tile in tiles) {
-                var script = tile.GetComponent<NormalTileController>();
-
-                if (script.GetTile(tileNum) != null) {
-                    return tile;
-                }
-            }
-
-            return null;
+            // タイルの番号がtileNumの唯一のタイルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
+            return tiles.Single(tile => tile.GetComponent<NormalTileController>()?.TileNumber == tileNum);
         }
 
         /// <summary>

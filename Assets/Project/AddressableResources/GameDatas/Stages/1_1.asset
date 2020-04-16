@@ -13,57 +13,107 @@ MonoBehaviour:
   m_Name: 1_1
   m_EditorClassIdentifier: 
   id: 1
-  bulletGroups: []
+  tiles: []
   panels:
   - type: 0
     initPos: 3
-    number: 0
     targetPos: 0
+    panelSprite:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    targetTileSprite:
+      m_AssetGUID: 
+      m_SubObjectName: 
     life: 0
   - type: 2
     initPos: 4
-    number: 1
     targetPos: 4
+    panelSprite:
+      m_AssetGUID: 8cacf29162ce544c6a91e04b672dda22
+      m_SubObjectName: 1_bgy
+    targetTileSprite:
+      m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
+      m_SubObjectName: numberTile1
     life: 0
   - type: 2
     initPos: 5
-    number: 2
     targetPos: 5
+    panelSprite:
+      m_AssetGUID: 3ad34613c20ab4a8f9d82c5e184a0f2a
+      m_SubObjectName: 2_bvy
+    targetTileSprite:
+      m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
+      m_SubObjectName: numberTile2
     life: 0
   - type: 2
     initPos: 6
-    number: 3
     targetPos: 6
+    panelSprite:
+      m_AssetGUID: 306499f0dbaa04cb386a1aa39a34d9e9
+      m_SubObjectName: 3_gy
+    targetTileSprite:
+      m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
+      m_SubObjectName: numberTile3
     life: 0
   - type: 2
     initPos: 7
-    number: 4
     targetPos: 7
+    panelSprite:
+      m_AssetGUID: d4a70a4ce855e4182b6554908109825d
+      m_SubObjectName: 4_ops
+    targetTileSprite:
+      m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
+      m_SubObjectName: numberTile4
     life: 0
   - type: 2
     initPos: 8
-    number: 5
     targetPos: 8
+    panelSprite:
+      m_AssetGUID: 043ec374bab50405dbf75005d1a106bf
+      m_SubObjectName: 5_oy
+    targetTileSprite:
+      m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
+      m_SubObjectName: numberTile5
     life: 0
   - type: 2
     initPos: 9
-    number: 6
     targetPos: 9
+    panelSprite:
+      m_AssetGUID: 3e7b664c3229c4b66a919e9db2641a63
+      m_SubObjectName: 6_rp
+    targetTileSprite:
+      m_AssetGUID: 002d879f7321744279709540f5b88837
+      m_SubObjectName: numberTile6
     life: 0
   - type: 2
     initPos: 10
-    number: 7
     targetPos: 10
+    panelSprite:
+      m_AssetGUID: 44a494e351155459dbfee62492c655bd
+      m_SubObjectName: 7_voy
+    targetTileSprite:
+      m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
+      m_SubObjectName: numberTile7
     life: 0
   - type: 2
     initPos: 14
-    number: 8
     targetPos: 11
+    panelSprite:
+      m_AssetGUID: 44a494e351155459dbfee62492c655bd
+      m_SubObjectName: 7_voy
+    targetTileSprite:
+      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
+      m_SubObjectName: numberTile8
     life: 0
   - type: 1
     initPos: 15
-    number: 0
     targetPos: 0
+    panelSprite:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    targetTileSprite:
+      m_AssetGUID: 
+      m_SubObjectName: 
     life: 0
-  tiles: []
+  bulletGroups: []
   overviewGimmicks: 
