@@ -1,6 +1,5 @@
 ﻿using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.Settings
 {
