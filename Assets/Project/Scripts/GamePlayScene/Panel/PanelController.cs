@@ -8,11 +8,13 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     public abstract class PanelController : MonoBehaviour
     {
-        protected virtual void Awake()
+        protected virtual void Awake(){}
+
+        private void InitializeSprite()
         {
             // パネル画像のサイズを取得
-            var panelWidth = GetComponent<SpriteRenderer>().size.x;
-            var panelHeight = GetComponent<SpriteRenderer>().size.y;
+            var panelWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
+            var panelHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
             // パネルの初期設定
             transform.localScale = new Vector2(PanelSize.WIDTH / panelWidth, PanelSize.HEIGHT / panelHeight);
             GetComponent<Renderer>().sortingLayerName = SortingLayerName.PANEL;
@@ -31,6 +33,8 @@ namespace Project.Scripts.GamePlayScene.Panel
             script.hasPanel = true;
             transform.SetParent(initialTile.transform);
             transform.position = initialTile.transform.position;
+
+            InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;
         }
     }

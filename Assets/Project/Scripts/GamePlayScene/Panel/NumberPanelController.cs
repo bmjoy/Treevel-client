@@ -55,8 +55,6 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="panelData">パネルデータ</param>
         public override void Initialize(PanelData panelData)
         {
-            base.Initialize(panelData);
-
             int initialPos = panelData.initPos;
             int finalPos = panelData.targetPos;
             Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
@@ -64,6 +62,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 
             _id = initialPos;
             GetComponent<SpriteRenderer>().sprite = panelSprite;
+
+            base.Initialize(panelData);
 
             _finalTile = TileLibrary.GetTile(finalPos);
             _finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
