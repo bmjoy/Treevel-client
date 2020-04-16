@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     public abstract class PanelController : MonoBehaviour
     {
-        protected virtual void Awake(){}
+        protected virtual void Awake() {}
 
         private void InitializeSprite()
         {
