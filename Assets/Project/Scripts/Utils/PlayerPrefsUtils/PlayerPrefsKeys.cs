@@ -9,6 +9,6 @@
         public const string BGM = "BGM";
         public const string SE = "SE";
         public const string LANGUAGE = "LANGUAGE";
-        public const string SHOW_DETAILED = "SHOW_DETAILED";
+        public const string STAGE_DETAILS = "STAGE_DETAILS";
     }
 }

@@ -18,5 +18,10 @@ namespace Project.Scripts.Utils.Definitions
         /// デフォルトのSE
         /// </summary>
         public const float SE = 0.5f;
+
+        /// <summary>
+        /// デフォルトのステージ詳細
+        /// </summary>
+        public const int STAGE_DETAILS = 1;
     }
 }
