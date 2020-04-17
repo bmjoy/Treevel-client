@@ -55,9 +55,9 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             this.ratio = data.ratio;
             this.cartridgeDirection = data.direction;
             this.line = data.line;
-            if(data.randomCartridgeDirection.Count > 0) _randomCartridgeDirection = data.randomCartridgeDirection.ToArray();
-            if(data.randomRow.Count > 0) _randomRow = data.randomRow.ToArray();
-            if(data.randomColumn.Count > 0) _randomColumn = data.randomColumn.ToArray();
+            if (data.randomCartridgeDirection.Count > 0) _randomCartridgeDirection = data.randomCartridgeDirection.ToArray();
+            if (data.randomRow.Count > 0) _randomRow = data.randomRow.ToArray();
+            if (data.randomColumn.Count > 0) _randomColumn = data.randomColumn.ToArray();
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -95,7 +95,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             var warningScript = warning.GetComponent<CartridgeWarningController>();
             var bulletMotionVector =
                 warningScript.Initialize(ECartridgeType.Normal, nextCartridgeDirection, nextCartridgeLine);
-            
+
             // 警告の表示時間だけ待つ
             for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
             // 警告を削除する

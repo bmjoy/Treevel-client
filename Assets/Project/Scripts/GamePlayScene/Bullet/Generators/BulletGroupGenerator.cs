@@ -85,11 +85,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                 var tasks = bulletGroup.bullets.Select(bulletData => CreateBulletGenerator(bulletData));
                 var bulletList = await Task.WhenAll(tasks);
                 coroutines.Add(CreateBulletGroup(
-                    bulletGroup.appearTime,
-                    bulletGroup.interval,
-                    bulletGroup.loop,
-                    bulletList.ToList()
-                ));
+                        bulletGroup.appearTime,
+                        bulletGroup.interval,
+                        bulletGroup.loop,
+                        bulletList.ToList()
+                    ));
             }
             return coroutines;
         }
@@ -127,11 +127,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             StopAllCoroutines();
         }
 
-        private async Task<GameObject> CreateBulletGenerator(BulletData bulletData) 
+        private async Task<GameObject> CreateBulletGenerator(BulletData bulletData)
         {
-            if (!_prefabAddressableKeys.ContainsKey(bulletData.type)) 
+            if (!_prefabAddressableKeys.ContainsKey(bulletData.type))
                 return default;
-                
+
             var generatorObject = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[bulletData.type]).Task;
             generatorObject.GetComponent<BulletGenerator>().Initialize(bulletData);
             return generatorObject;
