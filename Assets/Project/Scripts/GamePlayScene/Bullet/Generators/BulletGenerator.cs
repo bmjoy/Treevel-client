@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -48,5 +49,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         {
             Destroy(gameObject);
         }
+
+        /// <summary>
+        /// <see cref="BulletData">BulletDataによる初期化
+        /// </summary>
+        /// <param name="data"></param>
+        public abstract void Initialize(BulletData data);
     }
 }

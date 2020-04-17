@@ -40,6 +40,14 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             _aimingPanels = aimingPanels;
         }
 
+        /// <inheritdoc />
+        public override void Initialize(GameDatas.BulletData data)
+        {
+            this.ratio = data.ratio;
+            if (data.aimingPanels.Count > 0) _aimingPanels = data.aimingPanels.ToArray();
+            if (data.randomNumberPanels.Count > 0) _randomNumberPanels = data.randomNumberPanels.ToArray();
+        }
+
         /// <summary>
         /// ランダムなNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
         /// </summary>
