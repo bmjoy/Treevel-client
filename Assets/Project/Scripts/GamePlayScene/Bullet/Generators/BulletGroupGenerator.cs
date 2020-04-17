@@ -34,7 +34,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// </summary>
         [NonSerialized] public float startTime;
 
-        private Dictionary<EBulletType, string> _prefabAddressableKeys = new Dictionary<EBulletType, string>()
+        private readonly Dictionary<EBulletType, string> _prefabAddressableKeys = new Dictionary<EBulletType, string>()
         {
             {EBulletType.NormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
             {EBulletType.RandomNormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
@@ -82,7 +82,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         {
             var coroutines = new List<IEnumerator>();
             foreach (var bulletGroup in bulletGroupList) {
-                var tasks = bulletGroup.bullets.Select(bulletData => CreateBulletGenerator(bulletData));
+                var tasks = bulletGroup.bullets.Select(CreateBulletGenerator);
                 var bulletList = await Task.WhenAll(tasks);
                 coroutines.Add(CreateBulletGroup(
                         bulletGroup.appearTime,
@@ -129,11 +129,13 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
 
         private async Task<GameObject> CreateBulletGenerator(BulletData bulletData)
         {
-            if (!_prefabAddressableKeys.ContainsKey(bulletData.type))
-                return default;
+            if (!_prefabAddressableKeys.ContainsKey(bulletData.type)) {
+                throw new KeyNotFoundException($"no prefab for type:{bulletData.type}");
+            }
 
             var generatorObject = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[bulletData.type]).Task;
             generatorObject.GetComponent<BulletGenerator>().Initialize(bulletData);
+
             return generatorObject;
         }
     }
