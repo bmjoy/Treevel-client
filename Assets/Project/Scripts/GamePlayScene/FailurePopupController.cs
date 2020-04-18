@@ -21,12 +21,6 @@ namespace Project.Scripts.GamePlayScene
 
         private void Awake()
         {
-            _retryButton = transform.Find("RetryButton").gameObject;
-            _backButton = transform.Find("BackButton").gameObject;
-
-            _retryButton.GetComponent<Button>().onClick.AddListener(RetryButtonDown);
-            _backButton.GetComponent<Button>().onClick.AddListener(BackButtonDown);
-
             GamePlayDirector.OnFail += OnFail;
             gameObject.SetActive(false);
         }
@@ -49,7 +43,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// リトライボタン押下時の処理
         /// </summary>
-        private void RetryButtonDown()
+        public void RetryButtonDown()
         {
             // 挑戦回数をインクリメント
             var ss = StageStatus.Get(GamePlayDirector.stageId);
@@ -60,7 +54,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 戻るボタン押下時の処理
         /// </summary>
-        private static void BackButtonDown()
+        public void BackButtonDown()
         {
             // StageSelectSceneに戻る
             TreeLibrary.LoadStageSelectScene(GamePlayDirector.levelName);

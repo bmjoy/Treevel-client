@@ -23,12 +23,6 @@ namespace Project.Scripts.GamePlayScene
 
         private void Awake()
         {
-            _nextButton = transform.Find("NextButton").gameObject;
-            _shareButton = transform.Find("ShareButton").gameObject;
-
-            _nextButton.GetComponent<Button>().onClick.AddListener(NextButtonDown);
-            _shareButton.GetComponent<Button>().onClick.AddListener(ShareButtonDown);
-
             GamePlayDirector.OnSucceed += OnSucceed;
             gameObject.SetActive(false);
         }
@@ -46,7 +40,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 次に進むボタン押下時の処理
         /// </summary>
-        private static void NextButtonDown()
+        public void NextButtonDown()
         {
             // StageSelectSceneに戻る
             TreeLibrary.LoadStageSelectScene(GamePlayDirector.levelName);
@@ -55,7 +49,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// 投稿ボタン押下時の処理
         /// </summary>
-        private static void ShareButtonDown()
+        public void ShareButtonDown()
         {
             // Unity エディタ上では実行しない
             #if !UNITY_EDITOR

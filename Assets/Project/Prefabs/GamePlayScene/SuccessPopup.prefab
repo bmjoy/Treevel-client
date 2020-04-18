@@ -307,8 +307,23 @@ PrefabInstance:
     - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShareButtonDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7521571796339742159}
     - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
       propertyPath: m_Name
@@ -447,8 +462,23 @@ PrefabInstance:
     - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextButtonDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406096218579811, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7521571796339742159}
     - target: {fileID: 4948406096218579813, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
       propertyPath: m_Name
