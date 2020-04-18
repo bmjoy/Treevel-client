@@ -1,9 +1,5 @@
-﻿using System;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using Project.Scripts.Utils.TextUtils;
+﻿using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.Settings
 {
@@ -21,7 +17,6 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         public void ToDefaultButtonDown()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.LANGUAGE);
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.BGM_VOLUME);
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.SE_VOLUME);
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_DETAILS);
