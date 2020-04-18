@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
@@ -420,7 +421,7 @@ namespace Project.Scripts.GamePlayScene
                 }
 
                 // ユーザの音量設定
-                audioSource.volume *= PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME);
+                audioSource.volume *= SettingsManager.BGMVolume;
             }
         }
     }
