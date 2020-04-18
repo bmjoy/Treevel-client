@@ -12,12 +12,12 @@ namespace Project.Scripts.Utils.Definitions
         /// <summary>
         /// デフォルトのBGM
         /// </summary>
-        public const float BGM = 0.5f;
+        public const float BGM_VOLUME = 0.5f;
 
         /// <summary>
         /// デフォルトのSE
         /// </summary>
-        public const float SE = 0.5f;
+        public const float SE_VOLUME = 0.5f;
 
         /// <summary>
         /// デフォルトのステージ詳細

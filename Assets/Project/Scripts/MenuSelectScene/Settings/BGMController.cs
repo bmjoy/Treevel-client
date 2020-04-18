@@ -16,7 +16,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         private void Awake()
         {
             _BGMSlider = GetComponent<Slider>();
-            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Default.BGM);
+            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME);
             _BGMSlider.onValueChanged.AddListener(delegate {
                 ValueChangeCheck();
             });
@@ -37,7 +37,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         private void ValueChangeCheck()
         {
-            PlayerPrefs.SetFloat(PlayerPrefsKeys.BGM, _BGMSlider.value);
+            PlayerPrefs.SetFloat(PlayerPrefsKeys.BGM_VOLUME, _BGMSlider.value);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         private void OnUpdate()
         {
-            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Default.BGM);
+            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME);
         }
     }
 }

@@ -33,8 +33,8 @@ namespace Project.Scripts.MenuSelectScene.Settings
         private static void ToDefaultButtonDown()
         {
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.LANGUAGE);
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.BGM);
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.SE);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.BGM_VOLUME);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.SE_VOLUME);
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_DETAILS);
 
             // Canvasの更新
