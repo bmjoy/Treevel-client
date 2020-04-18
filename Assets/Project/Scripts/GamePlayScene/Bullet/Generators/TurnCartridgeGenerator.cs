@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using JetBrains.Annotations;
+using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
 using Project.Scripts.Utils.Definitions;
@@ -49,39 +51,15 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             turnCartridgeWaitingFrames = BulletWarningParameter.WARNING_DISPLAYED_FRAMES / 2;
         }
 
-        /// <summary>
-        /// TurnCartridgeを生成するGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="direction" 移動する方向 ></param>
-        /// <param name="line"> 移動する行(列) </param>
-        /// <param name="turnDirection"> 曲がる方向 </param>
-        /// <param name="turnLine"> 曲がる行(列) </param>
-        public void Initialize(int ratio, ECartridgeDirection direction, int line, int[] turnDirection, int[] turnLine)
+        /// <inheritdoc />
+        public override void Initialize(BulletData data)
         {
-            Initialize(ratio, direction, line);
-            _turnDirection = turnDirection;
-            _turnLine = turnLine;
-        }
-
-        /// <summary>
-        /// ランダムな行(または列)を移動し、ランダムな列でランダムな方向に曲がるTurnCartridgeを生成するGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="randomCartridgeDirection"> 移動する方向の重み </param>
-        /// <param name="randomRow"> 移動する行の重み </param>
-        /// <param name="randomColumn"> 移動する列の重み </param>
-        /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
-        /// <param name="randomTurnRow"> 曲がる行の重み </param>
-        /// <param name="randomTurnColumn"> 曲がる列の重み </param>
-        public void Initialize(int ratio,
-            int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
-            int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
-        {
-            Initialize(ratio, randomCartridgeDirection, randomRow, randomColumn);
-            _randomTurnDirections = randomTurnDirections;
-            _randomTurnRow = randomTurnRow;
-            _randomTurnColumn = randomTurnColumn;
+            base.Initialize(data);
+            if (data.turnDirections.Count > 0) _turnDirection = data.turnDirections.Cast<int>().ToArray();
+            if (data.turnLines.Count > 0) _turnLine = data.turnLines.ToArray();
+            if (data.randomTurnDirection .Count > 0) _randomTurnDirections = data.randomTurnDirection.ToArray();
+            if (data.randomTurnRow.Count > 0) _randomTurnRow = data.randomTurnRow.ToArray();
+            if (data.randomTurnColumn.Count > 0) _randomTurnColumn = data.randomTurnColumn.ToArray();
         }
 
         public override IEnumerator CreateBullet(int bulletId)

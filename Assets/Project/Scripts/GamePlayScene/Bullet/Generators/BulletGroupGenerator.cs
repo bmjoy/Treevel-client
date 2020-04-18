@@ -34,6 +34,18 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// </summary>
         [NonSerialized] public float startTime;
 
+        private readonly Dictionary<EBulletType, string> _prefabAddressableKeys = new Dictionary<EBulletType, string>()
+        {
+            {EBulletType.NormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
+            {EBulletType.RandomNormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
+            {EBulletType.TurnCartridge, Address.TURN_CARTRIDGE_GENERATOR_PREFAB},
+            {EBulletType.RandomTurnCartridge, Address.TURN_CARTRIDGE_GENERATOR_PREFAB},
+            {EBulletType.NormalHole, Address.NORMAL_HOLE_GENERATOR_PREFAB},
+            {EBulletType.RandomNormalHole, Address.NORMAL_HOLE_GENERATOR_PREFAB},
+            {EBulletType.AimingHole, Address.AIMING_HOLE_GENERATOR_PREFAB},
+            {EBulletType.RandomAimingHole, Address.AIMING_HOLE_GENERATOR_PREFAB}
+        };
+
         private void OnEnable()
         {
             GamePlayDirector.OnSucceed += OnSucceed;
@@ -70,72 +82,13 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         {
             var coroutines = new List<IEnumerator>();
             foreach (var bulletGroup in bulletGroupList) {
-                var bulletList = new List<GameObject>();
-                foreach (var bulletData in bulletGroup.bullets) {
-                    switch (bulletData.type) {
-                        case EBulletType.RandomNormalCartridge:
-                        case EBulletType.NormalCartridge:
-                            bulletList.Add(await CreateNormalCartridgeGenerator(
-                                    bulletData.ratio,
-                                    bulletData.direction,
-                                    bulletData.line,
-                                    bulletData.randomCartridgeDirection.ToArray(),
-                                    bulletData.randomRow.ToArray(),
-                                    bulletData.randomColumn.ToArray()
-                                ));
-                            break;
-                        case EBulletType.TurnCartridge:
-                            bulletList.Add(await CreateTurnCartridgeGenerator(
-                                    bulletData.ratio,
-                                    bulletData.direction,
-                                    bulletData.line,
-                                    // map ECartridgeDirection to int
-                                    bulletData.turnDirections.Cast<int>().ToArray(),
-                                    bulletData.turnLines.ToArray()
-                                ));
-                            break;
-                        case EBulletType.RandomTurnCartridge:
-                            bulletList.Add(await CreateRandomTurnCartridgeGenerator(
-                                    bulletData.ratio,
-                                    bulletData.randomCartridgeDirection.ToArray(),
-                                    bulletData.randomRow.ToArray(),
-                                    bulletData.randomColumn.ToArray(),
-                                    bulletData.randomTurnDirection.ToArray(),
-                                    bulletData.randomTurnRow.ToArray(),
-                                    bulletData.randomTurnColumn.ToArray()
-                                ));
-                            break;
-                        case EBulletType.NormalHole:
-                        case EBulletType.RandomNormalHole:
-                            bulletList.Add(await CreateNormalHoleGenerator(
-                                    bulletData.ratio,
-                                    bulletData.row,
-                                    bulletData.column,
-                                    bulletData.randomRow.ToArray(),
-                                    bulletData.randomColumn.ToArray()
-                                ));
-                            break;
-                        case EBulletType.AimingHole:
-                            bulletList.Add(await CreateAimingHoleGenerator(
-                                    bulletData.ratio,
-                                    bulletData.aimingPanels.ToArray()
-                                ));
-                            break;
-                        case EBulletType.RandomAimingHole:
-                            bulletList.Add(await CreateRandomAimingHoleGenerator(
-                                    bulletData.ratio,
-                                    bulletData.randomNumberPanels.ToArray()
-                                ));
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
+                var tasks = bulletGroup.bullets.Select(CreateBulletGenerator);
+                var bulletList = await Task.WhenAll(tasks);
                 coroutines.Add(CreateBulletGroup(
                         bulletGroup.appearTime,
                         bulletGroup.interval,
                         bulletGroup.loop,
-                        bulletList
+                        bulletList.ToList()
                     ));
             }
             return coroutines;
@@ -174,124 +127,16 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             StopAllCoroutines();
         }
 
-        /// <summary>
-        /// NormalCartridge、RandomNormalCartridgeのジェネレーターを生成する共通メソッド
-        /// <see cref="NormalCartridgeGenerator.Initialize(int, ECartridgeDirection, int, int[], int[], int[])"/>
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
-        /// <param name="line"> 銃弾の出現する行(列)</param>
-        /// <param name="randomCartridgeDirection"> 銃弾の移動方向の重み </param>
-        /// <param name="randomRow"> 銃弾の出現する行の重み </param>
-        /// <param name="randomColumn"> 銃弾の出現する列の重み </param>
-        private async Task<GameObject> CreateNormalCartridgeGenerator(
-            int ratio,
-            ECartridgeDirection cartridgeDirection,
-            int line,
-            int[] randomCartridgeDirection,
-            int[] randomRow,
-            int[] randomColumn
-        )
+        private async Task<GameObject> CreateBulletGenerator(BulletData bulletData)
         {
-            var cartridgeGenerator = await AddressableAssetManager.Instantiate(Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB).Task;
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<NormalCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, randomCartridgeDirection, randomRow, randomColumn);
-            return cartridgeGenerator;
-        }
+            if (!_prefabAddressableKeys.ContainsKey(bulletData.type)) {
+                throw new KeyNotFoundException($"no prefab for type:{bulletData.type}");
+            }
 
-        /// <summary>
-        /// TurnCartridgeのジェネレーターを生成する共通メソッド
-        /// <see cref="TurnCartridgeGenerator.Initialize(int, ECartridgeDirection, int, int[], int[])"/>
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="cartridgeDirection"> 銃弾の移動方向 </param>
-        /// <param name="line"> 銃弾の出現する行(列)</param>
-        /// <param name="turnDirection"> 銃弾の曲がる方向 </param>
-        /// <param name="turnLine"> 銃弾の曲がる行(列) </param>
-        private async Task<GameObject> CreateTurnCartridgeGenerator(
-            int ratio,
-            ECartridgeDirection cartridgeDirection,
-            int line,
-            int[] turnDirection,
-            int[] turnLine
-        )
-        {
-            var cartridgeGenerator = await AddressableAssetManager.Instantiate(Address.TURN_CARTRIDGE_GENERATOR_PREFAB).Task;
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, cartridgeDirection, line, turnDirection, turnLine);
-            return cartridgeGenerator;
-        }
+            var generatorObject = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[bulletData.type]).Task;
+            generatorObject.GetComponent<BulletGenerator>().Initialize(bulletData);
 
-        /// <summary>
-        /// TurnCartridgeのGeneratorを生成する
-        /// ランダムな行(または列)を移動し、ランダムな場所でランダムな方向に曲がるTurnCartridge
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="randomCartridgeDirection"> 銃弾の移動方向の重み </param>
-        /// <param name="randomRow"> 銃弾の出現する行の重み </param>
-        /// <param name="randomColumn"> 銃弾の出現する列の重み</param>
-        /// <param name="randomTurnDirections"> 曲がる方向の重み </param>
-        /// <param name="randomTurnRow"> 曲がる行の重み </param>
-        /// <param name="randomTurnColumn"> 曲がる列の重み </param>
-        private async Task<GameObject> CreateRandomTurnCartridgeGenerator(int ratio, int[] randomCartridgeDirection, int[] randomRow, int[] randomColumn,
-            int[] randomTurnDirections, int[] randomTurnRow, int[] randomTurnColumn)
-        {
-            var cartridgeGenerator = await AddressableAssetManager.Instantiate(Address.TURN_CARTRIDGE_GENERATOR_PREFAB).Task;
-            var cartridgeGeneratorScript = cartridgeGenerator.GetComponent<TurnCartridgeGenerator>();
-            cartridgeGeneratorScript.Initialize(ratio, randomCartridgeDirection, randomRow, randomColumn, randomTurnDirections, randomTurnRow,
-                randomTurnColumn);
-            return cartridgeGenerator;
-        }
-
-        /// <summary>
-        /// NormalHole、RandomNormalHoleのジェネレーターを生成する共通メソッド
-        /// <see cref="NormalHoleGenerator.Initialize(int, ERow, EColumn, int[], int[])"/>
-        /// </summary>
-        /// <param name="ratio"></param>
-        /// <param name="row"></param>
-        /// <param name="column"></param>
-        /// <param name="randomRow"></param>
-        /// <param name="randomColumn"></param>
-        private async Task<GameObject> CreateNormalHoleGenerator(
-            int ratio,
-            ERow row,
-            EColumn column,
-            int[] randomRow,
-            int[] randomColumn
-        )
-        {
-            var holeGenerator = await AddressableAssetManager.Instantiate(Address.NORMAL_HOLE_GENERATOR_PREFAB).Task;
-            var holeGeneratorScript = holeGenerator.GetComponent<NormalHoleGenerator>();
-            holeGeneratorScript.Initialize(ratio, row, column, randomRow, randomColumn);
-            return holeGenerator;
-        }
-
-        /// <summary>
-        /// AimingHoleのGeneratorを生成する
-        /// 特定のNumberPanelの親タイルを撃つAimingHole
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="aimingPanels"> 銃弾が出現するNumberPanel </param>
-        private async Task<GameObject> CreateAimingHoleGenerator(int ratio, int[] aimingPanels)
-        {
-            var holeGenerator = await AddressableAssetManager.Instantiate(Address.AIMING_HOLE_GENERATOR_PREFAB).Task;
-            var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
-            holeGeneratorScript.Initialize(ratio, aimingPanels);
-            return holeGenerator;
-        }
-
-        /// <summary>
-        /// AimingHoleのGeneratorを生成する
-        /// ランダムなNumberPanelの親タイルを撃つAimingHole
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現割合 </param>
-        /// <param name="randomNumberPanels"> 銃弾が出現するNumberPanelの重み </param>
-        private async Task<GameObject> CreateRandomAimingHoleGenerator(int ratio, int[] randomNumberPanels)
-        {
-            var holeGenerator = await AddressableAssetManager.Instantiate(Address.AIMING_HOLE_GENERATOR_PREFAB).Task;
-            var holeGeneratorScript = holeGenerator.GetComponent<AimingHoleGenerator>();
-            holeGeneratorScript.InitializeRandom(ratio, randomNumberPanels);
-            return holeGenerator;
+            return generatorObject;
         }
     }
 }
