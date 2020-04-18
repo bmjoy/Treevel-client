@@ -12,7 +12,6 @@ namespace Project.Scripts.GamePlayScene
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        private const string _RESULT_WINDOW_NAME = "ResultPopup";
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string _TIMER_TEXT_NAME = "TimerText";
         private const string _PAUSE_WINDOW_NAME = "PauseWindow";
@@ -67,11 +66,6 @@ namespace Project.Scripts.GamePlayScene
         [SerializeField] private GameObject _backgroundPrefab;
 
         /// <summary>
-        /// 結果ウィンドウ
-        /// </summary>
-        private GameObject _resultWindow;
-
-        /// <summary>
         /// 一時停止ウィンドウ
         /// </summary>
         private GameObject _pauseWindow;
@@ -113,8 +107,6 @@ namespace Project.Scripts.GamePlayScene
 
         private void Awake()
         {
-            _resultWindow = GameObject.Find(_RESULT_WINDOW_NAME);
-
             _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME);
             _timerText = GameObject.Find(_TIMER_TEXT_NAME);
 
@@ -235,9 +227,6 @@ namespace Project.Scripts.GamePlayScene
             // 現在のステージ番号を格納
             _stageNumberText.GetComponent<Text>().text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageId.ToString();
 
-            // 結果ウィンドウを非表示
-            _resultWindow.SetActive(false);
-
             // 一時停止ウィンドウを非表示
             _pauseWindow.SetActive(false);
             // 一時停止ボタンを有効にする
@@ -313,7 +302,6 @@ namespace Project.Scripts.GamePlayScene
         private void EndProcess()
         {
             _playingAudioSource.Stop();
-            _resultWindow.SetActive(true);
             // 一時停止ボタンを無効にする
             _pauseButton.SetActive(false);
             // タイマーを止める
@@ -350,7 +338,6 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ゲーム画面のアスペクト比を統一する
         /// </summary>
-        /// <param name="resultWindow"> 結果ウィンドウ </param>
         /// Bug: ゲーム画面遷移時にカメラ範囲が狭くなることがある
         private IEnumerator UnifyDisplay()
         {
