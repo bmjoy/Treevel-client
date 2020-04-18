@@ -39,8 +39,6 @@ namespace Project.Scripts.MenuSelectScene.Settings
 
             // Canvasの更新
             OnUpdate?.Invoke();
-            // 言語の更新
-            LanguageUtility.CurrentLanguage = Default.LANGUAGE;
         }
     }
 }
