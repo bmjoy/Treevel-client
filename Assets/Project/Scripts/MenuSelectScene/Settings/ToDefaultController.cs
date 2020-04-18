@@ -12,7 +12,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         public delegate void ChangeAction();
 
         /// <summary>
-        /// 失敗時のイベント
+        /// デフォルトボタンが押された際のイベント
         /// </summary>
         public static event ChangeAction OnUpdate;
 
