@@ -11,8 +11,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         public static float BGMVolume
         {
             get => _BGMVolume;
-            set
-            {
+            set {
                 _BGMVolume = value;
                 PlayerPrefs.SetFloat(PlayerPrefsKeys.BGM_VOLUME, _BGMVolume);
             }
@@ -23,8 +22,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         public static float SEVolume
         {
             get => _SEVolume;
-            set
-            {
+            set {
                 _SEVolume = value;
                 PlayerPrefs.SetFloat(PlayerPrefsKeys.SE_VOLUME, _SEVolume);
             }
@@ -35,8 +33,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         public static int StageDetails
         {
             get => _stageDetails;
-            set
-            {
+            set {
                 _stageDetails = value;
                 PlayerPrefs.SetInt(PlayerPrefsKeys.STAGE_DETAILS, _stageDetails);
             }
