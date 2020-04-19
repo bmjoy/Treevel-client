@@ -25,12 +25,11 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="position"> 座標 </param>
         /// <param name="tileNum"> タイルの番号 </param>
         /// <param name="pairTile"> 相方の WarpTile </param>
-        public void Initialize(Vector2 position, int tileNum, GameObject pairTile)
+        public void Initialize(int tileNum, GameObject pairTile)
         {
-            base.Initialize(position, tileNum);
+            base.Initialize(tileNum);
             #if UNITY_EDITOR
             name = TileName.WARP_TILE;
             #endif

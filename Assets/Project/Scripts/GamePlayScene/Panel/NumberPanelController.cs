@@ -11,7 +11,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NumberPanelController : DynamicPanelController
+    public class NumberPanelController : DynamicPanelController, IJudgementHandler
     {
         /// <summary>
         /// パネルのゴールとなるタイル
@@ -24,14 +24,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         private int _id;
         public int Id => _id;
 
-        /// <summary>
-        /// パネルがゴールタイルにいるかどうか
-        /// </summary>
-        public bool Adapted
-        {
-            get;
-            private set;
-        }
+        private int _finalPos;
 
         /// <summary>
         /// 失敗時のアニメーション
@@ -55,39 +48,21 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="panelData">パネルデータ</param>
         public override void Initialize(PanelData panelData)
         {
-            int initialPos = panelData.initPos;
-            int finalPos = panelData.targetPos;
+            _id = panelData.initPos;
+            _finalPos = panelData.targetPos;
             Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
             Sprite targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
-
-            _id = initialPos;
             GetComponent<SpriteRenderer>().sprite = panelSprite;
+
+            base.Initialize(panelData);
+
             #if UNITY_EDITOR
             name = PanelName.NUMBER_PANEL + _id.ToString();
             #endif
 
-            base.Initialize(panelData);
-
-            _finalTile = TileLibrary.GetTile(finalPos);
-            _finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
-
-            // 初期状態で最終タイルにいるかどうかの状態を変える
-            Adapted = transform.parent.gameObject == _finalTile;
-            // 最終タイルにいるかどうかで，光らせるかを決める
-            GetComponent<SpriteGlowEffect>().enabled = Adapted;
-        }
-
-        /// <inheritdoc />
-        protected override void UpdateTile(GameObject targetTile)
-        {
-            base.UpdateTile(targetTile);
-
-            // 最終タイルにいるかどうかで状態を変える
-            Adapted = transform.parent.gameObject == _finalTile;
-            // 最終タイルにいるかどうかで，光らせるかを決める
-            GetComponent<SpriteGlowEffect>().enabled = Adapted;
-            // adapted が true になっていれば (必要条件) 成功判定をする
-            if (Adapted) gamePlayDirector.CheckClear();
+            // 目標とするタイルのスプライトを設定
+            var finalTile = BoardManager.GetTile(_finalPos);
+            finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
 
         /// <summary>
@@ -137,6 +112,20 @@ namespace Project.Scripts.GamePlayScene.Panel
             if (!dead) {
                 anim.wrapMode = WrapMode.Default;
             }
+        }
+
+        /// <inheritdoc/>
+        public bool Adapt()
+        {
+            // 最終タイルにいるかどうかで，光らせるかを決める
+            return GetComponent<SpriteGlowEffect>().enabled = Adapted();
+        }
+
+        /// <inheritdoc/>
+        public bool Adapted()
+        {
+            var currPos = BoardManager.GetPanelPos(this);
+            return currPos == _finalPos;
         }
     }
 }

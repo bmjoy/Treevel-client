@@ -7,26 +7,6 @@ namespace Project.Scripts.GamePlayScene.Tile
     public class NormalTileController : MonoBehaviour
     {
         /// <summary>
-        /// 右にあるタイル
-        /// </summary>
-        [NonEditable] public GameObject rightTile;
-
-        /// <summary>
-        /// 左にあるタイル
-        /// </summary>
-        [NonEditable] public GameObject leftTile;
-
-        /// <summary>
-        /// 上にあるタイル
-        /// </summary>
-        [NonEditable] public GameObject upperTile;
-
-        /// <summary>
-        /// 下にあるタイル
-        /// </summary>
-        [NonEditable] public GameObject lowerTile;
-
-        /// <summary>
         /// タイルの番号
         /// </summary>
         private int _tileNum;
@@ -48,31 +28,14 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="position"> 座標 </param>
         /// <param name="tileNum"> タイルの番号 </param>
-        public virtual void Initialize(Vector2 position, int tileNum)
+        public virtual void Initialize(int tileNum)
         {
-            transform.position = position;
             #if UNITY_EDITOR
             name = TileName.NORMAL_TILE;
             #endif
             _tileNum = tileNum;
             GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        /// <summary>
-        /// タイルの上下左右のタイルへの参照を入れる
-        /// </summary>
-        /// <param name="rightTile"> 右のタイル </param>
-        /// <param name="leftTile"> 左のタイル </param>
-        /// <param name="upperTile"> 上のタイル </param>
-        /// <param name="lowerTile"> 下のタイル </param>
-        public void MakeRelation(GameObject rightTile, GameObject leftTile, GameObject upperTile, GameObject lowerTile)
-        {
-            this.rightTile = rightTile;
-            this.leftTile = leftTile;
-            this.upperTile = upperTile;
-            this.lowerTile = lowerTile;
         }
 
         /// <summary>

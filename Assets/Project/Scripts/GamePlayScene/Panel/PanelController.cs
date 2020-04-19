@@ -31,12 +31,9 @@ namespace Project.Scripts.GamePlayScene.Panel
         public virtual void Initialize(PanelData panelData)
         {
             var initialTileNum = panelData.initPos;
-            // 初期位置にするタイルを取得
-            var initialTile = TileLibrary.GetTile(initialTileNum);
-            var script = initialTile.GetComponent<NormalTileController>();
-            script.hasPanel = true;
-            transform.SetParent(initialTile.transform);
-            transform.position = initialTile.transform.position;
+            
+            // パネルをボードに設定
+            BoardManager.SetPanel(this, initialTileNum);
 
             InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;
