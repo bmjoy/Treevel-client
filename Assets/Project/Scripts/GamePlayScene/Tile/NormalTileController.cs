@@ -53,7 +53,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         public virtual void Initialize(Vector2 position, int tileNum)
         {
             transform.position = position;
+            #if UNITY_EDITOR
             name = TileName.NORMAL_TILE;
+            #endif
             _tileNum = tileNum;
             GetComponent<SpriteRenderer>().enabled = true;
         }

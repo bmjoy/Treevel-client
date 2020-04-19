@@ -31,7 +31,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         public void Initialize(Vector2 position, int tileNum, GameObject pairTile)
         {
             base.Initialize(position, tileNum);
+            #if UNITY_EDITOR
             name = TileName.WARP_TILE;
+            #endif
             _pairTile = pairTile;
         }
 
