@@ -46,14 +46,14 @@ namespace Project.Scripts.GamePlayScene
         /// <returns></returns>
         public static Vector2 GetPosition(int num)
         {
-            var (x, y) = TileNumToXY(num);
+            var(x, y) = TileNumToXY(num);
             return GetPosition(x, y);
         }
 
 
         public static GameObject GetTile(int tileNum)
         {
-            var (x, y) = TileNumToXY(tileNum);
+            var(x, y) = TileNumToXY(tileNum);
             return _board[x, y].Tile.gameObject;
         }
 
@@ -87,16 +87,15 @@ namespace Project.Scripts.GamePlayScene
             return (x * _board.GetLength(1)) + y + 1;
         }
 
-        private static (int, int) TileNumToXY(int num)
+        private static(int, int) TileNumToXY(int num)
         {
             return ((num - 1) / _board.GetLength(1), (num - 1) % _board.GetLength(1));
         }
 
         public static void SetTile(NormalTileController tile, int tileNum)
         {
-            lock (_board)
-            {
-                var (x, y) = TileNumToXY(tileNum);
+            lock (_board) {
+                var(x, y) = TileNumToXY(tileNum);
                 var target = _board[x, y];
                 if (target.Tile != null) {
                     GameObject.Destroy(target.Tile.gameObject);
@@ -114,10 +113,9 @@ namespace Project.Scripts.GamePlayScene
         /// <returns></returns>
         public static bool SetPanel(PanelController panel, int pos)
         {
-            lock (_board)
-            {
+            lock (_board) {
                 // 目標の格子を取得
-                var (targetX, targetY) = TileNumToXY(pos);
+                var(targetX, targetY) = TileNumToXY(pos);
                 var targetSquare = _board[targetX, targetY];
 
                 // 目標位置にすでにパネルがある
@@ -159,8 +157,8 @@ namespace Project.Scripts.GamePlayScene
 
             public PanelController Panel
             {
-                get => _panel; set
-                {
+                get => _panel;
+                set {
                     _panel = value;
                     if (_panel == null)
                         return;
@@ -174,8 +172,8 @@ namespace Project.Scripts.GamePlayScene
 
             public NormalTileController Tile
             {
-                get => _tile; set
-                {
+                get => _tile;
+                set {
                     _tile = value;
                     if (_tile != null)
                         _tile.transform.position = WorldPosition;

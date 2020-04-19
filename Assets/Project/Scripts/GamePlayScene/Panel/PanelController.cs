@@ -31,7 +31,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         public virtual void Initialize(PanelData panelData)
         {
             var initialTileNum = panelData.initPos;
-            
+
             // パネルをボードに設定
             BoardManager.SetPanel(this, initialTileNum);
 
