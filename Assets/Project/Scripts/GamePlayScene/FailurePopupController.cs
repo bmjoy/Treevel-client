@@ -1,7 +1,7 @@
-﻿using Project.Scripts.Utils.Library;
+﻿using System;
+using Project.Scripts.Utils.Library;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -19,18 +19,17 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private GameObject _backButton;
 
-        private void Awake()
-        {
-            GamePlayDirector.OnFail += OnFail;
-            gameObject.SetActive(false);
-        }
-
         private void Start()
         {
             _gamePlayDirector = FindObjectOfType<GamePlayDirector>();
         }
 
-        private void OnDestroy()
+        private void OnEnable()
+        {
+            GamePlayDirector.OnFail += OnFail;
+        }
+
+        private void OnDisable()
         {
             GamePlayDirector.OnFail -= OnFail;
         }

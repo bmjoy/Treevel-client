@@ -16,6 +16,8 @@ namespace Project.Scripts.GamePlayScene
         private const string _TIMER_TEXT_NAME = "TimerText";
         private const string _PAUSE_WINDOW_NAME = "PauseWindow";
         private const string _PAUSE_BUTTON_NAME = "PauseButton";
+        private const string _SUCCESS_POPUP_NAME = "SuccessPopup";
+        private const string _FAILURE_POPUP_NAME = "FailurePopup";
 
         public delegate void ChangeAction();
 
@@ -105,6 +107,16 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private CustomTimer _customTimer;
 
+        /// <summary>
+        /// 成功ポップアップ
+        /// </summary>
+        private GameObject _successPopup;
+
+        /// <summary>
+        /// 失敗ポップアップ
+        /// </summary>
+        private GameObject _failurePopup;
+
         private void Awake()
         {
             _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME);
@@ -112,6 +124,12 @@ namespace Project.Scripts.GamePlayScene
 
             _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
             _pauseButton = GameObject.Find(_PAUSE_BUTTON_NAME);
+
+            _successPopup = GameObject.Find(_SUCCESS_POPUP_NAME);
+            _failurePopup = GameObject.Find(_FAILURE_POPUP_NAME);
+
+            _successPopup.SetActive(false);
+            _failurePopup.SetActive(false);
 
             StartCoroutine(UnifyDisplay());
 
@@ -261,6 +279,7 @@ namespace Project.Scripts.GamePlayScene
         private void GameSucceed()
         {
             EndProcess();
+            _successPopup.SetActive(true);
             _successAudioSource.Play();
             var ss = StageStatus.Get(stageId);
             // クリア済みにする
@@ -276,6 +295,7 @@ namespace Project.Scripts.GamePlayScene
         private void GameFail()
         {
             EndProcess();
+            _failurePopup.SetActive(true);
             _failureAudioSource.Play();
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);

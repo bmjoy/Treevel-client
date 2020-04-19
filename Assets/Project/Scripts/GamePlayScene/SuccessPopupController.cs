@@ -5,7 +5,6 @@ using Project.Scripts.UIComponents;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -21,13 +20,12 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private GameObject _shareButton;
 
-        private void Awake()
+        private void OnEnable()
         {
             GamePlayDirector.OnSucceed += OnSucceed;
-            gameObject.SetActive(false);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GamePlayDirector.OnSucceed -= OnSucceed;
         }
