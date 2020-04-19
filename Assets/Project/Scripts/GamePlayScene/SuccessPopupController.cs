@@ -49,36 +49,16 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void ShareButtonDown()
         {
-            // Unity エディタ上では実行しない
-            #if !UNITY_EDITOR
-            StartCoroutine(Share());
-            #endif
-        }
-
-        private IEnumerator Share()
-        {
-            var title = transform.Find("Title").gameObject.GetComponent<MultiLanguageText>().text;
-
             // 投稿用のテキスト
-            var text = "ステージ" + GamePlayDirector.stageId + "番を" + title;
-            // URL 用に加工
+            var text = "ステージ" + GamePlayDirector.stageId + "番をクリア！";
             text = UnityWebRequest.EscapeURL(text);
 
             // 投稿用のハッシュタグ
             var hashTags = "NumberBullet,ナンバレ";
             hashTags = UnityWebRequest.EscapeURL(hashTags);
 
-            // スクリーンショットを撮る
-            const string imgPath = "Assets/StreamingAssets/SuccessScreenShot.png";
-            ScreenCapture.CaptureScreenshot(imgPath);
-
-            // スクリーンショットが保存されるのを待つ
-            while (!File.Exists(imgPath)) {
-                yield return null;
-            }
-
-            // シェア画面へ
-            SocialConnector.SocialConnector.Share(text, "", imgPath);
+            // Twitter 投稿画面へ
+            Application.OpenURL("https://twitter.com/intent/tweet?text=" + text + "&hashtags=" + hashTags);
         }
     }
 }
