@@ -128,9 +128,6 @@ namespace Project.Scripts.GamePlayScene
             _successPopup = GameObject.Find(_SUCCESS_POPUP_NAME);
             _failurePopup = GameObject.Find(_FAILURE_POPUP_NAME);
 
-            _successPopup.SetActive(false);
-            _failurePopup.SetActive(false);
-
             StartCoroutine(UnifyDisplay());
 
             SetAudioSources();
@@ -241,6 +238,9 @@ namespace Project.Scripts.GamePlayScene
         private void GameOpening()
         {
             CleanObject();
+
+            _successPopup.SetActive(false);
+            _failurePopup.SetActive(false);
 
             // 現在のステージ番号を格納
             _stageNumberText.GetComponent<Text>().text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageId.ToString();
