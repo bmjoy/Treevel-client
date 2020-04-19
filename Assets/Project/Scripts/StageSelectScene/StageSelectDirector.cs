@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Project.Scripts.GamePlayScene;
+using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
@@ -138,7 +139,7 @@ namespace Project.Scripts.StageSelectScene
             Debug.Log(clickedButton);
             var stageId = int.Parse(clickedButton.GetComponentInChildren<Text>().text);
 
-            if (PlayerPrefs.GetInt(PlayerPrefsKeys.SHOW_DETAILED, 1) == 1) {
+            if (SettingsManager.StageDetails == 1) {
                 // ポップアップを初期化する
                 _overviewPopup.GetComponent<OverviewPopup>().SetStageId(stageId);
                 // ポップアップを表示する

@@ -1,4 +1,6 @@
-﻿using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Project.Scripts.MenuSelectScene.Settings;
+using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +16,7 @@ namespace Project.Scripts.StageSelectScene
         private void Awake()
         {
             _switchStageDetailsToggle = GetComponent<Toggle>();
-            _switchStageDetailsToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsKeys.SHOW_DETAILED, 0) == 1;
+            _switchStageDetailsToggle.isOn = SettingsManager.StageDetails == 1;
             _switchStageDetailsToggle.onValueChanged.AddListener(delegate {
                 ToggleValueChanged(_switchStageDetailsToggle);
             });
@@ -25,7 +27,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private static void ToggleValueChanged(Toggle toggle)
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.SHOW_DETAILED, toggle.isOn ? 1 : 0);
+            SettingsManager.StageDetails = toggle.isOn ? 1 : 0;
         }
     }
 }

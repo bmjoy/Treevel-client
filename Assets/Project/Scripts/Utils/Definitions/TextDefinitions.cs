@@ -11,6 +11,7 @@ namespace Project.Scripts.Utils.Definitions
         SettingsBGM,    // BGM
         SettingsSE,    // SE
         SettingsStageDetails,    // ステージの概要の表示を隠すかどうか
+        SettingsToDefault,    // デフォルト設定にする
         GameFailure,     // 失敗
         GameSuccess,     // 成功
         GameResult,      // 結果

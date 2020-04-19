@@ -5,6 +5,7 @@ SettingsVibration,振動,Vibration
 SettingsBGM,BGM,BGM
 SettingsSE,SE,SE
 SettingsStageDetails,ステージ詳細,Stage details
+SettingsToDefault,デフォルトへ,To default
 GameFailure,失敗,Failure
 GameSuccess,成功,Success
 GameResult,結果,Result

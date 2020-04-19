@@ -1,6 +1,4 @@
-﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.Settings
@@ -15,10 +13,20 @@ namespace Project.Scripts.MenuSelectScene.Settings
         private void Awake()
         {
             _BGMSlider = GetComponent<Slider>();
-            _BGMSlider.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM, Audio.DEFAULT_BGM);
+            _BGMSlider.value = SettingsManager.BGMVolume;
             _BGMSlider.onValueChanged.AddListener(delegate {
                 ValueChangeCheck();
             });
+        }
+
+        private void OnEnable()
+        {
+            ToDefaultController.OnUpdate += OnUpdate;
+        }
+
+        private void OnDisable()
+        {
+            ToDefaultController.OnUpdate -= OnUpdate;
         }
 
         /// <summary>
@@ -26,7 +34,15 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         private void ValueChangeCheck()
         {
-            PlayerPrefs.SetFloat(PlayerPrefsKeys.BGM, _BGMSlider.value);
+            SettingsManager.BGMVolume = _BGMSlider.value;
+        }
+
+        /// <summary>
+        /// デフォルト設定に戻された時に呼ばれる
+        /// </summary>
+        private void OnUpdate()
+        {
+            _BGMSlider.value = SettingsManager.BGMVolume;
         }
     }
 }

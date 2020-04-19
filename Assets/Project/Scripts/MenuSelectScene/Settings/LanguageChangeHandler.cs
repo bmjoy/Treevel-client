@@ -2,7 +2,7 @@ using Project.Scripts.Utils.TextUtils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Project.Scripts.UIComponents
+namespace Project.Scripts.MenuSelectScene.Settings
 {
     /// <summary>
     /// ボタンで言語選択を制御するためのオブジェクトクラス

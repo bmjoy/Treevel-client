@@ -1,6 +1,4 @@
-﻿using Project.Scripts.Utils.PlayerPrefsUtils;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Project.Scripts.MenuSelectScene.Settings
 {
@@ -11,7 +9,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         public void OnButtonDown()
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.SHOW_DETAILED, 1);
+            SettingsManager.StageDetails = 1;
         }
 
         /// <summary>
@@ -19,7 +17,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         public void OffButtonDown()
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.SHOW_DETAILED, 0);
+            SettingsManager.StageDetails = 0;
         }
     }
 }
