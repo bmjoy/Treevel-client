@@ -105,7 +105,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             // パネルを移動する
             BoardManager.SetPanel(panel.GetComponent<PanelController>(), pairTileController.TileNumber);
-            
+
             // panelがワープから戻るアニメーション
             anim.Play(AnimationClipName.PANEL_WARP_REVERSE);
             // アニメーションの終了を待つ
