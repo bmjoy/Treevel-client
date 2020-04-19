@@ -54,7 +54,13 @@ namespace Project.Scripts.GamePlayScene
         public static GameObject GetTile(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board[x, y].Tile.gameObject;
+            return _board?[x, y]?.Tile?.gameObject;
+        }
+
+        public static GameObject GetPanel(int tileNum)
+        {
+            var(x, y) = TileNumToXY(tileNum);
+            return _board?[x, y]?.Panel?.gameObject;
         }
 
         public static void Move(GameObject panel, Vector2 direction)
@@ -98,10 +104,11 @@ namespace Project.Scripts.GamePlayScene
                 var(x, y) = TileNumToXY(tileNum);
                 var target = _board[x, y];
                 if (target.Tile != null) {
-                    GameObject.Destroy(target.Tile.gameObject);
+                    target.Tile.gameObject.SetActive(false);
                 }
 
                 target.Tile = tile;
+                tile.gameObject.SetActive(true);
             }
         }
 
@@ -163,10 +170,16 @@ namespace Project.Scripts.GamePlayScene
                     if (_panel == null)
                         return;
 
+                    // 移動する
                     _panel.transform.position = WorldPosition;
+
+                    // 成功判定
                     if ((_panel is IJudgementHandler) && ((_panel as IJudgementHandler).Adapt())) {
                         GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
                     }
+
+                    // タイルに乗っかる時の処理
+                    _tile.HandlePanel(_panel.gameObject);
                 }
             }
 

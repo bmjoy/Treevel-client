@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
@@ -15,6 +16,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// warpTile上のeffect
         /// </summary>
         private GameObject _warpTileEffect;
+
+
+        /// <summary>
+        /// warpできるかどうか
+        /// </summary>
+        private bool _warpEnabled = true;
 
         protected override void Awake()
         {
@@ -71,9 +78,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <inheritdoc />
         public override void HandlePanel(GameObject panel)
         {
-            base.HandlePanel(panel);
             // pair tileに子パネルがないならワープさせる
-            if (!_pairTile.GetComponent<NormalTileController>().hasPanel) {
+            if (_warpEnabled && BoardManager.GetPanel(_pairTile.GetComponent<NormalTileController>().TileNumber) == null) {
                 // ワープ演出
                 StartCoroutine(WarpPanel(panel));
             }
@@ -81,8 +87,14 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private IEnumerator WarpPanel(GameObject panel)
         {
+            var pairTileController = _pairTile.GetComponent<WarpTileController>();
+
             // panelをフリックできないようにする
             panel.GetComponent<FlickGesture>().enabled = false;
+
+            // 相方を一時的にワープ不能にする
+            pairTileController._warpEnabled = false;
+
             // warpTileの粒子アニメーション
             GetComponent<ParticleSystem>().Play();
             var anim = panel.GetComponent<Animation>();
@@ -90,15 +102,18 @@ namespace Project.Scripts.GamePlayScene.Tile
             anim.Play(AnimationClipName.PANEL_WARP);
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
-            // panelの座標の更新
-            LeavePanel(panel);
-            panel.transform.SetParent(_pairTile.transform);
-            _pairTile.GetComponent<NormalTileController>().hasPanel = true;
-            panel.transform.position = _pairTile.transform.position;
+
+            // パネルを移動する
+            BoardManager.SetPanel(panel.GetComponent<PanelController>(), pairTileController.TileNumber);
+            
             // panelがワープから戻るアニメーション
             anim.Play(AnimationClipName.PANEL_WARP_REVERSE);
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
+
+            // 相方のワープ状態を戻す
+            pairTileController._warpEnabled = true;
+
             // panelをフリックできるようにする
             panel.GetComponent<FlickGesture>().enabled = true;
         }
