@@ -13,11 +13,12 @@ namespace Project.Scripts.GamePlayScene
 {
     public class GamePlayDirector : MonoBehaviour
     {
-        private const string _RESULT_WINDOW_NAME = "ResultPopup";
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string _TIMER_TEXT_NAME = "TimerText";
         private const string _PAUSE_WINDOW_NAME = "PauseWindow";
         private const string _PAUSE_BUTTON_NAME = "PauseButton";
+        private const string _SUCCESS_POPUP_NAME = "SuccessPopup";
+        private const string _FAILURE_POPUP_NAME = "FailurePopup";
 
         public delegate void ChangeAction();
 
@@ -68,11 +69,6 @@ namespace Project.Scripts.GamePlayScene
         [SerializeField] private GameObject _backgroundPrefab;
 
         /// <summary>
-        /// 結果ウィンドウ
-        /// </summary>
-        private GameObject _resultWindow;
-
-        /// <summary>
         /// 一時停止ウィンドウ
         /// </summary>
         private GameObject _pauseWindow;
@@ -112,15 +108,26 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private CustomTimer _customTimer;
 
+        /// <summary>
+        /// 成功ポップアップ
+        /// </summary>
+        private GameObject _successPopup;
+
+        /// <summary>
+        /// 失敗ポップアップ
+        /// </summary>
+        private GameObject _failurePopup;
+
         private void Awake()
         {
-            _resultWindow = GameObject.Find(_RESULT_WINDOW_NAME);
-
             _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME);
             _timerText = GameObject.Find(_TIMER_TEXT_NAME);
 
             _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
             _pauseButton = GameObject.Find(_PAUSE_BUTTON_NAME);
+
+            _successPopup = GameObject.Find(_SUCCESS_POPUP_NAME);
+            _failurePopup = GameObject.Find(_FAILURE_POPUP_NAME);
 
             StartCoroutine(UnifyDisplay());
 
@@ -233,11 +240,11 @@ namespace Project.Scripts.GamePlayScene
         {
             CleanObject();
 
+            _successPopup.SetActive(false);
+            _failurePopup.SetActive(false);
+
             // 現在のステージ番号を格納
             _stageNumberText.GetComponent<Text>().text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageId.ToString();
-
-            // 結果ウィンドウを非表示
-            _resultWindow.SetActive(false);
 
             // 一時停止ウィンドウを非表示
             _pauseWindow.SetActive(false);
@@ -273,6 +280,7 @@ namespace Project.Scripts.GamePlayScene
         private void GameSucceed()
         {
             EndProcess();
+            _successPopup.SetActive(true);
             _successAudioSource.Play();
             var ss = StageStatus.Get(stageId);
             // クリア済みにする
@@ -288,6 +296,7 @@ namespace Project.Scripts.GamePlayScene
         private void GameFail()
         {
             EndProcess();
+            _failurePopup.SetActive(true);
             _failureAudioSource.Play();
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(stageId);
@@ -314,7 +323,6 @@ namespace Project.Scripts.GamePlayScene
         private void EndProcess()
         {
             _playingAudioSource.Stop();
-            _resultWindow.SetActive(true);
             // 一時停止ボタンを無効にする
             _pauseButton.SetActive(false);
             // タイマーを止める
@@ -351,7 +359,6 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ゲーム画面のアスペクト比を統一する
         /// </summary>
-        /// <param name="resultWindow"> 結果ウィンドウ </param>
         /// Bug: ゲーム画面遷移時にカメラ範囲が狭くなることがある
         private IEnumerator UnifyDisplay()
         {
