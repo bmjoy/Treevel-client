@@ -36,5 +36,21 @@ namespace Project.Scripts.Utils.Library.Extension
             return new Vector2((float)(Math.Cos(angle) * v.x - Math.Sin(angle) * v.y),
                     (float)(Math.Sin(angle) * v.x + Math.Cos(angle) * v.y));
         }
+
+        /// <summary>
+        /// 任意のベクトルを上下左右の四方向に正規化する
+        /// </summary>
+        /// <param name="v"> 対象ベクトル </param>
+        /// <returns></returns>
+        public static Vector2 Direction(this Vector2 v)
+        {
+            if (Math.Abs(v.x) > Math.Abs(v.y)) {
+                // x方向が強い
+                return v.x >= 0 ? Vector2.right : Vector2.left;
+            } else {
+                // y方向が強い
+                return v.y >= 0 ? Vector2.up : Vector2.down;
+            }
+        }
     }
 }
