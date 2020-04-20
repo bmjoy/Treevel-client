@@ -7,31 +7,6 @@ namespace Project.Scripts.GamePlayScene
     public class SuccessPopupController : MonoBehaviour
     {
         /// <summary>
-        /// 次に進むボタン
-        /// </summary>
-        private GameObject _nextButton;
-
-        /// <summary>
-        /// 投稿ボタン
-        /// </summary>
-        private GameObject _shareButton;
-
-        private void OnEnable()
-        {
-            GamePlayDirector.OnSucceed += OnSucceed;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.OnSucceed -= OnSucceed;
-        }
-
-        private void OnSucceed()
-        {
-            gameObject.SetActive(true);
-        }
-
-        /// <summary>
         /// 次に進むボタン押下時の処理
         /// </summary>
         public void NextButtonDown()
