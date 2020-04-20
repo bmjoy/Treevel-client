@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -172,7 +172,7 @@ MonoBehaviour:
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 0
+    m_MinSize: 40
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -198,6 +198,21 @@ PrefabInstance:
         type: 3}
       propertyPath: _indexStr
       value: GameTweet
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
@@ -353,6 +368,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: "\u6B21\u306B\u9032\u3080"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948406095265573719, guid: 03cfac2482f70425e95ac988698bbf47,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4948406096218579810, guid: 03cfac2482f70425e95ac988698bbf47,
         type: 3}
