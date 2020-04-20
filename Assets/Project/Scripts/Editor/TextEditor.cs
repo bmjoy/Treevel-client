@@ -98,29 +98,31 @@ namespace Project.Scripts.Editor
             if (texts.Count() == 0) return false;
             foreach (var multiLanguageText in texts)
             {
+                // 設定の変更
+                multiLanguageText.font = _font.objectReferenceValue as Font;
+
+                // デフォルト設定
+                multiLanguageText.fontStyle = FontStyle.Normal;
+                multiLanguageText.fontSize = FONT_MIN;
+                multiLanguageText.supportRichText = true;
+                multiLanguageText.alignment = TextAnchor.MiddleCenter;
+                multiLanguageText.alignByGeometry = false;
+                multiLanguageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+                multiLanguageText.verticalOverflow = VerticalWrapMode.Truncate;
+                multiLanguageText.resizeTextForBestFit = true;
+                multiLanguageText.raycastTarget = false;
+                multiLanguageText.resizeTextMinSize = Mathf.Max(multiLanguageText.resizeTextMinSize, FONT_MIN);
+                multiLanguageText.resizeTextMaxSize = Mathf.Max(multiLanguageText.resizeTextMaxSize, FONT_MIN);
+
+                EditorUtility.SetDirty(multiLanguageText);
+
                 if (multiLanguageText.GetType() != typeof(MultiLanguageText))
                 {
-                    // TextであるがMultiLanguageTextではない
-                    Debug.Log("\"" + multiLanguageText.text + "\" is not MultiLanguageText.");
-                }
-                else
-                {
-                    // 設定の変更
-                    multiLanguageText.font = _font.objectReferenceValue as Font;
-                    // デフォルト設定
-                    multiLanguageText.fontStyle = FontStyle.Normal;
-                    multiLanguageText.fontSize = FONT_MIN;
-                    multiLanguageText.supportRichText = true;
-                    multiLanguageText.alignment = TextAnchor.MiddleCenter;
-                    multiLanguageText.alignByGeometry = false;
-                    multiLanguageText.horizontalOverflow = HorizontalWrapMode.Wrap;
-                    multiLanguageText.verticalOverflow = VerticalWrapMode.Truncate;
-                    multiLanguageText.resizeTextForBestFit = true;
-                    multiLanguageText.raycastTarget = false;
-                    multiLanguageText.resizeTextMinSize = Mathf.Max(multiLanguageText.resizeTextMinSize, FONT_MIN);
-                    multiLanguageText.resizeTextMaxSize = Mathf.Max(multiLanguageText.resizeTextMaxSize, FONT_MIN);
-
-                    EditorUtility.SetDirty(multiLanguageText);
+                    // MultiLanguageTextではない, かつ, 数字ではない
+                    if(!multiLanguageText.text.All(char.IsDigit))
+                    {
+                        Debug.Log("\"" + multiLanguageText.text + "\" is not MultiLanguageText.");
+                    }
                 }
             }
             return true;
