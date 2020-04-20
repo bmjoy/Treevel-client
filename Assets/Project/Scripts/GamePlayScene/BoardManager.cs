@@ -59,7 +59,6 @@ namespace Project.Scripts.GamePlayScene
             return GetPosition(x, y);
         }
 
-
         public static GameObject GetTile(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
@@ -115,7 +114,7 @@ namespace Project.Scripts.GamePlayScene
             return ((num - 1) / _board.GetLength(1), (num - 1) % _board.GetLength(1));
         }
 
-        public static void SetTile(NormalTileController tile, int tileNum)
+        public static void SetTile(AbstractTile tile, int tileNum)
         {
             if (tile == null)
                 return;
@@ -181,13 +180,18 @@ namespace Project.Scripts.GamePlayScene
         private class Square
         {
             private PanelController _panel = null;
-            private NormalTileController _tile = null;
+            private AbstractTile _tile = null;
             public readonly Vector2 WorldPosition;
 
             public PanelController Panel
             {
                 get => _panel;
                 set {
+                    // パネルが移動する時タイルから離れる処理をする
+                    if (value == null && _panel != null) {
+                        _tile.OnPanelExit(_panel.gameObject);
+                    }
+
                     _panel = value;
                     if (_panel == null)
                         return;
@@ -201,11 +205,11 @@ namespace Project.Scripts.GamePlayScene
                     }
 
                     // タイルに乗っかる時の処理
-                    _tile.HandlePanel(_panel.gameObject);
+                    _tile.OnPanelEnter(_panel.gameObject);
                 }
             }
 
-            public NormalTileController Tile
+            public AbstractTile Tile
             {
                 get => _tile;
                 set {

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-    public class WarpTileController : NormalTileController
+    public class WarpTileController : AbstractTile
     {
         // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
@@ -17,7 +17,6 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         private GameObject _warpTileEffect;
 
-
         /// <summary>
         /// warpできるかどうか
         /// </summary>
@@ -26,6 +25,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         protected override void Awake()
         {
             base.Awake();
+            _panelHandler = new WarpTilePanelHandler(this);
             _warpTileEffect = transform.Find("WarpTileEffectPrefab").gameObject;
         }
 
@@ -75,16 +75,6 @@ namespace Project.Scripts.GamePlayScene.Tile
             _warpTileEffect.GetComponent<Animation>().Stop();
         }
 
-        /// <inheritdoc />
-        public override void HandlePanel(GameObject panel)
-        {
-            // pair tileに子パネルがないならワープさせる
-            if (_warpEnabled && BoardManager.GetPanel(_pairTile.GetComponent<NormalTileController>().TileNumber) == null) {
-                // ワープ演出
-                StartCoroutine(WarpPanel(panel));
-            }
-        }
-
         private IEnumerator WarpPanel(GameObject panel)
         {
             var pairTileController = _pairTile.GetComponent<WarpTileController>();
@@ -116,6 +106,34 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             // panelをフリックできるようにする
             panel.GetComponent<FlickGesture>().enabled = true;
+        }
+
+        private bool CanWarp()
+        {
+            return _warpEnabled && BoardManager.GetPanel(_pairTile.GetComponent<AbstractTile>().TileNumber) == null;
+        }
+
+        private void StartWarp(GameObject panel)
+        {
+            StartCoroutine(WarpPanel(panel));
+        }
+
+        private sealed class WarpTilePanelHandler : DefaultPanelHandler {
+            private WarpTileController _parent;
+
+            public WarpTilePanelHandler(WarpTileController parent)
+            {
+                _parent = parent;
+            }
+
+            public override void OnPanelEnter(GameObject panel)
+            {
+                // pair tileに子パネルがないならワープさせる
+                if (_parent.CanWarp()) {
+                    // ワープ演出
+                    _parent.StartWarp(panel);
+                }
+            }
         }
     }
 }

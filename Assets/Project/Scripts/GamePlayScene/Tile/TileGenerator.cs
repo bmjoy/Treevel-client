@@ -13,13 +13,12 @@ namespace Project.Scripts.GamePlayScene.Tile
         public void CreateTiles(ICollection<TileData> tileDatas)
         {
             // シーンに配置したノーマルタイルを初期化
-
             for (var tileNum = 1 ; tileNum <= StageSize.ROW * StageSize.COLUMN; ++tileNum) {
                 var currTile = transform.Find($"NormalTile{tileNum}")?.gameObject?.GetComponent<NormalTileController>();
 
                 // initialize tile
                 BoardManager.SetTile(currTile, tileNum);
-                currTile.GetComponent<SpriteRenderer>().enabled = true;
+                currTile.Initialize(tileNum);
 
                 // show sprite
                 currTile.GetComponent<SpriteRenderer>().enabled = true;
@@ -51,8 +50,8 @@ namespace Project.Scripts.GamePlayScene.Tile
             firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
             secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
 
-            BoardManager.SetTile(firstTile.GetComponent<NormalTileController>(), firstTileNum);
-            BoardManager.SetTile(secondTile.GetComponent<NormalTileController>(), secondTileNum);
+            BoardManager.SetTile(firstTile.GetComponent<AbstractTile>(), firstTileNum);
+            BoardManager.SetTile(secondTile.GetComponent<AbstractTile>(), secondTileNum);
 
             firstTile.GetComponent<SpriteRenderer>().enabled = true;
             secondTile.GetComponent<SpriteRenderer>().enabled = true;

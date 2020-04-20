@@ -4,43 +4,8 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-    public class NormalTileController : MonoBehaviour
+    public class NormalTileController : AbstractTile
     {
-        /// <summary>
-        /// タイルの番号
-        /// </summary>
-        private int _tileNum;
-        public int TileNumber => _tileNum;
-
-        protected virtual void Awake()
-        {
-            var tileWidth = GetComponent<SpriteRenderer>().size.x;
-            var tileHeight = GetComponent<SpriteRenderer>().size.y;
-            transform.localScale = new Vector2(TileSize.WIDTH / tileWidth, TileSize.HEIGHT / tileHeight);
-            GetComponent<Renderer>().sortingLayerName = SortingLayerName.TILE;
-        }
-
-        /// <summary>
-        /// 初期化
-        /// </summary>
-        /// <param name="tileNum"> タイルの番号 </param>
-        public virtual void Initialize(int tileNum)
-        {
-            #if UNITY_EDITOR
-            name = TileName.NORMAL_TILE;
-            #endif
-            _tileNum = tileNum;
-            GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        /// <summary>
-        /// このタイルに任意のパネルが移動してきた場合の処理
-        /// </summary>
-        /// <param name="panel"></param>
-        public virtual void HandlePanel(GameObject panel)
-        {
-        }
-
         /// <summary>
         /// タイルの画像を設定する
         /// </summary>
@@ -48,6 +13,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         public void SetSprite(Sprite sprite)
         {
             GetComponent<SpriteRenderer>().sprite = sprite;
+            InitializeSprite();
         }
     }
 }

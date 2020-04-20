@@ -2,7 +2,6 @@
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
 using SpriteGlow;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -24,6 +23,9 @@ namespace Project.Scripts.GamePlayScene.Panel
         private int _id;
         public int Id => _id;
 
+        /// <summary>
+        /// パネルの目標位置
+        /// </summary>
         private int _finalPos;
 
         /// <summary>
