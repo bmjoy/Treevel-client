@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
@@ -10,12 +10,21 @@ namespace Project.Scripts.GamePlayScene
 
     public static class BoardManager
     {
+        /// <summary>
+        /// タイル、パネルとそれぞれのワールド座標を保持する「ボード」
+        /// </summary>
         private static Square[,] _board = new Square[StageSize.ROW, StageSize.COLUMN];
 
+        /// <summary>
+        /// パネルの現在位置を保存するパネルから参照できる辞書
+        /// </summary>
+        /// <typeparam name="GameObject">パネルのゲームオブジェクト</typeparam>
+        /// <typeparam name="Vector2">現在位置`(x, y)=>（row, column）`</typeparam>
         private static Dictionary<GameObject, Vector2> _panelPositions = new Dictionary<GameObject, Vector2>();
 
         /// <summary>
-        /// ボードを初期化、格子毎のワールド座標を計算する
+        /// ボードを初期化、行数×列数分の格子（`Square`）を用意し、
+        /// 格子毎のワールド座標をタイルのサイズを基づき計算する
         /// </summary>
         public static void Initialize()
         {
@@ -63,18 +72,26 @@ namespace Project.Scripts.GamePlayScene
             return _board?[x, y]?.Panel?.gameObject;
         }
 
+        /// <summary>
+        /// パネルをフリックする方向に移動する
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="direction"></param>
         public static void Move(GameObject panel, Vector2 direction)
         {
-            var panelController = panel.GetComponent<PanelController>();
+            var panelController = panel?.GetComponent<PanelController>();
             if (!(panelController is DynamicPanelController))
                 return;
 
-            // 方向を正規化
+            // 移動方向を正規化
+            // 行列におけるX,Yとワールド座標型のX,Yはちょうど90度違うので直角を取る
             direction = Vector2.Perpendicular(direction.Direction());
 
+            // 該当パネルの現在位置
             var currPos = _panelPositions[panel];
 
             var targetPos = currPos + direction;
+            // 移動目標地をボードの範囲内に収める
             targetPos.x = Mathf.Clamp(0, targetPos.x, StageSize.ROW);
             targetPos.y = Mathf.Clamp(0, targetPos.y, StageSize.COLUMN);
 
@@ -100,9 +117,14 @@ namespace Project.Scripts.GamePlayScene
 
         public static void SetTile(NormalTileController tile, int tileNum)
         {
+            if (tile == null)
+                return;
+
             lock (_board) {
                 var(x, y) = TileNumToXY(tileNum);
                 var target = _board[x, y];
+
+                // 既にタイルが置いてあった場合、disabledにする(ノーマルタイルは重複利用されるため、消したくない)
                 if (target.Tile != null) {
                     target.Tile.gameObject.SetActive(false);
                 }
