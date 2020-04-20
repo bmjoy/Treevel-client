@@ -169,7 +169,7 @@ namespace Project.Scripts.GamePlayScene
         public void CheckClear()
         {
             var panels = GameObject.FindObjectsOfType<PanelController>().OfType<ITileAdaptHandler>();
-            if (panels.Any(panel => panel.Adapted() == false)) return;
+            if (panels.Any(panel => panel.IsAdapted() == false)) return;
             // 全ての数字パネルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
         }

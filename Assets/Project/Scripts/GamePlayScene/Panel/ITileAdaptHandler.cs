@@ -16,6 +16,6 @@
         /// 該当パネルが成功したかどうか
         /// </summary>
         /// <returns></returns>
-        bool Adapted();
+        bool IsAdapted();
     }
 }

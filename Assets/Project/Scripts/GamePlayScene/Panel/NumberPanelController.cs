@@ -120,11 +120,11 @@ namespace Project.Scripts.GamePlayScene.Panel
         public bool Adapt()
         {
             // 最終タイルにいるかどうかで，光らせるかを決める
-            return GetComponent<SpriteGlowEffect>().enabled = Adapted();
+            return GetComponent<SpriteGlowEffect>().enabled = IsAdapted();
         }
 
         /// <inheritdoc/>
-        public bool Adapted()
+        public bool IsAdapted()
         {
             var currPos = BoardManager.GetPanelPos(this);
             return currPos == _finalPos;
