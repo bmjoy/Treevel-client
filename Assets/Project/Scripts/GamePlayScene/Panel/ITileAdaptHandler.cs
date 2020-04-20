@@ -1,7 +1,10 @@
-﻿
-namespace Project.Scripts.GamePlayScene.Panel
+﻿namespace Project.Scripts.GamePlayScene.Panel
 {
-    internal interface IJudgementHandler
+    /// <summary>
+    /// 成功判定を処理するインターフェイス
+    /// 成功判定させたいパネルクラスに実装させて、タイルに移動した際成功判定を発火する
+    /// </summary>
+    internal interface ITileAdaptHandler
     {
         /// <summary>
         /// タイルに載せた時の挙動

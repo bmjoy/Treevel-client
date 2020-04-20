@@ -11,7 +11,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NumberPanelController : DynamicPanelController, IJudgementHandler
+    public class NumberPanelController : DynamicPanelController, ITileAdaptHandler
     {
         /// <summary>
         /// パネルのゴールとなるタイル

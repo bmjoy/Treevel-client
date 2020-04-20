@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
@@ -174,7 +174,7 @@ namespace Project.Scripts.GamePlayScene
                     _panel.transform.position = WorldPosition;
 
                     // 成功判定
-                    if ((_panel is IJudgementHandler) && ((_panel as IJudgementHandler).Adapt())) {
+                    if ((_panel is ITileAdaptHandler) && ((_panel as ITileAdaptHandler).Adapt())) {
                         GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
                     }
 
