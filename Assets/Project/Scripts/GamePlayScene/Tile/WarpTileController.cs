@@ -118,7 +118,8 @@ namespace Project.Scripts.GamePlayScene.Tile
             StartCoroutine(WarpPanel(panel));
         }
 
-        private sealed class WarpTilePanelHandler : DefaultPanelHandler {
+        private sealed class WarpTilePanelHandler : DefaultPanelHandler
+        {
             private WarpTileController _parent;
 
             public WarpTilePanelHandler(WarpTileController parent)

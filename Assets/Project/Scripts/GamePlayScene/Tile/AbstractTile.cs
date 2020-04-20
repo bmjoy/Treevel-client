@@ -61,9 +61,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         // 何もしないパネルハンドラー
         protected class DefaultPanelHandler : IPanelHandler
         {
-            public virtual void OnPanelEnter(GameObject panel){}
+            public virtual void OnPanelEnter(GameObject panel) {}
 
-            public virtual void OnPanelExit(GameObject panel){}
+            public virtual void OnPanelExit(GameObject panel) {}
         }
     }
 }
