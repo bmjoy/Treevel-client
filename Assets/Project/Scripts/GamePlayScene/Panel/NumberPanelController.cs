@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NumberPanelController : DynamicPanelController, ITileAdaptHandler
+    public class NumberPanelController : DynamicPanelController, IPanelSuccessHandler
     {
         /// <summary>
         /// パネルのゴールとなるタイル
@@ -117,14 +117,14 @@ namespace Project.Scripts.GamePlayScene.Panel
         }
 
         /// <inheritdoc/>
-        public bool Adapt()
+        public bool DoWhenSuccess()
         {
             // 最終タイルにいるかどうかで，光らせるかを決める
-            return GetComponent<SpriteGlowEffect>().enabled = IsAdapted();
+            return GetComponent<SpriteGlowEffect>().enabled = IsSuccess();
         }
 
         /// <inheritdoc/>
-        public bool IsAdapted()
+        public bool IsSuccess()
         {
             var currPos = BoardManager.GetPanelPos(this);
             return currPos == _finalPos;

@@ -200,7 +200,7 @@ namespace Project.Scripts.GamePlayScene
                     _panel.transform.position = WorldPosition;
 
                     // 成功判定
-                    if ((_panel is ITileAdaptHandler) && ((_panel as ITileAdaptHandler).Adapt())) {
+                    if ((_panel is IPanelSuccessHandler) && ((_panel as IPanelSuccessHandler).DoWhenSuccess())) {
                         GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
                     }
 
