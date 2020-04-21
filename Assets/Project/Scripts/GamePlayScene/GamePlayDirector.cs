@@ -168,7 +168,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void CheckClear()
         {
-            var panels = GameObject.FindObjectsOfType<PanelController>().OfType<IPanelSuccessHandler>();
+            var panels = GameObject.FindObjectsOfType<AbstractPanelController>().OfType<IPanelSuccessHandler>();
             if (panels.Any(panel => panel.IsSuccess() == false)) return;
             // 全ての数字パネルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);

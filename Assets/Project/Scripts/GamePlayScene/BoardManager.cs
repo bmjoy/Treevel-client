@@ -78,7 +78,7 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="direction"></param>
         public static void Move(GameObject panel, Vector2 direction)
         {
-            var panelController = panel?.GetComponent<PanelController>();
+            var panelController = panel?.GetComponent<AbstractPanelController>();
             if (!(panelController is DynamicPanelController))
                 return;
 
@@ -139,7 +139,7 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="panel"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public static bool SetPanel(PanelController panel, int pos)
+        public static bool SetPanel(AbstractPanelController panel, int pos)
         {
             lock (_board) {
                 // 目標の格子を取得
@@ -168,7 +168,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="panel"></param>
         /// <returns></returns>
-        public static int GetPanelPos(PanelController panel)
+        public static int GetPanelPos(AbstractPanelController panel)
         {
             var pos = _panelPositions?[panel.gameObject] ?? default;
             return XYToTileNum(pos);
@@ -179,11 +179,11 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private class Square
         {
-            private PanelController _panel = null;
+            private AbstractPanelController _panel = null;
             private AbstractTileController _tile = null;
             public readonly Vector2 WorldPosition;
 
-            public PanelController Panel
+            public AbstractPanelController Panel
             {
                 get => _panel;
                 set {

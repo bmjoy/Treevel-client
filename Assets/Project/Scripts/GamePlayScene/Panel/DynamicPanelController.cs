@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Panel
     [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(FlickGesture))]
-    public class DynamicPanelController : PanelController
+    public class DynamicPanelController : AbstractPanelController
     {
         protected GamePlayDirector gamePlayDirector;
 

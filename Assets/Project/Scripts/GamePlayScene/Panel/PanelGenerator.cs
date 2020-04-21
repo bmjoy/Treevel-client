@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene.Panel
                     return;
 
                 var panel = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[panelData.type]).Task;
-                panel.GetComponent<PanelController>().Initialize(panelData);
+                panel.GetComponent<AbstractPanelController>().Initialize(panelData);
             });
         }
     }

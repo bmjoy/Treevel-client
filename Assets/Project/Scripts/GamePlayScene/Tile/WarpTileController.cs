@@ -94,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
             // パネルを移動する
-            BoardManager.SetPanel(panel.GetComponent<PanelController>(), pairTileController.TileNumber);
+            BoardManager.SetPanel(panel.GetComponent<AbstractPanelController>(), pairTileController.TileNumber);
 
             // panelがワープから戻るアニメーション
             anim.Play(AnimationClipName.PANEL_WARP_REVERSE);

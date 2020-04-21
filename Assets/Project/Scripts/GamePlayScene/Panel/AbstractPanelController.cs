@@ -1,12 +1,10 @@
 ﻿using Project.Scripts.GameDatas;
-using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-    public abstract class PanelController : MonoBehaviour
+    public abstract class AbstractPanelController : MonoBehaviour
     {
         protected virtual void Awake() {}
 
