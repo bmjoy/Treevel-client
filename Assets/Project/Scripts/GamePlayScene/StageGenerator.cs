@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Bullet.Generators;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
@@ -27,11 +25,11 @@ namespace Project.Scripts.GamePlayScene
                 // パネルの作成はタイルに依存するため、タイルの生成が終わるまで待つ
                 await tileGenerator.CreateTiles(stageData.TileDatas);
 
+                // パネルの初期化
                 PanelGenerator.CreatePanels(stageData.PanelDatas);
-                var coroutines = await bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
 
-                // 銃弾一括生成
-                bulletGroupGenerator.CreateBulletGroups(coroutines);
+                // 銃弾の初期化
+                bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
             } else {
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageId.ToString() + ".");

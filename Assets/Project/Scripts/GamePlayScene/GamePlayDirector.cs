@@ -6,6 +6,7 @@ using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
+using Project.Scripts.GamePlayScene.Bullet.Generators;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -245,14 +246,6 @@ namespace Project.Scripts.GamePlayScene
             // 番号に合わせたステージの作成
             StageGenerator.CreateStages(stageId);
 
-            // 時間の計測
-            if (GetComponent<CustomTimer>() == null) {
-                _customTimer = gameObject.AddComponent<CustomTimer>();
-                _customTimer.Initialize(_timerText.GetComponent<Text>());
-            }
-
-            _customTimer.StartTimer();
-
             // 状態を変更する
             Dispatch(EGameState.Playing);
         }
@@ -263,6 +256,16 @@ namespace Project.Scripts.GamePlayScene
         private void GamePlaying()
         {
             _playingAudioSource.Play();
+
+            // 時間の計測
+            if (GetComponent<CustomTimer>() == null) {
+                _customTimer = gameObject.AddComponent<CustomTimer>();
+                _customTimer.Initialize(_timerText.GetComponent<Text>());
+            }
+            _customTimer.StartTimer();
+
+            // 銃弾の生成
+            BulletGroupGenerator.Instance.FireBulletGroups();
         }
 
         /// <summary>
