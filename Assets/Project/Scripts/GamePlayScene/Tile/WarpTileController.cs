@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-    public class WarpTileController : AbstractTile
+    public class WarpTileController : AbstractTileController
     {
         // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
@@ -110,7 +110,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private bool CanWarp()
         {
-            return _warpEnabled && BoardManager.GetPanel(_pairTile.GetComponent<AbstractTile>().TileNumber) == null;
+            return _warpEnabled && BoardManager.GetPanel(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
         }
 
         private void StartWarp(GameObject panel)

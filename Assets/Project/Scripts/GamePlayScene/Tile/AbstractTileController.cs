@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Project.Scripts.GamePlayScene.Tile
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public abstract class AbstractTile : MonoBehaviour
+    public abstract class AbstractTileController : MonoBehaviour
     {
         /// <summary>
         /// タイルの番号

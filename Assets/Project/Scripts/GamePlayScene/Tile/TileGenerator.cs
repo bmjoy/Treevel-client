@@ -50,8 +50,8 @@ namespace Project.Scripts.GamePlayScene.Tile
             firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
             secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
 
-            BoardManager.SetTile(firstTile.GetComponent<AbstractTile>(), firstTileNum);
-            BoardManager.SetTile(secondTile.GetComponent<AbstractTile>(), secondTileNum);
+            BoardManager.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);
+            BoardManager.SetTile(secondTile.GetComponent<AbstractTileController>(), secondTileNum);
 
             firstTile.GetComponent<SpriteRenderer>().enabled = true;
             secondTile.GetComponent<SpriteRenderer>().enabled = true;

@@ -114,7 +114,7 @@ namespace Project.Scripts.GamePlayScene
             return ((num - 1) / _board.GetLength(1), (num - 1) % _board.GetLength(1));
         }
 
-        public static void SetTile(AbstractTile tile, int tileNum)
+        public static void SetTile(AbstractTileController tile, int tileNum)
         {
             if (tile == null)
                 return;
@@ -180,7 +180,7 @@ namespace Project.Scripts.GamePlayScene
         private class Square
         {
             private PanelController _panel = null;
-            private AbstractTile _tile = null;
+            private AbstractTileController _tile = null;
             public readonly Vector2 WorldPosition;
 
             public PanelController Panel
@@ -209,7 +209,7 @@ namespace Project.Scripts.GamePlayScene
                 }
             }
 
-            public AbstractTile Tile
+            public AbstractTileController Tile
             {
                 get => _tile;
                 set {
