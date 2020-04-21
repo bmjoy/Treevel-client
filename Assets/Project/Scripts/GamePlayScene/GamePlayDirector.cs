@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Panel;
@@ -20,17 +20,15 @@ namespace Project.Scripts.GamePlayScene
         private const string _SUCCESS_POPUP_NAME = "SuccessPopup";
         private const string _FAILURE_POPUP_NAME = "FailurePopup";
 
-        public delegate void ChangeAction();
-
         /// <summary>
         /// 成功時のイベント
         /// </summary>
-        public static event ChangeAction OnSucceed;
+        public static event Action OnSucceed;
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
-        public static event ChangeAction OnFail;
+        public static event Action OnFail;
 
         /// <summary>
         /// ゲームの状態一覧
