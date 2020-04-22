@@ -14,8 +14,11 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             // シーンに配置したノーマルタイルを初期化
             for (var tileNum = 1 ; tileNum <= StageSize.ROW * StageSize.COLUMN; ++tileNum) {
-                var currTile = transform.Find($"NormalTile{tileNum}")?.gameObject.GetComponent<NormalTileController>();
+                var currTileObj = transform.Find($"NormalTile{tileNum}");
+                if (currTileObj == null)
+                    continue;
 
+                var currTile = gameObject.GetComponent<NormalTileController>();
                 if (currTile == null)
                     continue;
 
