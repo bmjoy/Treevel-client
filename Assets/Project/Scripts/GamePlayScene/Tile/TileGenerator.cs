@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.Tile
                 if (currTileObj == null)
                     continue;
 
-                var currTile = gameObject.GetComponent<NormalTileController>();
+                var currTile = currTileObj.GetComponent<NormalTileController>();
                 if (currTile == null)
                     continue;
 

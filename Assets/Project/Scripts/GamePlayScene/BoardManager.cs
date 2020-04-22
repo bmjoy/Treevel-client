@@ -195,7 +195,7 @@ namespace Project.Scripts.GamePlayScene
             {
                 get => _panel;
                 set {
-                    if (_panel.Equals(value))
+                    if (_panel == value)
                         return;
 
                     if (value == null && _panel != null) {
