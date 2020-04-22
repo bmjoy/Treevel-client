@@ -13,7 +13,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         public void CreateTiles(ICollection<TileData> tileDatas)
         {
             // シーンに配置したノーマルタイルを初期化
-            for (var tileNum = 1 ; tileNum <= StageSize.ROW * StageSize.COLUMN; ++tileNum) {
+            for (var tileNum = 1; tileNum <= StageSize.ROW * StageSize.COLUMN; ++tileNum) {
                 var currTileObj = transform.Find($"NormalTile{tileNum}");
                 if (currTileObj == null)
                     continue;

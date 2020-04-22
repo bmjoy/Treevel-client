@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
 {
-
     public static class BoardManager
     {
         /// <summary>
