@@ -211,12 +211,12 @@ namespace Project.Scripts.GamePlayScene
                         // 移動する
                         _panel.transform.position = _worldPosition;
 
-                        // 成功判定
-                        if ((_panel is IPanelSuccessHandler handler) && (handler.DoWhenSuccess())) {
-                            GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
+                        // パネルがタイルに入る時パネルの処理
+                        if (_panel is IEnterTileHandler handler) {
+                            handler.OnEnterTile(_tile.gameObject);
                         }
 
-                        // タイルに乗っかる時の処理
+                        // パネルがタイルに入る時タイルの処理
                         _tile.OnPanelEnter(_panel.gameObject);
                     }
                 }
