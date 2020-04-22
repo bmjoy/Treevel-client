@@ -9,7 +9,11 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <summary>
         /// タイルの番号
         /// </summary>
-        public int TileNumber {get; private set;}
+        public int TileNumber
+        {
+            get;
+            private set;
+        }
 
         protected IPanelHandler panelHandler = new DefaultPanelHandler();
 

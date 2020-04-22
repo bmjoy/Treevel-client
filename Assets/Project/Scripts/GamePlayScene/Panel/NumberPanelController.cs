@@ -20,7 +20,11 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルの初期位置
         /// </summary>
-        public int Id { get; private set;}
+        public int Id
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// パネルの目標位置
