@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
@@ -20,7 +20,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <typeparam name="GameObject">パネルのゲームオブジェクト</typeparam>
         /// <typeparam name="Vector2">現在位置`(x, y)=>（row, column）`</typeparam>
-        private static readonly Dictionary<GameObject, Vector2> _panelPositions = new Dictionary<GameObject, Vector2>();
+        private static readonly Dictionary<GameObject, Vector2Int> _panelPositions = new Dictionary<GameObject, Vector2Int>();
 
         /// <summary>
         /// ボードを初期化、行数×列数分の格子（`Square`）を用意し、
@@ -72,17 +72,17 @@ namespace Project.Scripts.GamePlayScene
 
             // 移動方向を正規化
             // 行列におけるX,Yとワールド座標型のX,Yはちょうど90度違うので直角を取る
-            direction = Vector2.Perpendicular(direction.Direction());
+            var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(direction.Direction()));
 
             // 該当パネルの現在位置
             var currPos = _panelPositions[panel];
 
-            var targetPos = currPos + direction;
+            var targetPos = currPos + directionInt;
             // 移動目標地をボードの範囲内に収める
             targetPos.x = Mathf.Clamp(targetPos.x, 0, StageSize.ROW - 1);
             targetPos.y = Mathf.Clamp(targetPos.y, 0, StageSize.COLUMN - 1);
 
-            var targetTileNum = XYToTileNum((int)targetPos.x, (int)targetPos.y);
+            var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
             SetPanel(panelController, targetTileNum);
         }
@@ -92,9 +92,9 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="vec">行、列の二次元ベクトル</param>
         /// <returns>タイル番号</returns>
-        private static int XYToTileNum(Vector2 vec)
+        private static int XYToTileNum(Vector2Int vec)
         {
-            return XYToTileNum((int)vec.x, (int)vec.y);
+            return XYToTileNum(vec.x, vec.y);
         }
 
         /// <summary>
@@ -165,11 +165,11 @@ namespace Project.Scripts.GamePlayScene
                 // パネルの元の位置が保存されたらその位置のパネルを消す
                 if (_panelPositions.ContainsKey(panel.gameObject)) {
                     var from = _panelPositions[panel.gameObject];
-                    _board[(int)from.x, (int)from.y].Panel = null;
+                    _board[from.x, from.y].Panel = null;
                 }
 
                 // 新しい格子に設定
-                _panelPositions[panel.gameObject] = new Vector2(targetX, targetY);
+                _panelPositions[panel.gameObject] = new Vector2Int(targetX, targetY);
                 targetSquare.Panel = panel;
             }
         }
