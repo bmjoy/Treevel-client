@@ -55,8 +55,8 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             Id = panelData.initPos;
             _finalPos = panelData.targetPos;
-            Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
-            Sprite targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
+            var panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
+            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
             GetComponent<SpriteRenderer>().sprite = panelSprite;
 
             base.Initialize(panelData);
