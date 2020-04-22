@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         protected override void Awake()
         {
             base.Awake();
-            _panelHandler = new WarpTilePanelHandler(this);
+            panelHandler = new WarpTilePanelHandler(this);
             _warpTileEffect = transform.Find("WarpTileEffectPrefab").gameObject;
         }
 
