@@ -189,7 +189,7 @@ namespace Project.Scripts.GamePlayScene
         {
             private AbstractPanelController _panel = null;
             private AbstractTileController _tile = null;
-            public readonly Vector2 WorldPosition;
+            private readonly Vector2 _worldPosition;
 
             public AbstractPanelController Panel
             {
@@ -207,7 +207,7 @@ namespace Project.Scripts.GamePlayScene
                         _panel = value;
 
                         // 移動する
-                        _panel.transform.position = WorldPosition;
+                        _panel.transform.position = _worldPosition;
 
                         // 成功判定
                         if ((_panel is IPanelSuccessHandler handler) && (handler.DoWhenSuccess())) {
@@ -226,13 +226,13 @@ namespace Project.Scripts.GamePlayScene
                 set {
                     _tile = value;
                     if (_tile != null)
-                        _tile.transform.position = WorldPosition;
+                        _tile.transform.position = _worldPosition;
                 }
             }
 
             public Square(Vector2 pos)
             {
-                WorldPosition = pos;
+                _worldPosition = pos;
             }
         }
     }
