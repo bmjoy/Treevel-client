@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Project.Scripts.GamePlayScene.Panel;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
@@ -32,7 +32,7 @@ namespace Project.Scripts.GamePlayScene
                 for (var col = 0; col < StageSize.COLUMN; ++col) {
                     var x = TileSize.WIDTH * (col - StageSize.COLUMN / 2);
                     var y = TileSize.HEIGHT * (StageSize.ROW / 2 - row);
-                    _board[row, col] = new Square(new Vector2(x, y));
+                    _board[row, col] = new Square(x, y);
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace Project.Scripts.GamePlayScene
         public static GameObject GetTile(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board?[x, y]?.Tile.gameObject;
+            return _board[x, y]?.Tile?.gameObject;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Project.Scripts.GamePlayScene
         public static GameObject GetPanel(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board?[x, y]?.Panel.gameObject;
+            return _board[x, y]?.Panel?.gameObject;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Project.Scripts.GamePlayScene
                 return;
 
             // 移動方向を正規化
-            // 行列におけるX,Yとワールド座標型のX,Yはちょうど90度違うので直角を取る
+            // ワールド座標型のX,Yを時計回りに90度回転させ行列におけるX,Yを求める
             var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(direction.Direction()));
 
             // 該当パネルの現在位置
@@ -117,7 +117,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum">タイル番号</param>
         /// <returns>（行, 列)</returns>
-        private static(int, int) TileNumToXY(int tileNum)
+        private static (int, int) TileNumToXY(int tileNum)
         {
             return ((tileNum - 1) / _board.GetLength(1), (tileNum - 1) % _board.GetLength(1));
         }
@@ -233,9 +233,9 @@ namespace Project.Scripts.GamePlayScene
                 }
             }
 
-            public Square(Vector2 pos)
+            public Square(float x, float y)
             {
-                _worldPosition = pos;
+                _worldPosition = new Vector2(x, y);
             }
         }
     }
