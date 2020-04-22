@@ -41,7 +41,7 @@ namespace Project.Scripts.Utils.Library.Extension
         /// 任意のベクトルを上下左右の四方向に正規化する
         /// </summary>
         /// <param name="v"> 対象ベクトル </param>
-        /// <returns></returns>
+        /// <returns>四方向の単位ベクトル</returns>
         public static Vector2 Direction(this Vector2 v)
         {
             if (Math.Abs(v.x) > Math.Abs(v.y)) {

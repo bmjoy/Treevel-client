@@ -120,7 +120,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private sealed class WarpTilePanelHandler : DefaultPanelHandler
         {
-            private WarpTileController _parent;
+            private readonly WarpTileController _parent;
 
             public WarpTilePanelHandler(WarpTileController parent)
             {

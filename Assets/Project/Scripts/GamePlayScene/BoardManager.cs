@@ -13,18 +13,18 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// タイル、パネルとそれぞれのワールド座標を保持する「ボード」
         /// </summary>
-        private static Square[,] _board = new Square[StageSize.ROW, StageSize.COLUMN];
+        private static readonly Square[,] _board = new Square[StageSize.ROW, StageSize.COLUMN];
 
         /// <summary>
         /// パネルの現在位置を保存するパネルから参照できる辞書
         /// </summary>
         /// <typeparam name="GameObject">パネルのゲームオブジェクト</typeparam>
         /// <typeparam name="Vector2">現在位置`(x, y)=>（row, column）`</typeparam>
-        private static Dictionary<GameObject, Vector2> _panelPositions = new Dictionary<GameObject, Vector2>();
+        private static readonly Dictionary<GameObject, Vector2> _panelPositions = new Dictionary<GameObject, Vector2>();
 
         /// <summary>
         /// ボードを初期化、行数×列数分の格子（`Square`）を用意し、
-        /// 格子毎のワールド座標をタイルのサイズを基づき計算する
+        /// 格子毎のワールド座標をタイルのサイズに基づき計算する
         /// </summary>
         public static void Initialize()
         {
@@ -38,44 +38,32 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// 行、列から座標を取得
+        /// タイル番号が`tileNum`のタイルを取得
         /// </summary>
-        /// <param name="row">行</param>
-        /// <param name="column">列</param>
-        /// <returns></returns>
-        public static Vector2 GetPosition(int row, int column)
-        {
-            return _board[row, column].WorldPosition;
-        }
-
-        /// <summary>
-        /// 1から始まるタイル番号から座標を取得
-        /// </summary>
-        /// <param name="num">タイル番号</param>
-        /// <returns></returns>
-        public static Vector2 GetPosition(int num)
-        {
-            var(x, y) = TileNumToXY(num);
-            return GetPosition(x, y);
-        }
-
+        /// <param name="tileNum">タイル番号</param>
+        /// <returns>タイルのゲームオブジェクト</returns>
         public static GameObject GetTile(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board?[x, y]?.Tile?.gameObject;
+            return _board?[x, y]?.Tile.gameObject;
         }
 
+        /// <summary>
+        /// タイル番号が`tileNum`のタイルの上にパネルを取得
+        /// </summary>
+        /// <param name="tileNum">タイル番号</param>
+        /// <returns>対象パネルのゲームオブジェクト | null</returns>
         public static GameObject GetPanel(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board?[x, y]?.Panel?.gameObject;
+            return _board?[x, y]?.Panel.gameObject;
         }
 
         /// <summary>
         /// パネルをフリックする方向に移動する
         /// </summary>
-        /// <param name="panel"></param>
-        /// <param name="direction"></param>
+        /// <param name="panel"> フリックするパネル </param>
+        /// <param name="direction"> フリックする方向 </param>
         public static void Move(GameObject panel, Vector2 direction)
         {
             var panelController = panel?.GetComponent<AbstractPanelController>();
@@ -99,21 +87,43 @@ namespace Project.Scripts.GamePlayScene
             SetPanel(panelController, targetTileNum);
         }
 
+        /// <summary>
+        /// 行(`vec.x`)、列`(vec.y)`からタイル番号に変換
+        /// </summary>
+        /// <param name="vec">行、列の二次元ベクトル</param>
+        /// <returns>タイル番号</returns>
         private static int XYToTileNum(Vector2 vec)
         {
             return XYToTileNum((int)vec.x, (int)vec.y);
         }
 
+        /// <summary>
+        /// 行(`vec.x`)、列`(vec.y)`からタイル番号に変換
+        /// </summary>
+        /// <returns>タイル番号</returns>
+        /// <param name="x">行</param>
+        /// <param name="y">列</param>
+        /// <returns>タイル番号</returns>
         private static int XYToTileNum(int x, int y)
         {
             return (x * _board.GetLength(1)) + y + 1;
         }
 
-        private static(int, int) TileNumToXY(int num)
+        /// <summary>
+        /// タイル番号から行、列に変換する
+        /// </summary>
+        /// <param name="tileNum">タイル番号</param>
+        /// <returns>（行, 列)</returns>
+        private static(int, int) TileNumToXY(int tileNum)
         {
-            return ((num - 1) / _board.GetLength(1), (num - 1) % _board.GetLength(1));
+            return ((tileNum - 1) / _board.GetLength(1), (tileNum - 1) % _board.GetLength(1));
         }
 
+        /// <summary>
+        /// タイル`tile`をタイル番号`tileNum`の格子に設置する
+        /// </summary>
+        /// <param name="tile">設置するタイル</param>
+        /// <param name="tileNum">タイル番号</param>
         public static void SetTile(AbstractTileController tile, int tileNum)
         {
             if (tile == null)
@@ -134,21 +144,20 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// パネルをタイル番号`pos`の位置に設定する
+        /// パネルをタイル番号`tileNum`の位置に設置する
         /// </summary>
-        /// <param name="panel"></param>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public static bool SetPanel(AbstractPanelController panel, int pos)
+        /// <param name="panel">設置するパネル</param>
+        /// <param name="tileNum">目標タイル番号</param>
+        public static void SetPanel(AbstractPanelController panel, int tileNum)
         {
             lock (_board) {
                 // 目標の格子を取得
-                var(targetX, targetY) = TileNumToXY(pos);
+                var(targetX, targetY) = TileNumToXY(tileNum);
                 var targetSquare = _board[targetX, targetY];
 
                 // 目標位置にすでにパネルがある
                 if (targetSquare.Panel != null)
-                    return false;
+                    return;
 
                 // パネルの元の位置が保存されたらその位置のパネルを消す
                 if (_panelPositions.ContainsKey(panel.gameObject)) {
@@ -159,15 +168,14 @@ namespace Project.Scripts.GamePlayScene
                 // 新しい格子に設定
                 _panelPositions[panel.gameObject] = new Vector2(targetX, targetY);
                 targetSquare.Panel = panel;
-                return true;
             }
         }
 
         /// <summary>
         /// パネルがいるタイル番号を取得
         /// </summary>
-        /// <param name="panel"></param>
-        /// <returns></returns>
+        /// <param name="panel">調べたいパネル</param>
+        /// <returns>タイル番号</returns>
         public static int GetPanelPos(AbstractPanelController panel)
         {
             var pos = _panelPositions?[panel.gameObject] ?? default;
@@ -187,25 +195,28 @@ namespace Project.Scripts.GamePlayScene
             {
                 get => _panel;
                 set {
-                    // パネルが移動する時タイルから離れる処理をする
-                    if (value == null && _panel != null) {
-                        _tile.OnPanelExit(_panel.gameObject);
-                    }
-
-                    _panel = value;
-                    if (_panel == null)
+                    if (_panel.Equals(value))
                         return;
 
-                    // 移動する
-                    _panel.transform.position = WorldPosition;
+                    if (value == null && _panel != null) {
+                        // パネルがこの格子から離れる
+                        _tile.OnPanelExit(_panel.gameObject);
+                        _panel = value;
+                    } else {
+                        // 新しいパネルがこの格子に入る
+                        _panel = value;
 
-                    // 成功判定
-                    if ((_panel is IPanelSuccessHandler) && ((_panel as IPanelSuccessHandler).DoWhenSuccess())) {
-                        GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
+                        // 移動する
+                        _panel.transform.position = WorldPosition;
+
+                        // 成功判定
+                        if ((_panel is IPanelSuccessHandler handler) && (handler.DoWhenSuccess())) {
+                            GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
+                        }
+
+                        // タイルに乗っかる時の処理
+                        _tile.OnPanelEnter(_panel.gameObject);
                     }
-
-                    // タイルに乗っかる時の処理
-                    _tile.OnPanelEnter(_panel.gameObject);
                 }
             }
 

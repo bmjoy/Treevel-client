@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
+        /// <param name="panelData"> パネルのデータ </param>
         public virtual void Initialize(PanelData panelData)
         {
             var initialTileNum = panelData.initPos;
