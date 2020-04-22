@@ -79,8 +79,8 @@ namespace Project.Scripts.GamePlayScene
 
             var targetPos = currPos + direction;
             // 移動目標地をボードの範囲内に収める
-            targetPos.x = Mathf.Clamp(0, targetPos.x, StageSize.ROW);
-            targetPos.y = Mathf.Clamp(0, targetPos.y, StageSize.COLUMN);
+            targetPos.x = Mathf.Clamp(targetPos.x, 0, StageSize.ROW - 1);
+            targetPos.y = Mathf.Clamp(targetPos.y, 0, StageSize.COLUMN - 1);
 
             var targetTileNum = XYToTileNum((int)targetPos.x, (int)targetPos.y);
 
@@ -106,6 +106,9 @@ namespace Project.Scripts.GamePlayScene
         /// <returns>タイル番号</returns>
         private static int XYToTileNum(int x, int y)
         {
+            if (x >= _board.GetLength(0) || y >= _board.GetLength(1)) {
+                Debug.LogWarning($"Invalid row or column (row, column = ({x},{y})");
+            }
             return (x * _board.GetLength(1)) + y + 1;
         }
 
