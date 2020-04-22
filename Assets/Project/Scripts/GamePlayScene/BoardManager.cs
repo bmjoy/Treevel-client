@@ -117,7 +117,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum">タイル番号</param>
         /// <returns>（行, 列)</returns>
-        private static (int, int) TileNumToXY(int tileNum)
+        private static(int, int) TileNumToXY(int tileNum)
         {
             return ((tileNum - 1) / _board.GetLength(1), (tileNum - 1) % _board.GetLength(1));
         }
