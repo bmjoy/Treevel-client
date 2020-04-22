@@ -9,10 +9,9 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <summary>
         /// タイルの番号
         /// </summary>
-        private int _tileNum;
-        public int TileNumber => _tileNum;
+        public int TileNumber {get; private set;}
 
-        protected IPanelHandler _panelHandler = new DefaultPanelHandler();
+        protected IPanelHandler panelHandler = new DefaultPanelHandler();
 
         protected virtual void Awake()
         {
@@ -39,17 +38,17 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <param name="tileNum"> タイルの番号 </param>
         public virtual void Initialize(int tileNum)
         {
-            _tileNum = tileNum;
+            TileNumber = tileNum;
         }
 
         public void OnPanelEnter(GameObject panel)
         {
-            _panelHandler.OnPanelEnter(panel);
+            panelHandler.OnPanelEnter(panel);
         }
 
         public void OnPanelExit(GameObject panel)
         {
-            _panelHandler.OnPanelExit(panel);
+            panelHandler.OnPanelExit(panel);
         }
 
         protected interface IPanelHandler

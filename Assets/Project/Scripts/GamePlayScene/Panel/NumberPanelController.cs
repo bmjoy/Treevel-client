@@ -20,8 +20,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルの初期位置
         /// </summary>
-        private int _id;
-        public int Id => _id;
+        public int Id { get; private set;}
 
         /// <summary>
         /// パネルの目標位置
@@ -50,7 +49,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="panelData">パネルデータ</param>
         public override void Initialize(PanelData panelData)
         {
-            _id = panelData.initPos;
+            Id = panelData.initPos;
             _finalPos = panelData.targetPos;
             Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
             Sprite targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
@@ -59,7 +58,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             base.Initialize(panelData);
 
             #if UNITY_EDITOR
-            name = PanelName.NUMBER_PANEL + _id.ToString();
+            name = PanelName.NUMBER_PANEL + Id.ToString();
             #endif
 
             // 目標とするタイルのスプライトを設定
