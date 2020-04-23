@@ -29,7 +29,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
             }
             // Android の場合
             #elif UNITY_ANDROID
-                Application.OpenURL($"market://details?id={_ANDROID_ID}");
+            Application.OpenURL($"market://details?id={_ANDROID_ID}");
             #endif
         }
     }
