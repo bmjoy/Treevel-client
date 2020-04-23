@@ -336,11 +336,11 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private static void CleanObject()
         {
-            // パネル関連のタグ全部取る必要ある（もしかしたらタグ統一した方がいい？）
-            var panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL).Concat(GameObject.FindGameObjectsWithTag(TagName.DUMMY_PANEL));
+            // パネルを破壊
+            var panels = GameObject.FindObjectsOfType<PanelController>();
             foreach (var panel in panels) {
                 // パネルの削除
-                DestroyImmediate(panel);
+                DestroyImmediate(panel.gameObject);
             }
 
             var bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
