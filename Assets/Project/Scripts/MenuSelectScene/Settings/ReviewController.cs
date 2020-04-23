@@ -8,8 +8,8 @@ namespace Project.Scripts.MenuSelectScene.Settings
     public class ReviewController : MonoBehaviour
     {
         #if UNITY_IOS
-        // TODO: 適切な iOS の ID を設定
-        private const string _IOS_ID = "hoge";
+        // TODO: 適切な iOS の ID を設定 (現状，前作の ID を仕様)
+        private const string _IOS_ID = "1281004285";
         #elif UNITY_ANDROID
         // TODO: 適切な Android の ID を設定
         private const string _ANDROID_ID = "hoge";
@@ -24,7 +24,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
             // iOS の場合
             #if UNITY_IOS
             if (!Device.RequestStoreReview()) {
-                // アプリ内レビューができない場合（iOS10.3未満で発生)
+                // アプリ内レビューができない場合（iOS10.3以上でなければ発生)
                 Application.OpenURL($"itms-apps://itunes.apple.com/jp/app/id{_IOS_ID}?mt=8&action=write-review");
             }
             // Android の場合
