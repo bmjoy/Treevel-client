@@ -2596,16 +2596,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 374185333}
     m_Modifications:
-    - target: {fileID: 1126943607490740007, guid: bcbe9f3b3c5db4dab84b8cb55946d747,
-        type: 3}
-      propertyPath: m_Text
-      value: "\u4E00\u6642\u505C\u6B62\u4E2D"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1126943607490740007, guid: bcbe9f3b3c5db4dab84b8cb55946d747,
-        type: 3}
-      propertyPath: _indexStr
-      value: GamePause
-      objectReference: {fileID: 0}
     - target: {fileID: 3806797206434043006, guid: bcbe9f3b3c5db4dab84b8cb55946d747,
         type: 3}
       propertyPath: m_SizeDelta.x

@@ -1,4 +1,4 @@
-﻿using Project.Scripts.Utils;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
@@ -16,23 +16,9 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private GameObject _pauseButton;
 
-        /// <summary>
-        /// ゲーム再開ボタン
-        /// </summary>
-        private GameObject _backButton;
-
-        /// <summary>
-        /// ゲーム終了ボタン
-        /// </summary>
-        private GameObject _quitButton;
-
         private void Awake()
         {
             _pauseButton = GameObject.Find("PauseButton").gameObject;
-            _backButton = transform.Find("PausePopup/PauseBackButton").gameObject;
-            _quitButton = transform.Find("PausePopup/PauseQuitButton").gameObject;
-            _backButton.GetComponent<Button>().onClick.AddListener(PauseBackButtonDown);
-            _quitButton.GetComponent<Button>().onClick.AddListener(PauseQuitButtonDown);
         }
 
         private void Start()
@@ -43,7 +29,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ゲーム再開ボタン押下時の処理
         /// </summary>
-        private void PauseBackButtonDown()
+        public void PauseBackButtonDown()
         {
             // 一時停止ボタンを有効にする
             _pauseButton.SetActive(true);
@@ -58,7 +44,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ゲーム終了ボタン押下時の処理
         /// </summary>
-        private static void PauseQuitButtonDown()
+        public void PauseQuitButtonDown()
         {
             // 失敗回数をインクリメント
             var ss = StageStatus.Get(GamePlayDirector.stageId);
