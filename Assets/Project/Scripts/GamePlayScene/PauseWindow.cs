@@ -1,20 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
 {
     public class PauseWindow : MonoBehaviour
     {
         private GamePlayDirector _gamePlayDirector;
-
-        /// <summary>
-        /// 一時停止ボタン
-        /// </summary>
-        private GameObject _pauseButton;
-
-        private void Awake()
-        {
-            _pauseButton = GameObject.Find("PauseButton").gameObject;
-        }
 
         private void Start()
         {
