@@ -140,7 +140,6 @@ namespace Project.Scripts.GamePlayScene
         /// ゲームの状態を変更する
         /// </summary>
         /// <param name="nextState"> 変更したい状態 </param>
-        /// <returns> 変更に成功したかどうか </returns>
         public void Dispatch(EGameState nextState)
         {
             if (!_stateList.ContainsKey(nextState)) {

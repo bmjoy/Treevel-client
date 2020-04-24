@@ -5,6 +5,9 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
 {
     public class StateMachine
     {
+        /// <summary>
+        /// 現在の状態
+        /// </summary>
         public State CurrentState
         {
             get;
@@ -13,18 +16,28 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
 
         /// <summary>
         /// このステートマシンで制御できるステートの集合
-        /// コンストラクタ以外で書き込み禁止
         /// </summary>
         private readonly HashSet<State> _states;
 
+        /// <summary>
+        /// 合法的状態遷移の集合
+        /// </summary>
         private readonly Dictionary<State, HashSet<State>> _validTransitions = new Dictionary<State, HashSet<State>>();
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="startState">ステートマシンの最初状態</param>
+        /// <param name="allStates">遷移可能の状態集合</param>
         public StateMachine(State startState, State[] allStates)
         {
             _states = new HashSet<State>(allStates);
             CurrentState = startState;
         }
 
+        /// <summary>
+        /// ステートマシンを起動する
+        /// </summary>
         public void Start()
         {
             CurrentState.OnEnter(null);
@@ -50,6 +63,11 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
             _validTransitions[from].Add(to);
         }
 
+        /// <summary>
+        /// 状態遷移
+        /// </summary>
+        /// <param name="to">次の状態</param>
+        /// <returns>遷移成功かどうか</returns>
         public bool SetState(State to)
         {
             if (!IsValidState(to))
@@ -75,11 +93,21 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
             return true;
         }
 
+        /// <summary>
+        /// `state`は合法な状態かどうかを確認する
+        /// </summary>
+        /// <param name="state">確認対象</param>
+        /// <returns>合法的な状態かどうか</returns>
         private bool IsValidState(State state)
         {
             return _states.Contains(state);
         }
 
+        /// <summary>
+        /// <see cref="CurrentState">`CurrentState`</see>から`to`の遷移は合法かどうかを確認する
+        /// </summary>
+        /// <param name="to">次の状態</param>
+        /// <returns>合法的な遷移かどうか</returns>
         private bool IsTransitionValid(State to)
         {
             // 設定してないならfalse
