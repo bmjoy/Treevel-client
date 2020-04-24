@@ -5,7 +5,11 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
 {
     public class StateMachine
     {
-        public State CurrentState {get; private set;}
+        public State CurrentState
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// このステートマシンで制御できるステートの集合
@@ -55,7 +59,7 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
                 Debug.LogWarning($"Invalid state transition [{nameof(CurrentState)}] => [{nameof(CurrentState)}]");
                 return false;
             }
-            
+
             // leave current state
             CurrentState.OnExit(to);
 
@@ -81,7 +85,7 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
             // 設定してないならfalse
             if (!_validTransitions.ContainsKey(CurrentState))
                 return false;
-            else 
+            else
                 return _validTransitions[CurrentState].Contains(to);
         }
     }
