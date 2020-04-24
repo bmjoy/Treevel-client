@@ -96,7 +96,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 
         protected override void FixedUpdate()
         {
-            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing || _warningTiming == null) return;
+            if (gamePlayDirector.State != GamePlayDirector.EGameState.Playing || _warningTiming == null) return;
 
             // 警告を表示するタイミングかどうかを毎フレーム監視する
             _warningTiming[_warningIndex]--;
