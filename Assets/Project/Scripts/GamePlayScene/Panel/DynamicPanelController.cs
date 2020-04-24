@@ -11,8 +11,6 @@ namespace Project.Scripts.GamePlayScene.Panel
     [RequireComponent(typeof(FlickGesture))]
     public class DynamicPanelController : PanelController
     {
-        protected GamePlayDirector gamePlayDirector;
-
         protected Animation anim;
 
         /// <summary>
@@ -39,11 +37,6 @@ namespace Project.Scripts.GamePlayScene.Panel
             anim = GetComponent<Animation>();
             anim.AddClip(warpAnimation, AnimationClipName.PANEL_WARP);
             anim.AddClip(warpReverseAnimation, AnimationClipName.PANEL_WARP_REVERSE);
-        }
-
-        protected virtual void Start()
-        {
-            gamePlayDirector = FindObjectOfType<GamePlayDirector>();
         }
 
         private void OnEnable()

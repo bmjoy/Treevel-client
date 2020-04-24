@@ -1,22 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
 {
     public class PauseWindow : MonoBehaviour
     {
-        private GamePlayDirector _gamePlayDirector;
-
-        private void Start()
-        {
-            _gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-        }
-
         /// <summary>
         /// ゲーム再開ボタン押下時の処理
         /// </summary>
         public void PauseBackButtonDown()
         {
-            _gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Playing);
+            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Playing);
         }
 
         /// <summary>
@@ -24,7 +17,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void PauseQuitButtonDown()
         {
-            _gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
+            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
         }
     }
 }

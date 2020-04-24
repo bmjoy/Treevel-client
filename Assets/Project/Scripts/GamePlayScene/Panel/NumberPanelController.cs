@@ -87,7 +87,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             // 最終タイルにいるかどうかで，光らせるかを決める
             GetComponent<SpriteGlowEffect>().enabled = Adapted;
             // adapted が true になっていれば (必要条件) 成功判定をする
-            if (Adapted) gamePlayDirector.CheckClear();
+            if (Adapted) GamePlayDirector.Instance.CheckClear();
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             dead = true;
 
             // 失敗状態に移行する
-            gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
+            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
         }
 
         /// <summary>

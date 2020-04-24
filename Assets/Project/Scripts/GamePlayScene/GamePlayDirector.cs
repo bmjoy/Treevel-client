@@ -15,7 +15,7 @@ using UnityEngine.UI;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public class GamePlayDirector : MonoBehaviour
+    public class GamePlayDirector : SingletonObject<GamePlayDirector>
     {
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string _TIMER_TEXT_NAME = "TimerText";

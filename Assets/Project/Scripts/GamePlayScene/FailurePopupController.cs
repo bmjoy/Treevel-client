@@ -5,19 +5,12 @@ namespace Project.Scripts.GamePlayScene
 {
     public class FailurePopupController : MonoBehaviour
     {
-        private GamePlayDirector _gamePlayDirector;
-
-        private void Start()
-        {
-            _gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-        }
-
         /// <summary>
         /// リトライボタン押下時の処理
         /// </summary>
         public void RetryButtonDown()
         {
-            _gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Playing);
+            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Playing);
         }
 
         /// <summary>
