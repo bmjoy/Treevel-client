@@ -8,7 +8,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
     public class ReviewController : MonoBehaviour
     {
         #if UNITY_IOS
-        // TODO: 適切な iOS の ID を設定 (現状，前作の ID を仕様)
+        // TODO: 適切な iOS の ID を設定 (現状，前作の ID を使用)
         private const string _IOS_ID = "1281004285";
         #elif UNITY_ANDROID
         // TODO: 適切な Android の ID を設定
