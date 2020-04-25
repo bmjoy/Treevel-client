@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Panel
     [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(FlickGesture))]
-    public class DynamicPanelController : PanelController
+    public class DynamicPanelController : AbstractPanelController
     {
         protected GamePlayDirector gamePlayDirector;
 
@@ -69,51 +69,8 @@ namespace Project.Scripts.GamePlayScene.Panel
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
-            // 親タイルオブジェクトのスクリプトを取得
-            var parentTile = transform.parent.gameObject.GetComponent<NormalTileController>();
-            // フリック方向
-            var x = gesture.ScreenFlickVector.x;
-            var y = gesture.ScreenFlickVector.y;
-
-            // 方向検知に加えて，上下と左右の変化量を比べることで，検知精度をあげる
-            if (x > 0 && Math.Abs(x) >= Math.Abs(y)) {
-                // 右
-                var rightTile = parentTile.rightTile;
-                UpdateTile(rightTile);
-            } else if (x < 0 && Math.Abs(x) >= Math.Abs(y)) {
-                // 左
-                var leftTile = parentTile.leftTile;
-                UpdateTile(leftTile);
-            } else if (y > 0 && Math.Abs(y) >= Math.Abs(x)) {
-                // 上
-                var upperTile = parentTile.upperTile;
-                UpdateTile(upperTile);
-            } else if (y < 0 && Math.Abs(y) >= Math.Abs(x)) {
-                // 下
-                var lowerTile = parentTile.lowerTile;
-                UpdateTile(lowerTile);
-            }
-        }
-
-        /// <summary>
-        /// パネルの位置を更新する
-        /// </summary>
-        /// <param name="targetTile"> パネルの移動先となるタイル </param>
-        protected virtual void UpdateTile(GameObject targetTile)
-        {
-            // 移動先にタイルがなければ何もしない
-            if (targetTile == null) return;
-            // 移動先のタイルのスクリプト
-            var targetScript = targetTile.GetComponent<NormalTileController>();
-            // 移動先のタイルに子パネルがあれば何もしない
-            if (targetScript.hasPanel) return;
-            // 親タイルの更新
-            transform.parent.GetComponent<NormalTileController>().LeavePanel(gameObject);
-            transform.SetParent(targetTile.transform);
-            // 親タイルへ移動
-            transform.position = transform.parent.position;
-            // 親タイルの副作用
-            targetTile.GetComponent<NormalTileController>().HandlePanel(gameObject);
+            // パネルを移動する
+            BoardManager.Move(gameObject, gesture.ScreenFlickVector);
         }
 
         /// <summary>

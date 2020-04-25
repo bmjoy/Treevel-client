@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: 1_1
   m_EditorClassIdentifier: 
   id: 1
-  tiles: []
+  tiles:
+  - type: 1
+    number: 1
+    pairNumber: 2
+  - type: 1
+    number: 2
+    pairNumber: 1
   panels:
   - type: 0
     initPos: 3

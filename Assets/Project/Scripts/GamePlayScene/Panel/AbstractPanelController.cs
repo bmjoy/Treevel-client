@@ -1,12 +1,10 @@
 ﻿using Project.Scripts.GameDatas;
-using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-    public abstract class PanelController : MonoBehaviour
+    public abstract class AbstractPanelController : MonoBehaviour
     {
         protected virtual void Awake() {}
 
@@ -27,16 +25,13 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="initialTileNum"> 最初に配置するタイルの番号 </param>
+        /// <param name="panelData"> パネルのデータ </param>
         public virtual void Initialize(PanelData panelData)
         {
             var initialTileNum = panelData.initPos;
-            // 初期位置にするタイルを取得
-            var initialTile = TileLibrary.GetTile(initialTileNum);
-            var script = initialTile.GetComponent<NormalTileController>();
-            script.hasPanel = true;
-            transform.SetParent(initialTile.transform);
-            transform.position = initialTile.transform.position;
+
+            // パネルをボードに設定
+            BoardManager.SetPanel(this, initialTileNum);
 
             InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;
