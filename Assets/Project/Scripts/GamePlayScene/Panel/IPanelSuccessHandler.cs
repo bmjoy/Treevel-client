@@ -9,7 +9,6 @@
         /// <summary>
         /// タイルに載せた時の挙動
         /// </summary>
-        /// <returns>載せた後に該当パネルが成功したかどうか</returns>
         void DoWhenSuccess();
 
         /// <summary>
