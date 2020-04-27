@@ -19,7 +19,7 @@
     }
 
     /// <summary>
-    /// パネルの大きさ
+    /// ボトルの大きさ
     /// </summary>
     public static class BottleSize
     {

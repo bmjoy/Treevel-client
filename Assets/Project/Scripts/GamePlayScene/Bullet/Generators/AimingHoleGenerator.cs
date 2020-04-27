@@ -103,10 +103,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         }
 
         /// <summary>
-        /// 乱数配列のインデックスをパネルのIdに変換する
+        /// 乱数配列のインデックスをボトルのIdに変換する
         /// </summary>
         /// <param name="index">_randomNumberPanelsから取ったインデックス</param>
-        /// <returns>パネルのID</returns>
+        /// <returns>ボトルのID</returns>
         private int CalcPanelIdByRandomArrayIndex(int index)
         {
             var panels = BottleLibrary.OrderedNumberPanels;

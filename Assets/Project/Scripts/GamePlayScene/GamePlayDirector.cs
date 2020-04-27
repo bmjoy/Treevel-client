@@ -178,7 +178,7 @@ namespace Project.Scripts.GamePlayScene
 
             var panels = GameObject.FindObjectsOfType<AbstractBottleController>().OfType<IBottleSuccessHandler>();
             if (panels.Any(panel => panel.IsSuccess() == false)) return;
-            // 全ての数字パネルが最終位置にいたら，成功状態に遷移
+            // 全ての数字ボトルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
         }
 

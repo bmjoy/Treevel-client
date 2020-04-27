@@ -94,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            // 数字パネルとの衝突以外は考えない
+            // 数字ボトルとの衝突以外は考えない
             if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) return;
 
             // 衝突したオブジェクトは赤色に変える

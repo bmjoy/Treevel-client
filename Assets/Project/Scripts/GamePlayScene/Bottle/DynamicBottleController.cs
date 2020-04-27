@@ -62,7 +62,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
-            // パネルを移動する
+            // ボトルを移動する
             BoardManager.Move(gameObject, gesture.ScreenFlickVector);
         }
 

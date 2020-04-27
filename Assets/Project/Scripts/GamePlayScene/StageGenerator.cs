@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene
                 // タイル生成
                 tileGenerator.CreateTiles(stageData.TileDatas);
 
-                // パネル生成
+                // ボトル生成
                 BottleGenerator.CreatePanels(stageData.PanelDatas);
 
                 // 銃弾の初期化

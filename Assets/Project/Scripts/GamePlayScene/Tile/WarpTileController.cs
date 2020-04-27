@@ -93,7 +93,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
-            // パネルを移動する
+            // ボトルを移動する
             BoardManager.SetPanel(panel.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
 
             // panelがワープから戻るアニメーション
@@ -129,7 +129,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             public override void OnPanelEnter(GameObject panel)
             {
-                // pair tileに子パネルがないならワープさせる
+                // pair tileに子ボトルがないならワープさせる
                 if (_parent.CanWarp()) {
                     // ワープ演出
                     _parent.StartWarp(panel);

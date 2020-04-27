@@ -44,7 +44,7 @@
     /// </summary>
     public static class Address
     {
-        // パネル関連
+        // ボトル関連
         public const string NUMBER_BOTTLE_PREFAB = "NumberBottlePrefab";
         public const string LIFE_NUMBER_BOTTLE_PREFAB = "LifeNumberBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Project.Scripts.GamePlayScene.Panel
 {
     /// <summary>
-    /// ライフ付きのナンバーパネル
+    /// ライフ付きのナンバーボトル
     /// </summary>
     public class LifeNumberBottleController : NumberBottleController
     {
@@ -15,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         [SerializeField] private AnimationClip _attackedAnimation;
 
         /// <summary>
-        /// パネルが銃弾の攻撃に耐えられる回数
+        /// ボトルが銃弾の攻撃に耐えられる回数
         /// </summary>
         [SerializeField] private int _maxLife = 3;
 

@@ -61,7 +61,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             void OnPanelExit(GameObject panel);
         }
 
-        // 何もしないパネルハンドラー
+        // 何もしないボトルハンドラー
         protected class DefaultBottleHandler : IBottleHandler
         {
             public virtual void OnPanelEnter(GameObject panel) {}

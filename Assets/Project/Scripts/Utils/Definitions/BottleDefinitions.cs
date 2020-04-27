@@ -2,7 +2,7 @@
 {
     #if UNITY_EDITOR
     /// <summary>
-    /// パネルの名前
+    /// ボトルの名前
     /// </summary>
     public static class BottleName
     {

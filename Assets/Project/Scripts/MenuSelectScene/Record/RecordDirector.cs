@@ -133,7 +133,7 @@ namespace Project.Scripts.MenuSelectScene.Record
             var stageNum = LevelInfo.NUM[levelName];
             var stageStartId = LevelInfo.STAGE_START_ID[levelName];
 
-            // 描画するパネル
+            // 描画するボトル
             var graphAreaContent = _graphArea[levelName].GetComponent<RectTransform>();
 
             // グラフ間の隙間の横幅 -> stageNum個のグラフと(stageNum + 1)個の隙間

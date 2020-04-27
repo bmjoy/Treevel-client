@@ -13,12 +13,12 @@ namespace Project.Scripts.GamePlayScene.Panel
     public class NumberBottleController : DynamicBottleController, IBottleSuccessHandler, IEnterTileHandler
     {
         /// <summary>
-        /// パネルのゴールとなるタイル
+        /// ボトルのゴールとなるタイル
         /// </summary>
         private GameObject _finalTile;
 
         /// <summary>
-        /// パネルの初期位置
+        /// ボトルの初期位置
         /// </summary>
         public int Id
         {
@@ -27,7 +27,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         }
 
         /// <summary>
-        /// パネルの目標位置
+        /// ボトルの目標位置
         /// </summary>
         private int _finalPos;
 
@@ -50,7 +50,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="panelData">パネルデータ</param>
+        /// <param name="panelData">ボトルデータ</param>
         public override void Initialize(BottleData panelData)
         {
             Id = panelData.initPos;
@@ -75,7 +75,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// </summary>
         private void OnTriggerEnter2D(Collider2D other)
         {
-            // 銃弾との衝突以外は考えない（現状は，パネル同士での衝突は起こりえない）
+            // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
             if (!other.gameObject.CompareTag(TagName.BULLET)) return;
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (other.gameObject.transform.position.z < 0) return;

@@ -10,14 +10,14 @@ namespace Project.Scripts.GamePlayScene
     public static class BoardManager
     {
         /// <summary>
-        /// タイル、パネルとそれぞれのワールド座標を保持する「ボード」
+        /// タイル、ボトルとそれぞれのワールド座標を保持する「ボード」
         /// </summary>
         private static readonly Square[,] _board = new Square[StageSize.ROW, StageSize.COLUMN];
 
         /// <summary>
-        /// パネルの現在位置を保存するパネルから参照できる辞書
+        /// ボトルの現在位置を保存するボトルから参照できる辞書
         /// </summary>
-        /// <typeparam name="GameObject">パネルのゲームオブジェクト</typeparam>
+        /// <typeparam name="GameObject">ボトルのゲームオブジェクト</typeparam>
         /// <typeparam name="Vector2">現在位置`(x, y)=>（row, column）`</typeparam>
         private static readonly Dictionary<GameObject, Vector2Int> _panelPositions = new Dictionary<GameObject, Vector2Int>();
 
@@ -48,10 +48,10 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// タイル番号が`tileNum`のタイルの上にパネルを取得
+        /// タイル番号が`tileNum`のタイルの上にボトルを取得
         /// </summary>
         /// <param name="tileNum">タイル番号</param>
-        /// <returns>対象パネルのゲームオブジェクト | null</returns>
+        /// <returns>対象ボトルのゲームオブジェクト | null</returns>
         public static GameObject GetPanel(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
@@ -59,9 +59,9 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// パネルをフリックする方向に移動する
+        /// ボトルをフリックする方向に移動する
         /// </summary>
-        /// <param name="panel"> フリックするパネル </param>
+        /// <param name="panel"> フリックするボトル </param>
         /// <param name="direction"> フリックする方向 </param>
         public static void Move(GameObject panel, Vector2 direction)
         {
@@ -73,7 +73,7 @@ namespace Project.Scripts.GamePlayScene
             // ワールド座標型のX,Yを時計回りに90度回転させ行列におけるX,Yを求める
             var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(direction.Direction()));
 
-            // 該当パネルの現在位置
+            // 該当ボトルの現在位置
             var currPos = _panelPositions[panel];
 
             var targetPos = currPos + directionInt;
@@ -146,9 +146,9 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// パネルをタイル番号`tileNum`の位置に設置する
+        /// ボトルをタイル番号`tileNum`の位置に設置する
         /// </summary>
-        /// <param name="panel">設置するパネル</param>
+        /// <param name="panel">設置するボトル</param>
         /// <param name="tileNum">目標タイル番号</param>
         public static void SetPanel(AbstractBottleController panel, int tileNum)
         {
@@ -157,11 +157,11 @@ namespace Project.Scripts.GamePlayScene
                 var(targetX, targetY) = TileNumToXY(tileNum);
                 var targetSquare = _board[targetX, targetY];
 
-                // 目標位置にすでにパネルがある
+                // 目標位置にすでにボトルがある
                 if (targetSquare.Panel != null)
                     return;
 
-                // パネルの元の位置が保存されたらその位置のパネルを消す
+                // ボトルの元の位置が保存されたらその位置のボトルを消す
                 if (_panelPositions.ContainsKey(panel.gameObject)) {
                     var from = _panelPositions[panel.gameObject];
                     _board[from.x, from.y].Panel = null;
@@ -174,9 +174,9 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// パネルがいるタイル番号を取得
+        /// ボトルがいるタイル番号を取得
         /// </summary>
-        /// <param name="panel">調べたいパネル</param>
+        /// <param name="panel">調べたいボトル</param>
         /// <returns>タイル番号</returns>
         public static int GetPanelPos(AbstractBottleController panel)
         {
@@ -201,22 +201,22 @@ namespace Project.Scripts.GamePlayScene
                         return;
 
                     if (value == null && _panel != null) {
-                        // パネルがこの格子から離れる
+                        // ボトルがこの格子から離れる
                         _tile.OnPanelExit(_panel.gameObject);
                         _panel = value;
                     } else {
-                        // 新しいパネルがこの格子に入る
+                        // 新しいボトルがこの格子に入る
                         _panel = value;
 
                         // 移動する
                         _panel.transform.position = _worldPosition;
 
-                        // パネルがタイルに入る時パネルの処理
+                        // ボトルがタイルに入る時ボトルの処理
                         if (_panel is IEnterTileHandler handler) {
                             handler.OnEnterTile(_tile.gameObject);
                         }
 
-                        // パネルがタイルに入る時タイルの処理
+                        // ボトルがタイルに入る時タイルの処理
                         _tile.OnPanelEnter(_panel.gameObject);
                     }
                 }
