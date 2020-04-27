@@ -45,10 +45,10 @@
     public static class Address
     {
         // パネル関連
-        public const string NUMBER_PANEL_PREFAB = "NumberPanelPrefab";
-        public const string LIFE_NUMBER_PANEL_PREFAB = "LifeNumberPanelPrefab";
-        public const string DYNAMIC_DUMMY_PANEL_PREFAB  = "DynamicDummyPanelPrefab";
-        public const string STATIC_DUMMY_PANEL_PREFAB = "StaticDummyPanelPrefab";
+        public const string NUMBER_BOTTLE_PREFAB = "NumberBottlePrefab";
+        public const string LIFE_NUMBER_BOTTLE_PREFAB = "LifeNumberBottlePrefab";
+        public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
+        public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
         public const string DYNAMIC_DUMMY_PANEL_SPRITE = "dynamicDummyPanel";
         public const string STATIC_DUMMY_PANEL_SPRITE = "staticDummyPanel";
         public const string NUMBER_PANEL_SPRITE_PREFIX = "numberPanel";

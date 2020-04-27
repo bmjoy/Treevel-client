@@ -9,10 +9,10 @@ namespace Project.Scripts.GamePlayScene.Panel
     {
         private static Dictionary<EPanelType, string> _prefabAddressableKeys = new Dictionary<EPanelType, string>()
         {
-            {EPanelType.Dynamic, Address.DYNAMIC_DUMMY_PANEL_PREFAB},
-            {EPanelType.Static, Address.STATIC_DUMMY_PANEL_PREFAB},
-            {EPanelType.Number, Address.NUMBER_PANEL_PREFAB},
-            {EPanelType.LifeNumber, Address.LIFE_NUMBER_PANEL_PREFAB}
+            {EPanelType.Dynamic, Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
+            {EPanelType.Static, Address.STATIC_DUMMY_BOTTLE_PREFAB},
+            {EPanelType.Number, Address.NUMBER_BOTTLE_PREFAB},
+            {EPanelType.LifeNumber, Address.LIFE_NUMBER_BOTTLE_PREFAB}
         };
 
         public static void CreatePanels(List<PanelData> panelDatas)
