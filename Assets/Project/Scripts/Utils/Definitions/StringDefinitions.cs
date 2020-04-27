@@ -49,10 +49,10 @@
         public const string LIFE_NUMBER_BOTTLE_PREFAB = "LifeNumberBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
         public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
-        public const string DYNAMIC_DUMMY_PANEL_SPRITE = "dynamicDummyPanel";
-        public const string STATIC_DUMMY_PANEL_SPRITE = "staticDummyPanel";
-        public const string NUMBER_PANEL_SPRITE_PREFIX = "numberPanel";
-        public const string LIFE_NUMBER_PANEL_SPRITE_PREFIX = "lifeNumberPanel";
+        public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
+        public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
+        public const string NUMBER_BOTTLE_SPRITE_PREFIX = "numberBottle";
+        public const string LIFE_NUMBER_BOTTLE_SPRITE_PREFIX = "lifeNumberBottle";
 
         // タイル関連
         public const string NORMAL_TILE_PREFAB = "normalTilePrefab";

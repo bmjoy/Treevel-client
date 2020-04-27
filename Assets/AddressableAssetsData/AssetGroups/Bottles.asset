@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Panels
+  m_Name: Bottles
   m_EditorClassIdentifier: 
-  m_GroupName: Panels
+  m_GroupName: Bottles
   m_Data:
     m_SerializedData: []
   m_GUID: 4951f8159737447ba8ae521e4284726a
@@ -23,10 +23,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 043ec374bab50405dbf75005d1a106bf, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 043ec374bab50405dbf75005d1a106bf, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 05e33fc634f2946648a856bb7e195599
-    m_Address: lifeNumberPanel8
+    m_Address: lifeNumberBottle8
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -35,7 +35,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: 05e33fc634f2946648a856bb7e195599, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 05e33fc634f2946648a856bb7e195599, type: 3}
   - m_GUID: 10de9115a09e5477d8d5a1d4f7035df7
-    m_Address: lifeNumberPanel7
+    m_Address: lifeNumberBottle7
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -49,10 +49,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 11aa24a33708845baa52d895bf928590, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 11aa24a33708845baa52d895bf928590, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 29710d3db6d314249a7702b4fcf39de4
-    m_Address: lifeNumberPanel1
+    m_Address: lifeNumberBottle1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -66,18 +66,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 306499f0dbaa04cb386a1aa39a34d9e9, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 306499f0dbaa04cb386a1aa39a34d9e9, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3ad34613c20ab4a8f9d82c5e184a0f2a
     m_Address: bvy
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 3ad34613c20ab4a8f9d82c5e184a0f2a, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 3ad34613c20ab4a8f9d82c5e184a0f2a, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3e71494f40ea8454e97c37f324f3d39f
-    m_Address: lifeNumberPanel4
+    m_Address: lifeNumberBottle4
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -91,10 +91,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 3e7b664c3229c4b66a919e9db2641a63, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 3e7b664c3229c4b66a919e9db2641a63, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 41f716d06fdde47dc943a807354a489b
-    m_Address: lifeNumberPanel5
+    m_Address: lifeNumberBottle5
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -108,26 +108,26 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 44a494e351155459dbfee62492c655bd, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 44a494e351155459dbfee62492c655bd, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 49a45c841a78a40d88c6f6381d3a4047
     m_Address: 5_r
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 49a45c841a78a40d88c6f6381d3a4047, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 49a45c841a78a40d88c6f6381d3a4047, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4f2f69d4e1eba4c90b43aeee24944e5a
     m_Address: 3_o
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 4f2f69d4e1eba4c90b43aeee24944e5a, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 4f2f69d4e1eba4c90b43aeee24944e5a, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 607b919a004154fb5b8043ce025ffa8b
-    m_Address: lifeNumberPanel2
+    m_Address: lifeNumberBottle2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -136,7 +136,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: 607b919a004154fb5b8043ce025ffa8b, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 607b919a004154fb5b8043ce025ffa8b, type: 3}
   - m_GUID: 6a6b75adbaa3d4155bac201a3b28e45d
-    m_Address: numberPanel1
+    m_Address: numberBottle1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -145,7 +145,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: 6a6b75adbaa3d4155bac201a3b28e45d, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 6a6b75adbaa3d4155bac201a3b28e45d, type: 3}
   - m_GUID: 6f35d8b0a82b148c6adaa20ea5d85678
-    m_Address: numberPanel2
+    m_Address: numberBottle2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -154,7 +154,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: 6f35d8b0a82b148c6adaa20ea5d85678, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 6f35d8b0a82b148c6adaa20ea5d85678, type: 3}
   - m_GUID: 84aa424be823f4562b197179ef326c71
-    m_Address: numberPanel7
+    m_Address: numberBottle7
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -168,18 +168,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 8a9fc0e7c3606410f96e0ff4d2fcbd89, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 8a9fc0e7c3606410f96e0ff4d2fcbd89, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 8cacf29162ce544c6a91e04b672dda22
     m_Address: bgy
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: 8cacf29162ce544c6a91e04b672dda22, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 8cacf29162ce544c6a91e04b672dda22, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 91e0d3f7067e1499c805ce6026b32bd6
-    m_Address: numberPanel3
+    m_Address: numberBottle3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -188,7 +188,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: 91e0d3f7067e1499c805ce6026b32bd6, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 91e0d3f7067e1499c805ce6026b32bd6, type: 3}
   - m_GUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-    m_Address: numberPanel8
+    m_Address: numberBottle8
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -197,7 +197,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: 96d23fdd7f95f4c40bc0ca4786de5beb, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: 96d23fdd7f95f4c40bc0ca4786de5beb, type: 3}
   - m_GUID: b249dc30ba03c4849bd8ca5e860f2bf7
-    m_Address: numberPanel4
+    m_Address: numberBottle4
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -206,7 +206,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: b249dc30ba03c4849bd8ca5e860f2bf7, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: b249dc30ba03c4849bd8ca5e860f2bf7, type: 3}
   - m_GUID: bb9357ee64c4d44cd94c66f5fb8210d0
-    m_Address: numberPanel6
+    m_Address: numberBottle6
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -215,7 +215,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: bb9357ee64c4d44cd94c66f5fb8210d0, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: bb9357ee64c4d44cd94c66f5fb8210d0, type: 3}
   - m_GUID: c348e85a0f3c642d6969c8eb3225b893
-    m_Address: staticDummyPanel
+    m_Address: staticDummyBottle
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -224,7 +224,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 2800000, guid: c348e85a0f3c642d6969c8eb3225b893, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: c348e85a0f3c642d6969c8eb3225b893, type: 3}
   - m_GUID: cb970f58b70014a28bc61d79fca7b317
-    m_Address: numberPanel5
+    m_Address: numberBottle5
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -238,18 +238,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: d4a70a4ce855e4182b6554908109825d, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: d4a70a4ce855e4182b6554908109825d, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: d7309125babe0487dafb81b50203e52e
     m_Address: 7_v
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: d7309125babe0487dafb81b50203e52e, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: d7309125babe0487dafb81b50203e52e, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: df64f47fca508448c9bc702a060be7dc
-    m_Address: lifeNumberPanel6
+    m_Address: lifeNumberBottle6
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -263,18 +263,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: e20bd75f6fe65412e9ba128655794bfa, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: e20bd75f6fe65412e9ba128655794bfa, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e818ab84c8cdf4bda87fa832b24d4f16
     m_Address: 1_b
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: e818ab84c8cdf4bda87fa832b24d4f16, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: e818ab84c8cdf4bda87fa832b24d4f16, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e9b15a88b58ca483c8aeb69e6313289b
-    m_Address: lifeNumberPanel3
+    m_Address: lifeNumberBottle3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -288,10 +288,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2800000, guid: eb4cf5d6d54524f2697dfe9ea7cdcb8e, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: eb4cf5d6d54524f2697dfe9ea7cdcb8e, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: fd1c05083854b4e4f8cf9ab179f4c6b7
-    m_Address: dynamicDummyPanel
+    m_Address: dynamicDummyBottle
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel

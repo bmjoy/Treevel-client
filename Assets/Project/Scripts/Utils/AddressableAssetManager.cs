@@ -162,11 +162,11 @@ namespace Project.Scripts.Utils
                 switch (panelData.type) {
                     case Definitions.EBottleType.Dynamic:
                         LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_PANEL_SPRITE);
+                        LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_BOTTLE_SPRITE);
                         break;
                     case Definitions.EBottleType.Static:
                         LoadAsset<GameObject>(Address.STATIC_DUMMY_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(Address.STATIC_DUMMY_PANEL_SPRITE);
+                        LoadAsset<Sprite>(Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
                     case Definitions.EBottleType.Number:
                         LoadAsset<GameObject>(Address.NUMBER_BOTTLE_PREFAB);
