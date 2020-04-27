@@ -9,7 +9,11 @@ namespace Project.Scripts.GamePlayScene
 {
     public static class StageGenerator
     {
-        public static bool CreatedFinished {get; private set;}
+        public static bool CreatedFinished
+        {
+            get;
+            private set;
+        }
         /// <summary>
         /// ステージを作成する
         /// </summary>
