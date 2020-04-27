@@ -78,6 +78,10 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private readonly Dictionary<EGameState, State> _stateList = new Dictionary<EGameState, State>();
 
+        /// <summary>
+        /// ステージの作成が完成したかどうか
+        /// </summary>
+        private bool _stageInitialized = false;
         private void Awake()
         {
             // ステートマシン初期化
@@ -132,6 +136,9 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void CheckClear()
         {
+            if (!_stageInitialized)
+                return;
+
             var panels = GameObject.FindObjectsOfType<AbstractPanelController>().OfType<IPanelSuccessHandler>();
             if (panels.Any(panel => panel.IsSuccess() == false)) return;
             // 全ての数字パネルが最終位置にいたら，成功状態に遷移
@@ -222,8 +229,12 @@ namespace Project.Scripts.GamePlayScene
             {
                 // 一時停止から戻る時はステージ再作成しない
                 if (!(from is PausingState)) {
+                    _caller._stageInitialized = false;
+
                     CleanObject();
                     StageInitialize();
+
+                    _caller._stageInitialized = true;
                 }
 
                 _playingBGM.Play();
