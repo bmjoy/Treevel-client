@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NumberPanelController : DynamicPanelController, IPanelSuccessHandler, IEnterTileHandler
+    public class NumberBottleController : DynamicBottleController, IBottleSuccessHandler, IEnterTileHandler
     {
         /// <summary>
         /// パネルのゴールとなるタイル
@@ -51,7 +51,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// 初期化
         /// </summary>
         /// <param name="panelData">パネルデータ</param>
-        public override void Initialize(PanelData panelData)
+        public override void Initialize(BottleData panelData)
         {
             Id = panelData.initPos;
             _finalPos = panelData.targetPos;
@@ -62,7 +62,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             base.Initialize(panelData);
 
             #if UNITY_EDITOR
-            name = PanelName.NUMBER_PANEL + Id.ToString();
+            name = BottleName.NUMBER_BOTTLE + Id.ToString();
             #endif
 
             // 目標とするタイルのスプライトを設定

@@ -61,7 +61,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         /// <summary>
         /// 回転中の銃弾の速さ (円周(= 回転半径 * 2 * pi)の4分の1をフレーム数で割る)
         /// </summary>
-        private const float _ROTATING_SPEED = ((PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) * 2f * (float) Math.PI / 4f / _COUNT;
+        private const float _ROTATING_SPEED = ((BottleSize.WIDTH - CartridgeSize.WIDTH) / 2f) * 2f * (float) Math.PI / 4f / _COUNT;
 
         /// <summary>
         /// 銃弾が回転しているかどうかを表す状態
@@ -163,14 +163,14 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             // 1つ目の警告を表示させるタイミングを求める
             // 警告座標に到達する時間(= 銃弾が進む距離 / 銃弾の速さ)のNフレーム前が表示タイミング
             _warningTiming = new int[turnDirection.Length];
-            _warningTiming[0] = TurnCartridgeGenerator.turnCartridgeWaitingFrames + (int)Math.Round((Vector2.Distance(transform.position, _turnPoint[0]) - (PanelSize.WIDTH - CartridgeSize.WIDTH) / 2f) / speed - BulletWarningParameter.WARNING_DISPLAYED_FRAMES - _RUNNING_FRAMES, MidpointRounding.AwayFromZero);
+            _warningTiming[0] = TurnCartridgeGenerator.turnCartridgeWaitingFrames + (int)Math.Round((Vector2.Distance(transform.position, _turnPoint[0]) - (BottleSize.WIDTH - CartridgeSize.WIDTH) / 2f) / speed - BulletWarningParameter.WARNING_DISPLAYED_FRAMES - _RUNNING_FRAMES, MidpointRounding.AwayFromZero);
             // 警告の表示および銃弾が回転する挙動を特定のタイミングで発火できるようにcoroutineにセットする
             _rotateCoroutines = new IEnumerator[turnDirection.Length];
             _rotateCoroutines[0] = DisplayTurnWarning(_turnPoint[0], _turnDirection[0], _turnAngle[0]);
             for (var index = 1; index < turnDirection.Length; index++) {
                 // 1つ前の警告の表示タイミングから何フレーム後に表示させるかを求める
                 // 警告座標に到達する時間(= 1つ前の表示タイミングのNフレーム後 + 銃弾が回転にかかるフレーム数 + (警告と警告との距離) / 銃弾の速さ)のNフレーム前
-                _warningTiming[index] = (int)Math.Round(_COUNT + (Vector2.Distance(_turnPoint[index - 1], _turnPoint[index]) - (PanelSize.WIDTH - CartridgeSize.WIDTH)) / speed, MidpointRounding.AwayFromZero);
+                _warningTiming[index] = (int)Math.Round(_COUNT + (Vector2.Distance(_turnPoint[index - 1], _turnPoint[index]) - (BottleSize.WIDTH - CartridgeSize.WIDTH)) / speed, MidpointRounding.AwayFromZero);
                 _rotateCoroutines[index] = DisplayTurnWarning(_turnPoint[index], _turnDirection[index], _turnAngle[index]);
             }
         }

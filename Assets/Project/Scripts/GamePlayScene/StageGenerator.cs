@@ -37,7 +37,7 @@ namespace Project.Scripts.GamePlayScene
                 tileGenerator.CreateTiles(stageData.TileDatas);
 
                 // パネル生成
-                PanelGenerator.CreatePanels(stageData.PanelDatas);
+                BottleGenerator.CreatePanels(stageData.PanelDatas);
 
                 // 銃弾の初期化
                 bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);

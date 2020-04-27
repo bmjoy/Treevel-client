@@ -65,8 +65,8 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="direction"> フリックする方向 </param>
         public static void Move(GameObject panel, Vector2 direction)
         {
-            var panelController = panel?.GetComponent<AbstractPanelController>();
-            if (!(panelController is DynamicPanelController))
+            var panelController = panel?.GetComponent<AbstractBottleController>();
+            if (!(panelController is DynamicBottleController))
                 return;
 
             // 移動方向を正規化
@@ -150,7 +150,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="panel">設置するパネル</param>
         /// <param name="tileNum">目標タイル番号</param>
-        public static void SetPanel(AbstractPanelController panel, int tileNum)
+        public static void SetPanel(AbstractBottleController panel, int tileNum)
         {
             lock (_board) {
                 // 目標の格子を取得
@@ -178,7 +178,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="panel">調べたいパネル</param>
         /// <returns>タイル番号</returns>
-        public static int GetPanelPos(AbstractPanelController panel)
+        public static int GetPanelPos(AbstractBottleController panel)
         {
             var pos = _panelPositions?[panel.gameObject] ?? default;
             return XYToTileNum(pos);
@@ -189,11 +189,11 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private class Square
         {
-            private AbstractPanelController _panel = null;
+            private AbstractBottleController _panel = null;
             private AbstractTileController _tile = null;
             private readonly Vector2 _worldPosition;
 
-            public AbstractPanelController Panel
+            public AbstractBottleController Panel
             {
                 get => _panel;
                 set {

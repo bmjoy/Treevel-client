@@ -21,7 +21,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         {
             base.Awake();
             // 銃弾の先頭部分のみに当たり判定を与える
-            const float betweenPanels = TileSize.WIDTH - PanelSize.WIDTH;
+            const float betweenPanels = TileSize.WIDTH - BottleSize.WIDTH;
             var collider =  gameObject.GetComponent<Collider2D>();
             collider.offset = new Vector2(-(originalWidth - betweenPanels) / 2, 0);
             if (collider is BoxCollider2D)

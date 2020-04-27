@@ -95,26 +95,26 @@ namespace Project.Scripts.Editor
                 EditorGUI.indentLevel++;
 
                 var panelTypeProp = panelDataProp.FindPropertyRelative("type");
-                panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
+                panelTypeProp.enumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)panelTypeProp.enumValueIndex);
                 EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
 
-                switch ((EPanelType)panelTypeProp.enumValueIndex) {
-                    case EPanelType.Number: {
+                switch ((EBottleType)panelTypeProp.enumValueIndex) {
+                    case EBottleType.Number: {
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
 
-                    case EPanelType.LifeNumber: {
+                    case EBottleType.LifeNumber: {
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
                             EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
-                    case EPanelType.Dynamic:
-                    case EPanelType.Static:
+                    case EBottleType.Dynamic:
+                    case EBottleType.Static:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -359,9 +359,9 @@ namespace Project.Scripts.Editor
             EditorGUILayout.PropertyField(elementProperty, new GUIContent($"Panel ID:{panelId}"));
         }
 
-        private IEnumerable<PanelData> GetNumberPanels()
+        private IEnumerable<BottleData> GetNumberPanels()
         {
-            return _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber);
+            return _src.PanelDatas?.Where(x => x.type == EBottleType.Number || x.type == EBottleType.LifeNumber);
         }
     }
 }

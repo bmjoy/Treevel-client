@@ -2,13 +2,13 @@
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-    public class StaticPanelController : AbstractPanelController
+    public class StaticBottleController : AbstractBottleController
     {
         protected override void Awake()
         {
             base.Awake();
             #if UNITY_EDITOR
-            name = PanelName.STATIC_DUMMY_PANEL;
+            name = BottleName.STATIC_DUMMY_BOTTLE;
             #endif
         }
     }

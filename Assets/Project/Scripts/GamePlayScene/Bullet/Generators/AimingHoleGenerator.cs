@@ -109,7 +109,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <returns>パネルのID</returns>
         private int CalcPanelIdByRandomArrayIndex(int index)
         {
-            var panels = PanelLibrary.OrderedNumberPanels;
+            var panels = BottleLibrary.OrderedNumberPanels;
             var panelAtIndex = panels.ElementAt(index);
             return panelAtIndex.Id;
         }

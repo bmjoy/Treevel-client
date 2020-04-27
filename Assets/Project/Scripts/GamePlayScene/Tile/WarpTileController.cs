@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         protected override void Awake()
         {
             base.Awake();
-            panelHandler = new WarpTilePanelHandler(this);
+            panelHandler = new WarpTileBottleHandler(this);
             _warpTileEffect = transform.Find("WarpTileEffectPrefab").gameObject;
         }
 
@@ -94,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
             // パネルを移動する
-            BoardManager.SetPanel(panel.GetComponent<AbstractPanelController>(), pairTileController.TileNumber);
+            BoardManager.SetPanel(panel.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
 
             // panelがワープから戻るアニメーション
             anim.Play(AnimationClipName.PANEL_WARP_REVERSE);
@@ -118,11 +118,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             StartCoroutine(WarpPanel(panel));
         }
 
-        private sealed class WarpTilePanelHandler : DefaultPanelHandler
+        private sealed class WarpTileBottleHandler : DefaultBottleHandler
         {
             private readonly WarpTileController _parent;
 
-            public WarpTilePanelHandler(WarpTileController parent)
+            public WarpTileBottleHandler(WarpTileController parent)
             {
                 _parent = parent;
             }

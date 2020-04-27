@@ -15,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             private set;
         }
 
-        protected IPanelHandler panelHandler = new DefaultPanelHandler();
+        protected IBottleHandler panelHandler = new DefaultBottleHandler();
 
         protected virtual void Awake()
         {
@@ -55,14 +55,14 @@ namespace Project.Scripts.GamePlayScene.Tile
             panelHandler.OnPanelExit(panel);
         }
 
-        protected interface IPanelHandler
+        protected interface IBottleHandler
         {
             void OnPanelEnter(GameObject panel);
             void OnPanelExit(GameObject panel);
         }
 
         // 何もしないパネルハンドラー
-        protected class DefaultPanelHandler : IPanelHandler
+        protected class DefaultBottleHandler : IBottleHandler
         {
             public virtual void OnPanelEnter(GameObject panel) {}
 

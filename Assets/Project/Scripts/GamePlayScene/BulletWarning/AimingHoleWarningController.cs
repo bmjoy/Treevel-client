@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
             // 次の表示位置を求める
             aimingHoleCount += 1;
 
-            var panel = PanelLibrary.GetPanel(panelNum);
+            var panel = BottleLibrary.GetPanel(panelNum);
             // 警告の表示位置をPanelと同じ位置にする
             transform.position = panel.transform.position;
 

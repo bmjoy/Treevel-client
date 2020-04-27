@@ -7,7 +7,7 @@ namespace Project.Scripts.GamePlayScene.Panel
     /// <summary>
     /// ライフ付きのナンバーパネル
     /// </summary>
-    public class LifeNumberPanelController : NumberPanelController
+    public class LifeNumberBottleController : NumberBottleController
     {
         /// <summary>
         /// 攻撃されたときのアニメーション
@@ -33,7 +33,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED);
         }
 
-        public override void Initialize(PanelData panelData)
+        public override void Initialize(BottleData panelData)
         {
             base.Initialize(panelData);
             _maxLife = panelData.life;

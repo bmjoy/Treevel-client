@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Panel
     [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(FlickGesture))]
-    public class DynamicPanelController : AbstractPanelController
+    public class DynamicBottleController : AbstractBottleController
     {
         protected Animation anim;
 
@@ -27,7 +27,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         {
             base.Awake();
             #if UNITY_EDITOR
-            name = PanelName.DYNAMIC_DUMMY_PANEL;
+            name = BottleName.DYNAMIC_DUMMY_BOTTLE;
             #endif
             // FlickGesture の設定
             GetComponent<FlickGesture>().MinDistance = 0.2f;

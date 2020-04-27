@@ -21,7 +21,7 @@
     /// <summary>
     /// パネルの大きさ
     /// </summary>
-    public static class PanelSize
+    public static class BottleSize
     {
         public const float WIDTH = TileSize.WIDTH * 0.95f;
         public const float HEIGHT = WIDTH;

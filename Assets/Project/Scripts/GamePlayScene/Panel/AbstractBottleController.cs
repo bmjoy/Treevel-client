@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-    public abstract class AbstractPanelController : MonoBehaviour
+    public abstract class AbstractBottleController : MonoBehaviour
     {
         protected virtual void Awake() {}
 
@@ -14,7 +14,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             var panelWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
             var panelHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
             // パネルの初期設定
-            transform.localScale = new Vector2(PanelSize.WIDTH / panelWidth, PanelSize.HEIGHT / panelHeight);
+            transform.localScale = new Vector2(BottleSize.WIDTH / panelWidth, BottleSize.HEIGHT / panelHeight);
 
             if (GetComponent<Collider2D>() is BoxCollider2D) {
                 GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
@@ -26,7 +26,7 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// 初期化
         /// </summary>
         /// <param name="panelData"> パネルのデータ </param>
-        public virtual void Initialize(PanelData panelData)
+        public virtual void Initialize(BottleData panelData)
         {
             var initialTileNum = panelData.initPos;
 

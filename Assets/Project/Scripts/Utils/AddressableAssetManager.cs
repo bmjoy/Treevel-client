@@ -160,21 +160,21 @@ namespace Project.Scripts.Utils
 
             stage.PanelDatas.ForEach((panelData) => {
                 switch (panelData.type) {
-                    case Definitions.EPanelType.Dynamic:
+                    case Definitions.EBottleType.Dynamic:
                         LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_PANEL_SPRITE);
                         break;
-                    case Definitions.EPanelType.Static:
+                    case Definitions.EBottleType.Static:
                         LoadAsset<GameObject>(Address.STATIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.STATIC_DUMMY_PANEL_SPRITE);
                         break;
-                    case Definitions.EPanelType.Number:
+                    case Definitions.EBottleType.Number:
                         LoadAsset<GameObject>(Address.NUMBER_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(panelData.panelSprite);
                         // 対応するTileのSpriteを先に読み込む
                         LoadAsset<Sprite>(panelData.targetTileSprite);
                         break;
-                    case Definitions.EPanelType.LifeNumber:
+                    case Definitions.EBottleType.LifeNumber:
                         LoadAsset<GameObject>(Address.LIFE_NUMBER_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(panelData.panelSprite);
                         // 対応するTileのSpriteを先に読み込む
