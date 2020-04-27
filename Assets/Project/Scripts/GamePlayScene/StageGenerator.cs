@@ -9,6 +9,7 @@ namespace Project.Scripts.GamePlayScene
 {
     public static class StageGenerator
     {
+        public static bool CreatedFinished {get; private set;}
         /// <summary>
         /// ステージを作成する
         /// </summary>
@@ -16,6 +17,8 @@ namespace Project.Scripts.GamePlayScene
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
         public static async void CreateStages(int stageId)
         {
+            CreatedFinished = false;
+
             var tileGenerator = TileGenerator.Instance;
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
 
@@ -34,6 +37,8 @@ namespace Project.Scripts.GamePlayScene
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageId.ToString() + ".");
             }
+
+            CreatedFinished = true;
         }
     }
 }
