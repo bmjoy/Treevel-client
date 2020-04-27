@@ -95,6 +95,8 @@ namespace Project.Scripts.GamePlayScene
             _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Failure]); // playing -> faliure
             _stateMachine.AddTransition(_stateList[EGameState.Failure], _stateList[EGameState.Playing]); // failure -> playing
             _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Failure]); // pausing -> faliure
+
+            BoardManager.Initialize();
         }
 
         private void Start()
@@ -130,8 +132,8 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void CheckClear()
         {
-            var panels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
-            if (panels.Any(panel => panel.GetComponent<NumberPanelController>().Adapted == false)) return;
+            var panels = GameObject.FindObjectsOfType<AbstractPanelController>().OfType<IPanelSuccessHandler>();
+            if (panels.Any(panel => panel.IsSuccess() == false)) return;
             // 全ての数字パネルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
         }
@@ -163,7 +165,7 @@ namespace Project.Scripts.GamePlayScene
         private static void CleanObject()
         {
             // パネルを破壊
-            var panels = GameObject.FindObjectsOfType<PanelController>();
+            var panels = GameObject.FindObjectsOfType<AbstractPanelController>();
             foreach (var panel in panels) {
                 // パネルの削除
                 DestroyImmediate(panel.gameObject);

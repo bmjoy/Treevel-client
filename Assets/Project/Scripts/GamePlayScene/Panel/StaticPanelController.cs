@@ -2,7 +2,7 @@
 
 namespace Project.Scripts.GamePlayScene.Panel
 {
-    public class StaticPanelController : PanelController
+    public class StaticPanelController : AbstractPanelController
     {
         protected override void Awake()
         {

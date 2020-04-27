@@ -22,10 +22,10 @@ namespace Project.Scripts.GamePlayScene
             // ステージデータ読み込む
             var stageData = GameDataBase.GetStage(stageId);
             if (stageData != null) {
-                // パネルの作成はタイルに依存するため、タイルの生成が終わるまで待つ
-                await tileGenerator.CreateTiles(stageData.TileDatas);
+                // タイル生成
+                tileGenerator.CreateTiles(stageData.TileDatas);
 
-                // パネルの初期化
+                // パネル生成
                 PanelGenerator.CreatePanels(stageData.PanelDatas);
 
                 // 銃弾の初期化
