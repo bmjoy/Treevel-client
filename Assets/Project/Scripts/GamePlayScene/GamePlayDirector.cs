@@ -59,6 +59,11 @@ namespace Project.Scripts.GamePlayScene
         public static int stageId;
 
         /// <summary>
+        /// 各状態に対応するステートのインスタンス
+        /// </summary>
+        private readonly Dictionary<EGameState, State> _stateList = new Dictionary<EGameState, State>();
+
+        /// <summary>
         /// ゲームの現状態
         /// </summary>
         public EGameState State
@@ -72,11 +77,6 @@ namespace Project.Scripts.GamePlayScene
         /// 状態遷移を管理するステートマシン
         /// </summary>
         private StateMachine _stateMachine;
-
-        /// <summary>
-        /// 各状態に対応するステートのインスタンス
-        /// </summary>
-        private readonly Dictionary<EGameState, State> _stateList = new Dictionary<EGameState, State>();
 
         private void Awake()
         {
