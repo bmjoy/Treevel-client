@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Panel;
@@ -183,31 +183,30 @@ namespace Project.Scripts.GamePlayScene
 
         private class PlayingState: State
         {
-            private GamePlayDirector _caller;
-
             /// <summary>
             /// プレイ中の BGM
             /// </summary>
-            private AudioSource _playingBGM;
+            private readonly AudioSource _playingBGM;
 
-            private CustomTimer _customTimer;
+            /// <summary>
+            /// ゲーム時間を計測するタイマー
+            /// </summary>
+            private readonly CustomTimer _customTimer;
 
             /// <summary>
             /// タイマー用テキスト
             /// </summary>
-            private Text _timerText;
+            private readonly Text _timerText;
 
             /// <summary>
             /// ステージID表示用テキスト
             /// </summary>
-            private Text _stageNumberText;
+            private readonly Text _stageNumberText;
 
             public PlayingState(GamePlayDirector caller)
             {
-                _caller = caller;
-
                 // BGM設定
-                _playingBGM = _caller.GetComponents<AudioSource>().SingleOrDefault(audioSource => audioSource.clip.name == AudioClipName.PLAYING);
+                _playingBGM = caller.GetComponents<AudioSource>().SingleOrDefault(audioSource => audioSource.clip.name == AudioClipName.PLAYING);
                 if (_playingBGM != null) {
                     _playingBGM.time = 2.0f;
                     _playingBGM.volume *= SettingsManager.BGMVolume;
@@ -272,12 +271,10 @@ namespace Project.Scripts.GamePlayScene
 
         private class PausingState: State
         {
-            private GamePlayDirector _caller;
-            private GameObject _pauseWindow;
+            private readonly GameObject _pauseWindow;
 
             public PausingState(GamePlayDirector caller)
             {
-                _caller = caller;
                 _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
                 _pauseWindow.SetActive(false);
             }
@@ -304,25 +301,22 @@ namespace Project.Scripts.GamePlayScene
 
         private class SuccessState: State
         {
-            private GamePlayDirector _caller;
-            private GameObject _successPopup;
+            private readonly GameObject _successPopup;
 
             /// <summary>
             /// 成功時の音
             /// </summary>
-            private AudioSource _successSE;
+            private readonly AudioSource _successSE;
 
             public SuccessState(GamePlayDirector caller)
             {
-                _caller = caller;
-
                 // 成功ポップアップ設定
                 _successPopup = GameObject.Find(_SUCCESS_POPUP_NAME);
                 _successPopup.SetActive(false);
 
                 // 成功効果音設定
-                _successSE = _caller.GetComponents<AudioSource>().SingleOrDefault(se => se.clip.name == AudioClipName.SUCCESS);
-                _successSE.volume *= SettingsManager.SEVolume;
+                _successSE = caller.GetComponents<AudioSource>().SingleOrDefault(se => se.clip.name == AudioClipName.SUCCESS);
+                if (_successSE != null) _successSE.volume *= SettingsManager.SEVolume;
             }
 
             public override void OnEnter(State from = null)
@@ -354,25 +348,22 @@ namespace Project.Scripts.GamePlayScene
 
         private class FailureState: State
         {
-            private GamePlayDirector _caller;
-            private GameObject _failurePopup;
+            private readonly GameObject _failurePopup;
 
             /// <summary>
             /// 失敗時の音
             /// </summary>
-            private AudioSource _failureSE;
+            private readonly AudioSource _failureSE;
 
             public FailureState(GamePlayDirector caller)
             {
-                _caller = caller;
-
                 // 失敗ポップアップ設定
                 _failurePopup = GameObject.Find(_FAILURE_POPUP_NAME);
                 _failurePopup.SetActive(false);
 
                 // 失敗効果音設定
                 _failureSE = caller.GetComponents<AudioSource>().SingleOrDefault(se => se.clip.name == AudioClipName.FAILURE);
-                _failureSE.volume *= SettingsManager.SEVolume;
+                if (_failureSE != null) _failureSE.volume *= SettingsManager.SEVolume;
             }
 
             public override void OnEnter(State from = null)
