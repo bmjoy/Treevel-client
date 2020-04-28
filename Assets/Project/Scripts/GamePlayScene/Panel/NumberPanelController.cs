@@ -2,7 +2,6 @@
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
 using SpriteGlow;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -11,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Panel
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NumberPanelController : DynamicPanelController
+    public class NumberPanelController : DynamicPanelController, IPanelSuccessHandler, IEnterTileHandler
     {
         /// <summary>
         /// パネルのゴールとなるタイル
@@ -21,17 +20,16 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <summary>
         /// パネルの初期位置
         /// </summary>
-        private int _id;
-        public int Id => _id;
-
-        /// <summary>
-        /// パネルがゴールタイルにいるかどうか
-        /// </summary>
-        public bool Adapted
+        public int Id
         {
             get;
             private set;
         }
+
+        /// <summary>
+        /// パネルの目標位置
+        /// </summary>
+        private int _finalPos;
 
         /// <summary>
         /// 失敗時のアニメーション
@@ -55,39 +53,21 @@ namespace Project.Scripts.GamePlayScene.Panel
         /// <param name="panelData">パネルデータ</param>
         public override void Initialize(PanelData panelData)
         {
-            int initialPos = panelData.initPos;
-            int finalPos = panelData.targetPos;
-            Sprite panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
-            Sprite targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
-
-            _id = initialPos;
+            Id = panelData.initPos;
+            _finalPos = panelData.targetPos;
+            var panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
+            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
             GetComponent<SpriteRenderer>().sprite = panelSprite;
-            #if UNITY_EDITOR
-            name = PanelName.NUMBER_PANEL + _id.ToString();
-            #endif
 
             base.Initialize(panelData);
 
-            _finalTile = TileLibrary.GetTile(finalPos);
-            _finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
+            #if UNITY_EDITOR
+            name = PanelName.NUMBER_PANEL + Id.ToString();
+            #endif
 
-            // 初期状態で最終タイルにいるかどうかの状態を変える
-            Adapted = transform.parent.gameObject == _finalTile;
-            // 最終タイルにいるかどうかで，光らせるかを決める
-            GetComponent<SpriteGlowEffect>().enabled = Adapted;
-        }
-
-        /// <inheritdoc />
-        protected override void UpdateTile(GameObject targetTile)
-        {
-            base.UpdateTile(targetTile);
-
-            // 最終タイルにいるかどうかで状態を変える
-            Adapted = transform.parent.gameObject == _finalTile;
-            // 最終タイルにいるかどうかで，光らせるかを決める
-            GetComponent<SpriteGlowEffect>().enabled = Adapted;
-            // adapted が true になっていれば (必要条件) 成功判定をする
-            if (Adapted) gamePlayDirector.CheckClear();
+            // 目標とするタイルのスプライトを設定
+            var finalTile = BoardManager.GetTile(_finalPos);
+            finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
 
         /// <summary>
@@ -136,6 +116,33 @@ namespace Project.Scripts.GamePlayScene.Panel
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
             if (!dead) {
                 anim.wrapMode = WrapMode.Default;
+            }
+        }
+
+        /// <inheritdoc/>
+        public void DoWhenSuccess()
+        {
+            // ステージの成功判定
+            GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
+        }
+
+        /// <inheritdoc/>
+        public bool IsSuccess()
+        {
+            var currPos = BoardManager.GetPanelPos(this);
+            return currPos == _finalPos;
+        }
+
+        /// <inheritdoc/>
+        public void OnEnterTile(GameObject tile)
+        {
+            if (IsSuccess()) {
+                // 最終タイルにいるかどうかで，光らせるかを決める
+                GetComponent<SpriteGlowEffect>().enabled = true;
+
+                DoWhenSuccess();
+            } else {
+                GetComponent<SpriteGlowEffect>().enabled = false;
             }
         }
     }

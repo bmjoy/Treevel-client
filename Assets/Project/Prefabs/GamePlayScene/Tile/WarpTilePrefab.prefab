@@ -98,11 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d67377de4d44f59466b2d4da72ac73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightTile: {fileID: 0}
-  leftTile: {fileID: 0}
-  upperTile: {fileID: 0}
-  lowerTile: {fileID: 0}
-  hasPanel: 0
   _pairTile: {fileID: 0}
 --- !u!111 &8433052318547613514
 Animation:

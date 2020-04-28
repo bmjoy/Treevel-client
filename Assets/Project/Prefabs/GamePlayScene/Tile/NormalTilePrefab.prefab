@@ -94,8 +94,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f280afc13a4e74a17b01d252cc4c56a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightTile: {fileID: 0}
-  leftTile: {fileID: 0}
-  upperTile: {fileID: 0}
-  lowerTile: {fileID: 0}
-  hasPanel: 0

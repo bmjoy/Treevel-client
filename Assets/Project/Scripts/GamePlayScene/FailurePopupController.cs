@@ -9,34 +9,10 @@ namespace Project.Scripts.GamePlayScene
     {
         private GamePlayDirector _gamePlayDirector;
 
-        /// <summary>
-        /// リトライボタン
-        /// </summary>
-        private GameObject _retryButton;
-
-        /// <summary>
-        /// 戻るボタン
-        /// </summary>
-        private GameObject _backButton;
 
         private void Start()
         {
             _gamePlayDirector = FindObjectOfType<GamePlayDirector>();
-        }
-
-        private void OnEnable()
-        {
-            GamePlayDirector.OnFail += OnFail;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.OnFail -= OnFail;
-        }
-
-        private void OnFail()
-        {
-            gameObject.SetActive(true);
         }
 
         /// <summary>

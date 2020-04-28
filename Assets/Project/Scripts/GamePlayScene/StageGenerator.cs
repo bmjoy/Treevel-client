@@ -24,10 +24,12 @@ namespace Project.Scripts.GamePlayScene
             // ステージデータ読み込む
             var stageData = GameDataBase.GetStage(stageId);
             if (stageData != null) {
-                // パネルの作成はタイルに依存するため、タイルの生成が終わるまで待つ
-                await tileGenerator.CreateTiles(stageData.TileDatas);
+                // タイル生成
+                tileGenerator.CreateTiles(stageData.TileDatas);
 
+                // パネル生成
                 PanelGenerator.CreatePanels(stageData.PanelDatas);
+
                 var coroutines = await bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
 
                 // 銃弾一括生成
