@@ -36,11 +36,11 @@ namespace Project.Scripts.StageSelectScene
 
         private void Awake()
         {
-            _stageIdText = transform.Find("StageId").GetComponent<Text>();
-            _stageDifficultyText = transform.Find("StageDifficulty").GetComponent<Text>();
-            _clearPercentageText = transform.Find("ClearPercentage").GetComponent<Text>();
-            _appearingBullets = transform.Find("AppearingBullets").gameObject;
-            goToGame = transform.Find("GoToGame").gameObject;
+            _stageIdText = transform.Find("PanelBackground/StageId").GetComponent<Text>();
+            _stageDifficultyText = transform.Find("PanelBackground/StageDifficulty").GetComponent<Text>();
+            _clearPercentageText = transform.Find("PanelBackground/ClearPercentage").GetComponent<Text>();
+            _appearingBullets = transform.Find("PanelBackground/AppearingBullets").gameObject;
+            goToGame = transform.Find("PanelBackground/GoToGame").gameObject;
 
             // ゲームを開始するボタン
             goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(_stageId));
