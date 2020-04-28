@@ -208,8 +208,10 @@ namespace Project.Scripts.GamePlayScene
 
                 // BGM設定
                 _playingBGM = _caller.GetComponents<AudioSource>().SingleOrDefault(audioSource => audioSource.clip.name == AudioClipName.PLAYING);
-                _playingBGM.time = 2.0f;
-                _playingBGM.volume *= SettingsManager.BGMVolume;
+                if (_playingBGM != null) {
+                    _playingBGM.time = 2.0f;
+                    _playingBGM.volume *= SettingsManager.BGMVolume;
+                }
 
                 // タイマー設定
                 _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
