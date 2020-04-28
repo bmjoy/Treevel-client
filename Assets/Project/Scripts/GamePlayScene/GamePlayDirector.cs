@@ -181,7 +181,7 @@ namespace Project.Scripts.GamePlayScene
             }
         }
 
-        private class PlayingState: AbstractState
+        private class PlayingState: State
         {
             private GamePlayDirector _caller;
 
@@ -268,7 +268,7 @@ namespace Project.Scripts.GamePlayScene
             }
         }
 
-        private class PausingState: AbstractState
+        private class PausingState: State
         {
             private GamePlayDirector _caller;
             private GameObject _pauseWindow;
@@ -300,7 +300,7 @@ namespace Project.Scripts.GamePlayScene
             }
         }
 
-        private class SuccessState: AbstractState
+        private class SuccessState: State
         {
             private GamePlayDirector _caller;
             private GameObject _successPopup;
@@ -350,7 +350,7 @@ namespace Project.Scripts.GamePlayScene
             }
         }
 
-        private class FailureState: AbstractState
+        private class FailureState: State
         {
             private GamePlayDirector _caller;
             private GameObject _failurePopup;
