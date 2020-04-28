@@ -9,7 +9,7 @@ public class DisplayUnifier : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject _backgroundPrefab;
 
-    void Awake()
+    private void Awake()
     {
         StartCoroutine(UnifyDisplay());
     }
