@@ -239,8 +239,6 @@ namespace Project.Scripts.GamePlayScene
                 if (to is PausingState)
                     return;
 
-                _playingBGM.Stop();
-
                 // その他の状態に遷移する時ゲーム終了
                 EndProcess();
             }
@@ -266,6 +264,7 @@ namespace Project.Scripts.GamePlayScene
             private void EndProcess()
             {
                 _customTimer.StopTimer();
+                _playingBGM.Stop();
             }
         }
 

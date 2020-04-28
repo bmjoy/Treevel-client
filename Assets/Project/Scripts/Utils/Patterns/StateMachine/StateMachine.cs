@@ -74,7 +74,7 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
                 return false;
 
             if (!IsTransitionValid(to)) {
-                Debug.LogWarning($"Invalid state transition [{nameof(CurrentState)}] => [{nameof(CurrentState)}]");
+                Debug.LogWarning($"Invalid state transition [{CurrentState.GetType()}] => [{to.GetType()}]");
                 return false;
             }
 
