@@ -37,7 +37,7 @@ namespace Project.Scripts.GamePlayScene
         /// ゲームの状態一覧
         /// </summary>
         public enum EGameState {
-            Playing,
+            Playing, // 初期状態
             Success,
             Failure,
             Pausing
