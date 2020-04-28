@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Panel;
@@ -321,7 +321,9 @@ namespace Project.Scripts.GamePlayScene
 
             public override void OnEnter(State from = null)
             {
-                StageRecord();
+                // 記録更新
+                StageStatus.Get(stageId).Update(success: true);
+
                 _successSE.Play();
 
                 // 成功ポップアップ表示
@@ -334,15 +336,6 @@ namespace Project.Scripts.GamePlayScene
             public override void OnExit(State to)
             {
                 _successPopup.SetActive(false);
-            }
-
-            private void StageRecord()
-            {
-                var ss = StageStatus.Get(stageId);
-                // クリア済みにする
-                ss.ClearStage(stageId);
-                // 成功回数をインクリメント
-                ss.IncSuccessNum(stageId);
             }
         }
 
@@ -368,8 +361,8 @@ namespace Project.Scripts.GamePlayScene
 
             public override void OnEnter(State from = null)
             {
-                // 失敗記録
-                StageRecord();
+                // 記録更新
+                StageStatus.Get(stageId).Update(success: false);
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
@@ -390,13 +383,6 @@ namespace Project.Scripts.GamePlayScene
             public override void OnExit(State to)
             {
                 _failurePopup.SetActive(false);
-            }
-
-            private void StageRecord()
-            {
-                // 失敗回数をインクリメント
-                var ss = StageStatus.Get(stageId);
-                ss.IncFailureNum(stageId);
             }
         }
     }
