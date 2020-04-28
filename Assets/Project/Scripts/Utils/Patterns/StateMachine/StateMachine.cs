@@ -110,11 +110,7 @@ namespace Project.Scripts.Utils.Patterns.StateMachine
         /// <returns>合法的な遷移かどうか</returns>
         private bool IsTransitionValid(State to)
         {
-            // 設定してないならfalse
-            if (!_validTransitions.ContainsKey(CurrentState))
-                return false;
-            else
-                return _validTransitions[CurrentState].Contains(to);
+            return _validTransitions.ContainsKey(CurrentState) && _validTransitions[CurrentState].Contains(to);
         }
     }
 }
