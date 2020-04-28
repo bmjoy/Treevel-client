@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _progressImage: {fileID: 1689733682}
-  _progressText: {fileID: 0}
+  _progressText: {fileID: 457464632007983295}
 --- !u!1001 &4533902462858447284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -513,3 +513,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8499453684507080346}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &457464632007983295 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8335351129932690981, guid: 08bc31bccfd004d24846b057a089c860,
+    type: 3}
+  m_PrefabInstance: {fileID: 8499453684507080346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6095efb3f7c9740c28c449abd9d848b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
