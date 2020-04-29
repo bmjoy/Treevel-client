@@ -44,8 +44,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         public override void Initialize(GameDatas.BulletData data)
         {
             this.ratio = data.ratio;
-            if (data.aimingPanels.Count > 0) _aimingPanels = data.aimingPanels.ToArray();
-            if (data.randomNumberPanels.Count > 0) _randomNumberPanels = data.randomNumberPanels.ToArray();
+            if (data.aimingBottles.Count > 0) _aimingPanels = data.aimingBottles.ToArray();
+            if (data.randomNumberBottles.Count > 0) _randomNumberPanels = data.randomNumberBottles.ToArray();
         }
 
         /// <summary>

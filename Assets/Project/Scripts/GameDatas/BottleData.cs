@@ -10,7 +10,7 @@ namespace Project.Scripts.GameDatas
         public EBottleType type;
         [Range(1, 15)] public int initPos;
         [Range(1, 15)] public short targetPos;
-        public AssetReferenceSprite panelSprite;
+        public AssetReferenceSprite bottleSprite;
         public AssetReferenceSprite targetTileSprite;
         public short life;
     }

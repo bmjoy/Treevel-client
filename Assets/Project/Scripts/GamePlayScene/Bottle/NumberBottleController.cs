@@ -55,9 +55,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             Id = panelData.initPos;
             _finalPos = panelData.targetPos;
-            var panelSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.panelSprite);
+            var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.bottleSprite);
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
-            GetComponent<SpriteRenderer>().sprite = panelSprite;
+            GetComponent<SpriteRenderer>().sprite = bottleSprite;
 
             base.Initialize(panelData);
 

@@ -20,11 +20,11 @@ MonoBehaviour:
   - type: 1
     number: 2
     pairNumber: 1
-  panels:
+  bottles:
   - type: 0
     initPos: 3
     targetPos: 0
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 
       m_SubObjectName: 
     targetTileSprite:
@@ -34,7 +34,7 @@ MonoBehaviour:
   - type: 2
     initPos: 4
     targetPos: 4
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 8cacf29162ce544c6a91e04b672dda22
       m_SubObjectName: 1_bgy
     targetTileSprite:
@@ -44,7 +44,7 @@ MonoBehaviour:
   - type: 2
     initPos: 5
     targetPos: 5
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 3ad34613c20ab4a8f9d82c5e184a0f2a
       m_SubObjectName: 2_bvy
     targetTileSprite:
@@ -54,7 +54,7 @@ MonoBehaviour:
   - type: 2
     initPos: 6
     targetPos: 6
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 306499f0dbaa04cb386a1aa39a34d9e9
       m_SubObjectName: 3_gy
     targetTileSprite:
@@ -64,7 +64,7 @@ MonoBehaviour:
   - type: 2
     initPos: 7
     targetPos: 7
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: d4a70a4ce855e4182b6554908109825d
       m_SubObjectName: 4_ops
     targetTileSprite:
@@ -74,7 +74,7 @@ MonoBehaviour:
   - type: 2
     initPos: 8
     targetPos: 8
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 043ec374bab50405dbf75005d1a106bf
       m_SubObjectName: 5_oy
     targetTileSprite:
@@ -84,7 +84,7 @@ MonoBehaviour:
   - type: 2
     initPos: 9
     targetPos: 9
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 3e7b664c3229c4b66a919e9db2641a63
       m_SubObjectName: 6_rp
     targetTileSprite:
@@ -94,7 +94,7 @@ MonoBehaviour:
   - type: 2
     initPos: 10
     targetPos: 10
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 44a494e351155459dbfee62492c655bd
       m_SubObjectName: 7_voy
     targetTileSprite:
@@ -104,7 +104,7 @@ MonoBehaviour:
   - type: 2
     initPos: 14
     targetPos: 11
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 44a494e351155459dbfee62492c655bd
       m_SubObjectName: 7_voy
     targetTileSprite:
@@ -114,7 +114,7 @@ MonoBehaviour:
   - type: 1
     initPos: 15
     targetPos: 0
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 
       m_SubObjectName: 
     targetTileSprite:
