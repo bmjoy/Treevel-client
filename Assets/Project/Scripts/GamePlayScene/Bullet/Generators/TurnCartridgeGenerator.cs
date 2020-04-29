@@ -102,7 +102,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             for (var index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES - turnCartridgeWaitingFrames; index++) yield return new WaitForFixedUpdate();
 
             // ゲームが続いているなら銃弾を作成する
-            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
+            if (gamePlayDirector.State != GamePlayDirector.EGameState.Playing) yield break;
 
             var nextCartridgeTurnDirection = _turnDirection ?? new int[] {
                 GetRandomTurnDirection(nextCartridgeDirection, nextCartridgeLine)

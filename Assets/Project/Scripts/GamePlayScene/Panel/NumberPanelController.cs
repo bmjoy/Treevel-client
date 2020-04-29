@@ -87,7 +87,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             dead = true;
 
             // 失敗状態に移行する
-            gamePlayDirector.Dispatch(GamePlayDirector.EGameState.Failure);
+            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
         }
 
         /// <summary>

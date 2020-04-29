@@ -61,12 +61,15 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <summary>
         /// 生成したBulletGroup群のcoroutineを開始する
         /// </summary>
-        public void CreateBulletGroups(List<IEnumerator> coroutines)
+        public void FireBulletGroups()
         {
-            Initialize();
+            if (_coroutines == null) {
+                Debug.LogError("銃弾はないか作成してない");
+                return;
+            }
 
-            this._coroutines = coroutines;
-            foreach (var coroutine in this._coroutines) StartCoroutine(coroutine);
+            Initialize();
+            _coroutines.ForEach(cr => StartCoroutine(cr));
         }
 
         /// <summary>
@@ -78,7 +81,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             startTime = Time.time;
         }
 
-        public async Task<List<IEnumerator>> CreateBulletGroups(ICollection<BulletGroupData> bulletGroupList)
+        public async void CreateBulletGroups(ICollection<BulletGroupData> bulletGroupList)
         {
             var coroutines = new List<IEnumerator>();
             foreach (var bulletGroup in bulletGroupList) {
@@ -91,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
                         bulletList.ToList()
                     ));
             }
-            return coroutines;
+            _coroutines = coroutines;
         }
 
         /// <summary>
@@ -108,7 +111,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             var bulletGroupScript = bulletGroup.GetComponent<BulletGroupController>();
             bulletGroupScript.Initialize(startTime: startTime, appearanceTime: appearanceTime, interval: interval,
                 loop: loop, bulletGenerators: bulletGenerators);
-            yield return StartCoroutine(bulletGroupScript.CreateBullets());
+            yield return bulletGroupScript.CreateBullets();
         }
 
         private void OnSucceed()

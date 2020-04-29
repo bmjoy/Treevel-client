@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
+﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bullet.Controllers
@@ -55,7 +52,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         protected void Update()
         {
             // 指定のフレーム以上経過していたら銃弾を消す
-            if (transform.position.z < (-1) * _HOLE_DISPLAYED_FRAMES * speed && gamePlayDirector.state == GamePlayDirector.EGameState.Playing) Destroy(gameObject);
+            if (transform.position.z < (-1) * _HOLE_DISPLAYED_FRAMES * speed && gamePlayDirector.State == GamePlayDirector.EGameState.Playing) Destroy(gameObject);
         }
 
         protected void FixedUpdate()

@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             // 警告を削除する
             Destroy(warning);
 
-            if (gamePlayDirector.state != GamePlayDirector.EGameState.Playing) yield break;
+            if (gamePlayDirector.State != GamePlayDirector.EGameState.Playing) yield break;
 
             // ゲームが続いているなら銃弾を作成する
             AsyncOperationHandle<GameObject> holeOp;
