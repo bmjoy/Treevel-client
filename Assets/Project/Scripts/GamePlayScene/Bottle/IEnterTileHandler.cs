@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Bottle
 {
     public interface IEnterTileHandler
     {

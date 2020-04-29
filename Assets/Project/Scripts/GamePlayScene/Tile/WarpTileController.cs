@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;

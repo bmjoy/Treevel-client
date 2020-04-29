@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;

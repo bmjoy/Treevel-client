@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 

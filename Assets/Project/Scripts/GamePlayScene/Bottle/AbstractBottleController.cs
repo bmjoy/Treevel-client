@@ -2,7 +2,7 @@
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Bottle
 {
     public abstract class AbstractBottleController : MonoBehaviour
     {

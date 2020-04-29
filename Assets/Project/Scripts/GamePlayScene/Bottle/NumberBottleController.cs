@@ -6,7 +6,7 @@ using SpriteGlow;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace Project.Scripts.GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]

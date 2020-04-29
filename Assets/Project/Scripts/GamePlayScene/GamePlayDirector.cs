@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;

@@ -1,6 +1,6 @@
 ﻿using Project.Scripts.Utils.Definitions;
 
-namespace Project.Scripts.GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Bottle
 {
     public class StaticBottleController : AbstractBottleController
     {

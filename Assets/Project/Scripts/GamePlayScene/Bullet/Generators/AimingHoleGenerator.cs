@@ -3,7 +3,7 @@ using System.Collections;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;

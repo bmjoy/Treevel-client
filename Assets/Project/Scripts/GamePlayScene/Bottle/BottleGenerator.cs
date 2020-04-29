@@ -3,7 +3,7 @@ using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 
-namespace Project.Scripts.GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Bottle
 {
     public static class BottleGenerator
     {

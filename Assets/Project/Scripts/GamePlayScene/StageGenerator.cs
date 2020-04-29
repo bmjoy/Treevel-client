@@ -1,6 +1,6 @@
 ﻿using System;
 using Project.Scripts.GamePlayScene.Bullet.Generators;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils;
 using UnityEngine;

@@ -4,7 +4,7 @@ using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Panel
+namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(BoxCollider2D))]

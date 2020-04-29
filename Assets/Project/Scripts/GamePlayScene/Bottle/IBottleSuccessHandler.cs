@@ -1,4 +1,4 @@
-﻿namespace Project.Scripts.GamePlayScene.Panel
+﻿namespace Project.Scripts.GamePlayScene.Bottle
 {
     /// <summary>
     /// 成功判定を処理するインターフェイス
