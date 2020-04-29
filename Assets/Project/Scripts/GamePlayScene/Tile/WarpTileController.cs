@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             GetComponent<ParticleSystem>().Play();
             var anim = panel.GetComponent<Animation>();
             // panelがワープに入るアニメーション
-            anim.Play(AnimationClipName.PANEL_WARP);
+            anim.Play(AnimationClipName.BOTTLE_WARP);
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
@@ -97,7 +97,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             BoardManager.SetPanel(panel.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
 
             // panelがワープから戻るアニメーション
-            anim.Play(AnimationClipName.PANEL_WARP_REVERSE);
+            anim.Play(AnimationClipName.BOTTLE_WARP_REVERSE);
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 

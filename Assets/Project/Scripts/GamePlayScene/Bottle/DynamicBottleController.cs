@@ -35,8 +35,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             // アニメーションの追加
             anim = GetComponent<Animation>();
-            anim.AddClip(warpAnimation, AnimationClipName.PANEL_WARP);
-            anim.AddClip(warpReverseAnimation, AnimationClipName.PANEL_WARP_REVERSE);
+            anim.AddClip(warpAnimation, AnimationClipName.BOTTLE_WARP);
+            anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
         }
 
         private void OnEnable()
@@ -73,8 +73,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
             // アニメーションを止める
-            anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
-            anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
+            anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
+            anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         protected virtual void OnFail()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
-            anim[AnimationClipName.PANEL_WARP].speed = 0.0f;
-            anim[AnimationClipName.PANEL_WARP_REVERSE].speed = 0.0f;
+            anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
+            anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
         }
     }
 }

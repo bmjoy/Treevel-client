@@ -30,7 +30,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _maxLife = Mathf.Max(_maxLife, 1); // MaxLifeの最小値を１にする
             _currentLife = _maxLife;
 
-            anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED);
+            anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_BOTTLE_GET_ATTACKED);
         }
 
         public override void Initialize(BottleData panelData)
@@ -52,7 +52,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             --_currentLife;
             if (_currentLife <= 0) {
                 // 失敗演出
-                anim.Play(AnimationClipName.NUMBER_PANEL_DEAD, PlayMode.StopAll);
+                anim.Play(AnimationClipName.NUMBER_BOTTLE_DEAD, PlayMode.StopAll);
 
                 // 自身が破壊された
                 dead = true;
@@ -62,10 +62,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             } else if (_currentLife == 1) {
                 // ループさせて危機感っぽい
                 anim.wrapMode = WrapMode.Loop;
-                anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(AnimationClipName.LIFE_NUMBER_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
             } else {
                 anim.clip = _attackedAnimation;
-                anim.Play(AnimationClipName.LIFE_NUMBER_PANEL_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(AnimationClipName.LIFE_NUMBER_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
             }
         }
     }
