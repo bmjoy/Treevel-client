@@ -209,10 +209,10 @@ namespace Project.Scripts.GamePlayScene
         private static void CleanObject()
         {
             // パネルを破壊
-            var panels = GameObject.FindObjectsOfType<AbstractPanelController>();
-            foreach (var panel in panels) {
+            var bottles = GameObject.FindObjectsOfType<AbstractBottleController>();
+            foreach (var bottle in bottles) {
                 // パネルの削除
-                DestroyImmediate(panel.gameObject);
+                DestroyImmediate(bottle.gameObject);
             }
 
             var bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
