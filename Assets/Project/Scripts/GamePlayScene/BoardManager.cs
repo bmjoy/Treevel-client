@@ -19,7 +19,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <typeparam name="GameObject">ボトルのゲームオブジェクト</typeparam>
         /// <typeparam name="Vector2">現在位置`(x, y)=>（row, column）`</typeparam>
-        private static readonly Dictionary<GameObject, Vector2Int> _panelPositions = new Dictionary<GameObject, Vector2Int>();
+        private static readonly Dictionary<GameObject, Vector2Int> _bottlePositions = new Dictionary<GameObject, Vector2Int>();
 
         /// <summary>
         /// ボードを初期化、行数×列数分の格子（`Square`）を用意し、
@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene
             var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(direction.Direction()));
 
             // 該当ボトルの現在位置
-            var currPos = _panelPositions[panel];
+            var currPos = _bottlePositions[panel];
 
             var targetPos = currPos + directionInt;
             // 移動目標地をボードの範囲内に収める
@@ -162,13 +162,13 @@ namespace Project.Scripts.GamePlayScene
                     return;
 
                 // ボトルの元の位置が保存されたらその位置のボトルを消す
-                if (_panelPositions.ContainsKey(panel.gameObject)) {
-                    var from = _panelPositions[panel.gameObject];
+                if (_bottlePositions.ContainsKey(panel.gameObject)) {
+                    var from = _bottlePositions[panel.gameObject];
                     _board[from.x, from.y].Panel = null;
                 }
 
                 // 新しい格子に設定
-                _panelPositions[panel.gameObject] = new Vector2Int(targetX, targetY);
+                _bottlePositions[panel.gameObject] = new Vector2Int(targetX, targetY);
                 targetSquare.Panel = panel;
             }
         }
@@ -180,7 +180,7 @@ namespace Project.Scripts.GamePlayScene
         /// <returns>タイル番号</returns>
         public static int GetPanelPos(AbstractBottleController panel)
         {
-            var pos = _panelPositions?[panel.gameObject] ?? default;
+            var pos = _bottlePositions?[panel.gameObject] ?? default;
             return XYToTileNum(pos);
         }
 
@@ -189,35 +189,35 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private class Square
         {
-            private AbstractBottleController _panel = null;
+            private AbstractBottleController _bottle = null;
             private AbstractTileController _tile = null;
             private readonly Vector2 _worldPosition;
 
             public AbstractBottleController Panel
             {
-                get => _panel;
+                get => _bottle;
                 set {
-                    if (_panel == value)
+                    if (_bottle == value)
                         return;
 
-                    if (value == null && _panel != null) {
+                    if (value == null && _bottle != null) {
                         // ボトルがこの格子から離れる
-                        _tile.OnPanelExit(_panel.gameObject);
-                        _panel = value;
+                        _tile.OnPanelExit(_bottle.gameObject);
+                        _bottle = value;
                     } else {
                         // 新しいボトルがこの格子に入る
-                        _panel = value;
+                        _bottle = value;
 
                         // 移動する
-                        _panel.transform.position = _worldPosition;
+                        _bottle.transform.position = _worldPosition;
 
                         // ボトルがタイルに入る時ボトルの処理
-                        if (_panel is IEnterTileHandler handler) {
+                        if (_bottle is IEnterTileHandler handler) {
                             handler.OnEnterTile(_tile.gameObject);
                         }
 
                         // ボトルがタイルに入る時タイルの処理
-                        _tile.OnPanelEnter(_panel.gameObject);
+                        _tile.OnPanelEnter(_bottle.gameObject);
                     }
                 }
             }

@@ -13,7 +13,7 @@ namespace Project.Scripts.Editor
     public class StageDataEditor : UnityEditor.Editor
     {
         private SerializedProperty _tileDatasProp;
-        private SerializedProperty _panelDatasProp;
+        private SerializedProperty _bottleDatasProp;
         private SerializedProperty _bulletGroupDatasProp;
 
         private int _numOfNumberPanels = 0;
@@ -22,7 +22,7 @@ namespace Project.Scripts.Editor
         public void OnEnable()
         {
             _tileDatasProp = serializedObject.FindProperty("tiles");
-            _panelDatasProp = serializedObject.FindProperty("panels");
+            _bottleDatasProp = serializedObject.FindProperty("panels");
             _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
 
             _src = target as StageData;
@@ -87,7 +87,7 @@ namespace Project.Scripts.Editor
 
         private void DrawPanelList()
         {
-            this.DrawArrayProperty(_panelDatasProp, (panelDataProp, index) => {
+            this.DrawArrayProperty(_bottleDatasProp, (panelDataProp, index) => {
                 panelDataProp.isExpanded = EditorGUILayout.Foldout(panelDataProp.isExpanded, $"Panel {index + 1}");
 
                 if (!panelDataProp.isExpanded) return;
