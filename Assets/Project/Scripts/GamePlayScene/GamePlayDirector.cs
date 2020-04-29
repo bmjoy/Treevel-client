@@ -89,12 +89,9 @@ namespace Project.Scripts.GamePlayScene
             _stateMachine = new StateMachine(_stateList[EGameState.Playing], _stateList.Values.ToArray());
 
             // 可能の状態遷移を設定
-            _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Pausing]); // playing -> pausing
-            _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Playing]); // pausing -> playing
-            _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Success]); // playing -> success
-            _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Failure]); // playing -> faliure
-            _stateMachine.AddTransition(_stateList[EGameState.Failure], _stateList[EGameState.Playing]); // failure -> playing
-            _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Failure]); // pausing -> faliure
+            foreach (var state in Enum.GetValues(typeof(EGameState))) {
+                AddTransition((EGameState)state);
+            }
 
             BoardManager.Initialize();
         }
@@ -120,6 +117,32 @@ namespace Project.Scripts.GamePlayScene
             var stateInstance = (State)Activator.CreateInstance(stateType, new object[] {this});
 
             _stateList.Add(state, stateInstance);
+        }
+
+        /// <summary>
+        /// 可能な状態遷移をステートマシンに追加
+        /// </summary>
+        /// <param name="state">ステート</param>
+        private void AddTransition(EGameState state)
+        {
+            switch (state) {
+                case EGameState.Playing:
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Pausing]); // playing -> pausing
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Failure]); // playing -> faliure
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Success]); // playing -> success
+                    break;
+                case EGameState.Pausing:
+                    _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Playing]); // pausing -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Failure]); // pausing -> faliure
+                    break;
+                case EGameState.Failure:
+                    _stateMachine.AddTransition(_stateList[EGameState.Failure], _stateList[EGameState.Playing]); // failure -> playing
+                    break;
+                case EGameState.Success:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"Invalid GameState: {state}");
+            }
         }
 
         /// <summary>
