@@ -12,6 +12,7 @@ using Project.Scripts.Utils.Library;
 using Project.Scripts.GamePlayScene.Bullet.Generators;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Reflection;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -81,10 +82,9 @@ namespace Project.Scripts.GamePlayScene
         private void Awake()
         {
             // ステートマシン初期化
-            _stateList.Add(EGameState.Playing, new PlayingState(this));
-            _stateList.Add(EGameState.Failure, new FailureState(this));
-            _stateList.Add(EGameState.Success, new SuccessState(this));
-            _stateList.Add(EGameState.Pausing, new PausingState(this));
+            foreach (var state in Enum.GetValues(typeof(EGameState))) {
+                AddState((EGameState)state);
+            }
 
             _stateMachine = new StateMachine(_stateList[EGameState.Playing], _stateList.Values.ToArray());
 
@@ -102,6 +102,24 @@ namespace Project.Scripts.GamePlayScene
         private void Start()
         {
             _stateMachine.Start();
+        }
+
+        /// <summary>
+        /// ステートの列挙からインスタンスを作成、辞書に保存する
+        /// <see cref="https://stackoverflow.com/questions/3200875/how-to-instantiate-privatetype-of-inner-private-class/22700890">参考リンク</see>
+        /// </summary>
+        /// <param name="state">ステート</param>
+        private void AddState(EGameState state)
+        {
+            // 親クラスを取得
+            var parentType = typeof(GamePlayDirector);
+            // ステートのタイプを取得
+            var stateType = parentType.GetNestedType($"{state.ToString()}State", BindingFlags.NonPublic);
+
+            // ステートのインスタンス生成
+            var stateInstance = (State)Activator.CreateInstance(stateType, new object[] {this});
+
+            _stateList.Add(state, stateInstance);
         }
 
         /// <summary>
