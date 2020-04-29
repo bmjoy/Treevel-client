@@ -20,7 +20,7 @@
     {
         public const string TILE = "Tile";
         public const string HOLE = "Hole";
-        public const string PANEL = "Panel";
+        public const string BOTTLE = "Bottle";
         public const string BULLET = "Bullet";
         public const string BULLET_WARNING = "BulletWarning";
     }

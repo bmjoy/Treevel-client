@@ -19,7 +19,7 @@ namespace Project.Scripts.GamePlayScene.Panel
             if (GetComponent<Collider2D>() is BoxCollider2D) {
                 GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
             }
-            GetComponent<Renderer>().sortingLayerName = SortingLayerName.PANEL;
+            GetComponent<Renderer>().sortingLayerName = SortingLayerName.BOTTLE;
         }
 
         /// <summary>

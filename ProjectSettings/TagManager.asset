@@ -22,7 +22,7 @@ TagManager:
   - SpriteGlow
   - Cartridge
   - Hole
-  - Panel
+  - Bottle
   - Tile
   - Background
   - 
@@ -53,7 +53,7 @@ TagManager:
   - name: Hole
     uniqueID: 2090039911
     locked: 0
-  - name: Panel
+  - name: Bottle
     uniqueID: 1604723703
     locked: 0
   - name: Bullet
