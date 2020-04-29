@@ -17,8 +17,8 @@ GameObject:
   - component: {fileID: -3969736273494569835}
   - component: {fileID: -7309998046472970229}
   m_Layer: 8
-  m_Name: LifeNumberPanelPrefab
-  m_TagString: NumberPanel
+  m_Name: LifeNumberBottlePrefab
+  m_TagString: NumberBottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

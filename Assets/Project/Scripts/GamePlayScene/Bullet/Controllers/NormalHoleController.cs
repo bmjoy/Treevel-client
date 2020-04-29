@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             if (transform.position.z < 0) return;
 
             // ボトルとの衝突
-            if (other.gameObject.CompareTag(TagName.NUMBER_PANEL)) {
+            if (other.gameObject.CompareTag(TagName.NUMBER_BOTTLE)) {
                 // 数字ボトルとの衝突
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;

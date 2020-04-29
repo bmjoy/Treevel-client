@@ -31,8 +31,8 @@
     public static class TagName
     {
         public const string TILE = "Tile";
-        public const string NUMBER_PANEL = "NumberPanel";
-        public const string DUMMY_PANEL = "DummyPanel";
+        public const string NUMBER_BOTTLE = "NumberBottle";
+        public const string DUMMY_BOTTLE = "DummyBottle";
         public const string BULLET = "Bullet";
         public const string BULLET_WARNING = "BulletWarning";
         public const string GRAPH_UI = "GraphUi";

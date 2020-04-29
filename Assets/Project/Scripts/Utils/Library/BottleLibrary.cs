@@ -14,7 +14,7 @@ namespace Project.Scripts.Utils.Library
         /// <returns> Number Panel オブジェクト </returns>
         public static GameObject GetPanel(int panelNum)
         {
-            var numberPanels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_PANEL);
+            var numberPanels = GameObject.FindGameObjectsWithTag(TagName.NUMBER_BOTTLE);
             // ボトルの番号がpanelNumの唯一のボトルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
             return numberPanels.Single(panel => panel.GetComponent<NumberBottleController>()?.Id == panelNum);
         }

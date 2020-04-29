@@ -5,11 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
-  - NumberPanel
   - BulletWarning
   - Tile
   - GraphUi
-  - DummyPanel
+  - NumberBottle
+  - DummyBottle
   layers:
   - Default
   - TransparentFX
