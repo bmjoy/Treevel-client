@@ -73,12 +73,12 @@ namespace Project.Scripts.StageSelectScene
 
             var overviewBullets = stageData.OverviewGimmicks;
             for (int i = 1 ; i <= 3 ; ++i) {
-                var bulletOverviewPanel = _appearingBullets.transform.Find($"GimmickOverview{i}");
+                var bulletOverviewBottle = _appearingBullets.transform.Find($"GimmickOverview{i}");
                 if (overviewBullets.Count >= i) {
-                    bulletOverviewPanel.GetComponentInChildren<Text>().text = overviewBullets[i - 1].ToString();
-                    bulletOverviewPanel.gameObject.SetActive(true);
+                    bulletOverviewBottle.GetComponentInChildren<Text>().text = overviewBullets[i - 1].ToString();
+                    bulletOverviewBottle.gameObject.SetActive(true);
                 } else {
-                    bulletOverviewPanel.gameObject.SetActive(false);
+                    bulletOverviewBottle.gameObject.SetActive(false);
                 }
             }
         }

@@ -15,14 +15,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
             {EBottleType.LifeNumber, Address.LIFE_NUMBER_BOTTLE_PREFAB}
         };
 
-        public static void CreatePanels(List<BottleData> panelDatas)
+        public static void CreateBottles(List<BottleData> bottleDatas)
         {
-            panelDatas.ForEach(async panelData => {
-                if (!_prefabAddressableKeys.ContainsKey(panelData.type))
+            bottleDatas.ForEach(async bottleData => {
+                if (!_prefabAddressableKeys.ContainsKey(bottleData.type))
                     return;
 
-                var panel = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[panelData.type]).Task;
-                panel.GetComponent<AbstractBottleController>().Initialize(panelData);
+                var bottle = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).Task;
+                bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
             });
         }
     }

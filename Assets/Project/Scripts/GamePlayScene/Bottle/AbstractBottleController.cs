@@ -11,10 +11,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private void InitializeSprite()
         {
             // ボトル画像のサイズを取得
-            var panelWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-            var panelHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+            var bottleWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
+            var bottleHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
             // ボトルの初期設定
-            transform.localScale = new Vector2(BottleSize.WIDTH / panelWidth, BottleSize.HEIGHT / panelHeight);
+            transform.localScale = new Vector2(BottleSize.WIDTH / bottleWidth, BottleSize.HEIGHT / bottleHeight);
 
             if (GetComponent<Collider2D>() is BoxCollider2D) {
                 GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
@@ -25,13 +25,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="panelData"> ボトルのデータ </param>
-        public virtual void Initialize(BottleData panelData)
+        /// <param name="bottleData"> ボトルのデータ </param>
+        public virtual void Initialize(BottleData bottleData)
         {
-            var initialTileNum = panelData.initPos;
+            var initialTileNum = bottleData.initPos;
 
             // ボトルをボードに設定
-            BoardManager.SetPanel(this, initialTileNum);
+            BoardManager.SetBottle(this, initialTileNum);
 
             InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;

@@ -158,8 +158,8 @@ namespace Project.Scripts.Utils
         {
             StageData stage = GameDataBase.GetStage(stageId);
 
-            stage.BottleDatas.ForEach((panelData) => {
-                switch (panelData.type) {
+            stage.BottleDatas.ForEach((bottleData) => {
+                switch (bottleData.type) {
                     case Definitions.EBottleType.Dynamic:
                         LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_BOTTLE_SPRITE);
@@ -170,15 +170,15 @@ namespace Project.Scripts.Utils
                         break;
                     case Definitions.EBottleType.Number:
                         LoadAsset<GameObject>(Address.NUMBER_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(panelData.bottleSprite);
+                        LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(panelData.targetTileSprite);
+                        LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
                     case Definitions.EBottleType.LifeNumber:
                         LoadAsset<GameObject>(Address.LIFE_NUMBER_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(panelData.bottleSprite);
+                        LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(panelData.targetTileSprite);
+                        LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
                     default:
                         throw new System.NotImplementedException();

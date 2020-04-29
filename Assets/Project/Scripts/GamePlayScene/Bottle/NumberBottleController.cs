@@ -50,16 +50,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="panelData">ボトルデータ</param>
-        public override void Initialize(BottleData panelData)
+        /// <param name="bottleData">ボトルデータ</param>
+        public override void Initialize(BottleData bottleData)
         {
-            Id = panelData.initPos;
-            _finalPos = panelData.targetPos;
-            var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.bottleSprite);
-            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(panelData.targetTileSprite);
+            Id = bottleData.initPos;
+            _finalPos = bottleData.targetPos;
+            var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);
+            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
             GetComponent<SpriteRenderer>().sprite = bottleSprite;
 
-            base.Initialize(panelData);
+            base.Initialize(bottleData);
 
             #if UNITY_EDITOR
             name = BottleName.NUMBER_BOTTLE + Id.ToString();
@@ -129,7 +129,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <inheritdoc/>
         public bool IsSuccess()
         {
-            var currPos = BoardManager.GetPanelPos(this);
+            var currPos = BoardManager.GetBottlePos(this);
             return currPos == _finalPos;
         }
 

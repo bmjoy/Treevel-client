@@ -15,7 +15,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             private set;
         }
 
-        protected IBottleHandler panelHandler = new DefaultBottleHandler();
+        protected IBottleHandler bottleHandler = new DefaultBottleHandler();
 
         protected virtual void Awake()
         {
@@ -45,28 +45,28 @@ namespace Project.Scripts.GamePlayScene.Tile
             TileNumber = tileNum;
         }
 
-        public void OnPanelEnter(GameObject panel)
+        public void OnBottleEnter(GameObject bottle)
         {
-            panelHandler.OnPanelEnter(panel);
+            bottleHandler.OnBottleEnter(bottle);
         }
 
-        public void OnPanelExit(GameObject panel)
+        public void OnBottleExit(GameObject bottle)
         {
-            panelHandler.OnPanelExit(panel);
+            bottleHandler.OnBottleExit(bottle);
         }
 
         protected interface IBottleHandler
         {
-            void OnPanelEnter(GameObject panel);
-            void OnPanelExit(GameObject panel);
+            void OnBottleEnter(GameObject bottle);
+            void OnBottleExit(GameObject bottle);
         }
 
         // 何もしないボトルハンドラー
         protected class DefaultBottleHandler : IBottleHandler
         {
-            public virtual void OnPanelEnter(GameObject panel) {}
+            public virtual void OnBottleEnter(GameObject bottle) {}
 
-            public virtual void OnPanelExit(GameObject panel) {}
+            public virtual void OnBottleExit(GameObject bottle) {}
         }
     }
 }

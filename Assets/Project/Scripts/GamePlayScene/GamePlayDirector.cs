@@ -176,8 +176,8 @@ namespace Project.Scripts.GamePlayScene
             if (!StageGenerator.CreatedFinished)
                 return;
 
-            var panels = GameObject.FindObjectsOfType<AbstractBottleController>().OfType<IBottleSuccessHandler>();
-            if (panels.Any(panel => panel.IsSuccess() == false)) return;
+            var bottles = GameObject.FindObjectsOfType<AbstractBottleController>().OfType<IBottleSuccessHandler>();
+            if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
             // 全ての数字ボトルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
         }

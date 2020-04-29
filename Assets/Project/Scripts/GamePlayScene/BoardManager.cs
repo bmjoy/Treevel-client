@@ -52,21 +52,21 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum">タイル番号</param>
         /// <returns>対象ボトルのゲームオブジェクト | null</returns>
-        public static GameObject GetPanel(int tileNum)
+        public static GameObject GetBottle(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board[x, y]?.Panel?.gameObject;
+            return _board[x, y]?.Bottle?.gameObject;
         }
 
         /// <summary>
         /// ボトルをフリックする方向に移動する
         /// </summary>
-        /// <param name="panel"> フリックするボトル </param>
+        /// <param name="bottle"> フリックするボトル </param>
         /// <param name="direction"> フリックする方向 </param>
-        public static void Move(GameObject panel, Vector2 direction)
+        public static void Move(GameObject bottle, Vector2 direction)
         {
-            var panelController = panel?.GetComponent<AbstractBottleController>();
-            if (!(panelController is DynamicBottleController))
+            var bottleController = bottle?.GetComponent<AbstractBottleController>();
+            if (!(bottleController is DynamicBottleController))
                 return;
 
             // 移動方向を正規化
@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene
             var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(direction.Direction()));
 
             // 該当ボトルの現在位置
-            var currPos = _bottlePositions[panel];
+            var currPos = _bottlePositions[bottle];
 
             var targetPos = currPos + directionInt;
             // 移動目標地をボードの範囲内に収める
@@ -83,7 +83,7 @@ namespace Project.Scripts.GamePlayScene
 
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            SetPanel(panelController, targetTileNum);
+            SetBottle(bottleController, targetTileNum);
         }
 
         /// <summary>
@@ -148,9 +148,9 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ボトルをタイル番号`tileNum`の位置に設置する
         /// </summary>
-        /// <param name="panel">設置するボトル</param>
+        /// <param name="bottle">設置するボトル</param>
         /// <param name="tileNum">目標タイル番号</param>
-        public static void SetPanel(AbstractBottleController panel, int tileNum)
+        public static void SetBottle(AbstractBottleController bottle, int tileNum)
         {
             lock (_board) {
                 // 目標の格子を取得
@@ -158,29 +158,29 @@ namespace Project.Scripts.GamePlayScene
                 var targetSquare = _board[targetX, targetY];
 
                 // 目標位置にすでにボトルがある
-                if (targetSquare.Panel != null)
+                if (targetSquare.Bottle != null)
                     return;
 
                 // ボトルの元の位置が保存されたらその位置のボトルを消す
-                if (_bottlePositions.ContainsKey(panel.gameObject)) {
-                    var from = _bottlePositions[panel.gameObject];
-                    _board[from.x, from.y].Panel = null;
+                if (_bottlePositions.ContainsKey(bottle.gameObject)) {
+                    var from = _bottlePositions[bottle.gameObject];
+                    _board[from.x, from.y].Bottle = null;
                 }
 
                 // 新しい格子に設定
-                _bottlePositions[panel.gameObject] = new Vector2Int(targetX, targetY);
-                targetSquare.Panel = panel;
+                _bottlePositions[bottle.gameObject] = new Vector2Int(targetX, targetY);
+                targetSquare.Bottle = bottle;
             }
         }
 
         /// <summary>
         /// ボトルがいるタイル番号を取得
         /// </summary>
-        /// <param name="panel">調べたいボトル</param>
+        /// <param name="bottle">調べたいボトル</param>
         /// <returns>タイル番号</returns>
-        public static int GetPanelPos(AbstractBottleController panel)
+        public static int GetBottlePos(AbstractBottleController bottle)
         {
-            var pos = _bottlePositions?[panel.gameObject] ?? default;
+            var pos = _bottlePositions?[bottle.gameObject] ?? default;
             return XYToTileNum(pos);
         }
 
@@ -193,7 +193,7 @@ namespace Project.Scripts.GamePlayScene
             private AbstractTileController _tile = null;
             private readonly Vector2 _worldPosition;
 
-            public AbstractBottleController Panel
+            public AbstractBottleController Bottle
             {
                 get => _bottle;
                 set {
@@ -202,7 +202,7 @@ namespace Project.Scripts.GamePlayScene
 
                     if (value == null && _bottle != null) {
                         // ボトルがこの格子から離れる
-                        _tile.OnPanelExit(_bottle.gameObject);
+                        _tile.OnBottleExit(_bottle.gameObject);
                         _bottle = value;
                     } else {
                         // 新しいボトルがこの格子に入る
@@ -217,7 +217,7 @@ namespace Project.Scripts.GamePlayScene
                         }
 
                         // ボトルがタイルに入る時タイルの処理
-                        _tile.OnPanelEnter(_bottle.gameObject);
+                        _tile.OnBottleEnter(_bottle.gameObject);
                     }
                 }
             }

@@ -33,10 +33,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_BOTTLE_GET_ATTACKED);
         }
 
-        public override void Initialize(BottleData panelData)
+        public override void Initialize(BottleData bottleData)
         {
-            base.Initialize(panelData);
-            _maxLife = panelData.life;
+            base.Initialize(bottleData);
+            _maxLife = bottleData.life;
             _currentLife = _maxLife;
         }
 
