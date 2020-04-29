@@ -27,7 +27,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// AimingHoleが撃ち抜くNumberPanelの確率
         /// </summary>
         /// <returns></returns>
-        private int[] _randomNumberPanels = BulletLibrary.GetInitialArray(StageSize.NUMBER_PANEL_NUM);
+        private int[] _randomNumberPanels = BulletLibrary.GetInitialArray(StageSize.NUMBER_BOTTLE_NUM); // TODO: ステージデータからボトルの数を計算
 
         /// <summary>
         /// 特定のNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
