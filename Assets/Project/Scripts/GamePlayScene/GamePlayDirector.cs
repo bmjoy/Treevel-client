@@ -288,6 +288,9 @@ namespace Project.Scripts.GamePlayScene
 
         private class PausingState: State
         {
+            /// <summary>
+            /// 一時停止ウィンドウ
+            /// </summary>
             private readonly GameObject _pauseWindow;
 
             public PausingState(GamePlayDirector caller)
@@ -318,6 +321,9 @@ namespace Project.Scripts.GamePlayScene
 
         private class SuccessState: State
         {
+            /// <summary>
+            /// 成功ポップアップ
+            /// </summary>
             private readonly GameObject _successPopup;
 
             /// <summary>
@@ -358,6 +364,9 @@ namespace Project.Scripts.GamePlayScene
 
         private class FailureState: State
         {
+            /// <summary>
+            /// 失敗ポップアップ
+            /// </summary>
             private readonly GameObject _failurePopup;
 
             /// <summary>
