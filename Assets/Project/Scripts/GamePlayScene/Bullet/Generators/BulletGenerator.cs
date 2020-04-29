@@ -17,7 +17,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
 
         protected virtual void Awake()
         {
-            gamePlayDirector = FindObjectOfType<GamePlayDirector>();
+            gamePlayDirector = GamePlayDirector.Instance;
         }
 
         private void OnEnable()

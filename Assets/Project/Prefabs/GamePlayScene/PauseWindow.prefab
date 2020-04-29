@@ -273,7 +273,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 580826037636654198}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3431654595198830081}
+        m_MethodName: PauseBackButtonDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6431193585485235429
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +402,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5775540446749240109}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3431654595198830081}
+        m_MethodName: PauseQuitButtonDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6952197125368775791
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,8 +491,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8A2D\u5B9A"
-  _indexStr: 
+  m_Text: "\u4E00\u6642\u505C\u6B62\u4E2D"
+  _indexStr: GamePause
 --- !u!114 &7869176649937796902
 MonoBehaviour:
   m_ObjectHideFlags: 0

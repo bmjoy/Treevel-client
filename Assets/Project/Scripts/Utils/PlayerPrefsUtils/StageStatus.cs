@@ -7,6 +7,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
     public class StageStatus
     {
         /// <summary>
+        /// ステージID
+        /// </summary>
+        [NonSerialized] private int _id;
+
+        /// <summary>
         /// クリア有無
         /// </summary>
         public bool passed = false;
@@ -47,7 +52,9 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <returns></returns>
         public static StageStatus Get(int stageId)
         {
-            return MyPlayerPrefs.GetObject<StageStatus>(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId);
+            var data = MyPlayerPrefs.GetObject<StageStatus>(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId);
+            data._id = stageId;
+            return data;
         }
 
         /// <summary>
@@ -98,6 +105,28 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         {
             failureNum++;
             Set(stageId);
+        }
+
+        public void Update(bool success)
+        {
+            if (success) {
+                // クリア済みにする
+                ClearStage(_id);
+
+                IncSuccessNum(_id);
+            } else {
+                IncFailureNum(_id);
+            }
+        }
+
+        public void Dump()
+        {
+            #if UNITY_EDITOR
+            Debug.Log($"Stage: {_id}");
+            Debug.Log($"  挑戦回数：{challengeNum}");
+            Debug.Log($"  成功回数：{successNum}");
+            Debug.Log($"  失敗回数：{failureNum}");
+            #endif
         }
     }
 }
