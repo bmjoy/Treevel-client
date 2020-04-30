@@ -160,21 +160,21 @@ namespace Project.Scripts.Utils
 
             stage.BottleDatas.ForEach((bottleData) => {
                 switch (bottleData.type) {
-                    case Definitions.EBottleType.Dynamic:
+                    case EBottleType.Dynamic:
                         LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case Definitions.EBottleType.Static:
+                    case EBottleType.Static:
                         LoadAsset<GameObject>(Address.STATIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case Definitions.EBottleType.Number:
+                    case EBottleType.Number:
                         LoadAsset<GameObject>(Address.NORMAL_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
                         LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
-                    case Definitions.EBottleType.LifeNumber:
+                    case EBottleType.LifeNumber:
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
@@ -187,10 +187,10 @@ namespace Project.Scripts.Utils
 
             stage.TileDatas.ForEach(tileData => {
                 switch (tileData.type) {
-                    case Definitions.ETileType.Normal:
+                    case ETileType.Normal:
                         LoadAsset<GameObject>(Address.NORMAL_TILE_PREFAB);
                         break;
-                    case Definitions.ETileType.Warp:
+                    case ETileType.Warp:
                         LoadAsset<GameObject>(Address.WARP_TILE_PREFAB);
                         break;
                     default:
