@@ -21,6 +21,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         protected IBottleGetDamagedHandler _getDamagedHandler;
 
+        /// <summary>
+        /// タイルに移動した時の挙動
+        /// </summary>
+        protected IEnterTileHandler _enterTileHandler;
+
         protected virtual void Awake() {}
 
         /// <summary>
@@ -34,6 +39,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (other.gameObject.transform.position.z < 0) return;
 
             _getDamagedHandler?.OnGetDamaged(other.gameObject);
+        }
+
+        /// <summary>
+        /// タイルに移動した時の挙動
+        /// </summary>
+        /// <param name="targetTile">目標のタイル</param>
+        public void OnEnterTile(GameObject targetTile)
+        {
+            _enterTileHandler?.OnEnterTile(targetTile);
         }
 
         private void InitializeSprite()

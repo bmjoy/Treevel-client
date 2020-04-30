@@ -212,9 +212,7 @@ namespace Project.Scripts.GamePlayScene
                         _bottle.transform.position = _worldPosition;
 
                         // ボトルがタイルに入る時ボトルの処理
-                        if (_bottle is IEnterTileHandler handler) {
-                            handler.OnEnterTile(_tile.gameObject);
-                        }
+                        _bottle.OnEnterTile(_tile.gameObject);
 
                         // ボトルがタイルに入る時タイルの処理
                         _tile.OnBottleEnter(_bottle.gameObject);

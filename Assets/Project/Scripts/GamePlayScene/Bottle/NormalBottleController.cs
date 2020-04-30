@@ -42,6 +42,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             anim.AddClip(deadAnimation, AnimationClipName.NORMAL_BOTTLE_DEAD);
 
             _getDamagedHandler = new NormalGetDamagedHandler(this);
+            _enterTileHandler = new NormalEnterTileHandler(this);
         }
 
         /// <summary>
@@ -108,19 +109,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             var currPos = BoardManager.GetBottlePos(this);
             return currPos == _finalPos;
-        }
-
-        /// <inheritdoc/>
-        public void OnEnterTile(GameObject tile)
-        {
-            if (IsSuccess()) {
-                // 最終タイルにいるかどうかで，光らせるかを決める
-                GetComponent<SpriteGlowEffect>().enabled = true;
-
-                DoWhenSuccess();
-            } else {
-                GetComponent<SpriteGlowEffect>().enabled = false;
-            }
         }
     }
 }
