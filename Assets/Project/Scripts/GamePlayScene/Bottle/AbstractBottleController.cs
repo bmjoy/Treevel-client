@@ -10,7 +10,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 自身が壊されたかどうか
         /// </summary>
-        internal protected bool IsDead {get; internal set;}
+        internal protected bool IsDead
+        {
+            get;
+            internal set;
+        }
 
         /// <summary>
         /// ギミックに攻撃されたときの挙動
