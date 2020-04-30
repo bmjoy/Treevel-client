@@ -17,5 +17,6 @@
         Static,
         Number,
         LifeNumber,
+        LifeDummy,
     }
 }

@@ -12,6 +12,6 @@ namespace Project.Scripts.GameDatas
         [Range(1, 15)] public short targetPos;
         public AssetReferenceSprite bottleSprite;
         public AssetReferenceSprite targetTileSprite;
-        public short life;
+        [Min(2)] public short life;
     }
 }

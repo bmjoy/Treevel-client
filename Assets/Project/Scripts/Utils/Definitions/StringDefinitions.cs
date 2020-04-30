@@ -49,6 +49,7 @@
         public const string LIFE_BOTTLE_PREFAB = "LifeBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
         public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
+        public const string LIFE_DUMMY_BOTTLE_PREFAB = "LifeDummyBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
         public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
         public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";

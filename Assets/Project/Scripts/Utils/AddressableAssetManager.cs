@@ -170,19 +170,19 @@ namespace Project.Scripts.Utils
                         break;
                     case EBottleType.Number:
                         LoadAsset<GameObject>(Address.NORMAL_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(bottleData.bottleSprite);
-                        // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
                     case EBottleType.LifeNumber:
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(bottleData.bottleSprite);
-                        // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(bottleData.targetTileSprite);
+                        break;
+                    case EBottleType.LifeDummy:
+                        LoadAsset<GameObject>(Address.LIFE_DUMMY_BOTTLE_PREFAB);
                         break;
                     default:
                         throw new System.NotImplementedException();
                 }
+                if (bottleData.bottleSprite != null) LoadAsset<Sprite>(bottleData.bottleSprite);
+                // 対応するTileのSpriteを先に読み込む
+                if (bottleData.targetTileSprite != null) LoadAsset<Sprite>(bottleData.targetTileSprite);
             });
 
             stage.TileDatas.ForEach(tileData => {

@@ -1,4 +1,5 @@
 ﻿using Project.Scripts.GameDatas;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -75,6 +76,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
             // ボトルをボードに設定
             BoardManager.SetBottle(this, initialTileNum);
 
+            if (bottleData.bottleSprite != null) {
+                var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);
+                GetComponent<SpriteRenderer>().sprite = bottleSprite;
+            }
+            
             InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;
         }
