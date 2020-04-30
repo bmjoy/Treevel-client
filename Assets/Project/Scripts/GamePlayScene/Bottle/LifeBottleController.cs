@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             base.Initialize(bottleData);
 
             #if UNITY_EDITOR
-            name = BottleName.NUMBER_BOTTLE + Id.ToString();
+            name = BottleName.LIFE_BOTTLE + Id.ToString();
             #endif
 
             // 目標とするタイルのスプライトを設定
