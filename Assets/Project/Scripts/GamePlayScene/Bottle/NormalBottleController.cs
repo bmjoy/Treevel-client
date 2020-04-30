@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NormalBottleController : DynamicBottleController, IBottleSuccessHandler, IEnterTileHandler
+    public class NormalBottleController : DynamicBottleController, IBottleSuccessHandler
     {
         /// <summary>
         /// ボトルのゴールとなるタイル
