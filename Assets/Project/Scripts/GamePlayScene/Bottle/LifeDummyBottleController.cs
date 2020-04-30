@@ -9,6 +9,10 @@
         {
             base.Initialize(bottleData);
 
+            #if UNITY_EDITOR
+            name = Utils.Definitions.BottleName.LIFE_DUMMY_BOTTLE;
+            #endif
+
             _getDamagedHandler = new LifeBottleGetDamagedHandler(this, bottleData.life);
         }
     }
