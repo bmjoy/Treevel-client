@@ -4,9 +4,33 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
+    [RequireComponent(typeof(BoxCollider2D))]
     public abstract class AbstractBottleController : MonoBehaviour
     {
+        /// <summary>
+        /// 自身が壊されたかどうか
+        /// </summary>
+        internal protected bool IsDead {get; internal set;}
+
+        /// <summary>
+        /// ギミックに攻撃されたときの挙動
+        /// </summary>
+        protected IBottleGetDamagedHandler _getDamagedHandler;
+
         protected virtual void Awake() {}
+
+        /// <summary>
+        /// 衝突イベントを処理する
+        /// </summary>
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
+            if (!other.gameObject.CompareTag(TagName.BULLET)) return;
+            // 銃痕(hole)が出現したフレーム以外では衝突を考えない
+            if (other.gameObject.transform.position.z < 0) return;
+
+            _getDamagedHandler?.OnGetDamaged(other.gameObject);
+        }
 
         private void InitializeSprite()
         {

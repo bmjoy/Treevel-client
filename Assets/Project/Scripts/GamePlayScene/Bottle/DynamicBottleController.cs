@@ -1,5 +1,4 @@
 ﻿using System;
-using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
@@ -7,7 +6,6 @@ using UnityEngine;
 namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animation))]
-    [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(FlickGesture))]
     public class DynamicBottleController : AbstractBottleController
     {

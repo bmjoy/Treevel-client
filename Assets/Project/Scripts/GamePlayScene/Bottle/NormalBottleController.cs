@@ -36,15 +36,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         [SerializeField] protected AnimationClip deadAnimation;
 
-        /// <summary>
-        /// 自身が壊されたかどうか
-        /// </summary>
-        protected bool dead = false;
-
         protected override void Awake()
         {
             base.Awake();
             anim.AddClip(deadAnimation, AnimationClipName.NORMAL_BOTTLE_DEAD);
+
+            _getDamagedHandler = new NormalGetDamagedHandler(this);
         }
 
         /// <summary>
@@ -71,26 +68,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 衝突イベントを処理する
-        /// </summary>
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
-            if (!other.gameObject.CompareTag(TagName.BULLET)) return;
-            // 銃痕(hole)が出現したフレーム以外では衝突を考えない
-            if (other.gameObject.transform.position.z < 0) return;
-
-            // 失敗演出
-            anim.Play(AnimationClipName.NORMAL_BOTTLE_DEAD, PlayMode.StopAll);
-
-            // 自身が破壊された
-            dead = true;
-
-            // 失敗状態に移行する
-            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
-        }
-
-        /// <summary>
         /// ゲーム成功時の処理
         /// </summary>
         protected override void OnSucceed()
@@ -114,7 +91,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private void EndProcess()
         {
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
-            if (!dead) {
+            if (!IsDead) {
                 anim.wrapMode = WrapMode.Default;
             }
         }
