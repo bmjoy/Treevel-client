@@ -27,6 +27,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         protected IEnterTileHandler _enterTileHandler;
 
+        /// <summary>
+        /// ボトルの成功判定と成功時の挙動
+        /// </summary>
+        protected IBottleSuccessHandler _successHandler;
+
         protected virtual void Awake() {}
 
         /// <summary>
@@ -83,6 +88,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        /// <summary>
+        /// ボトルの成功判定
+        /// </summary>
+        public bool IsSuccess()
+        {
+            // SuccesHandler未定義の時は成功とみなす。
+            return _successHandler?.IsSuccess() ?? true;
         }
     }
 }

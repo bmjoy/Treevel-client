@@ -10,23 +10,22 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
     internal class NormalEnterTileHandler : IEnterTileHandler
     {
-        private AbstractBottleController _bottle;
+        private readonly AbstractBottleController _bottle;
+        private readonly IBottleSuccessHandler _successHandler;
 
-        internal NormalEnterTileHandler(AbstractBottleController bottle)
+        internal NormalEnterTileHandler(AbstractBottleController bottle, IBottleSuccessHandler successHandler)
         {
             _bottle = bottle;
+            _successHandler = successHandler;
         }
 
-        void IEnterTileHandler.OnEnterTile(GameObject tile)
+        public void OnEnterTile(GameObject tile)
         {
-            if (!(_bottle is IBottleSuccessHandler handler))
-                return;
-
-            if (handler.IsSuccess()) {
+            if (_successHandler.IsSuccess()) {
                 // 最終タイルにいるかどうかで，光らせるかを決める
                 _bottle.GetComponent<SpriteGlowEffect>().enabled = true;
 
-                handler.DoWhenSuccess();
+                _successHandler.DoWhenSuccess();
             } else {
                 _bottle.GetComponent<SpriteGlowEffect>().enabled = false;
             }

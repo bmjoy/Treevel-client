@@ -10,13 +10,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NormalBottleController : DynamicBottleController, IBottleSuccessHandler
+    public class NormalBottleController : DynamicBottleController
     {
-        /// <summary>
-        /// ボトルのゴールとなるタイル
-        /// </summary>
-        private GameObject _finalTile;
-
         /// <summary>
         /// ボトルの初期位置
         /// </summary>
@@ -27,27 +22,20 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// ボトルの目標位置
-        /// </summary>
-        private int _finalPos;
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            _getDamagedHandler = new NormalGetDamagedHandler(this);
-            _enterTileHandler = new NormalEnterTileHandler(this);
-        }
-
-        /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
         public override void Initialize(BottleData bottleData)
         {
+            // parse data
             Id = bottleData.initPos;
-            _finalPos = bottleData.targetPos;
+            var finalPos = bottleData.targetPos;
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
+
+            // set handlers
+            _getDamagedHandler = new NormalGetDamagedHandler(this);
+            _successHandler = new NormalBottleSuccessHandler(this, finalPos);
+            _enterTileHandler = new NormalEnterTileHandler(this, _successHandler);
 
             base.Initialize(bottleData);
 
@@ -56,7 +44,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             #endif
 
             // 目標とするタイルのスプライトを設定
-            var finalTile = BoardManager.GetTile(_finalPos);
+            var finalTile = BoardManager.GetTile(finalPos);
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
 
@@ -87,20 +75,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (!IsDead) {
                 anim.wrapMode = WrapMode.Default;
             }
-        }
-
-        /// <inheritdoc/>
-        public void DoWhenSuccess()
-        {
-            // ステージの成功判定
-            GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
-        }
-
-        /// <inheritdoc/>
-        public bool IsSuccess()
-        {
-            var currPos = BoardManager.GetBottlePos(this);
-            return currPos == _finalPos;
         }
     }
 }
