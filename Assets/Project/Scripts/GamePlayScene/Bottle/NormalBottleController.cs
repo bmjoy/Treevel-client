@@ -31,15 +31,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private int _finalPos;
 
-        /// <summary>
-        /// 失敗時のアニメーション
-        /// </summary>
-        [SerializeField] protected AnimationClip deadAnimation;
-
         protected override void Awake()
         {
             base.Awake();
-            anim.AddClip(deadAnimation, AnimationClipName.NORMAL_BOTTLE_DEAD);
 
             _getDamagedHandler = new NormalGetDamagedHandler(this);
             _enterTileHandler = new NormalEnterTileHandler(this);

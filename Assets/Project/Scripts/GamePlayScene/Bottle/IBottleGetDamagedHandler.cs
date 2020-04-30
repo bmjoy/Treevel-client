@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Utils;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bottle
@@ -25,6 +26,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
         internal NormalGetDamagedHandler(AbstractBottleController bottle)
         {
             _bottle = bottle;
+
+            // アニメーション初期化
+            if (_bottle.GetComponent<Animation>() == null) {
+                _bottle.gameObject.AddComponent<Animation>();
+            }
+
+            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.NORMAL_BOTTLE_DEAD).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.NORMAL_BOTTLE_DEAD);
+            };
         }
 
         void IBottleGetDamagedHandler.OnGetDamaged(GameObject gimmick)
@@ -64,6 +74,19 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             _bottle = bottle;
             _maxHp = _currentHp = maxHp;
+
+            // アニメーション初期化
+            if (_bottle.GetComponent<Animation>() == null) {
+                _bottle.gameObject.AddComponent<Animation>();
+            }
+
+            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.NORMAL_BOTTLE_DEAD).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.NORMAL_BOTTLE_DEAD);
+            };
+
+            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.LIFE_BOTTLE_GET_ATTACKED).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.LIFE_BOTTLE_GET_ATTACKED);
+            };
         }
 
         void IBottleGetDamagedHandler.OnGetDamaged(GameObject gimmick)

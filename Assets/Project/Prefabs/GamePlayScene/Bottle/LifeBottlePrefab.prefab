@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -3969736273494569835}
   - component: {fileID: -7309998046472970229}
   m_Layer: 8
-  m_Name: LifeNumberBottlePrefab
+  m_Name: LifeBottlePrefab
   m_TagString: NumberBottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,9 +102,6 @@ MonoBehaviour:
   warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
   warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
     type: 2}
-  deadAnimation: {fileID: 7400000, guid: 594ed3ef43ae0448587bed753a2434e6, type: 2}
-  _attackedAnimation: {fileID: 7400000, guid: ffc1129f38cd246bb8e73a118f1ff87e, type: 2}
-  _maxLife: 3
 --- !u!111 &7315357259351478073
 Animation:
   m_ObjectHideFlags: 0

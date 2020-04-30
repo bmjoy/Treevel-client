@@ -9,18 +9,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
     /// </summary>
     public class LifeBottleController : NormalBottleController
     {
-        /// <summary>
-        /// 攻撃されたときのアニメーション
-        /// </summary>
-        [SerializeField] private AnimationClip _attackedAnimation;
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            // アニメーション設定
-            anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_BOTTLE_GET_ATTACKED);
-        }
 
         public override void Initialize(BottleData bottleData)
         {
