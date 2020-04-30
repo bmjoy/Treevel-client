@@ -13,22 +13,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
     public class NormalBottleController : DynamicBottleController
     {
         /// <summary>
-        /// ボトルの初期位置
-        /// </summary>
-        public int Id
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
         public override void Initialize(BottleData bottleData)
         {
             // parse data
-            Id = bottleData.initPos;
             var finalPos = bottleData.targetPos;
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
 

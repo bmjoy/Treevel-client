@@ -19,12 +19,14 @@ namespace Project.Scripts.Utils.Library
             return numberBottles.Single(bottle => bottle.GetComponent<NormalBottleController>()?.Id == bottleNum);
         }
 
-        private static NormalBottleController[] _orderedBottles = null;
-        public static NormalBottleController[] OrderedNumberBottles
+        private static AbstractBottleController[] _orderedBottles = null;
+        public static AbstractBottleController[] OrderedNumberBottles
         {
             get {
                 if (_orderedBottles == null) {
-                    _orderedBottles = GameObject.FindObjectsOfType<NormalBottleController>().OrderBy(bottle => bottle.Id).ToArray();
+                    _orderedBottles = GameObject.FindObjectsOfType<AbstractBottleController>()
+                        .Where(bottle => bottle.HasSuccessHandler())
+                        .OrderBy(bottle => bottle.Id).ToArray();
                 }
                 return _orderedBottles;
             }

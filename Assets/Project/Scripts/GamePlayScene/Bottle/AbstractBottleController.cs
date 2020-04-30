@@ -9,6 +9,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
     public abstract class AbstractBottleController : MonoBehaviour
     {
         /// <summary>
+        /// ボトルのId (初期位置と同じ)
+        /// </summary>
+        public int Id
+        {
+            get;
+            private set;
+        }
+
+
+        /// <summary>
         /// 自身が壊されたかどうか
         /// </summary>
         internal protected bool IsDead
@@ -76,10 +86,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="bottleData"> ボトルのデータ </param>
         public virtual void Initialize(BottleData bottleData)
         {
-            var initialTileNum = bottleData.initPos;
+            Id = bottleData.initPos;
 
             // ボトルをボードに設定
-            BoardManager.SetBottle(this, initialTileNum);
+            BoardManager.SetBottle(this, Id);
 
             if (bottleData.bottleSprite != null) {
                 var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);
@@ -97,6 +107,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             // SuccesHandler未定義の時は成功とみなす。
             return _successHandler?.IsSuccess() ?? true;
+        }
+
+        /// <summary>
+        /// 成功判定があるかどうか
+        /// </summary>
+        public bool HasSuccessHandler()
+        {
+            return _successHandler != null;
         }
     }
 }
