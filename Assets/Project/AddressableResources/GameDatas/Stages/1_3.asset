@@ -95,6 +95,16 @@ MonoBehaviour:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
     life: 0
+  - type: 4
+    initPos: 1
+    targetPos: 11
+    bottleSprite:
+      m_AssetGUID: 3ad34613c20ab4a8f9d82c5e184a0f2a
+      m_SubObjectName: 2_bvy
+    targetTileSprite:
+      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
+      m_SubObjectName: numberTile8
+    life: 3
   bulletGroups:
   - appearTime: 1
     interval: 5
