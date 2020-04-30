@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);
                 GetComponent<SpriteRenderer>().sprite = bottleSprite;
             }
-            
+
             InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;
         }
