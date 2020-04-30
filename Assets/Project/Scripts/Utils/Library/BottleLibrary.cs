@@ -14,17 +14,17 @@ namespace Project.Scripts.Utils.Library
         /// <returns> Number Bottle オブジェクト </returns>
         public static GameObject GetBottle(int bottleNum)
         {
-            var numberBottles = GameObject.FindGameObjectsWithTag(TagName.NUMBER_BOTTLE);
+            var numberBottles = GameObject.FindGameObjectsWithTag(TagName.NORMAL_BOTTLE);
             // ボトルの番号がbottleNumの唯一のボトルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
-            return numberBottles.Single(bottle => bottle.GetComponent<NumberBottleController>()?.Id == bottleNum);
+            return numberBottles.Single(bottle => bottle.GetComponent<NormalBottleController>()?.Id == bottleNum);
         }
 
-        private static NumberBottleController[] _orderedBottles = null;
-        public static NumberBottleController[] OrderedNumberBottles
+        private static NormalBottleController[] _orderedBottles = null;
+        public static NormalBottleController[] OrderedNumberBottles
         {
             get {
                 if (_orderedBottles == null) {
-                    _orderedBottles = GameObject.FindObjectsOfType<NumberBottleController>().OrderBy(bottle => bottle.Id).ToArray();
+                    _orderedBottles = GameObject.FindObjectsOfType<NormalBottleController>().OrderBy(bottle => bottle.Id).ToArray();
                 }
                 return _orderedBottles;
             }

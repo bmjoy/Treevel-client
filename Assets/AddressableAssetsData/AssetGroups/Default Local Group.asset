@@ -42,7 +42,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 74ed1e4c608194da3ae4de7b8cab8e1f
-    m_Address: NumberBottlePrefab
+    m_Address: NormalBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,

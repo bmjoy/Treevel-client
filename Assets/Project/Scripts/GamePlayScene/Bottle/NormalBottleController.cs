@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
-    public class NumberBottleController : DynamicBottleController, IBottleSuccessHandler, IEnterTileHandler
+    public class NormalBottleController : DynamicBottleController, IBottleSuccessHandler, IEnterTileHandler
     {
         /// <summary>
         /// ボトルのゴールとなるタイル
@@ -44,7 +44,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
-            anim.AddClip(deadAnimation, AnimationClipName.NUMBER_BOTTLE_DEAD);
+            anim.AddClip(deadAnimation, AnimationClipName.NORMAL_BOTTLE_DEAD);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (other.gameObject.transform.position.z < 0) return;
 
             // 失敗演出
-            anim.Play(AnimationClipName.NUMBER_BOTTLE_DEAD, PlayMode.StopAll);
+            anim.Play(AnimationClipName.NORMAL_BOTTLE_DEAD, PlayMode.StopAll);
 
             // 自身が破壊された
             dead = true;

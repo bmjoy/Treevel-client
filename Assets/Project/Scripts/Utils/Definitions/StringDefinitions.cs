@@ -31,7 +31,7 @@
     public static class TagName
     {
         public const string TILE = "Tile";
-        public const string NUMBER_BOTTLE = "NumberBottle";
+        public const string NORMAL_BOTTLE = "NormalBottle";
         public const string DUMMY_BOTTLE = "DummyBottle";
         public const string BULLET = "Bullet";
         public const string BULLET_WARNING = "BulletWarning";
@@ -45,13 +45,13 @@
     public static class Address
     {
         // ボトル関連
-        public const string NUMBER_BOTTLE_PREFAB = "NumberBottlePrefab";
+        public const string NORMAL_BOTTLE_PREFAB = "NormalBottlePrefab";
         public const string LIFE_NUMBER_BOTTLE_PREFAB = "LifeNumberBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
         public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
         public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
-        public const string NUMBER_BOTTLE_SPRITE_PREFIX = "numberBottle";
+        public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";
         public const string LIFE_NUMBER_BOTTLE_SPRITE_PREFIX = "lifeNumberBottle";
 
         // タイル関連

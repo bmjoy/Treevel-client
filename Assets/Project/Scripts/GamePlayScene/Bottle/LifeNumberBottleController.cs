@@ -7,7 +7,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
     /// <summary>
     /// ライフ付きのナンバーボトル
     /// </summary>
-    public class LifeNumberBottleController : NumberBottleController
+    public class LifeNumberBottleController : NormalBottleController
     {
         /// <summary>
         /// 攻撃されたときのアニメーション
@@ -52,7 +52,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             --_currentLife;
             if (_currentLife <= 0) {
                 // 失敗演出
-                anim.Play(AnimationClipName.NUMBER_BOTTLE_DEAD, PlayMode.StopAll);
+                anim.Play(AnimationClipName.NORMAL_BOTTLE_DEAD, PlayMode.StopAll);
 
                 // 自身が破壊された
                 dead = true;

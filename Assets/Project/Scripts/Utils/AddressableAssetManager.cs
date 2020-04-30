@@ -169,7 +169,7 @@ namespace Project.Scripts.Utils
                         LoadAsset<Sprite>(Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
                     case Definitions.EBottleType.Number:
-                        LoadAsset<GameObject>(Address.NUMBER_BOTTLE_PREFAB);
+                        LoadAsset<GameObject>(Address.NORMAL_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
                         LoadAsset<Sprite>(bottleData.targetTileSprite);
