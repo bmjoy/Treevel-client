@@ -17,7 +17,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             private set;
         }
 
-
         /// <summary>
         /// 自身が壊されたかどうか
         /// </summary>
