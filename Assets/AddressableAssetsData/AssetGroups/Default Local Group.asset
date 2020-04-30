@@ -50,7 +50,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 79c31b5cff9214d36b391b9bd737af98
-    m_Address: LifeNumberBottlePrefab
+    m_Address: LifeBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,

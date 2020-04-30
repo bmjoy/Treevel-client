@@ -46,13 +46,13 @@
     {
         // ボトル関連
         public const string NORMAL_BOTTLE_PREFAB = "NormalBottlePrefab";
-        public const string LIFE_NUMBER_BOTTLE_PREFAB = "LifeNumberBottlePrefab";
+        public const string LIFE_BOTTLE_PREFAB = "LifeBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
         public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
         public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
         public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";
-        public const string LIFE_NUMBER_BOTTLE_SPRITE_PREFIX = "lifeNumberBottle";
+        public const string LIFE_BOTTLE_SPRITE_PREFIX = "lifeBottle";
 
         // タイル関連
         public const string NORMAL_TILE_PREFAB = "normalTilePrefab";

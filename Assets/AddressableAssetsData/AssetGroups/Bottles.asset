@@ -26,7 +26,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 05e33fc634f2946648a856bb7e195599
-    m_Address: lifeNumberBottle8
+    m_Address: lifeBottle8
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -35,7 +35,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 10de9115a09e5477d8d5a1d4f7035df7
-    m_Address: lifeNumberBottle7
+    m_Address: lifeBottle7
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -52,7 +52,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 29710d3db6d314249a7702b4fcf39de4
-    m_Address: lifeNumberBottle1
+    m_Address: lifeBottle1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -77,7 +77,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 3e71494f40ea8454e97c37f324f3d39f
-    m_Address: lifeNumberBottle4
+    m_Address: lifeBottle4
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -94,7 +94,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 41f716d06fdde47dc943a807354a489b
-    m_Address: lifeNumberBottle5
+    m_Address: lifeBottle5
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -127,7 +127,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 607b919a004154fb5b8043ce025ffa8b
-    m_Address: lifeNumberBottle2
+    m_Address: lifeBottle2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -249,7 +249,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: df64f47fca508448c9bc702a060be7dc
-    m_Address: lifeNumberBottle6
+    m_Address: lifeBottle6
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
@@ -274,7 +274,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: e9b15a88b58ca483c8aeb69e6313289b
-    m_Address: lifeNumberBottle3
+    m_Address: lifeBottle3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel

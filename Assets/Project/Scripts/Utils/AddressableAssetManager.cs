@@ -175,7 +175,7 @@ namespace Project.Scripts.Utils
                         LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
                     case Definitions.EBottleType.LifeNumber:
-                        LoadAsset<GameObject>(Address.LIFE_NUMBER_BOTTLE_PREFAB);
+                        LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
                         LoadAsset<Sprite>(bottleData.targetTileSprite);

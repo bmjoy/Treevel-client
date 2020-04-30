@@ -7,7 +7,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
     /// <summary>
     /// ライフ付きのナンバーボトル
     /// </summary>
-    public class LifeNumberBottleController : NormalBottleController
+    public class LifeBottleController : NormalBottleController
     {
         /// <summary>
         /// 攻撃されたときのアニメーション
@@ -30,7 +30,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _maxLife = Mathf.Max(_maxLife, 1); // MaxLifeの最小値を１にする
             _currentLife = _maxLife;
 
-            anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_NUMBER_BOTTLE_GET_ATTACKED);
+            anim.AddClip(_attackedAnimation, AnimationClipName.LIFE_BOTTLE_GET_ATTACKED);
         }
 
         public override void Initialize(BottleData bottleData)
@@ -62,10 +62,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             } else if (_currentLife == 1) {
                 // ループさせて危機感っぽい
                 anim.wrapMode = WrapMode.Loop;
-                anim.Play(AnimationClipName.LIFE_NUMBER_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(AnimationClipName.LIFE_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
             } else {
                 anim.clip = _attackedAnimation;
-                anim.Play(AnimationClipName.LIFE_NUMBER_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(AnimationClipName.LIFE_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
             }
         }
     }

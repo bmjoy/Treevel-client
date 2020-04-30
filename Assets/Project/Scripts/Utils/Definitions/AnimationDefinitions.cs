@@ -5,7 +5,7 @@
     /// </summary>
     public static class AnimationClipName
     {
-        public const string LIFE_NUMBER_BOTTLE_GET_ATTACKED = "LifeNumberBottleGetAttacked";
+        public const string LIFE_BOTTLE_GET_ATTACKED = "LifeBottleGetAttacked";
         public const string NORMAL_BOTTLE_DEAD = "NormalBottleDead";
         public const string BOTTLE_WARP = "BottleWarp";
         public const string BOTTLE_WARP_REVERSE = "BottleWarpReverse";
