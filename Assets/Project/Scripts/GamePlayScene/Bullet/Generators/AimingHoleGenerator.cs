@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Collections;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bullet.Controllers;
@@ -46,17 +46,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             this.ratio = data.ratio;
             if (data.aimingBottles.Count > 0) _aimingBottles = data.aimingBottles.ToArray();
             if (data.randomNumberBottles.Count > 0) _randomNumberBottles = data.randomNumberBottles.ToArray();
-        }
-
-        /// <summary>
-        /// ランダムなNumberBottleを撃ち抜くAimingHoleのGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="randomNumberBottles"> 撃ちぬくNumberBottleの確率 </param>
-        public void InitializeRandom(int ratio, int[] randomNumberBottles)
-        {
-            this.ratio = ratio;
-            _randomNumberBottles = randomNumberBottles;
         }
 
         public override IEnumerator CreateBullet(int bulletId)
