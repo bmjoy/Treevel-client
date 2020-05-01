@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Collections;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bullet.Controllers;
@@ -27,7 +27,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// AimingHoleが撃ち抜くNumberBottleの確率
         /// </summary>
         /// <returns></returns>
-        private int[] _randomNumberBottles = BulletLibrary.GetInitialArray(StageSize.NUMBER_BOTTLE_NUM); // TODO: ステージデータからボトルの数を計算
+        private int[] _randomAttackableBottles = BulletLibrary.GetInitialArray(StageSize.NUMBER_BOTTLE_NUM); // TODO: ステージデータからボトルの数を計算
 
         /// <summary>
         /// 特定のNumberBottleを撃ち抜くAimingHoleのGeneratorの初期化
@@ -45,7 +45,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         {
             this.ratio = data.ratio;
             if (data.aimingBottles.Count > 0) _aimingBottles = data.aimingBottles.ToArray();
-            if (data.randomNumberBottles.Count > 0) _randomNumberBottles = data.randomNumberBottles.ToArray();
+            if (data.randomAttackableBottles.Count > 0) _randomAttackableBottles = data.randomAttackableBottles.ToArray();
         }
 
         public override IEnumerator CreateBullet(int bulletId)
@@ -87,18 +87,18 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         /// <returns></returns>
         private int GetNumberBottle()
         {
-            var index = BulletLibrary.SamplingArrayIndex(_randomNumberBottles);
+            var index = BulletLibrary.SamplingArrayIndex(_randomAttackableBottles);
             return CalcBottleIdByRandomArrayIndex(index);
         }
 
         /// <summary>
         /// 乱数配列のインデックスをボトルのIdに変換する
         /// </summary>
-        /// <param name="index">_randomNumberBottlesから取ったインデックス</param>
+        /// <param name="index">_randomAttackableBottlesから取ったインデックス</param>
         /// <returns>ボトルのID</returns>
         private int CalcBottleIdByRandomArrayIndex(int index)
         {
-            var bottles = BottleLibrary.OrderedNumberBottles;
+            var bottles = BottleLibrary.OrderedAttackableBottles;
             var bottleAtIndex = bottles.ElementAt(index);
             return bottleAtIndex.Id;
         }

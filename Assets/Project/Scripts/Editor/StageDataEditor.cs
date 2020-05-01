@@ -16,7 +16,7 @@ namespace Project.Scripts.Editor
         private SerializedProperty _bottleDatasProp;
         private SerializedProperty _bulletGroupDatasProp;
 
-        private int _numOfNumberBottles = 0;
+        private int _numOfAttackableBottles = 0;
 
         private StageData _src;
         public void OnEnable()
@@ -27,7 +27,7 @@ namespace Project.Scripts.Editor
 
             _src = target as StageData;
             if (_src != null)
-                _numOfNumberBottles = GetNumberBottles()?.Count() ?? 0;
+                _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
         }
 
         public override void OnInspectorGUI()
@@ -49,7 +49,7 @@ namespace Project.Scripts.Editor
 
             EditorUtility.SetDirty(serializedObject.targetObject);
             serializedObject.ApplyModifiedProperties();
-            _numOfNumberBottles = GetNumberBottles()?.Count() ?? 0;
+            _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
         }
 
         private void DrawOverviewGimmicks()
@@ -308,7 +308,7 @@ namespace Project.Scripts.Editor
                                 var aimingBottlesProp = bulletDataProp.FindPropertyRelative("aimingBottles");
                                 for (var i = 0 ; i < aimingBottlesProp.arraySize ; i++) {
                                     var aimingBottleProp = aimingBottlesProp.GetArrayElementAtIndex(i);
-                                    aimingBottleProp.intValue = Math.Min(aimingBottleProp.intValue, _numOfNumberBottles);
+                                    aimingBottleProp.intValue = Math.Min(aimingBottleProp.intValue, _numOfAttackableBottles);
                                 }
 
                                 this.DrawArrayProperty(aimingBottlesProp);
@@ -341,7 +341,7 @@ namespace Project.Scripts.Editor
                                 break;
                             }
                         case EBulletType.RandomAimingHole: {
-                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberBottles"), _numOfNumberBottles, RenderRandomNumberBottlesElement);
+                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomAttackableBottles"), _numOfAttackableBottles, RenderRandomAttackableBottlesElement);
                                 break;
                             }
                         default:
@@ -352,14 +352,14 @@ namespace Project.Scripts.Editor
             });
         }
 
-        private void RenderRandomNumberBottlesElement(SerializedProperty elementProperty, int index)
+        private void RenderRandomAttackableBottlesElement(SerializedProperty elementProperty, int index)
         {
-            var numberBottles = GetNumberBottles().OrderBy(x => x.initPos);
-            var bottleId = numberBottles.ElementAt(index).initPos;
+            var bottles = GetAttackableBottles().OrderBy(x => x.initPos);
+            var bottleId = bottles.ElementAt(index).initPos;
             EditorGUILayout.PropertyField(elementProperty, new GUIContent($"Bottle ID:{bottleId}"));
         }
 
-        private IEnumerable<BottleData> GetNumberBottles()
+        private IEnumerable<BottleData> GetAttackableBottles()
         {
             return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life);
         }

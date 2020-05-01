@@ -135,7 +135,7 @@ MonoBehaviour:
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberBottles: 
+      randomAttackableBottles: 
     - type: 3
       ratio: 100
       row: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
       randomTurnDirection: 0a0000000a0000000a0000000a000000
       randomTurnRow: 0a0000000a0000000a0000000a0000000a000000
       randomTurnColumn: 0a0000000a0000000a000000
-      randomNumberBottles: 
+      randomAttackableBottles: 
     - type: 6
       ratio: 100
       row: -1
@@ -167,7 +167,7 @@ MonoBehaviour:
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberBottles: 
+      randomAttackableBottles: 
     - type: 7
       ratio: 100
       row: 0
@@ -183,5 +183,5 @@ MonoBehaviour:
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberBottles: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
+      randomAttackableBottles: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
   overviewGimmicks: 

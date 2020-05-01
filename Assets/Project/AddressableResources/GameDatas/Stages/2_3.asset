@@ -135,7 +135,7 @@ MonoBehaviour:
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberBottles: 
+      randomAttackableBottles: 
     - type: 7
       ratio: 10
       row: 0
@@ -151,5 +151,5 @@ MonoBehaviour:
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberBottles: 0100000001000000010000000100000001000000010000000100000001000000
+      randomAttackableBottles: 0100000001000000010000000100000001000000010000000100000001000000
   overviewGimmicks: 
