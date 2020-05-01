@@ -8,7 +8,7 @@
     {
         public const string DYNAMIC_DUMMY_BOTTLE = "DynamicDummyBottle";
         public const string STATIC_DUMMY_BOTTLE = "StaticDummyBottle";
-        public const string NUMBER_BOTTLE = "NumberBottle";
+        public const string NORMAL_BOTTLE = "NormalBottle";
     }
     #endif
 
