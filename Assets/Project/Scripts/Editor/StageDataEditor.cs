@@ -99,14 +99,14 @@ namespace Project.Scripts.Editor
                 EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
-                    case EBottleType.Number: {
+                    case EBottleType.Normal: {
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
 
-                    case EBottleType.LifeNumber: {
+                    case EBottleType.Life: {
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("life"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
@@ -361,7 +361,7 @@ namespace Project.Scripts.Editor
 
         private IEnumerable<BottleData> GetNumberBottles()
         {
-            return _src.BottleDatas?.Where(x => x.type == EBottleType.Number || x.type == EBottleType.LifeNumber);
+            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life);
         }
     }
 }

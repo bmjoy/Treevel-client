@@ -168,13 +168,13 @@ namespace Project.Scripts.Utils
                         LoadAsset<GameObject>(Address.STATIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case Definitions.EBottleType.Number:
+                    case Definitions.EBottleType.Normal:
                         LoadAsset<GameObject>(Address.NORMAL_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
                         LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
-                    case Definitions.EBottleType.LifeNumber:
+                    case Definitions.EBottleType.Life:
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
