@@ -14,7 +14,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
     public class AimingHoleGenerator : NormalHoleGenerator
     {
         /// <summary>
-        /// 撃ち抜くNumberBottleの番号配列
+        /// 撃ち抜くAttackableBottleの番号配列
         /// </summary>
         [CanBeNull] private int[] _aimingBottles = null;
 
@@ -24,16 +24,16 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         private int _aimingHoleCount = 1;
 
         /// <summary>
-        /// AimingHoleが撃ち抜くNumberBottleの確率
+        /// AimingHoleが撃ち抜くAttackableBottleの確率
         /// </summary>
         /// <returns></returns>
         private int[] _randomAttackableBottles = BulletLibrary.GetInitialArray(StageSize.NUMBER_BOTTLE_NUM); // TODO: ステージデータからボトルの数を計算
 
         /// <summary>
-        /// 特定のNumberBottleを撃ち抜くAimingHoleのGeneratorの初期化
+        /// 特定のAttackableBottleを撃ち抜くAimingHoleのGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="aimingBottles"> 撃ち抜くNumberBottleの配列 </param>
+        /// <param name="aimingBottles"> 撃ち抜くAttackableBottleの配列 </param>
         public void Initialize(int ratio, int[] aimingBottles)
         {
             this.ratio = ratio;
@@ -50,8 +50,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
 
         public override IEnumerator CreateBullet(int bulletId)
         {
-            // どのNumberBottleを撃つか指定する
-            int[] nextAimingBottle = _aimingBottles ?? new int[] {GetNumberBottle()};
+            // どのAttackableBottleを撃つか指定する
+            int[] nextAimingBottle = _aimingBottles ?? new int[] {GetAttackableBottle()};
 
             // 警告の作成
             AsyncOperationHandle<GameObject> warningOp;
@@ -82,10 +82,10 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         }
 
         /// <summary>
-        /// 撃ちぬくNumberBottleを重みに基づき決定する
+        /// 撃ちぬくAttackableBottleを重みに基づき決定する
         /// </summary>
         /// <returns></returns>
-        private int GetNumberBottle()
+        private int GetAttackableBottle()
         {
             var index = BulletLibrary.SamplingArrayIndex(_randomAttackableBottles);
             return CalcBottleIdByRandomArrayIndex(index);
