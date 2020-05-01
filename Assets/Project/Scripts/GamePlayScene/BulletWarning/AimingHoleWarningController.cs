@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
         /// <summary>
         /// 座標を設定する
         /// </summary>
-        /// <param name="aimingBottles"> 撃ち抜くNumberBottleの番号配列 </param>
+        /// <param name="aimingBottles"> 撃ち抜くAttackableBottleの番号配列 </param>
         /// <param name="aimingHoleCount"> aimingBottles配列の何番目を参照するか</param>
         public void Initialize(int[] aimingBottles, ref int aimingHoleCount)
         {

@@ -205,14 +205,14 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// タイル・パネル・銃弾オブジェクトの削除
+        /// タイル・ボトル・銃弾オブジェクトの削除
         /// </summary>
         private static void CleanObject()
         {
-            // パネルを破壊
+            // ボトルを破壊
             var bottles = GameObject.FindObjectsOfType<AbstractBottleController>();
             foreach (var bottle in bottles) {
-                // パネルの削除
+                // ボトルの削除
                 DestroyImmediate(bottle.gameObject);
             }
 

@@ -17,8 +17,8 @@
     public enum EBottleType {
         Dynamic,
         Static,
-        Number,
-        LifeNumber,
+        Normal,
+        Life,
         LifeDummy,
     }
 }

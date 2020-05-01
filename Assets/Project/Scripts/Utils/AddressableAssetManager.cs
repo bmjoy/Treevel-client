@@ -168,10 +168,10 @@ namespace Project.Scripts.Utils
                         LoadAsset<GameObject>(Address.STATIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case EBottleType.Number:
+                    case Definitions.EBottleType.Normal:
                         LoadAsset<GameObject>(Address.NORMAL_BOTTLE_PREFAB);
                         break;
-                    case EBottleType.LifeNumber:
+                    case Definitions.EBottleType.Life:
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
                         break;
                     case EBottleType.LifeDummy:

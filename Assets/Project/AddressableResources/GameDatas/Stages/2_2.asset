@@ -135,5 +135,5 @@ MonoBehaviour:
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberBottles: 
+      randomAttackableBottles: 
   overviewGimmicks: 

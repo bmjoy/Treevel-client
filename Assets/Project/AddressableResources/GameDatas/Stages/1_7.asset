@@ -115,5 +115,5 @@ MonoBehaviour:
       randomTurnDirection: 64000000640000006400000064000000
       randomTurnRow: 0100000000000000000000000000000000000000
       randomTurnColumn: 000000000a0000000a000000
-      randomNumberBottles: 
+      randomAttackableBottles: 
   overviewGimmicks: 

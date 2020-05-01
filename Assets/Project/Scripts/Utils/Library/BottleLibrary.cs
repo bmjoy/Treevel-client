@@ -8,19 +8,19 @@ namespace Project.Scripts.Utils.Library
     public static class BottleLibrary
     {
         /// <summary>
-        /// ボトルの番号から，Number Bottle を返す
+        /// ボトルのIDでボトルのゲームオブジェクトを取得
         /// </summary>
-        /// <param name="bottleNum"> ボトルの番号 </param>
+        /// <param name="bottleId"> ボトルのID </param>
         /// <returns> Number Bottle オブジェクト </returns>
-        public static GameObject GetBottle(int bottleNum)
+        public static GameObject GetBottle(int bottleId)
         {
-            var numberBottles = GameObject.FindGameObjectsWithTag(TagName.NORMAL_BOTTLE);
+            var bottles = GameObject.FindObjectsOfType(typeof(NormalBottleController)) as NormalBottleController[];
             // ボトルの番号がbottleNumの唯一のボトルを探す、二個以上もしくは0個の場合は InvalidOperationExceptionがスローされる
-            return numberBottles.Single(bottle => bottle.GetComponent<NormalBottleController>()?.Id == bottleNum);
+            return bottles.Single(bottle => bottle.Id == bottleId).gameObject;
         }
 
-        private static AbstractBottleController[] _orderedBottles = null;
-        public static AbstractBottleController[] OrderedNumberBottles
+        private static NormalBottleController[] _orderedBottles = null;
+        public static NormalBottleController[] OrderedAttackableBottles
         {
             get {
                 if (_orderedBottles == null) {
