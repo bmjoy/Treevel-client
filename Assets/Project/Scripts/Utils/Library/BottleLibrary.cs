@@ -19,8 +19,8 @@ namespace Project.Scripts.Utils.Library
             return bottles.Single(bottle => bottle.Id == bottleId).gameObject;
         }
 
-        private static NormalBottleController[] _orderedBottles = null;
-        public static NormalBottleController[] OrderedAttackableBottles
+        private static AbstractBottleController[] _orderedBottles = null;
+        public static AbstractBottleController[] OrderedAttackableBottles
         {
             get {
                 if (_orderedBottles == null) {

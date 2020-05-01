@@ -11,8 +11,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             {EBottleType.Dynamic, Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Static, Address.STATIC_DUMMY_BOTTLE_PREFAB},
-            {EBottleType.Number, Address.NORMAL_BOTTLE_PREFAB},
-            {EBottleType.LifeNumber, Address.LIFE_BOTTLE_PREFAB},
+            {EBottleType.Normal, Address.NORMAL_BOTTLE_PREFAB},
+            {EBottleType.Life, Address.LIFE_BOTTLE_PREFAB},
             {EBottleType.LifeDummy, Address.LIFE_DUMMY_BOTTLE_PREFAB},
         };
 
