@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1319685992320038274}
   m_Layer: 11
   m_Name: LifeDummyBottlePrefab
-  m_TagString: DummyBottle
+  m_TagString: Bottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -27,6 +27,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         /// <summary>
+        /// 攻撃対象かどうか
+        /// </summary>
+        public bool IsAttackable
+        {
+            get {
+                return _getDamagedHandler != null;
+            }
+        }
+
+        /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
         protected IBottleGetDamagedHandler _getDamagedHandler;
