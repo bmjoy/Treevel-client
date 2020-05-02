@@ -12,6 +12,7 @@ namespace Project.Scripts.UIComponents
 
         public static void Show()
         {
+            #if !UNITY_EDITOR && UNITY_ANDROID
             // フルスクリーン表示をやめる 
             using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
             {
@@ -21,6 +22,7 @@ namespace Project.Scripts.UIComponents
                     activity.Call("runOnUiThread", new AndroidJavaRunnable(RunOnUiThread));
                 }
             }
+            #endif
         }
 
         /// <summary>
@@ -28,6 +30,7 @@ namespace Project.Scripts.UIComponents
         /// </summary>
         private static void RunOnUiThread()
         {
+            #if !UNITY_EDITOR && UNITY_ANDROID
             using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
             {
                 using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
@@ -39,6 +42,7 @@ namespace Project.Scripts.UIComponents
                     }
                 }
             }
+            #endif
         }
     }
 }
