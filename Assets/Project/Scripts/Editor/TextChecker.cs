@@ -78,7 +78,7 @@ namespace Project.Scripts.Editor
             {
                 if (PrefabUtility.GetCorrespondingObjectFromOriginalSource(textObj) == null) {
                     // prefabではない
-                    Debug.Log("\"" + textObj.text + "\" is not a prefab.");
+                    Debug.LogWarning("\"" + textObj.text + "\" is not a prefab.");
                     continue;
                 }
 
@@ -95,7 +95,7 @@ namespace Project.Scripts.Editor
 
                 if(!_FILE_ID.Contains(localId)) {
                     // 指定したprefabではない
-                    Debug.Log("\"" + textObj.text + "\" is made from an uncertain prefab.");
+                    Debug.LogWarning("\"" + textObj.text + "\" is made from an uncertain prefab.");
                     continue;
                 }
 
@@ -106,11 +106,11 @@ namespace Project.Scripts.Editor
                 if(!targetText.All(char.IsDigit))
                 {
                     // 数字ではない
-                    Debug.Log("\"" + targetText + "\" should be fixed to MultiLanguageText.");
+                    Debug.LogWarning("\"" + targetText + "\" should be fixed to MultiLanguageText.");
                 }
                 if(targetText.EndsWith(" ") || targetText.EndsWith("\n") || targetText.EndsWith("\r") || targetText.EndsWith("\r\n")) {
                     // 空白もしくは改行が末尾にある
-                    Debug.Log("\"" + targetText + "\" ends with a space or \\n");
+                    Debug.Log("<color=gray>\"" + targetText + "\" ends with a space or \\n</color>");
                 }
             }
         }
