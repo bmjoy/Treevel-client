@@ -42,6 +42,11 @@ namespace Project.Scripts.MenuSelectScene
         // Start is called before the first frame update
         private void Start()
         {
+            #if !UNITY_EDITOR && UNITY_ANDROID
+            // ステータスバーを表示する
+            StatusBarController.Show();
+            #endif
+            
             // キャンバスがなければ作る
             if (GetComponentInChildren<Canvas>() == null) {
                 gameObject.AddComponent<Canvas>();
