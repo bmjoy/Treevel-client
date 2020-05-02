@@ -42,7 +42,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 74ed1e4c608194da3ae4de7b8cab8e1f
-    m_Address: NumberPanelPrefab
+    m_Address: NormalBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -50,7 +50,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 79c31b5cff9214d36b391b9bd737af98
-    m_Address: LifeNumberPanelPrefab
+    m_Address: LifeBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -63,42 +63,40 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: a14d6b98f708440f2bc2826d29e996ca
     m_Address: SE_Success
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: aa840bcf4d2f9449fa15a87b0e4adf35
     m_Address: BGM_Playing
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 891ff3f27a82b4ee1bdc3c86e8605fb6
     m_Address: ErrorMessageBox
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
-      type: 3}
-    m_TargetAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: bd321d6187a974e9e808df4b07e0b634
     m_Address: SpringStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 102900000, guid: bd321d6187a974e9e808df4b07e0b634, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: bd321d6187a974e9e808df4b07e0b634, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: c992eb222563c460d84bff90f23a0b42
     m_Address: Assets/Project/Prefabs/ProgressBar.prefab
     m_ReadOnly: 0
@@ -108,7 +106,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: cc35221e1f2c54ae8ba023299eb797d3
-    m_Address: StaticDummyPanelPrefab
+    m_Address: StaticDummyBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -116,7 +114,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: d16fddeae14184ddf8c14eba3f866b67
-    m_Address: DynamicDummyPanelPrefab
+    m_Address: DynamicDummyBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,

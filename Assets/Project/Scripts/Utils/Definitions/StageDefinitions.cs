@@ -18,8 +18,8 @@
         public const int TILE_NUM = ROW * COLUMN;
 
         /// <summary>
-        /// ナンバーパネルの数
+        /// ナンバーボトルの数
         /// </summary>
-        public const int NUMBER_PANEL_NUM = 8;
+        public const int NUMBER_BOTTLE_NUM = 8;
     }
 }

@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   tiles: []
-  panels:
+  bottles:
   - type: 2
     initPos: 1
     targetPos: 4
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: e818ab84c8cdf4bda87fa832b24d4f16
       m_SubObjectName: 1_b
     targetTileSprite:
@@ -28,7 +28,7 @@ MonoBehaviour:
   - type: 2
     initPos: 3
     targetPos: 5
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 8a9fc0e7c3606410f96e0ff4d2fcbd89
       m_SubObjectName: 2_g
     targetTileSprite:
@@ -38,7 +38,7 @@ MonoBehaviour:
   - type: 2
     initPos: 5
     targetPos: 6
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 4f2f69d4e1eba4c90b43aeee24944e5a
       m_SubObjectName: 3_o
     targetTileSprite:
@@ -48,7 +48,7 @@ MonoBehaviour:
   - type: 2
     initPos: 6
     targetPos: 7
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: eb4cf5d6d54524f2697dfe9ea7cdcb8e
       m_SubObjectName: 4_p
     targetTileSprite:
@@ -58,7 +58,7 @@ MonoBehaviour:
   - type: 2
     initPos: 8
     targetPos: 8
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 49a45c841a78a40d88c6f6381d3a4047
       m_SubObjectName: 5_r
     targetTileSprite:
@@ -68,7 +68,7 @@ MonoBehaviour:
   - type: 2
     initPos: 11
     targetPos: 9
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: 11aa24a33708845baa52d895bf928590
       m_SubObjectName: 6_s
     targetTileSprite:
@@ -78,7 +78,7 @@ MonoBehaviour:
   - type: 2
     initPos: 13
     targetPos: 10
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: d7309125babe0487dafb81b50203e52e
       m_SubObjectName: 7_v
     targetTileSprite:
@@ -88,7 +88,7 @@ MonoBehaviour:
   - type: 2
     initPos: 15
     targetPos: 11
-    panelSprite:
+    bottleSprite:
       m_AssetGUID: e20bd75f6fe65412e9ba128655794bfa
       m_SubObjectName: 8_y
     targetTileSprite:
@@ -108,12 +108,12 @@ MonoBehaviour:
       direction: 1
       turnDirections: 
       turnLines: 
-      aimingPanels: 
+      aimingBottles: 
       randomCartridgeDirection: 
       randomRow: 
       randomColumn: 
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
-      randomNumberPanels: 
+      randomAttackableBottles: 
   overviewGimmicks: 00000000

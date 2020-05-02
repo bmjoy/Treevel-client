@@ -21,11 +21,11 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         {
             base.Awake();
             // 銃弾の先頭部分のみに当たり判定を与える
-            const float betweenPanels = TileSize.WIDTH - PanelSize.WIDTH;
+            const float betweenBottles = TileSize.WIDTH - BottleSize.WIDTH;
             var collider =  gameObject.GetComponent<Collider2D>();
-            collider.offset = new Vector2(-(originalWidth - betweenPanels) / 2, 0);
+            collider.offset = new Vector2(-(originalWidth - betweenBottles) / 2, 0);
             if (collider is BoxCollider2D)
-                ((BoxCollider2D)collider).size = new Vector2(betweenPanels, originalHeight);
+                ((BoxCollider2D)collider).size = new Vector2(betweenBottles, originalHeight);
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            // 数字パネルとの衝突以外は考えない
-            if (!other.gameObject.CompareTag(TagName.NUMBER_PANEL)) return;
+            // 数字ボトルとの衝突以外は考えない
+            if (!other.gameObject.CompareTag(TagName.NORMAL_BOTTLE)) return;
 
             // 衝突したオブジェクトは赤色に変える
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;

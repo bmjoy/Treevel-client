@@ -20,7 +20,7 @@
     {
         public const string TILE = "Tile";
         public const string HOLE = "Hole";
-        public const string PANEL = "Panel";
+        public const string BOTTLE = "Bottle";
         public const string BULLET = "Bullet";
         public const string BULLET_WARNING = "BulletWarning";
     }
@@ -31,8 +31,8 @@
     public static class TagName
     {
         public const string TILE = "Tile";
-        public const string NUMBER_PANEL = "NumberPanel";
-        public const string DUMMY_PANEL = "DummyPanel";
+        public const string NORMAL_BOTTLE = "NormalBottle";
+        public const string DUMMY_BOTTLE = "DummyBottle";
         public const string BULLET = "Bullet";
         public const string BULLET_WARNING = "BulletWarning";
         public const string GRAPH_UI = "GraphUi";
@@ -44,15 +44,15 @@
     /// </summary>
     public static class Address
     {
-        // パネル関連
-        public const string NUMBER_PANEL_PREFAB = "NumberPanelPrefab";
-        public const string LIFE_NUMBER_PANEL_PREFAB = "LifeNumberPanelPrefab";
-        public const string DYNAMIC_DUMMY_PANEL_PREFAB  = "DynamicDummyPanelPrefab";
-        public const string STATIC_DUMMY_PANEL_PREFAB = "StaticDummyPanelPrefab";
-        public const string DYNAMIC_DUMMY_PANEL_SPRITE = "dynamicDummyPanel";
-        public const string STATIC_DUMMY_PANEL_SPRITE = "staticDummyPanel";
-        public const string NUMBER_PANEL_SPRITE_PREFIX = "numberPanel";
-        public const string LIFE_NUMBER_PANEL_SPRITE_PREFIX = "lifeNumberPanel";
+        // ボトル関連
+        public const string NORMAL_BOTTLE_PREFAB = "NormalBottlePrefab";
+        public const string LIFE_BOTTLE_PREFAB = "LifeBottlePrefab";
+        public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
+        public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
+        public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
+        public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
+        public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";
+        public const string LIFE_BOTTLE_SPRITE_PREFIX = "lifeBottle";
 
         // タイル関連
         public const string NORMAL_TILE_PREFAB = "normalTilePrefab";

@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
@@ -25,7 +25,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         protected override void Awake()
         {
             base.Awake();
-            panelHandler = new WarpTilePanelHandler(this);
+            bottleHandler = new WarpTileBottleHandler(this);
             _warpTileEffect = transform.Find("WarpTileEffectPrefab").gameObject;
         }
 
@@ -75,64 +75,64 @@ namespace Project.Scripts.GamePlayScene.Tile
             _warpTileEffect.GetComponent<Animation>().Stop();
         }
 
-        private IEnumerator WarpPanel(GameObject panel)
+        private IEnumerator WarpBottle(GameObject bottle)
         {
             var pairTileController = _pairTile.GetComponent<WarpTileController>();
 
-            // panelをフリックできないようにする
-            panel.GetComponent<FlickGesture>().enabled = false;
+            // bottleをフリックできないようにする
+            bottle.GetComponent<FlickGesture>().enabled = false;
 
             // 相方を一時的にワープ不能にする
             pairTileController._warpEnabled = false;
 
             // warpTileの粒子アニメーション
             GetComponent<ParticleSystem>().Play();
-            var anim = panel.GetComponent<Animation>();
-            // panelがワープに入るアニメーション
-            anim.Play(AnimationClipName.PANEL_WARP);
+            var anim = bottle.GetComponent<Animation>();
+            // bottleがワープに入るアニメーション
+            anim.Play(AnimationClipName.BOTTLE_WARP);
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
-            // パネルを移動する
-            BoardManager.SetPanel(panel.GetComponent<AbstractPanelController>(), pairTileController.TileNumber);
+            // ボトルを移動する
+            BoardManager.SetBottle(bottle.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
 
-            // panelがワープから戻るアニメーション
-            anim.Play(AnimationClipName.PANEL_WARP_REVERSE);
+            // bottleがワープから戻るアニメーション
+            anim.Play(AnimationClipName.BOTTLE_WARP_REVERSE);
             // アニメーションの終了を待つ
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
             // 相方のワープ状態を戻す
             pairTileController._warpEnabled = true;
 
-            // panelをフリックできるようにする
-            panel.GetComponent<FlickGesture>().enabled = true;
+            // bottleをフリックできるようにする
+            bottle.GetComponent<FlickGesture>().enabled = true;
         }
 
         private bool CanWarp()
         {
-            return _warpEnabled && BoardManager.GetPanel(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
+            return _warpEnabled && BoardManager.GetBottle(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
         }
 
-        private void StartWarp(GameObject panel)
+        private void StartWarp(GameObject bottle)
         {
-            StartCoroutine(WarpPanel(panel));
+            StartCoroutine(WarpBottle(bottle));
         }
 
-        private sealed class WarpTilePanelHandler : DefaultPanelHandler
+        private sealed class WarpTileBottleHandler : DefaultBottleHandler
         {
             private readonly WarpTileController _parent;
 
-            public WarpTilePanelHandler(WarpTileController parent)
+            public WarpTileBottleHandler(WarpTileController parent)
             {
                 _parent = parent;
             }
 
-            public override void OnPanelEnter(GameObject panel)
+            public override void OnBottleEnter(GameObject bottle)
             {
-                // pair tileに子パネルがないならワープさせる
+                // pair tileに子ボトルがないならワープさせる
                 if (_parent.CanWarp()) {
                     // ワープ演出
-                    _parent.StartWarp(panel);
+                    _parent.StartWarp(bottle);
                 }
             }
         }

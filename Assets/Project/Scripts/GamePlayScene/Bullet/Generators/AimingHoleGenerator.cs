@@ -3,7 +3,7 @@ using System.Collections;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bullet.Controllers;
 using Project.Scripts.GamePlayScene.BulletWarning;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
@@ -14,55 +14,44 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
     public class AimingHoleGenerator : NormalHoleGenerator
     {
         /// <summary>
-        /// 撃ち抜くNumberPanelの番号配列
+        /// 撃ち抜くAttackableBottleの番号配列
         /// </summary>
-        [CanBeNull] private int[] _aimingPanels = null;
+        [CanBeNull] private int[] _aimingBottles = null;
 
         /// <summary>
-        /// 次に参照するaimingPanelsのindex
+        /// 次に参照するaimingBottlesのindex
         /// </summary>
         private int _aimingHoleCount = 1;
 
         /// <summary>
-        /// AimingHoleが撃ち抜くNumberPanelの確率
+        /// AimingHoleが撃ち抜くAttackableBottleの確率
         /// </summary>
         /// <returns></returns>
-        private int[] _randomNumberPanels = BulletLibrary.GetInitialArray(StageSize.NUMBER_PANEL_NUM);
+        private int[] _randomAttackableBottles = BulletLibrary.GetInitialArray(StageSize.NUMBER_BOTTLE_NUM); // TODO: ステージデータからボトルの数を計算
 
         /// <summary>
-        /// 特定のNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
+        /// 特定のAttackableBottleを撃ち抜くAimingHoleのGeneratorの初期化
         /// </summary>
         /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="aimingPanels"> 撃ち抜くNumberPanelの配列 </param>
-        public void Initialize(int ratio, int[] aimingPanels)
+        /// <param name="aimingBottles"> 撃ち抜くAttackableBottleの配列 </param>
+        public void Initialize(int ratio, int[] aimingBottles)
         {
             this.ratio = ratio;
-            _aimingPanels = aimingPanels;
+            _aimingBottles = aimingBottles;
         }
 
         /// <inheritdoc />
         public override void Initialize(GameDatas.BulletData data)
         {
             this.ratio = data.ratio;
-            if (data.aimingPanels.Count > 0) _aimingPanels = data.aimingPanels.ToArray();
-            if (data.randomNumberPanels.Count > 0) _randomNumberPanels = data.randomNumberPanels.ToArray();
-        }
-
-        /// <summary>
-        /// ランダムなNumberPanelを撃ち抜くAimingHoleのGeneratorの初期化
-        /// </summary>
-        /// <param name="ratio"> Generatorの出現確率 </param>
-        /// <param name="randomNumberPanels"> 撃ちぬくNumberPanelの確率 </param>
-        public void InitializeRandom(int ratio, int[] randomNumberPanels)
-        {
-            this.ratio = ratio;
-            _randomNumberPanels = randomNumberPanels;
+            if (data.aimingBottles.Count > 0) _aimingBottles = data.aimingBottles.ToArray();
+            if (data.randomAttackableBottles.Count > 0) _randomAttackableBottles = data.randomAttackableBottles.ToArray();
         }
 
         public override IEnumerator CreateBullet(int bulletId)
         {
-            // どのNumberPanelを撃つか指定する
-            int[] nextAimingPanel = _aimingPanels ?? new int[] {GetNumberPanel()};
+            // どのAttackableBottleを撃つか指定する
+            int[] nextAimingBottle = _aimingBottles ?? new int[] {GetAttackableBottle()};
 
             // 警告の作成
             AsyncOperationHandle<GameObject> warningOp;
@@ -70,7 +59,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
             var warning = warningOp.Result;
             warning.GetComponent<Renderer>().sortingOrder = bulletId;
             var warningScript = warning.GetComponent<AimingHoleWarningController>();
-            warningScript.Initialize(nextAimingPanel, ref _aimingHoleCount);
+            warningScript.Initialize(nextAimingBottle, ref _aimingHoleCount);
             // 警告の表示時間だけ待つ
             for (int index = 0; index < BulletWarningParameter.WARNING_DISPLAYED_FRAMES; index++) yield return new WaitForFixedUpdate();
 
@@ -93,25 +82,25 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
         }
 
         /// <summary>
-        /// 撃ちぬくNumberPanelを重みに基づき決定する
+        /// 撃ちぬくAttackableBottleを重みに基づき決定する
         /// </summary>
         /// <returns></returns>
-        private int GetNumberPanel()
+        private int GetAttackableBottle()
         {
-            var index = BulletLibrary.SamplingArrayIndex(_randomNumberPanels);
-            return CalcPanelIdByRandomArrayIndex(index);
+            var index = BulletLibrary.SamplingArrayIndex(_randomAttackableBottles);
+            return CalcBottleIdByRandomArrayIndex(index);
         }
 
         /// <summary>
-        /// 乱数配列のインデックスをパネルのIdに変換する
+        /// 乱数配列のインデックスをボトルのIdに変換する
         /// </summary>
-        /// <param name="index">_randomNumberPanelsから取ったインデックス</param>
-        /// <returns>パネルのID</returns>
-        private int CalcPanelIdByRandomArrayIndex(int index)
+        /// <param name="index">_randomAttackableBottlesから取ったインデックス</param>
+        /// <returns>ボトルのID</returns>
+        private int CalcBottleIdByRandomArrayIndex(int index)
         {
-            var panels = PanelLibrary.OrderedNumberPanels;
-            var panelAtIndex = panels.ElementAt(index);
-            return panelAtIndex.Id;
+            var bottles = BottleLibrary.OrderedAttackableBottles;
+            var bottleAtIndex = bottles.ElementAt(index);
+            return bottleAtIndex.Id;
         }
     }
 }

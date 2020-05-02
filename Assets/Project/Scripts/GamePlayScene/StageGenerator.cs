@@ -1,6 +1,6 @@
 ﻿using System;
 using Project.Scripts.GamePlayScene.Bullet.Generators;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils;
 using UnityEngine;
@@ -36,8 +36,8 @@ namespace Project.Scripts.GamePlayScene
                 // タイル生成
                 tileGenerator.CreateTiles(stageData.TileDatas);
 
-                // パネル生成
-                PanelGenerator.CreatePanels(stageData.PanelDatas);
+                // ボトル生成
+                BottleGenerator.CreateBottles(stageData.BottleDatas);
 
                 // 銃弾の初期化
                 bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);

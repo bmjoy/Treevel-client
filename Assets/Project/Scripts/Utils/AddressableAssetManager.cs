@@ -158,27 +158,27 @@ namespace Project.Scripts.Utils
         {
             StageData stage = GameDataBase.GetStage(stageId);
 
-            stage.PanelDatas.ForEach((panelData) => {
-                switch (panelData.type) {
-                    case Definitions.EPanelType.Dynamic:
-                        LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_PANEL_PREFAB);
-                        LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_PANEL_SPRITE);
+            stage.BottleDatas.ForEach((bottleData) => {
+                switch (bottleData.type) {
+                    case Definitions.EBottleType.Dynamic:
+                        LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
+                        LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case Definitions.EPanelType.Static:
-                        LoadAsset<GameObject>(Address.STATIC_DUMMY_PANEL_PREFAB);
-                        LoadAsset<Sprite>(Address.STATIC_DUMMY_PANEL_SPRITE);
+                    case Definitions.EBottleType.Static:
+                        LoadAsset<GameObject>(Address.STATIC_DUMMY_BOTTLE_PREFAB);
+                        LoadAsset<Sprite>(Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case Definitions.EPanelType.Number:
-                        LoadAsset<GameObject>(Address.NUMBER_PANEL_PREFAB);
-                        LoadAsset<Sprite>(panelData.panelSprite);
+                    case Definitions.EBottleType.Normal:
+                        LoadAsset<GameObject>(Address.NORMAL_BOTTLE_PREFAB);
+                        LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(panelData.targetTileSprite);
+                        LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
-                    case Definitions.EPanelType.LifeNumber:
-                        LoadAsset<GameObject>(Address.LIFE_NUMBER_PANEL_PREFAB);
-                        LoadAsset<Sprite>(panelData.panelSprite);
+                    case Definitions.EBottleType.Life:
+                        LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
+                        LoadAsset<Sprite>(bottleData.bottleSprite);
                         // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(panelData.targetTileSprite);
+                        LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
                     default:
                         throw new System.NotImplementedException();

@@ -13,21 +13,21 @@ namespace Project.Scripts.Editor
     public class StageDataEditor : UnityEditor.Editor
     {
         private SerializedProperty _tileDatasProp;
-        private SerializedProperty _panelDatasProp;
+        private SerializedProperty _bottleDatasProp;
         private SerializedProperty _bulletGroupDatasProp;
 
-        private int _numOfNumberPanels = 0;
+        private int _numOfAttackableBottles = 0;
 
         private StageData _src;
         public void OnEnable()
         {
             _tileDatasProp = serializedObject.FindProperty("tiles");
-            _panelDatasProp = serializedObject.FindProperty("panels");
+            _bottleDatasProp = serializedObject.FindProperty("bottles");
             _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
 
             _src = target as StageData;
             if (_src != null)
-                _numOfNumberPanels = GetNumberPanels()?.Count() ?? 0;
+                _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
         }
 
         public override void OnInspectorGUI()
@@ -40,7 +40,7 @@ namespace Project.Scripts.Editor
 
             DrawTileList();
 
-            DrawPanelList();
+            DrawBottleList();
 
             DrawBulletGroupList();
 
@@ -49,7 +49,7 @@ namespace Project.Scripts.Editor
 
             EditorUtility.SetDirty(serializedObject.targetObject);
             serializedObject.ApplyModifiedProperties();
-            _numOfNumberPanels = GetNumberPanels()?.Count() ?? 0;
+            _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
         }
 
         private void DrawOverviewGimmicks()
@@ -85,36 +85,36 @@ namespace Project.Scripts.Editor
             });
         }
 
-        private void DrawPanelList()
+        private void DrawBottleList()
         {
-            this.DrawArrayProperty(_panelDatasProp, (panelDataProp, index) => {
-                panelDataProp.isExpanded = EditorGUILayout.Foldout(panelDataProp.isExpanded, $"Panel {index + 1}");
+            this.DrawArrayProperty(_bottleDatasProp, (bottleDataProp, index) => {
+                bottleDataProp.isExpanded = EditorGUILayout.Foldout(bottleDataProp.isExpanded, $"Bottle {index + 1}");
 
-                if (!panelDataProp.isExpanded) return;
+                if (!bottleDataProp.isExpanded) return;
 
                 EditorGUI.indentLevel++;
 
-                var panelTypeProp = panelDataProp.FindPropertyRelative("type");
-                panelTypeProp.enumValueIndex = (int)(EPanelType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EPanelType)panelTypeProp.enumValueIndex);
-                EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("initPos"));
+                var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
+                bottleTypeProp.enumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
+                EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
-                switch ((EPanelType)panelTypeProp.enumValueIndex) {
-                    case EPanelType.Number: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
+                switch ((EBottleType)bottleTypeProp.enumValueIndex) {
+                    case EBottleType.Normal: {
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
 
-                    case EPanelType.LifeNumber: {
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetPos"));
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("life"));
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("panelSprite"));
-                            EditorGUILayout.PropertyField(panelDataProp.FindPropertyRelative("targetTileSprite"));
+                    case EBottleType.Life: {
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("life"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
-                    case EPanelType.Dynamic:
-                    case EPanelType.Static:
+                    case EBottleType.Dynamic:
+                    case EBottleType.Static:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -305,13 +305,13 @@ namespace Project.Scripts.Editor
                                 break;
                             }
                         case EBulletType.AimingHole: {
-                                var aimingPanelsProp = bulletDataProp.FindPropertyRelative("aimingPanels");
-                                for (var i = 0 ; i < aimingPanelsProp.arraySize ; i++) {
-                                    var aimingPanelProp = aimingPanelsProp.GetArrayElementAtIndex(i);
-                                    aimingPanelProp.intValue = Math.Min(aimingPanelProp.intValue, _numOfNumberPanels);
+                                var aimingBottlesProp = bulletDataProp.FindPropertyRelative("aimingBottles");
+                                for (var i = 0 ; i < aimingBottlesProp.arraySize ; i++) {
+                                    var aimingBottleProp = aimingBottlesProp.GetArrayElementAtIndex(i);
+                                    aimingBottleProp.intValue = Math.Min(aimingBottleProp.intValue, _numOfAttackableBottles);
                                 }
 
-                                this.DrawArrayProperty(aimingPanelsProp);
+                                this.DrawArrayProperty(aimingBottlesProp);
 
                                 break;
                             }
@@ -341,7 +341,7 @@ namespace Project.Scripts.Editor
                                 break;
                             }
                         case EBulletType.RandomAimingHole: {
-                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomNumberPanels"), _numOfNumberPanels, RenderRandomNumberPanelsElement);
+                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomAttackableBottles"), _numOfAttackableBottles, RenderRandomAttackableBottlesElement);
                                 break;
                             }
                         default:
@@ -352,16 +352,16 @@ namespace Project.Scripts.Editor
             });
         }
 
-        private void RenderRandomNumberPanelsElement(SerializedProperty elementProperty, int index)
+        private void RenderRandomAttackableBottlesElement(SerializedProperty elementProperty, int index)
         {
-            var numberPanels = GetNumberPanels().OrderBy(x => x.initPos);
-            var panelId = numberPanels.ElementAt(index).initPos;
-            EditorGUILayout.PropertyField(elementProperty, new GUIContent($"Panel ID:{panelId}"));
+            var bottles = GetAttackableBottles().OrderBy(x => x.initPos);
+            var bottleId = bottles.ElementAt(index).initPos;
+            EditorGUILayout.PropertyField(elementProperty, new GUIContent($"Bottle ID:{bottleId}"));
         }
 
-        private IEnumerable<PanelData> GetNumberPanels()
+        private IEnumerable<BottleData> GetAttackableBottles()
         {
-            return _src.PanelDatas?.Where(x => x.type == EPanelType.Number || x.type == EPanelType.LifeNumber);
+            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life);
         }
     }
 }

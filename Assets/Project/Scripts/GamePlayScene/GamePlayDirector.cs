@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.GamePlayScene.Panel;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
@@ -176,9 +176,9 @@ namespace Project.Scripts.GamePlayScene
             if (!StageGenerator.CreatedFinished)
                 return;
 
-            var panels = GameObject.FindObjectsOfType<AbstractPanelController>().OfType<IPanelSuccessHandler>();
-            if (panels.Any(panel => panel.IsSuccess() == false)) return;
-            // 全ての数字パネルが最終位置にいたら，成功状態に遷移
+            var bottles = GameObject.FindObjectsOfType<AbstractBottleController>().OfType<IBottleSuccessHandler>();
+            if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
+            // 全ての数字ボトルが最終位置にいたら，成功状態に遷移
             Dispatch(EGameState.Success);
         }
 
@@ -204,15 +204,15 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// タイル・パネル・銃弾オブジェクトの削除
+        /// タイル・ボトル・銃弾オブジェクトの削除
         /// </summary>
         private static void CleanObject()
         {
-            // パネルを破壊
-            var panels = GameObject.FindObjectsOfType<AbstractPanelController>();
-            foreach (var panel in panels) {
-                // パネルの削除
-                DestroyImmediate(panel.gameObject);
+            // ボトルを破壊
+            var bottles = GameObject.FindObjectsOfType<AbstractBottleController>();
+            foreach (var bottle in bottles) {
+                // ボトルの削除
+                DestroyImmediate(bottle.gameObject);
             }
 
             var bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);

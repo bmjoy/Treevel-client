@@ -21,7 +21,7 @@ namespace Project.Scripts.GameDatas
 
         public List<int> turnLines;
 
-        [Range(1, 15)] public List<int> aimingPanels;
+        [Range(1, 15)] public List<int> aimingBottles;
 
         public List<int> randomCartridgeDirection;
         public List<int> randomRow;
@@ -31,6 +31,6 @@ namespace Project.Scripts.GameDatas
         public List<int> randomTurnRow;
         public List<int> randomTurnColumn;
 
-        public List<int> randomNumberPanels;
+        public List<int> randomAttackableBottles;
     }
 }
