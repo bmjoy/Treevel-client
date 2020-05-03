@@ -20,25 +20,9 @@ namespace Project.Scripts.Editor
         };
 
         /// <summary>
-        /// 上部のToolタブに項目を増やす
-        /// </summary>
-        [MenuItem("Tools/Text Checker")]
-        public static void ShowWindow()
-        {
-            GetWindow(typeof(TextChecker), true, "Text Checker");
-        }
-
-        public void OnGUI()
-        {
-            if (GUILayout.Button("Check All Text"))
-            {
-                CheckTextInAllScene();
-            }
-        }
-
-        /// <summary>
         /// 全てのシーンのTextを検証する
         /// </summary>
+        [MenuItem("Tools/Text Checker")]
         private static void CheckTextInAllScene()
         {
             // 現在のシーン
