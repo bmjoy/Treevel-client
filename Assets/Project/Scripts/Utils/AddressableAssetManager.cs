@@ -175,7 +175,7 @@ namespace Project.Scripts.Utils
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
                         break;
                     case EBottleType.AttackableDummy:
-                        LoadAsset<GameObject>(Address.LIFE_DUMMY_BOTTLE_PREFAB);
+                        LoadAsset<GameObject>(Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
                         break;
                     default:
                         throw new System.NotImplementedException();

@@ -13,7 +13,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             {EBottleType.Static, Address.STATIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Normal, Address.NORMAL_BOTTLE_PREFAB},
             {EBottleType.Life, Address.LIFE_BOTTLE_PREFAB},
-            {EBottleType.AttackableDummy, Address.LIFE_DUMMY_BOTTLE_PREFAB},
+            {EBottleType.AttackableDummy, Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
         };
 
         public static void CreateBottles(List<BottleData> bottleDatas)
