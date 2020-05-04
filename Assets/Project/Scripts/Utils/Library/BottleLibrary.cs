@@ -25,7 +25,7 @@ namespace Project.Scripts.Utils.Library
             get {
                 if (_orderedBottles == null) {
                     _orderedBottles = GameObject.FindObjectsOfType<AbstractBottleController>()
-                        .Where(bottle => bottle.HasSuccessHandler())
+                        .Where(bottle => bottle.IsAttackable)
                         .OrderBy(bottle => bottle.Id).ToArray();
                 }
                 return _orderedBottles;

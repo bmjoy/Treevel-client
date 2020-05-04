@@ -10,7 +10,7 @@
         public const string STATIC_DUMMY_BOTTLE = "StaticDummyBottle";
         public const string NORMAL_BOTTLE = "NormalBottle";
         public const string LIFE_BOTTLE = "LifeBottle";
-        public const string LIFE_DUMMY_BOTTLE = "LifeDummyBottle";
+        public const string ATTACKABLE_DUMMY_BOTTLE = "AttackableDummyBottle";
     }
     #endif
 
@@ -19,6 +19,6 @@
         Static,
         Normal,
         Life,
-        LifeDummy,
+        AttackableDummy,
     }
 }

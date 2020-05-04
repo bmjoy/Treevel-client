@@ -112,13 +112,5 @@ namespace Project.Scripts.GamePlayScene.Bottle
             // SuccessHandler未定義の時は成功とみなす。
             return _successHandler?.IsSuccess() ?? true;
         }
-
-        /// <summary>
-        /// 成功判定があるかどうか
-        /// </summary>
-        public bool HasSuccessHandler()
-        {
-            return _successHandler != null;
-        }
     }
 }

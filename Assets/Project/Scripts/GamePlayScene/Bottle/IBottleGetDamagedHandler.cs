@@ -16,14 +16,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
     /// <summary>
     /// 撃たれたら即ゲーム終了のボトル用ハンドラー
     /// </summary>
-    internal class NormalGetDamagedHandler : IBottleGetDamagedHandler
+    internal class NormalBottleGetDamagedHandler : IBottleGetDamagedHandler
     {
         /// <summary>
         /// ボトルのインスタンス
         /// </summary>
         private readonly AbstractBottleController _bottle;
 
-        internal NormalGetDamagedHandler(AbstractBottleController bottle)
+        internal NormalBottleGetDamagedHandler(AbstractBottleController bottle)
         {
             _bottle = bottle;
 
@@ -53,7 +53,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
     /// <summary>
     /// ライフ付きボトル用ハンドラー
     /// </summary>
-    internal class LifeBottleGetDamagedHandler : IBottleGetDamagedHandler
+    internal class MultiLifeBottleGetDamagedHandler : IBottleGetDamagedHandler
     {
         /// <summary>
         /// ボトルのインスタンス
@@ -70,7 +70,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private int _currentHp;
 
-        internal LifeBottleGetDamagedHandler(AbstractBottleController bottle, int maxHp)
+        internal MultiLifeBottleGetDamagedHandler(AbstractBottleController bottle, int maxHp)
         {
             _bottle = bottle;
             _maxHp = _currentHp = maxHp;

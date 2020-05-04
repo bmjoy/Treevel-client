@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4966638403937660}
   - component: {fileID: 212448339726182954}
-  - component: {fileID: 8534360283712064877}
   - component: {fileID: 7315357259351478073}
   - component: {fileID: -312881123630807627}
   - component: {fileID: 7515157571011284841}
   - component: {fileID: -3969736273494569835}
   - component: {fileID: -7309998046472970229}
+  - component: {fileID: -3428490225097212156}
   m_Layer: 8
   m_Name: LifeBottlePrefab
   m_TagString: Bottle
@@ -87,21 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8534360283712064877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556909149041080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8ba9d9276b104cf88a9c2b8a1a45842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
-  warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
-    type: 2}
 --- !u!111 &7315357259351478073
 Animation:
   m_ObjectHideFlags: 0
@@ -210,3 +195,18 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!114 &-3428490225097212156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556909149041080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e84251c113f49baab52aa39ff49b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
+  warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
+    type: 2}

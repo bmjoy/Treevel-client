@@ -3,7 +3,10 @@ guid: 7827729b12fc9456cb1fb13b45eb6a77
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
+  - warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

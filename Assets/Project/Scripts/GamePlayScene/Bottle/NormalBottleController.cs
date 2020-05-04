@@ -23,7 +23,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
 
             // set handlers
-            _getDamagedHandler = new NormalGetDamagedHandler(this);
+            if (bottleData.life <= 1) {
+                _getDamagedHandler = new NormalBottleGetDamagedHandler(this);
+            } else {
+                _getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
+            }
             _successHandler = new NormalBottleSuccessHandler(this, finalPos);
             _enterTileHandler = new NormalEnterTileHandler(this, _successHandler);
 

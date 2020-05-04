@@ -174,7 +174,7 @@ namespace Project.Scripts.Utils
                     case Definitions.EBottleType.Life:
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
                         break;
-                    case EBottleType.LifeDummy:
+                    case EBottleType.AttackableDummy:
                         LoadAsset<GameObject>(Address.LIFE_DUMMY_BOTTLE_PREFAB);
                         break;
                     default:
