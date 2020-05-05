@@ -34,14 +34,15 @@ namespace Project.Scripts.MenuSelectScene
             private set;
         }
 
+        /// <summary>
+        /// 初期化済みかどうか
+        /// </summary>
+        public bool Initialized { get; private set;}
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-        }
 
-        // Start is called before the first frame update
-        private void Start()
-        {
             #if !UNITY_EDITOR && UNITY_ANDROID
             // ステータスバーを表示する
             StatusBarController.Show();
@@ -57,6 +58,7 @@ namespace Project.Scripts.MenuSelectScene
             // キャンバスの下にプログレスバーの実体を生成
             _progressBar.InstantiateAsync(canvas).Completed += (obj) => {
                 ProgressBar = obj.Result.GetComponentInChildren<ProgressBar>();
+                Initialized = true;
             };
         }
 

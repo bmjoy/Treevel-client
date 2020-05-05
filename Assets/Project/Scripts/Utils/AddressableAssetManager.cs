@@ -28,16 +28,17 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// AASを初期化
         /// </summary>
-        [RuntimeInitializeOnLoadMethod]
-        static public void Initalize()
+        static public AsyncOperationHandle Initalize()
         {
-            Addressables.InitializeAsync().Completed += (obj) => {
+            var handle =  Addressables.InitializeAsync();
+            handle.Completed += (obj) => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     _initialized = true;
                 } else {
                     throw new System.Exception("Fail to initialize Addressable Asset System.");
                 }
             };
+            return handle;
         }
 
         /// <summary>

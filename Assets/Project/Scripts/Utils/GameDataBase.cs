@@ -9,8 +9,7 @@ namespace Project.Scripts.Utils
     {
         private static  Dictionary<int, StageData> _stageDataMap = new Dictionary<int, StageData>();
 
-        [RuntimeInitializeOnLoadMethod]
-        private static void Load()
+        public static void Initialize()
         {
             Debug.Log("Start Loading Game Data.");
 
