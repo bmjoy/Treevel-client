@@ -37,7 +37,11 @@ namespace Project.Scripts.MenuSelectScene
         /// <summary>
         /// 初期化済みかどうか
         /// </summary>
-        public bool Initialized { get; private set;}
+        public bool Initialized
+        {
+            get;
+            private set;
+        }
 
         private void Awake()
         {
@@ -47,7 +51,7 @@ namespace Project.Scripts.MenuSelectScene
             // ステータスバーを表示する
             StatusBarController.Show();
             #endif
-            
+
             // キャンバスがなければ作る
             if (GetComponentInChildren<Canvas>() == null) {
                 gameObject.AddComponent<Canvas>();

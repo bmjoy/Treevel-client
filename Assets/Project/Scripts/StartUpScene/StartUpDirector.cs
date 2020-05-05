@@ -32,7 +32,7 @@ public class StartUpDirector : MonoBehaviour
     private void OnAASInitializeCompleted(AsyncOperationHandle handle)
     {
         var menuSelectSceneHandler = AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive);
-        menuSelectSceneHandler.Completed += async (handle2) => {
+        menuSelectSceneHandler.Completed += async(handle2) => {
             // TODO remove before merged
             await Task.Delay(1000);
 
