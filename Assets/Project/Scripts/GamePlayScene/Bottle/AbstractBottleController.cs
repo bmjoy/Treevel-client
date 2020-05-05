@@ -20,7 +20,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 自身が壊されたかどうか
         /// </summary>
-        internal protected bool IsDead
+        protected internal bool IsDead
         {
             get;
             internal set;
