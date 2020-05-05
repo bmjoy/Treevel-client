@@ -24,12 +24,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             // set handlers
             if (bottleData.life <= 1) {
-                _getDamagedHandler = new NormalBottleGetDamagedHandler(this);
+                getDamagedHandler = new NormalBottleGetDamagedHandler(this);
             } else {
-                _getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
+                getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
             }
-            _successHandler = new NormalBottleSuccessHandler(this, finalPos);
-            _enterTileHandler = new NormalEnterTileHandler(this, _successHandler);
+            successHandler = new NormalBottleSuccessHandler(this, finalPos);
+            enterTileHandler = new NormalEnterTileHandler(this, successHandler);
 
             base.Initialize(bottleData);
 

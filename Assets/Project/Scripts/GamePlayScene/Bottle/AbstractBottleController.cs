@@ -27,24 +27,24 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 攻撃対象かどうか
-        /// </summary>
-        public bool IsAttackable => _getDamagedHandler != null;
-
-        /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        protected IBottleGetDamagedHandler _getDamagedHandler;
+        protected IBottleGetDamagedHandler getDamagedHandler;
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected IEnterTileHandler _enterTileHandler;
+        protected IEnterTileHandler enterTileHandler;
 
         /// <summary>
         /// ボトルの成功判定と成功時の挙動
         /// </summary>
-        protected IBottleSuccessHandler _successHandler;
+        protected IBottleSuccessHandler successHandler;
+
+        /// <summary>
+        /// 攻撃対象かどうか
+        /// </summary>
+        public bool IsAttackable => getDamagedHandler != null;
 
         protected virtual void Awake() {}
 
@@ -58,7 +58,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (other.gameObject.transform.position.z < 0) return;
 
-            _getDamagedHandler?.OnGetDamaged(other.gameObject);
+            getDamagedHandler?.OnGetDamaged(other.gameObject);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="targetTile">目標のタイル</param>
         public void OnEnterTile(GameObject targetTile)
         {
-            _enterTileHandler?.OnEnterTile(targetTile);
+            enterTileHandler?.OnEnterTile(targetTile);
         }
 
         private void InitializeSprite()
@@ -110,7 +110,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         public bool IsSuccess()
         {
             // SuccessHandler未定義の時は成功とみなす。
-            return _successHandler?.IsSuccess() ?? true;
+            return successHandler?.IsSuccess() ?? true;
         }
     }
 }

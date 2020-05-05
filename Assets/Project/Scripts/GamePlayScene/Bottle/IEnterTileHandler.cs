@@ -15,6 +15,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         internal NormalEnterTileHandler(AbstractBottleController bottle, IBottleSuccessHandler successHandler)
         {
+            if (successHandler == null)
+                throw new System.NullReferenceException("SuccessHandler can not be null");
+
             _bottle = bottle;
             _successHandler = successHandler;
         }

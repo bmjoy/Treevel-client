@@ -14,9 +14,9 @@
             #endif
 
             if (bottleData.life <= 1) {
-                _getDamagedHandler = new NormalBottleGetDamagedHandler(this);
+                getDamagedHandler = new NormalBottleGetDamagedHandler(this);
             } else {
-                _getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
+                getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
             }
         }
     }
