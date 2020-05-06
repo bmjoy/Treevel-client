@@ -9,6 +9,11 @@ public class DisplayUnifier : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject _backgroundPrefab;
 
+    /// <summary>
+    /// 9:16のゲーム領域を覆うPanel
+    /// </summary>
+    [SerializeField] private GameObject _gameAreaPanel;
+
     private void Awake()
     {
         StartCoroutine(UnifyDisplay());
@@ -32,14 +37,19 @@ public class DisplayUnifier : MonoBehaviour
         // ゲーム盤面以外を埋める背景画像を表示する
         var background = Instantiate(_backgroundPrefab);
         background.transform.position = new Vector2(0f, 0f);
-        var originalWidth = background.GetComponent<SpriteRenderer>().size.x;
-        var originalHeight = background.GetComponent<SpriteRenderer>().size.y;
+        var backgroundSize = background.GetComponent<SpriteRenderer>().size;
+        var originalWidth = backgroundSize.x;
+        var originalHeight = backgroundSize.y;
         var ratio = 0f;
+        var rect = _gameAreaPanel.GetComponent<RectTransform>();
         if (currentRatio > targetRatio + aspectRatioError) {
             // 横長のデバイスの場合
             ratio = targetRatio / currentRatio;
             var rectX = (1 - ratio) / 2f;
             background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight);
+            // GameAreaPanelの大きさを変更
+            rect.anchorMin = new Vector2(rectX, 0);
+            rect.anchorMax = new Vector2(rectX + ratio, 1);
             // 背景を描画するために1フレーム待つ
             yield return null;
             Destroy(background);
@@ -51,6 +61,8 @@ public class DisplayUnifier : MonoBehaviour
             ratio = currentRatio / targetRatio;
             var rectY = (1 - ratio) / 2f;
             background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight / ratio);
+            rect.anchorMin = new Vector2(0, rectY);
+            rect.anchorMax = new Vector2(1, rectY + ratio);
             yield return null;
             Destroy(background);
             if (Camera.main != null) Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
