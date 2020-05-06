@@ -116,7 +116,7 @@ namespace Project.Scripts.MenuSelectScene
             // 拡大率を閾値内に抑える
             _newScale = Mathf.Clamp(_newScale, _SCALE_MIN, _SCALE_MAX);
             // Contentの拡大縮小
-            _content.GetComponent<RectTransform>().localScale = new Vector2(_newScale, _newScale);
+            _contentRect.localScale = new Vector2(_newScale, _newScale);
 
             // 拡大縮小前の中点を拡大縮小後の中点に合わせるようにContentの平行移動量を求める
             var _preContentPoint = ConvertFromScreenToContent(_preMeanPoint, _preScale);
@@ -125,7 +125,7 @@ namespace Project.Scripts.MenuSelectScene
             var moveAmount = _newContentPoint - _preContentPoint * _newScale / _preScale;
             moveAmount = KeepInContent(moveAmount, _newScale);
             // Contentの平行移動
-            _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(moveAmount.x, moveAmount.y, 0);
+            _contentRect.transform.localPosition += new Vector3(moveAmount.x, moveAmount.y, 0);
 
             // 値の更新
             _prePoint1 = _newPoint1;
@@ -143,7 +143,7 @@ namespace Project.Scripts.MenuSelectScene
         /// <returns> Content空間の座標 </returns>
         private Vector3 ConvertFromScreenToContent(Vector3 screenCoordinate, float scale)
         {
-            return ((-1) * _content.GetComponent<RectTransform>().transform.localPosition + (screenCoordinate - new Vector3(_scaledCanvas.x / 2, _scaledCanvas.y / 2))) / scale;
+            return ((-1) * _contentRect.transform.localPosition + (screenCoordinate - new Vector3(_scaledCanvas.x / 2, _scaledCanvas.y / 2))) / scale;
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Project.Scripts.MenuSelectScene
         private Vector2 KeepInContent(Vector2 moveAmount, float scale)
         {
             // 平行移動前のスクリーン中心のContent空間での座標
-            var _preLocalPosition = _content.GetComponent<RectTransform>().transform.localPosition;
+            var _preLocalPosition = _contentRect.transform.localPosition;
 
             // Contentの左端のチェック
             var leftLimit = (_LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
@@ -210,10 +210,10 @@ namespace Project.Scripts.MenuSelectScene
             var margin = anchorMin / (_contentRect.anchorMax - _contentRect.anchorMin);
             foreach (var tree in _content.GetComponentsInChildren<Transform>().Where(t => t != _content.transform).Select(t => t.gameObject))
             {
-                var re = tree.GetComponent<RectTransform>();
-                re.anchorMin *= scale;
-                re.anchorMin += margin;
-                re.anchorMax = re.anchorMin;
+                var treeRect = tree.GetComponent<RectTransform>();
+                treeRect.anchorMin *= scale;
+                treeRect.anchorMin += margin;
+                treeRect.anchorMax = treeRect.anchorMin;
             }
         }
     }
