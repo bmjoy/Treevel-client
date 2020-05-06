@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Linq;
 using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
 using UnityEngine.UI;
+using Project.Scripts.UIComponents;
 
 public class ScaleContent : MonoBehaviour
 {
     private ScrollRect _scrollRect;
     private TransformGesture _transformGesture;
     [SerializeField] private GameObject _content;
+    private RectTransform _contentRect;
 
     /// <summary>
     /// タッチした2点
@@ -56,13 +59,16 @@ public class ScaleContent : MonoBehaviour
         _scrollRect = GetComponent<ScrollRect>();
         _transformGesture = GetComponent<TransformGesture>();
         _scaledCanvas = GameObject.Find("LevelSelect/Canvas").GetComponent<RectTransform>().sizeDelta;
+        _contentRect = _content.GetComponent<RectTransform>();
+        
+        ExpandContent();
         // Contentの余白を取得
-        _LEFT_OFFSET = Mathf.Abs(_content.GetComponent<RectTransform>().anchorMin.x - _content.GetComponent<RectTransform>().pivot.x);
-        _RIGHT_OFFSET = _content.GetComponent<RectTransform>().anchorMax.x - _content.GetComponent<RectTransform>().pivot.x;
-        _TOP_OFFSET = _content.GetComponent<RectTransform>().anchorMax.y - _content.GetComponent<RectTransform>().pivot.y;
-        _BOTTOM_OFFSET = Mathf.Abs(_content.GetComponent<RectTransform>().anchorMin.y - _content.GetComponent<RectTransform>().pivot.y);
+        _LEFT_OFFSET = Mathf.Abs(_contentRect.anchorMin.x - _contentRect.pivot.x);
+        _RIGHT_OFFSET = _contentRect.anchorMax.x - _contentRect.pivot.x;
+        _TOP_OFFSET = _contentRect.anchorMax.y - _contentRect.pivot.y;
+        _BOTTOM_OFFSET = Mathf.Abs(_contentRect.anchorMin.y - _contentRect.pivot.y);
         // 初期位置の調整
-        _content.GetComponent<RectTransform>().transform.localPosition += new Vector3(0, _scaledCanvas.y / 2, 0);
+        _contentRect.transform.localPosition += new Vector3(0, _scaledCanvas.y / 2, 0);
     }
 
     private void OnEnable()
@@ -181,5 +187,31 @@ public class ScaleContent : MonoBehaviour
     {
         // スクロール制限を解除する
         _scrollRect.enabled = true;
+    }
+
+    /// <summary>
+    /// ContentのサイズをSafeAreaの分だけ拡大する
+    /// </summary>
+    private void ExpandContent()
+    {
+        // ContentのサイズをSafeAreaの分だけ拡大する
+        var beforeAnchorMin = _contentRect.anchorMin;
+        var beforeAnchorMax = _contentRect.anchorMax;
+        var (anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
+        _contentRect.anchorMin -= anchorMin;
+        _contentRect.anchorMax += (Vector2.one - anchorMax);
+        // Contentの拡大率
+        var scale = (beforeAnchorMax - beforeAnchorMin) / (_contentRect.anchorMax - _contentRect.anchorMin);
+
+        if(scale == Vector2.one) return;
+        // Content内の全オブジェクトのanchor位置の調整
+        var margin = anchorMin / (_contentRect.anchorMax - _contentRect.anchorMin);
+        foreach (var tree in _content.GetComponentsInChildren<Transform>().Where(t => t != _content.transform).Select(t => t.gameObject))
+        {
+            var re = tree.GetComponent<RectTransform>();
+            re.anchorMin *= scale;
+            re.anchorMin += margin;
+            re.anchorMax = re.anchorMin;
+        }
     }
 }
