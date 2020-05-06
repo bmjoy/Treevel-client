@@ -8,8 +8,7 @@ TagManager:
   - BulletWarning
   - Tile
   - GraphUi
-  - DummyBottle
-  - NormalBottle
+  - Bottle
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,4 @@
 ﻿using System;
-using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
@@ -7,7 +6,6 @@ using UnityEngine;
 namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animation))]
-    [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(FlickGesture))]
     public class DynamicBottleController : AbstractBottleController
     {
@@ -71,10 +69,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         protected virtual void OnSucceed()
         {
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
-            // アニメーションを止める
-            anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
-            anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
+            EndProcess();
         }
 
         /// <summary>
@@ -82,9 +77,22 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         protected virtual void OnFail()
         {
+            EndProcess();
+        }
+
+        /// <summary>
+        /// ゲーム終了時の処理
+        /// </summary>
+        private void EndProcess()
+        {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
             anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
             anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
+
+            // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
+            if (!IsDead) {
+                anim.wrapMode = WrapMode.Default;
+            }
         }
     }
 }

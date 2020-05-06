@@ -19,14 +19,13 @@ namespace Project.Scripts.Utils.Library
             return bottles.Single(bottle => bottle.Id == bottleId).gameObject;
         }
 
-        private static NormalBottleController[] _orderedBottles = null;
-        public static NormalBottleController[] OrderedAttackableBottles
+        private static AbstractBottleController[] _orderedBottles = null;
+        public static AbstractBottleController[] OrderedAttackableBottles
         {
             get {
                 if (_orderedBottles == null) {
-                    // TODO find by interface
-                    _orderedBottles = GameObject.FindObjectsOfType<NormalBottleController>()
-                        .Concat(GameObject.FindObjectsOfType<LifeBottleController>())
+                    _orderedBottles = GameObject.FindObjectsOfType<AbstractBottleController>()
+                        .Where(bottle => bottle.IsAttackable)
                         .OrderBy(bottle => bottle.Id).ToArray();
                 }
                 return _orderedBottles;

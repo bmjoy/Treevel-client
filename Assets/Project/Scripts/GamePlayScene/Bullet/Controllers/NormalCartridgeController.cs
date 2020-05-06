@@ -1,4 +1,5 @@
 using System;
+using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
@@ -95,7 +96,8 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         protected override void OnTriggerEnter2D(Collider2D other)
         {
             // 数字ボトルとの衝突以外は考えない
-            if (!other.gameObject.CompareTag(TagName.NORMAL_BOTTLE)) return;
+            var bottle = other.GetComponent<AbstractBottleController>();
+            if (bottle == null || !bottle.IsAttackable) return;
 
             // 衝突したオブジェクトは赤色に変える
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;

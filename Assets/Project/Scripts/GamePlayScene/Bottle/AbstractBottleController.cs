@@ -1,12 +1,74 @@
 ﻿using Project.Scripts.GameDatas;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
+    [RequireComponent(typeof(BoxCollider2D))]
     public abstract class AbstractBottleController : MonoBehaviour
     {
+        /// <summary>
+        /// ボトルのId (初期位置と同じ)
+        /// </summary>
+        public int Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 自身が壊されたかどうか
+        /// </summary>
+        protected internal bool IsDead
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// ギミックに攻撃されたときの挙動
+        /// </summary>
+        protected IBottleGetDamagedHandler getDamagedHandler;
+
+        /// <summary>
+        /// タイルに移動した時の挙動
+        /// </summary>
+        protected IEnterTileHandler enterTileHandler;
+
+        /// <summary>
+        /// ボトルの成功判定と成功時の挙動
+        /// </summary>
+        protected IBottleSuccessHandler successHandler;
+
+        /// <summary>
+        /// 攻撃対象かどうか
+        /// </summary>
+        public bool IsAttackable => getDamagedHandler != null;
+
         protected virtual void Awake() {}
+
+        /// <summary>
+        /// 衝突イベントを処理する
+        /// </summary>
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
+            if (!other.gameObject.CompareTag(TagName.BULLET)) return;
+            // 銃痕(hole)が出現したフレーム以外では衝突を考えない
+            if (other.gameObject.transform.position.z < 0) return;
+
+            getDamagedHandler?.OnGetDamaged(other.gameObject);
+        }
+
+        /// <summary>
+        /// タイルに移動した時の挙動
+        /// </summary>
+        /// <param name="targetTile">目標のタイル</param>
+        public void OnEnterTile(GameObject targetTile)
+        {
+            enterTileHandler?.OnEnterTile(targetTile);
+        }
 
         private void InitializeSprite()
         {
@@ -28,13 +90,27 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="bottleData"> ボトルのデータ </param>
         public virtual void Initialize(BottleData bottleData)
         {
-            var initialTileNum = bottleData.initPos;
+            Id = bottleData.initPos;
 
             // ボトルをボードに設定
-            BoardManager.SetBottle(this, initialTileNum);
+            BoardManager.SetBottle(this, Id);
+
+            if (bottleData.bottleSprite != null) {
+                var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);
+                GetComponent<SpriteRenderer>().sprite = bottleSprite;
+            }
 
             InitializeSprite();
             GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        /// <summary>
+        /// ボトルの成功判定
+        /// </summary>
+        public bool IsSuccess()
+        {
+            // SuccessHandler未定義の時は成功とみなす。
+            return successHandler?.IsSuccess() ?? true;
         }
     }
 }

@@ -113,6 +113,10 @@ namespace Project.Scripts.Editor
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
                         }
                         break;
+                    case EBottleType.AttackableDummy:
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("life"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
+                        break;
                     case EBottleType.Dynamic:
                     case EBottleType.Static:
                         break;

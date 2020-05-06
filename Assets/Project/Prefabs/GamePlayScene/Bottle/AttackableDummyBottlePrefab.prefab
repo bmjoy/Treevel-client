@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4035888861635480}
   - component: {fileID: 212713473970092426}
-  - component: {fileID: 114989368649593642}
   - component: {fileID: -2211765263296871505}
   - component: {fileID: -7919264550677916442}
   - component: {fileID: 6174364387037006770}
+  - component: {fileID: 1319685992320038274}
   m_Layer: 11
-  m_Name: DynamicDummyBottlePrefab
+  m_Name: LifeDummyBottlePrefab
   m_TagString: Bottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,21 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &114989368649593642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667971508019858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 950d269fc9172489aa122df63e8d3008, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
-  warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
-    type: 2}
 --- !u!61 &-2211765263296871505
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,3 +158,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1319685992320038274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667971508019858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7827729b12fc9456cb1fb13b45eb6a77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
+  warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
+    type: 2}

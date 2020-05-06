@@ -49,6 +49,7 @@
         public const string LIFE_BOTTLE_PREFAB = "LifeBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
         public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
+        public const string ATTACKABLE_DUMMY_BOTTLE_PREFAB = "AttackableDummyBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
         public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
         public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";
@@ -65,7 +66,7 @@
         public const string TURN_CARTRIDGE_WARNING_SPRITE = "turnCartridgeWarning";
         public const string TURN_WARNING_LEFT_SPRITE = "turnLeft";
         public const string TURN_WARNING_RIGHT_SPRITE = "turnRight";
-        public const string TURN_WARNING_TOP_SPRITE = "turnTop";
+        public const string TURN_WARNING_UP_SPRITE = "turnUp";
         public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
         public const string NORMAL_HOLE_GENERATOR_PREFAB = "NormalHoleGeneratorPrefab";
         public const string AIMING_HOLE_GENERATOR_PREFAB = "AimingHoleGeneratorPrefab";
