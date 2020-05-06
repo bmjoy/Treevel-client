@@ -9,10 +9,12 @@ namespace Project.Scripts.UIComponents
         void Awake()
         {
             _panel = GetComponent<RectTransform>();
-            UpdateSafeArea();
+            var (anchorMin, anchorMax) = GetSafeAreaAnchor();
+            _panel.anchorMin = anchorMin;
+            _panel.anchorMax = anchorMax;
         }
 
-        void UpdateSafeArea()
+        public static (Vector2, Vector2) GetSafeAreaAnchor()
         {
             var safeArea = Screen.safeArea;
 
@@ -22,8 +24,7 @@ namespace Project.Scripts.UIComponents
             anchorMin.y /= Screen.height;
             anchorMax.x /= Screen.width;
             anchorMax.y /= Screen.height;
-            _panel.anchorMin = anchorMin;
-            _panel.anchorMax = anchorMax;
+            return (anchorMin, anchorMax);
         }
     }
 }
