@@ -11,7 +11,7 @@ namespace Project.Scripts.StartUpScene
 {
     public class StartUpDirector : MonoBehaviour
     {
-        IEnumerator Start()
+        private IEnumerator Start()
         {
             // UIManager Initialize
             yield return new WaitWhile(() => !UIManager.Instance.Initialized);
