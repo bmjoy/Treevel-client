@@ -4,7 +4,6 @@ using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
