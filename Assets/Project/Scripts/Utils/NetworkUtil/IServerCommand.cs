@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -45,6 +45,9 @@ namespace Project.Scripts.Utils.NetworkUtil
 
         protected async Task<object> GetData_Remote()
         {
+            if (ServerRequest == null)
+                return null;
+
             // TODO Show Progress bar
             await ServerRequest.SendWebRequest();
 
