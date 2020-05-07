@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.NetworkUtil.Commands;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
@@ -16,13 +17,17 @@ namespace Project.Scripts.StartUpScene
             // UIManager Initialize
             yield return new WaitWhile(() => !UIManager.Instance.Initialized);
 
+            // Network Initialization
+            // TODO : ユーザー情報の初期化（IDの取得OR発行など）
+            NetworkService.Execute(new HelloWorldCommand(), (data) => {
+                Debug.Log(data as string);
+            });
+
             // AAS Initialize
             AddressableAssetManager.Initalize().Completed += OnAASInitializeCompleted;
 
             // Database Initialize
             GameDataBase.Initialize();
-
-            // TODO Network Initialize
         }
 
         /// <summary>
