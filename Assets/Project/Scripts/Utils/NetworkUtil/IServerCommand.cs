@@ -16,7 +16,7 @@ namespace Project.Scripts.Utils.NetworkUtil
     /// <summary>
     /// データ取得用コマンド（DBでSELECT文使う場合）
     /// </summary>
-    public abstract class GetServerCommandBasic : IServerCommand
+    public abstract class GetServerCommand : IServerCommand
     {
         public UnityWebRequest ServerRequest
         {
@@ -24,7 +24,7 @@ namespace Project.Scripts.Utils.NetworkUtil
             protected set;
         }
 
-        ~GetServerCommandBasic()
+        ~GetServerCommand()
         {
             ServerRequest?.Dispose();
         }

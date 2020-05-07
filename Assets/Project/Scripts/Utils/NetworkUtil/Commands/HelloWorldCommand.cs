@@ -2,7 +2,7 @@
 
 namespace Project.Scripts.Utils.NetworkUtil.Commands
 {
-    public class HelloWorldCommand : GetServerCommandBasic
+    public class HelloWorldCommand : GetServerCommand
     {
         public HelloWorldCommand()
         {
