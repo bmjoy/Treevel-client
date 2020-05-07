@@ -28,7 +28,7 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// AASを初期化
         /// </summary>
-        static public AsyncOperationHandle Initalize()
+        public static AsyncOperationHandle Initialize()
         {
             var handle =  Addressables.InitializeAsync();
             handle.Completed += (obj) => {
