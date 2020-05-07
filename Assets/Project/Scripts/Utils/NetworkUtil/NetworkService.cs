@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using Project.Scripts.Utils.NetworkUtil;
 
@@ -36,6 +36,18 @@ namespace Project.Scripts.Utils
         {
             var data = await command.GetData();
             callback?.Invoke(data);
+        }
+
+        /// <summary>
+        /// データ更新用ヘルパーメソッド
+        /// </summary>
+        /// <param name="command"> `UpdateServerCommand` </param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        static public async void Execute(UpdateServerCommand command, Action<bool> callback = null)
+        {
+            var success = await command.Update();
+            callback?.Invoke(success);
         }
     }
 }

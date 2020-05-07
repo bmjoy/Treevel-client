@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -86,6 +86,35 @@ namespace Project.Scripts.Utils.NetworkUtil
             ServerRequest?.Dispose();
         }
 
+        public async Task<bool> Update()
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable) {
+                return Update_Local();
+            } else {
+                return await Update_Remote();
+            }
+        }
+
         public abstract void SetCache();
+
+        protected abstract bool Update_Local();
+
+
+        protected async Task<bool> Update_Remote()
+        {
+            if (ServerRequest == null)
+                return false;
+
+            await ServerRequest.SendWebRequest();
+
+            // TODO: protocal for update commands to parse the success state
+            var successFlag = ServerRequest.downloadHandler.text.Equals("success");
+
+            if (!successFlag)
+                return false;
+
+            SetCache();
+            return true;
+        }
     }
 }
