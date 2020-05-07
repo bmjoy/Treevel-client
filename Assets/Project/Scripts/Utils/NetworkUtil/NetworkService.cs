@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using Project.Scripts.Utils.NetworkUtil;
 
@@ -30,7 +30,7 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// データ取得用のヘルパーメソッド
         /// </summary>
-        /// <param name="command"> `IGetServerCommand`を実装したコマンド </param>
+        /// <param name="command"> `GetServerCommandBasic`を継承したコマンド </param>
         /// <param name="callback"> データ取得後実行するアクション </param>
         static public async void Execute(GetServerCommandBasic command, Action<object> callback = null)
         {
