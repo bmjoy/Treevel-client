@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Project.Scripts.UIComponents
+﻿namespace Project.Scripts.UIComponents
 {
     /// <summary>
     /// ステータスバーの表示を行う
@@ -13,11 +11,9 @@ namespace Project.Scripts.UIComponents
         public static void Show()
         {
             #if !UNITY_EDITOR && UNITY_ANDROID
-            // フルスクリーン表示をやめる 
-            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-            {
-                using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
-                {
+            // フルスクリーン表示をやめる
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
                     // 別スレッド
                     activity.Call("runOnUiThread", new AndroidJavaRunnable(RunOnUiThread));
                 }
@@ -31,12 +27,9 @@ namespace Project.Scripts.UIComponents
         private static void RunOnUiThread()
         {
             #if !UNITY_EDITOR && UNITY_ANDROID
-            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-            {
-                using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
-                {
-                    using (var window = activity.Call<AndroidJavaObject>("getWindow"))
-                    {
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+                    using (var window = activity.Call<AndroidJavaObject>("getWindow")) {
                         window.Call("clearFlags", _FLAG_FULLSCREEN);
                         window.Call("addFlags", _FLAG_FORCE_NOT_FULLSCREEN);
                     }

@@ -46,8 +46,7 @@ namespace Project.Scripts.Editor
         {
             EditorGUILayout.PropertyField(_referenceResolutionProp);
             EditorGUILayout.PropertyField(_matchWidthOrHeightProp);
-            if (GUILayout.Button("Replace All CanvasScalers"))
-            {
+            if (GUILayout.Button("Replace All CanvasScalers")) {
                 ReplaceCanvasScalerInAllScene();
                 // シーンに変更があることをUnity側に通知
                 EditorSceneManager.MarkAllScenesDirty();
@@ -63,8 +62,7 @@ namespace Project.Scripts.Editor
             var currentScene = EditorSceneManager.GetActiveScene().path;
             // プロジェクト内の全てのシーン名を取得
             var sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Project" });
-            for (var i = 0; i < sceneGuids.Length; i++)
-            {
+            for (var i = 0; i < sceneGuids.Length; i++) {
                 var guid = sceneGuids[i];
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 // プログレスバーを表示
@@ -93,11 +91,9 @@ namespace Project.Scripts.Editor
             // シーン内の全てのCanvasオブジェクトの取得
             var canvases = Resources.FindObjectsOfTypeAll(typeof(Canvas)) as Canvas[];
             if (canvases.Length == 0) return false;
-            foreach (var canvas in canvases)
-            {
+            foreach (var canvas in canvases) {
                 // CanvasScalerコンポーネントを必ず持たせる
-                if (canvas.GetComponentInChildren<CanvasScaler>() == null)
-                {
+                if (canvas.GetComponentInChildren<CanvasScaler>() == null) {
                     canvas.gameObject.AddComponent<CanvasScaler>();
                 }
                 var canvasScaler = canvas.GetComponent<CanvasScaler>();
