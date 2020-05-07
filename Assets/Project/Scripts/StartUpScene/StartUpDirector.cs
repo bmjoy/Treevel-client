@@ -17,7 +17,7 @@ namespace Project.Scripts.StartUpScene
             yield return new WaitWhile(() => !UIManager.Instance.Initialized);
 
             // AAS Initialize
-            AddressableAssetManager.Initalize().Completed += OnAASInitializeCompleted;
+            AddressableAssetManager.Initialize().Completed += OnAASInitializeCompleted;
 
             // Database Initialize
             GameDataBase.Initialize();
