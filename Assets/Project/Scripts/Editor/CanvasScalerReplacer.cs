@@ -16,7 +16,7 @@ namespace Project.Scripts.Editor
         public float MatchWidthOrHeight => matchWidthOrHeight;
     }
 
-    public class CanvasScalerReplacer : UnityEditor.EditorWindow
+    public class CanvasScalerReplacer : EditorWindow
     {
         /// <summary>
         /// CanvasScalerの変数 : 理想的なデバイスの大きさ
@@ -31,10 +31,10 @@ namespace Project.Scripts.Editor
         /// <summary>
         /// 上部のToolタブに項目を増やす
         /// </summary>
-        [MenuItem("Tools/Replace All CanvaseScalers")]
+        [MenuItem("Tools/Replace All CanvasScalers")]
         public static void ShowWindow()
         {
-            EditorWindow.GetWindow(typeof(CanvasScalerReplacer), true, "CanvasScaler Replacer");
+            GetWindow(typeof(CanvasScalerReplacer), true, "CanvasScaler Replacer");
             var obj = ScriptableObject.CreateInstance<CanvasScalerSetting>();
             var serializedObject = new UnityEditor.SerializedObject(obj);
 
@@ -60,13 +60,13 @@ namespace Project.Scripts.Editor
         private static void ReplaceCanvasScalerInAllScene()
         {
             // 現在のシーン
-            string currentScene = EditorSceneManager.GetActiveScene().path;
+            var currentScene = EditorSceneManager.GetActiveScene().path;
             // プロジェクト内の全てのシーン名を取得
-            string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new string[] { "Assets/Project" });
-            for (int i = 0; i < sceneGuids.Length; i++)
+            var sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Project" });
+            for (var i = 0; i < sceneGuids.Length; i++)
             {
-                string guid = sceneGuids[i];
-                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var guid = sceneGuids[i];
+                var path = AssetDatabase.GUIDToAssetPath(guid);
                 // プログレスバーを表示
                 EditorUtility.DisplayProgressBar("", path, (float)i / (float)sceneGuids.Length);
                 // シーンを開く

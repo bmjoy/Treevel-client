@@ -161,37 +161,37 @@ namespace Project.Scripts.Utils
 
             stage.BottleDatas.ForEach((bottleData) => {
                 switch (bottleData.type) {
-                    case Definitions.EBottleType.Dynamic:
+                    case EBottleType.Dynamic:
                         LoadAsset<GameObject>(Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.DYNAMIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case Definitions.EBottleType.Static:
+                    case EBottleType.Static:
                         LoadAsset<GameObject>(Address.STATIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
                     case Definitions.EBottleType.Normal:
                         LoadAsset<GameObject>(Address.NORMAL_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(bottleData.bottleSprite);
-                        // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(bottleData.targetTileSprite);
                         break;
                     case Definitions.EBottleType.Life:
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(bottleData.bottleSprite);
-                        // 対応するTileのSpriteを先に読み込む
-                        LoadAsset<Sprite>(bottleData.targetTileSprite);
+                        break;
+                    case EBottleType.AttackableDummy:
+                        LoadAsset<GameObject>(Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
                         break;
                     default:
                         throw new System.NotImplementedException();
                 }
+                if (bottleData.bottleSprite != null) LoadAsset<Sprite>(bottleData.bottleSprite);
+                // 対応するTileのSpriteを先に読み込む
+                if (bottleData.targetTileSprite != null) LoadAsset<Sprite>(bottleData.targetTileSprite);
             });
 
             stage.TileDatas.ForEach(tileData => {
                 switch (tileData.type) {
-                    case Definitions.ETileType.Normal:
+                    case ETileType.Normal:
                         LoadAsset<GameObject>(Address.NORMAL_TILE_PREFAB);
                         break;
-                    case Definitions.ETileType.Warp:
+                    case ETileType.Warp:
                         LoadAsset<GameObject>(Address.WARP_TILE_PREFAB);
                         break;
                     default:
@@ -212,7 +212,7 @@ namespace Project.Scripts.Utils
                             LoadAsset<Sprite>(Address.TURN_CARTRIDGE_WARNING_SPRITE);
                             LoadAsset<Sprite>(Address.TURN_WARNING_LEFT_SPRITE);
                             LoadAsset<Sprite>(Address.TURN_WARNING_RIGHT_SPRITE);
-                            LoadAsset<Sprite>(Address.TURN_WARNING_TOP_SPRITE);
+                            LoadAsset<Sprite>(Address.TURN_WARNING_UP_SPRITE);
                             LoadAsset<Sprite>(Address.TURN_WARNING_BOTTOM_SPRITE);
                             break;
                         case EBulletType.NormalHole:

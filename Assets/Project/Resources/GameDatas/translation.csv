@@ -14,6 +14,7 @@ GameNext,次に進む,Next
 GameWarning,アプリがバックグラウンドに移動しました,The app has moved to the background
 LanguageJapanese,日本語,日本語
 LanguageEnglish,English,English
+StageSelectStartGame,ゲームを始める,Start the Game
 LevelFirst,かんたん,Easy
 LevelSecond,ふつう,Normal
 LevelThird,むずかしい,Hard
