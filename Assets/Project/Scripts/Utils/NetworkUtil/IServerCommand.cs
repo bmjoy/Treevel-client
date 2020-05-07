@@ -51,6 +51,8 @@ namespace Project.Scripts.Utils.NetworkUtil
             // TODO Show Progress bar
             await ServerRequest.SendWebRequest();
 
+            // TODO check need to update cache
+
             return DeserializeResponse();
         }
 
