@@ -30,7 +30,7 @@ namespace Project.Scripts.StartUpScene
         /// 1. MenuSelectSceneを読み込む
         /// 2. MenuSelectSceneを読み込んだ直後にStartUpSceneをアンロード
         /// </summary>
-        private void OnAASInitializeCompleted(AsyncOperationHandle handle)
+        private static void OnAASInitializeCompleted(AsyncOperationHandle handle)
         {
             var menuSelectSceneHandler = AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive);
             menuSelectSceneHandler.Completed += async(handle2) => {
