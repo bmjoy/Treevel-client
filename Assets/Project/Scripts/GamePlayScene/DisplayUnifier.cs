@@ -3,7 +3,7 @@ using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 public class DisplayUnifier : MonoBehaviour
-{
+{ 
     /// <summary>
     /// ゲーム画面以外を埋める背景
     /// </summary>

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Project.Scripts.UIComponents;
 
 namespace Project.Scripts.MenuSelectScene
-    {
+{
     public class ScaleContent : MonoBehaviour
     {
         private ScrollRect _scrollRect;
@@ -62,7 +62,7 @@ namespace Project.Scripts.MenuSelectScene
             _transformGesture = GetComponent<TransformGesture>();
             _scaledCanvas = GameObject.Find("LevelSelect/Canvas").GetComponent<RectTransform>().sizeDelta;
             _contentRect = _content.GetComponent<RectTransform>();
-            
+
             ExpandContent();
             // Contentの余白を取得
             _LEFT_OFFSET = Mathf.Abs(_contentRect.anchorMin.x - _contentRect.pivot.x);
@@ -159,26 +159,22 @@ namespace Project.Scripts.MenuSelectScene
 
             // Contentの左端のチェック
             var leftLimit = (_LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
-            if (_preLocalPosition.x + moveAmount.x >= leftLimit)
-            {
+            if (_preLocalPosition.x + moveAmount.x >= leftLimit) {
                 moveAmount.x = leftLimit - _preLocalPosition.x;
             }
             // Contentの右端のチェック
             var rightLimit = (-1) * ((_RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
-            if (_preLocalPosition.x + moveAmount.x <= rightLimit)
-            {
+            if (_preLocalPosition.x + moveAmount.x <= rightLimit) {
                 moveAmount.x = rightLimit - _preLocalPosition.x;
             }
             // Contentの上端のチェック
             var topLimit = (-1) * ((_TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
-            if (_preLocalPosition.y + moveAmount.y <= topLimit)
-            {
+            if (_preLocalPosition.y + moveAmount.y <= topLimit) {
                 moveAmount.y = topLimit - _preLocalPosition.y;
             }
             // Contentの下端のチェック
             var bottomLimit = (_BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
-            if (_preLocalPosition.y + moveAmount.y >= bottomLimit)
-            {
+            if (_preLocalPosition.y + moveAmount.y >= bottomLimit) {
                 moveAmount.y = bottomLimit - _preLocalPosition.y;
             }
 
@@ -199,17 +195,16 @@ namespace Project.Scripts.MenuSelectScene
             // ContentのサイズをSafeAreaの分だけ拡大する
             var beforeAnchorMin = _contentRect.anchorMin;
             var beforeAnchorMax = _contentRect.anchorMax;
-            var (anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
+            var(anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
             _contentRect.anchorMin -= anchorMin;
             _contentRect.anchorMax += (Vector2.one - anchorMax);
             // Contentの拡大率
             var scale = (beforeAnchorMax - beforeAnchorMin) / (_contentRect.anchorMax - _contentRect.anchorMin);
 
-            if(scale == Vector2.one) return;
+            if (scale == Vector2.one) return;
             // Content内の全オブジェクトのanchor位置の調整
             var margin = anchorMin / (_contentRect.anchorMax - _contentRect.anchorMin);
-            foreach (var tree in _content.GetComponentsInChildren<Transform>().Where(t => t != _content.transform).Select(t => t.gameObject))
-            {
+            foreach (var tree in _content.GetComponentsInChildren<Transform>().Where(t => t != _content.transform).Select(t => t.gameObject)) {
                 var treeRect = tree.GetComponent<RectTransform>();
                 treeRect.anchorMin *= scale;
                 treeRect.anchorMin += margin;
