@@ -32,7 +32,7 @@ public class DisplayUnifier : MonoBehaviour
         // 許容するアスペクト比の誤差
         const float aspectRatioError = 0.001f;
 
-        if ((targetRatio - aspectRatioError <= currentRatio) && (currentRatio <= (targetRatio + aspectRatioError))) yield break;
+        if (Mathf.Abs(currentRatio - targetRatio) <= aspectRatioError) yield break;
 
         // ゲーム盤面以外を埋める背景画像を表示する
         var background = Instantiate(_backgroundPrefab);
@@ -40,11 +40,11 @@ public class DisplayUnifier : MonoBehaviour
         var backgroundSize = background.GetComponent<SpriteRenderer>().size;
         var originalWidth = backgroundSize.x;
         var originalHeight = backgroundSize.y;
-        var ratio = 0f;
         var rect = _gameAreaPanel.GetComponent<RectTransform>();
+        var camera = Camera.main;
         if (currentRatio > targetRatio + aspectRatioError) {
             // 横長のデバイスの場合
-            ratio = targetRatio / currentRatio;
+            var ratio = targetRatio / currentRatio;
             var rectX = (1 - ratio) / 2f;
             background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight);
             // GameAreaPanelの大きさを変更
@@ -53,19 +53,19 @@ public class DisplayUnifier : MonoBehaviour
             // 背景を描画するために1フレーム待つ
             yield return null;
             Destroy(background);
-            if (Camera.main != null) Camera.main.rect = new Rect(rectX, 0f, ratio, 1f);
+            if (camera != null) camera.rect = new Rect(rectX, 0f, ratio, 1f);
             // カメラの描画範囲を縮小させ、縮小させた範囲の背景を取り除くために1フレーム待つ
             yield return null;
         } else if (currentRatio < targetRatio - aspectRatioError) {
             // 縦長のデバイスの場合
-            ratio = currentRatio / targetRatio;
+            var ratio = currentRatio / targetRatio;
             var rectY = (1 - ratio) / 2f;
             background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight / ratio);
             rect.anchorMin = new Vector2(0, rectY);
             rect.anchorMax = new Vector2(1, rectY + ratio);
             yield return null;
             Destroy(background);
-            if (Camera.main != null) Camera.main.rect = new Rect(0f, rectY, 1f, ratio);
+            if (camera != null) camera.rect = new Rect(0f, rectY, 1f, ratio);
             yield return null;
         }
 
