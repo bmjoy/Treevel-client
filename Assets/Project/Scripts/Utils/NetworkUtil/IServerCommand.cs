@@ -7,7 +7,9 @@ namespace Project.Scripts.Utils.NetworkUtil
 {
     public interface IServerCommand
     {
-        UnityWebRequest ServerRequest {get; }
+        UnityWebRequest ServerRequest {
+            get;
+        }
         void SetCache();
     }
 
@@ -16,18 +18,22 @@ namespace Project.Scripts.Utils.NetworkUtil
     /// </summary>
     public abstract class GetServerCommandBasic : IServerCommand
     {
-        public UnityWebRequest ServerRequest {
+        public UnityWebRequest ServerRequest
+        {
             get;
             protected set;
         }
 
-        ~GetServerCommandBasic(){ ServerRequest?.Dispose(); }
+        ~GetServerCommandBasic()
+        {
+            ServerRequest?.Dispose();
+        }
 
         /// <summary>
         /// サーバーから取得したデータをキャッシュに保存する
         /// </summary>
         public abstract void SetCache();
-        
+
         public async Task<object> GetData()
         {
             if (Application.internetReachability == NetworkReachability.NotReachable) {
@@ -44,10 +50,10 @@ namespace Project.Scripts.Utils.NetworkUtil
 
             return DeserializeResponse();
         }
-        
+
         protected abstract object GetData_Local();
 
-        protected bool IsRemoteDataValid() 
+        protected bool IsRemoteDataValid()
         {
             return ServerRequest.isDone && !ServerRequest.isNetworkError && !ServerRequest.isHttpError;
         }
@@ -60,16 +66,20 @@ namespace Project.Scripts.Utils.NetworkUtil
     }
 
     /// <summary>
-    /// データ更新用コマンド(DBでINSERT/UPDATE文を使う場合) 
+    /// データ更新用コマンド(DBでINSERT/UPDATE文を使う場合)
     /// </summary>
     public abstract class UpdateServerCommand : IServerCommand
     {
-        public UnityWebRequest ServerRequest { 
-            get; 
+        public UnityWebRequest ServerRequest
+        {
+            get;
             protected set;
         }
 
-        ~UpdateServerCommand() { ServerRequest?.Dispose(); }
+        ~UpdateServerCommand()
+        {
+            ServerRequest?.Dispose();
+        }
 
         public abstract void SetCache();
     }

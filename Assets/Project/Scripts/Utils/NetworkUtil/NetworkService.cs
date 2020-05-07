@@ -15,7 +15,7 @@ namespace Project.Scripts.Utils
         #endif
 
         #if UNITY_EDITOR
-        // ローカルデバッグ用サーバーポート番号 
+        // ローカルデバッグ用サーバーポート番号
         private static readonly string _serverPort = "8080";
         #else
         // TODO 本番サーバーポート番号
@@ -32,7 +32,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         /// <param name="command"> `IGetServerCommand`を実装したコマンド </param>
         /// <param name="callback"> データ取得後実行するアクション </param>
-        static public async void Execute(GetServerCommandBasic command, Action<object> callback = null) 
+        static public async void Execute(GetServerCommandBasic command, Action<object> callback = null)
         {
             var data = await command.GetData();
             callback?.Invoke(data);

@@ -8,7 +8,7 @@ namespace Project.Scripts.Utils.NetworkUtil.Commands
         {
             ServerRequest = UnityWebRequest.Get(NetworkService.HOST);
         }
-        
+
         public override void SetCache()
         {
             throw new System.NotImplementedException();
