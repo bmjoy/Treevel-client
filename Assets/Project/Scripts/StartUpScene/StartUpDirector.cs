@@ -28,7 +28,7 @@ namespace Project.Scripts.StartUpScene
         /// <summary>
         /// AASが初期化された直後に行うべきこと。
         /// 1. MenuSelectSceneを読み込む
-        /// 2. MenuSelectSceneが読み込んだ直後にStartUpSceneをアンロード
+        /// 2. MenuSelectSceneを読み込んだ直後にStartUpSceneをアンロード
         /// </summary>
         private void OnAASInitializeCompleted(AsyncOperationHandle handle)
         {
