@@ -15,6 +15,11 @@ namespace Project.Scripts.StartUpScene
 
         private IEnumerator Start()
         {
+            // Don't destroy EventSystem
+            var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+            if (eventSystem != null)
+                DontDestroyOnLoad(eventSystem.gameObject);
+
             // UIManager Initialize
             yield return new WaitWhile(() => !UIManager.Instance.Initialized);
 
