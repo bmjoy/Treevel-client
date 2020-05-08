@@ -11,6 +11,8 @@ namespace Project.Scripts.StartUpScene
 {
     public class StartUpDirector : MonoBehaviour
     {
+        [SerializeField] private GameObject _startButton;
+
         private IEnumerator Start()
         {
             // UIManager Initialize
@@ -30,16 +32,20 @@ namespace Project.Scripts.StartUpScene
         /// 1. MenuSelectSceneを読み込む
         /// 2. MenuSelectSceneを読み込んだ直後にStartUpSceneをアンロード
         /// </summary>
-        private static void OnAASInitializeCompleted(AsyncOperationHandle handle)
+        private void OnAASInitializeCompleted(AsyncOperationHandle handle)
         {
             var menuSelectSceneHandler = AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive);
             menuSelectSceneHandler.Completed += async(handle2) => {
                 // TODO remove before merged
                 await Task.Delay(1000);
-
-                // Unload Startup Scene
-                SceneManager.UnloadSceneAsync(SceneName.START_UP_SCENE);
+                _startButton.SetActive(true);
             };
+        }
+
+        public void OnStartButtonClicked()
+        {
+            // Unload Startup Scene
+            SceneManager.UnloadSceneAsync(SceneName.START_UP_SCENE);
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Project.Scripts.Utils.Definitions
         Tutorial,        // チュートリアル
         Downloading,     // ダウンロード中...
         ReturnToTitle,   // タイトルに戻る
+        StartGame,       // スタート
 
         ErrorTextStart = 10000, // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart, // 不明なエラー
