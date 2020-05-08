@@ -13,6 +13,9 @@ namespace Project.Scripts.UIComponents
         private void Awake()
         {
             GetComponentsInChildren<CanvasRenderer>(true, _renderers);
+            if (!gameObject.activeSelf) {
+                _renderers.ForEach(r => r.SetAlpha(0));
+            }
         }
 
         private void OnEnable()
@@ -20,7 +23,6 @@ namespace Project.Scripts.UIComponents
             if (_renderers == null || _renderers.Count == 0)
                 return;
 
-            _renderers.ForEach(r => r.SetAlpha(0));
             StartCoroutine(FadeIn());
         }
 
