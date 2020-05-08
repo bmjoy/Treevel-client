@@ -8,7 +8,7 @@ namespace Project.Scripts.UIComponents
     {
         [SerializeField, Tooltip("fade duration in second")] private float _duration = 0.8f;
 
-        private List<CanvasRenderer> _renderers = new List<CanvasRenderer>();
+        private readonly List<CanvasRenderer> _renderers = new List<CanvasRenderer>();
 
         private void Awake()
         {
