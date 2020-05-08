@@ -26,9 +26,12 @@ namespace Project.Scripts.UIComponents
 
         private IEnumerator FadeIn()
         {
+            // 経過時間
             var elapsed = 0.0f;
             while (elapsed < _duration) {
                 elapsed += Time.deltaTime;
+
+                // 透明度計算
                 var alpha = Mathf.Lerp(0, 1, elapsed / _duration);
                 _renderers.ForEach(r => r.SetAlpha(alpha));
                 yield return null;
