@@ -21,12 +21,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
-        private void Awake()
-        {
-            gameObject.GetComponent<Button>().onClick.AddListener(TreeButtonDown);
-        }
-
-        private void TreeButtonDown()
+        public void TreeButtonDown()
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = _treeId;
