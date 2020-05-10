@@ -1,6 +1,5 @@
 ﻿
 using System;
-using Project.Scripts.Utils.NetworkUtil;
 
 namespace Project.Scripts.Networks
 {
