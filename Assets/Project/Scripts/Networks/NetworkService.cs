@@ -5,7 +5,7 @@ namespace Project.Scripts.Networks
 {
     public static class NetworkService
     {
-        #if UNITY_EDITOR
+        #if DEVELOPE
         // ローカルデバッグ用サーバーIP
         private static readonly string _serverIp = "localhost";
         #else
@@ -13,7 +13,7 @@ namespace Project.Scripts.Networks
         private static readonly string _serverIp = "";
         #endif
 
-        #if UNITY_EDITOR
+        #if DEVELOPE
         // ローカルデバッグ用サーバーポート番号
         private static readonly string _serverPort = "8080";
         #else
