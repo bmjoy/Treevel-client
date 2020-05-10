@@ -2,9 +2,9 @@
 
 namespace Project.Scripts.Utils.NetworkUtil.Commands
 {
-    public class HelloWorldCommand : GetServerCommand
+    public class HelloWorldRequest : GetServerRequest
     {
-        public HelloWorldCommand()
+        public HelloWorldRequest()
         {
             ServerRequest = UnityWebRequest.Get(NetworkService.HOST);
         }

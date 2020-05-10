@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 namespace Project.Scripts.Utils.NetworkUtil
 {
-    public interface IServerCommand
+    public interface IServerRequest
     {
         UnityWebRequest ServerRequest {
             get;
@@ -16,7 +16,7 @@ namespace Project.Scripts.Utils.NetworkUtil
     /// <summary>
     /// データ取得用コマンド（DBでSELECT文使う場合）
     /// </summary>
-    public abstract class GetServerCommand : IServerCommand
+    public abstract class GetServerRequest : IServerRequest
     {
         public UnityWebRequest ServerRequest
         {
@@ -24,7 +24,7 @@ namespace Project.Scripts.Utils.NetworkUtil
             protected set;
         }
 
-        ~GetServerCommand()
+        ~GetServerRequest()
         {
             ServerRequest?.Dispose();
         }
@@ -73,7 +73,7 @@ namespace Project.Scripts.Utils.NetworkUtil
     /// <summary>
     /// データ更新用コマンド(DBでINSERT/UPDATE文を使う場合)
     /// </summary>
-    public abstract class UpdateServerCommand : IServerCommand
+    public abstract class UpdateServerRequest : IServerRequest
     {
         public UnityWebRequest ServerRequest
         {
@@ -81,7 +81,7 @@ namespace Project.Scripts.Utils.NetworkUtil
             protected set;
         }
 
-        ~UpdateServerCommand()
+        ~UpdateServerRequest()
         {
             ServerRequest?.Dispose();
         }

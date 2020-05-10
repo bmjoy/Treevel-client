@@ -32,7 +32,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         /// <param name="command"> `GetServerCommandBasic`を継承したコマンド </param>
         /// <param name="callback"> データ取得後実行するアクション </param>
-        static public async void Execute(GetServerCommand command, Action<object> callback = null)
+        static public async void Execute(GetServerRequest command, Action<object> callback = null)
         {
             var data = await command.GetData();
             callback?.Invoke(data);
@@ -44,7 +44,7 @@ namespace Project.Scripts.Utils
         /// <param name="command"> `UpdateServerCommand` </param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        static public async void Execute(UpdateServerCommand command, Action<bool> callback = null)
+        static public async void Execute(UpdateServerRequest command, Action<bool> callback = null)
         {
             var success = await command.Update();
             callback?.Invoke(success);

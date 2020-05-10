@@ -19,7 +19,7 @@ namespace Project.Scripts.StartUpScene
 
             // Network Initialization
             // TODO : ユーザー情報の初期化（IDの取得OR発行など）
-            NetworkService.Execute(new HelloWorldCommand(), (data) => {
+            NetworkService.Execute(new HelloWorldRequest(), (data) => {
                 Debug.Log(data as string);
             });
 
