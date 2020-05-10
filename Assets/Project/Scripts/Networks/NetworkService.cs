@@ -5,19 +5,19 @@ namespace Project.Scripts.Networks
 {
     public static class NetworkService
     {
-        #if DEVELOPE
-        // ローカルデバッグ用サーバーIP
+        #if DEVELOPE // ローカルデバッグ用サーバーIP
         private static readonly string _serverIp = "localhost";
-        #else
-        // TODO 本番サーバーIP
+        #elif PRODUCTION // TODO 本番サーバーIP
+        private static readonly string _serverIp = "";
+        #else // ERROR
         private static readonly string _serverIp = "";
         #endif
 
-        #if DEVELOPE
-        // ローカルデバッグ用サーバーポート番号
+        #if DEVELOPE // ローカルデバッグ用サーバーポート番号
         private static readonly string _serverPort = "8080";
-        #else
-        // TODO 本番サーバーポート番号
+        #elif PRODUCTION // TODO 本番サーバーポート番号
+        private static readonly string _serverPort = "";
+        #else // ERROR
         private static readonly string _serverPort = "";
         #endif
 
