@@ -4,7 +4,7 @@ namespace Project.Scripts.UIComponents
 {
     public class SafeAreaPanel : MonoBehaviour
     {
-        private RectTransform _panel; 
+        private RectTransform _panel;
 
         void Awake()
         {
@@ -17,13 +17,12 @@ namespace Project.Scripts.UIComponents
         public static(Vector2, Vector2) GetSafeAreaAnchor()
         {
             var safeArea = Screen.safeArea;
-
             var anchorMin = safeArea.position;
             var anchorMax = safeArea.position + safeArea.size;
             anchorMin.x /= Screen.width;
             anchorMin.y /= Screen.height;
             anchorMax.x /= Screen.width;
-            anchorMax.y /= Screen.height;
+            anchorMax.y = StatusBarController.GetStatusBarBottomAnchor();
             return (anchorMin, anchorMax);
         }
     }

@@ -608,6 +608,7 @@ GameObject:
   - component: {fileID: 833911048}
   - component: {fileID: 833911047}
   - component: {fileID: 833911046}
+  - component: {fileID: 833911049}
   m_Layer: 5
   m_Name: SnapScrollView
   m_TagString: Untagged
@@ -716,6 +717,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833911044}
   m_CullTransparentMesh: 0
+--- !u!114 &833911049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833911044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e091a00d71c543bc9f703455766de30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &838439338
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +855,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 643740857}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.33333334
+  m_Size: 0.33333337
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1307,7 +1320,7 @@ PrefabInstance:
     - target: {fileID: 3530007683359684582, guid: c2d06662606ab469393fe431ecdc78ae,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3530007683359684582, guid: c2d06662606ab469393fe431ecdc78ae,
         type: 3}
@@ -1636,7 +1649,7 @@ PrefabInstance:
     - target: {fileID: 5516472073009240669, guid: 48d0f5da9aeda4b42ad9eb03ed71958d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5516472073009240669, guid: 48d0f5da9aeda4b42ad9eb03ed71958d,
         type: 3}
