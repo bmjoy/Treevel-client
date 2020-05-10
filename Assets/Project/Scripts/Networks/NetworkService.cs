@@ -2,7 +2,7 @@
 using System;
 using Project.Scripts.Utils.NetworkUtil;
 
-namespace Project.Scripts.Utils
+namespace Project.Scripts.Networks
 {
     public static class NetworkService
     {

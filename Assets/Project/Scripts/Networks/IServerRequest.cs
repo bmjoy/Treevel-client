@@ -3,7 +3,7 @@ using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Project.Scripts.Utils.NetworkUtil
+namespace Project.Scripts.Networks
 {
     public interface IServerRequest
     {

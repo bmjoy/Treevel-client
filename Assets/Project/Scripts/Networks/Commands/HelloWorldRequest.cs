@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Networking;
 
-namespace Project.Scripts.Utils.NetworkUtil.Commands
+namespace Project.Scripts.Networks.Commands
 {
     public class HelloWorldRequest : GetServerRequest
     {
