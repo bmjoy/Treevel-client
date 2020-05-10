@@ -51,21 +51,17 @@ namespace Project.Scripts.UIComponents
         {
             #if UNITY_IOS || UNITY_EDITOR
             var safeArea = Screen.safeArea;
-            if (Screen.height == Screen.safeArea.height)
-            {
+            if (Screen.height == Screen.safeArea.height) {
                 // iPhone X以前の機種
                 var deviceGeneration = UnityEngine.iOS.Device.generation;
-                if (deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone6Plus || deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone6SPlus || deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone7Plus || deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone8Plus)
-                {
+                if (deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone6Plus || deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone6SPlus || deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone7Plus || deviceGeneration == UnityEngine.iOS.DeviceGeneration.iPhone8Plus) {
                     // 高さは54px
                     return 1f - (54f / Screen.height);
                 } else {
                     // 高さは40px
                     return 1f - (40f / Screen.height);
                 }
-            }
-            else
-            {
+            } else {
                 // SafeAreaの上側のアンカーの位置を返す
                 var anchorMax = safeArea.position + safeArea.size;
                 return anchorMax.y / Screen.height;
