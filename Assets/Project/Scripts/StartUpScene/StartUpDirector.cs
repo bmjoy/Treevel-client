@@ -13,8 +13,15 @@ namespace Project.Scripts.StartUpScene
 {
     public class StartUpDirector : MonoBehaviour
     {
+        [SerializeField] private GameObject _startButton;
+
         private IEnumerator Start()
         {
+            // Don't destroy EventSystem
+            var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+            if (eventSystem != null)
+                DontDestroyOnLoad(eventSystem.gameObject);
+
             // UIManager Initialize
             yield return new WaitWhile(() => !UIManager.Instance.Initialized);
 
@@ -25,7 +32,7 @@ namespace Project.Scripts.StartUpScene
             });
 
             // AAS Initialize
-            AddressableAssetManager.Initalize().Completed += OnAASInitializeCompleted;
+            AddressableAssetManager.Initialize().Completed += OnAASInitializeCompleted;
 
             // Database Initialize
             GameDataBase.Initialize();
@@ -42,10 +49,14 @@ namespace Project.Scripts.StartUpScene
             menuSelectSceneHandler.Completed += async(handle2) => {
                 // TODO remove before merged
                 await Task.Delay(1000);
-
-                // Unload Startup Scene
-                SceneManager.UnloadSceneAsync(SceneName.START_UP_SCENE);
+                _startButton.SetActive(true);
             };
+        }
+
+        public void OnStartButtonClicked()
+        {
+            // Unload Startup Scene
+            SceneManager.UnloadSceneAsync(SceneName.START_UP_SCENE);
         }
     }
 }
