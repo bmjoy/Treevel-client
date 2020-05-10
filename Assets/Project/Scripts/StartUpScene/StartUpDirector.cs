@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Networks.Commands;
+using Project.Scripts.Networks.Requests;
 using Project.Scripts.Networks;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
