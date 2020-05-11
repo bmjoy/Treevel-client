@@ -6,19 +6,19 @@ namespace Project.Scripts.Networks
     public static class NetworkService
     {
         #if DEV // ローカルデバッグ用サーバーIP
-        private static readonly string _serverIp = "localhost";
+        private const string _serverIp = "localhost";
         #elif PROD // TODO 本番サーバーIP
-        private static readonly string _serverIp = "";
+        private const string _serverIp = "";
         #else // ERROR
-        private static readonly string _serverIp = "";
+        private const string _serverIp = "";
         #endif
 
         #if DEV // ローカルデバッグ用サーバーポート番号
-        private static readonly string _serverPort = "8080";
+        private const string _serverPort = "8080";
         #elif PROD // TODO 本番サーバーポート番号
-        private static readonly string _serverPort = "";
+        private const string _serverPort = "";
         #else // ERROR
-        private static readonly string _serverPort = "";
+        private const string _serverPort = "";
         #endif
 
         /// <summary>
