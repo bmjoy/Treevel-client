@@ -43,7 +43,7 @@ namespace Project.Scripts.Networks
         /// <param name="command"> `UpdateServerCommand` </param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        static public async void Execute(UpdateServerRequest command, Action<bool> callback = null)
+        public static async void Execute(UpdateServerRequest command, Action<bool> callback = null)
         {
             var success = await command.Update();
             callback?.Invoke(success);
