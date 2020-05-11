@@ -43,7 +43,7 @@ namespace Project.Scripts.Networks
             }
         }
 
-        protected async Task<object> GetData_Remote()
+        private async Task<object> GetData_Remote()
         {
             if (ServerRequest == null)
                 return null;
