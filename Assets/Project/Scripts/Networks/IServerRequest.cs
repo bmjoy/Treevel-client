@@ -107,7 +107,7 @@ namespace Project.Scripts.Networks
 
             await ServerRequest.SendWebRequest();
 
-            // TODO: protocal for update commands to parse the success state
+            // TODO: protocol for update commands to parse the success state
             var successFlag = ServerRequest.downloadHandler.text.Equals("success");
 
             if (!successFlag)
