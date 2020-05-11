@@ -21,6 +21,7 @@ namespace Project.Scripts.GamePlayScene
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string _TIMER_TEXT_NAME = "TimerText";
         private const string _PAUSE_WINDOW_NAME = "PauseWindow";
+        private const string _PAUSE_BACKGROUND_NAME = "PauseBackground";
         private const string _SUCCESS_POPUP_NAME = "SuccessPopup";
         private const string _FAILURE_POPUP_NAME = "FailurePopup";
 
@@ -317,10 +318,17 @@ namespace Project.Scripts.GamePlayScene
             /// </summary>
             private readonly GameObject _pauseWindow;
 
+            /// <summary>
+            /// 一時停止背景
+            /// </summary>
+            private readonly GameObject _pauseBackground;
+
             public PausingState(GamePlayDirector caller)
             {
                 _pauseWindow = GameObject.Find(_PAUSE_WINDOW_NAME);
                 _pauseWindow.SetActive(false);
+                _pauseBackground = GameObject.Find(_PAUSE_BACKGROUND_NAME);
+                _pauseBackground.SetActive(false);
             }
 
             public override void OnEnter(State from = null)
@@ -329,6 +337,7 @@ namespace Project.Scripts.GamePlayScene
                 Time.timeScale = 0.0f;
                 // 一時停止ポップアップ表示
                 _pauseWindow.SetActive(true);
+                _pauseBackground.SetActive(true);
             }
 
             public override void OnExit(State to)
@@ -339,6 +348,7 @@ namespace Project.Scripts.GamePlayScene
                 if (!(to is FailureState)) {
                     // 一時停止ウィンドウを非表示にする
                     _pauseWindow.SetActive(false);
+                    _pauseBackground.SetActive(false);
                 }
             }
         }
