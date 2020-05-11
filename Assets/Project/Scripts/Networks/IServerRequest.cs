@@ -10,6 +10,7 @@ namespace Project.Scripts.Networks
         UnityWebRequest ServerRequest {
             get;
         }
+
         void SetCache();
     }
 
