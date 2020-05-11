@@ -72,7 +72,7 @@ namespace Project.Scripts.UIComponents
             var window = getWindow();
             window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
             var statusBarHeight = rectangle.top;
-            return 1f - statusBarHeight / Screen.height;
+            return 1f - (float)statusBarHeight / Screen.height;
             #endif
         }
     }
