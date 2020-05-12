@@ -11,6 +11,7 @@
         public const string AUTOMN_STAGE_SELECT_SCENE = "AutomnStageSelectScene";
         public const string WINTER_STAGE_SELECT_SCENE = "WinterStageSelectScene";
         public const string GAME_PLAY_SCENE = "GamePlayScene";
+        public const string START_UP_SCENE = "StartUpScene";
     }
 
     /// <summary>
