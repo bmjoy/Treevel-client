@@ -71,11 +71,17 @@ namespace Project.Scripts.UIComponents
             }
             #elif UNITY_ANDROID
             // ステータスバーの高さを取得する
-            var rectangle = new Rect();
-            var window = getWindow();
-            window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-            var statusBarHeight = rectangle.top;
-            return 1f - (float)statusBarHeight / Screen.height;
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+                    using (var rectangle = new AndroidJavaClass("android.graphics.Rect")) {
+                        using (var window = activity.Call<AndroidJavaObject>("getWindow")) {
+                            window.Call("getDecorView").Call("getWindowVisibleDisplayFrame", rectangle);
+                            var statusBarHeight = rectangle.Get<int>("top");
+                            return 1f - (float)statusBarHeight / Screen.height;
+                        }
+                    }
+                }
+            }
             #endif
         }
     }
