@@ -1,7 +1,7 @@
 # Treevel-client
 
 ## Requirements
-- `Unity`: `2019.2.12f1`  
+- `Unity`: `2019.3.2f1`  
 - `.NET`: `4.x`
 
 ## Setup
