@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
+using UnityEngine.Video;
 
 namespace Project.Scripts.GameDatas
 {
@@ -12,6 +13,7 @@ namespace Project.Scripts.GameDatas
         [SerializeField] private List<BottleData> bottles;
         [SerializeField] private List<BulletGroupData> bulletGroups;
         [SerializeField] private List<EBulletType> overviewGimmicks;
+        [SerializeField] private TutorialData tutorial;
 
         public int Id => id;
 
@@ -22,5 +24,7 @@ namespace Project.Scripts.GameDatas
         public List<BulletGroupData> BulletGroups => bulletGroups;
 
         public List<EBulletType> OverviewGimmicks => overviewGimmicks;
+
+        public TutorialData Tutorial => tutorial;
     }
 }
