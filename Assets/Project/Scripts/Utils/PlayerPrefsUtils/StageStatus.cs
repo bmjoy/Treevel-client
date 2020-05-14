@@ -133,5 +133,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             Debug.Log($"  失敗回数：{failureNum}");
             #endif
         }
+
+        public void SetTutorialChecked(bool isChecked)
+        {
+            tutorialChecked = isChecked;
+            Set(this._id);
+        }
     }
 }

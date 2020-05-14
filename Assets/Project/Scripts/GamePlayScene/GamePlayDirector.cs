@@ -518,6 +518,8 @@ namespace Project.Scripts.GamePlayScene
 
             public override void OnExit(State to)
             {
+                var stageStatus = StageStatus.Get(stageId);
+                stageStatus.SetTutorialChecked(true);
                 _tutorialWindow.SetActive(false);
             }
         }
