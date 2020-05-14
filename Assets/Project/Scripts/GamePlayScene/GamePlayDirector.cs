@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Bottle;
@@ -13,6 +13,7 @@ using Project.Scripts.GamePlayScene.Bullet.Generators;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
+using Project.Scripts.Utils.Attributes;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -195,6 +196,15 @@ namespace Project.Scripts.GamePlayScene
             }
 
             _stateMachine.SetState(_stateList[nextState]);
+        }
+
+        /// <summary>
+        /// Button OnClickに設定するためのラッパー
+        /// </summary>
+        [EnumAction(typeof(EGameState))]
+        public void Dispatch(int nextState)
+        {
+            Dispatch((EGameState)nextState);
         }
 
         /// <summary>
