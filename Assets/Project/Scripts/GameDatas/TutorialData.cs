@@ -5,8 +5,7 @@ using UnityEngine.Video;
 namespace Project.Scripts.GameDatas
 {
 
-    public enum ETutorialType
-    {
+    public enum ETutorialType {
         None,
         Image,
         Video

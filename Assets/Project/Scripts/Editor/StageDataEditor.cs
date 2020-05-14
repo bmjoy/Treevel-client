@@ -58,7 +58,7 @@ namespace Project.Scripts.Editor
         {
             // get serialized property
             var tutorialProp = serializedObject.FindProperty("tutorial");
-            
+
             // check is expanded
             tutorialProp.isExpanded = EditorGUILayout.Foldout(tutorialProp.isExpanded, new GUIContent("Tutorial Data"));
             if (!tutorialProp.isExpanded)
