@@ -37,6 +37,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public int firstSuccessNum = 0;
 
         /// <summary>
+        /// チュートリアルを見たかどうか
+        /// </summary>
+        public bool tutorialChecked = false;
+
+        /// <summary>
         /// オブジェクトの保存
         /// </summary>
         /// <param name="stageId"> ステージ id </param>

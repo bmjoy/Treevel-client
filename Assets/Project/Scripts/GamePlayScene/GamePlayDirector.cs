@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Bottle;
@@ -13,6 +13,8 @@ using Project.Scripts.GamePlayScene.Bullet.Generators;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
+using Project.Scripts.GameDatas;
+using UnityEngine.Video;
 using Project.Scripts.Utils.Attributes;
 
 namespace Project.Scripts.GamePlayScene
@@ -25,6 +27,8 @@ namespace Project.Scripts.GamePlayScene
         private const string _PAUSE_BACKGROUND_NAME = "PauseBackground";
         private const string _SUCCESS_POPUP_NAME = "SuccessPopup";
         private const string _FAILURE_POPUP_NAME = "FailurePopup";
+
+        [SerializeField] private GameObject _tutorialWindow;
 
         /// <summary>
         /// 成功時のイベント
@@ -40,7 +44,8 @@ namespace Project.Scripts.GamePlayScene
         /// ゲームの状態一覧
         /// </summary>
         public enum EGameState {
-            Playing, // 初期状態
+            Tutorial,
+            Playing,
             Success,
             Failure,
             Pausing
@@ -88,7 +93,10 @@ namespace Project.Scripts.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            _stateMachine = new StateMachine(_stateList[EGameState.Playing], _stateList.Values.ToArray());
+            // チュートリアルがありかなしかで初期状態を決める
+            var startState = IsTutorialChecked() ? _stateList[EGameState.Playing] : _stateList[EGameState.Tutorial];
+
+            _stateMachine = new StateMachine(startState, _stateList.Values.ToArray());
 
             // 可能の状態遷移を設定
             foreach (var state in Enum.GetValues(typeof(EGameState))) {
@@ -128,6 +136,9 @@ namespace Project.Scripts.GamePlayScene
         private void AddTransition(EGameState state)
         {
             switch (state) {
+                case EGameState.Tutorial:
+                    _stateMachine.AddTransition(_stateList[EGameState.Tutorial], _stateList[EGameState.Playing]); // tutorial -> playing
+                    break;
                 case EGameState.Playing:
                     _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Pausing]); // playing -> pausing
                     _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Failure]); // playing -> faliure
@@ -232,6 +243,16 @@ namespace Project.Scripts.GamePlayScene
                 // 銃弾の削除
                 DestroyImmediate(bullet);
             }
+        }
+
+        private bool IsTutorialChecked()
+        {
+            var stageData = GameDataBase.GetStage(stageId);
+            if (stageData.Tutorial.type == ETutorialType.None)
+                return true;
+
+            var stageStatus = StageStatus.Get(stageId);
+            return stageStatus.tutorialChecked;
         }
 
         private class PlayingState: State
@@ -453,6 +474,51 @@ namespace Project.Scripts.GamePlayScene
             public override void OnExit(State to)
             {
                 _failurePopup.SetActive(false);
+            }
+        }
+
+        private class TutorialState : State
+        {
+            private readonly GameObject _tutorialWindow;
+
+            public TutorialState(GamePlayDirector caller)
+            {
+                _tutorialWindow = caller._tutorialWindow;
+            }
+
+            public override void OnEnter(State from = null)
+            {
+                var stageData = GameDataBase.GetStage(stageId);
+                var tutorialData = stageData.Tutorial;
+                if (tutorialData.type == ETutorialType.None)
+                    return;
+
+                var content = _tutorialWindow.transform.Find("Content");
+                if (tutorialData.type == ETutorialType.Image) {
+                    var imageAssetReference = tutorialData.image;
+                    imageAssetReference.LoadAssetAsync<Texture2D>().Completed += (handle) => {
+                        var image = content.GetComponent<RawImage>();
+                        image.texture = handle.Result;
+                        image.enabled = true;
+                        _tutorialWindow.SetActive(true);
+                    };
+                } else if (tutorialData.type == ETutorialType.Video) {
+                    var videoAssetReference = tutorialData.video;
+                    videoAssetReference.LoadAssetAsync<VideoClip>().Completed += (handle) => {
+                        var videoPlayer = content.GetComponent<VideoPlayer>();
+                        var image = content.GetComponent<RawImage>();
+
+                        videoPlayer.clip = handle.Result;
+                        videoPlayer.enabled = image.enabled = true;
+                        _tutorialWindow.SetActive(true);
+                        videoPlayer.Play();
+                    };
+                }
+            }
+
+            public override void OnExit(State to)
+            {
+                _tutorialWindow.SetActive(false);
             }
         }
     }
