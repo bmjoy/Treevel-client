@@ -93,7 +93,7 @@ namespace Project.Scripts.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            // チュートリアルがありかなしかで初期状態を決める
+            // チュートリアルが見たかどうかで初期状態を決める
             var startState = IsTutorialChecked() ? _stateList[EGameState.Playing] : _stateList[EGameState.Tutorial];
 
             _stateMachine = new StateMachine(startState, _stateList.Values.ToArray());
