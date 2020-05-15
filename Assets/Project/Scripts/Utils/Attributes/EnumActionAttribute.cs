@@ -10,7 +10,7 @@ namespace Project.Scripts.Utils.Attributes
     [AttributeUsage(AttributeTargets.Method)]
     public class EnumActionAttribute : PropertyAttribute
     {
-        public Type enumType;
+        public readonly Type enumType;
 
         public EnumActionAttribute(Type enumType)
         {
