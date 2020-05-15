@@ -499,17 +499,15 @@ namespace Project.Scripts.GamePlayScene
                     imageAssetReference.LoadAssetAsync<Texture2D>().Completed += (handle) => {
                         var image = content.GetComponent<RawImage>();
                         image.texture = handle.Result;
-                        image.enabled = true;
                         _tutorialWindow.SetActive(true);
                     };
                 } else if (tutorialData.type == ETutorialType.Video) {
                     var videoAssetReference = tutorialData.video;
                     videoAssetReference.LoadAssetAsync<VideoClip>().Completed += (handle) => {
                         var videoPlayer = content.GetComponent<VideoPlayer>();
-                        var image = content.GetComponent<RawImage>();
 
                         videoPlayer.clip = handle.Result;
-                        videoPlayer.enabled = image.enabled = true;
+                        videoPlayer.enabled = true;
                         _tutorialWindow.SetActive(true);
                         videoPlayer.Play();
                     };
