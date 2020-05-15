@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Bottle;
@@ -93,8 +93,7 @@ namespace Project.Scripts.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            // チュートリアルが見たかどうかで初期状態を決める
-            var startState = IsTutorialChecked() ? _stateList[EGameState.Playing] : _stateList[EGameState.Tutorial];
+            var startState = ShouldShowTutorial() ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Playing];
 
             _stateMachine = new StateMachine(startState, _stateList.Values.ToArray());
 
@@ -245,14 +244,23 @@ namespace Project.Scripts.GamePlayScene
             }
         }
 
-        private bool IsTutorialChecked()
+        /// <summary>
+        /// チュートリアルを表示するかどうか
+        /// </summary>
+        /// <returns>
+        /// チュートリアルがない -> `false`
+        /// チュートリアルがある
+        ///     -> 見たことある -> `false`
+        ///     -> 見たことない -> `true`
+        /// </returns>
+        private bool ShouldShowTutorial()
         {
             var stageData = GameDataBase.GetStage(stageId);
             if (stageData.Tutorial.type == ETutorialType.None)
-                return true;
+                return false;
 
             var stageStatus = StageStatus.Get(stageId);
-            return stageStatus.tutorialChecked;
+            return !stageStatus.tutorialChecked;
         }
 
         private class PlayingState: State
