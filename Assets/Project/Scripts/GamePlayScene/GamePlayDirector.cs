@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Bottle;
@@ -289,6 +289,7 @@ namespace Project.Scripts.GamePlayScene
                 // タイマー設定
                 _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
                 _customTimer = caller.gameObject.AddComponent<CustomTimer>();
+                _customTimer.enabled = false;
                 _customTimer.Initialize(_timerText);
 
                 // ステージID表示
