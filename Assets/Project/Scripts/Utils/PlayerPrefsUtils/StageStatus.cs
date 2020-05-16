@@ -37,6 +37,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public int firstSuccessNum = 0;
 
         /// <summary>
+        /// チュートリアルを見たかどうか
+        /// </summary>
+        public bool tutorialChecked = false;
+
+        /// <summary>
         /// オブジェクトの保存
         /// </summary>
         /// <param name="stageId"> ステージ id </param>
@@ -127,6 +132,12 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             Debug.Log($"  成功回数：{successNum}");
             Debug.Log($"  失敗回数：{failureNum}");
             #endif
+        }
+
+        public void SetTutorialChecked(bool isChecked)
+        {
+            tutorialChecked = isChecked;
+            Set(this._id);
         }
     }
 }

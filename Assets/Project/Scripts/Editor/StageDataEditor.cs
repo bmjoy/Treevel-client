@@ -36,6 +36,8 @@ namespace Project.Scripts.Editor
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
 
+            DrawTutorialData();
+
             DrawOverviewGimmicks();
 
             DrawTileList();
@@ -50,6 +52,31 @@ namespace Project.Scripts.Editor
             EditorUtility.SetDirty(serializedObject.targetObject);
             serializedObject.ApplyModifiedProperties();
             _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
+        }
+
+        private void DrawTutorialData()
+        {
+            // get serialized property
+            var tutorialProp = serializedObject.FindProperty("tutorial");
+
+            // check is expanded
+            tutorialProp.isExpanded = EditorGUILayout.Foldout(tutorialProp.isExpanded, new GUIContent("Tutorial Data"));
+            if (!tutorialProp.isExpanded)
+                return;
+
+            var tutorialType = tutorialProp.FindPropertyRelative("type");
+            tutorialType.enumValueIndex = (int)(ETutorialType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETutorialType)tutorialType.enumValueIndex);
+            switch ((ETutorialType)tutorialType.enumValueIndex) {
+                case ETutorialType.Image:
+                    EditorGUILayout.PropertyField(tutorialProp.FindPropertyRelative("image"));
+                    break;
+                case ETutorialType.Video:
+                    EditorGUILayout.PropertyField(tutorialProp.FindPropertyRelative("video"));
+                    break;
+                case ETutorialType.None:
+                default:
+                    break;
+            }
         }
 
         private void DrawOverviewGimmicks()

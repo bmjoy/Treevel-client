@@ -185,3 +185,11 @@ MonoBehaviour:
       randomTurnColumn: 
       randomAttackableBottles: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
   overviewGimmicks: 
+  tutorial:
+    type: 0
+    image:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    video:
+      m_AssetGUID: 
+      m_SubObjectName: 

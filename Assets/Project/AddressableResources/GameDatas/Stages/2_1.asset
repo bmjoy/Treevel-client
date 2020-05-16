@@ -117,3 +117,11 @@ MonoBehaviour:
     life: 0
   bulletGroups: []
   overviewGimmicks: 
+  tutorial:
+    type: 0
+    image:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    video:
+      m_AssetGUID: 
+      m_SubObjectName: 
