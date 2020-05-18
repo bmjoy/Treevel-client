@@ -181,9 +181,9 @@ namespace Project.Scripts.Utils
                     default:
                         throw new System.NotImplementedException();
                 }
-                if (bottleData.bottleSprite != null) LoadAsset<Sprite>(bottleData.bottleSprite);
+                if (bottleData.bottleSprite.RuntimeKeyIsValid()) LoadAsset<Sprite>(bottleData.bottleSprite);
                 // 対応するTileのSpriteを先に読み込む
-                if (bottleData.targetTileSprite != null) LoadAsset<Sprite>(bottleData.targetTileSprite);
+                if (bottleData.targetTileSprite.RuntimeKeyIsValid()) LoadAsset<Sprite>(bottleData.targetTileSprite);
             });
 
             stage.TileDatas.ForEach(tileData => {
