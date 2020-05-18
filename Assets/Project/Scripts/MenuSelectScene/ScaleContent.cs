@@ -208,7 +208,8 @@ namespace Project.Scripts.MenuSelectScene
                 var treeRect = tree.GetComponent<RectTransform>();
                 treeRect.anchorMin *= scale;
                 treeRect.anchorMin += margin;
-                treeRect.anchorMax = treeRect.anchorMin;
+                treeRect.anchorMax *= scale;
+                treeRect.anchorMax += margin;
             }
         }
     }
