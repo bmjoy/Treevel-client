@@ -2,7 +2,7 @@
 
 namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
-    public class MyPlayerPrefs : MonoBehaviour
+    public class MyPlayerPrefs
     {
         /// <summary>
         /// 指定されたオブジェクト情報を保存
