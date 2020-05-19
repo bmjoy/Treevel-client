@@ -24,6 +24,7 @@
         public const string BOTTLE = "Bottle";
         public const string BULLET = "Bullet";
         public const string BULLET_WARNING = "BulletWarning";
+        public const string EFFECT = "Effect";
     }
 
     /// <summary>
