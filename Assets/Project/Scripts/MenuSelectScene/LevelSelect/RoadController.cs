@@ -5,14 +5,16 @@ using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
-    public class RoadController : MonoBehaviour {
+    public class RoadController : MonoBehaviour
+    {
         public Transform trans1;
         public Transform trans2;
 
         LineRenderer render;
 
         // Use this for initialization
-        void Start () {
+        void Start()
+        {
             render = GetComponent<LineRenderer>();
             render.positionCount = 2;
             render.SetPosition(0, trans1.localPosition);
@@ -21,7 +23,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         }
 
         // Update is called once per frame
-        void Update () {
+        void Update()
+        {
         }
     }
 }
