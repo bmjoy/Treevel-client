@@ -56,6 +56,10 @@ namespace Project.Scripts.MenuSelectScene
         /// </summary>
         private Vector2 _scaledCanvas;
 
+        public static Vector2 CONTENT_SCALE = Vector2.one;
+
+        public static Vector2 CONTENT_MARGIN = Vector2.zero;
+
         private void Awake()
         {
             _scrollRect = GetComponent<ScrollRect>();
@@ -199,17 +203,17 @@ namespace Project.Scripts.MenuSelectScene
             _contentRect.anchorMin -= anchorMin;
             _contentRect.anchorMax += (Vector2.one - anchorMax);
             // Contentの拡大率
-            var scale = (beforeAnchorMax - beforeAnchorMin) / (_contentRect.anchorMax - _contentRect.anchorMin);
+            CONTENT_SCALE = (beforeAnchorMax - beforeAnchorMin) / (_contentRect.anchorMax - _contentRect.anchorMin);
 
-            if (scale == Vector2.one) return;
+            if (CONTENT_SCALE == Vector2.one) return;
             // Content内の全オブジェクトのanchor位置の調整
-            var margin = anchorMin / (_contentRect.anchorMax - _contentRect.anchorMin);
+            CONTENT_MARGIN = anchorMin / (_contentRect.anchorMax - _contentRect.anchorMin);
             foreach (var tree in _content.GetComponentsInChildren<Transform>().Where(t => t != _content.transform).Select(t => t.gameObject)) {
                 var treeRect = tree.GetComponent<RectTransform>();
-                treeRect.anchorMin *= scale;
-                treeRect.anchorMin += margin;
-                treeRect.anchorMax *= scale;
-                treeRect.anchorMax += margin;
+                treeRect.anchorMin *= CONTENT_SCALE;
+                treeRect.anchorMin += CONTENT_MARGIN;
+                treeRect.anchorMax *= CONTENT_SCALE;
+                treeRect.anchorMax += CONTENT_MARGIN;
             }
         }
     }
