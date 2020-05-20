@@ -63,10 +63,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
             // 開始地点
             render.SetPosition(0, startPointLocalPosition);
-            
+
             // 中間地点
-            for (int i = 1; i <= _middlePointNum; i++)
-            {
+            for (int i = 1; i <= _middlePointNum; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
                 render.SetPosition(i, CalcMiddlePointPosition(startPointLocalPosition, _firstControlPoint, _secondControlPoint, endPointLocalPosition, ratio));
             }
@@ -88,9 +87,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             var oneMinusRatio = 1f - ratio;
             return oneMinusRatio * oneMinusRatio * oneMinusRatio * p0
-                 + 3f * oneMinusRatio * oneMinusRatio * ratio * p1
-                 + 3f * oneMinusRatio * ratio * ratio * p2
-                 + ratio * ratio * ratio * p3;
+                + 3f * oneMinusRatio * oneMinusRatio * ratio * p1
+                + 3f * oneMinusRatio * ratio * ratio * p2
+                + ratio * ratio * ratio * p3;
         }
     }
 }
