@@ -56,7 +56,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         public void SetPointPosition()
         {
             render.positionCount = _middlePointNum + 2;
-            render.startWidth = render.endWidth = _width;
+            render.startWidth = render.endWidth = (float)Screen.width * _width;
 
             var startPointLocalPosition = _startPoint.localPosition;
             var endPointLocalPosition = _endPoint.localPosition;
