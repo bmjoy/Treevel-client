@@ -30,12 +30,12 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 中間地点の個数
         /// </summary>
-        [SerializeField] private int _middlePointNum;
+        [SerializeField] [Range(0, 100)]private int _middlePointNum;
 
         /// <summary>
         /// 道の幅
         /// </summary>
-        [SerializeField] private float _width;
+        [SerializeField] [Range(0, 0.2f)] private float _width;
 
         [SerializeField] private LineRenderer render;
 
