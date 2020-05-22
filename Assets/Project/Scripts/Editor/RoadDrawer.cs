@@ -4,7 +4,7 @@ using Project.Scripts.MenuSelectScene.LevelSelect;
 namespace Project.Scripts.Editor
 {
     /// <summary>
-    /// LineRendererExのエディタ拡張
+    /// RoadDrawerのエディタ拡張
     /// </summary>
     [CustomEditor(typeof(RoadController))]
     public class RoadDrawer : UnityEditor.Editor

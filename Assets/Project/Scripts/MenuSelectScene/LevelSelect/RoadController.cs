@@ -39,7 +39,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         [SerializeField] private LineRenderer render;
 
-        // Use this for initialization
         private void Start()
         {
             // SafeAreaを考慮したContentの拡大縮小差分を制御点にも適用
@@ -67,7 +66,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             // 中間地点
             for (int i = 1; i <= _middlePointNum; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                render.SetPosition(i, CalcMiddlePointPosition(startPointLocalPosition, _firstControlPoint, _secondControlPoint, endPointLocalPosition, ratio));
+                render.SetPosition(i, CalcCubicBezierPointPosition(startPointLocalPosition, _firstControlPoint, _secondControlPoint, endPointLocalPosition, ratio));
             }
 
             // 終了地点
@@ -75,7 +74,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         }
 
         /// <summary>
-        /// 3次ベジェ曲線のある点の位置を求める
+        /// 3次ベジェ曲線上のある点の位置を求める
         /// </summary>
         /// <param name="p0"> 1つ目の制御点 </param>
         /// <param name="p1"> 2つ目の制御点 </param>
@@ -83,7 +82,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <param name="p3"> 4つ目の制御点 </param>
         /// <param name="ratio"> 内分比 </param>
         /// <returns> 点の位置 </returns>
-        private Vector2 CalcMiddlePointPosition(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float ratio)
+        private Vector2 CalcCubicBezierPointPosition(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float ratio)
         {
             var oneMinusRatio = 1f - ratio;
             return oneMinusRatio * oneMinusRatio * oneMinusRatio * p0
