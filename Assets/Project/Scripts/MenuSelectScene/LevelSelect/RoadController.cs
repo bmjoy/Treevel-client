@@ -60,17 +60,11 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             var startPointLocalPosition = _startPoint.localPosition;
             var endPointLocalPosition = _endPoint.localPosition;
 
-            // 開始地点
-            render.SetPosition(0, startPointLocalPosition);
-
-            // 中間地点
-            for (int i = 1; i <= _middlePointNum; i++) {
+            // 点の位置を求める
+            for (int i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
                 render.SetPosition(i, CalcCubicBezierPointPosition(startPointLocalPosition, _firstControlPoint, _secondControlPoint, endPointLocalPosition, ratio));
             }
-
-            // 終了地点
-            render.SetPosition(_middlePointNum + 1, endPointLocalPosition);
         }
 
         /// <summary>
