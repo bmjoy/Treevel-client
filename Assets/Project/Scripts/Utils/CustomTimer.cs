@@ -16,6 +16,11 @@ namespace Project.Scripts.Utils
         /// </summary>
         private double _second;
 
+        private void Awake()
+        {
+            enabled = false;
+        }
+
         /// <summary>
         /// 初期化 (表示 UI あり)
         /// </summary>
