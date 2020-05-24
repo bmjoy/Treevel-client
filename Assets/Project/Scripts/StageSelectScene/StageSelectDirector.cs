@@ -62,7 +62,7 @@ namespace Project.Scripts.StageSelectScene
             // ページの最大値を設定
             _snapScrollView.MaxPage = LevelInfo.TREE_NUM[levelName] - 1;
             // ページの横幅の設定
-            StartCoroutine(SetPageSize());
+            _snapScrollView.PageSize = ScaledCanvasSize.SIZE_DELTA.x;
 
             // UIの設定
             _treeName = GameObject.Find(_TREENAME);
@@ -81,17 +81,6 @@ namespace Project.Scripts.StageSelectScene
             _loading = GameObject.Find(_LOADING);
             _loading.SetActive(false);
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
-        }
-
-        /// <summary>
-        /// リサイズ後のキャンバスサイズを取得してSnapScrollViewのPageSizeを変更する
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator SetPageSize()
-        {
-            // リサイズが終わるまで待つ
-            yield return new WaitForEndOfFrame();
-            _snapScrollView.PageSize = GameObject.Find(_TREECANVAS).GetComponent<RectTransform> ().sizeDelta.x;
         }
 
         /// <summary>

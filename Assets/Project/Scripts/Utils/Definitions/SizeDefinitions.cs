@@ -1,5 +1,15 @@
-﻿namespace Project.Scripts.Utils.Definitions
+﻿using UnityEngine;
+
+namespace Project.Scripts.Utils.Definitions
 {
+    /// <summary>
+    /// CanvasScalerによる拡大縮小後のキャンバスサイズ
+    /// </summary>
+    public static class ScaledCanvasSize
+    {
+        public static Vector2 SIZE_DELTA = GameObject.Find("Canvas").GetComponent<RectTransform>().sizeDelta;
+    }
+
     /// <summary>
     /// ゲーム画面のウィンドウサイズ
     /// </summary>
