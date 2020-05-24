@@ -7,7 +7,7 @@ namespace Project.Scripts.Utils.Definitions
     /// </summary>
     public static class ScaledCanvasSize
     {
-        public static Vector2 SIZE_DELTA = GameObject.Find("Canvas").GetComponent<RectTransform>().sizeDelta;
+        public static readonly Vector2 SIZE_DELTA = GameObject.Find("UIManager/Canvas").GetComponent<RectTransform>().sizeDelta;
     }
 
     /// <summary>
