@@ -46,12 +46,39 @@ namespace Project.Scripts.Editor
 
             DrawBulletGroupList();
 
-            // Set object dirty, this will make it be saved after saving the project.
             if (!EditorGUI.EndChangeCheck()) return;
 
+            // Set object dirty, this will make it be saved after saving the project.
             EditorUtility.SetDirty(serializedObject.targetObject);
+
             serializedObject.ApplyModifiedProperties();
             _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
+            ValidateTiles();
+        }
+
+        /// <summary>
+        /// タイル番号が被っているかを確認
+        /// </summary>
+        private void ValidateTiles()
+        {
+            var tiles = _src.TileDatas;
+
+            // 検証済みのタイル番号
+            HashSet<int> validatedTileNumbers = new HashSet<int>();
+
+            tiles.ForEach(tile => {
+                if (tile.number != 0 && validatedTileNumbers.Contains(tile.number)) {
+                    Debug.LogWarning($"Tile {tile.number} has already been set");
+                } else {
+                    validatedTileNumbers.Add(tile.number);
+                }
+
+                if (tile.pairNumber != 0 && validatedTileNumbers.Contains(tile.pairNumber)) {
+                    Debug.LogWarning($"Tile {tile.pairNumber} has already been set");
+                } else {
+                    validatedTileNumbers.Add(tile.pairNumber);
+                }
+            });
         }
 
         private void DrawTutorialData()
