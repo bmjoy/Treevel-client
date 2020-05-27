@@ -68,7 +68,8 @@ namespace Project.Scripts.Utils.TextUtils
             }
         }
 
-        public static void DoOnLanguageChange() {
+        public static void DoOnLanguageChange()
+        {
             OnLanguageChange?.Invoke();
         }
     }
