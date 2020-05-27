@@ -1,10 +1,26 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using System;
+using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.TextUtils;
 using UnityEngine;
 
 namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
     public static class UserSettings
     {
+        private static ELanguage _currentLanguage;
+
+        public static ELanguage CurrentLanguage
+        {
+            get => _currentLanguage;
+            set {
+                _currentLanguage = value;
+                LanguageUtility.DoOnLanguageChange();
+
+                // PlayerPrefsに保存
+                MyPlayerPrefs.SetObject(PlayerPrefsKeys.LANGUAGE, _currentLanguage);
+            }
+        }
+
         private static float _BGMVolume = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME);
 
         public static float BGMVolume
@@ -35,6 +51,18 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             set {
                 _stageDetails = value;
                 PlayerPrefs.SetInt(PlayerPrefsKeys.STAGE_DETAILS, _stageDetails);
+            }
+        }
+
+        static UserSettings()
+        {
+            if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {
+                _currentLanguage = MyPlayerPrefs.GetObject<ELanguage>(PlayerPrefsKeys.LANGUAGE);
+            } else {
+                var systemLanguage = Application.systemLanguage.ToString();
+                if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
+                    _currentLanguage = Default.LANGUAGE;
+                }
             }
         }
     }

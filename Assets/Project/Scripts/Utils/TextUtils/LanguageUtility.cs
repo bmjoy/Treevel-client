@@ -18,7 +18,6 @@ namespace Project.Scripts.Utils.TextUtils
 
     public static class LanguageUtility
     {
-        private static ELanguage _currentLanguage;
         private static Dictionary<KeyValuePair<ELanguage, ETextIndex>, string> _stringTable;
         private const string _DATA_PATH = "GameDatas/translation";
 
@@ -27,15 +26,6 @@ namespace Project.Scripts.Utils.TextUtils
 
         static LanguageUtility()
         {
-            if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {
-                _currentLanguage = MyPlayerPrefs.GetObject<ELanguage>(PlayerPrefsKeys.LANGUAGE);
-            } else {
-                var systemLanguage = Application.systemLanguage.ToString();
-                if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
-                    _currentLanguage = Default.LANGUAGE;
-                }
-            }
-
             LoadTranslationData();
         }
 
@@ -69,25 +59,17 @@ namespace Project.Scripts.Utils.TextUtils
         }
         public static string GetText(ETextIndex index)
         {
-            var key = new KeyValuePair<ELanguage, ETextIndex>(_currentLanguage, index);
+            var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.CurrentLanguage, index);
             if (_stringTable.ContainsKey(key)) {
                 return _stringTable[key];
             } else {
-                Debug.LogWarning($"{CurrentLanguage.ToString()}の{index.ToString()}が存在していない");
+                Debug.LogWarning($"{UserSettings.CurrentLanguage.ToString()}の{index.ToString()}が存在していない");
                 return "";
             }
         }
 
-        public static ELanguage CurrentLanguage
-        {
-            get => _currentLanguage;
-            set {
-                _currentLanguage = value;
-                OnLanguageChange?.Invoke();
-
-                // PlayerPrefsに保存
-                MyPlayerPrefs.SetObject(PlayerPrefsKeys.LANGUAGE, _currentLanguage);
-            }
+        public static void DoOnLanguageChange() {
+            OnLanguageChange?.Invoke();
         }
     }
 }
