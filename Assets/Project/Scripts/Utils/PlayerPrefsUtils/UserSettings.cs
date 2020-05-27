@@ -1,10 +1,9 @@
 ﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 
-namespace Project.Scripts.MenuSelectScene.Settings
+namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
-    public static class SettingsManager
+    public static class UserSettings
     {
         private static float _BGMVolume = PlayerPrefs.GetFloat(PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME);
 

@@ -291,7 +291,7 @@ namespace Project.Scripts.GamePlayScene
                 _playingBGM = caller.GetComponents<AudioSource>().SingleOrDefault(audioSource => audioSource.clip.name == AudioClipName.PLAYING);
                 if (_playingBGM != null) {
                     _playingBGM.time = 2.0f;
-                    _playingBGM.volume *= SettingsManager.BGMVolume;
+                    _playingBGM.volume *= UserSettings.BGMVolume;
                 }
 
                 // タイマー設定
@@ -412,7 +412,7 @@ namespace Project.Scripts.GamePlayScene
 
                 // 成功効果音設定
                 _successSE = caller.GetComponents<AudioSource>().SingleOrDefault(se => se.clip.name == AudioClipName.SUCCESS);
-                if (_successSE != null) _successSE.volume *= SettingsManager.SEVolume;
+                if (_successSE != null) _successSE.volume *= UserSettings.SEVolume;
             }
 
             public override void OnEnter(State from = null)
@@ -455,7 +455,7 @@ namespace Project.Scripts.GamePlayScene
 
                 // 失敗効果音設定
                 _failureSE = caller.GetComponents<AudioSource>().SingleOrDefault(se => se.clip.name == AudioClipName.FAILURE);
-                if (_failureSE != null) _failureSE.volume *= SettingsManager.SEVolume;
+                if (_failureSE != null) _failureSE.volume *= UserSettings.SEVolume;
             }
 
             public override void OnEnter(State from = null)

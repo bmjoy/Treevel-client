@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 
 namespace Project.Scripts.MenuSelectScene.Settings
 {
@@ -9,7 +10,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         public void OnButtonDown()
         {
-            SettingsManager.StageDetails = 1;
+            UserSettings.StageDetails = 1;
         }
 
         /// <summary>
@@ -17,7 +18,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         public void OffButtonDown()
         {
-            SettingsManager.StageDetails = 0;
+            UserSettings.StageDetails = 0;
         }
     }
 }
