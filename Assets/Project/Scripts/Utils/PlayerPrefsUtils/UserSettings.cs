@@ -54,6 +54,17 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             }
         }
 
+        private static float _canvasScale = PlayerPrefs.GetFloat(PlayerPrefsKeys.CANVAS_SCALE, Default.CANVAS_SCALE);
+
+        public static float CanvasScale
+        {
+            get => _canvasScale;
+            set {
+                _canvasScale = value;
+                PlayerPrefs.SetFloat(PlayerPrefsKeys.CANVAS_SCALE, _canvasScale);
+            }
+        }
+
         static UserSettings()
         {
             if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {

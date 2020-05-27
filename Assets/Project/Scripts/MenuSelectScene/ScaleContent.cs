@@ -4,6 +4,7 @@ using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
 using UnityEngine.UI;
 using Project.Scripts.UIComponents;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 
 namespace Project.Scripts.MenuSelectScene
 {
@@ -31,9 +32,9 @@ namespace Project.Scripts.MenuSelectScene
         private Vector3 _preMeanPoint;
 
         /// <summary>
-        /// 拡大率 (初期値 : 1.0f)
+        /// 拡大率
         /// </summary>
-        private float _preScale = 1.0f;
+        private float _preScale;
         /// <summary>
         /// 拡大率の上限
         /// </summary>
@@ -79,6 +80,8 @@ namespace Project.Scripts.MenuSelectScene
 
         private void OnEnable()
         {
+            _preScale = UserSettings.CanvasScale;
+            _contentRect.localScale = new Vector2(_preScale, _preScale);
             // 2点のタッチ開始時
             _transformGesture.TransformStarted += OnTransformStarted;
             // 2点のタッチ中
@@ -187,6 +190,7 @@ namespace Project.Scripts.MenuSelectScene
 
         private void OnTransformCompleted(object sender, EventArgs e)
         {
+            UserSettings.CanvasScale = _preScale;
             // スクロール制限を解除する
             _scrollRect.enabled = true;
         }

@@ -10,5 +10,6 @@
         public const string SE_VOLUME = "SE_VOLUME";
         public const string LANGUAGE = "LANGUAGE";
         public const string STAGE_DETAILS = "STAGE_DETAILS";
+        public const string CANVAS_SCALE = "CANVAS_SCALE";
     }
 }

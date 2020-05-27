@@ -33,6 +33,9 @@ namespace Project.Scripts.MenuSelectScene.Settings
                     StageStatus.Reset(stageId);
                 }
             }
+
+            // キャンバスの設定をリセット
+            UserSettings.CanvasScale = Default.CANVAS_SCALE;
         }
     }
 }

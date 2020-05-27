@@ -23,5 +23,10 @@ namespace Project.Scripts.Utils.Definitions
         /// デフォルトのステージ詳細
         /// </summary>
         public const int STAGE_DETAILS = 1;
+
+        /// <summary>
+        /// デフォルトのキャンバスの拡大率
+        /// </summary>
+        public const float CANVAS_SCALE = 1;
     }
 }
