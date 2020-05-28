@@ -11,5 +11,6 @@
         public const string LANGUAGE = "LANGUAGE";
         public const string STAGE_DETAILS = "STAGE_DETAILS";
         public const string CANVAS_SCALE = "CANVAS_SCALE";
+        public const string SCROLL_POSITION = "SCROLL_POSITION";
     }
 }

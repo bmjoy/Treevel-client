@@ -65,6 +65,17 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             }
         }
 
+        private static Vector2 _scrollPosition;
+
+        public static Vector2 ScrollPosition
+        {
+            get => _scrollPosition;
+            set {
+                _scrollPosition = value;
+                MyPlayerPrefs.SetObject(PlayerPrefsKeys.SCROLL_POSITION, _scrollPosition);
+            }
+        }
+
         static UserSettings()
         {
             if (PlayerPrefs.HasKey(PlayerPrefsKeys.LANGUAGE)) {
@@ -74,6 +85,12 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
                 if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
                     _currentLanguage = Default.LANGUAGE;
                 }
+            }
+
+            if (PlayerPrefs.HasKey(PlayerPrefsKeys.SCROLL_POSITION)) {
+                _scrollPosition = MyPlayerPrefs.GetObject<Vector2>(PlayerPrefsKeys.SCROLL_POSITION);
+            } else {
+                _scrollPosition = Default.SCROLL_POSITION;
             }
         }
     }

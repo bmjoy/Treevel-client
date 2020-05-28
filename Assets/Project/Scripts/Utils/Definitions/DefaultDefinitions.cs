@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.TextUtils;
+﻿using UnityEngine;
+using Project.Scripts.Utils.TextUtils;
 
 namespace Project.Scripts.Utils.Definitions
 {
@@ -28,5 +29,11 @@ namespace Project.Scripts.Utils.Definitions
         /// デフォルトのキャンバスの拡大率
         /// </summary>
         public const float CANVAS_SCALE = 1;
+
+        /// <summary>
+        /// デフォルトのスクロール位置
+        /// </summary>
+        /// <returns></returns>
+        public static Vector2 SCROLL_POSITION = new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y / 2);
     }
 }

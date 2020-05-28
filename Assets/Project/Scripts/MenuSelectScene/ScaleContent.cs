@@ -4,6 +4,7 @@ using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
 using UnityEngine.UI;
 using Project.Scripts.UIComponents;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 
 namespace Project.Scripts.MenuSelectScene
@@ -65,8 +66,8 @@ namespace Project.Scripts.MenuSelectScene
         {
             _scrollRect = GetComponent<ScrollRect>();
             _transformGesture = GetComponent<TransformGesture>();
-            _scaledCanvas = GameObject.Find("LevelSelect/Canvas").GetComponent<RectTransform>().sizeDelta;
-            _contentRect = _content.GetComponent<RectTransform>();
+            _scaledCanvas = ScaledCanvasSize.SIZE_DELTA;
+            _contentRect = _scrollRect.content;
 
             ExpandContent();
             // Contentの余白を取得
@@ -74,8 +75,6 @@ namespace Project.Scripts.MenuSelectScene
             _RIGHT_OFFSET = _contentRect.anchorMax.x - _contentRect.pivot.x;
             _TOP_OFFSET = _contentRect.anchorMax.y - _contentRect.pivot.y;
             _BOTTOM_OFFSET = Mathf.Abs(_contentRect.anchorMin.y - _contentRect.pivot.y);
-            // 初期位置の調整
-            _contentRect.transform.localPosition += new Vector3(0, _scaledCanvas.y / 2, 0);
         }
 
         private void OnEnable()
@@ -95,6 +94,8 @@ namespace Project.Scripts.MenuSelectScene
             _transformGesture.TransformStarted -= OnTransformStarted;
             _transformGesture.Transformed -= OnTransformed;
             _transformGesture.TransformCompleted -= OnTransformCompleted;
+
+            UserSettings.CanvasScale = _preScale;
         }
 
         private void OnTransformStarted(object sender, EventArgs e)
@@ -190,7 +191,6 @@ namespace Project.Scripts.MenuSelectScene
 
         private void OnTransformCompleted(object sender, EventArgs e)
         {
-            UserSettings.CanvasScale = _preScale;
             // スクロール制限を解除する
             _scrollRect.enabled = true;
         }
