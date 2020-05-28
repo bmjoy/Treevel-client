@@ -9,13 +9,15 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class SaveScrollRect : ScrollRect
     {
-        private void OnEnable() {
+        private void OnEnable()
+        {
             base.OnEnable();
             // 初期位置の調整
             content.transform.localPosition = UserSettings.ScrollPosition;
         }
 
-        private void OnDisable() {
+        private void OnDisable()
+        {
             base.OnDisable();
             UserSettings.ScrollPosition = content.transform.localPosition;
         }
