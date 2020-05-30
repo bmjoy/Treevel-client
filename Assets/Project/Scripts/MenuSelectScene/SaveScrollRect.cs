@@ -54,7 +54,7 @@ namespace Project.Scripts.MenuSelectScene
             base.OnDisable();
             UserSettings.LevelSelectScrollPosition = content.transform.localPosition;
         }
-        
+
         private void OnTransformStarted(object sender, EventArgs e)
         {
             // 2点タッチしている時はスクロールしない
