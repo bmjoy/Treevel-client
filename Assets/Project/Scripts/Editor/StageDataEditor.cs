@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using UnityEditor;
@@ -47,6 +48,8 @@ namespace Project.Scripts.Editor
             DrawBulletGroupList();
 
             if (!EditorGUI.EndChangeCheck()) return;
+
+            ClearConsole();
 
             // Set object dirty, this will make it be saved after saving the project.
             EditorUtility.SetDirty(serializedObject.targetObject);
@@ -420,6 +423,14 @@ namespace Project.Scripts.Editor
         private IEnumerable<BottleData> GetAttackableBottles()
         {
             return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life);
+        }
+
+        private static void ClearConsole()
+        {
+            var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+            var type = assembly.GetType("UnityEditor.LogEntries");
+            var method = type.GetMethod("Clear");
+            method.Invoke(new object(), null);
         }
     }
 }
