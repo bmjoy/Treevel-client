@@ -42,10 +42,10 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         private void Start()
         {
             // SafeAreaを考慮したContentの拡大縮小差分を制御点にも適用
-            _firstControlPoint *= ScaleContent.CONTENT_SCALE;
-            _firstControlPoint += ScaleContent.CONTENT_MARGIN;
-            _secondControlPoint *= ScaleContent.CONTENT_SCALE;
-            _secondControlPoint += ScaleContent.CONTENT_MARGIN;
+            _firstControlPoint *= SaveScrollRect.CONTENT_SCALE;
+            _firstControlPoint += SaveScrollRect.CONTENT_MARGIN;
+            _secondControlPoint *= SaveScrollRect.CONTENT_SCALE;
+            _secondControlPoint += SaveScrollRect.CONTENT_MARGIN;
             SetPointPosition();
         }
 

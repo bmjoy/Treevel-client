@@ -46,21 +46,9 @@ namespace Project.Scripts.MenuSelectScene
         private const float _SCALE_MIN = 0.5f;
 
         /// <summary>
-        /// Contentの余白(Screen何個分の余白があるか)
-        /// </summary>
-        private static float _LEFT_OFFSET;
-        private static float _RIGHT_OFFSET;
-        private static float _TOP_OFFSET;
-        private static float _BOTTOM_OFFSET;
-
-        /// <summary>
         /// 補正後のキャンバスの大きさ
         /// </summary>
         private Vector2 _scaledCanvas;
-
-        public static Vector2 CONTENT_SCALE = Vector2.one;
-
-        public static Vector2 CONTENT_MARGIN = Vector2.zero;
 
         private void Awake()
         {
@@ -68,13 +56,6 @@ namespace Project.Scripts.MenuSelectScene
             _transformGesture = GetComponent<TransformGesture>();
             _scaledCanvas = ScaledCanvasSize.SIZE_DELTA;
             _contentRect = _scrollRect.content;
-
-            ExpandContent();
-            // Contentの余白を取得
-            _LEFT_OFFSET = Mathf.Abs(_contentRect.anchorMin.x - _contentRect.pivot.x);
-            _RIGHT_OFFSET = _contentRect.anchorMax.x - _contentRect.pivot.x;
-            _TOP_OFFSET = _contentRect.anchorMax.y - _contentRect.pivot.y;
-            _BOTTOM_OFFSET = Mathf.Abs(_contentRect.anchorMin.y - _contentRect.pivot.y);
         }
 
         private void OnEnable()
@@ -166,22 +147,22 @@ namespace Project.Scripts.MenuSelectScene
             var _preLocalPosition = _contentRect.transform.localPosition;
 
             // Contentの左端のチェック
-            var leftLimit = (_LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
+            var leftLimit = (SaveScrollRect._LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
             if (_preLocalPosition.x + moveAmount.x >= leftLimit) {
                 moveAmount.x = leftLimit - _preLocalPosition.x;
             }
             // Contentの右端のチェック
-            var rightLimit = (-1) * ((_RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
+            var rightLimit = (-1) * ((SaveScrollRect._RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
             if (_preLocalPosition.x + moveAmount.x <= rightLimit) {
                 moveAmount.x = rightLimit - _preLocalPosition.x;
             }
             // Contentの上端のチェック
-            var topLimit = (-1) * ((_TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
+            var topLimit = (-1) * ((SaveScrollRect._TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
             if (_preLocalPosition.y + moveAmount.y <= topLimit) {
                 moveAmount.y = topLimit - _preLocalPosition.y;
             }
             // Contentの下端のチェック
-            var bottomLimit = (_BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
+            var bottomLimit = (SaveScrollRect._BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
             if (_preLocalPosition.y + moveAmount.y >= bottomLimit) {
                 moveAmount.y = bottomLimit - _preLocalPosition.y;
             }
@@ -193,32 +174,6 @@ namespace Project.Scripts.MenuSelectScene
         {
             // スクロール制限を解除する
             _scrollRect.enabled = true;
-        }
-
-        /// <summary>
-        /// ContentのサイズをSafeAreaの分だけ拡大する
-        /// </summary>
-        private void ExpandContent()
-        {
-            // ContentのサイズをSafeAreaの分だけ拡大する
-            var beforeAnchorMin = _contentRect.anchorMin;
-            var beforeAnchorMax = _contentRect.anchorMax;
-            var(anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
-            _contentRect.anchorMin -= anchorMin;
-            _contentRect.anchorMax += (Vector2.one - anchorMax);
-            // Contentの拡大率
-            CONTENT_SCALE = (beforeAnchorMax - beforeAnchorMin) / (_contentRect.anchorMax - _contentRect.anchorMin);
-
-            if (CONTENT_SCALE == Vector2.one) return;
-            // Content内の全オブジェクトのanchor位置の調整
-            CONTENT_MARGIN = anchorMin / (_contentRect.anchorMax - _contentRect.anchorMin);
-            foreach (var tree in _content.GetComponentsInChildren<Transform>().Where(t => t != _content.transform).Select(t => t.gameObject)) {
-                var treeRect = tree.GetComponent<RectTransform>();
-                treeRect.anchorMin *= CONTENT_SCALE;
-                treeRect.anchorMin += CONTENT_MARGIN;
-                treeRect.anchorMax *= CONTENT_SCALE;
-                treeRect.anchorMax += CONTENT_MARGIN;
-            }
         }
     }
 }
