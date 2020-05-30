@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 
 namespace Project.Scripts.MenuSelectScene.Settings
 {
@@ -13,7 +14,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         private void Awake()
         {
             _SESlider = GetComponent<Slider>();
-            _SESlider.value = SettingsManager.SEVolume;
+            _SESlider.value = UserSettings.SEVolume;
             _SESlider.onValueChanged.AddListener(delegate {
                 ValueChangeCheck();
             });
@@ -34,7 +35,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         private void ValueChangeCheck()
         {
-            SettingsManager.SEVolume = _SESlider.value;
+            UserSettings.SEVolume = _SESlider.value;
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         private void OnUpdate()
         {
-            _SESlider.value = SettingsManager.SEVolume;
+            _SESlider.value = UserSettings.SEVolume;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Project.Scripts.StageSelectScene
         private void Awake()
         {
             _switchStageDetailsToggle = GetComponent<Toggle>();
-            _switchStageDetailsToggle.isOn = SettingsManager.StageDetails == 1;
+            _switchStageDetailsToggle.isOn = UserSettings.StageDetails == 1;
             _switchStageDetailsToggle.onValueChanged.AddListener(delegate {
                 ToggleValueChanged(_switchStageDetailsToggle);
             });
@@ -27,7 +27,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private static void ToggleValueChanged(Toggle toggle)
         {
-            SettingsManager.StageDetails = toggle.isOn ? 1 : 0;
+            UserSettings.StageDetails = toggle.isOn ? 1 : 0;
         }
     }
 }

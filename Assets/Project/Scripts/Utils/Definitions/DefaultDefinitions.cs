@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.TextUtils;
+﻿using UnityEngine;
+using Project.Scripts.Utils.TextUtils;
 
 namespace Project.Scripts.Utils.Definitions
 {
@@ -23,5 +24,16 @@ namespace Project.Scripts.Utils.Definitions
         /// デフォルトのステージ詳細
         /// </summary>
         public const int STAGE_DETAILS = 1;
+
+        /// <summary>
+        /// デフォルトのキャンバスの拡大率
+        /// </summary>
+        public const float LEVEL_SELECT_CANVAS_SCALE = 1;
+
+        /// <summary>
+        /// デフォルトのスクロール位置
+        /// </summary>
+        /// <returns></returns>
+        public static Vector2 LEVEL_SELECT_SCROLL_POSITION = new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y / 2);
     }
 }

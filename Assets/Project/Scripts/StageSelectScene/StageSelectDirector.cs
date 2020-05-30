@@ -128,7 +128,7 @@ namespace Project.Scripts.StageSelectScene
             Debug.Log(clickedButton);
             var stageId = int.Parse(clickedButton.GetComponentInChildren<Text>().text);
 
-            if (SettingsManager.StageDetails == 1) {
+            if (UserSettings.StageDetails == 1) {
                 // ポップアップを初期化する
                 _overviewPopup.GetComponent<OverviewPopup>().SetStageId(stageId);
                 // ポップアップを表示する

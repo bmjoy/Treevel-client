@@ -1,4 +1,5 @@
 using Project.Scripts.Utils.TextUtils;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,7 +13,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         [SerializeField] private ELanguage language;
         public void OnPointerClick(PointerEventData eventData)
         {
-            LanguageUtility.CurrentLanguage = language;
+            UserSettings.CurrentLanguage = language;
         }
     }
 }

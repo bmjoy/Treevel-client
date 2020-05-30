@@ -33,6 +33,10 @@ namespace Project.Scripts.MenuSelectScene.Settings
                     StageStatus.Reset(stageId);
                 }
             }
+
+            // キャンバスの設定をリセット
+            UserSettings.LevelSelectCanvasScale = Default.LEVEL_SELECT_CANVAS_SCALE;
+            UserSettings.LevelSelectScrollPosition = Default.LEVEL_SELECT_SCROLL_POSITION;
         }
     }
 }
