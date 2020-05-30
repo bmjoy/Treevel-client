@@ -17,9 +17,6 @@ MonoBehaviour:
   - type: 1
     number: 1
     pairNumber: 2
-  - type: 1
-    number: 2
-    pairNumber: 1
   bottles:
   - type: 0
     initPos: 3
