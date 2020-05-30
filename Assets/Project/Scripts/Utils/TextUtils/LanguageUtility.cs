@@ -20,9 +20,8 @@ namespace Project.Scripts.Utils.TextUtils
     {
         private static Dictionary<KeyValuePair<ELanguage, ETextIndex>, string> _stringTable;
         private const string _DATA_PATH = "GameDatas/translation";
-
-        public delegate void LanguageChangeEvent();
-        public static event LanguageChangeEvent OnLanguageChange;
+        
+        public static Action OnLanguageChange;
 
         static LanguageUtility()
         {
@@ -66,11 +65,6 @@ namespace Project.Scripts.Utils.TextUtils
                 Debug.LogWarning($"{UserSettings.CurrentLanguage.ToString()}の{index.ToString()}が存在していない");
                 return "";
             }
-        }
-
-        public static void DoOnLanguageChange()
-        {
-            OnLanguageChange?.Invoke();
         }
     }
 }

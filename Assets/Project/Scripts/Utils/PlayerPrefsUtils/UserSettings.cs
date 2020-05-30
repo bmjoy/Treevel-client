@@ -14,7 +14,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             get => _currentLanguage;
             set {
                 _currentLanguage = value;
-                LanguageUtility.DoOnLanguageChange();
+                LanguageUtility.OnLanguageChange?.Invoke();
 
                 // PlayerPrefsに保存
                 MyPlayerPrefs.SetObject(PlayerPrefsKeys.LANGUAGE, _currentLanguage);
