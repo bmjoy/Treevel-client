@@ -142,22 +142,22 @@ namespace Project.Scripts.MenuSelectScene
             var _preLocalPosition = _contentRect.transform.localPosition;
 
             // Contentの左端のチェック
-            var leftLimit = (SaveScrollRect._LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
+            var leftLimit = (SavableScrollRect._LEFT_OFFSET * scale - 0.5f) * _scaledCanvas.x;
             if (_preLocalPosition.x + moveAmount.x >= leftLimit) {
                 moveAmount.x = leftLimit - _preLocalPosition.x;
             }
             // Contentの右端のチェック
-            var rightLimit = (-1) * ((SaveScrollRect._RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
+            var rightLimit = (-1) * ((SavableScrollRect._RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
             if (_preLocalPosition.x + moveAmount.x <= rightLimit) {
                 moveAmount.x = rightLimit - _preLocalPosition.x;
             }
             // Contentの上端のチェック
-            var topLimit = (-1) * ((SaveScrollRect._TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
+            var topLimit = (-1) * ((SavableScrollRect._TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
             if (_preLocalPosition.y + moveAmount.y <= topLimit) {
                 moveAmount.y = topLimit - _preLocalPosition.y;
             }
             // Contentの下端のチェック
-            var bottomLimit = (SaveScrollRect._BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
+            var bottomLimit = (SavableScrollRect._BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
             if (_preLocalPosition.y + moveAmount.y >= bottomLimit) {
                 moveAmount.y = bottomLimit - _preLocalPosition.y;
             }

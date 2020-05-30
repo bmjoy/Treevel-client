@@ -13,7 +13,7 @@ using Project.Scripts.MenuSelectScene.Settings;
 
 namespace Project.Scripts.MenuSelectScene
 {
-    public class SaveScrollRect : ScrollRect
+    public class SavableScrollRect : ScrollRect
     {
         private TransformGesture _transformGesture;
 
