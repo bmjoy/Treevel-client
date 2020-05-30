@@ -20,7 +20,7 @@ namespace Project.Scripts.Utils.TextUtils
     {
         private static Dictionary<KeyValuePair<ELanguage, ETextIndex>, string> _stringTable;
         private const string _DATA_PATH = "GameDatas/translation";
-        
+
         public static Action OnLanguageChange;
 
         static LanguageUtility()
