@@ -79,7 +79,7 @@ namespace Project.Scripts.MenuSelectScene
 
         private void OnEnable()
         {
-            _preScale = UserSettings.CanvasScale;
+            _preScale = UserSettings.LevelSelectCanvasScale;
             _contentRect.localScale = new Vector2(_preScale, _preScale);
             // 2点のタッチ開始時
             _transformGesture.TransformStarted += OnTransformStarted;
@@ -95,7 +95,7 @@ namespace Project.Scripts.MenuSelectScene
             _transformGesture.Transformed -= OnTransformed;
             _transformGesture.TransformCompleted -= OnTransformCompleted;
 
-            UserSettings.CanvasScale = _preScale;
+            UserSettings.LevelSelectCanvasScale = _preScale;
         }
 
         private void OnTransformStarted(object sender, EventArgs e)

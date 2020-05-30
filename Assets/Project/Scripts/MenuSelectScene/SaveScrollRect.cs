@@ -13,13 +13,13 @@ namespace Project.Scripts.MenuSelectScene
         {
             base.OnEnable();
             // 初期位置の調整
-            content.transform.localPosition = UserSettings.ScrollPosition;
+            content.transform.localPosition = UserSettings.LevelSelectScrollPosition;
         }
 
         private void OnDisable()
         {
             base.OnDisable();
-            UserSettings.ScrollPosition = content.transform.localPosition;
+            UserSettings.LevelSelectScrollPosition = content.transform.localPosition;
         }
     }
 }

@@ -10,7 +10,7 @@
         public const string SE_VOLUME = "SE_VOLUME";
         public const string LANGUAGE = "LANGUAGE";
         public const string STAGE_DETAILS = "STAGE_DETAILS";
-        public const string CANVAS_SCALE = "CANVAS_SCALE";
-        public const string SCROLL_POSITION = "SCROLL_POSITION";
+        public const string LEVEL_SELECT_CANVAS_SCALE = "LEVEL_SELECT_CANVAS_SCALE";
+        public const string LEVEL_SELECT_SCROLL_POSITION = "LEVEL_SELECT_SCROLL_POSITION";
     }
 }

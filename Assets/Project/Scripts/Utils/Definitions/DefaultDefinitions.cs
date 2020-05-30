@@ -28,12 +28,12 @@ namespace Project.Scripts.Utils.Definitions
         /// <summary>
         /// デフォルトのキャンバスの拡大率
         /// </summary>
-        public const float CANVAS_SCALE = 1;
+        public const float LEVEL_SELECT_CANVAS_SCALE = 1;
 
         /// <summary>
         /// デフォルトのスクロール位置
         /// </summary>
         /// <returns></returns>
-        public static Vector2 SCROLL_POSITION = new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y / 2);
+        public static Vector2 LEVEL_SELECT_SCROLL_POSITION = new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y / 2);
     }
 }

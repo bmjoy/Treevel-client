@@ -54,25 +54,25 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             }
         }
 
-        private static float _canvasScale = PlayerPrefs.GetFloat(PlayerPrefsKeys.CANVAS_SCALE, Default.CANVAS_SCALE);
+        private static float _levelSelectCanvasScale = PlayerPrefs.GetFloat(PlayerPrefsKeys.LEVEL_SELECT_CANVAS_SCALE, Default.LEVEL_SELECT_CANVAS_SCALE);
 
-        public static float CanvasScale
+        public static float LevelSelectCanvasScale
         {
-            get => _canvasScale;
+            get => _levelSelectCanvasScale;
             set {
-                _canvasScale = value;
-                PlayerPrefs.SetFloat(PlayerPrefsKeys.CANVAS_SCALE, _canvasScale);
+                _levelSelectCanvasScale = value;
+                PlayerPrefs.SetFloat(PlayerPrefsKeys.LEVEL_SELECT_CANVAS_SCALE, _levelSelectCanvasScale);
             }
         }
 
-        private static Vector2 _scrollPosition;
+        private static Vector2 _levelSelectScrollPosition;
 
-        public static Vector2 ScrollPosition
+        public static Vector2 LevelSelectScrollPosition
         {
-            get => _scrollPosition;
+            get => _levelSelectScrollPosition;
             set {
-                _scrollPosition = value;
-                MyPlayerPrefs.SetObject(PlayerPrefsKeys.SCROLL_POSITION, _scrollPosition);
+                _levelSelectScrollPosition = value;
+                MyPlayerPrefs.SetObject(PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION, _levelSelectScrollPosition);
             }
         }
 
@@ -87,10 +87,10 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
                 }
             }
 
-            if (PlayerPrefs.HasKey(PlayerPrefsKeys.SCROLL_POSITION)) {
-                _scrollPosition = MyPlayerPrefs.GetObject<Vector2>(PlayerPrefsKeys.SCROLL_POSITION);
+            if (PlayerPrefs.HasKey(PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION)) {
+                _levelSelectScrollPosition = MyPlayerPrefs.GetObject<Vector2>(PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION);
             } else {
-                _scrollPosition = Default.SCROLL_POSITION;
+                _levelSelectScrollPosition = Default.LEVEL_SELECT_SCROLL_POSITION;
             }
         }
     }

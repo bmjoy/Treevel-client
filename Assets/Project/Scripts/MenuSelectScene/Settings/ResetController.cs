@@ -35,8 +35,8 @@ namespace Project.Scripts.MenuSelectScene.Settings
             }
 
             // キャンバスの設定をリセット
-            UserSettings.CanvasScale = Default.CANVAS_SCALE;
-            UserSettings.ScrollPosition = Default.SCROLL_POSITION;
+            UserSettings.LevelSelectCanvasScale = Default.LEVEL_SELECT_CANVAS_SCALE;
+            UserSettings.LevelSelectScrollPosition = Default.LEVEL_SELECT_SCROLL_POSITION;
         }
     }
 }
