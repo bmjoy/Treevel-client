@@ -66,15 +66,12 @@ namespace Project.Scripts.MenuSelectScene
             _transformGesture.TransformStarted += OnTransformStarted;
             // 2点のタッチ中
             _transformGesture.Transformed += OnTransformed;
-            // 2点のタッチ終了時
-            _transformGesture.TransformCompleted += OnTransformCompleted;
         }
 
         private void OnDisable()
         {
             _transformGesture.TransformStarted -= OnTransformStarted;
             _transformGesture.Transformed -= OnTransformed;
-            _transformGesture.TransformCompleted -= OnTransformCompleted;
 
             UserSettings.LevelSelectCanvasScale = _preScale;
         }
@@ -88,8 +85,6 @@ namespace Project.Scripts.MenuSelectScene
             _preScreenDist = Vector2.Distance(_prePoint1, _prePoint2);
             // スクリーン上の中点座標を計算
             _preMeanPoint = (_prePoint1 + _prePoint2) / 2;
-            // 2点タッチしている時はスクロールしない
-            _scrollRect.enabled = false;
         }
 
         private void OnTransformed(object sender, EventArgs e)
@@ -168,12 +163,6 @@ namespace Project.Scripts.MenuSelectScene
             }
 
             return moveAmount;
-        }
-
-        private void OnTransformCompleted(object sender, EventArgs e)
-        {
-            // スクロール制限を解除する
-            _scrollRect.enabled = true;
         }
     }
 }

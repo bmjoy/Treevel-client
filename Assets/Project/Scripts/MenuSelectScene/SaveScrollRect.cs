@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Project.Scripts.UIComponents;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using Project.Scripts.MenuSelectScene.Settings;
 
@@ -12,6 +15,8 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class SaveScrollRect : ScrollRect
     {
+        private TransformGesture _transformGesture;
+
         /// <summary>
         /// Contentの余白(Screen何個分の余白があるか)
         /// </summary>
@@ -23,8 +28,10 @@ namespace Project.Scripts.MenuSelectScene
         public static Vector2 CONTENT_SCALE = Vector2.one;
         public static Vector2 CONTENT_MARGIN = Vector2.zero;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            _transformGesture = GetComponent<TransformGesture>();
             ExpandContent();
             // Contentの余白を取得
             _LEFT_OFFSET = Mathf.Abs(content.anchorMin.x - content.pivot.x);
@@ -36,6 +43,8 @@ namespace Project.Scripts.MenuSelectScene
         protected override void OnEnable()
         {
             base.OnEnable();
+            _transformGesture.TransformStarted += OnTransformStarted;
+            _transformGesture.TransformCompleted += OnTransformCompleted;
             // 初期位置の調整
             content.transform.localPosition = UserSettings.LevelSelectScrollPosition;
         }
@@ -44,6 +53,18 @@ namespace Project.Scripts.MenuSelectScene
         {
             base.OnDisable();
             UserSettings.LevelSelectScrollPosition = content.transform.localPosition;
+        private void OnTransformStarted(object sender, EventArgs e)
+        {
+            // 2点タッチしている時はスクロールしない
+            horizontal = false;
+            vertical = false;
+        }
+
+        private void OnTransformCompleted(object sender, EventArgs e)
+        {
+            // スクロール制限を解除する
+            horizontal = true;
+            vertical = true;
         }
 
         /// <summary>
