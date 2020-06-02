@@ -113,6 +113,20 @@ namespace Project.Scripts.StageSelectScene
                     // クリック時のリスナー
                     button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
                     // TODO: ステージを選択できるか、ステージをクリアしたかどうかでButtonの表示を変更する
+
+                    // TODO: stageId get by level data
+                    var stageId = j + 1;
+                    var stageData = GameDataBase.GetStage(stageId);
+                    if (stageData == null)
+                        continue;
+
+                    // ステージ制限なし
+                    if (stageData.stageConstraint == 0)
+                        continue;
+
+                    var stageStatus = StageStatus.Get(stageData.stageConstraint);
+                    if (!stageStatus.passed)
+                        button.GetComponent<Button>().enabled = false;
                 }
                 // TODO: ButtonとButtonの間に線を描画する
             }

@@ -17,6 +17,8 @@ namespace Project.Scripts.GameDatas
 
         public int Id => id;
 
+        public int stageConstraint;
+
         public List<TileData> TileDatas => tiles;
 
         public List<BottleData> BottleDatas => bottles;
