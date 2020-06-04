@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Project.Scripts.GamePlayScene;
 using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
@@ -121,11 +122,14 @@ namespace Project.Scripts.StageSelectScene
                         continue;
 
                     // ステージ制限なし
-                    if (stageData.stageConstraint == 0)
+                    if (stageData.ConstraintStageIds.Count == 0)
                         continue;
 
-                    var stageStatus = StageStatus.Get(stageData.stageConstraint);
-                    if (!stageStatus.passed)
+                    var constraintStagesStatus = stageData.ConstraintStageIds
+                        .Where(id => GameDataBase.GetStage(id) != null) // 存在しないステージを弾く
+                        .Select(id => StageStatus.Get(id));
+
+                    if (constraintStagesStatus.Any(s => !s.passed))
                         button.GetComponent<Button>().enabled = false;
                 }
                 // TODO: ButtonとButtonの間に線を描画する

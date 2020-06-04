@@ -38,7 +38,7 @@ namespace Project.Scripts.Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
 
             // ステージ制限
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("stageConstraint"));
+            this.DrawArrayProperty(serializedObject.FindProperty("constraintStageIds"));
 
             DrawTutorialData();
 

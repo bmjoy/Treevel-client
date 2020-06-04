@@ -145,4 +145,4 @@ MonoBehaviour:
     video:
       m_AssetGUID: 
       m_SubObjectName: 
-  stageConstraint: 0
+  constraintStageIds: 
