@@ -15,7 +15,11 @@ namespace Project.Scripts.GameDatas
         [SerializeField] private List<EBulletType> overviewGimmicks;
         [SerializeField] private TutorialData tutorial;
 
+        [SerializeField] private List<int> constraintStageIds;
+
         public int Id => id;
+
+        public List<int> ConstraintStageIds => constraintStageIds;
 
         public List<TileData> TileDatas => tiles;
 
