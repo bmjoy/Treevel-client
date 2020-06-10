@@ -194,6 +194,9 @@ namespace Project.Scripts.Utils
                     case ETileType.Warp:
                         LoadAsset<GameObject>(Address.WARP_TILE_PREFAB);
                         break;
+                    case ETileType.Holy:
+                        LoadAsset<GameObject>(Address.HOLY_TILE_PREFAB);
+                        break;
                     default:
                         throw new System.NotImplementedException();
                 }

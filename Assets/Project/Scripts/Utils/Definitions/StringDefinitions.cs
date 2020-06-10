@@ -60,6 +60,7 @@
         // タイル関連
         public const string NORMAL_TILE_PREFAB = "normalTilePrefab";
         public const string WARP_TILE_PREFAB = "warpTilePrefab";
+        public const string HOLY_TILE_PREFAB = "holyTilePrefab";
         public const string NUMBER_TILE_SPRITE_PREFIX = "numberTile";
 
         // 銃弾関連

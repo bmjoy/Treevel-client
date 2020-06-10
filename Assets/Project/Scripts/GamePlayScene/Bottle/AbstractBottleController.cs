@@ -46,6 +46,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         public bool IsAttackable => getDamagedHandler != null;
 
+        /// <summary>
+        /// 無敵状態かどうか
+        /// </summary>
+        public bool Invincible = false;
+
         protected virtual void Awake() {}
 
         /// <summary>
@@ -57,6 +62,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (!other.gameObject.CompareTag(TagName.BULLET)) return;
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (other.gameObject.transform.position.z < 0) return;
+            // 無敵状態なら，衝突を考えない
+            if (Invincible) return;
 
             getDamagedHandler?.OnGetDamaged(other.gameObject);
         }

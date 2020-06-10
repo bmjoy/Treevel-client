@@ -138,6 +138,8 @@ namespace Project.Scripts.Editor
                             EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
                         }
                         break;
+                    case ETileType.Holy:
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
