@@ -34,12 +34,12 @@ namespace Project.Scripts.GameDatas
 
         public TutorialData Tutorial => tutorial;
 
-        public bool IsUnLocked () 
+        public bool IsUnLocked()
         {
             // ステージ制限なし
-            if (ConstraintStageIds.Count == 0) 
-                return true;  
-            
+            if (ConstraintStageIds.Count == 0)
+                return true;
+
             var constraintStagesStatus = ConstraintStageIds
                 .Where(id => GameDataBase.GetStage(id) != null) // 存在しないステージを弾く
                 .Select(id => StageStatus.Get(id));

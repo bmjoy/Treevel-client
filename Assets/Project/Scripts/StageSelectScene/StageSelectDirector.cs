@@ -130,7 +130,7 @@ namespace Project.Scripts.StageSelectScene
                         button.transform.Find("Lock")?.gameObject.SetActive(!isUnLocked);
 
                         // クリアしたらグレイスケールを解除
-                        if (StageStatus.Get(stageId).passed){
+                        if (StageStatus.Get(stageId).passed) {
                             button.GetComponent<Image>().material = null;
                         }
                     }
