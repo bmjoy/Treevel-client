@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -30,5 +33,18 @@ namespace Project.Scripts.GameDatas
         public List<EBulletType> OverviewGimmicks => overviewGimmicks;
 
         public TutorialData Tutorial => tutorial;
+
+        public bool IsUnLocked () 
+        {
+            // ステージ制限なし
+            if (ConstraintStageIds.Count == 0) 
+                return true;  
+            
+            var constraintStagesStatus = ConstraintStageIds
+                .Where(id => GameDataBase.GetStage(id) != null) // 存在しないステージを弾く
+                .Select(id => StageStatus.Get(id));
+
+            return constraintStagesStatus.All(s => s.passed);
+        }
     }
 }

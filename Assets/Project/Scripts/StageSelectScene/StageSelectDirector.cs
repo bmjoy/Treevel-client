@@ -113,7 +113,6 @@ namespace Project.Scripts.StageSelectScene
                     var button = GameObject.Find($"{_TREECANVAS}/Trees/SnapScrollView/Viewport/Content/Tree{i+1}/Stage{j+1}");
                     // クリック時のリスナー
                     button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
-                    // TODO: ステージを選択できるか、ステージをクリアしたかどうかでButtonの表示を変更する
 
                     // TODO: stageId get by level data
                     var stageId = j + 1;
@@ -121,16 +120,20 @@ namespace Project.Scripts.StageSelectScene
                     if (stageData == null)
                         continue;
 
-                    // ステージ制限なし
-                    if (stageData.ConstraintStageIds.Count == 0)
-                        continue;
+                    // TODO: ステージボタンのためのクラスを作って記述する
+                    {
+                        var isUnLocked = stageData.IsUnLocked();
+                        // ボタンのクリック可能か
+                        button.GetComponent<Button>().enabled = isUnLocked;
 
-                    var constraintStagesStatus = stageData.ConstraintStageIds
-                        .Where(id => GameDataBase.GetStage(id) != null) // 存在しないステージを弾く
-                        .Select(id => StageStatus.Get(id));
+                        // 鍵穴付けるか
+                        button.transform.Find("Lock")?.gameObject.SetActive(!isUnLocked);
 
-                    if (constraintStagesStatus.Any(s => !s.passed))
-                        button.GetComponent<Button>().enabled = false;
+                        // クリアしたらグレイスケールを解除
+                        if (StageStatus.Get(stageId).passed){
+                            button.GetComponent<Image>().material = null;
+                        }
+                    }
                 }
                 // TODO: ButtonとButtonの間に線を描画する
             }
