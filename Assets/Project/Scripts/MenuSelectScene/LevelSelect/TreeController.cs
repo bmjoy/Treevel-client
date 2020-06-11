@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(Button))]
-    public class LevelTreeController : MonoBehaviour
+    public class TreeController : MonoBehaviour
     {
         /// <summary>
         /// 木のレベル
