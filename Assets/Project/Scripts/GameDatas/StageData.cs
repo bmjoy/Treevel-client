@@ -42,7 +42,7 @@ namespace Project.Scripts.GameDatas
 
             var constraintStagesStatus = ConstraintStageIds
                 .Where(id => GameDataBase.GetStage(id) != null) // 存在しないステージを弾く
-                .Select(id => StageStatus.Get(id));
+                .Select(StageStatus.Get);
 
             return constraintStagesStatus.All(s => s.passed);
         }
