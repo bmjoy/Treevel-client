@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         protected override void Awake()
         {
             base.Awake();
-            bottleHandler = new HolyTileBottleHandler(this);
+            bottleHandler = new HolyTileBottleHandler();
         }
 
         public override void Initialize(int tileNum)
@@ -23,13 +23,6 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private sealed class HolyTileBottleHandler : DefaultBottleHandler
         {
-            private readonly HolyTileController _parent;
-
-            public HolyTileBottleHandler(HolyTileController parent)
-            {
-                _parent = parent;
-            }
-
             public override void OnBottleEnter(GameObject bottle)
             {
                 // 親ボトルを無敵状態にする
