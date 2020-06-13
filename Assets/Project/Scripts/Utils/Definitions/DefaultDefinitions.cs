@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Project.Scripts.Utils.TextUtils;
+using Project.Scripts.UIComponents;
 
 namespace Project.Scripts.Utils.Definitions
 {
@@ -34,6 +35,12 @@ namespace Project.Scripts.Utils.Definitions
         /// デフォルトのスクロール位置
         /// </summary>
         /// <returns></returns>
-        public static Vector2 LEVEL_SELECT_SCROLL_POSITION = new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y / 2);
+        public static Vector2 LEVEL_SELECT_SCROLL_POSITION
+        {
+            get {
+                var(anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
+                return new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y)/ 2);
+            }
+        }
     }
 }

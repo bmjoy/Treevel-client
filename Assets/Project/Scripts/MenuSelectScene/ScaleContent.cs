@@ -11,9 +11,7 @@ namespace Project.Scripts.MenuSelectScene
 {
     public class ScaleContent : MonoBehaviour
     {
-        private ScrollRect _scrollRect;
         private TransformGesture _transformGesture;
-        [SerializeField] private GameObject _content;
         private RectTransform _contentRect;
 
         /// <summary>
@@ -52,10 +50,9 @@ namespace Project.Scripts.MenuSelectScene
 
         private void Awake()
         {
-            _scrollRect = GetComponent<ScrollRect>();
+            _contentRect = GetComponent<ScrollRect>().content;
             _transformGesture = GetComponent<TransformGesture>();
             _scaledCanvas = ScaledCanvasSize.SIZE_DELTA;
-            _contentRect = _scrollRect.content;
         }
 
         private void OnEnable()
