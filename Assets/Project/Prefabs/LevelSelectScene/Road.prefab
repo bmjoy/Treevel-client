@@ -49,13 +49,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1dceca586f243e8a56b4a664a94c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startPoint: {fileID: 0}
-  _endPoint: {fileID: 0}
+  _startTree: {fileID: 0}
+  _endTree: {fileID: 0}
+  _constraintTrees: []
   _firstControlPoint: {x: 0, y: 0}
   _secondControlPoint: {x: 0, y: 0}
   _middlePointNum: 0
   _width: 0
   render: {fileID: 3838137885523574259}
+  _roadId: 0
 --- !u!120 &3838137885523574259
 LineRenderer:
   m_ObjectHideFlags: 0

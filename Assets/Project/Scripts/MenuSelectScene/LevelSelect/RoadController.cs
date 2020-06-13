@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.MenuSelectScene;
+using Project.Scripts.Utils.PlayerPrefsUtils;
+using System;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
@@ -8,14 +10,16 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
     public class RoadController : MonoBehaviour
     {
         /// <summary>
-        /// 開始地点の木の位置
+        /// 開始地点の木
         /// </summary>
-        [SerializeField] private Transform _startPoint;
+        [SerializeField] private GameObject _startTree;
 
         /// <summary>
-        /// 終了地点の木の位置
+        /// 終了地点の木
         /// </summary>
-        [SerializeField] private Transform _endPoint;
+        [SerializeField] private GameObject _endTree;
+
+        [SerializeField] private GameObject[] _constraintTrees;
 
         /// <summary>
         /// 1つ目の制御点の位置
@@ -30,14 +34,18 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 中間地点の個数
         /// </summary>
-        [SerializeField] [Range(0, 100)]private int _middlePointNum;
+        [SerializeField] [Range(0, 100)] private int _middlePointNum;
 
         /// <summary>
         /// 道の幅
         /// </summary>
         [SerializeField] [Range(0, 0.2f)] private float _width;
 
-        [SerializeField] private LineRenderer render;
+        [SerializeField] private LineRenderer _render;
+
+        private bool _released = false;
+
+        [SerializeField] private ERoadId _roadId;
 
         private void Start()
         {
@@ -49,21 +57,56 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             SetPointPosition();
         }
 
+        public void Reset() {
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.ROAD + _roadId.ToString());
+        }
+
+        public void UpdateReleased() {
+            _released = PlayerPrefs.GetInt(PlayerPrefsKeys.ROAD + _roadId.ToString(), Default.ROAD_RELEASED) == 1;
+
+            if(!_released) {
+                if(_constraintTrees.Length == 0) {
+                    // 初期状態で解放されている道
+                    _released = true;
+                } else {
+                    var constraintTreeClear = true;
+                    foreach (var constraintTree in _constraintTrees) {
+                        Debug.Log(constraintTree.GetComponent<TreeController>().cleared);
+                        constraintTreeClear = constraintTreeClear && constraintTree.GetComponent<TreeController>().cleared;
+                    }
+                    _released = constraintTreeClear;
+                }
+            }
+
+            _endTree.GetComponent<TreeController>().released = _released;
+            _endTree.GetComponent<Button>().enabled = _released;
+            
+            if(!_released) {
+                // 非解放時
+                _render.startColor = new Color(0.2f, 0.2f, 0.7f);
+                _render.endColor = new Color(0.2f, 0.2f, 0.7f);
+            }
+        }
+
+        public void SaveReleased() {
+                PlayerPrefs.SetInt(PlayerPrefsKeys.ROAD + _roadId.ToString(), Convert.ToInt32(_released));
+        }
+
         /// <summary>
         /// 曲線の通過点の位置を求める
         /// </summary>
         public void SetPointPosition()
         {
-            render.positionCount = _middlePointNum + 2;
-            render.startWidth = render.endWidth = (float)Screen.width * _width;
+            _render.positionCount = _middlePointNum + 2;
+            _render.startWidth = _render.endWidth = (float)Screen.width * _width;
 
-            var startPointLocalPosition = _startPoint.localPosition;
-            var endPointLocalPosition = _endPoint.localPosition;
+            var startPointLocalPosition = _startTree.transform.localPosition;
+            var endPointLocalPosition = _endTree.transform.localPosition;
 
             // 点の位置を求める
             for (int i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                render.SetPosition(i, CalcCubicBezierPointPosition(startPointLocalPosition, _firstControlPoint, _secondControlPoint, endPointLocalPosition, ratio));
+                _render.SetPosition(i, CalcCubicBezierPointPosition(startPointLocalPosition, _firstControlPoint, _secondControlPoint, endPointLocalPosition, ratio));
             }
         }
 

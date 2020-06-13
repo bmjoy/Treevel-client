@@ -3,6 +3,7 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
+using Project.Scripts.MenuSelectScene.LevelSelect;
 
 namespace Project.Scripts.MenuSelectScene.Settings
 {
@@ -33,6 +34,9 @@ namespace Project.Scripts.MenuSelectScene.Settings
                     StageStatus.Reset(stageId);
                 }
             }
+
+            // 道の解放条件をリセット
+            LevelSelectDirector.Reset();
 
             // キャンバスの設定をリセット
             UserSettings.LevelSelectCanvasScale = Default.LEVEL_SELECT_CANVAS_SCALE;
