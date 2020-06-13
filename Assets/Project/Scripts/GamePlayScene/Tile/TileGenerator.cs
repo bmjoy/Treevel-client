@@ -40,6 +40,9 @@ namespace Project.Scripts.GamePlayScene.Tile
                     case ETileType.Holy:
                         CreateHolyTile(tileData.number);
                         break;
+                    case ETileType.Spiderweb:
+                        CreateSpiderwebTile(tileData.number);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -78,6 +81,17 @@ namespace Project.Scripts.GamePlayScene.Tile
             BoardManager.SetTile(holyTile.GetComponent<AbstractTileController>(), tileNum);
 
             holyTile.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        private static async void CreateSpiderwebTile(int tileNum)
+        {
+            var spiderwebTile = await AddressableAssetManager.Instantiate(Address.SPIDERWEB_TILE_PREFAB).Task;
+
+            spiderwebTile.GetComponent<SpiderwebTileController>().Initialize(tileNum);
+
+            BoardManager.SetTile(spiderwebTile.GetComponent<AbstractTileController>(), tileNum);
+
+            spiderwebTile.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

@@ -21,6 +21,27 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         [SerializeField] protected AnimationClip warpReverseAnimation;
 
+        /// <summary>
+        /// 動くことができる状態か
+        /// </summary>
+        private bool _isMovable = true;
+
+        public bool IsMovable
+        {
+            get => _isMovable;
+            set
+            {
+                if (value) {
+                    GetComponent<FlickGesture>().Flicked += HandleFlick;
+                    _isMovable = true;
+                }
+                else {
+                    GetComponent<FlickGesture>().Flicked -= HandleFlick;
+                    _isMovable = false;
+                }
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
