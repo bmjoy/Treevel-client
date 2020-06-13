@@ -58,8 +58,9 @@
         public const string LIFE_BOTTLE_SPRITE_PREFIX = "lifeBottle";
 
         // タイル関連
-        public const string NORMAL_TILE_PREFAB = "normalTilePrefab";
-        public const string WARP_TILE_PREFAB = "warpTilePrefab";
+        public const string NORMAL_TILE_PREFAB = "NormalTilePrefab";
+        public const string WARP_TILE_PREFAB = "WarpTilePrefab";
+        public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
         public const string NUMBER_TILE_SPRITE_PREFIX = "numberTile";
 
         // 銃弾関連

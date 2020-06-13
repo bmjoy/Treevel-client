@@ -37,6 +37,9 @@ namespace Project.Scripts.GamePlayScene.Tile
                     case ETileType.Warp:
                         CreateWarpTiles(tileData.number, tileData.pairNumber);
                         break;
+                    case ETileType.Holy:
+                        CreateHolyTile(tileData.number);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -61,6 +64,20 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             firstTile.GetComponent<SpriteRenderer>().enabled = true;
             secondTile.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        /// <summary>
+        /// 聖域タイルの作成
+        /// </summary>
+        private static async void CreateHolyTile(int tileNum)
+        {
+            var holyTile = await AddressableAssetManager.Instantiate(Address.HOLY_TILE_PREFAB).Task;
+
+            holyTile.GetComponent<HolyTileController>().Initialize(tileNum);
+
+            BoardManager.SetTile(holyTile.GetComponent<AbstractTileController>(), tileNum);
+
+            holyTile.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

@@ -76,7 +76,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 
             // ボトルとの衝突
             var bottle = other.GetComponent<AbstractBottleController>();
-            if (bottle != null && bottle.IsAttackable) {
+            if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
                 // 数字ボトルとの衝突
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
