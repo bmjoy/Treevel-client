@@ -54,7 +54,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        private async void CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private static async void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
             var secondTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
