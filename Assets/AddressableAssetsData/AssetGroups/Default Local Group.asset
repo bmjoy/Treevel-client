@@ -33,8 +33,8 @@ MonoBehaviour:
       PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 6c68bb80520234b639bbaa13905ef16e
-    m_Address: holyTilePrefab
+  - m_GUID: 5fd9bc0429bee4c5ab59b54f11aa4508
+    m_Address: HolyTilePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: 
