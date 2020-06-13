@@ -9,6 +9,8 @@ TagManager:
   - Tile
   - GraphUi
   - Bottle
+  - Tree
+  - Road
   layers:
   - Default
   - TransparentFX
