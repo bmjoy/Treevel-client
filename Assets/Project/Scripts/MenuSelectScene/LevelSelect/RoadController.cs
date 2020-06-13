@@ -57,15 +57,17 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             SetPointPosition();
         }
 
-        public void Reset() {
+        public void Reset()
+        {
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.ROAD + _roadId.ToString());
         }
 
-        public void UpdateReleased() {
+        public void UpdateReleased()
+        {
             _released = PlayerPrefs.GetInt(PlayerPrefsKeys.ROAD + _roadId.ToString(), Default.ROAD_RELEASED) == 1;
 
-            if(!_released) {
-                if(_constraintTrees.Length == 0) {
+            if (!_released) {
+                if (_constraintTrees.Length == 0) {
                     // 初期状態で解放されている道
                     _released = true;
                 } else {
@@ -80,16 +82,17 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
             _endTree.GetComponent<TreeController>().released = _released;
             _endTree.GetComponent<Button>().enabled = _released;
-            
-            if(!_released) {
+
+            if (!_released) {
                 // 非解放時
                 _render.startColor = new Color(0.2f, 0.2f, 0.7f);
                 _render.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
         }
 
-        public void SaveReleased() {
-                PlayerPrefs.SetInt(PlayerPrefsKeys.ROAD + _roadId.ToString(), Convert.ToInt32(_released));
+        public void SaveReleased()
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.ROAD + _roadId.ToString(), Convert.ToInt32(_released));
         }
 
         /// <summary>

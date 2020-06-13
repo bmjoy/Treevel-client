@@ -12,7 +12,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         private static List<RoadController> roads;
 
-        private void Awake() {
+        private void Awake()
+        {
             var treeObjects = GameObject.FindGameObjectsWithTag(TagName.TREE);
             trees = treeObjects.Select(tree => tree.GetComponent<TreeController>()).ToList<TreeController>();
             var roadObjects = GameObject.FindGameObjectsWithTag(TagName.ROAD);
@@ -22,7 +23,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木と道の解放状況の更新
         /// </summary>
-        private void OnEnable() {
+        private void OnEnable()
+        {
             foreach (var tree in trees) {
                 tree.UpdateReleased();
             }
@@ -34,7 +36,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木と道の状態の保存
         /// </summary>
-        private void OnDisable() {
+        private void OnDisable()
+        {
             // 保存
             foreach (var tree in trees) {
                 tree.SaveReleased();
@@ -47,7 +50,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木と道の状態のリセット
         /// </summary>
-        public static void Reset() {
+        public static void Reset()
+        {
             foreach (var tree in trees) {
                 tree.Reset();
             }
