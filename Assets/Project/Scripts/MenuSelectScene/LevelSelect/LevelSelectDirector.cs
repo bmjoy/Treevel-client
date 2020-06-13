@@ -14,10 +14,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         private void Awake()
         {
-            var treeObjects = GameObject.FindGameObjectsWithTag(TagName.TREE);
-            trees = treeObjects.Select(tree => tree.GetComponent<TreeController>()).ToList<TreeController>();
-            var roadObjects = GameObject.FindGameObjectsWithTag(TagName.ROAD);
-            roads = roadObjects.Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
+            trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<TreeController>()).ToList<TreeController>();
+            roads = GameObject.FindGameObjectsWithTag(TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
         }
 
         /// <summary>
@@ -38,7 +36,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnDisable()
         {
-            // 保存
             foreach (var tree in trees) {
                 tree.SaveReleased();
             }
