@@ -24,25 +24,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 動くことができる状態か
         /// </summary>
-        private bool _isMovable = true;
-
-        public bool IsMovable
-        {
-            get => _isMovable;
-            set
-            {
-                // 同じ値をセットし直すことはできないようにする
-                if (value == _isMovable) return;
-
-                if (value) {
-                    GetComponent<FlickGesture>().Flicked += HandleFlick;
-                    _isMovable = true;
-                } else {
-                    GetComponent<FlickGesture>().Flicked -= HandleFlick;
-                    _isMovable = false;
-                }
-            }
-        }
+        public bool IsMovable { get; set; } = true;
 
         protected override void Awake()
         {
@@ -79,6 +61,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private void HandleFlick(object sender, EventArgs e)
         {
+            if (!IsMovable) return;
+
             var gesture = sender as FlickGesture;
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
