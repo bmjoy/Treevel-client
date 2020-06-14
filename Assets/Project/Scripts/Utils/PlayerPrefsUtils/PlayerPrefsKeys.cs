@@ -25,7 +25,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="treeId"></param>
         /// <param name="stageNumber"></param>
         /// <returns> StageKey(= treeId_stageNumber) </returns>
-        public static string EncodeStageIdKey(ETreeId treeId, int stageNumber) {
+        public static string EncodeStageIdKey(ETreeId treeId, int stageNumber)
+        {
             return treeId.ToString() + KEY_CONNECT_CHAR + stageNumber;
         }
 
@@ -34,10 +35,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// </summary>
         /// <param name="stageId"></param>
         /// <returns> (treeId, stageNumber) </returns>
-        public static (ETreeId, int) DecodeStageIdKey(string stageId) {
+        public static(ETreeId, int) DecodeStageIdKey(string stageId)
+        {
             var retValues = stageId.Split(KEY_CONNECT_CHAR);
             var treeId = (ETreeId) Enum.ToObject(typeof(ETreeId), retValues[0]);
-            if(retValues.Length <= 1) return (treeId, -1);
+            if (retValues.Length <= 1) return (treeId, -1);
             var stageNumber = int.Parse(retValues[1]);
             return (treeId, stageNumber);
         }

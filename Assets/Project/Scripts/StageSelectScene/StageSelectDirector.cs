@@ -97,11 +97,12 @@ namespace Project.Scripts.StageSelectScene
             // TODO: 現在表示している木の名前に更新する
         }
 
-        public void ShowOverPopup(ETreeId treeId, int stageNumber) {
-                // ポップアップを初期化する
-                _overviewPopup.GetComponent<OverviewPopup>().SetStageId(treeId, stageNumber);
-                // ポップアップを表示する
-                _overviewPopup.gameObject.SetActive(true);
+        public void ShowOverPopup(ETreeId treeId, int stageNumber)
+        {
+            // ポップアップを初期化する
+            _overviewPopup.GetComponent<OverviewPopup>().SetStageId(treeId, stageNumber);
+            // ポップアップを表示する
+            _overviewPopup.gameObject.SetActive(true);
         }
 
         /// <summary>
