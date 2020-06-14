@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
+using System.Linq;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
@@ -41,11 +42,16 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] [Range(0, 0.2f)] private float _width;
 
-        [SerializeField] private LineRenderer _render;
+        private LineRenderer _render;
 
         private bool _released = false;
 
         [SerializeField] private ERoadId _roadId;
+
+        private void Awake()
+        {
+            _render = GetComponent<LineRenderer>();
+        }
 
         private void Start()
         {
@@ -71,12 +77,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                     // 初期状態で解放されている道
                     _released = true;
                 } else {
-                    var constraintTreeClear = true;
-                    foreach (var constraintTree in _constraintTrees) {
-                        Debug.Log(constraintTree.GetComponent<TreeController>().cleared);
-                        constraintTreeClear = constraintTreeClear && constraintTree.GetComponent<TreeController>().cleared;
-                    }
-                    _released = constraintTreeClear;
+                    _released = _constraintTrees.All(tree => tree.GetComponent<TreeController>().cleared);
                 }
             }
 
