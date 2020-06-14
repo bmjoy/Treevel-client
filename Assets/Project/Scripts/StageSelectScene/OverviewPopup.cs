@@ -1,5 +1,6 @@
 ﻿using Project.Scripts.Utils;
 using Project.Scripts.Utils.PlayerPrefsUtils;
+using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージID
         /// </summary>
-        private Text _stageIdText;
+        private Text _stageNumberText;
 
         /// <summary>
         /// ステージ難易度
@@ -32,41 +33,43 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public GameObject goToGame;
 
-        private int _stageId;
+        private ETreeId _treeId;
+
+        private int _stageNumber;
 
         private void Awake()
         {
-            _stageIdText = transform.Find("PanelBackground/StageId").GetComponent<Text>();
+            _stageNumberText = transform.Find("PanelBackground/StageId").GetComponent<Text>();
             _stageDifficultyText = transform.Find("PanelBackground/StageDifficulty").GetComponent<Text>();
             _clearPercentageText = transform.Find("PanelBackground/ClearPercentage").GetComponent<Text>();
             _appearingBullets = transform.Find("PanelBackground/AppearingBullets").gameObject;
             goToGame = transform.Find("PanelBackground/GoToGame").gameObject;
 
             // ゲームを開始するボタン
-            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(_stageId));
+            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(_treeId, _stageNumber));
         }
 
         /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="stageId"> ステージID </param>
-        public void SetStageId(int stageId)
+        public void SetStageId(ETreeId treeId, int stageNumber)
         {
-            _stageId = stageId;
+            _treeId = treeId;
+            _stageNumber = stageNumber;
         }
 
         void OnEnable()
         {
-            var stageData = GameDataBase.GetStage(_stageId);
+            var stageData = GameDataBase.GetStage(_treeId, _stageNumber);
 
             // ステージID
-            _stageIdText.text = _stageId.ToString();
+            _stageNumberText.text = _stageNumber.ToString();
 
             if (stageData == null)
                 return;
 
-            // TODO:ステージが"ステージ難易度"を持ったら実装
-            // _stageDifficulty.GetComponent<Text>().text = ...
+            _stageDifficultyText.GetComponent<Text>().text = _treeId.ToString();
 
             // TODO:サーバで全ユーザのデータを持ったら実装
             // _clearPercentage.GetComponent<Text>().text = ...

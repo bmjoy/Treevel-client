@@ -64,7 +64,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ステージ id
         /// </summary>
-        public static int stageId;
+        public static int stageNumber;
 
         /// <summary>
         /// 各状態に対応するステートのインスタンス
@@ -255,11 +255,11 @@ namespace Project.Scripts.GamePlayScene
         /// </returns>
         private bool ShouldShowTutorial()
         {
-            var stageData = GameDataBase.GetStage(stageId);
+            var stageData = GameDataBase.GetStage(treeId, stageNumber);
             if (stageData.Tutorial.type == ETutorialType.None)
                 return false;
 
-            var stageStatus = StageStatus.Get(stageId);
+            var stageStatus = StageStatus.Get(treeId, stageNumber);
             return !stageStatus.tutorialChecked;
         }
 
@@ -301,7 +301,7 @@ namespace Project.Scripts.GamePlayScene
 
                 // ステージID表示
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
-                _stageNumberText.text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageId.ToString();
+                _stageNumberText.text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
             }
 
             public override void OnEnter(State from = null)
@@ -331,7 +331,7 @@ namespace Project.Scripts.GamePlayScene
             private void StageInitialize()
             {
                 // 番号に合わせたステージの作成
-                StageGenerator.CreateStages(stageId);
+                StageGenerator.CreateStages(treeId, stageNumber);
 
                 // 時間の計測
                 _customTimer.StartTimer();
@@ -418,7 +418,7 @@ namespace Project.Scripts.GamePlayScene
             public override void OnEnter(State from = null)
             {
                 // 記録更新
-                StageStatus.Get(stageId).Update(success: true);
+                StageStatus.Get(treeId, stageNumber).Update(success: true);
 
                 _successSE.Play();
 
@@ -461,7 +461,7 @@ namespace Project.Scripts.GamePlayScene
             public override void OnEnter(State from = null)
             {
                 // 記録更新
-                StageStatus.Get(stageId).Update(success: false);
+                StageStatus.Get(treeId, stageNumber).Update(success: false);
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
@@ -496,7 +496,7 @@ namespace Project.Scripts.GamePlayScene
 
             public override void OnEnter(State from = null)
             {
-                var stageData = GameDataBase.GetStage(stageId);
+                var stageData = GameDataBase.GetStage(treeId, stageNumber);
                 var tutorialData = stageData.Tutorial;
                 if (tutorialData.type == ETutorialType.None)
                     return;
@@ -524,7 +524,7 @@ namespace Project.Scripts.GamePlayScene
 
             public override void OnExit(State to)
             {
-                var stageStatus = StageStatus.Get(stageId);
+                var stageStatus = StageStatus.Get(treeId, stageNumber);
                 stageStatus.SetTutorialChecked(true);
                 _tutorialWindow.SetActive(false);
             }

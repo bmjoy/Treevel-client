@@ -40,6 +40,7 @@
         public const string GRAPH_UI = "GraphUi";
         public const string TREE = "Tree";
         public const string ROAD = "Road";
+        public const string STAGE = "Stage";
     }
 
     /// <summary>

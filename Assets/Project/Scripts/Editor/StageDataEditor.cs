@@ -35,10 +35,12 @@ namespace Project.Scripts.Editor
         {
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("id"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("treeId"));
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("stageNumber"));
 
             // ステージ制限
-            this.DrawArrayProperty(serializedObject.FindProperty("constraintStageIds"));
+            this.DrawArrayProperty(serializedObject.FindProperty("constraintStageNumbers"));
 
             DrawTutorialData();
 

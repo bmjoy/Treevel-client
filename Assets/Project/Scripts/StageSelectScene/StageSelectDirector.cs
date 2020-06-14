@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
 using Project.Scripts.GamePlayScene;
 using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
@@ -9,10 +10,11 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
 using UnityEngine;
 using UnityEngine.UI;
+using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.StageSelectScene
 {
-    public class StageSelectDirector : MonoBehaviour
+    public class StageSelectDirector : SingletonObject<StageSelectDirector>
     {
         /// <summary>
         /// 概要を表示するポップアップ
@@ -51,6 +53,8 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _treeName;
 
+        private static List<StageController> stages;
+
         // TODO: SnapScrollが働いたときの更新処理
         //       - 隣の木に移動するButtonが押せるかどうか(端では押せない)を更新する
         //       - 木の名前を表示するテキストを更新する
@@ -58,6 +62,11 @@ namespace Project.Scripts.StageSelectScene
 
         private void Awake()
         {
+            stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
+            foreach (var stage in stages) {
+                stage.UpdateReleased();
+            }
+
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
@@ -67,10 +76,6 @@ namespace Project.Scripts.StageSelectScene
 
             // UIの設定
             _treeName = GameObject.Find(_TREENAME);
-
-            // TODO: 非同期で呼び出す
-            // 各ステージの選択ボタンなどを描画する
-            Draw();
 
             // TODO: 表示している木の名前を描画する
             DrawTreeName();
@@ -85,14 +90,6 @@ namespace Project.Scripts.StageSelectScene
         }
 
         /// <summary>
-        /// 全難易度の画面を描画する
-        /// </summary>
-        private void Draw()
-        {
-            MakeButtons();
-        }
-
-        /// <summary>
         /// 表示している木の名前を描画する
         /// </summary>
         private void DrawTreeName()
@@ -100,78 +97,25 @@ namespace Project.Scripts.StageSelectScene
             // TODO: 現在表示している木の名前に更新する
         }
 
-        /// <summary>
-        /// ボタンを配置する
-        /// </summary>
-        private void MakeButtons()
-        {
-            // 指定したレベルの全ての木の描画
-            for (var i = 0; i < LevelInfo.TREE_NUM[levelName]; i++) {
-                // TODO: 選択した木を開くようにScrollViewを変更する
-                for (var j = 0; j < TreeInfo.NUM[treeId]; j++) {
-                    // ButtonのGameObjectを取得する
-                    var button = GameObject.Find($"{_TREECANVAS}/Trees/SnapScrollView/Viewport/Content/Tree{i+1}/Stage{j+1}");
-                    // クリック時のリスナー
-                    button.GetComponent<Button>().onClick.AddListener(() => StageButtonDown(button));
-
-                    // TODO: stageId get by level data
-                    var stageId = j + 1;
-                    var stageData = GameDataBase.GetStage(stageId);
-                    if (stageData == null)
-                        continue;
-
-                    // TODO: ステージボタンのためのクラスを作って記述する
-                    {
-                        var isUnLocked = stageData.IsUnLocked();
-                        // ボタンのクリック可能か
-                        button.GetComponent<Button>().enabled = isUnLocked;
-
-                        // 鍵穴付けるか
-                        button.transform.Find("Lock")?.gameObject.SetActive(!isUnLocked);
-
-                        // クリアしたらグレイスケールを解除
-                        if (StageStatus.Get(stageId).passed) {
-                            button.GetComponent<Image>().material = null;
-                        }
-                    }
-                }
-                // TODO: ButtonとButtonの間に線を描画する
-            }
-        }
-
-        /// <summary>
-        /// タッチされたステージの概要を表示
-        /// </summary>
-        /// <param name="clickedButton"> タッチされたボタン </param>
-        private void StageButtonDown(GameObject clickedButton)
-        {
-            // タップされたステージidを取得（暫定的にButtonのテキスト）
-            Debug.Log(clickedButton);
-            var stageId = int.Parse(clickedButton.GetComponentInChildren<Text>().text);
-
-            if (UserSettings.StageDetails == 1) {
+        public void ShowOverPopup(ETreeId treeId, int stageNumber) {
                 // ポップアップを初期化する
-                _overviewPopup.GetComponent<OverviewPopup>().SetStageId(stageId);
+                _overviewPopup.GetComponent<OverviewPopup>().SetStageId(treeId, stageNumber);
                 // ポップアップを表示する
                 _overviewPopup.gameObject.SetActive(true);
-            } else {
-                GoToGame(stageId);
-            }
         }
 
         /// <summary>
         /// ステージ選択画面からゲーム選択画面へ移動する
         /// </summary>
-        /// <param name="stageId"> ステージID </param>
-        public void GoToGame(int stageId)
+        public void GoToGame(ETreeId treeId, int stageNumber)
         {
             // 挑戦回数をインクリメント
-            var ss = StageStatus.Get(stageId);
-            ss.IncChallengeNum(stageId);
+            var ss = StageStatus.Get(treeId, stageNumber);
+            ss.IncChallengeNum(treeId, stageNumber);
             // ステージ情報を渡す
             GamePlayDirector.levelName = levelName;
             GamePlayDirector.treeId = treeId;
-            GamePlayDirector.stageId = stageId;
+            GamePlayDirector.stageNumber = stageNumber;
             // ポップアップを非表示にする
             _overviewPopup.gameObject.SetActive(false);
             // ロード中の背景を表示する
@@ -179,7 +123,7 @@ namespace Project.Scripts.StageSelectScene
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
 
-            AddressableAssetManager.LoadStageDependencies(stageId);
+            AddressableAssetManager.LoadStageDependencies(treeId, stageNumber);
 
             // シーン遷移
             AddressableAssetManager.LoadScene(SceneName.GAME_PLAY_SCENE);

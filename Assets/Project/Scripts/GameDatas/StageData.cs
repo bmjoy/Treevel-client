@@ -11,18 +11,21 @@ namespace Project.Scripts.GameDatas
     [CreateAssetMenu(fileName = "stage.asset", menuName = "Stage")]
     public class StageData : ScriptableObject
     {
-        [SerializeField] private int id;
+        [SerializeField] private ETreeId treeId;
+        [SerializeField] private int stageNumber;
         [SerializeField] private List<TileData> tiles;
         [SerializeField] private List<BottleData> bottles;
         [SerializeField] private List<BulletGroupData> bulletGroups;
         [SerializeField] private List<EBulletType> overviewGimmicks;
         [SerializeField] private TutorialData tutorial;
 
-        [SerializeField] private List<int> constraintStageIds;
+        [SerializeField] private List<int> constraintStageNumbers;
 
-        public int Id => id;
+        public ETreeId TreeId => treeId;
 
-        public List<int> ConstraintStageIds => constraintStageIds;
+        public int StageNumber => stageNumber;
+
+        public List<int> ConstraintStageNumbers => constraintStageNumbers;
 
         public List<TileData> TileDatas => tiles;
 
@@ -37,12 +40,12 @@ namespace Project.Scripts.GameDatas
         public bool IsUnLocked()
         {
             // ステージ制限なし
-            if (ConstraintStageIds.Count == 0)
+            if (ConstraintStageNumbers.Count == 0)
                 return true;
 
-            var constraintStagesStatus = ConstraintStageIds
-                .Where(id => GameDataBase.GetStage(id) != null) // 存在しないステージを弾く
-                .Select(StageStatus.Get);
+            var constraintStagesStatus = ConstraintStageNumbers
+                .Where((stageNumber) => GameDataBase.GetStage(treeId, stageNumber) != null) // 存在しないステージを弾く
+                .Select((stageNumber) => StageStatus.Get(treeId, stageNumber));
 
             return constraintStagesStatus.All(s => s.passed);
         }

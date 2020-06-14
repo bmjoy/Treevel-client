@@ -11,6 +11,7 @@ TagManager:
   - Bottle
   - Tree
   - Road
+  - Stage
   layers:
   - Default
   - TransparentFX
