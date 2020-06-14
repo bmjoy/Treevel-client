@@ -29,7 +29,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         public bool IsMovable
         {
             get => _isMovable;
-            set {
+            set
+            {
+                // 同じ値をセットし直すことはできないようにする
+                if (value == _isMovable) return;
+
                 if (value) {
                     GetComponent<FlickGesture>().Flicked += HandleFlick;
                     _isMovable = true;
