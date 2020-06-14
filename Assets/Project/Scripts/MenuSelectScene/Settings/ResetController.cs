@@ -26,14 +26,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
         private static void ResetButtonDown()
         {
             // 全ステージをリセット
-            foreach (ELevelName levelName in Enum.GetValues(typeof(ELevelName))) {
-                var stageNum = LevelInfo.NUM[levelName];
-                var stageStartId = LevelInfo.STAGE_START_ID[levelName];
-
-                for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
-                    StageStatus.Reset(stageId);
-                }
-            }
+            StageStatus.Reset();
 
             // 道の解放条件をリセット
             LevelSelectDirector.Reset();
