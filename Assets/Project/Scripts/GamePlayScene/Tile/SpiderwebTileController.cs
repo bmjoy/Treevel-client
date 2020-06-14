@@ -31,6 +31,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             public override void OnBottleEnter(GameObject bottle)
             {
+                if (bottle.GetComponent<DynamicBottleController>() == null) return;
+
                 StopBottle(bottle);
             }
 
