@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54e76f6c0ff74f77be74b799ca8ccc8, type: 3}
   m_Name: 2_2
   m_EditorClassIdentifier: 
-  id: 1002
+  treeId: 2
+  stageNumber: 1002
   tiles: []
   bottles:
   - type: 3
@@ -145,4 +146,4 @@ MonoBehaviour:
     video:
       m_AssetGUID: 
       m_SubObjectName: 
-  constraintStageIds: 
+  constraintStageNumbers: 
