@@ -1,19 +1,19 @@
 ﻿using UnityEditor;
-using Project.Scripts.MenuSelectScene.LevelSelect;
+using Project.Scripts.StageSelectScene;
 
 namespace Project.Scripts.Editor
 {
     /// <summary>
     /// BranchDrawerのエディタ拡張
     /// </summary>
-    [CustomEditor(typeof(RoadController))]
-    public class RoadDrawer : UnityEditor.Editor
+    [CustomEditor(typeof(BranchController))]
+    public class BranchDrawer : UnityEditor.Editor
     {
-        private RoadController line;
+        private BranchController line;
 
         public void OnEnable()
         {
-            line = (RoadController)target;
+            line = (BranchController)target;
         }
 
         public override void OnInspectorGUI()
