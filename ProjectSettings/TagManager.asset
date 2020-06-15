@@ -12,6 +12,7 @@ TagManager:
   - Tree
   - Road
   - Stage
+  - Branch
   layers:
   - Default
   - TransparentFX
@@ -51,6 +52,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Branch
+    uniqueID: 2412976807
     locked: 0
   - name: Tile
     uniqueID: 1928078809

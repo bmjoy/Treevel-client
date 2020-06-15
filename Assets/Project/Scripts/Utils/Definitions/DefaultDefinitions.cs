@@ -22,6 +22,11 @@ namespace Project.Scripts.Utils.Definitions
         public const int ROAD_RELEASED = 0;
 
         /// <summary>
+        /// デフォルトの枝の解放状態
+        /// </summary>
+        public const int BRANCH_RELEASED = 0;
+
+        /// <summary>
         /// デフォルトの言語
         /// </summary>
         public const ELanguage LANGUAGE = ELanguage.Japanese;
