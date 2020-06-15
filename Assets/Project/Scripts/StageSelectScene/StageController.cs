@@ -21,12 +21,14 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージの番号
         /// </summary>
-        [SerializeField] private int _stageNumber;
+        [SerializeField] public int stageNumber;
+
+        public bool cleared = false;
 
 
         public void UpdateReleased()
         {
-            var stageData = GameDataBase.GetStage(_treeId, _stageNumber);
+            var stageData = GameDataBase.GetStage(_treeId, stageNumber);
             if (stageData == null)
                 return;
 
@@ -38,7 +40,8 @@ namespace Project.Scripts.StageSelectScene
             transform.Find("Lock")?.gameObject.SetActive(!isUnLocked);
 
             // クリアしたらグレイスケールを解除
-            if (StageStatus.Get(_treeId, _stageNumber).passed) {
+            cleared = StageStatus.Get(_treeId, stageNumber).passed;
+            if (cleared) {
                 GetComponent<Image>().material = null;
             }
         }
@@ -46,7 +49,7 @@ namespace Project.Scripts.StageSelectScene
         public void StageButtonDown()
         {
             if (UserSettings.StageDetails == 1) {
-                StageSelectDirector.Instance.ShowOverPopup(_treeId, _stageNumber);
+                StageSelectDirector.Instance.ShowOverPopup(_treeId, stageNumber);
             } else {
                 GoToGame();
             }
@@ -57,7 +60,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private void GoToGame()
         {
-            StageSelectDirector.Instance.GoToGame(_treeId, _stageNumber);
+            StageSelectDirector.Instance.GoToGame(_treeId, stageNumber);
         }
     }
 }

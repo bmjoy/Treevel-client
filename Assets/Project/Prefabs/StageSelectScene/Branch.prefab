@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6435458436284193576
+--- !u!1 &6861449145583276910
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7367111263612083138}
-  - component: {fileID: 4879365460225979789}
-  - component: {fileID: 3838137885523574259}
+  - component: {fileID: 678615929867830385}
+  - component: {fileID: 2850028561387380508}
+  - component: {fileID: 4570591737211165032}
   m_Layer: 5
-  m_Name: Road
-  m_TagString: Road
+  m_Name: Branch
+  m_TagString: Branch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7367111263612083138
+--- !u!224 &678615929867830385
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6435458436284193576}
+  m_GameObject: {fileID: 6861449145583276910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -37,34 +37,13 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4879365460225979789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6435458436284193576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b1dceca586f243e8a56b4a664a94c56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startObject: {fileID: 0}
-  endObject: {fileID: 0}
-  constraintObjects: []
-  firstControlPoint: {x: 0, y: 0}
-  secondControlPoint: {x: 0, y: 0}
-  _middlePointNum: 0
-  _width: 0
-  _render: {fileID: 3838137885523574259}
-  _roadId: 0
---- !u!120 &3838137885523574259
+--- !u!120 &2850028561387380508
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6435458436284193576}
+  m_GameObject: {fileID: 6861449145583276910}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -94,8 +73,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 75759933
-  m_SortingLayer: -1
+  m_SortingLayerID: -1881990489
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -108,7 +87,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 3.12
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -117,7 +96,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0
+        value: 3.12
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -164,3 +143,24 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
+--- !u!114 &4570591737211165032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861449145583276910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40332f21a6d024d688c65390b11b7dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startObject: {fileID: 0}
+  endObject: {fileID: 0}
+  constraintObjects: []
+  firstControlPoint: {x: 0, y: 0}
+  secondControlPoint: {x: 0, y: 0}
+  _middlePointNum: 0
+  _width: 0.03
+  _render: {fileID: 2850028561387380508}
+  _treeId: 0

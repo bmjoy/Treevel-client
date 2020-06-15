@@ -17,7 +17,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public const string STAGE_DETAILS = "STAGE_DETAILS";
         public const string LEVEL_SELECT_CANVAS_SCALE = "LEVEL_SELECT_CANVAS_SCALE";
         public const string LEVEL_SELECT_SCROLL_POSITION = "LEVEL_SELECT_SCROLL_POSITION";
-        private const char KEY_CONNECT_CHAR = '_';
+        public const char KEY_CONNECT_CHAR = '_';
 
         /// <summary>
         /// ステージのkeyを生成する

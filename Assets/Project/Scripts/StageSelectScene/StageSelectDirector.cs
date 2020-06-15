@@ -55,6 +55,8 @@ namespace Project.Scripts.StageSelectScene
 
         private static List<StageController> stages;
 
+        private static List<BranchController> branches;
+
         // TODO: SnapScrollが働いたときの更新処理
         //       - 隣の木に移動するButtonが押せるかどうか(端では押せない)を更新する
         //       - 木の名前を表示するテキストを更新する
@@ -63,8 +65,12 @@ namespace Project.Scripts.StageSelectScene
         private void Awake()
         {
             stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
+            branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
             foreach (var stage in stages) {
                 stage.UpdateReleased();
+            }
+            foreach (var branch in branches) {
+                branch.UpdateReleased();
             }
 
             // 取得

@@ -20,7 +20,8 @@ namespace Project.Scripts.StageSelectScene
 
         private int _endNumber;
 
-        protected override void Awake() {
+        protected override void Awake()
+        {
             base.Awake();
             _startNumber = startObject.GetComponent<StageController>().stageNumber;
             _endNumber = endObject.GetComponent<StageController>().stageNumber;
@@ -47,7 +48,7 @@ namespace Project.Scripts.StageSelectScene
                     button.enabled = true;
                 }
             }
-            
+
             button.enabled = released;
             endObject.transform.Find("Lock")?.gameObject.SetActive(!released);
 
