@@ -23,7 +23,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] public int stageNumber;
 
-        public bool cleared = false;
+        [NonSerialized] public bool cleared = false;
 
 
         public void UpdateReleased()
