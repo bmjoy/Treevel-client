@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Project.Scripts.MenuSelectScene.LevelSelect;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
-using Project.Scripts.MenuSelectScene.LevelSelect;
-using Project.Scripts.StageSelectScene;
 using System;
 using System.Linq;
+using UnityEngine;
 
 namespace Project.Scripts.StageSelectScene
 {
@@ -16,8 +14,14 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
+        /// <summary>
+        /// 始点のステージ番号
+        /// </summary>
         private int _startNumber;
 
+        /// <summary>
+        /// 終点のステージ番号
+        /// </summary>
         private int _endNumber;
 
         protected override void Awake()
@@ -32,6 +36,9 @@ namespace Project.Scripts.StageSelectScene
             PlayerPrefs.DeleteKey(_treeId.ToString() + _startNumber + PlayerPrefsKeys.KEY_CONNECT_CHAR + _endNumber);
         }
 
+        /// <summary>
+        /// 枝の状態の更新
+        /// </summary>
         public override void UpdateReleased()
         {
             released = PlayerPrefs.GetInt(_treeId.ToString() + _startNumber + PlayerPrefsKeys.KEY_CONNECT_CHAR + _endNumber, Default.BRANCH_RELEASED) == 1;
@@ -43,13 +50,12 @@ namespace Project.Scripts.StageSelectScene
                 } else {
                     released = constraintObjects.All(stage => stage.GetComponent<StageController>().cleared);
                 }
-
-                if (released) {
-                    button.enabled = true;
-                }
             }
 
+            // 終点のステージの状態の更新
+            endObject.GetComponent<StageController>().released = released;
             button.enabled = released;
+            // 鍵穴付けるか
             endObject.transform.Find("Lock")?.gameObject.SetActive(!released);
 
             if (!released) {
@@ -59,6 +65,9 @@ namespace Project.Scripts.StageSelectScene
             }
         }
 
+        /// <summary>
+        /// 枝の状態の保存
+        /// </summary>
         public override void SaveReleased()
         {
             PlayerPrefs.SetInt(_treeId.ToString() + _startNumber + PlayerPrefsKeys.KEY_CONNECT_CHAR + _endNumber, Convert.ToInt32(released));

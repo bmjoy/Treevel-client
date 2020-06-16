@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Project.Scripts.GameDatas;
+using Project.Scripts.Utils.Definitions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
 using UnityEditor;
 using UnityEngine;
 
@@ -38,9 +38,6 @@ namespace Project.Scripts.Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("treeId"));
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("stageNumber"));
-
-            // ステージ制限
-            this.DrawArrayProperty(serializedObject.FindProperty("constraintStageNumbers"));
 
             DrawTutorialData();
 

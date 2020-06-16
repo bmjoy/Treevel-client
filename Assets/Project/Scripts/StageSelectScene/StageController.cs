@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
-using Project.Scripts.GamePlayScene;
-using Project.Scripts.Utils;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,29 +20,43 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] public int stageNumber;
 
+        /// <summary>
+        /// 解放状態
+        /// </summary>
+        [SerializeField] public bool released;
+
+        /// <summary>
+        /// クリア状態
+        /// </summary>
         [NonSerialized] public bool cleared = false;
 
-
+        /// <summary>
+        /// ステージの状態の更新
+        /// </summary>
         public void UpdateReleased()
         {
             var stageData = GameDataBase.GetStage(_treeId, stageNumber);
             if (stageData == null)
                 return;
 
-            var isUnLocked = stageData.IsUnLocked();
-            // ボタンのクリック可能か
-            GetComponent<Button>().enabled = isUnLocked;
+            var stageStatus = StageStatus.Get(_treeId, stageNumber);
+            if (stageNumber != 1)
+            released = stageStatus.released;
+
+            cleared = stageStatus.cleared;
 
             // 鍵穴付けるか
-            transform.Find("Lock")?.gameObject.SetActive(!isUnLocked);
+            transform.Find("Lock")?.gameObject.SetActive(!released);
 
             // クリアしたらグレイスケールを解除
-            cleared = StageStatus.Get(_treeId, stageNumber).passed;
             if (cleared) {
                 GetComponent<Image>().material = null;
             }
         }
 
+        /// <summary>
+        /// ステージの状態の保存
+        /// </summary>
         public void StageButtonDown()
         {
             if (UserSettings.StageDetails == 1) {

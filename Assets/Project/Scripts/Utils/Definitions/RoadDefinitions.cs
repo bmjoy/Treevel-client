@@ -1,7 +1,7 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
     /// <summary>
-    /// 木一覧
+    /// 道一覧
     /// </summary>
     public enum ERoadId {
         Spring1_Spring2 = 1,

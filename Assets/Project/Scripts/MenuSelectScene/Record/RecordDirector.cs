@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
 using UnityEngine;
 using UnityEngine.UI;
@@ -112,15 +111,15 @@ namespace Project.Scripts.MenuSelectScene.Record
             var successStageNum = 0;
 
             // TODO: 全ての記録画面を表示する
+            /*
             for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
-                /*
                 var stageStatus = StageStatus.Get(stageId);
 
                 if (stageStatus.passed) {
                     successStageNum++;
                 }
-                */
             }
+            */
 
             var successPercentage = (successStageNum / (float) stageNum) * 100;
 
@@ -223,15 +222,15 @@ namespace Project.Scripts.MenuSelectScene.Record
         {
             var maxChallengeNum = 0;
 
+            /*
             for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
-                /*
                 var stageStatus = StageStatus.Get(stageId);
 
                 if (stageStatus.challengeNum > maxChallengeNum) {
                     maxChallengeNum = stageStatus.challengeNum;
                 }
-                */
             }
+            */
 
             return maxChallengeNum;
         }

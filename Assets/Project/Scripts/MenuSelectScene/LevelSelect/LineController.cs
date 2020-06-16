@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
@@ -18,6 +16,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] protected GameObject endObject;
 
+        /// <summary>
+        /// 終点を解放するためにクリアする必要のあるオブジェクト
+        /// </summary>
         [SerializeField] protected GameObject[] constraintObjects;
 
         /// <summary>
@@ -42,6 +43,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         [SerializeField] protected LineRenderer _render;
 
+        /// <summary>
+        /// 解放状態
+        /// </summary>
         protected bool released = false;
 
         protected Button button;

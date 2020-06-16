@@ -1,5 +1,5 @@
-﻿using UnityEditor;
-using Project.Scripts.StageSelectScene;
+﻿using Project.Scripts.StageSelectScene;
+using UnityEditor;
 
 namespace Project.Scripts.Editor
 {
@@ -9,11 +9,11 @@ namespace Project.Scripts.Editor
     [CustomEditor(typeof(BranchController))]
     public class BranchDrawer : UnityEditor.Editor
     {
-        private BranchController line;
+        private BranchController branch;
 
         public void OnEnable()
         {
-            line = (BranchController)target;
+            branch = (BranchController)target;
         }
 
         public override void OnInspectorGUI()
@@ -22,7 +22,7 @@ namespace Project.Scripts.Editor
             base.OnInspectorGUI();
 
             // 線の描画
-            line.SetPointPosition();
+            branch.SetPointPosition();
         }
     }
 }

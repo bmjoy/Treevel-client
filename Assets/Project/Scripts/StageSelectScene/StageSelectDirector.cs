@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Collections.Generic;
-using Project.Scripts.GamePlayScene;
-using Project.Scripts.MenuSelectScene.Settings;
+﻿using Project.Scripts.GamePlayScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
-using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.StageSelectScene
 {
@@ -44,7 +40,7 @@ namespace Project.Scripts.StageSelectScene
         public static ELevelName levelName;
 
         /// <summary>
-        /// 木のId
+        /// 木のID
         /// </summary>
         public static ETreeId treeId;
 
@@ -53,8 +49,14 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _treeName;
 
+        /// <summary>
+        /// ステージ
+        /// </summary>
         private static List<StageController> stages;
 
+        /// <summary>
+        /// 枝
+        /// </summary>
         private static List<BranchController> branches;
 
         // TODO: SnapScrollが働いたときの更新処理
@@ -66,9 +68,12 @@ namespace Project.Scripts.StageSelectScene
         {
             stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
             branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+            
+            // ステージの状態の更新
             foreach (var stage in stages) {
                 stage.UpdateReleased();
             }
+            // 枝の状態の更新
             foreach (var branch in branches) {
                 branch.UpdateReleased();
             }

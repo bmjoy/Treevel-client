@@ -1,19 +1,19 @@
-﻿using UnityEditor;
-using Project.Scripts.MenuSelectScene.LevelSelect;
+﻿using Project.Scripts.MenuSelectScene.LevelSelect;
+using UnityEditor;
 
 namespace Project.Scripts.Editor
 {
     /// <summary>
-    /// BranchDrawerのエディタ拡張
+    /// RoadDrawerのエディタ拡張
     /// </summary>
     [CustomEditor(typeof(RoadController))]
     public class RoadDrawer : UnityEditor.Editor
     {
-        private RoadController line;
+        private RoadController road;
 
         public void OnEnable()
         {
-            line = (RoadController)target;
+            road = (RoadController)target;
         }
 
         public override void OnInspectorGUI()
@@ -22,7 +22,7 @@ namespace Project.Scripts.Editor
             base.OnInspectorGUI();
 
             // 線の描画
-            line.SetPointPosition();
+            road.SetPointPosition();
         }
     }
 }
