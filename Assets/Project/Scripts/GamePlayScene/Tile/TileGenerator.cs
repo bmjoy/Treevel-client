@@ -40,6 +40,9 @@ namespace Project.Scripts.GamePlayScene.Tile
                     case ETileType.Holy:
                         CreateHolyTile(tileData.number);
                         break;
+                    case ETileType.Spiderweb:
+                        CreateSpiderwebTile(tileData.number);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -51,7 +54,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        private async void CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private static async void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
             var secondTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
@@ -78,6 +81,17 @@ namespace Project.Scripts.GamePlayScene.Tile
             BoardManager.SetTile(holyTile.GetComponent<AbstractTileController>(), tileNum);
 
             holyTile.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        private static async void CreateSpiderwebTile(int tileNum)
+        {
+            var spiderwebTile = await AddressableAssetManager.Instantiate(Address.SPIDERWEB_TILE_PREFAB).Task;
+
+            spiderwebTile.GetComponent<SpiderwebTileController>().Initialize(tileNum);
+
+            BoardManager.SetTile(spiderwebTile.GetComponent<AbstractTileController>(), tileNum);
+
+            spiderwebTile.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

@@ -9,6 +9,7 @@
         public const string NORMAL_TILE = "NormalTile";
         public const string WARP_TILE = "WarpTile";
         public const string HOLY_TILE = "HolyTile";
+        public const string SPIDERWEB_TILE = "SpiderwebTile";
     }
     #endif
 
@@ -16,5 +17,6 @@
         Normal,
         Warp,
         Holy,
+        Spiderweb,
     }
 }

@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
     [RequireComponent(typeof(FlickGesture))]
     public class DynamicBottleController : AbstractBottleController
     {
-        protected Animation anim;
+        private Animation _anim;
 
         /// <summary>
         /// ワープタイルでワープする時のアニメーション
@@ -20,6 +20,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// ワープタイルでワープした後のアニメーション
         /// </summary>
         [SerializeField] protected AnimationClip warpReverseAnimation;
+
+        /// <summary>
+        /// 動くことができる状態か
+        /// </summary>
+        public bool IsMovable = true;
 
         protected override void Awake()
         {
@@ -32,9 +37,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
             GetComponent<FlickGesture>().FlickTime = 0.2f;
 
             // アニメーションの追加
-            anim = GetComponent<Animation>();
-            anim.AddClip(warpAnimation, AnimationClipName.BOTTLE_WARP);
-            anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
+            _anim = GetComponent<Animation>();
+            _anim.AddClip(warpAnimation, AnimationClipName.BOTTLE_WARP);
+            _anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
         }
 
         private void OnEnable()
@@ -56,6 +61,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private void HandleFlick(object sender, EventArgs e)
         {
+            if (!IsMovable) return;
+
             var gesture = sender as FlickGesture;
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
@@ -86,12 +93,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private void EndProcess()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
-            anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
-            anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
+            _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
+            _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
 
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
             if (!IsDead) {
-                anim.wrapMode = WrapMode.Default;
+                _anim.wrapMode = WrapMode.Default;
             }
         }
     }

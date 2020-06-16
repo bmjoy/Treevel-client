@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: 1_4
   m_EditorClassIdentifier: 
   id: 4
-  tiles: []
+  tiles:
+  - type: 3
+    number: 2
+    pairNumber: 0
   bottles:
   - type: 2
     initPos: 4

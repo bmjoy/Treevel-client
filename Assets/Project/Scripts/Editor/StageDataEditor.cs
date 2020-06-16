@@ -140,6 +140,8 @@ namespace Project.Scripts.Editor
                         break;
                     case ETileType.Holy:
                         break;
+                    case ETileType.Spiderweb:
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
