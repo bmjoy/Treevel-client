@@ -24,11 +24,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 動くことができる状態か
         /// </summary>
-        public bool IsMovable
-        {
-            get;
-            set;
-        } = true;
+        public bool IsMovable = true;
 
         protected override void Awake()
         {

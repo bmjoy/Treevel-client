@@ -38,12 +38,14 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             private static async void StopBottle(GameObject bottle)
             {
+                Debug.Log("蜘蛛の巣タイルで拘束");
                 bottle.GetComponent<DynamicBottleController>().IsMovable = false;
 
                 // 引数は milliseconds
                 await Task.Delay(_BIND_TIME * 1000);
 
                 bottle.GetComponent<DynamicBottleController>().IsMovable = true;
+                Debug.Log("蜘蛛の巣タイルから解放");
             }
         }
     }
