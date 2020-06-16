@@ -68,7 +68,7 @@ namespace Project.Scripts.StageSelectScene
         {
             stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
             branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
-            
+
             // ステージの状態の更新
             foreach (var stage in stages) {
                 stage.UpdateReleased();

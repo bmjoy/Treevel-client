@@ -41,7 +41,7 @@ namespace Project.Scripts.StageSelectScene
 
             var stageStatus = StageStatus.Get(_treeId, stageNumber);
             if (stageNumber != 1)
-            released = stageStatus.released;
+                released = stageStatus.released;
 
             cleared = stageStatus.cleared;
 
