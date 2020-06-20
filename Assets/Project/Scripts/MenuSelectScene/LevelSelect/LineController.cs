@@ -50,9 +50,15 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         protected Button button;
 
+        /// <summary>
+        /// データを保存するときのキー
+        /// </summary>
+        protected string saveKey;
+
         protected virtual void Awake()
         {
             button = endObject.GetComponent<Button>();
+            SetSaveKey();
         }
 
         private void Start()
@@ -63,6 +69,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             secondControlPoint += SavableScrollRect.CONTENT_MARGIN;
             SetPointPosition();
         }
+
+        protected abstract void SetSaveKey();
 
         public abstract void Reset();
 

@@ -19,7 +19,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木のId
         /// </summary>
-        [SerializeField] private ETreeId _treeId;
+        [SerializeField] public ETreeId treeId;
 
         /// <summary>
         /// 木が解放されているかどうか
@@ -33,9 +33,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         public void Reset()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE_RELEASED + _treeId.ToString());
-            if (_treeId != ETreeId.Spring_1)
-                PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE_CLEARED + _treeId.ToString());
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE_RELEASED + treeId.ToString());
+            if (treeId != ETreeId.Spring_1)
+                PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE_CLEARED + treeId.ToString());
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public void UpdateReleased()
         {
-            released = PlayerPrefs.GetInt(PlayerPrefsKeys.TREE_RELEASED + _treeId.ToString(), Default.TREE_RELEASED) == 1;
-            if (_treeId != ETreeId.Spring_1)
-                cleared = PlayerPrefs.GetInt(PlayerPrefsKeys.TREE_CLEARED + _treeId.ToString(), Default.TREE_CLEARED) == 1;
+            released = PlayerPrefs.GetInt(PlayerPrefsKeys.TREE_RELEASED + treeId.ToString(), Default.TREE_RELEASED) == 1;
+            if (treeId != ETreeId.Spring_1)
+                cleared = PlayerPrefs.GetInt(PlayerPrefsKeys.TREE_CLEARED + treeId.ToString(), Default.TREE_CLEARED) == 1;
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public void SaveReleased()
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.TREE_RELEASED + _treeId.ToString(), Convert.ToInt32(released));
-            if (_treeId != ETreeId.Spring_1)
-                PlayerPrefs.SetInt(PlayerPrefsKeys.TREE_CLEARED + _treeId.ToString(), Convert.ToInt32(cleared));
+            PlayerPrefs.SetInt(PlayerPrefsKeys.TREE_RELEASED + treeId.ToString(), Convert.ToInt32(released));
+            if (treeId != ETreeId.Spring_1)
+                PlayerPrefs.SetInt(PlayerPrefsKeys.TREE_CLEARED + treeId.ToString(), Convert.ToInt32(cleared));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         public void TreeButtonDown()
         {
             StageSelectDirector.levelName = _levelName;
-            StageSelectDirector.treeId = _treeId;
+            StageSelectDirector.treeId = treeId;
             TreeLibrary.LoadStageSelectScene(_levelName);
         }
     }

@@ -29,12 +29,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnEnable()
         {
-            foreach (var tree in trees) {
-                tree.UpdateReleased();
-            }
-            foreach (var road in roads) {
-                road.UpdateReleased();
-            }
+            trees.ForEach(tree => tree.UpdateReleased());
+            roads.ForEach(road => road.UpdateReleased());
         }
 
         /// <summary>
@@ -42,12 +38,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnDisable()
         {
-            foreach (var tree in trees) {
-                tree.SaveReleased();
-            }
-            foreach (var road in roads) {
-                road.SaveReleased();
-            }
+            trees.ForEach(tree => tree.SaveReleased());
+            roads.ForEach(road => road.SaveReleased());
         }
 
         /// <summary>
@@ -55,12 +47,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public static void Reset()
         {
-            foreach (var tree in trees) {
-                tree.Reset();
-            }
-            foreach (var road in roads) {
-                road.Reset();
-            }
+            trees.ForEach(tree => tree.Reset());
+            roads.ForEach(road => road.Reset());
         }
     }
 }

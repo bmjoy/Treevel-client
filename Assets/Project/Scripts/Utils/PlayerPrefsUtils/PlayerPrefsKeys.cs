@@ -17,7 +17,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public const string STAGE_DETAILS = "STAGE_DETAILS";
         public const string LEVEL_SELECT_CANVAS_SCALE = "LEVEL_SELECT_CANVAS_SCALE";
         public const string LEVEL_SELECT_SCROLL_POSITION = "LEVEL_SELECT_SCROLL_POSITION";
-        public const char KEY_CONNECT_CHAR = '_';
+        public const char KEY_CONNECT_CHAR = '-';
 
         /// <summary>
         /// ステージのkeyを生成する
@@ -27,7 +27,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <returns> StageKey(= treeId_stageNumber) </returns>
         public static string EncodeStageIdKey(ETreeId treeId, int stageNumber)
         {
-            return treeId.ToString() + KEY_CONNECT_CHAR + stageNumber;
+            return $"{treeId}{KEY_CONNECT_CHAR}{stageNumber}";
         }
 
         /// <summary>

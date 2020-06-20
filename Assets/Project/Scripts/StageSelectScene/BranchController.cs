@@ -14,26 +14,13 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
-        /// <summary>
-        /// 始点のステージ番号
-        /// </summary>
-        private int _startNumber;
-
-        /// <summary>
-        /// 終点のステージ番号
-        /// </summary>
-        private int _endNumber;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _startNumber = startObject.GetComponent<StageController>().stageNumber;
-            _endNumber = endObject.GetComponent<StageController>().stageNumber;
+        protected override void SetSaveKey() {
+            saveKey = $"{_treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
         public override void Reset()
         {
-            PlayerPrefs.DeleteKey(_treeId.ToString() + _startNumber + PlayerPrefsKeys.KEY_CONNECT_CHAR + _endNumber);
+            PlayerPrefs.DeleteKey(saveKey);
         }
 
         /// <summary>
@@ -41,7 +28,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public override void UpdateReleased()
         {
-            released = PlayerPrefs.GetInt(_treeId.ToString() + _startNumber + PlayerPrefsKeys.KEY_CONNECT_CHAR + _endNumber, Default.BRANCH_RELEASED) == 1;
+            released = PlayerPrefs.GetInt(saveKey, Default.BRANCH_RELEASED) == 1;
 
             if (!released) {
                 if (constraintObjects.Length == 0) {
@@ -70,7 +57,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public override void SaveReleased()
         {
-            PlayerPrefs.SetInt(_treeId.ToString() + _startNumber + PlayerPrefsKeys.KEY_CONNECT_CHAR + _endNumber, Convert.ToInt32(released));
+            PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
         }
     }
 }

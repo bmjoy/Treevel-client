@@ -70,13 +70,9 @@ namespace Project.Scripts.StageSelectScene
             branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
             // ステージの状態の更新
-            foreach (var stage in stages) {
-                stage.UpdateReleased();
-            }
+            stages.ForEach(stage => stage.UpdateReleased());
             // 枝の状態の更新
-            foreach (var branch in branches) {
-                branch.UpdateReleased();
-            }
+            branches.ForEach(branch => branch.UpdateReleased());
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();

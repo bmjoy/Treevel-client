@@ -8,14 +8,13 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     public class RoadController : LineController
     {
-        /// <summary>
-        /// 道のID
-        /// </summary>
-        [SerializeField] private ERoadId _roadId;
+        protected override void SetSaveKey() {
+            saveKey = $"{startObject.GetComponent<TreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<TreeController>().treeId}";
+        }
 
         public override void Reset()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.ROAD + _roadId.ToString());
+            PlayerPrefs.DeleteKey(saveKey);
         }
 
         /// <summary>
@@ -23,7 +22,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public override void UpdateReleased()
         {
-            released = PlayerPrefs.GetInt(PlayerPrefsKeys.ROAD + _roadId.ToString(), Default.ROAD_RELEASED) == 1;
+            released = PlayerPrefs.GetInt(saveKey, Default.ROAD_RELEASED) == 1;
 
             if (!released) {
                 if (constraintObjects.Length == 0) {
@@ -50,7 +49,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public override void SaveReleased()
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.ROAD + _roadId.ToString(), Convert.ToInt32(released));
+            PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
         }
     }
 }
