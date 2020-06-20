@@ -8,7 +8,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     public class RoadController : LineController
     {
-        protected override void SetSaveKey() {
+        protected override void SetSaveKey()
+        {
             saveKey = $"{startObject.GetComponent<TreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<TreeController>().treeId}";
         }
 

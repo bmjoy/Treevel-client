@@ -14,7 +14,8 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
-        protected override void SetSaveKey() {
+        protected override void SetSaveKey()
+        {
             saveKey = $"{_treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
