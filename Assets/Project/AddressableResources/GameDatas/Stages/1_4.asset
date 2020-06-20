@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeId: 1
   stageNumber: 4
-  tiles: []
+  tiles:
+  - type: 3
+    number: 2
+    pairNumber: 0
   bottles:
   - type: 2
     initPos: 4

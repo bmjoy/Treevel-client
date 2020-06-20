@@ -25,6 +25,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             public override void OnBottleEnter(GameObject bottle)
             {
+                if (bottle.GetComponent<AbstractBottleController>() == null) return;
+
                 // 親ボトルを無敵状態にする
                 bottle.GetComponent<AbstractBottleController>().Invincible = true;
             }
