@@ -105,7 +105,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <param name="p3"> 4つ目の制御点 </param>
         /// <param name="ratio"> 内分比 </param>
         /// <returns> 点の位置 </returns>
-        protected Vector2 CalcCubicBezierPointPosition(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float ratio)
+        private Vector2 CalcCubicBezierPointPosition(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float ratio)
         {
             var oneMinusRatio = 1f - ratio;
             return oneMinusRatio * oneMinusRatio * oneMinusRatio * p0
