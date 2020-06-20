@@ -39,9 +39,13 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         {
             var retValues = stageId.Split(KEY_CONNECT_CHAR);
             if (retValues.Length != 2) throw new Exception("Wrong key format");
-            var treeId = (ETreeId) Enum.ToObject(typeof(ETreeId), retValues[0]);
-            var stageNumber = int.Parse(retValues[1]);
-            return (treeId, stageNumber);
+            try {
+                var treeId = (ETreeId) Enum.ToObject(typeof(ETreeId), retValues[0]);
+                var stageNumber = int.Parse(retValues[1]);
+                return (treeId, stageNumber);
+            } catch (Exception e) {
+                throw e;
+            }
         }
     }
 }
