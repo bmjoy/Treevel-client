@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.Utils.PlayerPrefsUtils
@@ -56,7 +57,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="stageNumber"></param>
         private void Set(ETreeId treeId, int stageNumber)
         {
-            MyPlayerPrefs.SetObject(PlayerPrefsKeys.EncodeStageIdKey(treeId, stageNumber), this);
+            MyPlayerPrefs.SetObject(StageData.EncodeStageIdKey(treeId, stageNumber), this);
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <returns></returns>
         public static StageStatus Get(ETreeId treeId, int stageNumber)
         {
-            var data = MyPlayerPrefs.GetObject<StageStatus>(PlayerPrefsKeys.EncodeStageIdKey(treeId, stageNumber));
+            var data = MyPlayerPrefs.GetObject<StageStatus>(StageData.EncodeStageIdKey(treeId, stageNumber));
             data._treeId = treeId;
             data._stageNumber = stageNumber;
             return data;
@@ -83,7 +84,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
                 var stageNum = TreeInfo.NUM[treeId];
 
                 for (var stageNumber = 1; stageNumber < stageNum; stageNumber++) {
-                    PlayerPrefs.DeleteKey(PlayerPrefsKeys.EncodeStageIdKey(treeId, stageNumber));
+                    PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageNumber));
                 }
             }
         }

@@ -3,8 +3,6 @@ using Project.Scripts.GameDatas;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-
 namespace Project.Scripts.Utils
 {
     public static class GameDataBase
@@ -24,7 +22,7 @@ namespace Project.Scripts.Utils
                     Addressables.LoadAssetAsync<StageData>(location).Completed += (op1) => {
                         var stage = op1.Result;
                         lock (_stageDataMap) {
-                            _stageDataMap.Add(PlayerPrefsKeys.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
+                            _stageDataMap.Add(StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
                         }
                     };
                 }
@@ -35,7 +33,7 @@ namespace Project.Scripts.Utils
 
         public static StageData GetStage(ETreeId treeId, int stageNumber)
         {
-            var stageKey = PlayerPrefsKeys.EncodeStageIdKey(treeId, stageNumber);
+            var stageKey = StageData.EncodeStageIdKey(treeId, stageNumber);
             if (_stageDataMap.ContainsKey(stageKey))
                 return _stageDataMap[stageKey];
             else
