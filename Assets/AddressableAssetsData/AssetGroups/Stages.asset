@@ -18,23 +18,23 @@ MonoBehaviour:
   m_GUID: 2b2251e623299487b87d014c2b34fc72
   m_SerializeEntries:
   - m_GUID: 000f70e99e9e744fc85197b904552947
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_2.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_2.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 000f70e99e9e744fc85197b904552947, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 000f70e99e9e744fc85197b904552947, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 037fdc96989f249339fc86425cee7575
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/2_3.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_2_3.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 037fdc96989f249339fc86425cee7575, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 037fdc96989f249339fc86425cee7575, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 0d4ae34c0c5f94dd18575192c4afb966
     m_Address: Assets/Project/Resources_moved/GameDatas/Stages/2_5.asset
     m_ReadOnly: 0
@@ -42,64 +42,64 @@ MonoBehaviour:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 0d4ae34c0c5f94dd18575192c4afb966, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 0d4ae34c0c5f94dd18575192c4afb966, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 2f545b4136ab948c4afda14881b0af7a
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_10.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_10.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 2f545b4136ab948c4afda14881b0af7a, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 2f545b4136ab948c4afda14881b0af7a, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3579b68e982814daaa1098677b713ef9
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_6.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_6.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 3579b68e982814daaa1098677b713ef9, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 3579b68e982814daaa1098677b713ef9, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 40c99fbdab68644d1a2d673f6b8b6ff3
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_8.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_8.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 40c99fbdab68644d1a2d673f6b8b6ff3, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 40c99fbdab68644d1a2d673f6b8b6ff3, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 41508d46f250849c5b82ab30f2e925b9
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/2_2.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_2_2.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 41508d46f250849c5b82ab30f2e925b9, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 41508d46f250849c5b82ab30f2e925b9, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4e0e93b0cd7a24564a088dea7f86125e
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_5.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_5.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 4e0e93b0cd7a24564a088dea7f86125e, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 4e0e93b0cd7a24564a088dea7f86125e, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 80f965afa4a944ee99d79343061962bc
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/2_4.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_2_4.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 80f965afa4a944ee99d79343061962bc, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 80f965afa4a944ee99d79343061962bc, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 83d546bb709d74d2884c0489f2b21fb3
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_1.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
@@ -108,50 +108,50 @@ MonoBehaviour:
     m_MainAsset: {fileID: 11400000, guid: 83d546bb709d74d2884c0489f2b21fb3, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 83d546bb709d74d2884c0489f2b21fb3, type: 2}
   - m_GUID: b6d22d1ea2625477291111bc178a1657
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_3.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_3.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: b6d22d1ea2625477291111bc178a1657, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: b6d22d1ea2625477291111bc178a1657, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e7adfa3f7376c4acba0e84d33dbff57c
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_4.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_4.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: e7adfa3f7376c4acba0e84d33dbff57c, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: e7adfa3f7376c4acba0e84d33dbff57c, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e9e66da04ddfa4b8ab048dbb6ec0a7f9
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/2_1.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_2_1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: e9e66da04ddfa4b8ab048dbb6ec0a7f9, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: e9e66da04ddfa4b8ab048dbb6ec0a7f9, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: ea87323e3cc994fe49fa3a80582a3696
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_7.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_7.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: ea87323e3cc994fe49fa3a80582a3696, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: ea87323e3cc994fe49fa3a80582a3696, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: f1f274f7d95914fb3837ed486594f6dd
-    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/1_9.asset
+    m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1_9.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
     m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: f1f274f7d95914fb3837ed486594f6dd, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: f1f274f7d95914fb3837ed486594f6dd, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:

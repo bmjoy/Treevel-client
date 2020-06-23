@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a54e76f6c0ff74f77be74b799ca8ccc8, type: 3}
-  m_Name: 2_5
+  m_Name: Spring_1_6
   m_EditorClassIdentifier: 
-  treeId: 2
-  stageNumber: 5
+  treeId: 1
+  stageNumber: 6
   tiles: []
   bottles:
-  - type: 3
-    initPos: 7
+  - type: 2
+    initPos: 4
     targetPos: 4
     bottleSprite:
       m_AssetGUID: 6a6b75adbaa3d4155bac201a3b28e45d
@@ -25,9 +25,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
-    life: 2
-  - type: 3
-    initPos: 8
+    life: 0
+  - type: 2
+    initPos: 5
     targetPos: 5
     bottleSprite:
       m_AssetGUID: 6f35d8b0a82b148c6adaa20ea5d85678
@@ -35,9 +35,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
-    life: 2
-  - type: 3
-    initPos: 9
+    life: 0
+  - type: 2
+    initPos: 6
     targetPos: 6
     bottleSprite:
       m_AssetGUID: 91e0d3f7067e1499c805ce6026b32bd6
@@ -45,9 +45,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
-    life: 2
-  - type: 3
-    initPos: 10
+    life: 0
+  - type: 2
+    initPos: 7
     targetPos: 7
     bottleSprite:
       m_AssetGUID: b249dc30ba03c4849bd8ca5e860f2bf7
@@ -55,9 +55,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
       m_SubObjectName: numberTile4
-    life: 2
-  - type: 3
-    initPos: 11
+    life: 0
+  - type: 2
+    initPos: 8
     targetPos: 8
     bottleSprite:
       m_AssetGUID: cb970f58b70014a28bc61d79fca7b317
@@ -65,9 +65,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
       m_SubObjectName: numberTile5
-    life: 2
+    life: 0
   - type: 2
-    initPos: 12
+    initPos: 9
     targetPos: 9
     bottleSprite:
       m_AssetGUID: bb9357ee64c4d44cd94c66f5fb8210d0
@@ -76,8 +76,8 @@ MonoBehaviour:
       m_AssetGUID: 002d879f7321744279709540f5b88837
       m_SubObjectName: numberTile6
     life: 0
-  - type: 3
-    initPos: 13
+  - type: 2
+    initPos: 10
     targetPos: 10
     bottleSprite:
       m_AssetGUID: 84aa424be823f4562b197179ef326c71
@@ -85,8 +85,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
       m_SubObjectName: numberTile7
-    life: 2
-  - type: 3
+    life: 0
+  - type: 2
     initPos: 14
     targetPos: 11
     bottleSprite:
@@ -95,24 +95,24 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
-    life: 2
+    life: 0
   bulletGroups:
   - appearTime: 1
     interval: 5
     loop: 1
     bullets:
-    - type: 1
+    - type: 2
       ratio: 100
       row: 0
       column: 0
-      line: 1
-      direction: 1
-      turnDirections: 04000000010000000300000001000000
-      turnLines: 03000000020000000100000001000000
+      line: -1
+      direction: -1
+      turnDirections: 
+      turnLines: 
       aimingBottles: 
-      randomCartridgeDirection: 
-      randomRow: 
-      randomColumn: 
+      randomCartridgeDirection: c80000000a0000006400000000000000
+      randomRow: 6400000005000000050000000500000064000000
+      randomColumn: 640000000a00000000000000
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a54e76f6c0ff74f77be74b799ca8ccc8, type: 3}
-  m_Name: 1_10
+  m_Name: Spring_2_2
   m_EditorClassIdentifier: 
-  treeId: 1
-  stageNumber: 10
+  treeId: 2
+  stageNumber: 2
   tiles: []
   bottles:
-  - type: 2
+  - type: 3
     initPos: 4
     targetPos: 4
     bottleSprite:
@@ -25,8 +25,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
-    life: 0
-  - type: 2
+    life: 3
+  - type: 3
     initPos: 5
     targetPos: 5
     bottleSprite:
@@ -35,8 +35,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
-    life: 0
-  - type: 2
+    life: 3
+  - type: 3
     initPos: 6
     targetPos: 6
     bottleSprite:
@@ -45,8 +45,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
-    life: 0
-  - type: 2
+    life: 3
+  - type: 3
     initPos: 7
     targetPos: 7
     bottleSprite:
@@ -55,8 +55,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
       m_SubObjectName: numberTile4
-    life: 0
-  - type: 2
+    life: 3
+  - type: 3
     initPos: 8
     targetPos: 8
     bottleSprite:
@@ -65,8 +65,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
       m_SubObjectName: numberTile5
-    life: 0
-  - type: 2
+    life: 3
+  - type: 3
     initPos: 9
     targetPos: 9
     bottleSprite:
@@ -75,8 +75,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 002d879f7321744279709540f5b88837
       m_SubObjectName: numberTile6
-    life: 0
-  - type: 2
+    life: 3
+  - type: 3
     initPos: 10
     targetPos: 10
     bottleSprite:
@@ -85,8 +85,8 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
       m_SubObjectName: numberTile7
-    life: 0
-  - type: 2
+    life: 3
+  - type: 3
     initPos: 14
     targetPos: 11
     bottleSprite:
@@ -95,26 +95,26 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
-    life: 0
+    life: 3
   - type: 0
     initPos: 3
-    targetPos: 11
+    targetPos: 0
     bottleSprite:
-      m_AssetGUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-      m_SubObjectName: normalBottle8
+      m_AssetGUID: 
+      m_SubObjectName: 
     targetTileSprite:
-      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
-      m_SubObjectName: numberTile8
+      m_AssetGUID: 
+      m_SubObjectName: 
     life: 0
   - type: 1
     initPos: 15
-    targetPos: 11
+    targetPos: 0
     bottleSprite:
-      m_AssetGUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-      m_SubObjectName: normalBottle8
+      m_AssetGUID: 
+      m_SubObjectName: 
     targetTileSprite:
-      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
-      m_SubObjectName: numberTile8
+      m_AssetGUID: 
+      m_SubObjectName: 
     life: 0
   bulletGroups:
   - appearTime: 1
@@ -122,7 +122,7 @@ MonoBehaviour:
     loop: 1
     bullets:
     - type: 2
-      ratio: 100
+      ratio: 10
       row: 0
       column: 0
       line: -1
@@ -130,61 +130,13 @@ MonoBehaviour:
       turnDirections: 
       turnLines: 
       aimingBottles: 
-      randomCartridgeDirection: 0a0000000a0000000a0000000a000000
-      randomRow: 0a0000000a0000000a0000000a0000000a000000
-      randomColumn: 0a0000000a0000000a000000
+      randomCartridgeDirection: 64000000640000000000000000000000
+      randomRow: 6400000064000000640000006400000064000000
+      randomColumn: 000000000000000000000000
       randomTurnDirection: 
       randomTurnRow: 
       randomTurnColumn: 
       randomAttackableBottles: 
-    - type: 3
-      ratio: 100
-      row: 0
-      column: 0
-      line: 0
-      direction: -1
-      turnDirections: 
-      turnLines: 
-      aimingBottles: 
-      randomCartridgeDirection: 0a0000000a0000000a0000000a000000
-      randomRow: 0a0000000a0000000a0000000a0000000a000000
-      randomColumn: 0a0000000a0000000a000000
-      randomTurnDirection: 0a0000000a0000000a0000000a000000
-      randomTurnRow: 0a0000000a0000000a0000000a0000000a000000
-      randomTurnColumn: 0a0000000a0000000a000000
-      randomAttackableBottles: 
-    - type: 6
-      ratio: 100
-      row: -1
-      column: -1
-      line: 0
-      direction: 0
-      turnDirections: 
-      turnLines: 
-      aimingBottles: 
-      randomCartridgeDirection: 
-      randomRow: 0a0000000a0000000a0000000a0000000a000000
-      randomColumn: 0a0000000a0000000a000000
-      randomTurnDirection: 
-      randomTurnRow: 
-      randomTurnColumn: 
-      randomAttackableBottles: 
-    - type: 7
-      ratio: 100
-      row: 0
-      column: 0
-      line: 0
-      direction: 0
-      turnDirections: 
-      turnLines: 
-      aimingBottles: 
-      randomCartridgeDirection: 
-      randomRow: 
-      randomColumn: 
-      randomTurnDirection: 
-      randomTurnRow: 
-      randomTurnColumn: 
-      randomAttackableBottles: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
   overviewGimmicks: 
   tutorial:
     type: 0
