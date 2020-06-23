@@ -62,16 +62,8 @@ namespace Project.Scripts.StageSelectScene
             if (UserSettings.StageDetails == 1) {
                 StageSelectDirector.Instance.ShowOverPopup(_treeId, stageNumber);
             } else {
-                GoToGame();
+                StageSelectDirector.Instance.GoToGame(_treeId, stageNumber);
             }
-        }
-
-        /// <summary>
-        /// ステージ選択画面からゲーム選択画面へ移動する
-        /// </summary>
-        private void GoToGame()
-        {
-            StageSelectDirector.Instance.GoToGame(_treeId, stageNumber);
         }
     }
 }
