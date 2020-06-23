@@ -77,7 +77,6 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// オブジェクト情報のリセット
         /// </summary>
-        /// <param name="stageId"></param>
         public static void Reset()
         {
             foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
@@ -92,8 +91,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 解放する
         /// </summary>
-        /// <param name="treeId"></param>
-        /// <param name="stageNumber"></param>
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
         public void ReleaseStage(ETreeId treeId, int stageNumber)
         {
             released = true;
@@ -103,7 +102,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// クリア済みにする
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
         public void ClearStage(ETreeId treeId, int stageNumber)
         {
             if (!cleared) firstSuccessNum = challengeNum;
@@ -114,7 +114,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 挑戦回数を 1 加算する
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
         public void IncChallengeNum(ETreeId treeId, int stageNumber)
         {
             challengeNum++;
@@ -124,7 +125,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 成功回数を 1 加算する
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
         public void IncSuccessNum(ETreeId treeId, int stageNumber)
         {
             successNum++;
@@ -134,7 +136,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 失敗回数を 1 加算する
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
         public void IncFailureNum(ETreeId treeId, int stageNumber)
         {
             failureNum++;

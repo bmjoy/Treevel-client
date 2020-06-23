@@ -51,7 +51,8 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="stageId"> ステージID </param>
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
         public void SetStageId(ETreeId treeId, int stageNumber)
         {
             _treeId = treeId;

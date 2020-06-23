@@ -22,9 +22,11 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ステージを作成する
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
+        /// 
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
-        public static async void CreateStages(ETreeId treeId, int stageId)
+        public static async void CreateStages(ETreeId treeId, int stageNumber)
         {
             CreatedFinished = false;
 
@@ -32,7 +34,7 @@ namespace Project.Scripts.GamePlayScene
             var bulletGroupGenerator = BulletGroupGenerator.Instance;
 
             // ステージデータ読み込む
-            var stageData = GameDataBase.GetStage(treeId, stageId);
+            var stageData = GameDataBase.GetStage(treeId, stageNumber);
             if (stageData != null) {
                 // タイル生成
                 tileGenerator.CreateTiles(stageData.TileDatas);
@@ -44,7 +46,7 @@ namespace Project.Scripts.GamePlayScene
                 bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
             } else {
                 // 存在しないステージ
-                Debug.LogError("Unable to create a stage whose stageId is " + stageId.ToString() + ".");
+                Debug.LogError("Unable to create a stage whose stageId is " + stageNumber.ToString() + ".");
             }
 
             CreatedFinished = true;
