@@ -52,12 +52,12 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージ
         /// </summary>
-        private static List<StageController> stages;
+        private static List<StageController> _stages;
 
         /// <summary>
         /// 枝
         /// </summary>
-        private static List<BranchController> branches;
+        private static List<BranchController> _branches;
 
         // TODO: SnapScrollが働いたときの更新処理
         //       - 隣の木に移動するButtonが押せるかどうか(端では押せない)を更新する
@@ -66,13 +66,13 @@ namespace Project.Scripts.StageSelectScene
 
         private void Awake()
         {
-            stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
-            branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+            _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
+            _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
             // ステージの状態の更新
-            stages.ForEach(stage => stage.UpdateReleased());
+            _stages.ForEach(stage => stage.UpdateReleased());
             // 枝の状態の更新
-            branches.ForEach(branch => branch.UpdateReleased());
+            _branches.ForEach(branch => branch.UpdateReleased());
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();

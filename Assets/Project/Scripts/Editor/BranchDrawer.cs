@@ -9,11 +9,11 @@ namespace Project.Scripts.Editor
     [CustomEditor(typeof(BranchController))]
     public class BranchDrawer : UnityEditor.Editor
     {
-        private BranchController branch;
+        private BranchController _branch;
 
         public void OnEnable()
         {
-            branch = (BranchController)target;
+            _branch = (BranchController)target;
         }
 
         public override void OnInspectorGUI()
@@ -22,7 +22,7 @@ namespace Project.Scripts.Editor
             base.OnInspectorGUI();
 
             // 線の描画
-            branch.SetPointPosition();
+            _branch.SetPointPosition();
         }
     }
 }

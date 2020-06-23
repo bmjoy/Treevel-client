@@ -11,17 +11,17 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木
         /// </summary>
-        private static List<TreeController> trees;
+        private static List<TreeController> _trees;
 
         /// <summary>
         /// 道
         /// </summary>
-        private static List<RoadController> roads;
+        private static List<RoadController> _roads;
 
         private void Awake()
         {
-            trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<TreeController>()).ToList<TreeController>();
-            roads = GameObject.FindGameObjectsWithTag(TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
+            _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<TreeController>()).ToList<TreeController>();
+            _roads = GameObject.FindGameObjectsWithTag(TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
         }
 
         /// <summary>
@@ -29,8 +29,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnEnable()
         {
-            trees.ForEach(tree => tree.UpdateReleased());
-            roads.ForEach(road => road.UpdateReleased());
+            _trees.ForEach(tree => tree.UpdateReleased());
+            _roads.ForEach(road => road.UpdateReleased());
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnDisable()
         {
-            trees.ForEach(tree => tree.SaveReleased());
-            roads.ForEach(road => road.SaveReleased());
+            _trees.ForEach(tree => tree.SaveReleased());
+            _roads.ForEach(road => road.SaveReleased());
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public static void Reset()
         {
-            trees.ForEach(tree => tree.Reset());
-            roads.ForEach(road => road.Reset());
+            _trees.ForEach(tree => tree.Reset());
+            _roads.ForEach(road => road.Reset());
         }
     }
 }
