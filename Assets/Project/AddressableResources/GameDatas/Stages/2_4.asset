@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2_4
   m_EditorClassIdentifier: 
   treeId: 2
-  stageNumber: 1004
+  stageNumber: 4
   tiles: []
   bottles:
   - type: 2
