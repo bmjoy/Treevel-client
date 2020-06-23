@@ -1,6 +1,4 @@
-﻿using Project.Scripts.Utils.Attributes;
-using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {

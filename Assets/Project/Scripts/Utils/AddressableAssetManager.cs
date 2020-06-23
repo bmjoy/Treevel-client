@@ -47,7 +47,7 @@ namespace Project.Scripts.Utils
         /// <typeparam name="TObject">ロードするアセットの型</typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        static public AsyncOperationHandle<TObject> LoadAsset<TObject> (object key)
+        public static AsyncOperationHandle<TObject> LoadAsset<TObject> (object key)
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>();

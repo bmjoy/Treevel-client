@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
     public abstract class AbstractBottleController : MonoBehaviour
     {
         /// <summary>
-        /// ボトルのId (初期位置と同じ)
+        /// ボトルのId (初期位置を擬似的に利用)
         /// </summary>
         public int Id
         {
@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 自身が壊されたかどうか
+        /// 自身が死んだかどうか
         /// </summary>
         protected internal bool IsDead
         {

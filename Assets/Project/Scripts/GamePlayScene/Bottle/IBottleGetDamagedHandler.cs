@@ -77,8 +77,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             if (life < _MIN_LIFE) {
                 _currentLife = _MIN_LIFE;
-            }
-            else {
+            } else {
                 _currentLife = life;
             }
 

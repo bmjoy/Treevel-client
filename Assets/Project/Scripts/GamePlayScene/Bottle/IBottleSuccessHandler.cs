@@ -9,12 +9,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
     public interface IBottleSuccessHandler
     {
         /// <summary>
-        /// タイルに載せた時の挙動
+        /// ボトルがゴールとなるタイルに載った時の挙動
         /// </summary>
         void DoWhenSuccess();
 
         /// <summary>
-        /// 該当ボトルが成功したかどうか
+        /// 該当ボトルが成功状態かどうか
         /// </summary>
         /// <returns></returns>
         bool IsSuccess();
