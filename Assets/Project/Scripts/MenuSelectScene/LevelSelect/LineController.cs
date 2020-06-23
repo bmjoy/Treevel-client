@@ -7,12 +7,12 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
     public abstract class LineController : MonoBehaviour
     {
         /// <summary>
-        /// 開始地点の木
+        /// 開始地点のGameObject
         /// </summary>
         [SerializeField] protected GameObject startObject;
 
         /// <summary>
-        /// 終了地点の木
+        /// 終了地点のGameObject
         /// </summary>
         [SerializeField] protected GameObject endObject;
 
