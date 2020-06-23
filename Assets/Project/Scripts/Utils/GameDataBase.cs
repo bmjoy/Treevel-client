@@ -3,11 +3,12 @@ using Project.Scripts.GameDatas;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Project.Scripts.Utils.Definitions;
+
 namespace Project.Scripts.Utils
 {
     public static class GameDataBase
     {
-        private static  Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
+        private static Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
 
         public static void Initialize()
         {

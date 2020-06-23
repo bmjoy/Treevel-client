@@ -22,7 +22,6 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ステージを作成する
         /// </summary>
-        /// 
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
