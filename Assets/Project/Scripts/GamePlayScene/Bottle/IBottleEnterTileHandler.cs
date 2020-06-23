@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
-    public interface IEnterTileHandler
+    public interface IBottleEnterTileHandler
     {
         void OnEnterTile(GameObject tile);
     }
 
-    internal class NormalEnterTileHandler : IEnterTileHandler
+    internal class NormalBottleEnterTileHandler : IBottleEnterTileHandler
     {
         private readonly AbstractBottleController _bottle;
         private readonly IBottleSuccessHandler _successHandler;
 
-        internal NormalEnterTileHandler(AbstractBottleController bottle, IBottleSuccessHandler successHandler)
+        internal NormalBottleEnterTileHandler(AbstractBottleController bottle, IBottleSuccessHandler successHandler)
         {
             if (successHandler == null)
                 throw new System.NullReferenceException("SuccessHandler can not be null");

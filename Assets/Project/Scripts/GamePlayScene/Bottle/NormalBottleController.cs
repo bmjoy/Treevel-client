@@ -29,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
             }
             successHandler = new NormalBottleSuccessHandler(this, finalPos);
-            enterTileHandler = new NormalEnterTileHandler(this, successHandler);
+            bottleEnterTileHandler = new NormalBottleEnterTileHandler(this, successHandler);
 
             base.Initialize(bottleData);
 

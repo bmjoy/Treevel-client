@@ -34,7 +34,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected IEnterTileHandler enterTileHandler;
+        protected IBottleEnterTileHandler bottleEnterTileHandler;
 
         /// <summary>
         /// ボトルの成功判定と成功時の挙動
@@ -74,7 +74,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="targetTile">目標のタイル</param>
         public void OnEnterTile(GameObject targetTile)
         {
-            enterTileHandler?.OnEnterTile(targetTile);
+            bottleEnterTileHandler?.OnEnterTile(targetTile);
         }
 
         private void InitializeSprite()
