@@ -299,6 +299,7 @@ namespace Project.Scripts.GamePlayScene
                 _customTimer = caller.gameObject.AddComponent<CustomTimer>();
                 _customTimer.Initialize(_timerText);
 
+                // TODO: ステージTextを適切に配置する
                 // ステージID表示
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
                 _stageNumberText.text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
