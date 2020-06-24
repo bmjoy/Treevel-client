@@ -83,6 +83,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public void SetPointPosition()
         {
+            if (_render == null) return;
             _render.positionCount = _middlePointNum + 2;
             _render.startWidth = _render.endWidth = (float)Screen.width * _width;
 
