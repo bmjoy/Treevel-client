@@ -48,8 +48,8 @@ namespace Project.Scripts.StageSelectScene
 
             if (!released) {
                 // 非解放時
-                _render.startColor = new Color(0.2f, 0.2f, 0.7f);
-                _render.endColor = new Color(0.2f, 0.2f, 0.7f);
+                _renderer.startColor = new Color(0.2f, 0.2f, 0.7f);
+                _renderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
         }
 

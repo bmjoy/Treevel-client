@@ -41,7 +41,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] [Range(0, 0.2f)] protected float _width;
 
-        [SerializeField] protected LineRenderer _render;
+        [SerializeField] protected LineRenderer _renderer;
 
         /// <summary>
         /// 解放状態
@@ -83,9 +83,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public void SetPointPosition()
         {
-            if (_render == null) return;
-            _render.positionCount = _middlePointNum + 2;
-            _render.startWidth = _render.endWidth = (float)Screen.width * _width;
+            if (_renderer == null) return;
+            _renderer.positionCount = _middlePointNum + 2;
+            _renderer.startWidth = _renderer.endWidth = (float)Screen.width * _width;
 
             var startPointLocalPosition = startObject.transform.localPosition;
             var endPointLocalPosition = endObject.transform.localPosition;
@@ -93,7 +93,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             // 点の位置を求める
             for (int i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                _render.SetPosition(i, CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint, secondControlPoint, endPointLocalPosition, ratio));
+                _renderer.SetPosition(i, CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint, secondControlPoint, endPointLocalPosition, ratio));
             }
         }
 
