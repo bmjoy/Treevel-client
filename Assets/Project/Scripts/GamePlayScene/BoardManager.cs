@@ -1,37 +1,40 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
+using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
 {
-    public static class BoardManager
+    public class BoardManager : SingletonObject<BoardManager>
     {
         /// <summary>
         /// タイル、ボトルとそれぞれのワールド座標を保持する「ボード」
         /// </summary>
-        private static readonly Square[,] _board = new Square[StageSize.ROW, StageSize.COLUMN];
+        private readonly Square[,] _squares = new Square[StageSize.ROW, StageSize.COLUMN];
 
         /// <summary>
         /// ボトルの現在位置を保存するボトルから参照できる辞書
         /// </summary>
         /// <typeparam name="GameObject">ボトルのゲームオブジェクト</typeparam>
         /// <typeparam name="Vector2">現在位置`(x, y)=>（row, column）`</typeparam>
-        private static readonly Dictionary<GameObject, Vector2Int> _bottlePositions = new Dictionary<GameObject, Vector2Int>();
+        private readonly Dictionary<GameObject, Vector2Int> _bottlePositions = new Dictionary<GameObject, Vector2Int>();
 
         /// <summary>
         /// ボードを初期化、行数×列数分の格子（`Square`）を用意し、
         /// 格子毎のワールド座標をタイルのサイズに基づき計算する
         /// </summary>
-        public static void Initialize()
+        private void Awake()
         {
             for (var row = 0; row < StageSize.ROW; ++row) {
                 for (var col = 0; col < StageSize.COLUMN; ++col) {
                     var x = TileSize.WIDTH * (col - StageSize.COLUMN / 2);
                     var y = TileSize.HEIGHT * (StageSize.ROW / 2 - row);
-                    _board[row, col] = new Square(x, y);
+
+                    _squares[row, col] = new Square(x, y);
                 }
             }
         }
@@ -41,10 +44,12 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum">タイル番号</param>
         /// <returns>タイルのゲームオブジェクト</returns>
-        public static GameObject GetTile(int tileNum)
+        [CanBeNull]
+        public GameObject GetTile(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board[x, y]?.Tile?.gameObject;
+
+            return _squares[x, y].Tile != null ? _squares[x, y].Tile.gameObject : null;
         }
 
         /// <summary>
@@ -52,10 +57,12 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum">タイル番号</param>
         /// <returns>対象ボトルのゲームオブジェクト | null</returns>
-        public static GameObject GetBottle(int tileNum)
+        [CanBeNull]
+        public GameObject GetBottle(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
-            return _board[x, y]?.Bottle?.gameObject;
+
+            return _squares[x, y].Bottle != null ? _squares[x, y].Bottle.gameObject : null;
         }
 
         /// <summary>
@@ -178,7 +185,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle">調べたいボトル</param>
         /// <returns>タイル番号</returns>
-        public static int GetBottlePos(AbstractBottleController bottle)
+        public int GetBottlePos(AbstractBottleController bottle)
         {
             var pos = _bottlePositions?[bottle.gameObject] ?? default;
             return XYToTileNum(pos);
