@@ -66,6 +66,40 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
+        /// 行 (`vec.x`)、列 `(vec.y)` からタイル番号を取得
+        /// </summary>
+        /// <param name="vec"> 行、列の二次元ベクトル </param>
+        /// <returns> タイル番号 </returns>
+        private int XYToTileNum(Vector2Int vec)
+        {
+            return XYToTileNum(vec.x, vec.y);
+        }
+
+        /// <summary>
+        /// 行 (`x`)、列 (`y`) からタイル番号を取得
+        /// </summary>
+        /// <param name="x"> 行 </param>
+        /// <param name="y"> 列 </param>
+        /// <returns> タイル番号 </returns>
+        private int XYToTileNum(int x, int y)
+        {
+            return (x * _squares.GetLength(1)) + y + 1;
+        }
+
+        /// <summary>
+        /// タイル番号から行、列に変換する
+        /// </summary>
+        /// <param name="tileNum"> タイル番号 </param>
+        /// <returns> (行, 列) </returns>
+        private(int, int) TileNumToXY(int tileNum)
+        {
+            var x = (tileNum - 1) / _squares.GetLength(1);
+            var y = (tileNum - 1) % _squares.GetLength(1);
+
+            return (x, y);
+        }
+
+        /// <summary>
         /// ボトルをフリックする方向に移動する
         /// </summary>
         /// <param name="bottle"> フリックするボトル </param>
@@ -94,36 +128,7 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// 行(`vec.x`)、列`(vec.y)`からタイル番号に変換
         /// </summary>
-        /// <param name="vec">行、列の二次元ベクトル</param>
-        /// <returns>タイル番号</returns>
-        private static int XYToTileNum(Vector2Int vec)
-        {
-            return XYToTileNum(vec.x, vec.y);
-        }
-
-        /// <summary>
-        /// 行(`vec.x`)、列`(vec.y)`からタイル番号に変換
-        /// </summary>
-        /// <returns>タイル番号</returns>
-        /// <param name="x">行</param>
-        /// <param name="y">列</param>
-        /// <returns>タイル番号</returns>
-        private static int XYToTileNum(int x, int y)
-        {
-            if (x >= _board.GetLength(0) || y >= _board.GetLength(1)) {
-                Debug.LogWarning($"Invalid row or column (row, column = ({x},{y})");
-            }
-            return (x * _board.GetLength(1)) + y + 1;
-        }
-
-        /// <summary>
-        /// タイル番号から行、列に変換する
-        /// </summary>
-        /// <param name="tileNum">タイル番号</param>
-        /// <returns>（行, 列)</returns>
-        private static(int, int) TileNumToXY(int tileNum)
         {
             return ((tileNum - 1) / _board.GetLength(1), (tileNum - 1) % _board.GetLength(1));
         }
@@ -171,7 +176,7 @@ namespace Project.Scripts.GamePlayScene
                 // ボトルの元の位置が保存されたらその位置のボトルを消す
                 if (_bottlePositions.ContainsKey(bottle.gameObject)) {
                     var from = _bottlePositions[bottle.gameObject];
-                    _board[from.x, from.y].Bottle = null;
+                    _squares[from.x, from.y].Bottle = null;
                 }
 
                 // 新しい格子に設定
@@ -187,8 +192,7 @@ namespace Project.Scripts.GamePlayScene
         /// <returns>タイル番号</returns>
         public int GetBottlePos(AbstractBottleController bottle)
         {
-            var pos = _bottlePositions?[bottle.gameObject] ?? default;
-            return XYToTileNum(pos);
+            return XYToTileNum(_bottlePositions[bottle.gameObject]);
         }
 
         /// <summary>
