@@ -38,6 +38,10 @@
         public const string BULLET = "Bullet";
         public const string BULLET_WARNING = "BulletWarning";
         public const string GRAPH_UI = "GraphUi";
+        public const string TREE = "Tree";
+        public const string ROAD = "Road";
+        public const string STAGE = "Stage";
+        public const string BRANCH = "Branch";
     }
 
     /// <summary>

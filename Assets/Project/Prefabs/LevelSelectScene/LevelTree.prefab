@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2037017567522478634}
   m_Layer: 5
   m_Name: LevelTree
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelName: 0
   _treeId: 0
+  released: 0
+  cleared: 0
 --- !u!114 &5891168163236371066
 MonoBehaviour:
   m_ObjectHideFlags: 0

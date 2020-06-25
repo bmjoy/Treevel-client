@@ -1,20 +1,29 @@
 ﻿using System;
 using UnityEngine;
+using Project.Scripts.GameDatas;
+using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.Utils.PlayerPrefsUtils
 {
     [Serializable]
     public class StageStatus
     {
+        private ETreeId _treeId;
+
         /// <summary>
         /// ステージID
         /// </summary>
-        [NonSerialized] private int _id;
+        private int _stageNumber;
 
         /// <summary>
-        /// クリア有無
+        /// 解放状態
         /// </summary>
-        public bool passed = false;
+        public bool released = false;
+
+        /// <summary>
+        /// クリア状態
+        /// </summary>
+        public bool cleared = false;
 
         /// <summary>
         /// 挑戦回数
@@ -44,90 +53,113 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// オブジェクトの保存
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
-        private void Set(int stageId)
+        /// <param name="treeId"></param>
+        /// <param name="stageNumber"></param>
+        private void Set(ETreeId treeId, int stageNumber)
         {
-            MyPlayerPrefs.SetObject(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId, this);
+            MyPlayerPrefs.SetObject(StageData.EncodeStageIdKey(treeId, stageNumber), this);
         }
 
         /// <summary>
         /// オブジェクトの取得
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
+        /// <param name="treeId"></param>
+        /// <param name="stageNumber"></param>
         /// <returns></returns>
-        public static StageStatus Get(int stageId)
+        public static StageStatus Get(ETreeId treeId, int stageNumber)
         {
-            var data = MyPlayerPrefs.GetObject<StageStatus>(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId);
-            data._id = stageId;
+            var data = MyPlayerPrefs.GetObject<StageStatus>(StageData.EncodeStageIdKey(treeId, stageNumber));
+            data._treeId = treeId;
+            data._stageNumber = stageNumber;
             return data;
         }
 
         /// <summary>
         /// オブジェクト情報のリセット
         /// </summary>
-        /// <param name="stageId"></param>
-        public static void Reset(int stageId)
+        public static void Reset()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_STATUS_KEY + stageId);
+            foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
+                var stageNum = TreeInfo.NUM[treeId];
+
+                for (var stageNumber = 1; stageNumber < stageNum; stageNumber++) {
+                    PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageNumber));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 解放する
+        /// </summary>
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        public void ReleaseStage(ETreeId treeId, int stageNumber)
+        {
+            released = true;
+            Set(treeId, stageNumber);
         }
 
         /// <summary>
         /// クリア済みにする
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
-        public void ClearStage(int stageId)
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        public void ClearStage(ETreeId treeId, int stageNumber)
         {
-            if (!passed) firstSuccessNum = challengeNum;
-            passed = true;
-            Set(stageId);
+            if (!cleared) firstSuccessNum = challengeNum;
+            cleared = true;
+            Set(treeId, stageNumber);
         }
 
         /// <summary>
         /// 挑戦回数を 1 加算する
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
-        public void IncChallengeNum(int stageId)
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        public void IncChallengeNum(ETreeId treeId, int stageNumber)
         {
             challengeNum++;
-            Set(stageId);
+            Set(treeId, stageNumber);
         }
 
         /// <summary>
         /// 成功回数を 1 加算する
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
-        public void IncSuccessNum(int stageId)
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        public void IncSuccessNum(ETreeId treeId, int stageNumber)
         {
             successNum++;
-            Set(stageId);
+            Set(treeId, stageNumber);
         }
 
         /// <summary>
         /// 失敗回数を 1 加算する
         /// </summary>
-        /// <param name="stageId"> ステージ id </param>
-        public void IncFailureNum(int stageId)
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        public void IncFailureNum(ETreeId treeId, int stageNumber)
         {
             failureNum++;
-            Set(stageId);
+            Set(treeId, stageNumber);
         }
 
         public void Update(bool success)
         {
             if (success) {
                 // クリア済みにする
-                ClearStage(_id);
+                ClearStage(_treeId, _stageNumber);
 
-                IncSuccessNum(_id);
+                IncSuccessNum(_treeId, _stageNumber);
             } else {
-                IncFailureNum(_id);
+                IncFailureNum(_treeId, _stageNumber);
             }
         }
 
         public void Dump()
         {
             #if UNITY_EDITOR
-            Debug.Log($"Stage: {_id}");
+            Debug.Log($"Stage: {_stageNumber}");
             Debug.Log($"  挑戦回数：{challengeNum}");
             Debug.Log($"  成功回数：{successNum}");
             Debug.Log($"  失敗回数：{failureNum}");
@@ -137,7 +169,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public void SetTutorialChecked(bool isChecked)
         {
             tutorialChecked = isChecked;
-            Set(this._id);
+            Set(this._treeId, this._stageNumber);
         }
     }
 }

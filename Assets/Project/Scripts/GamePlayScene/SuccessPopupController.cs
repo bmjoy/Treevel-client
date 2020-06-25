@@ -21,7 +21,7 @@ namespace Project.Scripts.GamePlayScene
         public void ShareButtonDown()
         {
             // 投稿用のテキスト
-            var text = "ステージ" + GamePlayDirector.stageId + "番をクリア！";
+            var text = "ステージ" + GamePlayDirector.stageNumber + "番をクリア！";
             text = UnityWebRequest.EscapeURL(text);
 
             // 投稿用のハッシュタグ
