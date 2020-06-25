@@ -10,91 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a54e76f6c0ff74f77be74b799ca8ccc8, type: 3}
-  m_Name: 2_2
+  m_Name: 1
   m_EditorClassIdentifier: 
-  id: 1002
-  tiles: []
+  treeId: 1
+  stageNumber: 1
+  tiles:
+  - type: 1
+    number: 1
+    pairNumber: 2
   bottles:
-  - type: 3
-    initPos: 4
-    targetPos: 4
-    bottleSprite:
-      m_AssetGUID: 6a6b75adbaa3d4155bac201a3b28e45d
-      m_SubObjectName: normalBottle1
-    targetTileSprite:
-      m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
-      m_SubObjectName: numberTile1
-    life: 3
-  - type: 3
-    initPos: 5
-    targetPos: 5
-    bottleSprite:
-      m_AssetGUID: 6f35d8b0a82b148c6adaa20ea5d85678
-      m_SubObjectName: normalBottle2
-    targetTileSprite:
-      m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
-      m_SubObjectName: numberTile2
-    life: 3
-  - type: 3
-    initPos: 6
-    targetPos: 6
-    bottleSprite:
-      m_AssetGUID: 91e0d3f7067e1499c805ce6026b32bd6
-      m_SubObjectName: normalBottle3
-    targetTileSprite:
-      m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
-      m_SubObjectName: numberTile3
-    life: 3
-  - type: 3
-    initPos: 7
-    targetPos: 7
-    bottleSprite:
-      m_AssetGUID: b249dc30ba03c4849bd8ca5e860f2bf7
-      m_SubObjectName: normalBottle4
-    targetTileSprite:
-      m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
-      m_SubObjectName: numberTile4
-    life: 3
-  - type: 3
-    initPos: 8
-    targetPos: 8
-    bottleSprite:
-      m_AssetGUID: cb970f58b70014a28bc61d79fca7b317
-      m_SubObjectName: normalBottle5
-    targetTileSprite:
-      m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
-      m_SubObjectName: numberTile5
-    life: 3
-  - type: 3
-    initPos: 9
-    targetPos: 9
-    bottleSprite:
-      m_AssetGUID: bb9357ee64c4d44cd94c66f5fb8210d0
-      m_SubObjectName: normalBottle6
-    targetTileSprite:
-      m_AssetGUID: 002d879f7321744279709540f5b88837
-      m_SubObjectName: numberTile6
-    life: 3
-  - type: 3
-    initPos: 10
-    targetPos: 10
-    bottleSprite:
-      m_AssetGUID: 84aa424be823f4562b197179ef326c71
-      m_SubObjectName: normalBottle7
-    targetTileSprite:
-      m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
-      m_SubObjectName: numberTile7
-    life: 3
-  - type: 3
-    initPos: 14
-    targetPos: 11
-    bottleSprite:
-      m_AssetGUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-      m_SubObjectName: normalBottle8
-    targetTileSprite:
-      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
-      m_SubObjectName: numberTile8
-    life: 3
   - type: 0
     initPos: 3
     targetPos: 0
@@ -104,6 +28,86 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 
       m_SubObjectName: 
+    life: 0
+  - type: 2
+    initPos: 4
+    targetPos: 4
+    bottleSprite:
+      m_AssetGUID: 8cacf29162ce544c6a91e04b672dda22
+      m_SubObjectName: 1_bgy
+    targetTileSprite:
+      m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
+      m_SubObjectName: numberTile1
+    life: 0
+  - type: 2
+    initPos: 5
+    targetPos: 5
+    bottleSprite:
+      m_AssetGUID: 3ad34613c20ab4a8f9d82c5e184a0f2a
+      m_SubObjectName: 2_bvy
+    targetTileSprite:
+      m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
+      m_SubObjectName: numberTile2
+    life: 0
+  - type: 2
+    initPos: 6
+    targetPos: 6
+    bottleSprite:
+      m_AssetGUID: 306499f0dbaa04cb386a1aa39a34d9e9
+      m_SubObjectName: 3_gy
+    targetTileSprite:
+      m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
+      m_SubObjectName: numberTile3
+    life: 0
+  - type: 2
+    initPos: 7
+    targetPos: 7
+    bottleSprite:
+      m_AssetGUID: d4a70a4ce855e4182b6554908109825d
+      m_SubObjectName: 4_ops
+    targetTileSprite:
+      m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
+      m_SubObjectName: numberTile4
+    life: 0
+  - type: 2
+    initPos: 8
+    targetPos: 8
+    bottleSprite:
+      m_AssetGUID: 043ec374bab50405dbf75005d1a106bf
+      m_SubObjectName: 5_oy
+    targetTileSprite:
+      m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
+      m_SubObjectName: numberTile5
+    life: 0
+  - type: 2
+    initPos: 9
+    targetPos: 9
+    bottleSprite:
+      m_AssetGUID: 3e7b664c3229c4b66a919e9db2641a63
+      m_SubObjectName: 6_rp
+    targetTileSprite:
+      m_AssetGUID: 002d879f7321744279709540f5b88837
+      m_SubObjectName: numberTile6
+    life: 0
+  - type: 2
+    initPos: 10
+    targetPos: 10
+    bottleSprite:
+      m_AssetGUID: 44a494e351155459dbfee62492c655bd
+      m_SubObjectName: 7_voy
+    targetTileSprite:
+      m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
+      m_SubObjectName: numberTile7
+    life: 0
+  - type: 2
+    initPos: 14
+    targetPos: 11
+    bottleSprite:
+      m_AssetGUID: 44a494e351155459dbfee62492c655bd
+      m_SubObjectName: 7_voy
+    targetTileSprite:
+      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
+      m_SubObjectName: numberTile8
     life: 0
   - type: 1
     initPos: 15
@@ -115,34 +119,13 @@ MonoBehaviour:
       m_AssetGUID: 
       m_SubObjectName: 
     life: 0
-  bulletGroups:
-  - appearTime: 1
-    interval: 5
-    loop: 1
-    bullets:
-    - type: 2
-      ratio: 10
-      row: 0
-      column: 0
-      line: -1
-      direction: -1
-      turnDirections: 
-      turnLines: 
-      aimingBottles: 
-      randomCartridgeDirection: 64000000640000000000000000000000
-      randomRow: 6400000064000000640000006400000064000000
-      randomColumn: 000000000000000000000000
-      randomTurnDirection: 
-      randomTurnRow: 
-      randomTurnColumn: 
-      randomAttackableBottles: 
+  bulletGroups: []
   overviewGimmicks: 
   tutorial:
-    type: 0
+    type: 1
     image:
-      m_AssetGUID: 
+      m_AssetGUID: e6bd58f298b5d4f4491f43a49b5f2f22
       m_SubObjectName: 
     video:
       m_AssetGUID: 
       m_SubObjectName: 
-  constraintStageIds: 

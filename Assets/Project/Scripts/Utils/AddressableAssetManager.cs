@@ -154,10 +154,11 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// ステージに必要なアセットをロード
         /// </summary>
-        /// <param name="stageId"></param>
-        internal static void LoadStageDependencies(int stageId)
+        /// <param name="treeId"> 木のID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        internal static void LoadStageDependencies(ETreeId treeId, int stageNumber)
         {
-            StageData stage = GameDataBase.GetStage(stageId);
+            StageData stage = GameDataBase.GetStage(treeId, stageNumber);
 
             stage.BottleDatas.ForEach((bottleData) => {
                 switch (bottleData.type) {

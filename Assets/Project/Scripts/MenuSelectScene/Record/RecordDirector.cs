@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,7 +58,7 @@ namespace Project.Scripts.MenuSelectScene.Record
             _snapScrollView.PageSize = ScaledCanvasSize.SIZE_DELTA.x;
 
             // 各種グラフなどを全て描画する
-            Draw();
+            // Draw();
         }
 
         /// <summary>
@@ -111,6 +110,8 @@ namespace Project.Scripts.MenuSelectScene.Record
 
             var successStageNum = 0;
 
+            // TODO: 全ての記録画面を表示する
+            /*
             for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
                 var stageStatus = StageStatus.Get(stageId);
 
@@ -118,6 +119,7 @@ namespace Project.Scripts.MenuSelectScene.Record
                     successStageNum++;
                 }
             }
+            */
 
             var successPercentage = (successStageNum / (float) stageNum) * 100;
 
@@ -165,15 +167,16 @@ namespace Project.Scripts.MenuSelectScene.Record
                 left += blankWidth;
                 var right = left + graphWidth;
 
+                /*
                 var stageStatus = StageStatus.Get(stageId);
 
-                /* ステージ番号の配置 */
+                // ステージ番号の配置
                 var stageNumUi = Instantiate(_stageNumPrefab, graphAreaContent, false);
                 stageNumUi.GetComponent<Text>().text = stageName.ToString();
                 stageNumUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, _BOTTOM_STAGE_NUM_POSITION);
                 stageNumUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, _BOTTOM_POSITION);
 
-                /* 棒グラフの配置 */
+                // 棒グラフの配置
                 var graphUi = Instantiate(_graphPrefab, graphAreaContent, false);
 
                 // 挑戦回数に応じた棒グラフの上端
@@ -188,7 +191,7 @@ namespace Project.Scripts.MenuSelectScene.Record
                 graphUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, graphMaxY);
 
                 if (stageStatus.passed) {
-                    /* 成功している場合は，色を水色にして，成功した際の挑戦回数も示す */
+                    // 成功している場合は，色を水色にして，成功した際の挑戦回数も示す
                     graphUi.GetComponent<Image>().color = _successGraphColor;
 
                     var successLineUi = Instantiate(_successLinePrefab, graphAreaContent, false);
@@ -197,9 +200,10 @@ namespace Project.Scripts.MenuSelectScene.Record
                     successLineUi.GetComponent<RectTransform>().anchorMin = new Vector2(left, successY);
                     successLineUi.GetComponent<RectTransform>().anchorMax = new Vector2(right, successY);
                 } else {
-                    /* 成功していない場合は，色を赤色にする */
+                    // 成功していない場合は，色を赤色にする
                     graphUi.GetComponent<Image>().color = _notSuccessGraphColor;
                 }
+                */
 
                 // 左端の更新
                 left = right;
@@ -218,6 +222,7 @@ namespace Project.Scripts.MenuSelectScene.Record
         {
             var maxChallengeNum = 0;
 
+            /*
             for (var stageId = stageStartId; stageId < stageStartId + stageNum; stageId++) {
                 var stageStatus = StageStatus.Get(stageId);
 
@@ -225,6 +230,7 @@ namespace Project.Scripts.MenuSelectScene.Record
                     maxChallengeNum = stageStatus.challengeNum;
                 }
             }
+            */
 
             return maxChallengeNum;
         }

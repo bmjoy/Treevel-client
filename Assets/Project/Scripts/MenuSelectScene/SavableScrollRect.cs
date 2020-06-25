@@ -32,7 +32,6 @@ namespace Project.Scripts.MenuSelectScene
         {
             base.Awake();
             _transformGesture = GetComponent<TransformGesture>();
-            ExpandContent();
             // Contentの余白を取得
             _LEFT_OFFSET = Mathf.Abs(content.anchorMin.x - content.pivot.x);
             _RIGHT_OFFSET = content.anchorMax.x - content.pivot.x;
@@ -67,32 +66,6 @@ namespace Project.Scripts.MenuSelectScene
             // スクロール制限を解除する
             horizontal = true;
             vertical = true;
-        }
-
-        /// <summary>
-        /// ContentのサイズをSafeAreaの分だけ拡大する
-        /// </summary>
-        private void ExpandContent()
-        {
-            // ContentのサイズをSafeAreaの分だけ拡大する
-            var beforeAnchorMin = content.anchorMin;
-            var beforeAnchorMax = content.anchorMax;
-            var(anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
-            content.anchorMin -= anchorMin;
-            content.anchorMax += (Vector2.one - anchorMax);
-            // Contentの拡大率
-            CONTENT_SCALE = (beforeAnchorMax - beforeAnchorMin) / (content.anchorMax - content.anchorMin);
-
-            if (CONTENT_SCALE == Vector2.one) return;
-            // Content内の全オブジェクトのanchor位置の調整
-            CONTENT_MARGIN = anchorMin / (content.anchorMax - content.anchorMin);
-            foreach (var tree in content.GetComponentsInChildren<Transform>().Where(t => t != content.transform).Select(t => t.gameObject)) {
-                var treeRect = tree.GetComponent<RectTransform>();
-                treeRect.anchorMin *= CONTENT_SCALE;
-                treeRect.anchorMin += CONTENT_MARGIN;
-                treeRect.anchorMax *= CONTENT_SCALE;
-                treeRect.anchorMax += CONTENT_MARGIN;
-            }
         }
     }
 }

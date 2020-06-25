@@ -1,10 +1,31 @@
 ﻿using UnityEngine;
 using Project.Scripts.Utils.TextUtils;
+using Project.Scripts.UIComponents;
 
 namespace Project.Scripts.Utils.Definitions
 {
     public static class Default
     {
+        // <summary>
+        /// デフォルトの木の解放状態
+        /// </summary>
+        public const int TREE_RELEASED = 0;
+
+        /// <summary>
+        /// デフォルトの木のクリア状態
+        /// </summary>
+        public const int TREE_CLEARED = 0;
+
+        /// <summary>
+        /// デフォルトの道の解放状態
+        /// </summary>
+        public const int ROAD_RELEASED = 0;
+
+        /// <summary>
+        /// デフォルトの枝の解放状態
+        /// </summary>
+        public const int BRANCH_RELEASED = 0;
+
         /// <summary>
         /// デフォルトの言語
         /// </summary>
@@ -34,6 +55,12 @@ namespace Project.Scripts.Utils.Definitions
         /// デフォルトのスクロール位置
         /// </summary>
         /// <returns></returns>
-        public static Vector2 LEVEL_SELECT_SCROLL_POSITION = new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y / 2);
+        public static Vector2 LEVEL_SELECT_SCROLL_POSITION
+        {
+            get {
+                var(anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
+                return new Vector2(0, ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
+            }
+        }
     }
 }
