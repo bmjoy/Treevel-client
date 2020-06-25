@@ -189,36 +189,10 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         private class Square
         {
-            private AbstractBottleController _bottle = null;
-            private AbstractTileController _tile = null;
-            private readonly Vector2 _worldPosition;
-
-            public AbstractBottleController Bottle
-            {
-                get => _bottle;
-                set {
-                    if (_bottle == value)
-                        return;
-
-                    if (value == null && _bottle != null) {
-                        // ボトルがこの格子から離れる
-                        _tile.OnBottleExit(_bottle.gameObject);
-                        _bottle = value;
-                    } else {
-                        // 新しいボトルがこの格子に入る
-                        _bottle = value;
-
-                        // 移動する
-                        _bottle.transform.position = _worldPosition;
-
-                        // ボトルがタイルに入る時ボトルの処理
-                        _bottle.OnEnterTile(_tile.gameObject);
-
-                        // ボトルがタイルに入る時タイルの処理
-                        _tile.OnBottleEnter(_bottle.gameObject);
-                    }
-                }
-            }
+            /// <summary>
+            /// 格子にあるタイル
+            /// </summary>
+            private AbstractTileController _tile;
 
             public AbstractTileController Tile
             {
@@ -229,6 +203,45 @@ namespace Project.Scripts.GamePlayScene
                         _tile.transform.position = _worldPosition;
                 }
             }
+
+            /// <summary>
+            /// 格子にあるボトル
+            /// </summary>
+            [CanBeNull] private AbstractBottleController _bottle;
+
+            [CanBeNull]
+            public AbstractBottleController Bottle
+            {
+                get => _bottle;
+                set {
+                    if (_bottle == value)
+                        return;
+
+                    if (value == null && _bottle != null) {
+                        // ボトルがこの格子から離れる
+                        _tile.OnBottleExit(_bottle.gameObject);
+                        _bottle = null;
+                    } else {
+                        // 新しいボトルがこの格子に入る
+                        _bottle = value;
+
+                        // 移動する
+                        _bottle.transform.position = _worldPosition;
+
+                        // ボトルがタイルに入る時のボトルの処理
+                        _bottle.OnEnterTile(_tile.gameObject);
+
+                        // ボトルがタイルに入る時のボトルの処理
+                        _tile.OnBottleEnter(_bottle.gameObject);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// 格子のワールド座標
+            /// </summary>
+            private readonly Vector2 _worldPosition;
+
 
             public Square(float x, float y)
             {
