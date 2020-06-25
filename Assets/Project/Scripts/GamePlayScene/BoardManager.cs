@@ -12,25 +12,21 @@ namespace Project.Scripts.GamePlayScene
     public class BoardManager : SingletonObject<BoardManager>
     {
         /// <summary>
-        /// タイル、ボトルとそれぞれのワールド座標を保持する「ボード」
+        /// タイル、ボトルとそれぞれのワールド座標を保持する square の二次元配列
         /// </summary>
         private readonly Square[,] _squares = new Square[StageSize.ROW, StageSize.COLUMN];
 
         /// <summary>
-        /// ボトルの現在位置を保存するボトルから参照できる辞書
+        /// key: ボトル (GameObject)，value: ボトルの現在位置 (Vector2Int)
         /// </summary>
-        /// <typeparam name="GameObject">ボトルのゲームオブジェクト</typeparam>
-        /// <typeparam name="Vector2">現在位置`(x, y)=>（row, column）`</typeparam>
         private readonly Dictionary<GameObject, Vector2Int> _bottlePositions = new Dictionary<GameObject, Vector2Int>();
 
-        /// <summary>
-        /// ボードを初期化、行数×列数分の格子（`Square`）を用意し、
-        /// 格子毎のワールド座標をタイルのサイズに基づき計算する
-        /// </summary>
         private void Awake()
         {
+            // `squares` の初期化
             for (var row = 0; row < StageSize.ROW; ++row) {
                 for (var col = 0; col < StageSize.COLUMN; ++col) {
+                    // ワールド座標を求める
                     var x = TileSize.WIDTH * (col - StageSize.COLUMN / 2);
                     var y = TileSize.HEIGHT * (StageSize.ROW / 2 - row);
 
@@ -40,10 +36,10 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// タイル番号が`tileNum`のタイルを取得
+        /// タイル番号からタイルを取得
         /// </summary>
-        /// <param name="tileNum">タイル番号</param>
-        /// <returns>タイルのゲームオブジェクト</returns>
+        /// <param name="tileNum"> タイル番号 </param>
+        /// <returns> タイル </returns>
         [CanBeNull]
         public GameObject GetTile(int tileNum)
         {
@@ -53,10 +49,10 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// タイル番号が`tileNum`のタイルの上にボトルを取得
+        /// タイル番号からそのタイルの上にあるボトルを取得
         /// </summary>
-        /// <param name="tileNum">タイル番号</param>
-        /// <returns>対象ボトルのゲームオブジェクト | null</returns>
+        /// <param name="tileNum"> タイル番号 </param>
+        /// <returns> ボトル </returns>
         [CanBeNull]
         public GameObject GetBottle(int tileNum)
         {
@@ -188,8 +184,8 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ボトルがいるタイル番号を取得
         /// </summary>
-        /// <param name="bottle">調べたいボトル</param>
-        /// <returns>タイル番号</returns>
+        /// <param name="bottle"> ボトル </param>
+        /// <returns> タイル番号 </returns>
         public int GetBottlePos(AbstractBottleController bottle)
         {
             return XYToTileNum(_bottlePositions[bottle.gameObject]);
