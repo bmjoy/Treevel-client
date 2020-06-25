@@ -100,7 +100,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle"> フリックするボトル </param>
         /// <param name="direction"> フリックする方向 </param>
-        public static void Move(GameObject bottle, Vector2 direction)
+        public void Move(GameObject bottle, Vector2 direction)
         {
             var bottleController = bottle?.GetComponent<AbstractBottleController>();
             if (!(bottleController is DynamicBottleController))
@@ -124,24 +124,18 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// </summary>
-        {
-            return ((tileNum - 1) / _board.GetLength(1), (tileNum - 1) % _board.GetLength(1));
-        }
-
-        /// <summary>
         /// タイル`tile`をタイル番号`tileNum`の格子に設置する
         /// </summary>
         /// <param name="tile">設置するタイル</param>
         /// <param name="tileNum">タイル番号</param>
-        public static void SetTile(AbstractTileController tile, int tileNum)
+        public void SetTile(AbstractTileController tile, int tileNum)
         {
             if (tile == null)
                 return;
 
-            lock (_board) {
+            lock (_squares) {
                 var(x, y) = TileNumToXY(tileNum);
-                var target = _board[x, y];
+                var target = _squares[x, y];
 
                 // 既にタイルが置いてあった場合、disabledにする(ノーマルタイルは重複利用されるため、消したくない)
                 if (target.Tile != null) {
@@ -158,12 +152,12 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle">設置するボトル</param>
         /// <param name="tileNum">目標タイル番号</param>
-        public static void SetBottle(AbstractBottleController bottle, int tileNum)
+        public void SetBottle(AbstractBottleController bottle, int tileNum)
         {
-            lock (_board) {
+            lock (_squares) {
                 // 目標の格子を取得
                 var(targetX, targetY) = TileNumToXY(tileNum);
-                var targetSquare = _board[targetX, targetY];
+                var targetSquare = _squares[targetX, targetY];
 
                 // 目標位置にすでにボトルがある
                 if (targetSquare.Bottle != null)

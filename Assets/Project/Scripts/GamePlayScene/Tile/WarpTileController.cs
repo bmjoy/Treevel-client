@@ -94,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
             // ボトルを移動する
-            BoardManager.SetBottle(bottle.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
+            BoardManager.Instance.SetBottle(bottle.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
 
             // bottleがワープから戻るアニメーション
             anim.Play(AnimationClipName.BOTTLE_WARP_REVERSE);
@@ -110,7 +110,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private bool CanWarp()
         {
-            return _warpEnabled && BoardManager.GetBottle(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
+            return _warpEnabled && BoardManager.Instance.GetBottle(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
         }
 
         private void StartWarp(GameObject bottle)

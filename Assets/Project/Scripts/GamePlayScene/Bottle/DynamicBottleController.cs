@@ -68,7 +68,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
             // ボトルを移動する
-            BoardManager.Move(gameObject, gesture.ScreenFlickVector);
+            BoardManager.Instance.Move(gameObject, gesture.ScreenFlickVector);
         }
 
         /// <summary>

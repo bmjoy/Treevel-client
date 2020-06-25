@@ -38,7 +38,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             #endif
 
             // 目標とするタイルのスプライトを設定
-            var finalTile = BoardManager.GetTile(finalPos);
+            var finalTile = BoardManager.Instance.GetTile(finalPos);
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
     }
@@ -96,7 +96,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         public bool IsSuccess()
         {
-            var currPos = BoardManager.GetBottlePos(_bottle);
+            var currPos = BoardManager.Instance.GetBottlePos(_bottle);
             return currPos == _targetPos;
         }
     }
