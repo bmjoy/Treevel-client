@@ -11,8 +11,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         public virtual void Initialize(GimmickData gimmickData)
         {
-            GamePlayDirector.OnSucceed -= OnSucceed;
-            GamePlayDirector.OnFail -= OnFail;
         }
 
         /// <summary>
