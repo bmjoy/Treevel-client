@@ -33,12 +33,18 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _coroutines = gimmicks.Select(CreateGimmickCoroutine).ToList();
         }
 
-
-        public void TriggerGimmicks()
+        /// <summary>
+        /// ギミック発動
+        /// </summary>
+        public void GimmicksStart()
         {
             _coroutines.ForEach(cr => StartCoroutine(cr));
         }
 
+        /// <summary>
+        /// ギミックの実体を生成するコルチーン
+        /// </summary>
+        /// <param name="data">生成するギミックのデータ</param>
         IEnumerator CreateGimmickCoroutine(GimmickData data)
         {
             // 出現時間経つまで待つ

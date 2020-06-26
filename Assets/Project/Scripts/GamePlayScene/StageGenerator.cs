@@ -43,7 +43,7 @@ namespace Project.Scripts.GamePlayScene
                 BottleGenerator.CreateBottles(stageData.BottleDatas);
 
                 GimmickGenerator.Instance.Initialize(stageData.GimmickDatas);
-                GimmickGenerator.Instance.TriggerGimmicks();
+                GimmickGenerator.Instance.GimmicksStart();
 
                 // 銃弾の初期化
                 bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
