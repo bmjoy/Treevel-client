@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GameDatas;
-using Project.Scripts.GamePlayScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;

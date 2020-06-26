@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Project.Scripts.GameDatas
 {

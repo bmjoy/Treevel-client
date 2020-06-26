@@ -6,9 +6,6 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils;
 using UnityEngine;
 using Project.Scripts.GamePlayScene.Gimmick;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
-using System.Collections.Generic;
 
 namespace Project.Scripts.GamePlayScene
 {
