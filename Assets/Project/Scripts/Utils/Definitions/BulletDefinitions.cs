@@ -72,4 +72,16 @@
         RandomNormalHole,
         RandomAimingHole,
     }
+
+    public enum EGimmickType {
+        NormalCartridge,
+        TurnCartridge,
+        RandomNormalCartridge,
+        RandomTurnCartridge,
+        NormalHole,
+        AimingHole,
+        RandomNormalHole,
+        RandomAimingHole,
+        Tornado,
+    }
 }

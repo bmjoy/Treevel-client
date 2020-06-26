@@ -79,5 +79,8 @@
         public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
         public const string NORMAL_HOLE_GENERATOR_PREFAB = "NormalHoleGeneratorPrefab";
         public const string AIMING_HOLE_GENERATOR_PREFAB = "AimingHoleGeneratorPrefab";
+
+        // ギミック
+        public const string TORNADO_PREFAB = "TornadoPrefab";
     }
 }
