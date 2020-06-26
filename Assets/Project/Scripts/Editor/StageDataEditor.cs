@@ -16,6 +16,7 @@ namespace Project.Scripts.Editor
         private SerializedProperty _tileDatasProp;
         private SerializedProperty _bottleDatasProp;
         private SerializedProperty _bulletGroupDatasProp;
+        private SerializedProperty _gimmickDatasProp;
 
         private int _numOfAttackableBottles = 0;
 
@@ -25,6 +26,7 @@ namespace Project.Scripts.Editor
             _tileDatasProp = serializedObject.FindProperty("tiles");
             _bottleDatasProp = serializedObject.FindProperty("bottles");
             _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
+            _gimmickDatasProp = serializedObject.FindProperty("gimmicks");
 
             _src = target as StageData;
             if (_src != null)
@@ -48,6 +50,8 @@ namespace Project.Scripts.Editor
             DrawBottleList();
 
             DrawBulletGroupList();
+
+            DrawGimmickList();
 
             if (!EditorGUI.EndChangeCheck()) return;
 
@@ -189,6 +193,225 @@ namespace Project.Scripts.Editor
                         throw new ArgumentOutOfRangeException();
                 }
                 EditorGUI.indentLevel--;
+            });
+        }
+
+        private void DrawGimmickList()
+        {
+            this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
+                gimmickDataProp.isExpanded = EditorGUILayout.Foldout(gimmickDataProp.isExpanded, $"Gimmick {index + 1}");
+
+                if (!gimmickDataProp.isExpanded) return;
+
+                EditorGUI.indentLevel++;
+
+                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
+                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("interval"));
+                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("loop"));
+
+                var bulletTypeProp = gimmickDataProp.FindPropertyRelative("type");
+
+                bulletTypeProp.enumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                        label: new GUIContent("Type"),
+                        selected: (EGimmickType)bulletTypeProp.enumValueIndex
+                    );
+
+                switch ((EGimmickType)bulletTypeProp.enumValueIndex) {
+                    case EGimmickType.Tornado:
+                    case EGimmickType.NormalCartridge: {
+                            var directionProp = gimmickDataProp.FindPropertyRelative("direction");
+                            var lineProp = gimmickDataProp.FindPropertyRelative("line");
+
+                            if (directionProp.intValue == (int)ECartridgeDirection.Random || directionProp.intValue < 1 || directionProp.intValue > (int)ECartridgeDirection.ToUp)
+                                // 方向がランダムの場合強制に変える
+                                directionProp.intValue = (int)ECartridgeDirection.ToLeft;
+
+                            directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Direction"),
+                                    selected: (ECartridgeDirection)directionProp.intValue,
+                                    // ランダムは選択不能にする
+                                    checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random,
+                                    includeObsolete: false
+                                );
+                            if (lineProp.intValue == (int)ERow.Random)
+                                // 行(列)がランダムの場合強制に変える
+                                lineProp.intValue = (int)ERow.First;
+                            switch ((ECartridgeDirection)directionProp.intValue) {
+                                case ECartridgeDirection.ToLeft:
+                                case ECartridgeDirection.ToRight:
+                                    lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(new GUIContent("Row"), (ERow)lineProp.intValue);
+                                    break;
+                                case ECartridgeDirection.ToBottom:
+                                case ECartridgeDirection.ToUp:
+                                    lineProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(new GUIContent("Column"), (EColumn)lineProp.intValue);
+                                    break;
+                                case ECartridgeDirection.Random:
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                            break;
+                        }
+                    case EGimmickType.RandomNormalCartridge: {
+                            var directionProp = gimmickDataProp.FindPropertyRelative("direction");
+                            var lineProp = gimmickDataProp.FindPropertyRelative("line");
+
+                            directionProp.intValue = (int)(ECartridgeDirection.Random);
+                            directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Direction"),
+                                    selected: (ECartridgeDirection)directionProp.intValue,
+                                    checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
+                                    includeObsolete: false
+                                );
+                            lineProp.intValue = (int)(ERow.Random);
+                            lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Line"),
+                                    selected: (ERow)lineProp.intValue,
+                                    checkEnabled: (eType) => (ERow)eType == ERow.Random,
+                                    includeObsolete: false
+                                );
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
+
+                            break;
+                        }
+                    case EGimmickType.TurnCartridge: {
+                            var directionProp = gimmickDataProp.FindPropertyRelative("direction");
+                            var lineProp = gimmickDataProp.FindPropertyRelative("line");
+
+                            if (directionProp.intValue == (int)ECartridgeDirection.Random)
+                                // 方向がランダムの場合強制に変える
+                                directionProp.intValue = (int)ECartridgeDirection.ToLeft;
+
+                            directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Direction"),
+                                    selected: (ECartridgeDirection)directionProp.intValue,
+                                    checkEnabled: (eType) => (ECartridgeDirection)eType != ECartridgeDirection.Random,
+                                    includeObsolete: false
+                                );
+                            if (lineProp.intValue == (int)ERow.Random)
+                                // 行(列)がランダムの場合強制に変える
+                                lineProp.intValue = (int)ERow.First;
+                            switch ((ECartridgeDirection)directionProp.intValue) {
+                                case ECartridgeDirection.ToLeft:
+                                case ECartridgeDirection.ToRight:
+                                    lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(new GUIContent("Row"), (ERow)lineProp.intValue);
+                                    break;
+                                case ECartridgeDirection.ToBottom:
+                                case ECartridgeDirection.ToUp:
+                                    lineProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(new GUIContent("Column"), (EColumn)lineProp.intValue);
+                                    break;
+                                case ECartridgeDirection.Random:
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+
+                            // TODO pair constraint of turnDirections/tunrLines
+                            this.DrawArrayProperty(gimmickDataProp.FindPropertyRelative("turnDirections"));
+                            this.DrawArrayProperty(gimmickDataProp.FindPropertyRelative("turnLines"));
+                            break;
+                        }
+                    case EGimmickType.RandomTurnCartridge: {
+                            var directionProp = gimmickDataProp.FindPropertyRelative("direction");
+                            var lineProp = gimmickDataProp.FindPropertyRelative("line");
+                            directionProp.intValue = (int)(ECartridgeDirection.Random);
+                            directionProp.intValue = (int)(ECartridgeDirection)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Direction"),
+                                    selected: (ECartridgeDirection)directionProp.intValue,
+                                    checkEnabled: (eType) => (ECartridgeDirection)eType == ECartridgeDirection.Random,
+                                    includeObsolete: false
+                                );
+                            lineProp.intValue = (int)(ERow.Random);
+                            lineProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Line"),
+                                    selected: (ERow)lineProp.intValue,
+                                    checkEnabled: (eType) => (ERow)eType == ERow.Random,
+                                    includeObsolete: false
+                                );
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomCartridgeDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomTurnDirection"), Enum.GetValues(typeof(ECartridgeDirection)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomTurnRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomTurnColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
+
+                            break;
+                        }
+                    case EGimmickType.NormalHole: {
+                            var rowProp = gimmickDataProp.FindPropertyRelative("row");
+                            var columnProp = gimmickDataProp.FindPropertyRelative("column");
+
+                            if (rowProp.intValue == (int)ERow.Random)
+                                // 行がランダムの場合強制に変える
+                                rowProp.intValue = (int)ERow.First;
+
+                            if (columnProp.intValue == (int)EColumn.Random)
+                                // 列がランダムの場合強制に変える
+                                columnProp.intValue = (int)EColumn.Left;
+
+                            rowProp.intValue  =  (int)(ERow)EditorGUILayout.EnumPopup(
+                                    label:  new GUIContent("Row"),
+                                    selected:  (ERow)rowProp.intValue,
+                                    // ランダムは選択不能にする
+                                    checkEnabled:  (eType)  =>  (ERow)eType  !=  ERow.Random,
+                                    includeObsolete:  false
+                                );
+
+                            columnProp.intValue  =  (int)(ERow)EditorGUILayout.EnumPopup(
+                                    label:  new GUIContent("Column"),
+                                    selected:  (EColumn)columnProp.intValue,
+                                    // ランダムは選択不能にする
+                                    checkEnabled:  (eType)  =>  (EColumn)eType  !=  EColumn.Random,
+                                    includeObsolete:  false
+                                );
+
+                            break;
+                        }
+                    case EGimmickType.AimingHole: {
+                            var aimingBottlesProp = gimmickDataProp.FindPropertyRelative("aimingBottles");
+                            for (var i = 0 ; i < aimingBottlesProp.arraySize ; i++) {
+                                var aimingBottleProp = aimingBottlesProp.GetArrayElementAtIndex(i);
+                                aimingBottleProp.intValue = Math.Min(aimingBottleProp.intValue, _numOfAttackableBottles);
+                            }
+
+                            this.DrawArrayProperty(aimingBottlesProp);
+
+                            break;
+                        }
+                    case EGimmickType.RandomNormalHole: {
+                            var rowProp = gimmickDataProp.FindPropertyRelative("row");
+                            var columnProp = gimmickDataProp.FindPropertyRelative("column");
+
+                            rowProp.intValue = (int)(ERow.Random);
+                            rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Row"),
+                                    selected: (ERow)rowProp.intValue,
+                                    checkEnabled: (eType) => (ERow)eType == ERow.Random,
+                                    includeObsolete: false
+                                );
+
+                            columnProp.intValue = (int)(EColumn.Random);
+                            columnProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
+                                    label: new GUIContent("Column"),
+                                    selected: (EColumn)columnProp.intValue,
+                                    checkEnabled: (eType) => (EColumn)eType == EColumn.Random,
+                                    includeObsolete: false
+                                );
+
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
+
+                            break;
+                        }
+                    case EGimmickType.RandomAimingHole: {
+                            this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomAttackableBottles"), _numOfAttackableBottles, RenderRandomAttackableBottlesElement);
+                            break;
+                        }
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             });
         }
 

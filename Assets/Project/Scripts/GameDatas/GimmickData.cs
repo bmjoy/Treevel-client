@@ -8,8 +8,8 @@ namespace Project.Scripts.GameDatas
     [System.Serializable]
     public class GimmickData
     {
-        public bool isLoop;
-        public float appearanceTime;
+        public bool loop;
+        public float appearTime;
         public float interval;
         public EGimmickType type;
 

@@ -43,7 +43,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         IEnumerator CreateGimmickCoroutine(GimmickData data)
         {
             // 出現時間経つまで待つ
-            yield return new WaitForSeconds(data.appearanceTime);
+            yield return new WaitForSeconds(data.appearTime);
 
             do {
                 // ギミックインスタンス作成
@@ -65,7 +65,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
                 // ギミック発動間隔
                 yield return new WaitForSeconds(data.interval);
-            } while (data.isLoop);
+            } while (data.loop);
         }
 
         private void OnEnable()

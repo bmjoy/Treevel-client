@@ -14,6 +14,7 @@ namespace Project.Scripts.GameDatas
         [SerializeField] private List<TileData> tiles;
         [SerializeField] private List<BottleData> bottles;
         [SerializeField] private List<BulletGroupData> bulletGroups;
+        [SerializeField] private List<GimmickData> gimmicks;
         [SerializeField] private List<EBulletType> overviewGimmicks;
         [SerializeField] private TutorialData tutorial;
 
@@ -26,6 +27,7 @@ namespace Project.Scripts.GameDatas
         public List<BottleData> BottleDatas => bottles;
 
         public List<BulletGroupData> BulletGroups => bulletGroups;
+        public List<GimmickData> GimmickDatas => gimmicks;
 
         public List<EBulletType> OverviewGimmicks => overviewGimmicks;
 

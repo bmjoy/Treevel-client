@@ -5,6 +5,10 @@ using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils;
 using UnityEngine;
+using Project.Scripts.GamePlayScene.Gimmick;
+using Project.Scripts.GameDatas;
+using Project.Scripts.Utils.Definitions;
+using System.Collections.Generic;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -40,6 +44,9 @@ namespace Project.Scripts.GamePlayScene
 
                 // ボトル生成
                 BottleGenerator.CreateBottles(stageData.BottleDatas);
+
+                GimmickGenerator.Instance.Initialize(stageData.GimmickDatas);
+                GimmickGenerator.Instance.TriggerGimmicks();
 
                 // 銃弾の初期化
                 bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
