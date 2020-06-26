@@ -50,6 +50,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 yield return gimmickObjectOp = AddressableAssetManager.Instantiate(_prefabAddressableKeys[data.type]);
                 var gimmickObject = gimmickObjectOp.Result;
 
+                if (gimmickObject == null) {
+                    Debug.LogError($"ギミックの生成が失敗しました。");
+                    yield break;
+                }
+
                 var gimmick = gimmickObject.GetComponent<AbstractGimmickController>();
                 if (gimmick == null) {
                     Debug.LogError($"ギミックコントローラが{gimmickObject.name}にアタッチされていません。");
