@@ -12,7 +12,7 @@ namespace Project.Scripts.GameDatas
         public float appearanceTime;
         public float interval;
         public EGimmickType type;
-        
+
         public ERow row;
         public EColumn column;
 

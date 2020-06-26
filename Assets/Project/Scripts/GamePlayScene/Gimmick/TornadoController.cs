@@ -64,8 +64,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             Vector2 bulletMotionVector;
             Vector2 warningPosition;
-            switch (_direction)
-            {
+            switch (_direction) {
                 case ECartridgeDirection.ToLeft:
                     warningPosition = new Vector2(WindowSize.WIDTH / 2,
                         TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - _line));
@@ -111,8 +110,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <param name="direction">移動方向</param>
         private void SetDirection(ECartridgeDirection direction)
         {
-            switch (direction)
-            {
+            switch (direction) {
                 case ECartridgeDirection.ToUp:
                     _rigidBody.velocity = Vector2.up * _speed;
                     break;
@@ -140,49 +138,47 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             switch (direction) {
                 case ECartridgeDirection.ToLeft:
-                case ECartridgeDirection.ToRight:
-                {
-                    float x, y;
-                    // 目標列の一番右端のタイルのY座標を取得
-                    var tileNum = line * StageSize.COLUMN;
-                    var tile = BoardManager.GetTile(tileNum);
-                    if (tile != null) {
-                        y = tile.transform.position.y;
-                    } else {
-                        throw new System.InvalidOperationException($"Failed to get Tile{tileNum}");
-                    }
+                case ECartridgeDirection.ToRight: {
+                        float x, y;
+                        // 目標列の一番右端のタイルのY座標を取得
+                        var tileNum = line * StageSize.COLUMN;
+                        var tile = BoardManager.GetTile(tileNum);
+                        if (tile != null) {
+                            y = tile.transform.position.y;
+                        } else {
+                            throw new System.InvalidOperationException($"Failed to get Tile{tileNum}");
+                        }
 
-                    if (direction == ECartridgeDirection.ToLeft) {
-                        x = (WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
-                    } else {
-                        x = -(WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
-                    }
+                        if (direction == ECartridgeDirection.ToLeft) {
+                            x = (WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
+                        } else {
+                            x = -(WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
+                        }
 
-                    transform.position = new Vector2(x, y);
-                    break;
-                }
+                        transform.position = new Vector2(x, y);
+                        break;
+                    }
                 case ECartridgeDirection.ToUp:
-                case ECartridgeDirection.ToBottom:
-                {
-                    float x, y;
-                    // 目標行の一列目のタイルのx座標を取得
-                    var tileNum = line;
-                    var tile = BoardManager.GetTile(tileNum);
-                    if (tile != null) {
-                        x = tile.transform.position.x;
-                    } else {
-                        throw new System.InvalidOperationException($"Failed to get Tile{tileNum}");
-                    }
+                case ECartridgeDirection.ToBottom: {
+                        float x, y;
+                        // 目標行の一列目のタイルのx座標を取得
+                        var tileNum = line;
+                        var tile = BoardManager.GetTile(tileNum);
+                        if (tile != null) {
+                            x = tile.transform.position.x;
+                        } else {
+                            throw new System.InvalidOperationException($"Failed to get Tile{tileNum}");
+                        }
 
-                    if (direction == ECartridgeDirection.ToUp) {
-                        y = -(WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
-                    } else {
-                        y = (WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
-                    }
+                        if (direction == ECartridgeDirection.ToUp) {
+                            y = -(WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
+                        } else {
+                            y = (WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
+                        }
 
-                    transform.position = new Vector2(x, y);
-                    break;
-                }
+                        transform.position = new Vector2(x, y);
+                        break;
+                    }
             }
         }
 

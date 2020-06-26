@@ -52,8 +52,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 var gimmickObject = gimmickObjectOp.Result;
 
                 var gimmick = gimmickObject.GetComponent<AbstractGimmickController>();
-                if (gimmick == null)
-                {
+                if (gimmick == null) {
                     Debug.LogError($"ギミックコントローラが{gimmickObject.name}にアタッチされていません。");
                     yield break;
                 }

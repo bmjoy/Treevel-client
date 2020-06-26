@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene
         {
             var originalWidth = GetComponent<SpriteRenderer>().size.x;
             var originalHeight = GetComponent<SpriteRenderer>().size.y;
-            
+
             var widthEfficient = WindowSize.WIDTH * WindowWitdthRatio;
             var heightEfficient = widthEfficient * ImageRatio ;
             transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight, 1.0f);
