@@ -26,6 +26,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         public bool IsMovable = true;
 
+        /// <summary>
+        /// ボトルがいるべき場所
+        /// </summary>
+        public Vector3? targetPosition = null;
+
+        /// <summary>
+        /// フリック 時のパネルの移動速度
+        /// </summary>
+        private const float _SPEED = 0.2f;
+
         protected override void Awake()
         {
             base.Awake();
@@ -40,6 +50,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _anim = GetComponent<Animation>();
             _anim.AddClip(warpAnimation, AnimationClipName.BOTTLE_WARP);
             _anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
+        }
+
+        protected void Update()
+        {
+            if (targetPosition == null) return;
+
+            if (transform.position != targetPosition.Value) {
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition.Value, _SPEED);
+            }
         }
 
         private void OnEnable()
@@ -67,8 +86,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
-            // ボトルを移動する
-            BoardManager.Instance.Move(gameObject, gesture.ScreenFlickVector);
+            // ボトルのフリック情報を伝える
+            BoardManager.Instance.HandleFlickedBottle(gameObject.GetComponent<DynamicBottleController>(), gesture.ScreenFlickVector);
         }
 
         /// <summary>

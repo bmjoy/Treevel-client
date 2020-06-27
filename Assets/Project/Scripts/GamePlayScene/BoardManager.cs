@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
@@ -45,7 +46,7 @@ namespace Project.Scripts.GamePlayScene
         {
             var(x, y) = TileNumToXY(tileNum);
 
-            return _squares[x, y].Tile != null ? _squares[x, y].Tile.gameObject : null;
+            return _squares[x, y].tile != null ? _squares[x, y].tile.gameObject : null;
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace Project.Scripts.GamePlayScene
         {
             var(x, y) = TileNumToXY(tileNum);
 
-            return _squares[x, y].Bottle != null ? _squares[x, y].Bottle.gameObject : null;
+            return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
         }
 
         /// <summary>
@@ -98,20 +99,16 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// ボトルをフリックする方向に移動する
         /// </summary>
-        /// <param name="bottle"> フリックするボトル </param>
+        /// <param name="bottle"> 移動するボトル </param>
         /// <param name="direction"> フリックする方向 </param>
-        public void Move(GameObject bottle, Vector2 direction)
+        public void HandleFlickedBottle(DynamicBottleController bottle, Vector2 direction)
         {
-            var bottleController = bottle?.GetComponent<AbstractBottleController>();
-            if (!(bottleController is DynamicBottleController))
-                return;
-
             // 移動方向を正規化
             // ワールド座標型のX,Yを時計回りに90度回転させ行列におけるX,Yを求める
             var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(direction.Direction()));
 
             // 該当ボトルの現在位置
-            var currPos = _bottlePositions[bottle];
+            var currPos = _bottlePositions[bottle.gameObject];
 
             var targetPos = currPos + directionInt;
             // 移動目標地をボードの範囲内に収める
@@ -120,35 +117,68 @@ namespace Project.Scripts.GamePlayScene
 
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            SetBottle(bottleController, targetTileNum);
+            Move(bottle, targetTileNum);
         }
 
         /// <summary>
-        /// タイル`tile`をタイル番号`tileNum`の格子に設置する
+        /// ボトルを特定のタイルに移動する
+        /// </summary>
+        /// <param name="bottle"> 移動するボトル </param>
+        /// <param name="tileNum"> 移動先のタイル番号 </param>
+        /// <param name="isAnimation"> 移動にアニメーションをつけるか </param>
+        public void Move(AbstractBottleController bottle, int tileNum)
+        {
+            var (x, y) = TileNumToXY(tileNum);
+            var targetSquare = _squares[x, y];
+
+            if (targetSquare.bottle != null) return;
+
+            var bottleObject = bottle.gameObject;
+
+            // ボトルを移動する
+            bottleObject.GetComponent<DynamicBottleController>().targetPosition = targetSquare.worldPosition;
+
+            // 移動元からボトルを無くす
+            var from = _bottlePositions[bottleObject];
+            _squares[from.x, from.y].bottle = null;
+            _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+
+            // 移動先へボトルを登録する
+            _bottlePositions[bottleObject] = new Vector2Int(x, y);
+            targetSquare.bottle = bottle;
+            // targetSquare.bottle.transform.position = targetSquare.worldPosition;
+
+            targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+            targetSquare.tile.OnBottleEnter(bottleObject);
+        }
+
+        /// <summary>
+        /// [初期化用] タイル`tile`をタイル番号`tileNum`の格子に設置する
         /// </summary>
         /// <param name="tile">設置するタイル</param>
         /// <param name="tileNum">タイル番号</param>
         public void SetTile(AbstractTileController tile, int tileNum)
         {
-            if (tile == null)
-                return;
-
             lock (_squares) {
                 var(x, y) = TileNumToXY(tileNum);
-                var target = _squares[x, y];
+                var targetSquare = _squares[x, y];
 
                 // 既にタイルが置いてあった場合、disabledにする(ノーマルタイルは重複利用されるため、消したくない)
-                if (target.Tile != null) {
-                    target.Tile.gameObject.SetActive(false);
+                if (targetSquare.tile != null) {
+                    targetSquare.tile.gameObject.SetActive(false);
                 }
 
-                target.Tile = tile;
+                // 格子に設定
+                targetSquare.tile = tile;
                 tile.gameObject.SetActive(true);
+
+                // 適切な場所に設置
+                targetSquare.tile.transform.position = targetSquare.worldPosition;
             }
         }
 
         /// <summary>
-        /// ボトルをタイル番号`tileNum`の位置に設置する
+        /// [初期化用] ボトルをタイル番号`tileNum`の位置に設置する
         /// </summary>
         /// <param name="bottle">設置するボトル</param>
         /// <param name="tileNum">目標タイル番号</param>
@@ -159,19 +189,12 @@ namespace Project.Scripts.GamePlayScene
                 var(targetX, targetY) = TileNumToXY(tileNum);
                 var targetSquare = _squares[targetX, targetY];
 
-                // 目標位置にすでにボトルがある
-                if (targetSquare.Bottle != null)
-                    return;
-
-                // ボトルの元の位置が保存されたらその位置のボトルを消す
-                if (_bottlePositions.ContainsKey(bottle.gameObject)) {
-                    var from = _bottlePositions[bottle.gameObject];
-                    _squares[from.x, from.y].Bottle = null;
-                }
-
-                // 新しい格子に設定
+                // 格子に設定
                 _bottlePositions[bottle.gameObject] = new Vector2Int(targetX, targetY);
-                targetSquare.Bottle = bottle;
+                targetSquare.bottle = bottle;
+
+                // 適切な場所に設置
+                targetSquare.bottle.transform.position = targetSquare.worldPosition;
             }
         }
 
@@ -193,60 +216,22 @@ namespace Project.Scripts.GamePlayScene
             /// <summary>
             /// 格子にあるタイル
             /// </summary>
-            private AbstractTileController _tile;
-
-            public AbstractTileController Tile
-            {
-                get => _tile;
-                set {
-                    _tile = value;
-                    if (_tile != null)
-                        _tile.transform.position = _worldPosition;
-                }
-            }
+            public AbstractTileController tile;
 
             /// <summary>
             /// 格子にあるボトル
             /// </summary>
-            [CanBeNull] private AbstractBottleController _bottle;
-
-            [CanBeNull]
-            public AbstractBottleController Bottle
-            {
-                get => _bottle;
-                set {
-                    if (_bottle == value)
-                        return;
-
-                    if (value == null && _bottle != null) {
-                        // ボトルがこの格子から離れる
-                        _tile.OnBottleExit(_bottle.gameObject);
-                        _bottle = null;
-                    } else {
-                        // 新しいボトルがこの格子に入る
-                        _bottle = value;
-
-                        // 移動する
-                        _bottle.transform.position = _worldPosition;
-
-                        // ボトルがタイルに入る時のボトルの処理
-                        _bottle.OnEnterTile(_tile.gameObject);
-
-                        // ボトルがタイルに入る時のボトルの処理
-                        _tile.OnBottleEnter(_bottle.gameObject);
-                    }
-                }
-            }
+            [CanBeNull] public AbstractBottleController bottle;
 
             /// <summary>
             /// 格子のワールド座標
             /// </summary>
-            private readonly Vector2 _worldPosition;
+            public readonly Vector2 worldPosition;
 
 
             public Square(float x, float y)
             {
-                _worldPosition = new Vector2(x, y);
+                worldPosition = new Vector2(x, y);
             }
         }
     }

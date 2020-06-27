@@ -94,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             while (anim.isPlaying) yield return new WaitForFixedUpdate();
 
             // ボトルを移動する
-            BoardManager.Instance.SetBottle(bottle.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
+            BoardManager.Instance.Move(bottle.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
 
             // bottleがワープから戻るアニメーション
             anim.Play(AnimationClipName.BOTTLE_WARP_REVERSE);
