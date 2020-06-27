@@ -128,7 +128,7 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="isAnimation"> 移動にアニメーションをつけるか </param>
         public void Move(AbstractBottleController bottle, int tileNum)
         {
-            var (x, y) = TileNumToXY(tileNum);
+            var(x, y) = TileNumToXY(tileNum);
             var targetSquare = _squares[x, y];
 
             if (targetSquare.bottle != null) return;
