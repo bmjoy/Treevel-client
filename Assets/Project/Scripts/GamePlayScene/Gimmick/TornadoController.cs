@@ -33,6 +33,8 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private Rigidbody2D _rigidBody;
 
+        private GameObject _warningObj;
+
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
@@ -95,13 +97,13 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             AsyncOperationHandle<GameObject> warningOp;
             yield return warningOp = _warningPrefab.InstantiateAsync(warningPosition, Quaternion.identity);
 
-            var warningObj = warningOp.Result;
+            _warningObj = warningOp.Result;
 
             // 警告終わるまで待つ
             yield return new WaitForSeconds(_warningDisplayTime);
 
             // 警告オブジェクト破壊
-            _warningPrefab.ReleaseInstance(warningObj);
+            _warningPrefab.ReleaseInstance(_warningObj);
         }
 
         /// <summary>
@@ -185,6 +187,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         protected override void GameEnd()
         {
             _rigidBody.velocity = Vector2.zero;
+            _warningPrefab.ReleaseInstance(_warningObj);
         }
     }
 }
