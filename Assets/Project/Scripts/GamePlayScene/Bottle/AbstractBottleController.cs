@@ -77,6 +77,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
             bottleEnterTileHandler?.OnEnterTile(targetTile);
         }
 
+        /// <summary>
+        /// タイルから出た時の挙動
+        /// </summary>
+        /// <param name="targetTile">出たタイル</param>
+        public void OnExitTile(GameObject targetTile)
+        {
+            bottleEnterTileHandler?.OnExitTile(targetTile);
+        }
+
         private void InitializeSprite()
         {
             // ボトル画像のサイズを取得

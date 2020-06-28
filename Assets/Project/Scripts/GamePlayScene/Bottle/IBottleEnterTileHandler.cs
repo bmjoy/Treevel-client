@@ -10,5 +10,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         /// <param name="tile"> 移動先のタイル </param>
         void OnEnterTile(GameObject tile);
+
+        /// <summary>
+        /// ボトルがタイルから出たときの挙動
+        /// </summary>
+        /// <param name="tile"> 出たタイル </param>
+        void OnExitTile(GameObject tile);
     }
 }

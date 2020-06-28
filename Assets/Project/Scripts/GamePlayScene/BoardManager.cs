@@ -135,13 +135,14 @@ namespace Project.Scripts.GamePlayScene
 
             var bottleObject = bottle.gameObject;
 
+            // 移動元からボトルを無くす
+            var from = _bottlePositions[bottleObject];
+            bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
+            _squares[from.x, from.y].bottle = null;
+            _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+
             // ボトルを移動する
             StartCoroutine(bottleObject.GetComponent<DynamicBottleController>().Move(targetSquare.worldPosition, () => {
-                // 移動元からボトルを無くす
-                var from = _bottlePositions[bottleObject];
-                _squares[from.x, from.y].bottle = null;
-                _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
-
                 // 移動先へボトルを登録する
                 _bottlePositions[bottleObject] = new Vector2Int(x, y);
                 targetSquare.bottle = bottle;

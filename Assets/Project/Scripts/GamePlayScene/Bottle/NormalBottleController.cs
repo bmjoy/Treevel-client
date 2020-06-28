@@ -18,6 +18,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="bottleData">ボトルデータ</param>
         public override void Initialize(BottleData bottleData)
         {
+            GetComponent<SpriteGlowEffect>().enabled = false;
+
             // parse data
             var finalPos = bottleData.targetPos;
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
@@ -64,9 +66,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 _bottle.GetComponent<SpriteGlowEffect>().enabled = true;
 
                 _successHandler.DoWhenSuccess();
-            } else {
-                _bottle.GetComponent<SpriteGlowEffect>().enabled = false;
             }
+        }
+
+        public void OnExitTile(GameObject tile)
+        {
+            _bottle.GetComponent<SpriteGlowEffect>().enabled = false;
         }
     }
 
