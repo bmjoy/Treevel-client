@@ -136,20 +136,21 @@ namespace Project.Scripts.GamePlayScene
             var bottleObject = bottle.gameObject;
 
             // ボトルを移動する
-            bottleObject.GetComponent<DynamicBottleController>().targetPosition = targetSquare.worldPosition;
+            StartCoroutine(bottleObject.GetComponent<DynamicBottleController>().Move(targetSquare.worldPosition, () =>
+            {
+                // 移動元からボトルを無くす
+                var from = _bottlePositions[bottleObject];
+                _squares[from.x, from.y].bottle = null;
+                _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
 
-            // 移動元からボトルを無くす
-            var from = _bottlePositions[bottleObject];
-            _squares[from.x, from.y].bottle = null;
-            _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+                // 移動先へボトルを登録する
+                _bottlePositions[bottleObject] = new Vector2Int(x, y);
+                targetSquare.bottle = bottle;
+                // targetSquare.bottle.transform.position = targetSquare.worldPosition;
 
-            // 移動先へボトルを登録する
-            _bottlePositions[bottleObject] = new Vector2Int(x, y);
-            targetSquare.bottle = bottle;
-            // targetSquare.bottle.transform.position = targetSquare.worldPosition;
-
-            targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-            targetSquare.tile.OnBottleEnter(bottleObject);
+                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                targetSquare.tile.OnBottleEnter(bottleObject);
+            }));
         }
 
         /// <summary>

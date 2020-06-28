@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
@@ -27,9 +29,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         public bool IsMovable = true;
 
         /// <summary>
-        /// ボトルがいるべき場所
+        /// ボトルが移動中かどうか
         /// </summary>
-        public Vector3? targetPosition = null;
+        private bool _moving = false;
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -50,15 +52,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _anim = GetComponent<Animation>();
             _anim.AddClip(warpAnimation, AnimationClipName.BOTTLE_WARP);
             _anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
-        }
-
-        protected void Update()
-        {
-            if (targetPosition == null) return;
-
-            if (transform.position != targetPosition.Value) {
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition.Value, _SPEED);
-            }
         }
 
         private void OnEnable()
@@ -90,6 +83,23 @@ namespace Project.Scripts.GamePlayScene.Bottle
             BoardManager.Instance.HandleFlickedBottle(gameObject.GetComponent<DynamicBottleController>(), gesture.ScreenFlickVector);
         }
 
+        public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
+        {
+            _moving = true;
+
+            while (transform.position != targetPosition) {
+                // ゲーム終了時など，強制的に移動をやめたい場合には，`_moving = false` にすれば止まる
+                if (_moving == false) yield break;
+
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
+                yield return null;
+            }
+
+            _moving = false;
+
+            callback();
+        }
+
         /// <summary>
         /// ゲーム成功時の処理
         /// </summary>
@@ -116,7 +126,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
 
             // ボトルの移動を止める
-            targetPosition = null;
+            _moving = false;
 
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
             if (!IsDead) {
