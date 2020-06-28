@@ -271,9 +271,9 @@ namespace Project.Scripts.GamePlayScene
             return XYToTileNum(_bottlePositions[bottle.gameObject]).Value;
         }
 
-        public static Vector2 GetTilePos (int tileNum)
+        public static Vector2 GetTilePos(int tileNum)
         {
-            var (x, y) = TileNumToXY(tileNum);
+            var(x, y) = TileNumToXY(tileNum);
             return _board[x, y].Position;
         }
 
