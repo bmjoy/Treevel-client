@@ -195,6 +195,10 @@ namespace Project.Scripts.GamePlayScene
 
                 // 適切な場所に設置
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
+
+                // ボトルがタイルに配置された場合の処理を行う
+                // `tile.OnBottleEnter` は仕様上呼ばない方が良いと判断
+                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
             }
         }
 
