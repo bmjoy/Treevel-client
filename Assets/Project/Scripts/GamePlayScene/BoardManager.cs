@@ -136,8 +136,7 @@ namespace Project.Scripts.GamePlayScene
             var bottleObject = bottle.gameObject;
 
             // ボトルを移動する
-            StartCoroutine(bottleObject.GetComponent<DynamicBottleController>().Move(targetSquare.worldPosition, () =>
-            {
+            StartCoroutine(bottleObject.GetComponent<DynamicBottleController>().Move(targetSquare.worldPosition, () => {
                 // 移動元からボトルを無くす
                 var from = _bottlePositions[bottleObject];
                 _squares[from.x, from.y].bottle = null;
