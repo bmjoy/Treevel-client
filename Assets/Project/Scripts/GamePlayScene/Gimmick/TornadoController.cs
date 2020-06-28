@@ -142,12 +142,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         float x, y;
                         // 目標列の一番右端のタイルのY座標を取得
                         var tileNum = line * StageSize.COLUMN;
-                        var tile = BoardManager.GetTile(tileNum);
-                        if (tile != null) {
-                            y = tile.transform.position.y;
-                        } else {
-                            throw new System.InvalidOperationException($"Failed to get Tile{tileNum}");
-                        }
+                        y = BoardManager.GetTilePos(tileNum).y;
 
                         if (direction == ECartridgeDirection.ToLeft) {
                             x = (WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
@@ -163,12 +158,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         float x, y;
                         // 目標行の一列目のタイルのx座標を取得
                         var tileNum = line;
-                        var tile = BoardManager.GetTile(tileNum);
-                        if (tile != null) {
-                            x = tile.transform.position.x;
-                        } else {
-                            throw new System.InvalidOperationException($"Failed to get Tile{tileNum}");
-                        }
+                        x = BoardManager.GetTilePos(tileNum).x;
 
                         if (direction == ECartridgeDirection.ToUp) {
                             y = -(WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
