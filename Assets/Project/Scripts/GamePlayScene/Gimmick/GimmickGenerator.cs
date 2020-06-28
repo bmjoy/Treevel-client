@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GameDatas;
@@ -27,6 +27,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             {EGimmickType.Tornado, Address.TORNADO_PREFAB}
         };
 
+        private float _startTime;
+        private void Awake()
+        {
+            _startTime = Time.time;
+        }
 
         public void Initialize(List<GimmickData> gimmicks)
         {
@@ -48,9 +53,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         IEnumerator CreateGimmickCoroutine(GimmickData data)
         {
             // 出現時間経つまで待つ
-            yield return new WaitForSeconds(data.appearTime);
+            yield return new WaitForSeconds(data.appearTime - (Time.time - _startTime));
 
             do {
+                var instantiateTime = Time.time;
                 // ギミックインスタンス作成
                 AsyncOperationHandle<GameObject> gimmickObjectOp;
                 yield return gimmickObjectOp = AddressableAssetManager.Instantiate(_prefabAddressableKeys[data.type]);
@@ -74,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 yield return gimmick.Trigger();
 
                 // ギミック発動間隔
-                yield return new WaitForSeconds(data.interval);
+                yield return new WaitForSeconds(data.interval - (Time.time - instantiateTime));
             } while (data.loop);
         }
 
