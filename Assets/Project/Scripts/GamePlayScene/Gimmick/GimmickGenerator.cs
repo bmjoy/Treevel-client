@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GameDatas;
@@ -77,7 +77,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 gimmick.Initialize(data);
 
                 // ギミック発動
-                yield return gimmick.Trigger();
+                StartCoroutine(gimmick.Trigger());
 
                 // ギミック発動間隔
                 yield return new WaitForSeconds(data.interval - (Time.time - instantiateTime));
