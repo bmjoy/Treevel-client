@@ -145,7 +145,6 @@ namespace Project.Scripts.GamePlayScene
                 // 移動先へボトルを登録する
                 _bottlePositions[bottleObject] = new Vector2Int(x, y);
                 targetSquare.bottle = bottle;
-                // targetSquare.bottle.transform.position = targetSquare.worldPosition;
 
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject);
