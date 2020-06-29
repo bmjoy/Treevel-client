@@ -15,7 +15,7 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// 初期化フラグ
         /// </summary>
-        static private bool _initialized = false;
+        private static bool _initialized = false;
 
         /// <summary>
         /// アンロードのためにハンドルを一時保存
@@ -23,7 +23,7 @@ namespace Project.Scripts.Utils
         /// <typeparam name="string">アッセとのアドレス（キー）</typeparam>
         /// <typeparam name="AsyncOperationHandle">ロードに用いたハンドル</typeparam>
         /// <returns></returns>
-        static private readonly Dictionary<object, AsyncOperationHandle> _loadedAssets = new Dictionary<object, AsyncOperationHandle>();
+        private static readonly Dictionary<object, AsyncOperationHandle> _loadedAssets = new Dictionary<object, AsyncOperationHandle>();
 
         /// <summary>
         /// AASを初期化
@@ -68,7 +68,7 @@ namespace Project.Scripts.Utils
         /// <typeparam name="TObject"></typeparam>
         /// <param name="key">アドレス</param>
         /// <returns></returns>
-        static public TObject GetAsset<TObject> (object key)
+        public static TObject GetAsset<TObject> (object key)
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>().Result;
@@ -85,7 +85,7 @@ namespace Project.Scripts.Utils
         /// <param name="sceneName">ロードするシーンのaddress</param>
         /// <param name="loadSceneMode">ロードモード（Single/Additive)を指定</param>
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
-        static public AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             //// 辞書にシーンのインスタンスが入ってる場合
             //if (loadSceneMode != LoadSceneMode.Single && _loadedAssets.ContainsKey(sceneName)) {
@@ -116,7 +116,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         /// <param name="sceneName">アンロードするシーンのaddress</param>
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
-        static public AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
+        public static AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
         {
             // シーンがロードしていなければ終了
             if (!_loadedAssets.ContainsKey(sceneName))
