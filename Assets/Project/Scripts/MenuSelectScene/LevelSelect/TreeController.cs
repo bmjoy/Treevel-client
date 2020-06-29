@@ -71,7 +71,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                         GetComponent<Image>().material = null;
                         var stageNum = TreeInfo.NUM[treeId];
                         var allStageCleared = true;
-                        for (var stageNumber = 1; stageNumber < stageNum; stageNumber++) {
+                        for (var stageNumber = 1; stageNumber <= stageNum; stageNumber++) {
                             allStageCleared = allStageCleared && StageStatus.Get(treeId, stageNum).cleared;
                         }
                         if (allStageCleared) {
