@@ -34,8 +34,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                     released = constraintObjects.All(tree => tree.GetComponent<TreeController>().state >= ETreeState.Cleared);
                 }
 
-                if(released)
-                {
+                if (released) {
                     // 終点の木の状態の更新
                     endObject.GetComponent<TreeController>().state = ETreeState.Released;
                     endObject.GetComponent<Image>().material = null;

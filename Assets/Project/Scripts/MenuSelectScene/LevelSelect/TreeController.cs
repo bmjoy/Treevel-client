@@ -56,39 +56,38 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased: {
-                    // 何もしない
-                    GetComponent<Image>().material = _material;
-                    break;
-                }
+                        // 何もしない
+                        GetComponent<Image>().material = _material;
+                        break;
+                    }
                 case ETreeState.Released: {
-                    // Implementorに任せる
-                    GetComponent<Image>().material = null;
-                    state = _clearHandler.IsClear(treeId);
-                    break;
-                }
+                        // Implementorに任せる
+                        GetComponent<Image>().material = null;
+                        state = _clearHandler.IsClear(treeId);
+                        break;
+                    }
                 case ETreeState.Cleared: {
-                    // 全クリアかどうかをチェックする
-                    GetComponent<Image>().material = null;
-                    var stageNum = TreeInfo.NUM[treeId];
-                    var allStageCleared = true;
-                    for (var stageNumber = 1; stageNumber < stageNum; stageNumber++) {
-                        allStageCleared = allStageCleared && StageStatus.Get(treeId, stageNum).cleared;
+                        // 全クリアかどうかをチェックする
+                        GetComponent<Image>().material = null;
+                        var stageNum = TreeInfo.NUM[treeId];
+                        var allStageCleared = true;
+                        for (var stageNumber = 1; stageNumber < stageNum; stageNumber++) {
+                            allStageCleared = allStageCleared && StageStatus.Get(treeId, stageNum).cleared;
+                        }
+                        if (allStageCleared) {
+                            state = ETreeState.Finished;
+                        }
+                        break;
                     }
-                    if (allStageCleared)
-                    {
-                        state = ETreeState.Finished;
-                    }
-                    break;
-                }
                 case ETreeState.Finished: {
-                    // アニメーション
-                    GetComponent<Image>().material = null;
-                    Debug.Log($"{treeId} is finished.");
-                    break;
-                }
+                        // アニメーション
+                        GetComponent<Image>().material = null;
+                        Debug.Log($"{treeId} is finished.");
+                        break;
+                    }
                 default: {
-                    throw new NotImplementedException();
-                }
+                        throw new NotImplementedException();
+                    }
             }
         }
 

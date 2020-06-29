@@ -10,11 +10,13 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
     {
         private int _clearNumThreshold;
 
-        public NumClearTreeHandler(int clearThreshold) {
+        public NumClearTreeHandler(int clearThreshold)
+        {
             _clearNumThreshold = clearThreshold;
         }
 
-        public ETreeState IsClear(ETreeId treeId) {
+        public ETreeState IsClear(ETreeId treeId)
+        {
             var stageNum = TreeInfo.NUM[treeId];
             var clearStageNum = 0;
             for (var stageNumber = 1; stageNumber <= stageNum; stageNumber++) {
@@ -22,8 +24,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             }
 
             // クリア数に応じた木の状態を返す
-            if(clearStageNum == stageNum)
-            {
+            if (clearStageNum == stageNum) {
                 return ETreeState.Finished;
             } else if (clearStageNum >= _clearNumThreshold) {
                 return ETreeState.Cleared;
