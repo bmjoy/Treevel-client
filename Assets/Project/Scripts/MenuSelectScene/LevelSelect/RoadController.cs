@@ -3,6 +3,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
@@ -30,12 +31,16 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                     // 初期状態で解放されている道
                     released = true;
                 } else {
-                    released = constraintObjects.All(tree => tree.GetComponent<TreeController>().cleared);
+                    released = constraintObjects.All(tree => tree.GetComponent<TreeController>().state >= ETreeState.Cleared);
+                }
+
+                if(released)
+                {
+                    // 終点の木の状態の更新
+                    endObject.GetComponent<TreeController>().state = ETreeState.Released;
+                    endObject.GetComponent<Image>().material = null;
                 }
             }
-
-            // 終点の木の状態の更新
-            endObject.GetComponent<TreeController>().released = released;
             button.enabled = released;
 
             if (!released) {

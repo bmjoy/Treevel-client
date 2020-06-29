@@ -8,9 +8,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
     /// </summary>
     public static class PlayerPrefsKeys
     {
-        public const string TREE_RELEASED = "TREE_RELEASED";
-        public const string TREE_CLEARED = "TREE_CLEARED";
-        public const string ROAD = "ROAD";
+        public const string TREE = "TREE";
         public const string BGM_VOLUME = "BGM_VOLUME";
         public const string SE_VOLUME = "SE_VOLUME";
         public const string LANGUAGE = "LANGUAGE";

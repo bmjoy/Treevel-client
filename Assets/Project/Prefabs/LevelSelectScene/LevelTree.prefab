@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8672760c1d5b84159ab4cf66039175bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 1
   _levelName: 0
-  _treeId: 0
-  released: 0
-  cleared: 0
+  treeId: 0
+  _material: {fileID: 2100000, guid: b68163006459944d0b6a85fe0bd5592c, type: 2}
 --- !u!114 &5891168163236371066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: -2037017567522478634}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

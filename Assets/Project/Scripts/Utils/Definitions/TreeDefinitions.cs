@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Project.Scripts.MenuSelectScene.LevelSelect;
 
 namespace Project.Scripts.Utils.Definitions
 {
@@ -41,5 +42,31 @@ namespace Project.Scripts.Utils.Definitions
             {ETreeId.Winter_2, 10},
             {ETreeId.Winter_3, 10},
         };
+
+        public static readonly Dictionary<ETreeId, IClearTreeHandler> CLEAR_HANDLER = new Dictionary<ETreeId, IClearTreeHandler>()
+        {
+            {ETreeId.Spring_1, new NumClearTreeHandler(1)},
+            {ETreeId.Spring_2, new NumClearTreeHandler(1)},
+            {ETreeId.Spring_3, new NumClearTreeHandler(1)},
+            {ETreeId.Summer_1, new NumClearTreeHandler(1)},
+            {ETreeId.Summer_2, new NumClearTreeHandler(1)},
+            {ETreeId.Summer_3, new NumClearTreeHandler(1)},
+            {ETreeId.Automn_1, new NumClearTreeHandler(1)},
+            {ETreeId.Automn_2, new NumClearTreeHandler(1)},
+            {ETreeId.Automn_3, new NumClearTreeHandler(1)},
+            {ETreeId.Winter_1, new NumClearTreeHandler(1)},
+            {ETreeId.Winter_2, new NumClearTreeHandler(1)},
+            {ETreeId.Winter_3, new NumClearTreeHandler(1)},
+        };
+    }
+
+    /// <summary>
+    /// 木の状態
+    /// </summary>
+    public enum ETreeState {
+        Unreleased = 1,
+        Released,
+        Cleared,
+        Finished
     }
 }

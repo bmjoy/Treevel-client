@@ -9,12 +9,7 @@ namespace Project.Scripts.Utils.Definitions
         // <summary>
         /// デフォルトの木の解放状態
         /// </summary>
-        public const int TREE_RELEASED = 0;
-
-        /// <summary>
-        /// デフォルトの木のクリア状態
-        /// </summary>
-        public const int TREE_CLEARED = 0;
+        public const int TREE_STATE = (int) ETreeState.Unreleased;
 
         /// <summary>
         /// デフォルトの道の解放状態
