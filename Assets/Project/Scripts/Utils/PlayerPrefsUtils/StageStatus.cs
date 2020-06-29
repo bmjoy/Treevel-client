@@ -82,7 +82,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
                 var stageNum = TreeInfo.NUM[treeId];
 
-                for (var stageNumber = 1; stageNumber < stageNum; stageNumber++) {
+                for (var stageNumber = 1; stageNumber <= stageNum; stageNumber++) {
                     PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageNumber));
                 }
             }
