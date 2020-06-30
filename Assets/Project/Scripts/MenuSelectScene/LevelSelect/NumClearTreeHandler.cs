@@ -1,5 +1,7 @@
 ﻿using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
+using System;
+using System.Linq;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
@@ -8,23 +10,28 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
     /// </summary>
     public class NumClearTreeHandler : IClearTreeHandler
     {
+        private ETreeId _treeId;
         private int _clearNumThreshold;
+        private int _stageNum;
 
-        public NumClearTreeHandler(int clearThreshold)
+        public NumClearTreeHandler(ETreeId treeId, int clearThreshold)
         {
+            _treeId = treeId;
             _clearNumThreshold = clearThreshold;
+            _stageNum = TreeInfo.NUM[_treeId];
+            if (clearThreshold < 1) {
+                throw new Exception("clearThreshold must not be less than 1");
+            } else if (clearThreshold > _stageNum) {
+                throw new Exception("clearThreshold must not be larger thanthe number of stages");
+            }
         }
 
-        public ETreeState IsClear(ETreeId treeId)
+        public ETreeState IsClear()
         {
-            var stageNum = TreeInfo.NUM[treeId];
-            var clearStageNum = 0;
-            for (var stageNumber = 1; stageNumber <= stageNum; stageNumber++) {
-                clearStageNum += StageStatus.Get(treeId, stageNumber).cleared ? 1 : 0;
-            }
+            var clearStageNum = Enumerable.Range(1, _stageNum).Count(s => StageStatus.Get(_treeId, s).cleared);
 
             // クリア数に応じた木の状態を返す
-            if (clearStageNum == stageNum) {
+            if (clearStageNum == _stageNum) {
                 return ETreeState.Finished;
             } else if (clearStageNum >= _clearNumThreshold) {
                 return ETreeState.Cleared;

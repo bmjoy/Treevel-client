@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Project.Scripts.StageSelectScene;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using Project.Scripts.Utils.PlayerPrefsUtils;
-using Project.Scripts.GameDatas;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,19 +63,17 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                 case ETreeState.Released: {
                         // Implementorに任せる
                         GetComponent<Image>().material = null;
-                        state = _clearHandler.IsClear(treeId);
+                        state = _clearHandler.IsClear();
                         break;
                     }
                 case ETreeState.Cleared: {
                         // 全クリアかどうかをチェックする
                         GetComponent<Image>().material = null;
                         var stageNum = TreeInfo.NUM[treeId];
-                        var allStageCleared = true;
-                        for (var stageNumber = 1; stageNumber <= stageNum; stageNumber++) {
-                            allStageCleared = allStageCleared && StageStatus.Get(treeId, stageNum).cleared;
-                        }
-                        if (allStageCleared) {
+                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
+                        if (clearStageNum == stageNum) {
                             state = ETreeState.Finished;
+                            Debug.Log($"{treeId} is finished.");
                         }
                         break;
                     }

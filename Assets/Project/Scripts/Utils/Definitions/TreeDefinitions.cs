@@ -45,18 +45,18 @@ namespace Project.Scripts.Utils.Definitions
 
         public static readonly Dictionary<ETreeId, IClearTreeHandler> CLEAR_HANDLER = new Dictionary<ETreeId, IClearTreeHandler>()
         {
-            {ETreeId.Spring_1, new NumClearTreeHandler(1)},
-            {ETreeId.Spring_2, new NumClearTreeHandler(1)},
-            {ETreeId.Spring_3, new NumClearTreeHandler(1)},
-            {ETreeId.Summer_1, new NumClearTreeHandler(1)},
-            {ETreeId.Summer_2, new NumClearTreeHandler(1)},
-            {ETreeId.Summer_3, new NumClearTreeHandler(1)},
-            {ETreeId.Automn_1, new NumClearTreeHandler(1)},
-            {ETreeId.Automn_2, new NumClearTreeHandler(1)},
-            {ETreeId.Automn_3, new NumClearTreeHandler(1)},
-            {ETreeId.Winter_1, new NumClearTreeHandler(1)},
-            {ETreeId.Winter_2, new NumClearTreeHandler(1)},
-            {ETreeId.Winter_3, new NumClearTreeHandler(1)},
+            {ETreeId.Spring_1, new NumClearTreeHandler(ETreeId.Spring_1, 1)},
+            {ETreeId.Spring_2, new NumClearTreeHandler(ETreeId.Spring_2, 1)},
+            {ETreeId.Spring_3, new NumClearTreeHandler(ETreeId.Spring_3, 1)},
+            {ETreeId.Summer_1, new NumClearTreeHandler(ETreeId.Summer_1, 1)},
+            {ETreeId.Summer_2, new NumClearTreeHandler(ETreeId.Summer_3, 1)},
+            {ETreeId.Summer_3, new NumClearTreeHandler(ETreeId.Summer_3, 1)},
+            {ETreeId.Automn_1, new NumClearTreeHandler(ETreeId.Automn_1, 1)},
+            {ETreeId.Automn_2, new NumClearTreeHandler(ETreeId.Automn_2, 1)},
+            {ETreeId.Automn_3, new NumClearTreeHandler(ETreeId.Automn_3, 1)},
+            {ETreeId.Winter_1, new NumClearTreeHandler(ETreeId.Winter_1, 1)},
+            {ETreeId.Winter_2, new NumClearTreeHandler(ETreeId.Winter_2, 1)},
+            {ETreeId.Winter_3, new NumClearTreeHandler(ETreeId.Winter_3, 1)},
         };
     }
 

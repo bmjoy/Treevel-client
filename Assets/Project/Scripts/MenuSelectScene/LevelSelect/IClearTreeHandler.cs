@@ -7,6 +7,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
     /// </summary>
     public interface IClearTreeHandler
     {
-        ETreeState IsClear(ETreeId treeId);
+        ETreeState IsClear();
     }
 }
