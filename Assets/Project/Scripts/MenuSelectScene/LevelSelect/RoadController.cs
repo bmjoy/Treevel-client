@@ -40,7 +40,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                     endObject.GetComponent<Image>().material = null;
                 }
             }
-            button.enabled = released;
+            button.enabled = button.enabled || released;
 
             if (!released) {
                 // 非解放時
