@@ -22,7 +22,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             if (clearThreshold < 1) {
                 throw new Exception("clearThreshold must not be less than 1");
             } else if (clearThreshold > _stageNum) {
-                throw new Exception("clearThreshold must not be larger thanthe number of stages");
+                throw new Exception("clearThreshold must not be larger than the number of stages");
             }
         }
 

@@ -56,7 +56,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased: {
-                        // 何もしない
+                        // グレースケール
                         GetComponent<Image>().material = _material;
                         break;
                     }
