@@ -9,8 +9,17 @@ namespace Project.Scripts.GamePlayScene.Gimmick
     {
         [SerializeField] protected float _warningDisplayTime = BulletWarningParameter.WARNING_DISPLAYED_TIME;
 
+        static private short _gimmickId = short.MinValue;
+
         public virtual void Initialize(GimmickData gimmickData)
         {
+            GetComponent<Renderer>().sortingOrder = _gimmickId;
+
+            try {
+                _gimmickId = checked((short)(_gimmickId + 1));
+            } catch (System.OverflowException) {
+                _gimmickId = short.MinValue;
+            }
         }
 
         /// <summary>

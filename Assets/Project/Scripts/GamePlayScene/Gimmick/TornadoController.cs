@@ -42,6 +42,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         public override void Initialize(GimmickData gimmickData)
         {
+            base.Initialize(gimmickData);
             _direction = gimmickData.direction;
             _line = gimmickData.line;
 
