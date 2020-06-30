@@ -16,7 +16,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 現在の木の状態
         /// </summary>
-        [SerializeField] public ETreeState state;
+        [NonSerialized] public ETreeState state = ETreeState.Unreleased;
 
         /// <summary>
         /// クリア状態を判定するクラス

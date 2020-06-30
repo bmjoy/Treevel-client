@@ -7,6 +7,7 @@ namespace Project.Scripts.Utils.Definitions
     /// 木一覧
     /// </summary>
     public enum ETreeId {
+        Dummy = 0,  // ダミー
         Spring_1 = 1,   // 春の木
         Spring_2 = 2,
         Spring_3 = 3,
@@ -29,6 +30,7 @@ namespace Project.Scripts.Utils.Definitions
         /// TODO: 実際にある木のステージ数で決める
         public static readonly Dictionary<ETreeId, int> NUM = new Dictionary<ETreeId, int>()
         {
+            {ETreeId.Dummy, 0},
             {ETreeId.Spring_1, 10},
             {ETreeId.Spring_2, 10},
             {ETreeId.Spring_3, 10},
@@ -45,6 +47,7 @@ namespace Project.Scripts.Utils.Definitions
 
         public static readonly Dictionary<ETreeId, IClearTreeHandler> CLEAR_HANDLER = new Dictionary<ETreeId, IClearTreeHandler>()
         {
+            {ETreeId.Dummy, null},
             {ETreeId.Spring_1, new NumClearTreeHandler(ETreeId.Spring_1, 1)},
             {ETreeId.Spring_2, new NumClearTreeHandler(ETreeId.Spring_2, 1)},
             {ETreeId.Spring_3, new NumClearTreeHandler(ETreeId.Spring_3, 1)},
