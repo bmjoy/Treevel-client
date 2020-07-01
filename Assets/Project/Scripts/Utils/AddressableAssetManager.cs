@@ -201,6 +201,9 @@ namespace Project.Scripts.Utils
                     case ETileType.Spiderweb:
                         LoadAsset<GameObject>(Address.SPIDERWEB_TILE_PREFAB);
                         break;
+                    case ETileType.Ice:
+                        LoadAsset<GameObject>(Address.ICE_TILE_PREFAB);
+                        break;
                     default:
                         throw new System.NotImplementedException();
                 }

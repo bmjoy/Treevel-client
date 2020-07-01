@@ -23,7 +23,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private sealed class HolyTileBottleHandler : DefaultBottleHandler
         {
-            public override void OnBottleEnter(GameObject bottle)
+            public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
                 if (bottle.GetComponent<AbstractBottleController>() == null) return;
 

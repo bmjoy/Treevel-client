@@ -66,6 +66,7 @@
         public const string WARP_TILE_PREFAB = "WarpTilePrefab";
         public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
         public const string SPIDERWEB_TILE_PREFAB = "SpiderwebTilePrefab";
+        public const string ICE_TILE_PREFAB = "IceTilePrefab";
         public const string NUMBER_TILE_SPRITE_PREFIX = "numberTile";
 
         // 銃弾関連

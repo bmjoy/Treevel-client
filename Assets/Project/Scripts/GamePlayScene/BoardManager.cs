@@ -44,7 +44,11 @@ namespace Project.Scripts.GamePlayScene
         [CanBeNull]
         public GameObject GetTile(int tileNum)
         {
-            var(x, y) = TileNumToXY(tileNum);
+            var xy = TileNumToXY(tileNum);
+            // 範囲外のタイル番号が指定された場合には何もしない
+            if (xy == null) return null;
+
+            var (x, y) = xy.Value;
 
             return _squares[x, y].tile != null ? _squares[x, y].tile.gameObject : null;
         }
@@ -57,7 +61,11 @@ namespace Project.Scripts.GamePlayScene
         [CanBeNull]
         public GameObject GetBottle(int tileNum)
         {
-            var(x, y) = TileNumToXY(tileNum);
+            var xy = TileNumToXY(tileNum);
+            // 範囲外のタイル番号が指定された場合には何もしない
+            if (xy == null) return null;
+
+            var (x, y) = xy.Value;
 
             return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
         }
@@ -88,8 +96,10 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum"> タイル番号 </param>
         /// <returns> (行, 列) </returns>
-        private(int, int) TileNumToXY(int tileNum)
+        private(int, int)? TileNumToXY(int tileNum)
         {
+            if (tileNum < 1 || 15 < tileNum) return null;
+
             var x = (tileNum - 1) / _squares.GetLength(1);
             var y = (tileNum - 1) % _squares.GetLength(1);
 
@@ -117,7 +127,7 @@ namespace Project.Scripts.GamePlayScene
 
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            Move(bottle, targetTileNum);
+            Move(bottle, targetTileNum, directionInt);
         }
 
         /// <summary>
@@ -125,12 +135,18 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
-        /// <param name="isAnimation"> 移動にアニメーションをつけるか </param>
-        public void Move(AbstractBottleController bottle, int tileNum)
+        /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
+        public void Move(AbstractBottleController bottle, int tileNum, Vector2Int? direction = null)
         {
-            var(x, y) = TileNumToXY(tileNum);
+            var xy = TileNumToXY(tileNum);
+            // 範囲外のタイル番号が指定された場合には何もしない
+            if (xy == null) return;
+
+            var (x, y) = xy.Value;
+
             var targetSquare = _squares[x, y];
 
+            // すでにボトルが置かれているタイルが指定された場合には何もしない
             if (targetSquare.bottle != null) return;
 
             var bottleObject = bottle.gameObject;
@@ -148,7 +164,7 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle = bottle;
 
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                targetSquare.tile.OnBottleEnter(bottleObject);
+                targetSquare.tile.OnBottleEnter(bottleObject, direction);
             }));
         }
 
@@ -160,7 +176,11 @@ namespace Project.Scripts.GamePlayScene
         public void SetTile(AbstractTileController tile, int tileNum)
         {
             lock (_squares) {
-                var(x, y) = TileNumToXY(tileNum);
+                var xy = TileNumToXY(tileNum);
+                // 範囲外のタイル番号が指定された場合には何もしない
+                if (xy == null) return;
+
+                var (x, y) = xy.Value;
                 var targetSquare = _squares[x, y];
 
                 // 既にタイルが置いてあった場合、disabledにする(ノーマルタイルは重複利用されるため、消したくない)
@@ -185,8 +205,12 @@ namespace Project.Scripts.GamePlayScene
         public void SetBottle(AbstractBottleController bottle, int tileNum)
         {
             lock (_squares) {
+                var xy = TileNumToXY(tileNum);
+                // 範囲外のタイル番号が指定された場合には何もしない
+                if (xy == null) return;
+
                 // 目標の格子を取得
-                var(targetX, targetY) = TileNumToXY(tileNum);
+                var(targetX, targetY) = xy.Value;
                 var targetSquare = _squares[targetX, targetY];
 
                 // 格子に設定

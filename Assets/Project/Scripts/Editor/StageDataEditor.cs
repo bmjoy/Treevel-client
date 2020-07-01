@@ -141,6 +141,8 @@ namespace Project.Scripts.Editor
                         break;
                     case ETileType.Spiderweb:
                         break;
+                    case ETileType.Ice:
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
