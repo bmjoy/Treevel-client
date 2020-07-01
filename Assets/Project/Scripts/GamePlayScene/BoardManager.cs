@@ -48,7 +48,7 @@ namespace Project.Scripts.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return null;
 
-            var (x, y) = xy.Value;
+            var(x, y) = xy.Value;
 
             return _squares[x, y].tile != null ? _squares[x, y].tile.gameObject : null;
         }
@@ -65,7 +65,7 @@ namespace Project.Scripts.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return null;
 
-            var (x, y) = xy.Value;
+            var(x, y) = xy.Value;
 
             return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
         }
@@ -142,7 +142,7 @@ namespace Project.Scripts.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return;
 
-            var (x, y) = xy.Value;
+            var(x, y) = xy.Value;
 
             var targetSquare = _squares[x, y];
 
@@ -180,7 +180,7 @@ namespace Project.Scripts.GamePlayScene
                 // 範囲外のタイル番号が指定された場合には何もしない
                 if (xy == null) return;
 
-                var (x, y) = xy.Value;
+                var(x, y) = xy.Value;
                 var targetSquare = _squares[x, y];
 
                 // 既にタイルが置いてあった場合、disabledにする(ノーマルタイルは重複利用されるため、消したくない)

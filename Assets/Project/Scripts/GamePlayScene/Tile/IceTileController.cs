@@ -45,12 +45,10 @@ namespace Project.Scripts.GamePlayScene.Tile
                 if (x == 0) {
                     // 縦方向の移動の場合
                     targetTileNum = _tileNumber + 3 * y;
-                }
-                else if (y == 0) {
+                } else if (y == 0) {
                     // 横方向の移動の場合
                     targetTileNum = _tileNumber + x;
-                }
-                else {
+                } else {
                     Debug.LogError("invalid direction");
                     return;
                 }
