@@ -83,5 +83,6 @@
         RandomNormalHole,
         RandomAimingHole,
         Tornado,
+        RandomTornado
     }
 }

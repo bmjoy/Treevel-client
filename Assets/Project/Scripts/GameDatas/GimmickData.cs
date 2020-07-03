@@ -12,26 +12,42 @@ namespace Project.Scripts.GameDatas
         public float interval;
         public EGimmickType type;
 
-        public ERow row;
-        public EColumn column;
-
         public int line;
 
         public ECartridgeDirection direction;
 
-        public List<ECartridgeDirection> turnDirections;
+        /// <summary>
+        /// ＜竜巻＞攻撃方向リスト
+        /// </summary>
+        public List<ECartridgeDirection> targetDirections;
+
+        /// <summary>
+        /// ＜竜巻＞攻撃行列リスト
+        /// </summary>
+        public List<int> targetLines;
+
+        /// <summary>
+        /// ＜竜巻＞ランダム攻撃方向重みリスト
+        /// </summary>
+        public List<int> randomDirection;
+
+        /// <summary>
+        /// ＜竜巻＞ランダム攻撃行重みリスト
+        /// </summary>
+        public List<int> randomRow;
+
+        /// <summary>
+        /// ＜竜巻＞ランダム攻撃列重みリスト
+        /// </summary>
+        public List<int> randomColumn;
 
         public List<int> turnLines;
 
         [Range(1, 15)] public List<int> aimingBottles;
 
         public List<int> randomCartridgeDirection;
-        public List<int> randomRow;
-        public List<int> randomColumn;
+        public List<int> randomLine;
 
-        public List<int> randomTurnDirection;
-        public List<int> randomTurnRow;
-        public List<int> randomTurnColumn;
 
         public List<int> randomAttackableBottles;
     }
