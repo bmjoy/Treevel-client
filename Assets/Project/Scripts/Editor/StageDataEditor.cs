@@ -235,46 +235,46 @@ namespace Project.Scripts.Editor
                                 EditorGUI.indentLevel++;
                                 EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                switch((ECartridgeDirection)directionElem.intValue) {
+                                switch ((ECartridgeDirection)directionElem.intValue) {
                                     case ECartridgeDirection.ToBottom:
                                     case ECartridgeDirection.ToUp: {
-                                        // デフォルト値設定
-                                        if (lineElem.intValue < 1 || lineElem.intValue > StageSize.COLUMN)
-                                            lineElem.intValue = 1;
+                                            // デフォルト値設定
+                                            if (lineElem.intValue < 1 || lineElem.intValue > StageSize.COLUMN)
+                                                lineElem.intValue = 1;
 
-                                        var options = Enum.GetNames(typeof(EColumn)).Where(str => str != "Random").ToArray();
-                                        var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Column"), lineElem.intValue - 1, options);
-                                        lineElem.intValue = (int)Enum.Parse(typeof(EColumn), options[selectedIdx]);
-                                        break;
-                                    }
+                                            var options = Enum.GetNames(typeof(EColumn)).Where(str => str != "Random").ToArray();
+                                            var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Column"), lineElem.intValue - 1, options);
+                                            lineElem.intValue = (int)Enum.Parse(typeof(EColumn), options[selectedIdx]);
+                                            break;
+                                        }
                                     case ECartridgeDirection.ToRight:
                                     case ECartridgeDirection.ToLeft: {
-                                        // デフォルト値設定
-                                        if (lineElem.intValue < 1 || lineElem.intValue > StageSize.ROW)
-                                            lineElem.intValue = 1;
+                                            // デフォルト値設定
+                                            if (lineElem.intValue < 1 || lineElem.intValue > StageSize.ROW)
+                                                lineElem.intValue = 1;
 
-                                        var options = Enum.GetNames(typeof(ERow)).Where(str => str != "Random").ToArray();
-                                        var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Row"), lineElem.intValue - 1, options);
-                                        lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
-                                        break;
-                                    }
+                                            var options = Enum.GetNames(typeof(ERow)).Where(str => str != "Random").ToArray();
+                                            var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Row"), lineElem.intValue - 1, options);
+                                            lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
+                                            break;
+                                        }
                                     case ECartridgeDirection.Random: {
-                                        {
-                                            var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                            randomRowProp.arraySize = StageSize.ROW;
-                                            var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
-                                            var rect = EditorGUILayout.GetControlRect();
-                                            EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
+                                            {
+                                                var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
+                                                randomRowProp.arraySize = StageSize.ROW;
+                                                var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
+                                                var rect = EditorGUILayout.GetControlRect();
+                                                EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
+                                            }
+                                            {
+                                                var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
+                                                randomColumnProp.arraySize = StageSize.COLUMN;
+                                                var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
+                                                var rect = EditorGUILayout.GetControlRect();
+                                                EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
+                                            }
+                                            break;
                                         }
-                                        {
-                                            var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                            randomColumnProp.arraySize = StageSize.COLUMN;
-                                            var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
-                                            var rect = EditorGUILayout.GetControlRect();
-                                            EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
-                                        }
-                                        break;
-                                    }
                                 }
                                 EditorGUI.indentLevel--;
                                 EditorGUILayout.EndVertical();
@@ -288,7 +288,7 @@ namespace Project.Scripts.Editor
                             // ターゲット数は少なくても1
                             directionsProp.arraySize = Math.Max(directionsProp.arraySize, 1);
                             EditorGUILayout.PropertyField(directionsProp.FindPropertyRelative("Array.size"), new GUIContent("Target Number"));
-                            
+
                             // 方向とlineをRandomに設定しておく
                             var targetNum = linesProp.arraySize = directionsProp.arraySize;
                             for (var i = 0 ; i < targetNum ; ++i) {
@@ -302,7 +302,7 @@ namespace Project.Scripts.Editor
                             {
                                 var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
                                 randomDirectionProp.arraySize = 4;
-                                var subLabels = (new string[]{"L", "R", "U", "D"}).Select(s => new GUIContent(s)).ToArray();
+                                var subLabels = (new string[] {"L", "R", "U", "D"}).Select(s => new GUIContent(s)).ToArray();
                                 var rect = EditorGUILayout.GetControlRect();
                                 EditorGUI.MultiPropertyField(rect, subLabels, randomDirectionProp.GetArrayElementAtIndex(0), new GUIContent("Random Direction"));
                             }
@@ -320,8 +320,8 @@ namespace Project.Scripts.Editor
                                 var rect = EditorGUILayout.GetControlRect();
                                 EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
                             }
-                        break;
-                    }
+                            break;
+                        }
                     case EGimmickType.RandomNormalCartridge:
                     case EGimmickType.TurnCartridge:
                     case EGimmickType.RandomTurnCartridge:
@@ -329,7 +329,7 @@ namespace Project.Scripts.Editor
                     case EGimmickType.AimingHole:
                     case EGimmickType.RandomNormalHole:
                     case EGimmickType.RandomAimingHole:
-                            break;
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
