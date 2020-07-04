@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
             // ボトルのフリック情報を伝える
-            BoardManager.Instance.HandleFlickedBottle(gameObject.GetComponent<DynamicBottleController>(), gesture.ScreenFlickVector);
+            BoardManager.Instance.HandleFlickedBottle(this, gesture.ScreenFlickVector);
         }
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
@@ -88,9 +88,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _moving = true;
 
             while (transform.position != targetPosition) {
-                // ゲーム終了時など，強制的に移動をやめたい場合には，`_moving = false` にすれば止まる
-                if (_moving == false) yield break;
-
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return null;
             }
@@ -126,7 +123,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
 
             // ボトルの移動を止める
-            _moving = false;
+            StopAllCoroutines();
 
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
             if (!IsDead) {

@@ -126,11 +126,15 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="isAnimation"> 移動にアニメーションをつけるか </param>
-        public void Move(AbstractBottleController bottle, int tileNum)
+        public void Move(DynamicBottleController bottle, int tileNum)
         {
+            // 移動するボトルが null の場合は移動しない
+            if (bottle == null) return;
+
             var(x, y) = TileNumToXY(tileNum);
             var targetSquare = _squares[x, y];
 
+            // 移動先に既にボトルがある場合は移動しない
             if (targetSquare.bottle != null) return;
 
             var bottleObject = bottle.gameObject;
@@ -142,7 +146,7 @@ namespace Project.Scripts.GamePlayScene
             _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
 
             // ボトルを移動する
-            StartCoroutine(bottleObject.GetComponent<DynamicBottleController>().Move(targetSquare.worldPosition, () => {
+            StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
                 // 移動先へボトルを登録する
                 _bottlePositions[bottleObject] = new Vector2Int(x, y);
                 targetSquare.bottle = bottle;
