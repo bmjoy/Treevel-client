@@ -77,7 +77,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _bottle = bottle;
 
             if (life < _MIN_LIFE) {
-                Log.Error("ライフは2以上にしてください");
+                Log.Error($"ライフは{_MIN_LIFE}以上にしてください");
                 return;
             }
 
