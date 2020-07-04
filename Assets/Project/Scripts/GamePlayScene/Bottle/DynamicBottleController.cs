@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
@@ -25,6 +27,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 動くことができる状態か
         /// </summary>
         public bool IsMovable = true;
+
+        /// <summary>
+        /// ボトルが移動中かどうか
+        /// </summary>
+        private bool _moving = false;
+
+        /// <summary>
+        /// フリック 時のパネルの移動速度
+        /// </summary>
+        private const float _SPEED = 0.3f;
 
         protected override void Awake()
         {
@@ -67,8 +79,22 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
-            // ボトルを移動する
-            BoardManager.Move(gameObject, gesture.ScreenFlickVector);
+            // ボトルのフリック情報を伝える
+            BoardManager.Instance.HandleFlickedBottle(this, gesture.ScreenFlickVector);
+        }
+
+        public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
+        {
+            _moving = true;
+
+            while (transform.position != targetPosition) {
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
+                yield return new WaitForFixedUpdate();
+            }
+
+            _moving = false;
+
+            callback();
         }
 
         /// <summary>

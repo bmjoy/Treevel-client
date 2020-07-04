@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
     public abstract class AbstractBottleController : MonoBehaviour
     {
         /// <summary>
-        /// ボトルのId (初期位置と同じ)
+        /// ボトルのId (初期位置を擬似的に利用)
         /// </summary>
         public int Id
         {
@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 自身が壊されたかどうか
+        /// 自身が死んだかどうか
         /// </summary>
         protected internal bool IsDead
         {
@@ -34,7 +34,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected IEnterTileHandler enterTileHandler;
+        protected IBottleEnterTileHandler bottleEnterTileHandler;
 
         /// <summary>
         /// ボトルの成功判定と成功時の挙動
@@ -74,7 +74,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="targetTile">目標のタイル</param>
         public void OnEnterTile(GameObject targetTile)
         {
-            enterTileHandler?.OnEnterTile(targetTile);
+            bottleEnterTileHandler?.OnEnterTile(targetTile);
+        }
+
+        /// <summary>
+        /// タイルから出た時の挙動
+        /// </summary>
+        /// <param name="targetTile">出たタイル</param>
+        public void OnExitTile(GameObject targetTile)
+        {
+            bottleEnterTileHandler?.OnExitTile(targetTile);
         }
 
         private void InitializeSprite()
@@ -100,7 +109,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             Id = bottleData.initPos;
 
             // ボトルをボードに設定
-            BoardManager.SetBottle(this, Id);
+            BoardManager.Instance.InitializeBottle(this, Id);
 
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
                 var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);

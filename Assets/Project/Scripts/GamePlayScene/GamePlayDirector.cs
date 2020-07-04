@@ -101,8 +101,6 @@ namespace Project.Scripts.GamePlayScene
             foreach (var state in Enum.GetValues(typeof(EGameState))) {
                 AddTransition((EGameState)state);
             }
-
-            BoardManager.Initialize();
         }
 
         private void Start()

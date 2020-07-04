@@ -23,7 +23,7 @@ namespace Project.Scripts.GamePlayScene.Tile
                     continue;
 
                 // initialize tile
-                BoardManager.SetTile(currTile, tileNum);
+                BoardManager.Instance.SetTile(currTile, tileNum);
                 currTile.Initialize(tileNum);
 
                 // show sprite
@@ -62,8 +62,8 @@ namespace Project.Scripts.GamePlayScene.Tile
             firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
             secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
 
-            BoardManager.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);
-            BoardManager.SetTile(secondTile.GetComponent<AbstractTileController>(), secondTileNum);
+            BoardManager.Instance.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);
+            BoardManager.Instance.SetTile(secondTile.GetComponent<AbstractTileController>(), secondTileNum);
 
             firstTile.GetComponent<SpriteRenderer>().enabled = true;
             secondTile.GetComponent<SpriteRenderer>().enabled = true;
@@ -78,7 +78,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             holyTile.GetComponent<HolyTileController>().Initialize(tileNum);
 
-            BoardManager.SetTile(holyTile.GetComponent<AbstractTileController>(), tileNum);
+            BoardManager.Instance.SetTile(holyTile.GetComponent<AbstractTileController>(), tileNum);
 
             holyTile.GetComponent<SpriteRenderer>().enabled = true;
         }
@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             spiderwebTile.GetComponent<SpiderwebTileController>().Initialize(tileNum);
 
-            BoardManager.SetTile(spiderwebTile.GetComponent<AbstractTileController>(), tileNum);
+            BoardManager.Instance.SetTile(spiderwebTile.GetComponent<AbstractTileController>(), tileNum);
 
             spiderwebTile.GetComponent<SpriteRenderer>().enabled = true;
         }

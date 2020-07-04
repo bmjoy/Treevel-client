@@ -127,7 +127,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 594ed3ef43ae0448587bed753a2434e6
-    m_Address: NormalBottleDead
+    m_Address: BottleDead
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.AnimationClip, UnityEngine.AnimationModule, Version=0.0.0.0,
@@ -308,13 +308,13 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: ffc1129f38cd246bb8e73a118f1ff87e
-    m_Address: LifeBottleGetAttacked
+    m_Address: BottleGetAttacked
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.AnimationClip, UnityEngine.AnimationModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 7400000, guid: ffc1129f38cd246bb8e73a118f1ff87e, type: 2}
-    m_TargetAsset: {fileID: 7400000, guid: ffc1129f38cd246bb8e73a118f1ff87e, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:

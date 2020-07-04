@@ -1,5 +1,6 @@
 ﻿using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Unity.UNetWeaver;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bottle
@@ -14,16 +15,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
     }
 
     /// <summary>
-    /// 撃たれたら即ゲーム終了のボトル用ハンドラー
+    /// ライフが1であるボトル用のハンドラ
     /// </summary>
-    internal class NormalBottleGetDamagedHandler : IBottleGetDamagedHandler
+    internal class OneLifeBottleGetDamagedHandler : IBottleGetDamagedHandler
     {
         /// <summary>
         /// ボトルのインスタンス
         /// </summary>
         private readonly AbstractBottleController _bottle;
 
-        internal NormalBottleGetDamagedHandler(AbstractBottleController bottle)
+        internal OneLifeBottleGetDamagedHandler(AbstractBottleController bottle)
         {
             _bottle = bottle;
 
@@ -32,17 +33,18 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 _bottle.gameObject.AddComponent<Animation>();
             }
 
-            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.NORMAL_BOTTLE_DEAD).Completed += (handle) => {
-                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.NORMAL_BOTTLE_DEAD);
+            // ボトルが死んだときのアニメーション
+            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_DEAD).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.BOTTLE_DEAD);
             };
         }
 
         void IBottleGetDamagedHandler.OnGetDamaged(GameObject gimmick)
         {
             // 失敗演出
-            _bottle.GetComponent<Animation>()?.Play(AnimationClipName.NORMAL_BOTTLE_DEAD, PlayMode.StopAll);
+            _bottle.GetComponent<Animation>()?.Play(AnimationClipName.BOTTLE_DEAD, PlayMode.StopAll);
 
-            // 破壊フラグ
+            // ボトルを死んだ状態にする
             _bottle.IsDead = true;
 
             // 失敗状態に移行する
@@ -51,7 +53,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
     }
 
     /// <summary>
-    /// ライフ付きボトル用ハンドラー
+    /// ライフが2以上あるボトル用のハンドラ
     /// </summary>
     internal class MultiLifeBottleGetDamagedHandler : IBottleGetDamagedHandler
     {
@@ -61,53 +63,69 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private readonly AbstractBottleController _bottle;
 
         /// <summary>
-        /// ボトルが銃弾の攻撃に耐えられる回数
+        /// 初期ライフの最小値
         /// </summary>
-        [Min(2)] private int _maxHp;
+        private const int _MIN_LIFE = 2;
 
         /// <summary>
-        /// 残ってる回数
+        /// 現在のライフ
         /// </summary>
-        private int _currentHp;
+        private int _currentLife;
 
-        internal MultiLifeBottleGetDamagedHandler(AbstractBottleController bottle, int maxHp)
+        internal MultiLifeBottleGetDamagedHandler(AbstractBottleController bottle, int life)
         {
             _bottle = bottle;
-            _maxHp = _currentHp = maxHp;
+
+            if (life < _MIN_LIFE) {
+                Log.Error($"ライフは{_MIN_LIFE}以上にしてください");
+                return;
+            }
+
+            _currentLife = life;
 
             // アニメーション初期化
             if (_bottle.GetComponent<Animation>() == null) {
                 _bottle.gameObject.AddComponent<Animation>();
             }
 
-            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.NORMAL_BOTTLE_DEAD).Completed += (handle) => {
-                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.NORMAL_BOTTLE_DEAD);
+            // ボトルが死んだときのアニメーション
+            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_DEAD).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.BOTTLE_DEAD);
             };
 
-            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.LIFE_BOTTLE_GET_ATTACKED).Completed += (handle) => {
-                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.LIFE_BOTTLE_GET_ATTACKED);
+            // ボトルがギミックに攻撃されたときのアニメーション
+            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_GET_ATTACKED).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.BOTTLE_GET_ATTACKED);
             };
         }
 
         void IBottleGetDamagedHandler.OnGetDamaged(GameObject gimmick)
         {
             var anim = _bottle.GetComponent<Animation>();
-            --_currentHp;
-            if (_currentHp <= 0) {
+
+            // 現在のライフを一つ削る
+            _currentLife--;
+
+            if (_currentLife < 0) {
+                Debug.LogError("_currentLife が負の値になっている");
+
+            } else if (_currentLife == 0) {
                 // 失敗演出
-                anim.Play(AnimationClipName.NORMAL_BOTTLE_DEAD, PlayMode.StopAll);
+                anim.Play(AnimationClipName.BOTTLE_DEAD, PlayMode.StopAll);
 
                 // 自身が破壊された
                 _bottle.IsDead = true;
 
                 // 失敗状態に移行する
                 GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
-            } else if (_currentHp == 1) {
+
+            } else if (_currentLife == 1) {
                 // ループさせて危機感っぽい
                 anim.wrapMode = WrapMode.Loop;
-                anim.Play(AnimationClipName.LIFE_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+
             } else {
-                anim.Play(AnimationClipName.LIFE_BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
             }
         }
     }
