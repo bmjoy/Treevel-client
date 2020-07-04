@@ -36,9 +36,10 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             _clearNumThreshold = clearThreshold;
             _stageNum = TreeInfo.NUM[_treeId];
             if (clearThreshold < 1) {
-                throw new Exception("clearThreshold must not be less than 1");
-            } else if (clearThreshold > _stageNum) {
-                throw new Exception("clearThreshold must not be larger than the number of stages");
+                throw new Exception($"clearThreshold(={clearThreshold}) must not be less than 1");
+            }
+            if (clearThreshold > _stageNum) {
+                throw new Exception($"clearThreshold(={clearThreshold}) must not be larger than the number of stages");
             }
         }
 
