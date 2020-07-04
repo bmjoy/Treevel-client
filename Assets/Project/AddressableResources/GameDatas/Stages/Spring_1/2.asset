@@ -16,10 +16,7 @@ MonoBehaviour:
   stageNumber: 2
   tiles:
   - type: 4
-    number: 8
-    pairNumber: 0
-  - type: 4
-    number: 11
+    number: 14
     pairNumber: 0
   bottles:
   - type: 3
