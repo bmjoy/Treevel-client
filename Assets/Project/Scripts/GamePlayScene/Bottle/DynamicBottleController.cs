@@ -122,9 +122,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
             _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
 
-            // ボトルの移動を止める
-            StopAllCoroutines();
-
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
             if (!IsDead) {
                 _anim.wrapMode = WrapMode.Default;

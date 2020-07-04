@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
@@ -34,6 +33,33 @@ namespace Project.Scripts.GamePlayScene
                     _squares[row, col] = new Square(x, y);
                 }
             }
+        }
+
+        private void OnEnable()
+        {
+            GamePlayDirector.OnSucceed += OnSucceed;
+            GamePlayDirector.OnFail += OnFail;
+        }
+
+        private void OnDisable()
+        {
+            GamePlayDirector.OnSucceed -= OnSucceed;
+            GamePlayDirector.OnFail -= OnFail;
+        }
+
+        private void OnSucceed()
+        {
+            EndProcess();
+        }
+
+        private void OnFail()
+        {
+            EndProcess();
+        }
+
+        private void EndProcess()
+        {
+            StopAllCoroutines();
         }
 
         /// <summary>
