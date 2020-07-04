@@ -42,7 +42,11 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             }
         }
 
-        public ETreeState IsClear()
+        /// <summary>
+        /// ステージのクリア数に応じて木の状態を変更する
+        /// </summary>
+        /// <returns> 木の状態 </returns>
+        public ETreeState GetTreeState()
         {
             var clearStageNum = Enumerable.Range(1, _stageNum).Count(s => StageStatus.Get(_treeId, s).cleared);
 

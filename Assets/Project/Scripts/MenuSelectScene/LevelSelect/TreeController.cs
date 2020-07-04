@@ -63,7 +63,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                 case ETreeState.Released: {
                         // Implementorに任せる
                         GetComponent<Image>().material = null;
-                        state = _clearHandler.IsClear();
+                        state = _clearHandler.GetTreeState();
                         break;
                     }
                 case ETreeState.Cleared: {
