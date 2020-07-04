@@ -109,7 +109,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             Id = bottleData.initPos;
 
             // ボトルをボードに設定
-            BoardManager.Instance.SetBottle(this, Id);
+            BoardManager.Instance.InitializeBottle(this, Id);
 
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
                 var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);

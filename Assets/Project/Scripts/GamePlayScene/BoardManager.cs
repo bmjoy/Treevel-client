@@ -214,7 +214,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle">設置するボトル</param>
         /// <param name="tileNum">目標タイル番号</param>
-        public void SetBottle(AbstractBottleController bottle, int tileNum)
+        public void InitializeBottle(AbstractBottleController bottle, int tileNum)
         {
             lock (_squares) {
                 // 目標の格子を取得
