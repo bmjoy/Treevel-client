@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
@@ -82,9 +83,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
                 var stageNum = TreeInfo.NUM[treeId];
 
-                for (var stageNumber = 1; stageNumber <= stageNum; stageNumber++) {
-                    PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageNumber));
-                }
+                Enumerable.Range(1, stageNum).ToList().ForEach(s => PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageNum)));
             }
         }
 
