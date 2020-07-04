@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// フリック 時のパネルの移動速度
         /// </summary>
-        private const float _SPEED = 0.2f;
+        private const float _SPEED = 0.3f;
 
         protected override void Awake()
         {
@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
             // ボトルのフリック情報を伝える
-            BoardManager.Instance.HandleFlickedBottle(gameObject.GetComponent<DynamicBottleController>(), gesture.ScreenFlickVector);
+            BoardManager.Instance.HandleFlickedBottle(this, gesture.ScreenFlickVector);
         }
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
@@ -88,11 +88,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _moving = true;
 
             while (transform.position != targetPosition) {
-                // ゲーム終了時など，強制的に移動をやめたい場合には，`_moving = false` にすれば止まる
-                if (_moving == false) yield break;
-
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
 
             _moving = false;
@@ -124,9 +121,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
             _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
             _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
-
-            // ボトルの移動を止める
-            _moving = false;
 
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
             if (!IsDead) {

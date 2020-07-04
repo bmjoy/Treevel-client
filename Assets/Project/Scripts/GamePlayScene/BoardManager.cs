@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
@@ -34,6 +33,33 @@ namespace Project.Scripts.GamePlayScene
                     _squares[row, col] = new Square(x, y);
                 }
             }
+        }
+
+        private void OnEnable()
+        {
+            GamePlayDirector.OnSucceed += OnSucceed;
+            GamePlayDirector.OnFail += OnFail;
+        }
+
+        private void OnDisable()
+        {
+            GamePlayDirector.OnSucceed -= OnSucceed;
+            GamePlayDirector.OnFail -= OnFail;
+        }
+
+        private void OnSucceed()
+        {
+            EndProcess();
+        }
+
+        private void OnFail()
+        {
+            EndProcess();
+        }
+
+        private void EndProcess()
+        {
+            StopAllCoroutines();
         }
 
         /// <summary>
@@ -136,8 +162,11 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
-        public void Move(AbstractBottleController bottle, int tileNum, Vector2Int? direction = null)
+        public void Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
         {
+            // 移動するボトルが null の場合は移動しない
+            if (bottle == null) return;
+
             var xy = TileNumToXY(tileNum);
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return;
@@ -149,20 +178,26 @@ namespace Project.Scripts.GamePlayScene
             // すでにボトルが置かれているタイルが指定された場合には何もしない
             if (targetSquare.bottle != null) return;
 
+
             var bottleObject = bottle.gameObject;
 
-            // 移動元からボトルを無くす
-            var from = _bottlePositions[bottleObject];
-            bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
-            _squares[from.x, from.y].bottle = null;
-            _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+            lock (targetSquare) {
+                // 移動先に既にボトルがある場合は移動しない
+                if (targetSquare.bottle != null) return;
 
-            // ボトルを移動する
-            StartCoroutine(bottleObject.GetComponent<DynamicBottleController>().Move(targetSquare.worldPosition, () => {
+                // 移動元からボトルを無くす
+                var from = _bottlePositions[bottleObject];
+                bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
+                _squares[from.x, from.y].bottle = null;
+                _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+
                 // 移動先へボトルを登録する
                 _bottlePositions[bottleObject] = new Vector2Int(x, y);
                 targetSquare.bottle = bottle;
+            }
 
+            // ボトルを移動する
+            StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, direction);
             }));
@@ -202,7 +237,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle">設置するボトル</param>
         /// <param name="tileNum">目標タイル番号</param>
-        public void SetBottle(AbstractBottleController bottle, int tileNum)
+        public void InitializeBottle(AbstractBottleController bottle, int tileNum)
         {
             lock (_squares) {
                 var xy = TileNumToXY(tileNum);
