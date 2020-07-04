@@ -1,5 +1,6 @@
 ﻿using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Unity.UNetWeaver;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Bottle
@@ -76,10 +77,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _bottle = bottle;
 
             if (life < _MIN_LIFE) {
-                _currentLife = _MIN_LIFE;
-            } else {
-                _currentLife = life;
+                Log.Error("ライフは2以上にしてください");
+                return;
             }
+
+            _currentLife = life;
 
             // アニメーション初期化
             if (_bottle.GetComponent<Animation>() == null) {

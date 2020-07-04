@@ -134,23 +134,25 @@ namespace Project.Scripts.GamePlayScene
             var(x, y) = TileNumToXY(tileNum);
             var targetSquare = _squares[x, y];
 
-            // 移動先に既にボトルがある場合は移動しない
-            if (targetSquare.bottle != null) return;
-
             var bottleObject = bottle.gameObject;
 
-            // 移動元からボトルを無くす
-            var from = _bottlePositions[bottleObject];
-            bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
-            _squares[from.x, from.y].bottle = null;
-            _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+            lock (targetSquare) {
+                // 移動先に既にボトルがある場合は移動しない
+                if (targetSquare.bottle != null) return;
 
-            // ボトルを移動する
-            StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
+                // 移動元からボトルを無くす
+                var from = _bottlePositions[bottleObject];
+                bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
+                _squares[from.x, from.y].bottle = null;
+                _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+
                 // 移動先へボトルを登録する
                 _bottlePositions[bottleObject] = new Vector2Int(x, y);
                 targetSquare.bottle = bottle;
+            }
 
+            // ボトルを移動する
+            StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject);
             }));

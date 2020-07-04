@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// フリック 時のパネルの移動速度
         /// </summary>
-        private const float _SPEED = 0.2f;
+        private const float _SPEED = 0.3f;
 
         protected override void Awake()
         {
@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
 
             _moving = false;
