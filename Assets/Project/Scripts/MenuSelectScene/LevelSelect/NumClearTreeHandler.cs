@@ -10,10 +10,26 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
     /// </summary>
     public class NumClearTreeHandler : IClearTreeHandler
     {
-        private ETreeId _treeId;
-        private int _clearNumThreshold;
-        private int _stageNum;
+        /// <summary>
+        /// 木のID
+        /// </summary>
+        private readonly ETreeId _treeId;
 
+        /// <summary>
+        /// クリアに必要なステージ数
+        /// </summary>
+        private readonly int _clearNumThreshold;
+
+        /// <summary>
+        /// 木に存在するステージ数
+        /// </summary>
+        private readonly int _stageNum;
+
+        /// <summary>
+        /// クリアに必要なステージ数を設定するコンストラクタ
+        /// </summary>
+        /// <param name="treeId"> 木のID(ステージ数を取得) </param>
+        /// <param name="clearThreshold"> クリアに必要なステージ数 </param>
         public NumClearTreeHandler(ETreeId treeId, int clearThreshold)
         {
             _treeId = treeId;
