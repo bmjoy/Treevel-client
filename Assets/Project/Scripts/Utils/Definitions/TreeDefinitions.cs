@@ -67,9 +67,21 @@ namespace Project.Scripts.Utils.Definitions
     /// 木の状態
     /// </summary>
     public enum ETreeState {
+        /// <summary>
+        /// 非解放状態
+        /// </summary>
         Unreleased = 1,
+        /// <summary>
+        /// 解放状態
+        /// </summary>
         Released,
+        /// <summary>
+        /// クリア状態( ⊆ 解放状態)
+        /// </summary>
         Cleared,
+        /// <summary>
+        /// 全クリア状態( ⊆ クリア状態 ⊆ 解放状態)
+        /// </summary>
         Finished
     }
 }
