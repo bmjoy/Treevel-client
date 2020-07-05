@@ -141,7 +141,7 @@ namespace Project.Scripts.GamePlayScene
         {
             // 移動方向を正規化
             // ワールド座標型のX,Yを時計回りに90度回転させ行列におけるX,Yを求める
-            var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(direction.Direction()));
+            var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(ExtensionVector2.Normalize(direction)));
 
             // 該当ボトルの現在位置
             var currPos = _bottlePositions[bottle.gameObject];
