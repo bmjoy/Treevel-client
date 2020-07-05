@@ -225,12 +225,11 @@ MonoBehaviour:
   - m_GUID: c348e85a0f3c642d6969c8eb3225b893
     m_Address: staticDummyBottle
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
+    m_SerializedLabels: []
     m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2800000, guid: c348e85a0f3c642d6969c8eb3225b893, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: c348e85a0f3c642d6969c8eb3225b893, type: 3}
   - m_GUID: cb970f58b70014a28bc61d79fca7b317
     m_Address: normalBottle5
     m_ReadOnly: 0
