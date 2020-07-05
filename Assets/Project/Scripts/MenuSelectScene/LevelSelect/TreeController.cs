@@ -51,7 +51,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木の状態の更新
         /// </summary>
-        public void UpdateReleased()
+        public void UpdateState()
         {
             // 現在状態をDBから得る
             state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
@@ -118,7 +118,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木の状態の保存
         /// </summary>
-        public void SaveReleased()
+        public void SaveState()
         {
             PlayerPrefs.SetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Convert.ToInt32(state));
         }
