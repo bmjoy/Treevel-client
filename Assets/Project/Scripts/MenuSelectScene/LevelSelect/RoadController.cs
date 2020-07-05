@@ -3,11 +3,20 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     public class RoadController : LineController
     {
+        private TreeController _endObjectController;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _endObjectController = endObject.GetComponent<TreeController>();
+        }
+
         protected override void SetSaveKey()
         {
             saveKey = $"{startObject.GetComponent<TreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<TreeController>().treeId}";
@@ -21,7 +30,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の状態の更新
         /// </summary>
-        public override void UpdateReleased()
+        public override void UpdateState()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.ROAD_RELEASED) == 1;
 
@@ -30,13 +39,15 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                     // 初期状態で解放されている道
                     released = true;
                 } else {
-                    released = constraintObjects.All(tree => tree.GetComponent<TreeController>().cleared);
+                    released = constraintObjects.All(tree => tree.GetComponent<TreeController>().state >= ETreeState.Cleared);
+                }
+
+                if (released) {
+                    // 終点の木の状態の更新
+                    _endObjectController.state = ETreeState.Released;
+                    _endObjectController.ReflectTreeState();
                 }
             }
-
-            // 終点の木の状態の更新
-            endObject.GetComponent<TreeController>().released = released;
-            button.enabled = released;
 
             if (!released) {
                 // 非解放時
@@ -48,7 +59,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の状態の保存
         /// </summary>
-        public override void SaveReleased()
+        public override void SaveState()
         {
             PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
         }

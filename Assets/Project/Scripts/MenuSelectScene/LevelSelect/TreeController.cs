@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Project.Scripts.StageSelectScene;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
@@ -9,8 +10,19 @@ using UnityEngine.UI;
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(Image))]
     public class TreeController : MonoBehaviour
     {
+        /// <summary>
+        /// 現在の木の状態
+        /// </summary>
+        [NonSerialized] public ETreeState state = ETreeState.Unreleased;
+
+        /// <summary>
+        /// クリア状態を判定するクラス
+        /// </summary>
+        [SerializeField] private IClearTreeHandler _clearHandler;
+
         /// <summary>
         /// 木のレベル
         /// </summary>
@@ -21,41 +33,94 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] public ETreeId treeId;
 
-        /// <summary>
-        /// 木が解放されているかどうか
-        /// </summary>
-        [SerializeField] public bool released;
+        [SerializeField] private Material _material;
 
-        /// <summary>
-        /// 木をクリアしているかどうか
-        /// </summary>
-        [NonSerialized] public bool cleared = false;
+        [SerializeField] private Button _button;
+
+        public void Awake()
+        {
+            // クリア条件を実装するクラスを指定する
+            _clearHandler = TreeInfo.CLEAR_HANDLER[treeId];
+        }
 
         public void Reset()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE_RELEASED + treeId.ToString());
-            if (treeId != ETreeId.Spring_1)
-                PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE_CLEARED + treeId.ToString());
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE + treeId.ToString());
         }
 
         /// <summary>
         /// 木の状態の更新
         /// </summary>
-        public void UpdateReleased()
+        public void UpdateState()
         {
-            released = PlayerPrefs.GetInt(PlayerPrefsKeys.TREE_RELEASED + treeId.ToString(), Default.TREE_RELEASED) == 1;
-            if (treeId != ETreeId.Spring_1)
-                cleared = PlayerPrefs.GetInt(PlayerPrefsKeys.TREE_CLEARED + treeId.ToString(), Default.TREE_CLEARED) == 1;
+            // 現在状態をDBから得る
+            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
+            // 状態の更新
+            switch (state) {
+                case ETreeState.Unreleased: {
+                        break;
+                    }
+                case ETreeState.Released: {
+                        // Implementorに任せる
+                        state = _clearHandler.GetTreeState();
+                        break;
+                    }
+                case ETreeState.Cleared: {
+                        // 全クリアかどうかをチェックする
+                        var stageNum = TreeInfo.NUM[treeId];
+                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
+                        state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
+                        break;
+                    }
+                case ETreeState.AllCleared: {
+                        break;
+                    }
+                default: {
+                        throw new NotImplementedException();
+                    }
+            }
+
+            // 状態の反映
+            ReflectTreeState();
+        }
+
+        /// <summary>
+        /// 木の状態を見た目や動作に反映
+        /// </summary>
+        public void ReflectTreeState()
+        {
+            switch (state) {
+                case ETreeState.Unreleased: {
+                        // グレースケール
+                        GetComponent<Image>().material = _material;
+                        _button.enabled = false;
+                        break;
+                    }
+                case ETreeState.Released:
+                case ETreeState.Cleared: {
+                        GetComponent<Image>().material = null;
+                        _button.enabled = true;
+                        break;
+                    }
+                case ETreeState.AllCleared: {
+                        GetComponent<Image>().material = null;
+                        _button.enabled = true;
+                        // アニメーション
+                        Debug.Log($"{treeId} is finished.");
+                        break;
+                    }
+                default: {
+                        throw new NotImplementedException();
+                    }
+            }
         }
 
         /// <summary>
         /// 木の状態の保存
         /// </summary>
-        public void SaveReleased()
+        public void SaveState()
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.TREE_RELEASED + treeId.ToString(), Convert.ToInt32(released));
-            if (treeId != ETreeId.Spring_1)
-                PlayerPrefs.SetInt(PlayerPrefsKeys.TREE_CLEARED + treeId.ToString(), Convert.ToInt32(cleared));
+            PlayerPrefs.SetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Convert.ToInt32(state));
         }
 
         /// <summary>
