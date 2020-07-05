@@ -14,7 +14,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// タイル、ボトルとそれぞれのワールド座標を保持する square の二次元配列
         /// </summary>
-        private readonly Square[,] _squares = new Square[StageSize.ROW, StageSize.COLUMN];
+        private readonly Square[,] _squares = new Square[StageSize.COLUMN, StageSize.ROW];
 
         /// <summary>
         /// key: ボトル (GameObject)，value: ボトルの現在位置 (Vector2Int)
@@ -24,13 +24,13 @@ namespace Project.Scripts.GamePlayScene
         private void Awake()
         {
             // `squares` の初期化
-            for (var row = 0; row < StageSize.ROW; ++row) {
-                for (var col = 0; col < StageSize.COLUMN; ++col) {
+            for (var col = 0; col < StageSize.COLUMN; ++col) {
+                for (var row = 0; row < StageSize.ROW; ++row) {
                     // ワールド座標を求める
                     var x = TileSize.WIDTH * (col - StageSize.COLUMN / 2);
                     var y = TileSize.HEIGHT * (StageSize.ROW / 2 - row);
 
-                    _squares[row, col] = new Square(x, y);
+                    _squares[col, row] = new Square(x, y);
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace Project.Scripts.GamePlayScene
         /// <returns> タイル番号 </returns>
         private int XYToTileNum(int x, int y)
         {
-            return (x * _squares.GetLength(1)) + y + 1;
+            return (y * _squares.GetLength(0)) + (x + 1);
         }
 
         /// <summary>
@@ -126,8 +126,8 @@ namespace Project.Scripts.GamePlayScene
         {
             if (tileNum < 1 || 15 < tileNum) return null;
 
-            var x = (tileNum - 1) / _squares.GetLength(1);
-            var y = (tileNum - 1) % _squares.GetLength(1);
+            var x = (tileNum - 1) % _squares.GetLength(0);
+            var y = (tileNum - 1) / _squares.GetLength(0);
 
             return (x, y);
         }
@@ -139,17 +139,18 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="direction"> フリックする方向 </param>
         public void HandleFlickedBottle(DynamicBottleController bottle, Vector2 direction)
         {
-            // 移動方向を正規化
-            // ワールド座標型のX,Yを時計回りに90度回転させ行列におけるX,Yを求める
-            var directionInt = Vector2Int.RoundToInt(Vector2.Perpendicular(ExtensionVector2.Normalize(direction)));
+            // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
+            var directionInt = Vector2Int.RoundToInt(ExtensionVector2.Normalize(direction));
+            // tileNum は原点が左上だが，方向ベクトルは原点が左下なので，加工する
+            directionInt.y = -directionInt.y;
 
             // 該当ボトルの現在位置
             var currPos = _bottlePositions[bottle.gameObject];
 
             var targetPos = currPos + directionInt;
             // 移動目標地をボードの範囲内に収める
-            targetPos.x = Mathf.Clamp(targetPos.x, 0, StageSize.ROW - 1);
-            targetPos.y = Mathf.Clamp(targetPos.y, 0, StageSize.COLUMN - 1);
+            targetPos.x = Mathf.Clamp(targetPos.x, 0, StageSize.COLUMN - 1);
+            targetPos.y = Mathf.Clamp(targetPos.y, 0, StageSize.ROW - 1);
 
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 

@@ -36,9 +36,8 @@ namespace Project.Scripts.GamePlayScene.Tile
                 // 移動できるボトルではなかったら何もしない
                 if (dynamicBottleController == null) return;
 
-                // 座標が歪んでいるので，x 方向を x に，y 方向を y に入れて判定する
-                var y = direction.Value.x;
-                var x = direction.Value.y;
+                var x = direction.Value.x;
+                var y = direction.Value.y;
 
                 int targetTileNum;
 
