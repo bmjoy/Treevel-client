@@ -85,7 +85,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         }
 
         /// <summary>
-        /// 木の状態に応じた見た目や動作の制御
+        /// 木の状態を見た目や動作に反映
         /// </summary>
         public void ReflectTreeState()
         {

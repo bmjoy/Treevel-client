@@ -44,7 +44,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         }
 
         /// <summary>
-        /// ステージのクリア数に応じて木の状態を変更する
+        /// ステージのクリア数に応じた木の状態を取得する
         /// </summary>
         /// <returns> 木の状態 </returns>
         public ETreeState GetTreeState()
