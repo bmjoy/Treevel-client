@@ -69,10 +69,10 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                         // 全クリアかどうかをチェックする
                         var stageNum = TreeInfo.NUM[treeId];
                         var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
-                        state = clearStageNum == stageNum ? ETreeState.Finished : state;
+                        state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                         break;
                     }
-                case ETreeState.Finished: {
+                case ETreeState.AllCleared: {
                         break;
                     }
                 default: {
@@ -102,7 +102,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                         _button.enabled = true;
                         break;
                     }
-                case ETreeState.Finished: {
+                case ETreeState.AllCleared: {
                         GetComponent<Image>().material = null;
                         _button.enabled = true;
                         // アニメーション

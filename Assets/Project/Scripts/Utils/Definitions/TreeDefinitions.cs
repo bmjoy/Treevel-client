@@ -82,6 +82,6 @@ namespace Project.Scripts.Utils.Definitions
         /// <summary>
         /// 全クリア状態( ⊆ クリア状態 ⊆ 解放状態)
         /// </summary>
-        Finished
+        AllCleared
     }
 }

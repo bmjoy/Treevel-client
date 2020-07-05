@@ -53,7 +53,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
             // クリア数に応じた木の状態を返す
             if (clearStageNum == _stageNum) {
-                return ETreeState.Finished;
+                return ETreeState.AllCleared;
             } else if (clearStageNum >= _clearNumThreshold) {
                 return ETreeState.Cleared;
             } else {
