@@ -71,9 +71,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         public abstract void Reset();
 
-        public abstract void UpdateReleased();
+        public abstract void UpdateState();
 
-        public abstract void SaveReleased();
+        public abstract void SaveState();
 
         /// <summary>
         /// 曲線の通過点の位置を求める

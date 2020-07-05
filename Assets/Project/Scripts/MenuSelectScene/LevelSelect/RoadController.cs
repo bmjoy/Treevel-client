@@ -30,7 +30,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の状態の更新
         /// </summary>
-        public override void UpdateReleased()
+        public override void UpdateState()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.ROAD_RELEASED) == 1;
 
@@ -59,7 +59,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の状態の保存
         /// </summary>
-        public override void SaveReleased()
+        public override void SaveState()
         {
             PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
         }

@@ -72,7 +72,7 @@ namespace Project.Scripts.StageSelectScene
             // ステージの状態の更新
             _stages.ForEach(stage => stage.UpdateReleased());
             // 枝の状態の更新
-            _branches.ForEach(branch => branch.UpdateReleased());
+            _branches.ForEach(branch => branch.UpdateState());
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();

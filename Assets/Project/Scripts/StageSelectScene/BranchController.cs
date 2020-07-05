@@ -35,7 +35,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override void UpdateReleased()
+        public override void UpdateState()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.BRANCH_RELEASED) == 1;
 
@@ -64,7 +64,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 枝の状態の保存
         /// </summary>
-        public override void SaveReleased()
+        public override void SaveState()
         {
             PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
         }
