@@ -48,8 +48,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         protected bool released = false;
 
-        protected Button button;
-
         /// <summary>
         /// データを保存するときのキー
         /// </summary>
@@ -57,7 +55,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         protected virtual void Awake()
         {
-            button = endObject.GetComponent<Button>();
             SetSaveKey();
         }
 

@@ -9,6 +9,14 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     public class RoadController : LineController
     {
+        private TreeController _endObjectController;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _endObjectController = endObject.GetComponent<TreeController>();
+        }
+
         protected override void SetSaveKey()
         {
             saveKey = $"{startObject.GetComponent<TreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<TreeController>().treeId}";
@@ -36,11 +44,10 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
                 if (released) {
                     // 終点の木の状態の更新
-                    endObject.GetComponent<TreeController>().state = ETreeState.Released;
-                    endObject.GetComponent<Image>().material = null;
+                    _endObjectController.state = ETreeState.Released;
+                    _endObjectController.ReflectTreeState();
                 }
             }
-            button.enabled = button.enabled || released;
 
             if (!released) {
                 // 非解放時

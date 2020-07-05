@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8672760c1d5b84159ab4cf66039175bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
   _levelName: 0
   treeId: 0
   _material: {fileID: 2100000, guid: b68163006459944d0b6a85fe0bd5592c, type: 2}
+  _button: {fileID: 5891168163236371066}
 --- !u!114 &5891168163236371066
 MonoBehaviour:
   m_ObjectHideFlags: 0

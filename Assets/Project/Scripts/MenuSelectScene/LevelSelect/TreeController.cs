@@ -35,6 +35,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         [SerializeField] private Material _material;
 
+        [SerializeField] private Button _button;
+
         public void Awake()
         {
             // クリア条件を実装するクラスを指定する
@@ -56,36 +58,59 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased: {
-                        // グレースケール
-                        GetComponent<Image>().material = _material;
                         break;
                     }
                 case ETreeState.Released: {
                         // Implementorに任せる
-                        GetComponent<Image>().material = null;
                         state = _clearHandler.GetTreeState();
                         break;
                     }
                 case ETreeState.Cleared: {
                         // 全クリアかどうかをチェックする
-                        GetComponent<Image>().material = null;
                         var stageNum = TreeInfo.NUM[treeId];
                         var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
-                        if (clearStageNum == stageNum) {
-                            state = ETreeState.Finished;
-                            Debug.Log($"{treeId} is finished.");
-                        }
+                        state = clearStageNum == stageNum ? ETreeState.Finished : state;
                         break;
                     }
                 case ETreeState.Finished: {
-                        // アニメーション
-                        GetComponent<Image>().material = null;
-                        Debug.Log($"{treeId} is finished.");
                         break;
                     }
                 default: {
                         throw new NotImplementedException();
                     }
+            }
+
+            // 状態の反映
+            ReflectTreeState();
+        }
+
+        /// <summary>
+        /// 木の状態に応じた見た目や動作の制御
+        /// </summary>
+        public void ReflectTreeState() {
+            switch (state) {
+                case ETreeState.Unreleased: {
+                    // グレースケール
+                    GetComponent<Image>().material = _material;
+                    _button.enabled = false;
+                    break;
+                }
+                case ETreeState.Released:
+                case ETreeState.Cleared: {
+                    GetComponent<Image>().material = null;
+                    _button.enabled = true;
+                    break;
+                }
+                case ETreeState.Finished: {
+                    GetComponent<Image>().material = null;
+                    _button.enabled = true;
+                    // アニメーション
+                    Debug.Log($"{treeId} is finished.");
+                    break;
+                }
+                default: {
+                    throw new NotImplementedException();
+                }
             }
         }
 
