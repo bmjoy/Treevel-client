@@ -87,30 +87,31 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木の状態に応じた見た目や動作の制御
         /// </summary>
-        public void ReflectTreeState() {
+        public void ReflectTreeState()
+        {
             switch (state) {
                 case ETreeState.Unreleased: {
-                    // グレースケール
-                    GetComponent<Image>().material = _material;
-                    _button.enabled = false;
-                    break;
-                }
+                        // グレースケール
+                        GetComponent<Image>().material = _material;
+                        _button.enabled = false;
+                        break;
+                    }
                 case ETreeState.Released:
                 case ETreeState.Cleared: {
-                    GetComponent<Image>().material = null;
-                    _button.enabled = true;
-                    break;
-                }
+                        GetComponent<Image>().material = null;
+                        _button.enabled = true;
+                        break;
+                    }
                 case ETreeState.Finished: {
-                    GetComponent<Image>().material = null;
-                    _button.enabled = true;
-                    // アニメーション
-                    Debug.Log($"{treeId} is finished.");
-                    break;
-                }
+                        GetComponent<Image>().material = null;
+                        _button.enabled = true;
+                        // アニメーション
+                        Debug.Log($"{treeId} is finished.");
+                        break;
+                    }
                 default: {
-                    throw new NotImplementedException();
-                }
+                        throw new NotImplementedException();
+                    }
             }
         }
 
