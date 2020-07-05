@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library.Extension;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
 
@@ -101,7 +100,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="vec"> 行、列の二次元ベクトル </param>
         /// <returns> タイル番号 </returns>
-        private int XYToTileNum(Vector2Int vec)
+        private int? XYToTileNum(Vector2Int vec)
         {
             return XYToTileNum(vec.x, vec.y);
         }
@@ -112,8 +111,10 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="x"> 行 </param>
         /// <param name="y"> 列 </param>
         /// <returns> タイル番号 </returns>
-        private int XYToTileNum(int x, int y)
+        private int? XYToTileNum(int x, int y)
         {
+            if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return null;
+
             return (y * _squares.GetLength(0)) + (x + 1);
         }
 
@@ -137,24 +138,21 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="direction"> フリックする方向 </param>
-        public void HandleFlickedBottle(DynamicBottleController bottle, Vector2 direction)
+        public void HandleFlickedBottle(DynamicBottleController bottle, Vector2Int directionInt)
         {
-            // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
-            var directionInt = Vector2Int.RoundToInt(ExtensionVector2.Normalize(direction));
             // tileNum は原点が左上だが，方向ベクトルは原点が左下なので，加工する
             directionInt.y = -directionInt.y;
 
             // 該当ボトルの現在位置
             var currPos = _bottlePositions[bottle.gameObject];
-
+            // 移動先の位置を特定
             var targetPos = currPos + directionInt;
-            // 移動目標地をボードの範囲内に収める
-            targetPos.x = Mathf.Clamp(targetPos.x, 0, StageSize.COLUMN - 1);
-            targetPos.y = Mathf.Clamp(targetPos.y, 0, StageSize.ROW - 1);
-
+            // 移動先の位置をタイル番号に変換
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            Move(bottle, targetTileNum, directionInt);
+            if (targetTileNum == null) return;
+
+            Move(bottle, targetTileNum.Value, directionInt);
         }
 
         /// <summary>
@@ -269,7 +267,8 @@ namespace Project.Scripts.GamePlayScene
         /// <returns> タイル番号 </returns>
         public int GetBottlePos(AbstractBottleController bottle)
         {
-            return XYToTileNum(_bottlePositions[bottle.gameObject]);
+            // ボトルは必ず盤面内に収まっているので，強制アンラップ
+            return XYToTileNum(_bottlePositions[bottle.gameObject]).Value;
         }
 
         /// <summary>

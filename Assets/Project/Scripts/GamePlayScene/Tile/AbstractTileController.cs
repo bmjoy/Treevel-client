@@ -45,6 +45,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             TileNumber = tileNum;
         }
 
+        /// <summary>
+        /// タイルにボトルが入ってきた場合の処理
+        /// </summary>
+        /// <param name="bottle"> タイルに入ってきたボトル </param>
+        /// <param name="direction"> 入ってきた方向（単一方向の単位ベクトル） </param>
         public void OnBottleEnter(GameObject bottle, Vector2Int? direction)
         {
             bottleHandler.OnBottleEnter(bottle, direction);
