@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Library.Extension;
 using TouchScript.Gestures;
 using UnityEngine;
 using UnityEngine.Events;
@@ -79,8 +80,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
+            // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
+            var directionInt = Vector2Int.RoundToInt(ExtensionVector2.Normalize(gesture.ScreenFlickVector));
+
             // ボトルのフリック情報を伝える
-            BoardManager.Instance.HandleFlickedBottle(this, gesture.ScreenFlickVector);
+            BoardManager.Instance.HandleFlickedBottle(this, directionInt);
         }
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)

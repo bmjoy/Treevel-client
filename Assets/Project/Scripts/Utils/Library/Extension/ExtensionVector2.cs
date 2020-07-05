@@ -42,7 +42,7 @@ namespace Project.Scripts.Utils.Library.Extension
         /// </summary>
         /// <param name="v"> 対象ベクトル </param>
         /// <returns>四方向の単位ベクトル</returns>
-        public static Vector2 Direction(this Vector2 v)
+        public static Vector2 Normalize(this Vector2 v)
         {
             if (Math.Abs(v.x) > Math.Abs(v.y)) {
                 // x方向が強い

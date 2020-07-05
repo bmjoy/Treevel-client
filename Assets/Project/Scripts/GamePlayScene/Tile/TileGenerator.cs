@@ -43,6 +43,9 @@ namespace Project.Scripts.GamePlayScene.Tile
                     case ETileType.Spiderweb:
                         CreateSpiderwebTile(tileData.number);
                         break;
+                    case ETileType.Ice:
+                        CreateIceTile(tileData.number);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -92,6 +95,17 @@ namespace Project.Scripts.GamePlayScene.Tile
             BoardManager.Instance.SetTile(spiderwebTile.GetComponent<AbstractTileController>(), tileNum);
 
             spiderwebTile.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        private static async void CreateIceTile(int tileNum)
+        {
+            var iceTile = await AddressableAssetManager.Instantiate(Address.ICE_TILE_PREFAB).Task;
+
+            iceTile.GetComponent<IceTileController>().Initialize(tileNum);
+
+            BoardManager.Instance.SetTile(iceTile.GetComponent<AbstractTileController>(), tileNum);
+
+            iceTile.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }
