@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bottle;
@@ -145,7 +145,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         float x, y;
                         // 目標列の一番右端のタイルのY座標を取得
                         var tileNum = line * StageSize.COLUMN;
-                        y = BoardManager.GetTilePos(tileNum).y;
+                        y = BoardManager.Instance.GetTilePos(tileNum).y;
 
                         if (direction == ECartridgeDirection.ToLeft) {
                             x = (WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
@@ -161,7 +161,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         float x, y;
                         // 目標行の一列目のタイルのx座標を取得
                         var tileNum = line;
-                        x = BoardManager.GetTilePos(tileNum).x;
+                        x = BoardManager.Instance.GetTilePos(tileNum).x;
 
                         if (direction == ECartridgeDirection.ToUp) {
                             y = -(WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;

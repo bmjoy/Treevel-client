@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
@@ -271,6 +271,16 @@ namespace Project.Scripts.GamePlayScene
             return XYToTileNum(_bottlePositions[bottle.gameObject]).Value;
         }
 
+        public Vector2 GetTilePos(int tileNum)
+        {
+            var xy = TileNumToXY(tileNum);
+            if (xy == null) {
+                throw new System.InvalidOperationException($"Invalid Tile Num {tileNum}");
+            }
+
+            var (x, y) = xy.Value;
+            return _squares[x, y].worldPosition;
+        }
         public static Vector2 GetTilePos(int tileNum)
         {
             var(x, y) = TileNumToXY(tileNum);
@@ -302,8 +312,6 @@ namespace Project.Scripts.GamePlayScene
             {
                 worldPosition = new Vector2(x, y);
             }
-
-            public Vector2 Position => _worldPosition;
         }
     }
 }
