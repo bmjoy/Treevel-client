@@ -114,7 +114,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
                 // 警告表示時ギミックがいる位置＝警告表示位置＋（警告消した後からタイルいちに着くまでの時間＋警告表示時間）x速度x(-移動方向のベクトル)
                 var warningStartDisplayPos = warningPos - _rigidBody.velocity * _warningDisplayTime * 1.5f;
-                
+
                 var diffVec = warningStartDisplayPos - (Vector2)transform.position;
                 // 警告表示位置までまだ時間ある
                 if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0) {
@@ -123,7 +123,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     // 警告表示するタイミングまで待つ
                     yield return new WaitForSeconds(warningStartWaitTime);
                 }
-                
+
                 // 警告を表示する
                 StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
 
@@ -211,18 +211,22 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             }
 
             string addressKey;
-            switch (direction)
-            {  
-                case ECartridgeDirection.ToLeft:    
-                    addressKey = Address.TURN_WARNING_LEFT_SPRITE; break;
+            switch (direction) {
+                case ECartridgeDirection.ToLeft:
+                    addressKey = Address.TURN_WARNING_LEFT_SPRITE;
+                    break;
                 case ECartridgeDirection.ToRight:
-                    addressKey = Address.TURN_WARNING_RIGHT_SPRITE; break;
+                    addressKey = Address.TURN_WARNING_RIGHT_SPRITE;
+                    break;
                 case ECartridgeDirection.ToUp:
-                    addressKey = Address.TURN_WARNING_UP_SPRITE; break;
+                    addressKey = Address.TURN_WARNING_UP_SPRITE;
+                    break;
                 case ECartridgeDirection.ToBottom:
-                    addressKey = Address.TURN_WARNING_BOTTOM_SPRITE; break;
+                    addressKey = Address.TURN_WARNING_BOTTOM_SPRITE;
+                    break;
                 default:
-                    addressKey = Address.TURN_CARTRIDGE_WARNING_SPRITE; break;
+                    addressKey = Address.TURN_CARTRIDGE_WARNING_SPRITE;
+                    break;
             }
 
             var sprite = AddressableAssetManager.GetAsset<Sprite>(addressKey);
@@ -234,7 +238,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _warningObj.GetComponent<SpriteRenderer>().sprite = sprite;
 
             // 画像の切り替えでチラつくので切り替えの後に表示する
-            _warningObj.GetComponent<SpriteRenderer>().enabled = true; 
+            _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
             // 警告終わるまで待つ
             yield return new WaitForSeconds(displayTime);
@@ -265,13 +269,13 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             Vector2 warningPosition;
             if (IsHorizontal(direction)) {
                 warningPosition = new Vector2(WindowSize.WIDTH / 2,
-                        TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - line));
+                    TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - line));
                 bulletMotionVector = direction == ECartridgeDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
             } else if (IsVertical(direction)) {
                 warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
-                        -WindowSize.HEIGHT / 2);
+                    -WindowSize.HEIGHT / 2);
                 bulletMotionVector = direction == ECartridgeDirection.ToUp ?
                     Vector2.up :
                     Vector2.down;
