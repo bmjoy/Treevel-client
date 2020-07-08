@@ -212,19 +212,6 @@ namespace Project.Scripts.Utils
             stage.BulletGroups.ForEach(bulletGroup => {
                 bulletGroup.bullets.ForEach(bullet => {
                     switch (bullet.type) {
-                        case EBulletType.NormalCartridge:
-                        case EBulletType.RandomNormalCartridge:
-                            LoadAsset<GameObject>(Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB);
-                            break;
-                        case EBulletType.TurnCartridge:
-                        case EBulletType.RandomTurnCartridge:
-                            LoadAsset<GameObject>(Address.TURN_CARTRIDGE_GENERATOR_PREFAB);
-                            LoadAsset<Sprite>(Address.TURN_CARTRIDGE_WARNING_SPRITE);
-                            LoadAsset<Sprite>(Address.TURN_WARNING_LEFT_SPRITE);
-                            LoadAsset<Sprite>(Address.TURN_WARNING_RIGHT_SPRITE);
-                            LoadAsset<Sprite>(Address.TURN_WARNING_UP_SPRITE);
-                            LoadAsset<Sprite>(Address.TURN_WARNING_BOTTOM_SPRITE);
-                            break;
                         case EBulletType.NormalHole:
                         case EBulletType.RandomNormalHole:
                             LoadAsset<GameObject>(Address.NORMAL_HOLE_GENERATOR_PREFAB);

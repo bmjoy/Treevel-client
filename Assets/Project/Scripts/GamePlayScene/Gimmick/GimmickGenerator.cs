@@ -16,14 +16,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys = new Dictionary<EGimmickType, string>()
         {
-            {EGimmickType.NormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
-            {EGimmickType.RandomNormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
-            {EGimmickType.TurnCartridge, Address.TURN_CARTRIDGE_GENERATOR_PREFAB},
-            {EGimmickType.RandomTurnCartridge, Address.TURN_CARTRIDGE_GENERATOR_PREFAB},
-            {EGimmickType.NormalHole, Address.NORMAL_HOLE_GENERATOR_PREFAB},
-            {EGimmickType.RandomNormalHole, Address.NORMAL_HOLE_GENERATOR_PREFAB},
-            {EGimmickType.AimingHole, Address.AIMING_HOLE_GENERATOR_PREFAB},
-            {EGimmickType.RandomAimingHole, Address.AIMING_HOLE_GENERATOR_PREFAB},
             {EGimmickType.Tornado, Address.TORNADO_PREFAB},
             {EGimmickType.RandomTornado, Address.TORNADO_PREFAB}
         };

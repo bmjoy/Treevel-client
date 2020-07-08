@@ -1,4 +1,4 @@
-﻿namespace Project.Scripts.Utils.Definitions
+namespace Project.Scripts.Utils.Definitions
 {
     public static class BulletGeneratorParameter
     {
@@ -74,14 +74,6 @@
     }
 
     public enum EGimmickType {
-        NormalCartridge,
-        TurnCartridge,
-        RandomNormalCartridge,
-        RandomTurnCartridge,
-        NormalHole,
-        AimingHole,
-        RandomNormalHole,
-        RandomAimingHole,
         Tornado,
         RandomTornado
     }

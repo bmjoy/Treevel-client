@@ -13,23 +13,10 @@ namespace Project.Scripts.GameDatas
         public ERow row;
         public EColumn column;
 
-        public int line;
-
-        public ECartridgeDirection direction;
-
-        public List<ECartridgeDirection> turnDirections;
-
-        public List<int> turnLines;
-
         [Range(1, 15)] public List<int> aimingBottles;
 
-        public List<int> randomCartridgeDirection;
         public List<int> randomRow;
         public List<int> randomColumn;
-
-        public List<int> randomTurnDirection;
-        public List<int> randomTurnRow;
-        public List<int> randomTurnColumn;
 
         public List<int> randomAttackableBottles;
     }
