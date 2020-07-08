@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
@@ -278,13 +278,14 @@ namespace Project.Scripts.GamePlayScene
                 throw new System.InvalidOperationException($"Invalid Tile Num {tileNum}");
             }
 
-            var (x, y) = xy.Value;
+            var(x, y) = xy.Value;
             return _squares[x, y].worldPosition;
         }
-        public static Vector2 GetTilePos(int tileNum)
+
+        public Vector2 GetTilePos(int x, int y)
         {
-            var(x, y) = TileNumToXY(tileNum);
-            return _board[x, y].Position;
+            var tileNum = XYToTileNum(x, y);
+            return GetTilePos(tileNum.Value);
         }
 
         /// <summary>

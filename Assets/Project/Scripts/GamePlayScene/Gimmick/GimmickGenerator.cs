@@ -24,7 +24,8 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             {EGimmickType.RandomNormalHole, Address.NORMAL_HOLE_GENERATOR_PREFAB},
             {EGimmickType.AimingHole, Address.AIMING_HOLE_GENERATOR_PREFAB},
             {EGimmickType.RandomAimingHole, Address.AIMING_HOLE_GENERATOR_PREFAB},
-            {EGimmickType.Tornado, Address.TORNADO_PREFAB}
+            {EGimmickType.Tornado, Address.TORNADO_PREFAB},
+            {EGimmickType.RandomTornado, Address.TORNADO_PREFAB}
         };
 
         private float _startTime;

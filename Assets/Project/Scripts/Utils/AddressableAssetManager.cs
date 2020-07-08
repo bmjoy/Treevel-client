@@ -238,6 +238,20 @@ namespace Project.Scripts.Utils
                     }
                 });
             });
+
+            stage.GimmickDatas.ForEach(gimmick => {
+                switch (gimmick.type) {
+                    case EGimmickType.Tornado:
+                    case EGimmickType.RandomTornado:
+                        LoadAsset<GameObject>(Address.TORNADO_PREFAB);
+                        LoadAsset<Sprite>(Address.TURN_CARTRIDGE_WARNING_SPRITE);
+                        LoadAsset<Sprite>(Address.TURN_WARNING_LEFT_SPRITE);
+                        LoadAsset<Sprite>(Address.TURN_WARNING_RIGHT_SPRITE);
+                        LoadAsset<Sprite>(Address.TURN_WARNING_UP_SPRITE);
+                        LoadAsset<Sprite>(Address.TURN_WARNING_BOTTOM_SPRITE);
+                        break;
+                }
+            });
         }
     }
 }
