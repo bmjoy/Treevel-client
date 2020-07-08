@@ -236,6 +236,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
             _warningObj = warningOp.Result;
             _warningObj.GetComponent<SpriteRenderer>().sprite = sprite;
+            _warningObj.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
 
             // 画像の切り替えでチラつくので切り替えの後に表示する
             _warningObj.GetComponent<SpriteRenderer>().enabled = true;
