@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3179508892951581984}
   m_Layer: 9
   m_Name: TornadoPrefab
-  m_TagString: Bullet
+  m_TagString: Gimmick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

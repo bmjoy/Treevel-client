@@ -35,8 +35,8 @@
         public const string TILE = "Tile";
         public const string NORMAL_BOTTLE = "NormalBottle";
         public const string DUMMY_BOTTLE = "DummyBottle";
-        public const string BULLET = "Bullet";
-        public const string BULLET_WARNING = "BulletWarning";
+        public const string GIMMICK = "Gimmick";
+        public const string GIMMICK_WARNING = "GimmickWarning";
         public const string GRAPH_UI = "GraphUi";
         public const string TREE = "Tree";
         public const string ROAD = "Road";

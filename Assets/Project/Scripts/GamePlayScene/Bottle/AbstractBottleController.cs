@@ -59,7 +59,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private void OnTriggerEnter2D(Collider2D other)
         {
             // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
-            if (!other.gameObject.CompareTag(TagName.BULLET)) return;
+            if (!other.gameObject.CompareTag(TagName.GIMMICK)) return;
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (other.gameObject.transform.position.z < 0) return;
             // 無敵状態なら，衝突を考えない
