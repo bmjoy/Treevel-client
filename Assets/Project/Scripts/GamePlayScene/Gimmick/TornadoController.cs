@@ -13,10 +13,12 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Project.Scripts.GamePlayScene.Gimmick
 {
+    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class TornadoController : AbstractGimmickController
     {
         /// <summary>
-        /// 竜巻の移動速度
+        /// 竜巻の移動速度(ワールド座標単位/秒)
         /// </summary>
         [SerializeField] private float _speed = 3.0f;
 
@@ -310,7 +312,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     throw new System.NotImplementedException();
             }
         }
-
 
         /// <summary>
         /// 初期位置設定
