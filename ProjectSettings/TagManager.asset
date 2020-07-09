@@ -65,9 +65,9 @@ TagManager:
   - name: Bottle
     uniqueID: 1604723703
     locked: 0
-  - name: Bullet
-    uniqueID: 1957745791
-    locked: 0
-  - name: BulletWarning
+  - name: GimmickWarning
     uniqueID: 3424068687
+    locked: 0
+  - name: Gimmick
+    uniqueID: 1957745791
     locked: 0
