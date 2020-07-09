@@ -1,4 +1,4 @@
-using Project.Scripts.GameDatas;
+﻿using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using System;
 using System.Collections.Generic;
@@ -259,6 +259,13 @@ namespace Project.Scripts.Editor
                                             break;
                                         }
                                     case ECartridgeDirection.Random: {
+                                            {
+                                                var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
+                                                randomDirectionProp.arraySize = 4;
+                                                var subLabels = (new string[] {"L", "R", "U", "D"}).Select(s => new GUIContent(s)).ToArray();
+                                                var rect = EditorGUILayout.GetControlRect();
+                                                EditorGUI.MultiPropertyField(rect, subLabels, randomDirectionProp.GetArrayElementAtIndex(0), new GUIContent("Random Direction"));
+                                            }
                                             {
                                                 var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
                                                 randomRowProp.arraySize = StageSize.ROW;

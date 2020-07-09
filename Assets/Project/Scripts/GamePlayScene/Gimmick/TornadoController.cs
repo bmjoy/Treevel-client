@@ -94,7 +94,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             SetInitialPosition(_targetDirections[0], _targetLines[0]);
             // 初期位置についたら表示する
             GetComponent<SpriteRenderer>().enabled = true;
-            // GetComponent<Collider2D>().enabled = true;
+            GetComponent<Collider2D>().enabled = true;
         }
 
         /// <inheritdoc></inheritdoc>
