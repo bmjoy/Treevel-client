@@ -249,6 +249,13 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _warningPrefab.ReleaseInstance(_warningObj);
         }
 
+        /// <summary>
+        /// 曲がり先の警告座標
+        /// </summary>
+        /// <param name="currentDirection">曲がる前の方向</param>
+        /// <param name="currentLine">曲がる前の行列</param>
+        /// <param name="nextLine">曲がる後の行列</param>
+        /// <returns></returns>
         private Vector2 CalculateOtherWarningPos(ECartridgeDirection currentDirection, int currentLine, int nextLine)
         {
             int col, row;
@@ -266,6 +273,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             return BoardManager.Instance.GetTilePos(col - 1, row - 1);
         }
 
+        /// <summary>
+        /// 登場時の警告座標の計算
+        /// </summary>
+        /// <param name="direction">登場時方向</param>
+        /// <param name="line">登場時目標行列</param>
+        /// <returns></returns>
         private Vector2 CalculateFirstWarningPos(ECartridgeDirection direction, int line)
         {
             Vector2 motionVector;
