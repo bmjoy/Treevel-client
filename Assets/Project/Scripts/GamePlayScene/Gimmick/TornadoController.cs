@@ -179,9 +179,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 }
 
                 if (line == -1) {
-                    if (IsHorizontal(direction)) {
+                    if (i != 0 && IsHorizontal(direction) || i == 0 && IsVertical(direction)) {
                         line = BulletLibrary.SamplingArrayIndex(_randomColumn) + 1;
-                    } else if (IsVertical(direction)) {
+                    } else if (i != 0 && IsVertical(direction) || i == 0 && IsHorizontal(direction)) {
                         line = BulletLibrary.SamplingArrayIndex(_randomRow) + 1;
                     }
                 }
@@ -268,24 +268,26 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private Vector2 CalculateFirstWarningPos(ECartridgeDirection direction, int line)
         {
-            Vector2 bulletMotionVector;
+            Vector2 motionVector;
             Vector2 warningPosition;
             if (IsHorizontal(direction)) {
-                warningPosition = new Vector2(WindowSize.WIDTH / 2,
+                var sign = direction == ECartridgeDirection.ToRight ? -1 : 1;
+                warningPosition = new Vector2(sign * WindowSize.WIDTH / 2,
                     TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - line));
-                bulletMotionVector = direction == ECartridgeDirection.ToLeft ?
+                motionVector = direction == ECartridgeDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
             } else if (IsVertical(direction)) {
+                var sign = direction == ECartridgeDirection.ToUp ? -1 : 1;
                 warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
-                    -WindowSize.HEIGHT / 2);
-                bulletMotionVector = direction == ECartridgeDirection.ToUp ?
+                    sign * WindowSize.HEIGHT / 2);
+                motionVector = direction == ECartridgeDirection.ToUp ?
                     Vector2.up :
                     Vector2.down;
             } else {
                 throw new NotImplementedException();
             }
-            warningPosition += Vector2.Scale(bulletMotionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
+            warningPosition += Vector2.Scale(motionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
             return warningPosition;
         }
 
