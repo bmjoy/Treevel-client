@@ -91,7 +91,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private void GameFinish()
         {
-            // 全てのBulletGroupを停止させる
+            // 全てのGimmickを停止させる
             StopAllCoroutines();
         }
     }
