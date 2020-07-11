@@ -45,9 +45,14 @@ namespace Project.Scripts.GamePlayScene.Tile
             TileNumber = tileNum;
         }
 
-        public void OnBottleEnter(GameObject bottle)
+        /// <summary>
+        /// タイルにボトルが入ってきた場合の処理
+        /// </summary>
+        /// <param name="bottle"> タイルに入ってきたボトル </param>
+        /// <param name="direction"> 入ってきた方向（単一方向の単位ベクトル） </param>
+        public void OnBottleEnter(GameObject bottle, Vector2Int? direction)
         {
-            bottleHandler.OnBottleEnter(bottle);
+            bottleHandler.OnBottleEnter(bottle, direction);
         }
 
         public void OnBottleExit(GameObject bottle)
@@ -57,14 +62,14 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         protected interface IBottleHandler
         {
-            void OnBottleEnter(GameObject bottle);
+            void OnBottleEnter(GameObject bottle, Vector2Int? direction);
             void OnBottleExit(GameObject bottle);
         }
 
         // 何もしないボトルハンドラー
         protected class DefaultBottleHandler : IBottleHandler
         {
-            public virtual void OnBottleEnter(GameObject bottle) {}
+            public virtual void OnBottleEnter(GameObject bottle, Vector2Int? direction) {}
 
             public virtual void OnBottleExit(GameObject bottle) {}
         }

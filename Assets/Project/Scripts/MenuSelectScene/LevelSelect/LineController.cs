@@ -48,8 +48,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         protected bool released = false;
 
-        protected Button button;
-
         /// <summary>
         /// データを保存するときのキー
         /// </summary>
@@ -57,7 +55,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         protected virtual void Awake()
         {
-            button = endObject.GetComponent<Button>();
             SetSaveKey();
         }
 
@@ -74,9 +71,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         public abstract void Reset();
 
-        public abstract void UpdateReleased();
+        public abstract void UpdateState();
 
-        public abstract void SaveReleased();
+        public abstract void SaveState();
 
         /// <summary>
         /// 曲線の通過点の位置を求める

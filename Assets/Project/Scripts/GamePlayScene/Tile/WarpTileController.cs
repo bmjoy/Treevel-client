@@ -127,7 +127,7 @@ namespace Project.Scripts.GamePlayScene.Tile
                 _parent = parent;
             }
 
-            public override void OnBottleEnter(GameObject bottle)
+            public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
                 // pair tileに子ボトルがないならワープさせる
                 if (_parent.CanWarp()) {

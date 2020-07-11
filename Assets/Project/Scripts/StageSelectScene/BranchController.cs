@@ -4,6 +4,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
 {
@@ -13,6 +14,13 @@ namespace Project.Scripts.StageSelectScene
         /// ステージが属する木
         /// </summary>
         [SerializeField] private ETreeId _treeId;
+
+        private Button _endObjectButton;
+
+        protected override void Awake()
+        {
+            _endObjectButton = endObject.GetComponent<Button>();
+        }
 
         protected override void SetSaveKey()
         {
@@ -27,7 +35,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override void UpdateReleased()
+        public override void UpdateState()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.BRANCH_RELEASED) == 1;
 
@@ -42,7 +50,7 @@ namespace Project.Scripts.StageSelectScene
 
             // 終点のステージの状態の更新
             endObject.GetComponent<StageController>().released = released;
-            button.enabled = released;
+            _endObjectButton.enabled = released;
             // 鍵穴付けるか
             endObject.transform.Find("Lock")?.gameObject.SetActive(!released);
 
@@ -56,7 +64,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 枝の状態の保存
         /// </summary>
-        public override void SaveReleased()
+        public override void SaveState()
         {
             PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
         }

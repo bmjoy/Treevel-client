@@ -29,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         private sealed class SpiderwebTileBottleHandler : DefaultBottleHandler
         {
-            public override void OnBottleEnter(GameObject bottle)
+            public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
                 if (bottle.GetComponent<DynamicBottleController>() == null) return;
 
