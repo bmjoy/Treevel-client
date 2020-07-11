@@ -6,7 +6,7 @@ namespace Project.Scripts.GamePlayScene
     [RequireComponent(typeof(SpriteRenderer))]
     public class ObjectUnifier : MonoBehaviour
     {
-        [Range(0, 1), Tooltip("画面お横幅を占める比率")]
+        [Range(0, 1), Tooltip("画面の横幅に占める比率")]
         public float WindowWitdthRatio;
 
         [Tooltip("画像の横縦比")]
