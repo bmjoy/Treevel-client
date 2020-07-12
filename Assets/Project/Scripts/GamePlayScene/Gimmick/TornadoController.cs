@@ -357,7 +357,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     y = (WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
                 }
             } else {
-                x = y = 0;
                 throw new NotImplementedException();
             }
             transform.position = new Vector2(x, y);
