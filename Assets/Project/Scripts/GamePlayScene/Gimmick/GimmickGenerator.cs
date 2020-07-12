@@ -14,17 +14,16 @@ namespace Project.Scripts.GamePlayScene.Gimmick
     {
         private List<IEnumerator> _coroutines = new List<IEnumerator>();
 
+        /// <summary>
+        /// FireGimmickが呼ばれた時刻
+        /// </summary>
+        private float _startTime;
+
         private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys = new Dictionary<EGimmickType, string>()
         {
             {EGimmickType.Tornado, Address.TORNADO_PREFAB},
             {EGimmickType.RandomTornado, Address.TORNADO_PREFAB}
         };
-
-        private float _startTime;
-        private void Awake()
-        {
-            _startTime = Time.time;
-        }
 
         public void Initialize(List<GimmickData> gimmicks)
         {
@@ -36,6 +35,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         public void FireGimmick()
         {
+            _startTime = Time.time;
             _coroutines.ForEach(cr => StartCoroutine(cr));
         }
 
