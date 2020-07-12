@@ -373,7 +373,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
-        protected override void GameEnd()
+        protected override void OnEndGame()
         {
             _rigidBody.velocity = Vector2.zero;
             _warningPrefab.ReleaseInstance(_warningObj);

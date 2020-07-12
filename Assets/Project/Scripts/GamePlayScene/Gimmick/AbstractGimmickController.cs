@@ -41,15 +41,15 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         protected virtual void OnSucceed()
         {
-            GameEnd();
+            OnEndGame();
         }
 
         protected virtual void OnFail()
         {
-            GameEnd();
+            OnEndGame();
         }
 
-        protected virtual void GameEnd()
+        protected virtual void OnEndGame()
         {
         }
     }
