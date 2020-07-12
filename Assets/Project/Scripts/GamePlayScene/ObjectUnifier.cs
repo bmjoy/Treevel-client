@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene
         public float WindowWitdthRatio;
 
         [Tooltip("画像の横縦比")]
-        public float ImageRatio;
+        public float ImageRatio = 1f;
 
         private void Awake()
         {
