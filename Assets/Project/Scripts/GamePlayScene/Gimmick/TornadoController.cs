@@ -324,7 +324,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     _rigidBody.velocity = Vector2.down * _speed;
                     break;
                 default:
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
             }
         }
 
