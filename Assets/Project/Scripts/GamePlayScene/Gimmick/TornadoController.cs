@@ -122,8 +122,8 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0) {
                     // 表示するまでの所要時間
                     var warningStartWaitTime = diffVec.magnitude / _speed;
-                    // 警告表示するタイミングまで待つ
-                    yield return new WaitForSeconds(warningStartWaitTime);
+
+                    while((warningStartWaitTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
                 }
 
                 // 警告を表示する
@@ -243,8 +243,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             // 画像の切り替えでチラつくので切り替えの後に表示する
             _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
+            var startTime = Time.time;
             // 警告終わるまで待つ
-            yield return new WaitForSeconds(displayTime);
+            while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
             _warningPrefab.ReleaseInstance(_warningObj);
         }
