@@ -97,9 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950d269fc9172489aa122df63e8d3008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Invincible: 0
   warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
   warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
     type: 2}
+  IsMovable: 1
 --- !u!61 &-2211765263296871505
 BoxCollider2D:
   m_ObjectHideFlags: 0
