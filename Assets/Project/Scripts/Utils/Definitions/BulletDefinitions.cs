@@ -18,9 +18,9 @@
     }
 
     /// <summary>
-    /// 銃弾の移動方向
+    /// 竜巻の移動方向
     /// </summary>
-    public enum ECartridgeDirection {
+    public enum ETornadoDirection {
         ToLeft = 1,
         ToRight,
         ToUp,

@@ -15,7 +15,7 @@ namespace Project.Scripts.GameDatas
         /// <summary>
         /// ＜竜巻＞攻撃方向リスト
         /// </summary>
-        public List<ECartridgeDirection> targetDirections;
+        public List<ETornadoDirection> targetDirections;
 
         /// <summary>
         /// ＜竜巻＞攻撃行列リスト

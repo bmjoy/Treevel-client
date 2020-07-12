@@ -235,9 +235,9 @@ namespace Project.Scripts.Editor
                                 EditorGUI.indentLevel++;
                                 EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                switch ((ECartridgeDirection)directionElem.intValue) {
-                                    case ECartridgeDirection.ToBottom:
-                                    case ECartridgeDirection.ToUp: {
+                                switch ((ETornadoDirection)directionElem.intValue) {
+                                    case ETornadoDirection.ToBottom:
+                                    case ETornadoDirection.ToUp: {
                                             // デフォルト値設定
                                             if (lineElem.intValue < 1 || lineElem.intValue > StageSize.COLUMN)
                                                 lineElem.intValue = 1;
@@ -247,8 +247,8 @@ namespace Project.Scripts.Editor
                                             lineElem.intValue = (int)Enum.Parse(typeof(EColumn), options[selectedIdx]);
                                             break;
                                         }
-                                    case ECartridgeDirection.ToRight:
-                                    case ECartridgeDirection.ToLeft: {
+                                    case ETornadoDirection.ToRight:
+                                    case ETornadoDirection.ToLeft: {
                                             // デフォルト値設定
                                             if (lineElem.intValue < 1 || lineElem.intValue > StageSize.ROW)
                                                 lineElem.intValue = 1;
@@ -258,7 +258,7 @@ namespace Project.Scripts.Editor
                                             lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
                                             break;
                                         }
-                                    case ECartridgeDirection.Random: {
+                                    case ETornadoDirection.Random: {
                                             {
                                                 var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
                                                 randomDirectionProp.arraySize = 4;

@@ -30,7 +30,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 銃弾の移動方向
         /// </summary>
-        private ECartridgeDirection[] _targetDirections;
+        private ETornadoDirection[] _targetDirections;
 
         /// <summary>
         /// 攻撃する行／列
@@ -40,7 +40,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 曲がる方向の重み
         /// </summary>
-        private int[] _randomDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ECartridgeDirection)).Length - 1);
+        private int[] _randomDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ETornadoDirection)).Length - 1);
 
         /// <summary>
         /// 曲がる行の重み
@@ -147,32 +147,32 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             for (var i = 0 ; i < targetNum ; i++) {
                 var direction = _targetDirections[i];
                 var line = _targetLines[i];
-                if (direction == ECartridgeDirection.Random) {
+                if (direction == ETornadoDirection.Random) {
                     if (i == 0) { // 最初の方向は制限ないのでそのまま乱数生成
-                        direction = (ECartridgeDirection)Enum.ToObject(typeof(ECartridgeDirection), BulletLibrary.SamplingArrayIndex(_randomDirections) + 1);
+                        direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), BulletLibrary.SamplingArrayIndex(_randomDirections) + 1);
                     } else { // それ以降は前回の結果に依存する
                         var previousLine = _targetLines[i - 1];
                         var previousDirection = _targetDirections[i - 1];
 
                         if (IsHorizontal(previousDirection)) { // 左右を移動している場合
                             if (previousLine == (int)ERow.Fifth) { // 最下行
-                                direction = ECartridgeDirection.ToUp;
+                                direction = ETornadoDirection.ToUp;
                             } else if (previousLine == (int)ERow.First) { // 最上行
-                                direction = ECartridgeDirection.ToBottom;
+                                direction = ETornadoDirection.ToBottom;
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 左右を除いた乱数配列
-                                tempRandomDirections[(int)ECartridgeDirection.ToLeft - 1] = tempRandomDirections[(int)ECartridgeDirection.ToRight - 1] = 0;
-                                direction = (ECartridgeDirection)Enum.ToObject(typeof(ECartridgeDirection), BulletLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                tempRandomDirections[(int)ETornadoDirection.ToLeft - 1] = tempRandomDirections[(int)ETornadoDirection.ToRight - 1] = 0;
+                                direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), BulletLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
                         } else if (IsVertical(previousDirection)) { // 上下を移動している場合
                             if (previousLine == (int)EColumn.Left) { // 最左列
-                                direction = ECartridgeDirection.ToRight;
+                                direction = ETornadoDirection.ToRight;
                             } else if (previousLine == (int)EColumn.Right) { // 最右列
-                                direction = ECartridgeDirection.ToLeft;
+                                direction = ETornadoDirection.ToLeft;
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 上下を除いた乱数配列
-                                tempRandomDirections[(int)ECartridgeDirection.ToUp - 1] = tempRandomDirections[(int)ECartridgeDirection.ToBottom - 1] = 0;
-                                direction = (ECartridgeDirection)Enum.ToObject(typeof(ECartridgeDirection), BulletLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                tempRandomDirections[(int)ETornadoDirection.ToUp - 1] = tempRandomDirections[(int)ETornadoDirection.ToBottom - 1] = 0;
+                                direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), BulletLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
                         }
                     }
@@ -205,7 +205,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <param name="direction">竜巻の次の移動方向</param>
         /// <param name="displayTime">表示時間</param>
         /// <returns></returns>
-        protected IEnumerator ShowWarning(Vector2 warningPos, ECartridgeDirection? direction, float displayTime)
+        protected IEnumerator ShowWarning(Vector2 warningPos, ETornadoDirection? direction, float displayTime)
         {
             // 一個前の警告まで消えていない
             if (_warningObj != null) {
@@ -214,16 +214,16 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
             string addressKey;
             switch (direction) {
-                case ECartridgeDirection.ToLeft:
+                case ETornadoDirection.ToLeft:
                     addressKey = Address.TURN_WARNING_LEFT_SPRITE;
                     break;
-                case ECartridgeDirection.ToRight:
+                case ETornadoDirection.ToRight:
                     addressKey = Address.TURN_WARNING_RIGHT_SPRITE;
                     break;
-                case ECartridgeDirection.ToUp:
+                case ETornadoDirection.ToUp:
                     addressKey = Address.TURN_WARNING_UP_SPRITE;
                     break;
-                case ECartridgeDirection.ToBottom:
+                case ETornadoDirection.ToBottom:
                     addressKey = Address.TURN_WARNING_BOTTOM_SPRITE;
                     break;
                 default:
@@ -256,7 +256,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <param name="currentLine">曲がる前の行列</param>
         /// <param name="nextLine">曲がる後の行列</param>
         /// <returns></returns>
-        private Vector2 CalculateOtherWarningPos(ECartridgeDirection currentDirection, int currentLine, int nextLine)
+        private Vector2 CalculateOtherWarningPos(ETornadoDirection currentDirection, int currentLine, int nextLine)
         {
             int col, row;
             if (IsHorizontal(currentDirection)) {
@@ -279,22 +279,22 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <param name="direction">登場時方向</param>
         /// <param name="line">登場時目標行列</param>
         /// <returns></returns>
-        private Vector2 CalculateFirstWarningPos(ECartridgeDirection direction, int line)
+        private Vector2 CalculateFirstWarningPos(ETornadoDirection direction, int line)
         {
             Vector2 motionVector;
             Vector2 warningPosition;
             if (IsHorizontal(direction)) {
-                var sign = direction == ECartridgeDirection.ToRight ? -1 : 1;
+                var sign = direction == ETornadoDirection.ToRight ? -1 : 1;
                 warningPosition = new Vector2(sign * WindowSize.WIDTH / 2,
                     TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - line));
-                motionVector = direction == ECartridgeDirection.ToLeft ?
+                motionVector = direction == ETornadoDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
             } else if (IsVertical(direction)) {
-                var sign = direction == ECartridgeDirection.ToUp ? -1 : 1;
+                var sign = direction == ETornadoDirection.ToUp ? -1 : 1;
                 warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
                     sign * WindowSize.HEIGHT / 2);
-                motionVector = direction == ECartridgeDirection.ToUp ?
+                motionVector = direction == ETornadoDirection.ToUp ?
                     Vector2.up :
                     Vector2.down;
             } else {
@@ -308,19 +308,19 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// 移動方向の設定
         /// </summary>
         /// <param name="direction">移動方向</param>
-        private void SetDirection(ECartridgeDirection direction)
+        private void SetDirection(ETornadoDirection direction)
         {
             switch (direction) {
-                case ECartridgeDirection.ToUp:
+                case ETornadoDirection.ToUp:
                     _rigidBody.velocity = Vector2.up * _speed;
                     break;
-                case ECartridgeDirection.ToLeft:
+                case ETornadoDirection.ToLeft:
                     _rigidBody.velocity = Vector2.left * _speed;
                     break;
-                case ECartridgeDirection.ToRight:
+                case ETornadoDirection.ToRight:
                     _rigidBody.velocity = Vector2.right * _speed;
                     break;
-                case ECartridgeDirection.ToBottom:
+                case ETornadoDirection.ToBottom:
                     _rigidBody.velocity = Vector2.down * _speed;
                     break;
                 default:
@@ -333,7 +333,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         /// <param name="direction">初期の移動方向</param>
         /// <param name="line">攻撃する行（1~5）／列（1~3）</param>
-        private void SetInitialPosition(ECartridgeDirection direction, int line)
+        private void SetInitialPosition(ETornadoDirection direction, int line)
         {
             float x = 0, y = 0;
             if (IsHorizontal(direction)) {
@@ -341,7 +341,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 var tileNum = line * StageSize.COLUMN;
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
 
-                if (direction == ECartridgeDirection.ToLeft) {
+                if (direction == ETornadoDirection.ToLeft) {
                     x = (WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
                 } else {
                     x = -(WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
@@ -351,7 +351,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 var tileNum = line;
                 x = BoardManager.Instance.GetTilePos(tileNum).x;
 
-                if (direction == ECartridgeDirection.ToUp) {
+                if (direction == ETornadoDirection.ToUp) {
                     y = -(WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
                 } else {
                     y = (WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
@@ -379,14 +379,14 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _warningPrefab.ReleaseInstance(_warningObj);
         }
 
-        private bool IsHorizontal(ECartridgeDirection direction)
+        private bool IsHorizontal(ETornadoDirection direction)
         {
-            return direction == ECartridgeDirection.ToRight || direction == ECartridgeDirection.ToLeft;
+            return direction == ETornadoDirection.ToRight || direction == ETornadoDirection.ToLeft;
         }
 
-        private bool IsVertical(ECartridgeDirection direction)
+        private bool IsVertical(ETornadoDirection direction)
         {
-            return direction == ECartridgeDirection.ToUp || direction == ECartridgeDirection.ToBottom;
+            return direction == ETornadoDirection.ToUp || direction == ETornadoDirection.ToBottom;
         }
     }
 }
