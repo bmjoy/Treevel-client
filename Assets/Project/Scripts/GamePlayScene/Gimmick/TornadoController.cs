@@ -123,7 +123,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     // 表示するまでの所要時間
                     var warningStartWaitTime = diffVec.magnitude / _speed;
 
-                    while((warningStartWaitTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
+                    while ((warningStartWaitTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
                 }
 
                 // 警告を表示する
