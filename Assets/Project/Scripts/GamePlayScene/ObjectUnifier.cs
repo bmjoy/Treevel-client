@@ -7,7 +7,7 @@ namespace Project.Scripts.GamePlayScene
     public class ObjectUnifier : MonoBehaviour
     {
         [Range(0, 1), Tooltip("画面の横幅に占める比率")]
-        public float WindowWitdthRatio;
+        public float RatioToWindowWidth;
 
         [Tooltip("画像の横縦比")]
         public float ImageRatio = 1f;
@@ -17,7 +17,7 @@ namespace Project.Scripts.GamePlayScene
             var originalWidth = GetComponent<SpriteRenderer>().size.x;
             var originalHeight = GetComponent<SpriteRenderer>().size.y;
 
-            var widthEfficient = WindowSize.WIDTH * WindowWitdthRatio;
+            var widthEfficient = WindowSize.WIDTH * RatioToWindowWidth;
             var heightEfficient = widthEfficient * ImageRatio ;
             transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight, 1.0f);
         }
