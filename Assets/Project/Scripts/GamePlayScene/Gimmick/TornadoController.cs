@@ -179,9 +179,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 }
 
                 if (line == -1) {
-                    if (i != 0 && IsHorizontal(direction) || i == 0 && IsVertical(direction)) {
+                    if ((i != 0 && IsHorizontal(direction)) || (i == 0 && IsVertical(direction))) {
                         line = BulletLibrary.SamplingArrayIndex(_randomColumn) + 1;
-                    } else if (i != 0 && IsVertical(direction) || i == 0 && IsHorizontal(direction)) {
+                    } else if ((i != 0 && IsVertical(direction)) || (i == 0 && IsHorizontal(direction))) {
                         line = BulletLibrary.SamplingArrayIndex(_randomRow) + 1;
                     }
                 }
