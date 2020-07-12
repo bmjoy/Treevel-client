@@ -1,4 +1,4 @@
-namespace Project.Scripts.Utils.Definitions
+﻿namespace Project.Scripts.Utils.Definitions
 {
     public static class BulletGeneratorParameter
     {
@@ -6,15 +6,6 @@ namespace Project.Scripts.Utils.Definitions
         /// ランダムな値を決めるときの各要素の重みの初期値
         /// </summary>
         public const int INITIAL_RATIO = 100;
-    }
-
-    /// <summary>
-    /// 弾丸型の銃弾の名前
-    /// </summary>
-    public enum ECartridgeType {
-        Normal = 1,
-        Turn,
-        Random = -1
     }
 
     /// <summary>
