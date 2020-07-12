@@ -34,7 +34,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// ギミック発動
         /// </summary>
-        public void GimmicksStart()
+        public void FireGimmick()
         {
             _coroutines.ForEach(cr => StartCoroutine(cr));
         }
