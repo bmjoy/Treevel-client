@@ -19,7 +19,7 @@ namespace Project.Scripts.GamePlayScene
 
             var widthEfficient = WindowSize.WIDTH * RatioToWindowWidth;
             var heightEfficient = widthEfficient * ImageRatio ;
-            transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight, 1.0f);
+            transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight);       
         }
     }
 }
