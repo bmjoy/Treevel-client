@@ -43,7 +43,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// ギミックの実体を生成するコルチーン
         /// </summary>
         /// <param name="data">生成するギミックのデータ</param>
-        IEnumerator CreateGimmickCoroutine(GimmickData data)
+        private IEnumerator CreateGimmickCoroutine(GimmickData data)
         {
             // 出現時間経つまで待つ
             yield return new WaitForSeconds(data.appearTime - (Time.time - _startTime));
