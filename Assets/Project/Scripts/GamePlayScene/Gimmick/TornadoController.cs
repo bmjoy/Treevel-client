@@ -295,6 +295,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             Vector2 warningPosition;
             if (IsHorizontal(direction)) {
                 var sign = direction == ETornadoDirection.ToRight ? -1 : 1;
+                // x座標は画面端、y座標は同じ行のタイルと同じ値
                 warningPosition = new Vector2(sign * WindowSize.WIDTH / 2,
                     TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - line));
                 motionVector = direction == ETornadoDirection.ToLeft ?
@@ -302,6 +303,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     Vector2.right;
             } else if (IsVertical(direction)) {
                 var sign = direction == ETornadoDirection.ToUp ? -1 : 1;
+                // x座標は同じ列のタイルと同じ値、y座標は画面端
                 warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
                     sign * WindowSize.HEIGHT / 2);
                 motionVector = direction == ETornadoDirection.ToUp ?
@@ -310,6 +312,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             } else {
                 throw new NotImplementedException();
             }
+            // 画面端から、警告の幅(or高さ)/2の分だけ画面内に移動させた座標に警告を配置
             warningPosition += Vector2.Scale(motionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
             return warningPosition;
         }
