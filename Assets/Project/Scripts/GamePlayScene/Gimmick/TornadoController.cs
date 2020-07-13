@@ -62,6 +62,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private int _currentTargetIndex = 0;
 
+        /// <summary>
+        /// 警告消した後から曲がるまでの所要時間
+        /// </summary>
+        private float _moveTimeAfterWarning = 0.5f;
+
         private Rigidbody2D _rigidBody;
 
         /// <summary>
@@ -116,7 +121,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 var warningPos = _wanringPosList[_currentTargetIndex];
 
                 // 警告表示時ギミックがいる位置＝警告表示位置＋（警告消した後からタイル位置に着くまでの時間＋警告表示時間）x速度x(-移動方向のベクトル)
-                var warningStartDisplayPos = warningPos - _rigidBody.velocity * _warningDisplayTime * 1.5f;
+                var warningStartDisplayPos = warningPos - _rigidBody.velocity * (_warningDisplayTime + _moveTimeAfterWarning);
 
                 var diffVec = warningStartDisplayPos - (Vector2)transform.position;
                 // 警告表示位置までまだ時間ある
