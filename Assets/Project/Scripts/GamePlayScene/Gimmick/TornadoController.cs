@@ -108,6 +108,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             // 発射
             SetDirection(currentDirection);
 
+            Coroutine displayWarningCoroutine = null;
             while (++_currentTargetIndex < _targetDirections.Length) {
                 currentDirection = _targetDirections[_currentTargetIndex];
 
@@ -127,8 +128,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 }
 
                 // 警告を表示する
-                StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
-
+                if (displayWarningCoroutine != null) { // 前回のコルチーンがまだ終わってないまま次実行すると警告の破壊が複数回発生してしまう
+                    StopCoroutine(displayWarningCoroutine);
+                }
+                displayWarningCoroutine = StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
+                
                 // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
                 while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) {
                     yield return new WaitForFixedUpdate();
