@@ -28,7 +28,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         [SerializeField] protected AssetReferenceGameObject _warningPrefab;
 
         /// <summary>
-        /// 銃弾の移動方向
+        /// 竜巻の移動方向
         /// </summary>
         private ETornadoDirection[] _targetDirections;
 
