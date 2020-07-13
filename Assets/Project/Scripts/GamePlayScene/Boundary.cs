@@ -15,5 +15,4 @@ namespace Project.Scripts.GamePlayScene
             Destroy(other.gameObject);
         }
     }
-
 }
