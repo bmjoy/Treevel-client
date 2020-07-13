@@ -214,7 +214,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <param name="direction">竜巻の次の移動方向</param>
         /// <param name="displayTime">表示時間</param>
         /// <returns></returns>
-        protected IEnumerator ShowWarning(Vector2 warningPos, ETornadoDirection? direction, float displayTime)
+        private IEnumerator ShowWarning(Vector2 warningPos, ETornadoDirection? direction, float displayTime)
         {
             // 一個前の警告まで消えていない
             if (_warningObj != null) {
