@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WindowWitdthRatio: 0.15
+  RatioToWindowWidth: 0.15
   ImageRatio: 0.33
 --- !u!50 &3179508892951581984
 Rigidbody2D:
