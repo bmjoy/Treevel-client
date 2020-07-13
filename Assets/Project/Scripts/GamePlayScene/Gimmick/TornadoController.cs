@@ -132,7 +132,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     StopCoroutine(displayWarningCoroutine);
                 }
                 displayWarningCoroutine = StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
-                
+
                 // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
                 while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) {
                     yield return new WaitForFixedUpdate();
