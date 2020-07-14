@@ -55,7 +55,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 警告表示座標のリスト
         /// </summary>
-        private List<Vector2> _wanringPosList = new List<Vector2>();
+        private readonly List<Vector2> _warningPosList = new List<Vector2>();
 
         /// <summary>
         /// 今の目標インデックス
