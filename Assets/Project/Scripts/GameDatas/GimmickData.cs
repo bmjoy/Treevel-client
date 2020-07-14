@@ -1,15 +1,29 @@
 ﻿using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
-using UnityEngine;
 
 namespace Project.Scripts.GameDatas
 {
     [System.Serializable]
     public class GimmickData
     {
+        /// <summary>
+        /// ループするかどうか
+        /// </summary>
         public bool loop;
+
+        /// <summary>
+        /// 登場時間（秒）
+        /// </summary>
         public float appearTime;
+
+        /// <summary>
+        /// ループする際の登場間隔
+        /// </summary>
         public float interval;
+
+        /// <summary>
+        /// ギミックの種類
+        /// </summary>
         public EGimmickType type;
 
         /// <summary>
