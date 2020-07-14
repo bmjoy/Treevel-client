@@ -108,7 +108,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         public override IEnumerator Trigger()
         {
             var currentDirection = _targetDirections[_currentTargetIndex];
-            yield return ShowWarning(_wanringPosList[0], null, _warningDisplayTime);
+            yield return ShowWarning(_warningPosList[0], null, _warningDisplayTime);
 
             // 発射
             SetDirection(currentDirection);
@@ -118,7 +118,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 currentDirection = _targetDirections[_currentTargetIndex];
 
                 // 警告位置
-                var warningPos = _wanringPosList[_currentTargetIndex];
+                var warningPos = _warningPosList[_currentTargetIndex];
 
                 // 警告表示時ギミックがいる位置＝警告表示位置＋（警告消した後からタイル位置に着くまでの時間＋警告表示時間）x速度x(-移動方向のベクトル)
                 var warningStartDisplayPos = warningPos - _rigidBody.velocity * (_warningDisplayTime + _moveTimeAfterWarning);
@@ -200,9 +200,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
                 // 警告の位置も計算しておく
                 if (i == 0) {
-                    _wanringPosList.Add(CalculateFirstWarningPos(direction, line));
+                    _warningPosList.Add(CalculateFirstWarningPos(direction, line));
                 } else {
-                    _wanringPosList.Add(CalculateOtherWarningPos(_targetDirections[i - 1], _targetLines[i - 1], _targetLines[i]));
+                    _warningPosList.Add(CalculateOtherWarningPos(_targetDirections[i - 1], _targetLines[i - 1], _targetLines[i]));
                 }
             }
         }
@@ -235,6 +235,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 case ETornadoDirection.ToBottom:
                     addressKey = Address.TURN_WARNING_BOTTOM_SPRITE;
                     break;
+                case ETornadoDirection.Random:
                 default:
                     addressKey = Address.TORNADO_WARNING_SPRITE;
                     break;
