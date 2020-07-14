@@ -336,6 +336,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 case ETornadoDirection.ToBottom:
                     _rigidBody.velocity = Vector2.down * _speed;
                     break;
+                case ETornadoDirection.Random:
                 default:
                     throw new NotImplementedException();
             }

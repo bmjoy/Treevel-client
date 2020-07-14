@@ -79,17 +79,17 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            GamePlayDirector.OnSucceed += GameFinish;
-            GamePlayDirector.OnFail += GameFinish;
+            GamePlayDirector.OnSucceed += OnEndGame;
+            GamePlayDirector.OnFail += OnEndGame;
         }
 
         private void OnDisable()
         {
-            GamePlayDirector.OnSucceed -= GameFinish;
-            GamePlayDirector.OnFail -= GameFinish;
+            GamePlayDirector.OnSucceed -= OnEndGame;
+            GamePlayDirector.OnFail -= OnEndGame;
         }
 
-        private void GameFinish()
+        private void OnEndGame()
         {
             // 全てのGimmickを停止させる
             StopAllCoroutines();
