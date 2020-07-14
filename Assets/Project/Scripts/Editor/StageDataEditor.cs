@@ -263,8 +263,8 @@ namespace Project.Scripts.Editor
                                             showRandomFiledsFlag = true;
                                             break;
                                         }
-                                default:
-                                    throw new ArgumentOutOfRangeException();                                        
+                                    default:
+                                        throw new ArgumentOutOfRangeException();
                                 }
                                 EditorGUI.indentLevel--;
                                 EditorGUILayout.EndVertical();
