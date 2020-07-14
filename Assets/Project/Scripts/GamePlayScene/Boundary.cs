@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -11,7 +12,10 @@ namespace Project.Scripts.GamePlayScene
         private void OnTriggerExit2D(Collider2D other)
         {
             // OnEnterだと生成した直後に破壊されるのでExitの時破壊する
-            Destroy(other.gameObject);
+
+            if (other.CompareTag(TagName.GIMMICK)) {
+                Destroy(other.gameObject);
+            }
         }
     }
 }
