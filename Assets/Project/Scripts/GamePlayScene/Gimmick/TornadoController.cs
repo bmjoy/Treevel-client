@@ -388,7 +388,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         protected override void OnEndGame()
         {
             _rigidBody.velocity = Vector2.zero;
-            _warningPrefab.ReleaseInstance(_warningObj);
+
+            if (_warningObj != null) {
+                _warningPrefab.ReleaseInstance(_warningObj);
+            }
         }
 
         private bool IsHorizontal(ETornadoDirection direction)
