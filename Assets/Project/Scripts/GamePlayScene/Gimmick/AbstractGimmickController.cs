@@ -9,7 +9,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
     {
         [SerializeField] protected float _warningDisplayTime = BulletWarningParameter.WARNING_DISPLAYED_TIME;
 
-        static private short _gimmickId = short.MinValue;
+        private static short _gimmickId = short.MinValue;
 
         public virtual void Initialize(GimmickData gimmickData)
         {
