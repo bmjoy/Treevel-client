@@ -51,7 +51,7 @@
     }
 
     /// <summary>
-    /// 弾丸の種類
+    /// 弾丸の種類 // TODO DELETE
     /// </summary>
     public enum EBulletType {
         NormalCartridge,
@@ -64,6 +64,9 @@
         RandomAimingHole,
     }
 
+    /// <summary>
+    /// ギミックの種類
+    /// </summary>
     public enum EGimmickType {
         Tornado,
         RandomTornado
