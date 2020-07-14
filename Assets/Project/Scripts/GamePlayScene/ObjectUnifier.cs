@@ -19,7 +19,13 @@ namespace Project.Scripts.GamePlayScene
 
             var widthEfficient = WindowSize.WIDTH * RatioToWindowWidth;
             var heightEfficient = widthEfficient * ImageRatio ;
-            transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight);       
+            transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight);
+
+            var collider = GetComponent<BoxCollider2D>();
+            if (collider == null) 
+                return;
+
+            collider.size = new Vector2(originalWidth, originalHeight);
         }
     }
 }
