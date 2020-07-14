@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene
             transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight);
 
             var collider = GetComponent<BoxCollider2D>();
-            if (collider == null) 
+            if (collider == null)
                 return;
 
             collider.size = new Vector2(originalWidth, originalHeight);
