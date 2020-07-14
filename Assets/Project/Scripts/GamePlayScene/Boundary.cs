@@ -8,7 +8,6 @@ namespace Project.Scripts.GamePlayScene
     [RequireComponent(typeof(Collider2D))]
     public class Boundary : MonoBehaviour
     {
-
         private void OnTriggerExit2D(Collider2D other)
         {
             // OnEnterだと生成した直後に破壊されるのでExitの時破壊する
