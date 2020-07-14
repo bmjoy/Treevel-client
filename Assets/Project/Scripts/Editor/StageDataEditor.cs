@@ -282,6 +282,8 @@ namespace Project.Scripts.Editor
                                             }
                                             break;
                                         }
+                                default:
+                                    throw new ArgumentOutOfRangeException();                                        
                                 }
                                 EditorGUI.indentLevel--;
                                 EditorGUILayout.EndVertical();
