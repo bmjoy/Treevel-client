@@ -285,6 +285,10 @@ namespace Project.Scripts.GamePlayScene
         public Vector2 GetTilePos(int x, int y)
         {
             var tileNum = XYToTileNum(x, y);
+            if (tileNum == null) {
+                throw new System.InvalidOperationException($"invalid (x, y) = ({x}, {y})");
+            }
+
             return GetTilePos(tileNum.Value);
         }
 
