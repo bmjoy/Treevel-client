@@ -223,9 +223,10 @@ namespace Project.Scripts.Editor
 
                             // ターゲット数は少なくても1
                             directionsProp.arraySize = Math.Max(directionsProp.arraySize, 1);
-                            EditorGUILayout.PropertyField(directionsProp.FindPropertyRelative("Array.size"), new GUIContent("Target Number"));
+                            EditorGUILayout.PropertyField(directionsProp.FindPropertyRelative("Array.size"), new GUIContent("Number Of Target"));
 
                             var targetNum = linesProp.arraySize = directionsProp.arraySize;
+                            var showRandomFiledsFlag = false;
                             for (var i = 0 ; i < targetNum ; i++) {
                                 var directionElem = directionsProp.GetArrayElementAtIndex(i);
                                 var lineElem = linesProp.GetArrayElementAtIndex(i);
@@ -259,27 +260,7 @@ namespace Project.Scripts.Editor
                                             break;
                                         }
                                     case ETornadoDirection.Random: {
-                                            {
-                                                var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
-                                                randomDirectionProp.arraySize = 4;
-                                                var subLabels = (new string[] {"L", "R", "U", "D"}).Select(s => new GUIContent(s)).ToArray();
-                                                var rect = EditorGUILayout.GetControlRect();
-                                                EditorGUI.MultiPropertyField(rect, subLabels, randomDirectionProp.GetArrayElementAtIndex(0), new GUIContent("Random Direction"));
-                                            }
-                                            {
-                                                var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                                randomRowProp.arraySize = StageSize.ROW;
-                                                var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
-                                                var rect = EditorGUILayout.GetControlRect();
-                                                EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
-                                            }
-                                            {
-                                                var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                                randomColumnProp.arraySize = StageSize.COLUMN;
-                                                var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
-                                                var rect = EditorGUILayout.GetControlRect();
-                                                EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
-                                            }
+                                            showRandomFiledsFlag = true;
                                             break;
                                         }
                                 default:
@@ -287,6 +268,29 @@ namespace Project.Scripts.Editor
                                 }
                                 EditorGUI.indentLevel--;
                                 EditorGUILayout.EndVertical();
+                            }
+                            if (showRandomFiledsFlag) {
+                                {
+                                    var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
+                                    randomDirectionProp.arraySize = 4;
+                                    var subLabels = (new string[] {"L", "R", "U", "D"}).Select(s => new GUIContent(s)).ToArray();
+                                    var rect = EditorGUILayout.GetControlRect();
+                                    EditorGUI.MultiPropertyField(rect, subLabels, randomDirectionProp.GetArrayElementAtIndex(0), new GUIContent("Random Direction"));
+                                }
+                                {
+                                    var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
+                                    randomRowProp.arraySize = StageSize.ROW;
+                                    var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    var rect = EditorGUILayout.GetControlRect();
+                                    EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
+                                }
+                                {
+                                    var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
+                                    randomColumnProp.arraySize = StageSize.COLUMN;
+                                    var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    var rect = EditorGUILayout.GetControlRect();
+                                    EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
+                                }
                             }
                             break;
                         }
@@ -296,7 +300,7 @@ namespace Project.Scripts.Editor
 
                             // ターゲット数は少なくても1
                             directionsProp.arraySize = Math.Max(directionsProp.arraySize, 1);
-                            EditorGUILayout.PropertyField(directionsProp.FindPropertyRelative("Array.size"), new GUIContent("Target Number"));
+                            EditorGUILayout.PropertyField(directionsProp.FindPropertyRelative("Array.size"), new GUIContent("Number Of Target"));
 
                             // 方向とlineをRandomに設定しておく
                             var targetNum = linesProp.arraySize = directionsProp.arraySize;
