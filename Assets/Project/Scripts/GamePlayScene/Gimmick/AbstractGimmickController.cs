@@ -7,7 +7,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 {
     public abstract class AbstractGimmickController : MonoBehaviour
     {
-        [SerializeField] protected float _warningDisplayTime = BulletWarningParameter.WARNING_DISPLAYED_TIME;
+        [SerializeField] protected float _warningDisplayTime = GimmickWarningParameter.WARNING_DISPLAYED_TIME;
 
         private static short _gimmickId = short.MinValue;
 

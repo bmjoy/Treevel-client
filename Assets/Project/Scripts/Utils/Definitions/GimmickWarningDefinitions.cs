@@ -2,7 +2,7 @@
 
 namespace Project.Scripts.Utils.Definitions
 {
-    public static class BulletWarningParameter
+    public static class GimmickWarningParameter
     {
         /// <summary>
         /// 警告を表示する秒数
