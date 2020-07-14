@@ -236,7 +236,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     addressKey = Address.TURN_WARNING_BOTTOM_SPRITE;
                     break;
                 default:
-                    addressKey = Address.TURN_CARTRIDGE_WARNING_SPRITE;
+                    addressKey = Address.TORNADO_WARNING_SPRITE;
                     break;
             }
 

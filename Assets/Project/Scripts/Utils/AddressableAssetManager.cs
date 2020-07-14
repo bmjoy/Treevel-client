@@ -231,7 +231,7 @@ namespace Project.Scripts.Utils
                     case EGimmickType.Tornado:
                     case EGimmickType.RandomTornado:
                         LoadAsset<GameObject>(Address.TORNADO_PREFAB);
-                        LoadAsset<Sprite>(Address.TURN_CARTRIDGE_WARNING_SPRITE);
+                        LoadAsset<Sprite>(Address.TORNADO_WARNING_SPRITE);
                         LoadAsset<Sprite>(Address.TURN_WARNING_LEFT_SPRITE);
                         LoadAsset<Sprite>(Address.TURN_WARNING_RIGHT_SPRITE);
                         LoadAsset<Sprite>(Address.TURN_WARNING_UP_SPRITE);

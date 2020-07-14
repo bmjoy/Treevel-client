@@ -70,15 +70,15 @@
         public const string NUMBER_TILE_SPRITE_PREFIX = "numberTile";
 
         // 銃弾関連
-        public const string TURN_CARTRIDGE_WARNING_SPRITE = "turnCartridgeWarning";
-        public const string TURN_WARNING_LEFT_SPRITE = "turnLeft";
-        public const string TURN_WARNING_RIGHT_SPRITE = "turnRight";
-        public const string TURN_WARNING_UP_SPRITE = "turnUp";
-        public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
         public const string NORMAL_HOLE_GENERATOR_PREFAB = "NormalHoleGeneratorPrefab";
         public const string AIMING_HOLE_GENERATOR_PREFAB = "AimingHoleGeneratorPrefab";
 
         // ギミック
         public const string TORNADO_PREFAB = "TornadoPrefab";
+        public const string TORNADO_WARNING_SPRITE = "TornadoWarning";
+        public const string TURN_WARNING_LEFT_SPRITE = "turnLeft";
+        public const string TURN_WARNING_RIGHT_SPRITE = "turnRight";
+        public const string TURN_WARNING_UP_SPRITE = "turnUp";
+        public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
     }
 }

@@ -21,88 +21,66 @@ MonoBehaviour:
     m_Address: AimingHoleGeneratorPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2b3fba1172beb421ca58c3f3e8f627cc
     m_Address: turnLeft
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 3a6ee4cb038734117a9d7c29fc3aa2b1
-    m_Address: turnCartridgeWarning
+    m_Address: TornadoWarning
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 54efcbe26ca3e4ec8a6e8d784bc57960
     m_Address: NormalHolePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 69a0bfe9ed7044c91a3b8119ad8ea2ee
     m_Address: turnUp
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: a0af620f27170486a819a947527a1c02
     m_Address: AimingHoleWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: aba219999cff64bc3970ce8adba53fce
     m_Address: AimingHolePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: b0081e359adba4495b37de176597ae07
     m_Address: turnRight
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: c95788da93b8a427293683b877aa83e5
     m_Address: turnBottom
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: f4001e6d3634a4e47b8c225f2f769939
     m_Address: NormalHoleGeneratorPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: fdbcd1924c8b54021949ea21ae3ba36e
     m_Address: NormalHoleWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
