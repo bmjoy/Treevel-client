@@ -131,13 +131,8 @@ namespace Project.Scripts.StageSelectScene
             if (_snapScrollView.Page == pageNum - 1)
                 return;
 
-            var pageWidth = _snapScrollView.PageSize;
-            var originalPos = _snapScrollView.content.localPosition;
-
             _snapScrollView.Page = pageNum - 1;
-            _snapScrollView.content.localPosition = new Vector2(pageWidth * (pageNum - 1), originalPos.y);
-            _snapScrollView.horizontalScrollbar.value = (float)(pageNum - 1) / (float)_snapScrollView.MaxPage;
-            _snapScrollView.RefreshPage(false);
+            _snapScrollView.RefreshPage(true);
         }
 
         /// <summary>
