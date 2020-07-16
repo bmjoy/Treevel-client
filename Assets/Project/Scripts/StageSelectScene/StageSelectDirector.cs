@@ -104,8 +104,8 @@ namespace Project.Scripts.StageSelectScene
             };
 
             // ページの設定
-            var pageNum = (int)treeId % 1000;
-            SetPage(pageNum, false);
+            _snapScrollView.Page = (int)treeId % 1000 - 1;
+            _snapScrollView.RefreshPage(false);
 
             // UIの設定
             _treeName = GameObject.Find(_TREENAME);
@@ -123,17 +123,15 @@ namespace Project.Scripts.StageSelectScene
         }
 
         /// <summary>
-        /// ページ設定
+        /// ページ移動
         /// </summary>
-        /// <param name="pageNum"> ページ数(1から数える) </param>
+        /// <param name="displacement"> ページ移動量 </param>
         /// <param name="isPlayAnimation"> アニメーション再生するか </param>
-        private void SetPage(int pageNum, bool isPlayAnimation = true)
+        private void PageMove(int displacement)
         {
-            if (_snapScrollView.Page == pageNum - 1)
-                return;
-
-            _snapScrollView.Page = pageNum - 1;
-            _snapScrollView.RefreshPage(isPlayAnimation);
+            _snapScrollView.Page += displacement;
+            _snapScrollView.Page = Mathf.Clamp(_snapScrollView.Page, 0, _snapScrollView.MaxPage);
+            _snapScrollView.RefreshPage();
         }
 
         /// <summary>
@@ -182,8 +180,8 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void LeftButtonDown()
         {
-            treeId -= 1;
-            SetPage((int)treeId % 1000);
+            // ページ数-1
+            PageMove(-1);
         }
 
         /// <summary>
@@ -191,8 +189,8 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void RightButtonDown()
         {
-            treeId += 1;
-            SetPage((int)treeId % 1000);
+            // ページ数+1
+            PageMove(1);
         }
 
         /// <summary>
