@@ -105,7 +105,7 @@ namespace Project.Scripts.StageSelectScene
 
             // ページの設定
             var pageNum = (int)treeId % 1000;
-            SetPage(pageNum);
+            SetPage(pageNum, false);
 
             // UIの設定
             _treeName = GameObject.Find(_TREENAME);
@@ -126,13 +126,14 @@ namespace Project.Scripts.StageSelectScene
         /// ページ設定
         /// </summary>
         /// <param name="pageNum"> ページ数(1から数える) </param>
-        private void SetPage(int pageNum)
+        /// <param name="isPlayAnimation"> アニメーション再生するか </param>
+        private void SetPage(int pageNum, bool isPlayAnimation = true)
         {
             if (_snapScrollView.Page == pageNum - 1)
                 return;
 
             _snapScrollView.Page = pageNum - 1;
-            _snapScrollView.RefreshPage(true);
+            _snapScrollView.RefreshPage(isPlayAnimation);
         }
 
         /// <summary>
