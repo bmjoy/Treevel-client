@@ -64,10 +64,23 @@ namespace Project.Scripts.StageSelectScene
         //       - 木の名前を表示するテキストを更新する
         //       - 選択している木のidを更新する
 
+        /// <summary>
+        /// 左の木に遷移するボタン
+        /// </summary>
+        private GameObject _leftButton;
+
+        /// <summary>
+        /// 右の木に遷移するボタン
+        /// </summary>
+        private GameObject _rightButton;
+
         private void Awake()
         {
             _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+
+            _leftButton = GameObject.Find("LeftButton");
+            _rightButton = GameObject.Find("RightButton");
 
             // ステージの状態の更新
             _stages.ForEach(stage => stage.UpdateReleased());
@@ -80,6 +93,19 @@ namespace Project.Scripts.StageSelectScene
             _snapScrollView.MaxPage = LevelInfo.TREE_NUM[levelName] - 1;
             // ページの横幅の設定
             _snapScrollView.PageSize = ScaledCanvasSize.SIZE_DELTA.x;
+            // ページ遷移時のイベント登録
+            _snapScrollView.OnPageChanged += () => {
+                // 木IDを更新
+                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / 1000));
+
+                // ボタン表示/非表示
+                _leftButton.SetActive(_snapScrollView.Page != 0);
+                _rightButton.SetActive(_snapScrollView.Page != _snapScrollView.MaxPage);
+            };
+
+            // ページの設定
+            var pageNum = (int)treeId % 1000;
+            SetPage(pageNum);
 
             // UIの設定
             _treeName = GameObject.Find(_TREENAME);
@@ -94,6 +120,24 @@ namespace Project.Scripts.StageSelectScene
             _loading = GameObject.Find(_LOADING);
             _loading.SetActive(false);
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
+        }
+
+        /// <summary>
+        /// ページ設定
+        /// </summary>
+        /// <param name="pageNum"> ページ数(1から数える) </param>
+        private void SetPage(int pageNum)
+        {
+            if (_snapScrollView.Page == pageNum - 1)
+                return;
+
+            var pageWidth = _snapScrollView.PageSize;
+            var originalPos = _snapScrollView.content.localPosition;
+
+            _snapScrollView.Page = pageNum - 1;
+            _snapScrollView.content.localPosition = new Vector2(pageWidth * (pageNum - 1), originalPos.y);
+            _snapScrollView.horizontalScrollbar.value = (float)(pageNum - 1) / (float)_snapScrollView.MaxPage;
+            _snapScrollView.RefreshPage(false);
         }
 
         /// <summary>
@@ -142,7 +186,8 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void LeftButtonDown()
         {
-            // TODO: 実装
+            treeId -= 1;
+            SetPage((int)treeId % 1000);
         }
 
         /// <summary>
@@ -150,7 +195,8 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void RightButtonDown()
         {
-            // TODO: 実装
+            treeId += 1;
+            SetPage((int)treeId % 1000);
         }
 
         /// <summary>
