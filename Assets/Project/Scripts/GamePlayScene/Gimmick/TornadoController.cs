@@ -257,7 +257,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             // 警告終わるまで待つ
             while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
-            _warningPrefab.ReleaseInstance(_warningObj);
+            if (_warningObj != null) {
+                _warningPrefab.ReleaseInstance(_warningObj);
+            }
         }
 
         /// <summary>
