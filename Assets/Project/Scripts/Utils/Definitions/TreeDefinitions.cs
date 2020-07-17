@@ -25,6 +25,11 @@ namespace Project.Scripts.Utils.Definitions
     public static class TreeInfo
     {
         /// <summary>
+        /// 一季節が許容できる木の数
+        /// </summary>
+        public static int MAX_TREE_NUM_IN_SEASON = 1000;
+
+        /// <summary>
         /// ステージ数
         /// </summary>
         /// TODO: 実際にある木のステージ数で決める

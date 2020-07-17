@@ -96,7 +96,7 @@ namespace Project.Scripts.StageSelectScene
             // ページ遷移時のイベント登録
             _snapScrollView.OnPageChanged += () => {
                 // 木IDを更新
-                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / 1000));
+                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / TreeInfo.MAX_TREE_NUM_IN_SEASON));
 
                 // ボタン表示/非表示
                 _leftButton.SetActive(_snapScrollView.Page != 0);
@@ -104,7 +104,7 @@ namespace Project.Scripts.StageSelectScene
             };
 
             // ページの設定
-            _snapScrollView.Page = (int)treeId % 1000 - 1;
+            _snapScrollView.Page = (int)treeId % TreeInfo.MAX_TREE_NUM_IN_SEASON - 1;
             _snapScrollView.RefreshPage(false);
 
             // UIの設定
@@ -125,9 +125,8 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ページ移動
         /// </summary>
-        /// <param name="displacement"> ページ移動量 </param>
-        /// <param name="isPlayAnimation"> アニメーション再生するか </param>
-        private void PageMove(int displacement)
+        /// <param name="displacement"> ページ数の増減量 </param>
+        private void MovePage(int displacement)
         {
             _snapScrollView.Page += displacement;
             _snapScrollView.Page = Mathf.Clamp(_snapScrollView.Page, 0, _snapScrollView.MaxPage);
@@ -181,7 +180,7 @@ namespace Project.Scripts.StageSelectScene
         public void LeftButtonDown()
         {
             // ページ数-1
-            PageMove(-1);
+            MovePage(-1);
         }
 
         /// <summary>
@@ -190,7 +189,7 @@ namespace Project.Scripts.StageSelectScene
         public void RightButtonDown()
         {
             // ページ数+1
-            PageMove(1);
+            MovePage(1);
         }
 
         /// <summary>
