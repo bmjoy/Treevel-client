@@ -19,6 +19,7 @@ namespace Project.Scripts.StageSelectScene
 
         protected override void Awake()
         {
+            base.Awake();
             _endObjectButton = endObject.GetComponent<Button>();
         }
 
