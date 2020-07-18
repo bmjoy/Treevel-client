@@ -235,7 +235,7 @@ namespace Project.Scripts.GamePlayScene
                 DestroyImmediate(bottle.gameObject);
             }
 
-            var bullets = GameObject.FindGameObjectsWithTag(TagName.BULLET);
+            var bullets = GameObject.FindGameObjectsWithTag(TagName.GIMMICK);
             foreach (var bullet in bullets) {
                 // 銃弾の削除
                 DestroyImmediate(bullet);

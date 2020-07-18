@@ -18,7 +18,7 @@ namespace Project.Scripts.GamePlayScene.BulletWarning
         {
             originalWidth = GetComponent<SpriteRenderer>().size.x;
             originalHeight = GetComponent<SpriteRenderer>().size.y;
-            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET_WARNING;
+            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.GIMMICK_WARNING;
         }
 
         private void OnEnable()

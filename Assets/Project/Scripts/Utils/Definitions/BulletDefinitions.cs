@@ -9,15 +9,6 @@
     }
 
     /// <summary>
-    /// 弾丸型の銃弾の名前
-    /// </summary>
-    public enum ECartridgeType {
-        Normal = 1,
-        Turn,
-        Random = -1
-    }
-
-    /// <summary>
     /// 銃痕型の銃弾の名前
     /// </summary>
     public enum EHoleType {
@@ -27,9 +18,9 @@
     }
 
     /// <summary>
-    /// 銃弾の移動方向
+    /// 竜巻の移動方向
     /// </summary>
-    public enum ECartridgeDirection {
+    public enum ETornadoDirection {
         ToLeft = 1,
         ToRight,
         ToUp,
@@ -60,7 +51,7 @@
     }
 
     /// <summary>
-    /// 弾丸の種類
+    /// 弾丸の種類 // TODO DELETE
     /// </summary>
     public enum EBulletType {
         NormalCartridge,
@@ -71,5 +62,13 @@
         AimingHole,
         RandomNormalHole,
         RandomAimingHole,
+    }
+
+    /// <summary>
+    /// ギミックの種類
+    /// </summary>
+    public enum EGimmickType {
+        Tornado,
+        RandomTornado
     }
 }

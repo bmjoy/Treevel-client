@@ -39,7 +39,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             originalWidth = GetComponent<SpriteRenderer>().size.x;
             originalHeight = GetComponent<SpriteRenderer>().size.y;
             // sortingLayerの設定
-            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
+            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.GIMMICK;
             // 衝突判定を有効にする
             gameObject.GetComponent<Collider2D>().isTrigger = true;
             // 重力を用いた物理演算を行わない

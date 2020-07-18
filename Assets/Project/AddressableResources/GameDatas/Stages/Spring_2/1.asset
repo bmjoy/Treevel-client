@@ -117,6 +117,7 @@ MonoBehaviour:
       m_SubObjectName: 
     life: 0
   bulletGroups: []
+  gimmicks: []
   overviewGimmicks: 
   tutorial:
     type: 0

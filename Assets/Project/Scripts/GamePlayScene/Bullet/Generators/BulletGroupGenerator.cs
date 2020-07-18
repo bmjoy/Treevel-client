@@ -36,10 +36,6 @@ namespace Project.Scripts.GamePlayScene.Bullet.Generators
 
         private readonly Dictionary<EBulletType, string> _prefabAddressableKeys = new Dictionary<EBulletType, string>()
         {
-            {EBulletType.NormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
-            {EBulletType.RandomNormalCartridge, Address.NORMAL_CARTRIDGE_GENERATOR_PREFAB},
-            {EBulletType.TurnCartridge, Address.TURN_CARTRIDGE_GENERATOR_PREFAB},
-            {EBulletType.RandomTurnCartridge, Address.TURN_CARTRIDGE_GENERATOR_PREFAB},
             {EBulletType.NormalHole, Address.NORMAL_HOLE_GENERATOR_PREFAB},
             {EBulletType.RandomNormalHole, Address.NORMAL_HOLE_GENERATOR_PREFAB},
             {EBulletType.AimingHole, Address.AIMING_HOLE_GENERATOR_PREFAB},

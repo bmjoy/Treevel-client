@@ -271,6 +271,27 @@ namespace Project.Scripts.GamePlayScene
             return XYToTileNum(_bottlePositions[bottle.gameObject]).Value;
         }
 
+        public Vector2 GetTilePos(int tileNum)
+        {
+            var xy = TileNumToXY(tileNum);
+            if (xy == null) {
+                throw new System.InvalidOperationException($"Invalid Tile Num {tileNum}");
+            }
+
+            var(x, y) = xy.Value;
+            return _squares[x, y].worldPosition;
+        }
+
+        public Vector2 GetTilePos(int x, int y)
+        {
+            var tileNum = XYToTileNum(x, y);
+            if (tileNum == null) {
+                throw new System.InvalidOperationException($"invalid (x, y) = ({x}, {y})");
+            }
+
+            return GetTilePos(tileNum.Value);
+        }
+
         /// <summary>
         /// ボード上の格子単位のデータを格納するクラス
         /// </summary>

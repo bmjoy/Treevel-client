@@ -83,7 +83,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
             }
 
             // ボトルより手前のレイヤー(BULLET)に描画する
-            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.BULLET;
+            gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.GIMMICK;
 
             // holeを衝突したボトルに追従させる
             gameObject.transform.SetParent(other.transform);

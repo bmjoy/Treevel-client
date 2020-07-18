@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4853091812657378}
   - component: {fileID: 212792818627832022}
-  - component: {fileID: 114214268941829640}
+  - component: {fileID: 2631461747584418103}
   m_Layer: 0
-  m_Name: NormalCartridgeWarningPrefab
-  m_TagString: BulletWarning
+  m_Name: TornadoWarningPrefab
+  m_TagString: GimmickWarning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -870898609
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e802dc57f1c3d4bcc8857ff6d773dab5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &114214268941829640
+--- !u!114 &2631461747584418103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,6 +91,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1368177469308104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925194f925b124336b83f1ce0848638e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RatioToWindowWidth: 0.15
+  ImageRatio: 1

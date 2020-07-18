@@ -117,6 +117,7 @@ MonoBehaviour:
       randomTurnRow: 
       randomTurnColumn: 
       randomAttackableBottles: 0a000000000000000a000000000000000a000000000000000a0000000a000000
+  gimmicks: []
   overviewGimmicks: 
   tutorial:
     type: 0

@@ -90,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
         public IEnumerator CreateBullets()
         {
             var currentTime = Time.time;
-            yield return new WaitForSeconds(_appearanceTime - BulletWarningParameter.WARNING_DISPLAYED_TIME -
+            yield return new WaitForSeconds(_appearanceTime - GimmickWarningParameter.WARNING_DISPLAYED_TIME -
                     (currentTime - _bulletGroupGenerator.startTime));
             var sum = 0;
 
@@ -112,7 +112,7 @@ namespace Project.Scripts.GamePlayScene.Bullet.Controllers
 
                 // 次の銃弾を作成する時刻まで待つ
                 currentTime = Time.time;
-                yield return new WaitForSeconds(_appearanceTime - BulletWarningParameter.WARNING_DISPLAYED_TIME +
+                yield return new WaitForSeconds(_appearanceTime - GimmickWarningParameter.WARNING_DISPLAYED_TIME +
                         _interval * sum - (currentTime - _bulletGroupGenerator.startTime));
             } while (_loop);
         }

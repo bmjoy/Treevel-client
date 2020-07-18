@@ -22,8 +22,8 @@
         public const string TILE = "Tile";
         public const string HOLE = "Hole";
         public const string BOTTLE = "Bottle";
-        public const string BULLET = "Bullet";
-        public const string BULLET_WARNING = "BulletWarning";
+        public const string GIMMICK = "Gimmick";
+        public const string GIMMICK_WARNING = "GimmickWarning";
         public const string ROAD = "Road";
     }
 
@@ -35,8 +35,8 @@
         public const string TILE = "Tile";
         public const string NORMAL_BOTTLE = "NormalBottle";
         public const string DUMMY_BOTTLE = "DummyBottle";
-        public const string BULLET = "Bullet";
-        public const string BULLET_WARNING = "BulletWarning";
+        public const string GIMMICK = "Gimmick";
+        public const string GIMMICK_WARNING = "GimmickWarning";
         public const string GRAPH_UI = "GraphUi";
         public const string TREE = "Tree";
         public const string ROAD = "Road";
@@ -70,14 +70,15 @@
         public const string NUMBER_TILE_SPRITE_PREFIX = "numberTile";
 
         // 銃弾関連
-        public const string NORMAL_CARTRIDGE_GENERATOR_PREFAB = "NormalCartridgeGeneratorPrefab";
-        public const string TURN_CARTRIDGE_GENERATOR_PREFAB = "TurnCartridgeGeneratorPrefab";
-        public const string TURN_CARTRIDGE_WARNING_SPRITE = "turnCartridgeWarning";
+        public const string NORMAL_HOLE_GENERATOR_PREFAB = "NormalHoleGeneratorPrefab";
+        public const string AIMING_HOLE_GENERATOR_PREFAB = "AimingHoleGeneratorPrefab";
+
+        // ギミック
+        public const string TORNADO_PREFAB = "TornadoPrefab";
+        public const string TORNADO_WARNING_SPRITE = "TornadoWarning";
         public const string TURN_WARNING_LEFT_SPRITE = "turnLeft";
         public const string TURN_WARNING_RIGHT_SPRITE = "turnRight";
         public const string TURN_WARNING_UP_SPRITE = "turnUp";
         public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
-        public const string NORMAL_HOLE_GENERATOR_PREFAB = "NormalHoleGeneratorPrefab";
-        public const string AIMING_HOLE_GENERATOR_PREFAB = "AimingHoleGeneratorPrefab";
     }
 }
