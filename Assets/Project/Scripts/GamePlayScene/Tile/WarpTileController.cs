@@ -72,7 +72,8 @@ namespace Project.Scripts.GamePlayScene.Tile
             // すでに生成された粒子を消す
             GetComponent<ParticleSystem>().Clear();
             // warpTileEffectを止める
-            _warpTileEffect.SetActive(false);
+            // TODO: 実際のアニメーション実装の際にnull checkなどを行う
+            _warpTileEffect.GetComponent<Animator>().speed = 0;
         }
 
         private IEnumerator WarpBottle(GameObject bottle)
