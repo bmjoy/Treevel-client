@@ -253,7 +253,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             // 画像の切り替えでチラつくので切り替えの後に表示する
             _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
-            var startTime = Time.time;
             // 警告終わるまで待つ
             while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
