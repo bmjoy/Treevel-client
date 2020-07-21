@@ -216,7 +216,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <returns></returns>
         private IEnumerator ShowWarning(Vector2 warningPos, ETornadoDirection? direction, float displayTime)
         {
-            // 一個前の警告まで消えていない
+            // 一個前の警告まだ消えていない
             if (_warningObj != null) {
                 _warningPrefab.ReleaseInstance(_warningObj);
             }
