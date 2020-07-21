@@ -102,9 +102,8 @@ namespace Project.Scripts.GamePlayScene
         [CanBeNull]
         public GameObject GetBottleById(int bottleId)
         {
-            foreach (var item in _squares)
-            {
-                if (item.bottle && item.bottle.Id == bottleId) 
+            foreach (var item in _squares) {
+                if (item.bottle && item.bottle.Id == bottleId)
                     return item.bottle.gameObject;
             }
             return null;

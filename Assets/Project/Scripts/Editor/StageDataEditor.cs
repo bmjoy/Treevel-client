@@ -235,7 +235,7 @@ namespace Project.Scripts.Editor
                                 EditorGUILayout.LabelField($"Target {i + 1}");
                                 EditorGUI.indentLevel++;
                                 EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
-                                
+
                                 if ((directionElem.intValue != -1 && directionElem.intValue < 1) || directionElem.intValue > 4)
                                     directionElem.intValue = 1;
 
@@ -345,24 +345,24 @@ namespace Project.Scripts.Editor
                             if (rowProp.intValue < 1 || rowProp.intValue > 5)
                                 rowProp.intValue = 1;
                             rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                label: new GUIContent("Row"),
-                                selected: (ERow)rowProp.intValue,
-                                //ランダムは選択不能にする
-                                checkEnabled: (eType) => (ERow)eType != ERow.Random,
-                                includeObsolete: false
-                            );
+                                    label: new GUIContent("Row"),
+                                    selected: (ERow)rowProp.intValue,
+                                    //ランダムは選択不能にする
+                                    checkEnabled: (eType) => (ERow)eType != ERow.Random,
+                                    includeObsolete: false
+                                );
 
                             if (colProp.intValue < 1 || colProp.intValue > 5)
                                 colProp.intValue = 1;
                             colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                label: new GUIContent("ColuEColumn"),
-                                selected: (EColumn)colProp.intValue,
-                                //ランダムは選択不能にする
-                                checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
-                                includeObsolete: false
-                            );
-                        break;
-                    }
+                                    label: new GUIContent("ColuEColumn"),
+                                    selected: (EColumn)colProp.intValue,
+                                    //ランダムは選択不能にする
+                                    checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
+                                    includeObsolete: false
+                                );
+                            break;
+                        }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

@@ -90,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             GetComponent<Collider2D>().enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
             startMoveFlag = true;
-       }
+        }
 
         /// <summary>
         /// 警告表示
