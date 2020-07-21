@@ -17,20 +17,22 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 36fdf415407fc4d90bf691d9413d4847
   m_SerializeEntries:
+  - m_GUID: 0ed45840e88a448cfa0eb64fd45d7ad6
+    m_Address: MeteoriteWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 187750991088a47b09988c392fc0009e
     m_Address: TornadoWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2c3511c8a711d4f648ec477b2fe01aca
     m_Address: TornadoPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2e3f7758a15714f3795287619f50fc82
@@ -59,6 +61,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 79c31b5cff9214d36b391b9bd737af98
     m_Address: LifeBottlePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 864edba41a19b4040afa5d86f0b9857f
+    m_Address: MeteoritePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

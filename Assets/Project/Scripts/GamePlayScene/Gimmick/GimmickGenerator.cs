@@ -22,7 +22,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys = new Dictionary<EGimmickType, string>()
         {
             {EGimmickType.Tornado, Address.TORNADO_PREFAB},
-            {EGimmickType.RandomTornado, Address.TORNADO_PREFAB}
+            {EGimmickType.RandomTornado, Address.TORNADO_PREFAB},
+            {EGimmickType.Meteorite, Address.METEORITE_PREFAB},
+            {EGimmickType.RandomMeteorite, Address.METEORITE_PREFAB},
         };
 
         public void Initialize(List<GimmickData> gimmicks)

@@ -237,6 +237,10 @@ namespace Project.Scripts.Utils
                         LoadAsset<Sprite>(Address.TURN_WARNING_UP_SPRITE);
                         LoadAsset<Sprite>(Address.TURN_WARNING_BOTTOM_SPRITE);
                         break;
+                    case EGimmickType.Meteorite:
+                    case EGimmickType.RandomMeteorite:
+                        LoadAsset<GameObject>(Address.METEORITE_PREFAB);
+                        break;
                 }
             });
         }

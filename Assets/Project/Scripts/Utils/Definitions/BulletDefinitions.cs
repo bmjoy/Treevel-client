@@ -69,6 +69,8 @@
     /// </summary>
     public enum EGimmickType {
         Tornado,
-        RandomTornado
+        RandomTornado,
+        Meteorite,
+        RandomMeteorite,
     }
 }

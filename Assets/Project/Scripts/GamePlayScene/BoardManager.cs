@@ -96,6 +96,21 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
+        /// ボトルIDからボトルのゲームオブジェクトを取得
+        /// </summary>
+        /// <param name="bottleId"></param>
+        [CanBeNull]
+        public GameObject GetBottleById(int bottleId)
+        {
+            foreach (var item in _squares)
+            {
+                if (item.bottle && item.bottle.Id == bottleId) 
+                    return item.bottle.gameObject;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 行 (`vec.x`)、列 `(vec.y)` からタイル番号を取得
         /// </summary>
         /// <param name="vec"> 行、列の二次元ベクトル </param>

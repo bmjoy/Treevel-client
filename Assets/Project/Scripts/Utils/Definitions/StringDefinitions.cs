@@ -80,5 +80,6 @@
         public const string TURN_WARNING_RIGHT_SPRITE = "turnRight";
         public const string TURN_WARNING_UP_SPRITE = "turnUp";
         public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
+        public const string METEORITE_PREFAB = "MeteoritePrefab";
     }
 }
