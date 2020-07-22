@@ -96,17 +96,19 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// ボトルIDからボトルのゲームオブジェクトを取得
+        /// ボトルIDからボトルの現在位置を取得
         /// </summary>
         /// <param name="bottleId"></param>
-        [CanBeNull]
-        public GameObject GetBottleById(int bottleId)
+        public Vector2 GetBottlePosById(int bottleId)
         {
             foreach (var item in _squares) {
-                if (item.bottle && item.bottle.Id == bottleId)
-                    return item.bottle.gameObject;
+                if (item.bottle && item.bottle.Id == bottleId) {
+                    return item.worldPosition;
+                }
             }
-            return null;
+
+            Debug.LogError($"Cannot find bottle of ID[{bottleId}]");
+            return Vector2.zero;
         }
 
         /// <summary>

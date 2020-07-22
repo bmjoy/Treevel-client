@@ -14,14 +14,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
     public class MeteoriteController : AbstractGimmickController
     {
         /// <summary>
-        /// 目標行
+        /// 目標座標
         /// </summary>
-        private ERow _targetRow;
-
-        /// <summary>
-        /// 目標列
-        /// </summary>
-        private EColumn _targetColumn;
+        private Vector2 _targetPos;
 
         /// <summary>
         /// 警告のプレハブ
@@ -59,8 +54,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             base.Initialize(gimmickData);
 
-            _targetRow = gimmickData.targetRow;
-            _targetColumn = gimmickData.targetColumn;
+            if (gimmickData.type == EGimmickType.AimingMeteorite) {
+                _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
+            } else if (gimmickData.type == EGimmickType.Meteorite) {
+                _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
+            }
         }
 
         private void FixedUpdate()
@@ -83,10 +81,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         public override IEnumerator Trigger()
         {
-            Vector2 targetPos = BoardManager.Instance.GetTilePos((int)_targetColumn - 1, (int)_targetRow - 1);
-            yield return ShowWarning(targetPos, _warningDisplayTime);
+            yield return ShowWarning(_targetPos, _warningDisplayTime);
 
-            transform.position = new Vector3(targetPos.x, targetPos.y, _speed);
+            transform.position = new Vector3(_targetPos.x, _targetPos.y, _speed);
             GetComponent<Collider2D>().enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
             startMoveFlag = true;

@@ -72,5 +72,7 @@
         RandomTornado,
         Meteorite,
         RandomMeteorite,
+        AimingMeteorite,
+        RandomAimingMeteorite,
     }
 }

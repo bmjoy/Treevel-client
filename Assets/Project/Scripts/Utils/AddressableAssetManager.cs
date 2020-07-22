@@ -241,6 +241,10 @@ namespace Project.Scripts.Utils
                     case EGimmickType.RandomMeteorite:
                         LoadAsset<GameObject>(Address.METEORITE_PREFAB);
                         break;
+                    case EGimmickType.AimingMeteorite:
+                    case EGimmickType.RandomAimingMeteorite:
+                        LoadAsset<GameObject>(Address.AIMING_METEORITE_PREFAB);
+                        break;
                 }
             });
         }

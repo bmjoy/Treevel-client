@@ -60,5 +60,10 @@ namespace Project.Scripts.GameDatas
         /// ＜隕石＞目標列
         /// </summary>
         public EColumn targetColumn;
+
+        /// <summary>
+        /// ＜隕石＞追従するボトル
+        /// </summary>
+        public int targetBottle;
     }
 }

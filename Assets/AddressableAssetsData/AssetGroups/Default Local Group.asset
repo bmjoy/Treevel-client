@@ -41,6 +41,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 358175ea13e4e4b71ad0826173ab32a8
+    m_Address: AimingMeteoriteWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 47c09d9777db0433eab6b66eac0abee4
     m_Address: MenuSelectScene
     m_ReadOnly: 0
@@ -73,6 +79,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 891ff3f27a82b4ee1bdc3c86e8605fb6
     m_Address: ErrorMessageBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8be1f6b14d385471d9f6832b2b4d3e8b
+    m_Address: AimingMeteoritePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

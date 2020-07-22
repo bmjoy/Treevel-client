@@ -363,6 +363,25 @@ namespace Project.Scripts.Editor
                                 );
                             break;
                         }
+                    case EGimmickType.AimingMeteorite: {
+                            var targetBottleProp = gimmickDataProp.FindPropertyRelative("targetBottle");
+
+                            // 現在あるボトルのIDから選択するように
+                            var bottleIds = GetAttackableBottles().Select(bottle => bottle.initPos).ToList();
+
+                            var selectedIdx = bottleIds.Contains(targetBottleProp.intValue) ? 
+                                bottleIds.Select((id, idx) => new {id, idx}).First(t => t.id == targetBottleProp.intValue).idx :
+                                0;
+
+                            selectedIdx = EditorGUILayout.Popup(
+                                new GUIContent("Target Bottle"),
+                                selectedIdx,
+                                bottleIds.Select(id => id.ToString()).ToArray()
+                            );
+
+                            targetBottleProp.intValue = bottleIds[selectedIdx];
+                        break;
+                    }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
