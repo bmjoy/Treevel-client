@@ -364,22 +364,22 @@ namespace Project.Scripts.Editor
                             break;
                         }
                     case EGimmickType.RandomMeteorite: {
-                        {
-                            var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                            randomRowProp.arraySize = StageSize.ROW;
-                            var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
-                            var rect = EditorGUILayout.GetControlRect();
-                            EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
+                            {
+                                var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
+                                randomRowProp.arraySize = StageSize.ROW;
+                                var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
+                            }
+                            {
+                                var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
+                                randomColumnProp.arraySize = StageSize.COLUMN;
+                                var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
+                            }
+                            break;
                         }
-                        {
-                            var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                            randomColumnProp.arraySize = StageSize.COLUMN;
-                            var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
-                            var rect = EditorGUILayout.GetControlRect();
-                            EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
-                        }
-                        break;
-                    }
                     case EGimmickType.AimingMeteorite: {
                             var targetBottleProp = gimmickDataProp.FindPropertyRelative("targetBottle");
 
