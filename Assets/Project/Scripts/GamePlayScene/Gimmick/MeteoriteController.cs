@@ -54,14 +54,22 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             base.Initialize(gimmickData);
 
-            if (gimmickData.type == EGimmickType.AimingMeteorite) {
-                _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
-            } else if (gimmickData.type == EGimmickType.Meteorite) {
-                _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
-            } else if (gimmickData.type == EGimmickType.RandomMeteorite) {
-                var row = BulletLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
-                var column = BulletLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
-                _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
+            switch (gimmickData.type) {
+                case EGimmickType.Meteorite:
+                    _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
+                    break;
+                case EGimmickType.AimingMeteorite:
+                    _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
+                    break;
+                case EGimmickType.RandomMeteorite:
+                    var row = BulletLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
+                    var column = BulletLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
+                    _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
+                    break;
+                case EGimmickType.RandomAimingMeteorite:
+                    break;
+                default:
+                    throw new System.NotImplementedException("不正なギミックタイプです");
             }
         }
 
