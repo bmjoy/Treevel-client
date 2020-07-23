@@ -401,6 +401,10 @@ namespace Project.Scripts.Editor
                             targetBottleProp.intValue = bottleIds[selectedIdx];
                             break;
                         }
+                    case EGimmickType.RandomAimingMeteorite: {
+                        this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomAttackableBottles"), _numOfAttackableBottles, RenderRandomAttackableBottlesElement);
+                        break;
+                    }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

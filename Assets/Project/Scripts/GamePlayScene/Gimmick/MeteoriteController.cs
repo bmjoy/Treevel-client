@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
@@ -67,6 +68,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
                     break;
                 case EGimmickType.RandomAimingMeteorite:
+                    // 乱数インデックスを重みに基づいて取得
+                    var randomIndex = BulletLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
+                    // 乱数インデックスをボトルIDに変換
+                    var targetId = CalcBottleIdByRandomArrayIndex(randomIndex);
+                    _targetPos = BoardManager.Instance.GetBottlePosById(targetId);
                     break;
                 default:
                     throw new System.NotImplementedException("不正なギミックタイプです");
@@ -139,6 +145,18 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             }
+        }
+
+        /// <summary>
+        /// 乱数配列のインデックスをボトルのIdに変換する
+        /// </summary>
+        /// <param name="index">_randomAttackableBottlesから取ったインデックス</param>
+        /// <returns>ボトルのID</returns>
+        private int CalcBottleIdByRandomArrayIndex(int index)
+        {
+            var bottles = BottleLibrary.OrderedAttackableBottles;
+            var bottleAtIndex = bottles.ElementAt(index);
+            return bottleAtIndex.Id;
         }
     }
 }

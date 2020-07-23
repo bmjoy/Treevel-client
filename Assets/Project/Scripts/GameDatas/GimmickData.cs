@@ -65,5 +65,10 @@ namespace Project.Scripts.GameDatas
         /// ＜隕石＞追従するボトル
         /// </summary>
         public int targetBottle;
+
+        /// <summary>
+        /// ＜隕石＞ランダムに追従するボトルの重み行列
+        /// </summary>
+        public List<int> randomAttackableBottles;
     }
 }
