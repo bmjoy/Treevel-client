@@ -408,6 +408,7 @@ namespace Project.Scripts.Editor
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                EditorGUI.indentLevel--;
             });
         }
 
