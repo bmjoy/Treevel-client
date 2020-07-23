@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Library;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -58,6 +58,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
             } else if (gimmickData.type == EGimmickType.Meteorite) {
                 _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
+            } else if (gimmickData.type == EGimmickType.RandomMeteorite) {
+                var row = BulletLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
+                var column = BulletLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
+                _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
             }
         }
 
