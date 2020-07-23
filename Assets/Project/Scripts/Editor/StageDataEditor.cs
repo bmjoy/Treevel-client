@@ -15,7 +15,6 @@ namespace Project.Scripts.Editor
     {
         private SerializedProperty _tileDatasProp;
         private SerializedProperty _bottleDatasProp;
-        private SerializedProperty _bulletGroupDatasProp;
         private SerializedProperty _gimmickDatasProp;
 
         private int _numOfAttackableBottles = 0;
@@ -25,7 +24,6 @@ namespace Project.Scripts.Editor
         {
             _tileDatasProp = serializedObject.FindProperty("tiles");
             _bottleDatasProp = serializedObject.FindProperty("bottles");
-            _bulletGroupDatasProp = serializedObject.FindProperty("bulletGroups");
             _gimmickDatasProp = serializedObject.FindProperty("gimmicks");
 
             _src = target as StageData;
@@ -48,8 +46,6 @@ namespace Project.Scripts.Editor
             DrawTileList();
 
             DrawBottleList();
-
-            DrawBulletGroupList();
 
             DrawGimmickList();
 
@@ -209,14 +205,14 @@ namespace Project.Scripts.Editor
                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("interval"));
                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("loop"));
 
-                var bulletTypeProp = gimmickDataProp.FindPropertyRelative("type");
+                var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
 
-                bulletTypeProp.enumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                gimmickTypeProp.enumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                         label: new GUIContent("Type"),
-                        selected: (EGimmickType)bulletTypeProp.enumValueIndex
+                        selected: (EGimmickType)gimmickTypeProp.enumValueIndex
                     );
 
-                switch ((EGimmickType)bulletTypeProp.enumValueIndex) {
+                switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
                             var directionsProp = gimmickDataProp.FindPropertyRelative("targetDirections");
                             var linesProp = gimmickDataProp.FindPropertyRelative("targetLines");
@@ -408,114 +404,6 @@ namespace Project.Scripts.Editor
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                EditorGUI.indentLevel--;
-            });
-        }
-
-        private void DrawBulletGroupList()
-        {
-            this.DrawArrayProperty(_bulletGroupDatasProp, (bulletGroupDataProp, index) => {
-                bulletGroupDataProp.isExpanded = EditorGUILayout.Foldout(bulletGroupDataProp.isExpanded, $"Bullet Group {index + 1}");
-
-                if (!bulletGroupDataProp.isExpanded) return;
-
-                EditorGUI.indentLevel++;
-
-                EditorGUILayout.PropertyField(bulletGroupDataProp.FindPropertyRelative("appearTime"));
-                EditorGUILayout.PropertyField(bulletGroupDataProp.FindPropertyRelative("interval"));
-                EditorGUILayout.PropertyField(bulletGroupDataProp.FindPropertyRelative("loop"));
-
-                var bulletListProp = bulletGroupDataProp.FindPropertyRelative("bullets");
-
-                this.DrawArrayProperty(bulletListProp, (bulletDataProp, index2) => {
-                    bulletDataProp.isExpanded = EditorGUILayout.Foldout(bulletDataProp.isExpanded, $"Bullet {index2 + 1}");
-
-                    if (!bulletDataProp.isExpanded) return;
-
-                    var bulletTypeProp = bulletDataProp.FindPropertyRelative("type");
-
-                    bulletTypeProp.enumValueIndex = (int)(EBulletType)EditorGUILayout.EnumPopup(
-                            label: new GUIContent("Type"),
-                            selected: (EBulletType)bulletTypeProp.enumValueIndex
-                        );
-
-                    EditorGUILayout.PropertyField(bulletDataProp.FindPropertyRelative("ratio"));
-
-                    switch ((EBulletType)bulletTypeProp.enumValueIndex) {
-                        case EBulletType.NormalHole: {
-                                var rowProp  =  bulletDataProp.FindPropertyRelative("row");
-                                var columnProp  =  bulletDataProp.FindPropertyRelative("column");
-
-                                if (rowProp.intValue == (int)ERow.Random)
-                                    // 行がランダムの場合強制に変える
-                                    rowProp.intValue = (int)ERow.First;
-
-                                if (columnProp.intValue == (int)EColumn.Random)
-                                    // 列がランダムの場合強制に変える
-                                    columnProp.intValue = (int)EColumn.Left;
-
-                                rowProp.intValue  =  (int)(ERow)EditorGUILayout.EnumPopup(
-                                        label:  new GUIContent("Row"),
-                                        selected:  (ERow)rowProp.intValue,
-                                        // ランダムは選択不能にする
-                                        checkEnabled:  (eType)  =>  (ERow)eType  !=  ERow.Random,
-                                        includeObsolete:  false
-                                    );
-
-                                columnProp.intValue  =  (int)(ERow)EditorGUILayout.EnumPopup(
-                                        label:  new GUIContent("Column"),
-                                        selected:  (EColumn)columnProp.intValue,
-                                        // ランダムは選択不能にする
-                                        checkEnabled:  (eType)  =>  (EColumn)eType  !=  EColumn.Random,
-                                        includeObsolete:  false
-                                    );
-
-                                break;
-                            }
-                        case EBulletType.AimingHole: {
-                                var aimingBottlesProp = bulletDataProp.FindPropertyRelative("aimingBottles");
-                                for (var i = 0 ; i < aimingBottlesProp.arraySize ; i++) {
-                                    var aimingBottleProp = aimingBottlesProp.GetArrayElementAtIndex(i);
-                                    aimingBottleProp.intValue = Math.Min(aimingBottleProp.intValue, _numOfAttackableBottles);
-                                }
-
-                                this.DrawArrayProperty(aimingBottlesProp);
-
-                                break;
-                            }
-                        case EBulletType.RandomNormalHole: {
-                                var rowProp  =  bulletDataProp.FindPropertyRelative("row");
-                                var columnProp  =  bulletDataProp.FindPropertyRelative("column");
-
-                                rowProp.intValue = (int)(ERow.Random);
-                                rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("Row"),
-                                        selected: (ERow)rowProp.intValue,
-                                        checkEnabled: (eType) => (ERow)eType == ERow.Random,
-                                        includeObsolete: false
-                                    );
-
-                                columnProp.intValue = (int)(EColumn.Random);
-                                columnProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("Column"),
-                                        selected: (EColumn)columnProp.intValue,
-                                        checkEnabled: (eType) => (EColumn)eType == EColumn.Random,
-                                        includeObsolete: false
-                                    );
-
-                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomRow"), Enum.GetValues(typeof(ERow)).Length - 1);
-                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomColumn"), Enum.GetValues(typeof(EColumn)).Length - 1);
-
-                                break;
-                            }
-                        case EBulletType.RandomAimingHole: {
-                                this.DrawFixedSizeArrayProperty(bulletDataProp.FindPropertyRelative("randomAttackableBottles"), _numOfAttackableBottles, RenderRandomAttackableBottlesElement);
-                                break;
-                            }
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                });
                 EditorGUI.indentLevel--;
             });
         }

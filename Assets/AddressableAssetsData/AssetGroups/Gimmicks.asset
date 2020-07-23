@@ -10,19 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Bullets
+  m_Name: Gimmicks
   m_EditorClassIdentifier: 
-  m_GroupName: Bullets
+  m_GroupName: Gimmicks
   m_Data:
     m_SerializedData: []
   m_GUID: 3e48c97493dc844d6a85d52003b3c119
   m_SerializeEntries:
-  - m_GUID: 079830519aa1340d4a1bc23578ee4bd5
-    m_Address: AimingHoleGeneratorPrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 2b3fba1172beb421ca58c3f3e8f627cc
     m_Address: turnLeft
     m_ReadOnly: 0
@@ -35,26 +29,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 54efcbe26ca3e4ec8a6e8d784bc57960
-    m_Address: NormalHolePrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 69a0bfe9ed7044c91a3b8119ad8ea2ee
     m_Address: turnUp
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: a0af620f27170486a819a947527a1c02
-    m_Address: AimingHoleWarningPrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: aba219999cff64bc3970ce8adba53fce
-    m_Address: AimingHolePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -67,18 +43,6 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: c95788da93b8a427293683b877aa83e5
     m_Address: turnBottom
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: f4001e6d3634a4e47b8c225f2f769939
-    m_Address: NormalHoleGeneratorPrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: fdbcd1924c8b54021949ea21ae3ba36e
-    m_Address: NormalHoleWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: 3e48c97493dc844d6a85d52003b3c119_BundledAssetGroupSchema
+  m_Name: Gimmicks_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: a825c317f72f84fa695942cc70013d10, type: 2}
   m_Compression: 1

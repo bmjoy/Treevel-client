@@ -13,9 +13,8 @@ namespace Project.Scripts.GameDatas
         [SerializeField] private int stageNumber;
         [SerializeField] private List<TileData> tiles;
         [SerializeField] private List<BottleData> bottles;
-        [SerializeField] private List<BulletGroupData> bulletGroups;
         [SerializeField] private List<GimmickData> gimmicks;
-        [SerializeField] private List<EBulletType> overviewGimmicks;
+        [SerializeField] private List<EGimmickType> overviewGimmicks;
         [SerializeField] private TutorialData tutorial;
 
         public ETreeId TreeId => treeId;
@@ -26,10 +25,9 @@ namespace Project.Scripts.GameDatas
 
         public List<BottleData> BottleDatas => bottles;
 
-        public List<BulletGroupData> BulletGroups => bulletGroups;
         public List<GimmickData> GimmickDatas => gimmicks;
 
-        public List<EBulletType> OverviewGimmicks => overviewGimmicks;
+        public List<EGimmickType> OverviewGimmicks => overviewGimmicks;
 
         public TutorialData Tutorial => tutorial;
 

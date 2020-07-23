@@ -5,30 +5,19 @@ using UnityEngine;
 
 namespace Project.Scripts.Utils.Library
 {
-    public static class BulletLibrary
+    public static class GimmickLibrary
     {
-        /// <summary>
-        /// 座標から行(row)と列(column)を返す
-        /// </summary>
-        /// <param name="position"> 座標 </param>
-        public static(int, int) GetRowAndColumn(Vector2 position)
-        {
-            var row = (int)Math.Round(position.y / TileSize.HEIGHT, MidpointRounding.AwayFromZero) + StageSize.ROW / 2 + 1;
-            var column = (int)Math.Round(position.x / TileSize.WIDTH, MidpointRounding.AwayFromZero) + StageSize.COLUMN / 2 + 1;
-            return (row, column);
-        }
-
         /// <summary>
         /// 要素数を指定し、BulletGeneratorPrameter.INITIAL_RATIOで初期化された配列を返す
         /// </summary>
         /// <param name="arrayLength"> 配列の要素数 </param>
         /// <returns> 初期化された配列 </returns>
-        public static int[] GetInitialArray(int arrayLength)
+        public static int[] GetInitialArray(int arrayLength, int initialRatio = 100)
         {
             var returnArray = new int[arrayLength];
 
             for (var index = 0; index < arrayLength; index++) {
-                returnArray[index] = BulletGeneratorParameter.INITIAL_RATIO;
+                returnArray[index] = initialRatio;
             }
 
             return returnArray;

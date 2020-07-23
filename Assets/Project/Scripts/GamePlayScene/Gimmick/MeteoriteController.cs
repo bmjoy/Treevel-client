@@ -63,13 +63,13 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
                     break;
                 case EGimmickType.RandomMeteorite:
-                    var row = BulletLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
-                    var column = BulletLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
+                    var row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
+                    var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
                     _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
                     break;
                 case EGimmickType.RandomAimingMeteorite:
                     // 乱数インデックスを重みに基づいて取得
-                    var randomIndex = BulletLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
+                    var randomIndex = GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
                     // 乱数インデックスをボトルIDに変換
                     var targetId = CalcBottleIdByRandomArrayIndex(randomIndex);
                     _targetPos = BoardManager.Instance.GetBottlePosById(targetId);

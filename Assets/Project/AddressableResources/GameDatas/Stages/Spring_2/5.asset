@@ -96,7 +96,6 @@ MonoBehaviour:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
     life: 2
-  bulletGroups: []
   gimmicks:
   - loop: 1
     appearTime: 1
