@@ -96,28 +96,34 @@ MonoBehaviour:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
     life: 0
-  bulletGroups:
-  - appearTime: 1
-    interval: 5
-    loop: 1
-    bullets:
-    - type: 5
-      ratio: 100
-      row: 0
-      column: 0
-      line: 1
-      direction: 1
-      turnDirections: 0000000000000000
-      turnLines: 
-      aimingBottles: 0400000005000000
-      randomCartridgeDirection: 00000000000000000000000000000000
-      randomRow: 0000000000000000000000000000000000000000
-      randomColumn: 000000000000000000000000
-      randomTurnDirection: 00000000000000000000000000000000
-      randomTurnRow: 0000000000000000000000000000000000000000
-      randomTurnColumn: 000000000000000000000000
-      randomAttackableBottles: 
-  gimmicks: []
+  bulletGroups: []
+  gimmicks:
+  - loop: 1
+    appearTime: 1
+    interval: 10
+    type: 4
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 4
+    randomAttackableBottles: 
+  - loop: 1
+    appearTime: 6
+    interval: 10
+    type: 4
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 5
+    randomAttackableBottles: 
   overviewGimmicks: 
   tutorial:
     type: 0
