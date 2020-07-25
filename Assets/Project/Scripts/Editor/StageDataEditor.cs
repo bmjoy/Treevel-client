@@ -348,7 +348,7 @@ namespace Project.Scripts.Editor
                                     includeObsolete: false
                                 );
 
-                            if (colProp.intValue < 1 || colProp.intValue > 5)
+                            if (colProp.intValue < 1 || colProp.intValue > StageSize.COLUMN)
                                 colProp.intValue = 1;
                             colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                     label: new GUIContent("ColuEColumn"),
