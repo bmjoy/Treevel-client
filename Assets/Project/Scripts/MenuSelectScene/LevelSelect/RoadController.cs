@@ -9,17 +9,17 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     public class RoadController : LineController
     {
-        private TreeController _endObjectController;
+        private LevelTreeController _endObjectController;
 
         protected override void Awake()
         {
             base.Awake();
-            _endObjectController = endObject.GetComponent<TreeController>();
+            _endObjectController = endObject.GetComponent<LevelTreeController>();
         }
 
         protected override void SetSaveKey()
         {
-            saveKey = $"{startObject.GetComponent<TreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<TreeController>().treeId}";
+            saveKey = $"{startObject.GetComponent<LevelTreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
         }
 
         public override void Reset()
@@ -39,7 +39,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                     // 初期状態で解放されている道
                     released = true;
                 } else {
-                    released = constraintObjects.All(tree => tree.GetComponent<TreeController>().state >= ETreeState.Cleared);
+                    released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
                 }
 
                 if (released) {

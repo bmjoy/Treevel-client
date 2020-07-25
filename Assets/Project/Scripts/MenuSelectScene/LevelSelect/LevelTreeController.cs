@@ -11,7 +11,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(Button))]
     [RequireComponent(typeof(Image))]
-    public class TreeController : MonoBehaviour
+    public class LevelTreeController : MonoBehaviour
     {
         /// <summary>
         /// 現在の木の状態
