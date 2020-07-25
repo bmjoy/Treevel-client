@@ -232,7 +232,7 @@ namespace Project.Scripts.Editor
                                 EditorGUI.indentLevel++;
                                 EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                if ((directionElem.intValue != -1 && directionElem.intValue < 1) || directionElem.intValue > 4)
+                                if ((directionElem.intValue != (int)ETornadoDirection.Random && directionElem.intValue < 1) || directionElem.intValue > 4)
                                     directionElem.intValue = 1;
 
                                 switch ((ETornadoDirection)directionElem.intValue) {

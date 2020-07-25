@@ -42,7 +42,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 隕石本体移動させる用フラグ
         /// </summary>
-        private bool startMoveFlag = false;
+        private bool _isMoving = false;
 
         private SpriteRenderer _renderer;
 
@@ -81,7 +81,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private void FixedUpdate()
         {
-            if (!startMoveFlag || GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing)
+            if (!_isMoving || GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing)
                 return;
 
             // 奥方向に移動させる（見た目変化ない）
@@ -92,7 +92,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _renderer.color -= new Color(0, 0, 0, deltaAlpha);
 
             if (transform.position.z < -1 * (_meteoriteDisplayTime / Time.fixedDeltaTime) * _speed) {
-                StopAllCoroutines();
                 Destroy(gameObject);
             }
         }
@@ -104,7 +103,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             transform.position = new Vector3(_targetPos.x, _targetPos.y, _speed);
             GetComponent<Collider2D>().enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
-            startMoveFlag = true;
+            _isMoving = true;
         }
 
         /// <summary>
@@ -144,6 +143,18 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 // 数字ボトルとの衝突
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+
+                gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.GIMMICK;
+
+                // 隕石を衝突したボトルに追従させる
+                gameObject.transform.SetParent(other.transform);
+            }
+        }
+
+        protected override void OnEndGame()
+        {
+            if (_warningObj != null) {
+                _warningPrefab.ReleaseInstance(_warningObj);
             }
         }
 
