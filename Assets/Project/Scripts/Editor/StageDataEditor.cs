@@ -338,7 +338,7 @@ namespace Project.Scripts.Editor
                             var rowProp = gimmickDataProp.FindPropertyRelative("targetRow");
                             var colProp = gimmickDataProp.FindPropertyRelative("targetColumn");
 
-                            if (rowProp.intValue < 1 || rowProp.intValue > 5)
+                            if (rowProp.intValue < 1 || rowProp.intValue > StageSize.ROW)
                                 rowProp.intValue = 1;
                             rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
                                     label: new GUIContent("Row"),
