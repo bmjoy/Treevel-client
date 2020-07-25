@@ -102,7 +102,7 @@ namespace Project.Scripts.GamePlayScene
         public Vector2 GetBottlePosById(int bottleId)
         {
             foreach (var item in _squares) {
-                if (item.bottle && item.bottle.Id == bottleId) {
+                if (item.bottle != null && item.bottle.Id == bottleId) {
                     return item.worldPosition;
                 }
             }
