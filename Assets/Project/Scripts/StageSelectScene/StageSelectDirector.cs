@@ -59,11 +59,6 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private static List<BranchController> _branches;
 
-        // TODO: SnapScrollが働いたときの更新処理
-        //       - 隣の木に移動するButtonが押せるかどうか(端では押せない)を更新する
-        //       - 木の名前を表示するテキストを更新する
-        //       - 選択している木のidを更新する
-
         /// <summary>
         /// 左の木に遷移するボタン
         /// </summary>
