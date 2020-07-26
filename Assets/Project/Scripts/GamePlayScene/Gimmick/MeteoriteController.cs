@@ -60,7 +60,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
                     break;
                 case EGimmickType.AimingMeteorite:
-                    _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle).Value;
+                    _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
                     break;
                 case EGimmickType.RandomMeteorite:
                     var row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
@@ -72,7 +72,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     var randomIndex = GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
                     // 乱数インデックスをボトルIDに変換
                     var targetId = CalcBottleIdByRandomArrayIndex(randomIndex);
-                    _targetPos = BoardManager.Instance.GetBottlePosById(targetId).Value;
+                    _targetPos = BoardManager.Instance.GetBottlePosById(targetId);
                     break;
                 default:
                     throw new System.NotImplementedException("不正なギミックタイプです");
