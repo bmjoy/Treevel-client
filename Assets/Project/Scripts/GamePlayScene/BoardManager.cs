@@ -99,7 +99,7 @@ namespace Project.Scripts.GamePlayScene
         /// ボトルIDからボトルの現在位置を取得
         /// </summary>
         /// <param name="bottleId"></param>
-        public Vector2 GetBottlePosById(int bottleId)
+        public Vector2? GetBottlePosById(int bottleId)
         {
             foreach (var item in _squares) {
                 if (item.bottle != null && item.bottle.Id == bottleId) {
@@ -108,7 +108,7 @@ namespace Project.Scripts.GamePlayScene
             }
 
             Debug.LogError($"Cannot find bottle of ID[{bottleId}]");
-            return Vector2.zero;
+            return null;
         }
 
         /// <summary>
