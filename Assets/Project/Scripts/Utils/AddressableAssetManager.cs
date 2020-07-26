@@ -228,8 +228,8 @@ namespace Project.Scripts.Utils
                     case EGimmickType.RandomAimingMeteorite:
                         LoadAsset<GameObject>(Address.AIMING_METEORITE_PREFAB);
                         break;
-                default:
-                        throw new ArgumentOutOfRangeException();
+                    default:
+                        throw new System.ArgumentOutOfRangeException();
                 }
             });
         }
