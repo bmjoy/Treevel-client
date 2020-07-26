@@ -163,7 +163,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         /// <param name="index">_randomAttackableBottlesから取ったインデックス</param>
         /// <returns>ボトルのID</returns>
-        private int CalcBottleIdByRandomArrayIndex(int index)
+        private static int CalcBottleIdByRandomArrayIndex(int index)
         {
             var bottles = BottleLibrary.OrderedAttackableBottles;
             var bottleAtIndex = bottles.ElementAt(index);
