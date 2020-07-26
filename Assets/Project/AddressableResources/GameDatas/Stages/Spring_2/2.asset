@@ -133,6 +133,7 @@ MonoBehaviour:
     randomCartridgeDirection: 
     randomLine: 
     randomAttackableBottles: 
+    useRandomParameter: 0
   overviewGimmicks: 
   tutorial:
     type: 0

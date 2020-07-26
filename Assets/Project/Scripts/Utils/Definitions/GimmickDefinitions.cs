@@ -38,10 +38,7 @@
     /// </summary>
     public enum EGimmickType {
         Tornado,
-        RandomTornado,
         Meteorite,
-        RandomMeteorite,
         AimingMeteorite,
-        RandomAimingMeteorite,
     }
 }

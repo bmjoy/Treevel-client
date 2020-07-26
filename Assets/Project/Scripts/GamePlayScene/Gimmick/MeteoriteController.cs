@@ -57,22 +57,24 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
             switch (gimmickData.type) {
                 case EGimmickType.Meteorite:
-                    _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
+                    if (gimmickData.useRandomParameter) {
+                        var row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
+                        var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
+                        _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
+                    } else {
+                        _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
+                    }
                     break;
                 case EGimmickType.AimingMeteorite:
-                    _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
-                    break;
-                case EGimmickType.RandomMeteorite:
-                    var row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
-                    var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
-                    _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
-                    break;
-                case EGimmickType.RandomAimingMeteorite:
-                    // 乱数インデックスを重みに基づいて取得
-                    var randomIndex = GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
-                    // 乱数インデックスをボトルIDに変換
-                    var targetId = CalcBottleIdByRandomArrayIndex(randomIndex);
-                    _targetPos = BoardManager.Instance.GetBottlePosById(targetId);
+                    if (gimmickData.useRandomParameter) {
+                        // 乱数インデックスを重みに基づいて取得
+                        var randomIndex = GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
+                        // 乱数インデックスをボトルIDに変換
+                        var targetId = CalcBottleIdByRandomArrayIndex(randomIndex);
+                        _targetPos = BoardManager.Instance.GetBottlePosById(targetId);
+                    } else {
+                        _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
+                    }
                     break;
                 default:
                     throw new System.NotImplementedException("不正なギミックタイプです");
