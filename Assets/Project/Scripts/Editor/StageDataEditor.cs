@@ -229,7 +229,7 @@ namespace Project.Scripts.Editor
                             for (var i = 0 ; i < targetNum ; i++) {
                                 var directionElem = directionsProp.GetArrayElementAtIndex(i);
                                 var lineElem = linesProp.GetArrayElementAtIndex(i);
-                                
+
                                 if (useRandomProp.boolValue) {
                                     // 方向と行列をランダムに設定
                                     directionElem.intValue = -1;
