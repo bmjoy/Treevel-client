@@ -1,26 +1,17 @@
-﻿using System;
-using System.Linq;
-using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+﻿using System.Linq;
 
 namespace Project.Scripts.Utils.Library
 {
     public static class GimmickLibrary
     {
         /// <summary>
-        /// 要素数を指定し、BulletGeneratorPrameter.INITIAL_RATIOで初期化された配列を返す
+        /// 要素数を指定し、valueで初期化された配列を返す
         /// </summary>
         /// <param name="arrayLength"> 配列の要素数 </param>
         /// <returns> 初期化された配列 </returns>
-        public static int[] GetInitialArray(int arrayLength, int initialRatio = 100)
+        public static int[] GetInitialArray(int arrayLength, int value = 100)
         {
-            var returnArray = new int[arrayLength];
-
-            for (var index = 0; index < arrayLength; index++) {
-                returnArray[index] = initialRatio;
-            }
-
-            return returnArray;
+            return Enumerable.Repeat(arrayLength, value).ToArray();
         }
 
         /// <summary>
