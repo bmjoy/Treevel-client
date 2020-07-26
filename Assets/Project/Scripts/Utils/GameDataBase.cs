@@ -10,8 +10,13 @@ namespace Project.Scripts.Utils
     {
         private static Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
 
+        private static bool _isinitialized = false;
+
         public static void Initialize()
         {
+            if (_isinitialized)
+                return;
+
             Debug.Log("Start Loading Game Data.");
 
             // Stageラベルがついてる全てのアセットのアドレスを取得
@@ -30,6 +35,8 @@ namespace Project.Scripts.Utils
             });
 
             Debug.Log("Loading Game Data Finished.");
+
+            _isinitialized = true;
         }
 
         public static StageData GetStage(ETreeId treeId, int stageNumber)

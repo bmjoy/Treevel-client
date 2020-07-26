@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
@@ -108,6 +109,7 @@ namespace Project.Scripts.GamePlayScene
             }
 
             Debug.LogError($"Cannot find bottle of ID[{bottleId}]");
+            UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleID);
             return Vector2.zero;
         }
 
