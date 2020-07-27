@@ -50,6 +50,11 @@ namespace Project.Scripts.StageSelectScene
         private GameObject _treeName;
 
         /// <summary>
+        /// 木
+        /// </summary>
+        private static List<StageTreeController> _trees;
+
+        /// <summary>
         /// ステージ
         /// </summary>
         private static List<StageController> _stages;
@@ -71,16 +76,12 @@ namespace Project.Scripts.StageSelectScene
 
         private void Awake()
         {
+            _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
             _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
             _leftButton = GameObject.Find("LeftButton");
             _rightButton = GameObject.Find("RightButton");
-
-            // ステージの状態の更新
-            _stages.ForEach(stage => stage.UpdateReleased());
-            // 枝の状態の更新
-            _branches.ForEach(branch => branch.UpdateState());
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
@@ -115,6 +116,26 @@ namespace Project.Scripts.StageSelectScene
             _loading = GameObject.Find(_LOADING);
             _loading.SetActive(false);
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
+        }
+
+        /// <summary>
+        /// ステージと枝と木の解放状況の更新
+        /// </summary>
+        private void OnEnable()
+        {
+            _stages.ForEach(stage => stage.UpdateReleased());
+            _branches.ForEach(branch => branch.UpdateState());
+            _trees.ForEach(tree => tree.UpdateState());
+        }
+
+        /// <summary>
+        /// ステージと枝と木の状態の保存
+        /// </summary>
+        private void OnDisable()
+        {
+            // _stages.ForEach(stage => stage.SaveState());
+            _branches.ForEach(branch => branch.SaveState());
+            _trees.ForEach(tree => tree.SaveState());
         }
 
         /// <summary>
