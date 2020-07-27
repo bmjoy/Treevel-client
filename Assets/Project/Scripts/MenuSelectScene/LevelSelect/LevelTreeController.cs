@@ -27,25 +27,29 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE + treeId.ToString());
         }
 
-        protected override void ReflectUnreleasedState(){
+        protected override void ReflectUnreleasedState()
+        {
             // グレースケール
             GetComponent<Image>().material = _material;
             _button.enabled = false;
         }
 
-        protected override void ReflectReleasedState(){
+        protected override void ReflectReleasedState()
+        {
             GetComponent<Image>().material = null;
             _button.enabled = true;
         }
 
-        protected override void ReflectClearedState(){
+        protected override void ReflectClearedState()
+        {
             GetComponent<Image>().material = null;
             _button.enabled = true;
             // アニメーション
             Debug.Log($"{treeId} is cleared.");
         }
-        
-        protected override void ReflectAllClearedState(){
+
+        protected override void ReflectAllClearedState()
+        {
             GetComponent<Image>().material = null;
             _button.enabled = true;
             // アニメーション

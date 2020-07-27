@@ -12,25 +12,29 @@ namespace Project.Scripts.StageSelectScene
         [SerializeField] private Material _material;
         [SerializeField] private Image _mask;
 
-        protected override void ReflectUnreleasedState(){
+        protected override void ReflectUnreleasedState()
+        {
             // グレースケール
             _treeImage.material = _material;
             // GetComponent<Image>().material = _material;
         }
 
-        protected override void ReflectReleasedState(){
+        protected override void ReflectReleasedState()
+        {
             _mask.enabled = false;
             // _treeImage.material = null;
         }
 
-        protected override void ReflectClearedState(){
+        protected override void ReflectClearedState()
+        {
             _mask.enabled = false;
             // _treeImage.material = null;
             // アニメーション
             Debug.Log($"{treeId} is cleared.");
         }
-        
-        protected override void ReflectAllClearedState(){
+
+        protected override void ReflectAllClearedState()
+        {
             _mask.enabled = false;
             // _treeImage.material = null;
             // アニメーション
