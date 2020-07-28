@@ -84,7 +84,7 @@ namespace Project.Scripts.StageSelectScene
             _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
             _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
-            if(resetFlag) Reset();
+            if (resetFlag) Reset();
 
             _leftButton = GameObject.Find("LeftButton");
             _rightButton = GameObject.Find("RightButton");
@@ -148,7 +148,7 @@ namespace Project.Scripts.StageSelectScene
         public static void PrepareReset()
         {
             resetFlag = true;
-        }        
+        }
 
         /// <summary>
         /// 枝の状態のリセット
@@ -157,7 +157,7 @@ namespace Project.Scripts.StageSelectScene
         {
             _branches.ForEach(branch => branch.Reset());
             resetFlag = false;
-        }        
+        }
 
         /// <summary>
         /// ページ移動

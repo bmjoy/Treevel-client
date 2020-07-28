@@ -46,7 +46,7 @@ namespace Project.Scripts.StageSelectScene
 
             stageStatus = StageStatus.Get(_treeId, stageNumber);
             state = stageStatus.state;
-            
+
             // 状態の反映
             ReflectTreeState();
         }
@@ -72,10 +72,11 @@ namespace Project.Scripts.StageSelectScene
             }
         }
 
-        public void ReleaseStage() {
+        public void ReleaseStage()
+        {
             state = EStageState.Released;
             stageStatus.ReleaseStage(_treeId, stageNumber);
-        }        
+        }
 
         /// <summary>
         /// ステージの状態の保存

@@ -46,7 +46,7 @@ namespace Project.Scripts.StageSelectScene
                 } else {
                     released = constraintObjects.All(stage => stage.GetComponent<StageController>().state >= EStageState.Cleared);
                 }
-                if(released) {
+                if (released) {
                     // 終点のステージの状態の更新
                     _endObjectController.ReleaseStage();
                     _endObjectController.ReflectTreeState();

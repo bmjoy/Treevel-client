@@ -29,21 +29,21 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased:
-                        break;
+                    break;
                 case ETreeState.Released:
-                        // Implementorに任せる
-                        state = _clearHandler.GetTreeState();
-                        break;
+                    // Implementorに任せる
+                    state = _clearHandler.GetTreeState();
+                    break;
                 case ETreeState.Cleared:
-                        // 全クリアかどうかをチェックする
-                        var stageNum = TreeInfo.NUM[treeId];
-                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
-                        state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
-                        break;
+                    // 全クリアかどうかをチェックする
+                    var stageNum = TreeInfo.NUM[treeId];
+                    var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
+                    state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
+                    break;
                 case ETreeState.AllCleared:
-                        break;
+                    break;
                 default:
-                        throw new NotImplementedException();
+                    throw new NotImplementedException();
             }
 
             // 状態の反映
