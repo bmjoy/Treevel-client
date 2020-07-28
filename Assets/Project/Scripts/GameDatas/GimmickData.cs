@@ -74,6 +74,6 @@ namespace Project.Scripts.GameDatas
         /// <summary>
         /// ＜竜巻｜隕石＞ランダム変数使用するか
         /// </summary>
-        public bool useRandomParameter;
+        public bool isRandom;
     }
 }

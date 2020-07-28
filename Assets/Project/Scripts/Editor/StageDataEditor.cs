@@ -214,7 +214,7 @@ namespace Project.Scripts.Editor
 
                 switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
-                            var useRandomProp = gimmickDataProp.FindPropertyRelative("useRandomParameter");
+                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
                             var directionsProp = gimmickDataProp.FindPropertyRelative("targetDirections");
                             var linesProp = gimmickDataProp.FindPropertyRelative("targetLines");
 
@@ -303,7 +303,7 @@ namespace Project.Scripts.Editor
                             break;
                         }
                     case EGimmickType.Meteorite: {
-                            var useRandomProp = gimmickDataProp.FindPropertyRelative("useRandomParameter");
+                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
                             var rowProp = gimmickDataProp.FindPropertyRelative("targetRow");
                             var colProp = gimmickDataProp.FindPropertyRelative("targetColumn");
 
@@ -352,7 +352,7 @@ namespace Project.Scripts.Editor
                             break;
                         }
                     case EGimmickType.AimingMeteorite: {
-                            var useRandomProp = gimmickDataProp.FindPropertyRelative("useRandomParameter");
+                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
                             var targetBottleProp = gimmickDataProp.FindPropertyRelative("targetBottle");
 
                             EditorGUILayout.PropertyField(useRandomProp);

@@ -110,7 +110,7 @@ MonoBehaviour:
     targetColumn: 0
     targetBottle: 4
     randomAttackableBottles: 
-    useRandomParameter: 0
+    isRandom: 0
   - loop: 1
     appearTime: 6
     interval: 10
@@ -124,7 +124,7 @@ MonoBehaviour:
     targetColumn: 0
     targetBottle: 5
     randomAttackableBottles: 
-    useRandomParameter: 0
+    isRandom: 0
   overviewGimmicks: 
   tutorial:
     type: 0

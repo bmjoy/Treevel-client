@@ -110,7 +110,7 @@ MonoBehaviour:
     targetColumn: 0
     targetBottle: 4
     randomAttackableBottles: 0a000000000000000a000000000000000a000000000000000a0000000a000000
-    useRandomParameter: 1
+    isRandom: 1
   overviewGimmicks: 
   tutorial:
     type: 0
