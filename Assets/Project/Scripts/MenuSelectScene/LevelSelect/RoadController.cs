@@ -3,6 +3,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,10 +46,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
                 if (released) {
                     // 道が非解放状態から解放状態に変わった時
-                    StartCoroutine(ReleaseAnimation());
-                    // 終点の木の状態の更新
-                    _endObjectController.state = ETreeState.Released;
-                    _endObjectController.ReflectTreeState();
+                    StartCoroutine(ReleaseEndObject());
                 }
             }
 
@@ -63,13 +61,16 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// 道が非解放状態から解放状態に変わった時のアニメーション(100フレームで色を変化させる)
         /// </summary>
         /// <returns></returns>
-        private IEnumerator ReleaseAnimation()
+        private IEnumerator ReleaseEndObject()
         {
             for (var i = 0; i < 100; i++) {
                 _renderer.startColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
                 _renderer.endColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
                 yield return null;
             }
+            // 終点の木の状態の更新
+            _endObjectController.state = ETreeState.Released;
+            _endObjectController.ReflectTreeState();
         }
 
         /// <summary>
