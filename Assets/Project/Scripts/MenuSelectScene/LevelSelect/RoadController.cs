@@ -58,8 +58,9 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                 _renderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
         }
-        
-        private IEnumerator ReleaseAnimation() {
+
+        private IEnumerator ReleaseAnimation()
+        {
             for (var i = 0; i < 100; i++) {
                 _renderer.startColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
                 _renderer.endColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
