@@ -59,6 +59,10 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             }
         }
 
+        /// <summary>
+        /// 道が非解放状態から解放状態に変わった時のアニメーション(100フレームで色を変化させる)
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator ReleaseAnimation()
         {
             for (var i = 0; i < 100; i++) {
