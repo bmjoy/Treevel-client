@@ -31,7 +31,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
 
             // 道の解放条件をリセット
             LevelSelectDirector.Reset();
-            // 枝の解放条件をリセット
+            // 枝の解放条件をリセット(同一シーンに存在しないため、シーン開始時にリセットする)
             StageSelectDirector.PrepareReset();
 
             // キャンバスの設定をリセット

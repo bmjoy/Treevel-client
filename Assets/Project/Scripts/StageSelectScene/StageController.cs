@@ -55,10 +55,12 @@ namespace Project.Scripts.StageSelectScene
         {
             switch (state) {
                 case EStageState.Unreleased:
+                    // 鍵とグレースケール
                     transform.Find("Lock")?.gameObject.SetActive(true);
                     _button.enabled = false;
                     break;
                 case EStageState.Released:
+                    // グレースケール
                     transform.Find("Lock")?.gameObject.SetActive(false);
                     _button.enabled = true;
                     break;
@@ -72,6 +74,9 @@ namespace Project.Scripts.StageSelectScene
             }
         }
 
+        /// <summary>
+        /// ステージを解放状態にする
+        /// </summary>
         public void ReleaseStage()
         {
             state = EStageState.Released;
