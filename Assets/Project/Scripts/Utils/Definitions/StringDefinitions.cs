@@ -20,7 +20,7 @@
     public static class SortingLayerName
     {
         public const string TILE = "Tile";
-        public const string HOLE = "Hole";
+        public const string METEORITE = "Meteorite";
         public const string BOTTLE = "Bottle";
         public const string GIMMICK = "Gimmick";
         public const string GIMMICK_WARNING = "GimmickWarning";

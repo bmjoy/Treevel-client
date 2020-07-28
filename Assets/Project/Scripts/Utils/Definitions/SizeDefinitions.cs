@@ -47,15 +47,6 @@ namespace Project.Scripts.Utils.Definitions
     }
 
     /// <summary>
-    /// Hole タイプの銃弾の大きさ
-    /// </summary>
-    public static class HoleSize
-    {
-        public const float WIDTH = WindowSize.WIDTH * 0.15f;
-        public const float HEIGHT = WIDTH;
-    }
-
-    /// <summary>
     /// Cartridge タイプの銃弾警告の大きさ
     /// </summary>
     public static class CartridgeWarningSize

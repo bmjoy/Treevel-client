@@ -24,7 +24,7 @@ TagManager:
   - 
   - SpriteGlow
   - 
-  - Hole
+  - Meteorite
   - Bottle
   - Tile
   - Background
@@ -59,7 +59,7 @@ TagManager:
   - name: Tile
     uniqueID: 1928078809
     locked: 0
-  - name: Hole
+  - name: Meteorite
     uniqueID: 2090039911
     locked: 0
   - name: Bottle
