@@ -135,7 +135,7 @@ namespace Project.Scripts.StageSelectScene
         {
             // _stages.ForEach(stage => stage.SaveState());
             _branches.ForEach(branch => branch.SaveState());
-            _trees.ForEach(tree => tree.SaveState());
+            // _trees.ForEach(tree => tree.SaveState());
         }
 
         /// <summary>

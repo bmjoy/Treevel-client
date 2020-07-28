@@ -74,6 +74,7 @@ MonoBehaviour:
   _treeImage: {fileID: 6489206248158990791}
   _material: {fileID: 2100000, guid: b68163006459944d0b6a85fe0bd5592c, type: 2}
   _mask: {fileID: 8564891402737762586}
+  _constraintTrees: 
 --- !u!1 &6826760225451514400
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &545775193602036225
 RectTransform:
   m_ObjectHideFlags: 0

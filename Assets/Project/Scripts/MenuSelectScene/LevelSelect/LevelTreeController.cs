@@ -22,6 +22,39 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         [SerializeField] private Button _button;
 
+        public override void UpdateState()
+        {
+            // 現在状態をDBから得る
+            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
+            // 状態の更新
+            switch (state) {
+                case ETreeState.Unreleased: {
+                        break;
+                    }
+                case ETreeState.Released: {
+                        // Implementorに任せる
+                        state = _clearHandler.GetTreeState();
+                        break;
+                    }
+                case ETreeState.Cleared: {
+                        // 全クリアかどうかをチェックする
+                        var stageNum = TreeInfo.NUM[treeId];
+                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
+                        state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
+                        break;
+                    }
+                case ETreeState.AllCleared: {
+                        break;
+                    }
+                default: {
+                        throw new NotImplementedException();
+                    }
+            }
+
+            // 状態の反映
+            ReflectTreeState();
+        }
+
         public void Reset()
         {
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE + treeId.ToString());
@@ -64,6 +97,14 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = treeId;
             TreeLibrary.LoadStageSelectScene(_levelName);
+        }
+
+        /// <summary>
+        /// 木の状態の保存
+        /// </summary>
+        public void SaveState()
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Convert.ToInt32(state));
         }
     }
 }

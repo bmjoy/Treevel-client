@@ -19,14 +19,14 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// クリア状態を判定するクラス
         /// </summary>
-        [SerializeField] private IClearTreeHandler _clearHandler;
+        protected IClearTreeHandler _clearHandler;
 
         /// <summary>
         /// 木のId
         /// </summary>
         [SerializeField] public ETreeId treeId;
 
-        public void Awake()
+        public virtual void Awake()
         {
             // クリア条件を実装するクラスを指定する
             _clearHandler = TreeInfo.CLEAR_HANDLER[treeId];
@@ -35,38 +35,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木の状態の更新
         /// </summary>
-        public void UpdateState()
-        {
-            // 現在状態をDBから得る
-            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
-            // 状態の更新
-            switch (state) {
-                case ETreeState.Unreleased: {
-                        break;
-                    }
-                case ETreeState.Released: {
-                        // Implementorに任せる
-                        state = _clearHandler.GetTreeState();
-                        break;
-                    }
-                case ETreeState.Cleared: {
-                        // 全クリアかどうかをチェックする
-                        var stageNum = TreeInfo.NUM[treeId];
-                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
-                        state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
-                        break;
-                    }
-                case ETreeState.AllCleared: {
-                        break;
-                    }
-                default: {
-                        throw new NotImplementedException();
-                    }
-            }
-
-            // 状態の反映
-            ReflectTreeState();
-        }
+        public abstract void UpdateState();
 
         /// <summary>
         /// 木の状態を見た目や動作に反映
@@ -107,13 +76,5 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// 全ステージクリア状態の処理
         /// </summary>
         protected abstract void ReflectAllClearedState();
-
-        /// <summary>
-        /// 木の状態の保存
-        /// </summary>
-        public void SaveState()
-        {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Convert.ToInt32(state));
-        }
     }
 }

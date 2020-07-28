@@ -2436,8 +2436,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
+      propertyPath: _constraintTrees.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
       propertyPath: treeId
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: _constraintTrees.Array.data[0]
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
@@ -3198,8 +3208,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
+      propertyPath: _constraintTrees.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
       propertyPath: treeId
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: _constraintTrees.Array.data[0]
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
