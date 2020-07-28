@@ -15,12 +15,12 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
-        private Button _endObjectButton;
+        private StageController _endObjectController;
 
         protected override void Awake()
         {
             base.Awake();
-            _endObjectButton = endObject.GetComponent<Button>();
+            _endObjectController = endObject.GetComponent<StageController>();
         }
 
         protected override void SetSaveKey()
@@ -39,21 +39,19 @@ namespace Project.Scripts.StageSelectScene
         public override void UpdateState()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.BRANCH_RELEASED) == 1;
-
             if (!released) {
                 if (constraintObjects.Length == 0) {
                     // 初期状態で解放されている道
                     released = true;
                 } else {
-                    released = constraintObjects.All(stage => stage.GetComponent<StageController>().cleared);
+                    released = constraintObjects.All(stage => stage.GetComponent<StageController>().state >= EStageState.Cleared);
+                }
+                if(released) {
+                    // 終点のステージの状態の更新
+                    _endObjectController.ReleaseStage();
+                    _endObjectController.ReflectTreeState();
                 }
             }
-
-            // 終点のステージの状態の更新
-            endObject.GetComponent<StageController>().released = released;
-            _endObjectButton.enabled = released;
-            // 鍵穴付けるか
-            endObject.transform.Find("Lock")?.gameObject.SetActive(!released);
 
             if (!released) {
                 // 非解放時

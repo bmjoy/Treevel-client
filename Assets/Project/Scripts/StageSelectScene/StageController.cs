@@ -21,38 +21,61 @@ namespace Project.Scripts.StageSelectScene
         [SerializeField] public int stageNumber;
 
         /// <summary>
-        /// 解放状態
+        /// ステージ情報
         /// </summary>
-        [SerializeField] public bool released;
+        public StageStatus stageStatus;
 
         /// <summary>
-        /// クリア状態
+        /// ステージの状態
         /// </summary>
-        [NonSerialized] public bool cleared = false;
+        public EStageState state;
+
+        /// <summary>
+        /// ボタン
+        /// </summary>
+        [SerializeField] private Button _button;
 
         /// <summary>
         /// ステージの状態の更新
         /// </summary>
-        public void UpdateReleased()
+        public void UpdateState()
         {
             var stageData = GameDataBase.GetStage(_treeId, stageNumber);
             if (stageData == null)
                 return;
 
-            var stageStatus = StageStatus.Get(_treeId, stageNumber);
-            if (stageNumber != 1)
-                released = stageStatus.released;
+            stageStatus = StageStatus.Get(_treeId, stageNumber);
+            state = stageStatus.state;
+            
+            // 状態の反映
+            ReflectTreeState();
+        }
 
-            cleared = stageStatus.cleared;
-
-            // 鍵穴付けるか
-            transform.Find("Lock")?.gameObject.SetActive(!released);
-
-            // クリアしたらグレイスケールを解除
-            if (cleared) {
-                GetComponent<Image>().material = null;
+        public void ReflectTreeState()
+        {
+            switch (state) {
+                case EStageState.Unreleased:
+                    transform.Find("Lock")?.gameObject.SetActive(true);
+                    _button.enabled = false;
+                    break;
+                case EStageState.Released:
+                    transform.Find("Lock")?.gameObject.SetActive(false);
+                    _button.enabled = true;
+                    break;
+                case EStageState.Cleared:
+                    transform.Find("Lock")?.gameObject.SetActive(false);
+                    GetComponent<Image>().material = null;
+                    _button.enabled = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
         }
+
+        public void ReleaseStage() {
+            state = EStageState.Released;
+            stageStatus.ReleaseStage(_treeId, stageNumber);
+        }        
 
         /// <summary>
         /// ステージの状態の保存

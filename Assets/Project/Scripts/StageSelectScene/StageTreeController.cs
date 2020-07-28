@@ -70,7 +70,7 @@ namespace Project.Scripts.StageSelectScene
                 case ETreeState.Cleared: {
                         // 全クリアかどうかをチェックする
                         var stageNum = TreeInfo.NUM[treeId];
-                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
+                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
                         state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                         break;
                     }

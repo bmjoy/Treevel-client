@@ -74,11 +74,17 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _rightButton;
 
+        /// <summary>
+        /// シーン起動時にリセットするかどうか
+        /// </summary>
+        public static bool resetFlag = true;
+
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
             _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+            if(resetFlag) Reset();
 
             _leftButton = GameObject.Find("LeftButton");
             _rightButton = GameObject.Find("RightButton");
@@ -123,7 +129,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private void OnEnable()
         {
-            _stages.ForEach(stage => stage.UpdateReleased());
+            _stages.ForEach(stage => stage.UpdateState());
             _branches.ForEach(branch => branch.UpdateState());
             _trees.ForEach(tree => tree.UpdateState());
         }
@@ -133,10 +139,25 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private void OnDisable()
         {
-            // _stages.ForEach(stage => stage.SaveState());
             _branches.ForEach(branch => branch.SaveState());
-            // _trees.ForEach(tree => tree.SaveState());
         }
+
+        /// <summary>
+        /// リセットフラグを立てる
+        /// </summary>
+        public static void PrepareReset()
+        {
+            resetFlag = true;
+        }        
+
+        /// <summary>
+        /// 枝の状態のリセット
+        /// </summary>
+        private void Reset()
+        {
+            _branches.ForEach(branch => branch.Reset());
+            resetFlag = false;
+        }        
 
         /// <summary>
         /// ページ移動

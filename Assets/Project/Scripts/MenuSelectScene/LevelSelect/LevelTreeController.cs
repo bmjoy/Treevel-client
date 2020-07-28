@@ -28,27 +28,22 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
             // 状態の更新
             switch (state) {
-                case ETreeState.Unreleased: {
+                case ETreeState.Unreleased:
                         break;
-                    }
-                case ETreeState.Released: {
+                case ETreeState.Released:
                         // Implementorに任せる
                         state = _clearHandler.GetTreeState();
                         break;
-                    }
-                case ETreeState.Cleared: {
+                case ETreeState.Cleared:
                         // 全クリアかどうかをチェックする
                         var stageNum = TreeInfo.NUM[treeId];
-                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).cleared);
+                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
                         state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                         break;
-                    }
-                case ETreeState.AllCleared: {
+                case ETreeState.AllCleared:
                         break;
-                    }
-                default: {
+                default:
                         throw new NotImplementedException();
-                    }
             }
 
             // 状態の反映
