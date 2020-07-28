@@ -40,13 +40,15 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                 if (constraintObjects.Length == 0) {
                     // 初期状態で解放されている道
                     released = true;
+                    // 終点の木の状態の更新
+                    _endObjectController.state = ETreeState.Released;
+                    _endObjectController.ReflectTreeState();
                 } else {
                     released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
-                }
-
-                if (released) {
-                    // 道が非解放状態から解放状態に変わった時
-                    StartCoroutine(ReleaseEndObject());
+                    if (released) {
+                        // 道が非解放状態から解放状態に変わった時
+                        StartCoroutine(ReleaseEndObject());
+                    }
                 }
             }
 
