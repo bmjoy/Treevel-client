@@ -209,27 +209,9 @@ namespace Project.Scripts.Utils
                 }
             });
 
-            stage.BulletGroups.ForEach(bulletGroup => {
-                bulletGroup.bullets.ForEach(bullet => {
-                    switch (bullet.type) {
-                        case EBulletType.NormalHole:
-                        case EBulletType.RandomNormalHole:
-                            LoadAsset<GameObject>(Address.NORMAL_HOLE_GENERATOR_PREFAB);
-                            break;
-                        case EBulletType.AimingHole:
-                        case EBulletType.RandomAimingHole:
-                            LoadAsset<GameObject>(Address.AIMING_HOLE_GENERATOR_PREFAB);
-                            break;
-                        default:
-                            throw new System.NotImplementedException();
-                    }
-                });
-            });
-
             stage.GimmickDatas.ForEach(gimmick => {
                 switch (gimmick.type) {
                     case EGimmickType.Tornado:
-                    case EGimmickType.RandomTornado:
                         LoadAsset<GameObject>(Address.TORNADO_PREFAB);
                         LoadAsset<Sprite>(Address.TORNADO_WARNING_SPRITE);
                         LoadAsset<Sprite>(Address.TURN_WARNING_LEFT_SPRITE);
@@ -237,6 +219,14 @@ namespace Project.Scripts.Utils
                         LoadAsset<Sprite>(Address.TURN_WARNING_UP_SPRITE);
                         LoadAsset<Sprite>(Address.TURN_WARNING_BOTTOM_SPRITE);
                         break;
+                    case EGimmickType.Meteorite:
+                        LoadAsset<GameObject>(Address.METEORITE_PREFAB);
+                        break;
+                    case EGimmickType.AimingMeteorite:
+                        LoadAsset<GameObject>(Address.AIMING_METEORITE_PREFAB);
+                        break;
+                    default:
+                        throw new System.ArgumentOutOfRangeException();
                 }
             });
         }

@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4363906504938260}
-  - component: {fileID: 3179508892951581984}
   - component: {fileID: 4002950461031127232}
-  - component: {fileID: -2053460268268751404}
   - component: {fileID: 4933567334964378376}
   - component: {fileID: 2586220007133709870}
+  - component: {fileID: 2192560534519944966}
+  - component: {fileID: 1415040735867762399}
   m_Layer: 9
-  m_Name: TornadoPrefab
+  m_Name: MeteoritePrefab
   m_TagString: Gimmick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,27 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &3179508892951581984
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336118223516990}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!212 &4002950461031127232
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -92,10 +71,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1957745791
-  m_SortingLayer: 6
+  m_SortingLayerID: 2090039911
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 66e1ee24968914d3ebacbe3ee90ee87c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 458ef5cf2e4734f3f95c9b541d325098, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,23 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-2053460268268751404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336118223516990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad5222e22138429188c700b967b9c57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _warningDisplayTime: 1
-  _speed: 3
-  _warningPrefab:
-    m_AssetGUID: 187750991088a47b09988c392fc0009e
-    m_SubObjectName: 
 --- !u!114 &4933567334964378376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +116,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.5}
+    oldSize: {x: 1.84, y: 1.72}
     newSize: {x: 1.5, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -163,3 +125,42 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &2192560534519944966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336118223516990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f72cb1fefff43e1936942d0605c16e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _warningDisplayTime: 1
+  _warningPrefab:
+    m_AssetGUID: 0ed45840e88a448cfa0eb64fd45d7ad6
+    m_SubObjectName: 
+  _speed: 0.05
+  _meteoriteDisplayTime: 1.5
+--- !u!50 &1415040735867762399
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336118223516990}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

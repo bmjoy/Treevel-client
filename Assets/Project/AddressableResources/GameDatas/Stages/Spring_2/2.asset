@@ -116,7 +116,6 @@ MonoBehaviour:
       m_AssetGUID: 
       m_SubObjectName: 
     life: 0
-  bulletGroups: []
   gimmicks:
   - loop: 1
     appearTime: 1
@@ -134,6 +133,7 @@ MonoBehaviour:
     randomCartridgeDirection: 
     randomLine: 
     randomAttackableBottles: 
+    isRandom: 0
   overviewGimmicks: 
   tutorial:
     type: 0

@@ -25,7 +25,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// 出現する銃弾
         /// </summary>
-        private GameObject _appearingBullets;
+        private GameObject _appearingGimmicks;
 
         /// <summary>
         /// ゲームを開始するボタン
@@ -41,7 +41,7 @@ namespace Project.Scripts.StageSelectScene
             _stageNumberText = transform.Find("PanelBackground/StageId").GetComponent<Text>();
             _stageDifficultyText = transform.Find("PanelBackground/StageDifficulty").GetComponent<Text>();
             _clearPercentageText = transform.Find("PanelBackground/ClearPercentage").GetComponent<Text>();
-            _appearingBullets = transform.Find("PanelBackground/AppearingBullets").gameObject;
+            _appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
             goToGame = transform.Find("PanelBackground/GoToGame").gameObject;
 
             // ゲームを開始するボタン
@@ -74,14 +74,14 @@ namespace Project.Scripts.StageSelectScene
             // TODO:サーバで全ユーザのデータを持ったら実装
             // _clearPercentage.GetComponent<Text>().text = ...
 
-            var overviewBullets = stageData.OverviewGimmicks;
+            var overviewGimmicks = stageData.OverviewGimmicks;
             for (int i = 1 ; i <= 3 ; ++i) {
-                var bulletOverviewBottle = _appearingBullets.transform.Find($"GimmickOverview{i}");
-                if (overviewBullets.Count >= i) {
-                    bulletOverviewBottle.GetComponentInChildren<Text>().text = overviewBullets[i - 1].ToString();
-                    bulletOverviewBottle.gameObject.SetActive(true);
+                var gimmickOverviewBottle = _appearingGimmicks.transform.Find($"GimmickOverview{i}");
+                if (overviewGimmicks.Count >= i) {
+                    gimmickOverviewBottle.GetComponentInChildren<Text>().text = overviewGimmicks[i - 1].ToString();
+                    gimmickOverviewBottle.gameObject.SetActive(true);
                 } else {
-                    bulletOverviewBottle.gameObject.SetActive(false);
+                    gimmickOverviewBottle.gameObject.SetActive(false);
                 }
             }
         }

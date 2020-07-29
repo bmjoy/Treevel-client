@@ -41,13 +41,25 @@ namespace Project.Scripts.UIComponents
             }
         }
 
+        private void OnEnable()
+        {
+            // エラーになったらゲーム停止
+            Time.timeScale = 0.0f;
+        }
+
+        private void OnDisable()
+        {
+            // タイムスケールを元に戻す
+            Time.timeScale = 1.0f;
+        }
+
         /// <summary>
         /// タイトル画面に戻るボタンがクリックされたときの挙動
         /// </summary>
         public void OnReturnToTitleButtonClicked()
         {
-            // TODO: スプラッシュ画面に変える
-            AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE);
+            // スプラッシュ画面に変える
+            AddressableAssetManager.LoadScene(SceneName.START_UP_SCENE);
 
             // 実体を破壊し、アセットのメモリ領域も同時に解放されるはず
             Addressables.Release(gameObject);

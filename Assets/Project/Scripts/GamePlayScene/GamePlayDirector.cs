@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.MenuSelectScene.Settings;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.Patterns.StateMachine;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using Project.Scripts.Utils.Library;
-using Project.Scripts.GamePlayScene.Bullet.Generators;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
 using Project.Scripts.GameDatas;
 using UnityEngine.Video;
 using Project.Scripts.Utils.Attributes;
+using Project.Scripts.GamePlayScene.Gimmick;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -235,10 +234,10 @@ namespace Project.Scripts.GamePlayScene
                 DestroyImmediate(bottle.gameObject);
             }
 
-            var bullets = GameObject.FindGameObjectsWithTag(TagName.GIMMICK);
-            foreach (var bullet in bullets) {
+            var gimmicks = GameObject.FindGameObjectsWithTag(TagName.GIMMICK);
+            foreach (var gimmick in gimmicks) {
                 // 銃弾の削除
-                DestroyImmediate(bullet);
+                DestroyImmediate(gimmick);
             }
         }
 
@@ -335,8 +334,8 @@ namespace Project.Scripts.GamePlayScene
                 // 時間の計測
                 _customTimer.StartTimer();
 
-                // 銃弾の生成
-                BulletGroupGenerator.Instance.FireBulletGroups();
+                // ギミックの生成
+                GimmickGenerator.Instance.FireGimmick();
             }
 
             /// <summary>

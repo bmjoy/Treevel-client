@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 3585425057051138704}
   - component: {fileID: 3585425057051138707}
   m_Layer: 5
-  m_Name: AppearingBullets
+  m_Name: AppearingGimmicks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
+using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using UnityEngine;
@@ -93,6 +94,23 @@ namespace Project.Scripts.GamePlayScene
             var(x, y) = xy.Value;
 
             return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
+        }
+
+        /// <summary>
+        /// ボトルIDからボトルの現在位置を取得
+        /// </summary>
+        /// <param name="bottleId"></param>
+        public Vector2 GetBottlePosById(int bottleId)
+        {
+            foreach (var item in _squares) {
+                if (item.bottle != null && item.bottle.Id == bottleId) {
+                    return item.worldPosition;
+                }
+            }
+
+            Debug.LogError($"Cannot find bottle of ID[{bottleId}]");
+            UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleID);
+            return Vector2.zero;
         }
 
         /// <summary>

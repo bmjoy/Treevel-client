@@ -8,5 +8,6 @@
     public enum EErrorCode {
         UnknownError,
         LoadSceneError,     // シーンのロードに失敗
+        InvalidBottleID,    // ボトルIDが不正
     }
 }

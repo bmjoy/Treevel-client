@@ -1,5 +1,4 @@
 ﻿using System;
-using Project.Scripts.GamePlayScene.Bullet.Generators;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils.Definitions;
@@ -31,7 +30,6 @@ namespace Project.Scripts.GamePlayScene
             CreatedFinished = false;
 
             var tileGenerator = TileGenerator.Instance;
-            var bulletGroupGenerator = BulletGroupGenerator.Instance;
 
             // ステージデータ読み込む
             var stageData = GameDataBase.GetStage(treeId, stageNumber);
@@ -42,11 +40,8 @@ namespace Project.Scripts.GamePlayScene
                 // ボトル生成
                 BottleGenerator.CreateBottles(stageData.BottleDatas);
 
+                // ギミック生成
                 GimmickGenerator.Instance.Initialize(stageData.GimmickDatas);
-                GimmickGenerator.Instance.FireGimmick();
-
-                // 銃弾の初期化
-                bulletGroupGenerator.CreateBulletGroups(stageData.BulletGroups);
             } else {
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageNumber.ToString() + ".");

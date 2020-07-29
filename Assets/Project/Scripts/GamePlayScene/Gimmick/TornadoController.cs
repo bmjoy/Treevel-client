@@ -40,17 +40,17 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 曲がる方向の重み
         /// </summary>
-        private int[] _randomDirections = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ETornadoDirection)).Length - 1);
+        private int[] _randomDirections = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(ETornadoDirection)).Length - 1);
 
         /// <summary>
         /// 曲がる行の重み
         /// </summary>
-        private int[] _randomRow = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
+        private int[] _randomRow = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
 
         /// <summary>
         /// 曲がる列の重み
         /// </summary>
-        private int[] _randomColumn = BulletLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
+        private int[] _randomColumn = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
 
         /// <summary>
         /// 警告表示座標のリスト
@@ -158,7 +158,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 var line = _targetLines[i];
                 if (direction == ETornadoDirection.Random) {
                     if (i == 0) { // 最初の方向は制限ないのでそのまま乱数生成
-                        direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), BulletLibrary.SamplingArrayIndex(_randomDirections) + 1);
+                        direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), GimmickLibrary.SamplingArrayIndex(_randomDirections) + 1);
                     } else { // それ以降は前回の結果に依存する
                         var previousLine = _targetLines[i - 1];
                         var previousDirection = _targetDirections[i - 1];
@@ -171,7 +171,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 左右を除いた乱数配列
                                 tempRandomDirections[(int)ETornadoDirection.ToLeft - 1] = tempRandomDirections[(int)ETornadoDirection.ToRight - 1] = 0;
-                                direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), BulletLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
                         } else if (IsVertical(previousDirection)) { // 上下を移動している場合
                             if (previousLine == (int)EColumn.Left) { // 最左列
@@ -181,7 +181,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 上下を除いた乱数配列
                                 tempRandomDirections[(int)ETornadoDirection.ToUp - 1] = tempRandomDirections[(int)ETornadoDirection.ToBottom - 1] = 0;
-                                direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), BulletLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                direction = (ETornadoDirection)Enum.ToObject(typeof(ETornadoDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
                         }
                     }
@@ -189,9 +189,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
                 if (line == -1) {
                     if ((i != 0 && IsHorizontal(direction)) || (i == 0 && IsVertical(direction))) {
-                        line = BulletLibrary.SamplingArrayIndex(_randomColumn) + 1;
+                        line = GimmickLibrary.SamplingArrayIndex(_randomColumn) + 1;
                     } else if ((i != 0 && IsVertical(direction)) || (i == 0 && IsHorizontal(direction))) {
-                        line = BulletLibrary.SamplingArrayIndex(_randomRow) + 1;
+                        line = GimmickLibrary.SamplingArrayIndex(_randomRow) + 1;
                     }
                 }
 
@@ -216,7 +216,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <returns></returns>
         private IEnumerator ShowWarning(Vector2 warningPos, ETornadoDirection? direction, float displayTime)
         {
-            // 一個前の警告まで消えていない
+            // 一個前の警告まだ消えていない
             if (_warningObj != null) {
                 _warningPrefab.ReleaseInstance(_warningObj);
             }
@@ -253,7 +253,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             // 画像の切り替えでチラつくので切り替えの後に表示する
             _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
-            var startTime = Time.time;
             // 警告終わるまで待つ
             while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
