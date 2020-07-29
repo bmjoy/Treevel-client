@@ -2,6 +2,7 @@
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,10 @@ namespace Project.Scripts.StageSelectScene
 
         private StageController _endObjectController;
 
+        public const string BRANCH_STATE_KEY = "BranchStateKey";
+
+        public static Dictionary<string, bool> branchStates;
+
         protected override void Awake()
         {
             base.Awake();
@@ -28,9 +33,9 @@ namespace Project.Scripts.StageSelectScene
             saveKey = $"{_treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
-        public override void Reset()
+        public static void Reset()
         {
-            PlayerPrefs.DeleteKey(saveKey);
+            PlayerPrefs.DeleteKey(BRANCH_STATE_KEY);
         }
 
         /// <summary>
@@ -38,7 +43,11 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public override void UpdateState()
         {
-            released = PlayerPrefs.GetInt(saveKey, Default.BRANCH_RELEASED) == 1;
+            if (branchStates.ContainsKey(saveKey))
+                released = branchStates[saveKey];
+            else
+                released = false;
+            
             if (!released) {
                 if (constraintObjects.Length == 0) {
                     // 初期状態で解放されている道
@@ -65,7 +74,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public override void SaveState()
         {
-            PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
+            branchStates[saveKey] = released;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             saveKey = $"{startObject.GetComponent<LevelTreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
         }
 
-        public override void Reset()
+        public void Reset()
         {
             PlayerPrefs.DeleteKey(saveKey);
         }

@@ -74,17 +74,12 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private GameObject _rightButton;
 
-        /// <summary>
-        /// シーン起動時にリセットするかどうか
-        /// </summary>
-        public static bool resetFlag = true;
-
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
             _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
+            BranchController.branchStates = MyPlayerPrefs.GetDictionary<string, bool>(BranchController.BRANCH_STATE_KEY);
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
-            if (resetFlag) Reset();
 
             _leftButton = GameObject.Find("LeftButton");
             _rightButton = GameObject.Find("RightButton");
@@ -140,23 +135,7 @@ namespace Project.Scripts.StageSelectScene
         private void OnDisable()
         {
             _branches.ForEach(branch => branch.SaveState());
-        }
-
-        /// <summary>
-        /// リセットフラグを立てる
-        /// </summary>
-        public static void PrepareReset()
-        {
-            resetFlag = true;
-        }
-
-        /// <summary>
-        /// 枝の状態のリセット
-        /// </summary>
-        private void Reset()
-        {
-            _branches.ForEach(branch => branch.Reset());
-            resetFlag = false;
+            MyPlayerPrefs.SetDictionary(BranchController.BRANCH_STATE_KEY, BranchController.branchStates);
         }
 
         /// <summary>

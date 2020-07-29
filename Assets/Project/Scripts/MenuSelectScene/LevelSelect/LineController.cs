@@ -69,8 +69,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         protected abstract void SetSaveKey();
 
-        public abstract void Reset();
-
         public abstract void UpdateState();
 
         public abstract void SaveState();

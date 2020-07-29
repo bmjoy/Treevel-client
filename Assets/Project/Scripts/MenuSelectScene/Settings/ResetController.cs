@@ -32,7 +32,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
             // 道の解放条件をリセット
             LevelSelectDirector.Reset();
             // 枝の解放条件をリセット(同一シーンに存在しないため、シーン開始時にリセットする)
-            StageSelectDirector.PrepareReset();
+            BranchController.Reset();
 
             // キャンバスの設定をリセット
             UserSettings.LevelSelectCanvasScale = Default.LEVEL_SELECT_CANVAS_SCALE;
