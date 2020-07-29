@@ -47,7 +47,7 @@ namespace Project.Scripts.StageSelectScene
                 released = branchStates[saveKey];
             else
                 released = false;
-            
+
             if (!released) {
                 if (constraintObjects.Length == 0) {
                     // 初期状態で解放されている道

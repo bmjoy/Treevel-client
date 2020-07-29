@@ -32,9 +32,9 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public  static void SetDictionary<Key, Value>(string key, Dictionary<Key, Value> dictionary)
         {
             string serizlizedDict = Serialize<Dictionary<Key, Value>> (dictionary);
-            PlayerPrefs.SetString (key, serizlizedDict);
+            PlayerPrefs.SetString(key, serizlizedDict);
         }
-        
+
 
         /// <summary>
         /// 指定されたオブジェクト情報を読み込む
@@ -57,8 +57,9 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <typeparam name="Key"> 辞書型オブジェクトのキーの型</typeparam>
         /// <typeparam name="Value"> 辞書型オブジェクトの値の型 </typeparam>
         /// <returns></returns>
-        public static Dictionary<Key, Value> GetDictionary<Key, Value> (string key){
-            if (PlayerPrefs.HasKey (key)) {
+        public static Dictionary<Key, Value> GetDictionary<Key, Value> (string key)
+        {
+            if (PlayerPrefs.HasKey(key)) {
                 string serizlizedDictionary = PlayerPrefs.GetString(key);
                 return Deserialize<Dictionary<Key, Value>> (serizlizedDictionary);
             }
@@ -72,11 +73,12 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="obj"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private static string Serialize<T> (T obj){
-            BinaryFormatter binaryFormatter = new BinaryFormatter ();
-            MemoryStream    memoryStream    = new MemoryStream ();
-            binaryFormatter.Serialize (memoryStream , obj);
-            return Convert.ToBase64String (memoryStream   .GetBuffer ());
+        private static string Serialize<T> (T obj)
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            MemoryStream    memoryStream    = new MemoryStream();
+            binaryFormatter.Serialize(memoryStream, obj);
+            return Convert.ToBase64String(memoryStream   .GetBuffer());
         }
 
         /// <summary>
@@ -85,10 +87,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="str"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private static T Deserialize<T> (string str){
-            BinaryFormatter binaryFormatter = new BinaryFormatter ();
-            MemoryStream    memoryStream    = new MemoryStream (Convert.FromBase64String (str));
-            return (T)binaryFormatter.Deserialize (memoryStream);
+        private static T Deserialize<T> (string str)
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            MemoryStream    memoryStream    = new MemoryStream(Convert.FromBase64String(str));
+            return (T)binaryFormatter.Deserialize(memoryStream);
         }
     }
 }
