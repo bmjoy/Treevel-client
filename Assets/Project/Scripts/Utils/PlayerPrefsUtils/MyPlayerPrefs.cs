@@ -75,10 +75,10 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <returns></returns>
         private static string Serialize<T> (T obj)
         {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            MemoryStream    memoryStream    = new MemoryStream();
+            var binaryFormatter = new BinaryFormatter();
+            var memoryStream = new MemoryStream();
             binaryFormatter.Serialize(memoryStream, obj);
-            return Convert.ToBase64String(memoryStream   .GetBuffer());
+            return Convert.ToBase64String(memoryStream.GetBuffer());
         }
 
         /// <summary>
@@ -89,8 +89,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <returns></returns>
         private static T Deserialize<T> (string str)
         {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            MemoryStream    memoryStream    = new MemoryStream(Convert.FromBase64String(str));
+            var binaryFormatter = new BinaryFormatter();
+            var memoryStream = new MemoryStream(Convert.FromBase64String(str));
             return (T)binaryFormatter.Deserialize(memoryStream);
         }
     }
