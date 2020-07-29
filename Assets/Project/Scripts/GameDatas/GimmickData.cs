@@ -42,13 +42,38 @@ namespace Project.Scripts.GameDatas
         public List<int> randomDirection;
 
         /// <summary>
-        /// ＜竜巻＞ランダム攻撃行重みリスト
+        /// ＜竜巻｜隕石＞ランダム攻撃行重みリスト
         /// </summary>
         public List<int> randomRow;
 
         /// <summary>
-        /// ＜竜巻＞ランダム攻撃列重みリスト
+        /// ＜竜巻｜隕石＞ランダム攻撃列重みリスト
         /// </summary>
         public List<int> randomColumn;
+
+        /// <summary>
+        /// ＜隕石＞目標行
+        /// </summary>
+        public ERow targetRow;
+
+        /// <summary>
+        /// ＜隕石＞目標列
+        /// </summary>
+        public EColumn targetColumn;
+
+        /// <summary>
+        /// ＜隕石＞追従するボトル
+        /// </summary>
+        public int targetBottle;
+
+        /// <summary>
+        /// ＜隕石＞ランダムに追従するボトルの重み行列
+        /// </summary>
+        public List<int> randomAttackableBottles;
+
+        /// <summary>
+        /// ＜竜巻｜隕石＞ランダム変数使用するか
+        /// </summary>
+        public bool isRandom;
     }
 }

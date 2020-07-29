@@ -17,24 +17,32 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 36fdf415407fc4d90bf691d9413d4847
   m_SerializeEntries:
+  - m_GUID: 0ed45840e88a448cfa0eb64fd45d7ad6
+    m_Address: MeteoriteWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 187750991088a47b09988c392fc0009e
     m_Address: TornadoWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2c3511c8a711d4f648ec477b2fe01aca
     m_Address: TornadoPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2e3f7758a15714f3795287619f50fc82
     m_Address: SummerStageSelectScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 358175ea13e4e4b71ad0826173ab32a8
+    m_Address: AimingMeteoriteWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -63,8 +71,20 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 864edba41a19b4040afa5d86f0b9857f
+    m_Address: MeteoritePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 891ff3f27a82b4ee1bdc3c86e8605fb6
     m_Address: ErrorMessageBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8be1f6b14d385471d9f6832b2b4d3e8b
+    m_Address: AimingMeteoritePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

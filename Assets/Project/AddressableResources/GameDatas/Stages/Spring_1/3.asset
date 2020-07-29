@@ -109,7 +109,6 @@ MonoBehaviour:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
     life: 3
-  bulletGroups: []
   gimmicks:
   - loop: 1
     appearTime: 1
@@ -127,6 +126,7 @@ MonoBehaviour:
     randomCartridgeDirection: 
     randomLine: 
     randomAttackableBottles: 
+    isRandom: 0
   overviewGimmicks: 01000000
   tutorial:
     type: 0
