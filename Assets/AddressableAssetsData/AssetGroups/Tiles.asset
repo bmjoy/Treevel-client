@@ -22,8 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 10615e735d661461a88777d89755bf0e
@@ -31,8 +29,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 31793e365380e4285b274b30c991eef5
@@ -40,28 +36,22 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 5612440846642675437, guid: 31793e365380e4285b274b30c991eef5,
+      type: 3}
+    m_TargetAsset: {fileID: 5612440846642675437, guid: 31793e365380e4285b274b30c991eef5,
+      type: 3}
   - m_GUID: 57e95fd6c6d8e4876858772d8b00c4cf
     m_Address: IceTilePrefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 5845266341071709951, guid: 57e95fd6c6d8e4876858772d8b00c4cf,
-      type: 3}
-    m_TargetAsset: {fileID: 5845266341071709951, guid: 57e95fd6c6d8e4876858772d8b00c4cf,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 5fd9bc0429bee4c5ab59b54f11aa4508
     m_Address: HolyTilePrefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 621ad890756e54e6d93e52c8911cfcc3
@@ -69,8 +59,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
@@ -78,8 +66,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 7049c28bb2d914c02abfad034c3d08ca
@@ -87,8 +73,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 75c32df0ab0684c329e34ac831a5c9b3
@@ -96,8 +80,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 8bd35c0dfc09c48479577e2b43dcac03
@@ -105,8 +87,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: b8f7dbec862e143b98cf342ad4b46952
@@ -114,8 +94,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: c9a3fc44eeb594f8dacee529949d6a51
@@ -123,8 +101,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: f3cb79b18e6fa4e548c931f68d35a3e8
@@ -132,8 +108,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: ffe46475264d046fc9f9d1a8e8546ccf
@@ -141,8 +115,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_mainAssetType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0

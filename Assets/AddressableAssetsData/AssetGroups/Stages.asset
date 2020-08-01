@@ -22,8 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 037fdc96989f249339fc86425cee7575
@@ -31,17 +29,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 037fdc96989f249339fc86425cee7575, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 037fdc96989f249339fc86425cee7575, type: 2}
   - m_GUID: 0d4ae34c0c5f94dd18575192c4afb966
     m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_2/5.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2f545b4136ab948c4afda14881b0af7a
@@ -49,8 +43,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 3579b68e982814daaa1098677b713ef9
@@ -58,8 +50,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 40c99fbdab68644d1a2d673f6b8b6ff3
@@ -67,8 +57,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 41508d46f250849c5b82ab30f2e925b9
@@ -76,8 +64,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 4e0e93b0cd7a24564a088dea7f86125e
@@ -85,8 +71,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 80f965afa4a944ee99d79343061962bc
@@ -94,8 +78,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 83d546bb709d74d2884c0489f2b21fb3
@@ -103,8 +85,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: b6d22d1ea2625477291111bc178a1657
@@ -112,8 +92,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: e7adfa3f7376c4acba0e84d33dbff57c
@@ -121,8 +99,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: e9e66da04ddfa4b8ab048dbb6ec0a7f9
@@ -130,8 +106,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: ea87323e3cc994fe49fa3a80582a3696
@@ -139,8 +113,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: f1f274f7d95914fb3837ed486594f6dd
@@ -148,8 +120,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_mainAssetType: Project.Scripts.GameDatas.StageData, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
