@@ -52,8 +52,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
             if (!released) {
                 // 非解放時
-                _renderer.startColor = new Color(0.2f, 0.2f, 0.7f);
-                _renderer.endColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
         }
 
@@ -64,8 +64,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         private IEnumerator ReleaseEndObject()
         {
             for (var i = 0; i < 100; i++) {
-                _renderer.startColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
-                _renderer.endColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
+                lineRenderer.startColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
+                lineRenderer.endColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
                 yield return null;
             }
             // 終点の木の状態の更新

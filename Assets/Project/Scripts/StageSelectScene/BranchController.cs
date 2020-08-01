@@ -60,8 +60,8 @@ namespace Project.Scripts.StageSelectScene
 
             if (!released) {
                 // 非解放時
-                _renderer.startColor = new Color(0.2f, 0.2f, 0.7f);
-                _renderer.endColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
         }
 
