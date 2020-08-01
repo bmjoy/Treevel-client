@@ -21,146 +21,172 @@ MonoBehaviour:
     m_Address: MeteoriteWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1368177469308104, guid: 0ed45840e88a448cfa0eb64fd45d7ad6,
+      type: 3}
+    m_TargetAsset: {fileID: 1368177469308104, guid: 0ed45840e88a448cfa0eb64fd45d7ad6,
+      type: 3}
   - m_GUID: 187750991088a47b09988c392fc0009e
     m_Address: TornadoWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1368177469308104, guid: 187750991088a47b09988c392fc0009e,
+      type: 3}
+    m_TargetAsset: {fileID: 1368177469308104, guid: 187750991088a47b09988c392fc0009e,
+      type: 3}
   - m_GUID: 2c3511c8a711d4f648ec477b2fe01aca
     m_Address: TornadoPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1336118223516990, guid: 2c3511c8a711d4f648ec477b2fe01aca,
+      type: 3}
+    m_TargetAsset: {fileID: 1336118223516990, guid: 2c3511c8a711d4f648ec477b2fe01aca,
+      type: 3}
   - m_GUID: 2e3f7758a15714f3795287619f50fc82
     m_Address: SummerStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 102900000, guid: 2e3f7758a15714f3795287619f50fc82, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 2e3f7758a15714f3795287619f50fc82, type: 3}
   - m_GUID: 358175ea13e4e4b71ad0826173ab32a8
     m_Address: AimingMeteoriteWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1368177469308104, guid: 358175ea13e4e4b71ad0826173ab32a8,
+      type: 3}
+    m_TargetAsset: {fileID: 1368177469308104, guid: 358175ea13e4e4b71ad0826173ab32a8,
+      type: 3}
   - m_GUID: 47c09d9777db0433eab6b66eac0abee4
     m_Address: MenuSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 102900000, guid: 47c09d9777db0433eab6b66eac0abee4, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 47c09d9777db0433eab6b66eac0abee4, type: 3}
   - m_GUID: 6cb6fca6a4b44457bb8a9762f4238b0b
     m_Address: AutomnStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 102900000, guid: 6cb6fca6a4b44457bb8a9762f4238b0b, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 6cb6fca6a4b44457bb8a9762f4238b0b, type: 3}
   - m_GUID: 74ed1e4c608194da3ae4de7b8cab8e1f
     m_Address: NormalBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1667971508019858, guid: 74ed1e4c608194da3ae4de7b8cab8e1f,
+      type: 3}
+    m_TargetAsset: {fileID: 1667971508019858, guid: 74ed1e4c608194da3ae4de7b8cab8e1f,
+      type: 3}
   - m_GUID: 79c31b5cff9214d36b391b9bd737af98
     m_Address: LifeBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1556909149041080, guid: 79c31b5cff9214d36b391b9bd737af98,
+      type: 3}
+    m_TargetAsset: {fileID: 1556909149041080, guid: 79c31b5cff9214d36b391b9bd737af98,
+      type: 3}
   - m_GUID: 864edba41a19b4040afa5d86f0b9857f
     m_Address: MeteoritePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1336118223516990, guid: 864edba41a19b4040afa5d86f0b9857f,
+      type: 3}
+    m_TargetAsset: {fileID: 1336118223516990, guid: 864edba41a19b4040afa5d86f0b9857f,
+      type: 3}
   - m_GUID: 891ff3f27a82b4ee1bdc3c86e8605fb6
     m_Address: ErrorMessageBox
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
+      type: 3}
+    m_TargetAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
+      type: 3}
   - m_GUID: 8be1f6b14d385471d9f6832b2b4d3e8b
     m_Address: AimingMeteoritePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
+      type: 3}
+    m_TargetAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
+      type: 3}
   - m_GUID: 97e600818a87948bbbd2823502624fb4
     m_Address: SE_Failure
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
   - m_GUID: a14d6b98f708440f2bc2826d29e996ca
     m_Address: SE_Success
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
   - m_GUID: aa840bcf4d2f9449fa15a87b0e4adf35
     m_Address: BGM_Playing
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
   - m_GUID: b13aa5e3220714927b496a6575ab6dd6
     m_Address: AttackableDummyBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1667971508019858, guid: b13aa5e3220714927b496a6575ab6dd6,
+      type: 3}
+    m_TargetAsset: {fileID: 1667971508019858, guid: b13aa5e3220714927b496a6575ab6dd6,
+      type: 3}
   - m_GUID: bc5b2bb6f567248d99077e4108b390d0
     m_Address: Tutorials/1_2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 32900000, guid: bc5b2bb6f567248d99077e4108b390d0, type: 3}
+    m_TargetAsset: {fileID: 32900000, guid: bc5b2bb6f567248d99077e4108b390d0, type: 3}
   - m_GUID: bd321d6187a974e9e808df4b07e0b634
     m_Address: SpringStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 102900000, guid: bd321d6187a974e9e808df4b07e0b634, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: bd321d6187a974e9e808df4b07e0b634, type: 3}
   - m_GUID: c992eb222563c460d84bff90f23a0b42
     m_Address: Assets/Project/Prefabs/ProgressBar.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8871262989416576049, guid: c992eb222563c460d84bff90f23a0b42,
+      type: 3}
+    m_TargetAsset: {fileID: 8871262989416576049, guid: c992eb222563c460d84bff90f23a0b42,
+      type: 3}
   - m_GUID: cc35221e1f2c54ae8ba023299eb797d3
     m_Address: StaticDummyBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+      type: 3}
+    m_TargetAsset: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+      type: 3}
   - m_GUID: d16fddeae14184ddf8c14eba3f866b67
     m_Address: DynamicDummyBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1667971508019858, guid: d16fddeae14184ddf8c14eba3f866b67,
+      type: 3}
+    m_TargetAsset: {fileID: 1667971508019858, guid: d16fddeae14184ddf8c14eba3f866b67,
+      type: 3}
   - m_GUID: dcec7563bff464223b7c21f17f5902f5
     m_Address: GamePlayScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 102900000, guid: dcec7563bff464223b7c21f17f5902f5, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: dcec7563bff464223b7c21f17f5902f5, type: 3}
   - m_GUID: e6bd58f298b5d4f4491f43a49b5f2f22
     m_Address: Tutorials/1_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2800000, guid: e6bd58f298b5d4f4491f43a49b5f2f22, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: e6bd58f298b5d4f4491f43a49b5f2f22, type: 3}
   - m_GUID: ef461da11be2d452db392699e49179bd
     m_Address: WinterStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 102900000, guid: ef461da11be2d452db392699e49179bd, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: ef461da11be2d452db392699e49179bd, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
