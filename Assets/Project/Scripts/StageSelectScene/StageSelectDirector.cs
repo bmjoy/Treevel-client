@@ -72,7 +72,7 @@ namespace Project.Scripts.StageSelectScene
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
-            BranchController.branchStates = MyPlayerPrefs.GetDictionary<string, bool>(BranchController.BRANCH_STATE_KEY);
+            BranchController.branchStates = MyPlayerPrefs.GetDictionary<string, bool>(PlayerPrefsKeys.BRANCH_STATE);
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
             _leftButton = GameObject.Find("LeftButton");
@@ -128,7 +128,7 @@ namespace Project.Scripts.StageSelectScene
         private void OnDisable()
         {
             _branches.ForEach(branch => branch.SaveState());
-            MyPlayerPrefs.SetDictionary(BranchController.BRANCH_STATE_KEY, BranchController.branchStates);
+            MyPlayerPrefs.SetDictionary(PlayerPrefsKeys.BRANCH_STATE, BranchController.branchStates);
         }
 
         /// <summary>

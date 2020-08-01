@@ -16,8 +16,6 @@ namespace Project.Scripts.StageSelectScene
 
         private StageController _endObjectController;
 
-        public const string BRANCH_STATE_KEY = "BranchStateKey";
-
         public static Dictionary<string, bool> branchStates;
 
         protected override void Awake()
@@ -33,7 +31,7 @@ namespace Project.Scripts.StageSelectScene
 
         public static void Reset()
         {
-            PlayerPrefs.DeleteKey(BRANCH_STATE_KEY);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.BRANCH_STATE);
         }
 
         /// <summary>

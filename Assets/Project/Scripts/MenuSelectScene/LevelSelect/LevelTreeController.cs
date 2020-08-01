@@ -24,7 +24,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         public override void UpdateState()
         {
-            // 現在状態をDBから得る
+            // 現在状態をPlayerPrefsから得る
             state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
             // 状態の更新
             switch (state) {
