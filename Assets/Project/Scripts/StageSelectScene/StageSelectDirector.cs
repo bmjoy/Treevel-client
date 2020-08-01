@@ -55,11 +55,6 @@ namespace Project.Scripts.StageSelectScene
         private static List<StageTreeController> _trees;
 
         /// <summary>
-        /// ステージ
-        /// </summary>
-        private static List<StageController> _stages;
-
-        /// <summary>
         /// 枝
         /// </summary>
         private static List<BranchController> _branches;
@@ -77,7 +72,6 @@ namespace Project.Scripts.StageSelectScene
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
-            _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
             BranchController.branchStates = MyPlayerPrefs.GetDictionary<string, bool>(BranchController.BRANCH_STATE_KEY);
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
@@ -124,7 +118,6 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         private void OnEnable()
         {
-            _stages.ForEach(stage => stage.UpdateState());
             _branches.ForEach(branch => branch.UpdateState());
             _trees.ForEach(tree => tree.UpdateState());
         }

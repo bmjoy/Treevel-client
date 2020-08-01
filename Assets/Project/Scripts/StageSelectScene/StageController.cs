@@ -23,7 +23,7 @@ namespace Project.Scripts.StageSelectScene
         /// <summary>
         /// ステージ情報
         /// </summary>
-        public StageStatus stageStatus;
+        private StageStatus _stageStatus;
 
         /// <summary>
         /// ステージの状態
@@ -34,7 +34,12 @@ namespace Project.Scripts.StageSelectScene
         /// ボタン
         /// </summary>
         [SerializeField] private Button _button;
-
+        
+        private void Awake()
+        {
+            UpdateState();
+        }
+        
         /// <summary>
         /// ステージの状態の更新
         /// </summary>
@@ -44,8 +49,8 @@ namespace Project.Scripts.StageSelectScene
             if (stageData == null)
                 return;
 
-            stageStatus = StageStatus.Get(_treeId, stageNumber);
-            state = stageStatus.state;
+            _stageStatus = StageStatus.Get(_treeId, stageNumber);
+            state = _stageStatus.state;
 
             // 状態の反映
             ReflectTreeState();
@@ -80,7 +85,8 @@ namespace Project.Scripts.StageSelectScene
         public void ReleaseStage()
         {
             state = EStageState.Released;
-            stageStatus.ReleaseStage(_treeId, stageNumber);
+            if(_stageStatus != null)
+            _stageStatus.ReleaseStage(_treeId, stageNumber);
         }
 
         /// <summary>

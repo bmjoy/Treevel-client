@@ -161,13 +161,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _treeId: 0
   stageNumber: 0
-  stageStatus:
-    state: 1
-    challengeNum: 0
-    successNum: 0
-    failureNum: 0
-    firstSuccessNum: 0
-    tutorialChecked: 0
   state: 0
   _button: {fileID: 4716757183531113069}
 --- !u!1 &6372067160872805139
