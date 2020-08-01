@@ -31,7 +31,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <returns></returns>
         public  static void SetDictionary<Key, Value>(string key, Dictionary<Key, Value> dictionary)
         {
-            string serizlizedDict = Serialize<Dictionary<Key, Value>> (dictionary);
+            var serizlizedDict = Serialize<Dictionary<Key, Value>> (dictionary);
             PlayerPrefs.SetString(key, serizlizedDict);
         }
 
@@ -60,7 +60,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public static Dictionary<Key, Value> GetDictionary<Key, Value> (string key)
         {
             if (PlayerPrefs.HasKey(key)) {
-                string serizlizedDictionary = PlayerPrefs.GetString(key);
+                var serizlizedDictionary = PlayerPrefs.GetString(key);
                 return Deserialize<Dictionary<Key, Value>> (serizlizedDictionary);
             }
 

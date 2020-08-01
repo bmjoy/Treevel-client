@@ -32,7 +32,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                     break;
                 case ETreeState.Released:
                     // Implementorに任せる
-                    state = _clearHandler.GetTreeState();
+                    state = clearHandler.GetTreeState();
                     break;
                 case ETreeState.Cleared:
                     // 全クリアかどうかをチェックする

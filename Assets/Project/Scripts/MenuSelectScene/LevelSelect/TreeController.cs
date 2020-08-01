@@ -19,7 +19,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// クリア状態を判定するクラス
         /// </summary>
-        protected IClearTreeHandler _clearHandler;
+        protected IClearTreeHandler clearHandler;
 
         /// <summary>
         /// 木のId
@@ -29,7 +29,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         public virtual void Awake()
         {
             // クリア条件を実装するクラスを指定する
-            _clearHandler = TreeInfo.CLEAR_HANDLER[treeId];
+            clearHandler = TreeInfo.CLEAR_HANDLER[treeId];
         }
 
         /// <summary>
@@ -64,14 +64,17 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// 非解放状態の処理
         /// </summary>
         protected abstract void ReflectUnreleasedState();
+
         /// <summary>
         /// 解放状態の処理
         /// </summary>
         protected abstract void ReflectReleasedState();
+
         /// <summary>
         /// クリア状態の処理
         /// </summary>
         protected abstract void ReflectClearedState();
+        
         /// <summary>
         /// 全ステージクリア状態の処理
         /// </summary>
