@@ -575,6 +575,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1766871465}
     m_Modifications:
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: treeId
+      value: 3001
+      objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: _treeId
@@ -1060,6 +1065,12 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
       value: 1.6559999
       objectReference: {fileID: 0}
+    - target: {fileID: 6489206248158990791, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 886c14c22decb450b88364ff7e6946c4,
+        type: 3}
     - target: {fileID: 6826760224180116505, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: m_Name
@@ -1351,6 +1362,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1766871465}
     m_Modifications:
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: treeId
+      value: 3002
+      objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: _treeId
@@ -1836,6 +1852,12 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6489206248158990791, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7c035658aa885481aaec9b65c8bc5132,
+        type: 3}
     - target: {fileID: 6826760224180116505, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: m_Name
@@ -2205,6 +2227,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1766871465}
     m_Modifications:
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: treeId
+      value: 3003
+      objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: _treeId
@@ -2690,6 +2717,12 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6489206248158990791, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7dd9c42b5b97540d69a0b608cce5f2c6,
+        type: 3}
     - target: {fileID: 6826760224180116505, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: m_Name

@@ -9,6 +9,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
     public static class PlayerPrefsKeys
     {
         public const string TREE = "TREE";
+        public const string BRANCH_STATE = "BranchState";
         public const string BGM_VOLUME = "BGM_VOLUME";
         public const string SE_VOLUME = "SE_VOLUME";
         public const string LANGUAGE = "LANGUAGE";

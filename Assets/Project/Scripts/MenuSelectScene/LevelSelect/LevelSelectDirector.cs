@@ -11,7 +11,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木
         /// </summary>
-        private static List<TreeController> _trees;
+        private static List<LevelTreeController> _trees;
 
         /// <summary>
         /// 道
@@ -20,7 +20,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         private void Awake()
         {
-            _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<TreeController>()).ToList<TreeController>();
+            _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList<LevelTreeController>();
             _roads = GameObject.FindGameObjectsWithTag(TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
         }
 

@@ -1585,6 +1585,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1663061161}
     m_Modifications:
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: treeId
+      value: 2001
+      objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: startObject
@@ -2070,6 +2075,12 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6489206248158990791, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8b1c7bdd6a62b47d98b03c4bd715c8d9,
+        type: 3}
     - target: {fileID: 6826760224180116505, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: m_Name
@@ -2458,6 +2469,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1663061161}
     m_Modifications:
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: treeId
+      value: 2003
+      objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: _treeId
@@ -2943,6 +2959,12 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6489206248158990791, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2e1a73324b79140289f45b853d770a33,
+        type: 3}
     - target: {fileID: 6826760224180116505, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: m_Name
@@ -3646,6 +3668,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1663061161}
     m_Modifications:
+    - target: {fileID: -2088437028303738681, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: treeId
+      value: 2002
+      objectReference: {fileID: 0}
     - target: {fileID: 628439882213713615, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: _treeId
@@ -4131,6 +4158,12 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6489206248158990791, guid: 721561d07622f4e70a342b2ce2ad79a1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6d14e861fefc64135ade71fc25552c80,
+        type: 3}
     - target: {fileID: 6826760224180116505, guid: 721561d07622f4e70a342b2ce2ad79a1,
         type: 3}
       propertyPath: m_Name

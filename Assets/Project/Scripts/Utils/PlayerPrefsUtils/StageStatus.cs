@@ -17,14 +17,9 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         private int _stageNumber;
 
         /// <summary>
-        /// 解放状態
+        /// ステージの状態
         /// </summary>
-        public bool released = false;
-
-        /// <summary>
-        /// クリア状態
-        /// </summary>
-        public bool cleared = false;
+        public EStageState state = EStageState.Unreleased;
 
         /// <summary>
         /// 挑戦回数
@@ -94,7 +89,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="stageNumber"> ステージ番号 </param>
         public void ReleaseStage(ETreeId treeId, int stageNumber)
         {
-            released = true;
+            state = EStageState.Released;
             Set(treeId, stageNumber);
         }
 
@@ -105,8 +100,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="stageNumber"> ステージ番号 </param>
         public void ClearStage(ETreeId treeId, int stageNumber)
         {
-            if (!cleared) firstSuccessNum = challengeNum;
-            cleared = true;
+            if (state != EStageState.Cleared) firstSuccessNum = challengeNum;
+            state = EStageState.Cleared;
             Set(treeId, stageNumber);
         }
 

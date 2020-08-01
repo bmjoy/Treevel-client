@@ -1,10 +1,9 @@
 ﻿using Project.Scripts.MenuSelectScene.LevelSelect;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
 {
@@ -15,12 +14,14 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
-        private Button _endObjectButton;
+        private StageController _endObjectController;
+
+        public static Dictionary<string, bool> branchStates;
 
         protected override void Awake()
         {
             base.Awake();
-            _endObjectButton = endObject.GetComponent<Button>();
+            _endObjectController = endObject.GetComponent<StageController>();
         }
 
         protected override void SetSaveKey()
@@ -28,9 +29,9 @@ namespace Project.Scripts.StageSelectScene
             saveKey = $"{_treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
-        public override void Reset()
+        public static void Reset()
         {
-            PlayerPrefs.DeleteKey(saveKey);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.BRANCH_STATE);
         }
 
         /// <summary>
@@ -38,27 +39,29 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public override void UpdateState()
         {
-            released = PlayerPrefs.GetInt(saveKey, Default.BRANCH_RELEASED) == 1;
+            if (branchStates.ContainsKey(saveKey))
+                released = branchStates[saveKey];
+            else
+                released = false;
 
             if (!released) {
                 if (constraintObjects.Length == 0) {
                     // 初期状態で解放されている道
                     released = true;
                 } else {
-                    released = constraintObjects.All(stage => stage.GetComponent<StageController>().cleared);
+                    released = constraintObjects.All(stage => stage.GetComponent<StageController>().state >= EStageState.Cleared);
+                }
+                if (released) {
+                    // 終点のステージの状態の更新
+                    _endObjectController.ReleaseStage();
+                    _endObjectController.ReflectTreeState();
                 }
             }
 
-            // 終点のステージの状態の更新
-            endObject.GetComponent<StageController>().released = released;
-            _endObjectButton.enabled = released;
-            // 鍵穴付けるか
-            endObject.transform.Find("Lock")?.gameObject.SetActive(!released);
-
             if (!released) {
                 // 非解放時
-                _renderer.startColor = new Color(0.2f, 0.2f, 0.7f);
-                _renderer.endColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
         }
 
@@ -67,7 +70,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public override void SaveState()
         {
-            PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
+            branchStates[saveKey] = released;
         }
     }
 }

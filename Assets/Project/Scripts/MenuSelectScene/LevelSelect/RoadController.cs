@@ -1,28 +1,28 @@
 ﻿using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
     public class RoadController : LineController
     {
-        private TreeController _endObjectController;
+        private LevelTreeController _endObjectController;
 
         protected override void Awake()
         {
             base.Awake();
-            _endObjectController = endObject.GetComponent<TreeController>();
+            _endObjectController = endObject.GetComponent<LevelTreeController>();
         }
 
         protected override void SetSaveKey()
         {
-            saveKey = $"{startObject.GetComponent<TreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<TreeController>().treeId}";
+            saveKey = $"{startObject.GetComponent<LevelTreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
         }
 
-        public override void Reset()
+        public void Reset()
         {
             PlayerPrefs.DeleteKey(saveKey);
         }
@@ -38,22 +38,39 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
                 if (constraintObjects.Length == 0) {
                     // 初期状態で解放されている道
                     released = true;
-                } else {
-                    released = constraintObjects.All(tree => tree.GetComponent<TreeController>().state >= ETreeState.Cleared);
-                }
-
-                if (released) {
                     // 終点の木の状態の更新
                     _endObjectController.state = ETreeState.Released;
                     _endObjectController.ReflectTreeState();
+                } else {
+                    released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
+                    if (released) {
+                        // 道が非解放状態から解放状態に変わった時
+                        StartCoroutine(ReleaseEndObject());
+                    }
                 }
             }
 
             if (!released) {
                 // 非解放時
-                _renderer.startColor = new Color(0.2f, 0.2f, 0.7f);
-                _renderer.endColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
+        }
+
+        /// <summary>
+        /// 道が非解放状態から解放状態に変わった時のアニメーション(100フレームで色を変化させる)
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator ReleaseEndObject()
+        {
+            for (var i = 0; i < 100; i++) {
+                lineRenderer.startColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
+                lineRenderer.endColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
+                yield return null;
+            }
+            // 終点の木の状態の更新
+            _endObjectController.state = ETreeState.Released;
+            _endObjectController.ReflectTreeState();
         }
 
         /// <summary>

@@ -21,37 +21,72 @@ namespace Project.Scripts.StageSelectScene
         [SerializeField] public int stageNumber;
 
         /// <summary>
-        /// 解放状態
+        /// ステージ情報
         /// </summary>
-        [SerializeField] public bool released;
+        private StageStatus _stageStatus;
 
         /// <summary>
-        /// クリア状態
+        /// ステージの状態
         /// </summary>
-        [NonSerialized] public bool cleared = false;
+        public EStageState state;
+
+        /// <summary>
+        /// ボタン
+        /// </summary>
+        [SerializeField] private Button _button;
+
+        private void Awake()
+        {
+            UpdateState();
+        }
 
         /// <summary>
         /// ステージの状態の更新
         /// </summary>
-        public void UpdateReleased()
+        public void UpdateState()
         {
             var stageData = GameDataBase.GetStage(_treeId, stageNumber);
             if (stageData == null)
                 return;
 
-            var stageStatus = StageStatus.Get(_treeId, stageNumber);
-            if (stageNumber != 1)
-                released = stageStatus.released;
+            _stageStatus = StageStatus.Get(_treeId, stageNumber);
+            state = _stageStatus.state;
 
-            cleared = stageStatus.cleared;
+            // 状態の反映
+            ReflectTreeState();
+        }
 
-            // 鍵穴付けるか
-            transform.Find("Lock")?.gameObject.SetActive(!released);
-
-            // クリアしたらグレイスケールを解除
-            if (cleared) {
-                GetComponent<Image>().material = null;
+        public void ReflectTreeState()
+        {
+            switch (state) {
+                case EStageState.Unreleased:
+                    // 鍵とグレースケール
+                    transform.Find("Lock")?.gameObject.SetActive(true);
+                    _button.enabled = false;
+                    break;
+                case EStageState.Released:
+                    // グレースケール
+                    transform.Find("Lock")?.gameObject.SetActive(false);
+                    _button.enabled = true;
+                    break;
+                case EStageState.Cleared:
+                    transform.Find("Lock")?.gameObject.SetActive(false);
+                    GetComponent<Image>().material = null;
+                    _button.enabled = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
+        }
+
+        /// <summary>
+        /// ステージを解放状態にする
+        /// </summary>
+        public void ReleaseStage()
+        {
+            state = EStageState.Released;
+            if (_stageStatus != null)
+                _stageStatus.ReleaseStage(_treeId, stageNumber);
         }
 
         /// <summary>

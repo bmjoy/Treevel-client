@@ -50,19 +50,14 @@ namespace Project.Scripts.StageSelectScene
         private GameObject _treeName;
 
         /// <summary>
-        /// ステージ
+        /// 木
         /// </summary>
-        private static List<StageController> _stages;
+        private static List<StageTreeController> _trees;
 
         /// <summary>
         /// 枝
         /// </summary>
         private static List<BranchController> _branches;
-
-        // TODO: SnapScrollが働いたときの更新処理
-        //       - 隣の木に移動するButtonが押せるかどうか(端では押せない)を更新する
-        //       - 木の名前を表示するテキストを更新する
-        //       - 選択している木のidを更新する
 
         /// <summary>
         /// 左の木に遷移するボタン
@@ -76,16 +71,12 @@ namespace Project.Scripts.StageSelectScene
 
         private void Awake()
         {
-            _stages = GameObject.FindGameObjectsWithTag(TagName.STAGE).Select(stage => stage.GetComponent<StageController>()).ToList<StageController>();
+            _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
+            BranchController.branchStates = MyPlayerPrefs.GetDictionary<string, bool>(PlayerPrefsKeys.BRANCH_STATE);
             _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
             _leftButton = GameObject.Find("LeftButton");
             _rightButton = GameObject.Find("RightButton");
-
-            // ステージの状態の更新
-            _stages.ForEach(stage => stage.UpdateReleased());
-            // 枝の状態の更新
-            _branches.ForEach(branch => branch.UpdateState());
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
@@ -120,6 +111,24 @@ namespace Project.Scripts.StageSelectScene
             _loading = GameObject.Find(_LOADING);
             _loading.SetActive(false);
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
+        }
+
+        /// <summary>
+        /// ステージと枝と木の解放状況の更新
+        /// </summary>
+        private void OnEnable()
+        {
+            _branches.ForEach(branch => branch.UpdateState());
+            _trees.ForEach(tree => tree.UpdateState());
+        }
+
+        /// <summary>
+        /// ステージと枝と木の状態の保存
+        /// </summary>
+        private void OnDisable()
+        {
+            _branches.ForEach(branch => branch.SaveState());
+            MyPlayerPrefs.SetDictionary(PlayerPrefsKeys.BRANCH_STATE, BranchController.branchStates);
         }
 
         /// <summary>

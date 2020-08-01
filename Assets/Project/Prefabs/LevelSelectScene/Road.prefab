@@ -56,7 +56,7 @@ MonoBehaviour:
   secondControlPoint: {x: 0, y: 0}
   _middlePointNum: 0
   _width: 0
-  _renderer: {fileID: 3838137885523574259}
+  lineRenderer: {fileID: 3838137885523574259}
 --- !u!120 &3838137885523574259
 LineRenderer:
   m_ObjectHideFlags: 0
