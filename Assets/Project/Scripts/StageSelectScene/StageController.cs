@@ -34,12 +34,12 @@ namespace Project.Scripts.StageSelectScene
         /// ボタン
         /// </summary>
         [SerializeField] private Button _button;
-        
+
         private void Awake()
         {
             UpdateState();
         }
-        
+
         /// <summary>
         /// ステージの状態の更新
         /// </summary>
@@ -85,8 +85,8 @@ namespace Project.Scripts.StageSelectScene
         public void ReleaseStage()
         {
             state = EStageState.Released;
-            if(_stageStatus != null)
-            _stageStatus.ReleaseStage(_treeId, stageNumber);
+            if (_stageStatus != null)
+                _stageStatus.ReleaseStage(_treeId, stageNumber);
         }
 
         /// <summary>
