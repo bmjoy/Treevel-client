@@ -17,6 +17,12 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             _endObjectController = endObject.GetComponent<LevelTreeController>();
         }
 
+        protected override void Start()
+        {
+            base.Awake();
+            lineRenderer.material.SetTextureScale("_MainTex", new Vector2(8 / lineLength, 1f));
+        }
+
         protected override void SetSaveKey()
         {
             saveKey = $"{startObject.GetComponent<LevelTreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
