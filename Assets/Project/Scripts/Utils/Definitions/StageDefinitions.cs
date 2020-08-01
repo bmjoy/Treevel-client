@@ -30,7 +30,7 @@
         /// <summary>
         /// 非解放状態
         /// </summary>
-        Unreleased = 1,
+        Unreleased,
         /// <summary>
         /// 解放状態
         /// </summary>
