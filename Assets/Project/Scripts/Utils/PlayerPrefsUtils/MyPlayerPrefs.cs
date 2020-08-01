@@ -35,6 +35,20 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             PlayerPrefs.SetString(key, serizlizedDict);
         }
 
+        /// <summary>
+        /// DateTime 型を PlayerPrefs に保存する
+        /// </summary>
+        /// <param name="key"> PlayerPrefs のキー </param>
+        /// <param name="dateTime"> 保存したい DateTime </param>
+        public static void SetDateTime(string key, DateTime dateTime)
+        {
+            // DateTime -> Binary -> String
+            var dateTimeStr = dateTime.ToBinary().ToString();
+            // String として保存
+            PlayerPrefs.SetString(key, dateTimeStr);
+            PlayerPrefs.Save();
+        }
+
 
         /// <summary>
         /// 指定されたオブジェクト情報を読み込む
@@ -65,6 +79,22 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             }
 
             return new Dictionary<Key, Value> ();
+        }
+
+        /// <summary>
+        /// DateTime 型を PlayerPrefs から取得する
+        /// </summary>
+        /// <param name="key"> PlayerPrefs のキー </param>
+        public static DateTime GetDateTime(string key)
+        {
+            // String として取得
+            var dateTimeStr = PlayerPrefs.GetString(key);
+            // String -> Binary
+            var dateTimeBinary = Convert.ToInt64(dateTimeStr);
+            // Binary -> DateTime
+            var dateTime = DateTime.FromBinary(dateTimeBinary);
+
+            return dateTime;
         }
 
         /// <summary>
