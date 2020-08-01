@@ -72,7 +72,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             GetComponent<Image>().material = null;
             _button.enabled = true;
-            // アニメーション
+            // TODO: アニメーション
             Debug.Log($"{treeId} is cleared.");
         }
 
@@ -80,7 +80,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             GetComponent<Image>().material = null;
             _button.enabled = true;
-            // アニメーション
+            // TODO: アニメーション
             Debug.Log($"{treeId} is all cleared.");
         }
 
