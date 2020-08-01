@@ -1,11 +1,9 @@
 ﻿using Project.Scripts.MenuSelectScene.LevelSelect;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.StageSelectScene
 {

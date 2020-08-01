@@ -3,7 +3,6 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
 using UnityEngine.UI;
 using Project.Scripts.MenuSelectScene.LevelSelect;
-using Project.Scripts.GamePlayScene;
 using Project.Scripts.StageSelectScene;
 
 namespace Project.Scripts.MenuSelectScene.Settings

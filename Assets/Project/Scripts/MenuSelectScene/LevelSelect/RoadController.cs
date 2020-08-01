@@ -3,9 +3,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
 using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
