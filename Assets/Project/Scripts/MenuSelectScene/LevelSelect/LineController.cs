@@ -41,6 +41,11 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] [Range(0, 0.2f)] private float _width;
 
+        /// <summary>
+        /// 道の長さ
+        /// </summary>
+        protected float lineLength = 0f;
+
         [SerializeField] protected LineRenderer lineRenderer;
 
         /// <summary>
@@ -58,7 +63,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             SetSaveKey();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             firstControlPoint *= SavableScrollRect.CONTENT_SCALE;
             firstControlPoint += SavableScrollRect.CONTENT_MARGIN;
@@ -85,10 +90,14 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             var startPointLocalPosition = startObject.transform.localPosition;
             var endPointLocalPosition = endObject.transform.localPosition;
 
-            // 点の位置を求める
+            // 点の位置と線の長さを求める
+            var preTargetPosition = lineRenderer.GetPosition(0);
             for (int i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                lineRenderer.SetPosition(i, CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint, secondControlPoint, endPointLocalPosition, ratio));
+                var targetPosition = CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint, secondControlPoint, endPointLocalPosition, ratio);
+                lineRenderer.SetPosition(i, targetPosition);
+                lineLength += Vector2.Distance(targetPosition, preTargetPosition);
+                preTargetPosition = targetPosition;
             }
         }
 
