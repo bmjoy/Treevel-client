@@ -162,5 +162,5 @@ MonoBehaviour:
   secondControlPoint: {x: 0, y: 0}
   _middlePointNum: 0
   _width: 0.03
-  _renderer: {fileID: 2850028561387380508}
+  lineRenderer: {fileID: 2850028561387380508}
   _treeId: 0
