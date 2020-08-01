@@ -74,7 +74,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// クリア状態の処理
         /// </summary>
         protected abstract void ReflectClearedState();
-        
+
         /// <summary>
         /// 全ステージクリア状態の処理
         /// </summary>
