@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Project.Scripts.GameDatas;
@@ -37,9 +38,19 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public int failureNum = 0;
 
         /// <summary>
+        /// 各失敗原因に対する失敗回数
+        /// </summary>
+        public Dictionary<FailureReasonType, int> failureReasonsNum = new Dictionary<FailureReasonType, int>();
+
+        /// <summary>
         /// 初成功にかかった挑戦回数
         /// </summary>
         public int firstSuccessNum = 0;
+
+        /// <summary>
+        /// フリック回数
+        /// </summary>
+        public int flickNum = 0;
 
         /// <summary>
         /// チュートリアルを見たかどうか
