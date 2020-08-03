@@ -345,6 +345,18 @@ namespace Project.Scripts.GamePlayScene
             {
                 _customTimer.StopTimer();
                 _playingBGM.Stop();
+
+                // フリック回数の取得
+                var bottles = FindObjectsOfType<DynamicBottleController>();
+                var flickNum = bottles.Select(bottle => bottle.FlickNum).Sum();
+
+                // フリック回数の保存
+                var stageStatus = StageStatus.Get(treeId, stageNumber);
+                stageStatus.AddFlickNum(treeId, stageNumber, flickNum);
+
+                // FIXME: マージ前に消す
+                Debug.Log($"フリック回数：{flickNum}");
+                Debug.Log($"合計フリック回数：{stageStatus.flickNum}");
             }
         }
 

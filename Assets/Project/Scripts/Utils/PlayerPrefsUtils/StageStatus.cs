@@ -149,6 +149,18 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             Set(treeId, stageNumber);
         }
 
+        /// <summary>
+        /// フリック回数の加算
+        /// </summary>
+        /// <param name="treeId"> 木の ID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        /// <param name="flickNum"> 加算するフリック回数 </param>
+        public void AddFlickNum(ETreeId treeId, int stageNumber, int flickNum)
+        {
+            this.flickNum += flickNum;
+            Set(treeId, stageNumber);
+        }
+
         public void Update(bool success)
         {
             if (success) {

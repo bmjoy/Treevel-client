@@ -39,6 +39,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private const float _SPEED = 0.3f;
 
+        public int FlickNum
+        {
+            get;
+            private set;
+        } = 0;
+
         protected override void Awake()
         {
             base.Awake();
@@ -97,6 +103,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
 
             _moving = false;
+
+            // 計測
+            FlickNum += 1;
 
             callback();
         }
