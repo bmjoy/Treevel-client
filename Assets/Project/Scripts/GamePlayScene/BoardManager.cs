@@ -300,6 +300,11 @@ namespace Project.Scripts.GamePlayScene
             return _squares[x, y].worldPosition;
         }
 
+        public Vector2 GetTilePos(ERow row, EColumn column)
+        {
+            return GetTilePos((int)column - 1, (int)row - 1);
+        }
+
         public Vector2 GetTilePos(int x, int y)
         {
             var tileNum = XYToTileNum(x, y);
