@@ -1,6 +1,6 @@
 namespace Project.Scripts.Utils.Definitions
 {
-    public enum FailureReasonType
+    public enum EFailureReasonType
     {
         Tornado,
         Meteorite,

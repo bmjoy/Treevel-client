@@ -40,7 +40,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 各失敗原因に対する失敗回数
         /// </summary>
-        public Dictionary<FailureReasonType, int> failureReasonsNum = new Dictionary<FailureReasonType, int>();
+        public Dictionary<EFailureReasonType, int> failureReasonsNum = new Dictionary<EFailureReasonType, int>();
 
         /// <summary>
         /// 初成功にかかった挑戦回数
