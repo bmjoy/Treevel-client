@@ -12,6 +12,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         [SerializeField] protected float _warningDisplayTime = GimmickWarningParameter.WARNING_DISPLAYED_TIME;
 
+        public EGimmickType GimmickType
+        {
+            get;
+            protected set;
+        }
+
         private static short _gimmickId = short.MinValue;
 
         public virtual void Initialize(GimmickData gimmickData)

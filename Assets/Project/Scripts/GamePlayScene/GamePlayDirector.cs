@@ -66,6 +66,11 @@ namespace Project.Scripts.GamePlayScene
         public static int stageNumber;
 
         /// <summary>
+        /// 失敗原因を保持
+        /// </summary>
+        public EFailureReasonType failureReason = EFailureReasonType.Others;
+
+        /// <summary>
         /// 各状態に対応するステートのインスタンス
         /// </summary>
         private readonly Dictionary<EGameState, State> _stateList = new Dictionary<EGameState, State>();
@@ -174,6 +179,7 @@ namespace Project.Scripts.GamePlayScene
         private void OnApplicationQuit()
         {
             // ゲーム失敗扱いとする
+            failureReason = EFailureReasonType.Others;
             Dispatch(EGameState.Failure);
         }
 

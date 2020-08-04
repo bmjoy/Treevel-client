@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -17,6 +18,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public void PauseQuitButtonDown()
         {
+            GamePlayDirector.Instance.failureReason = EFailureReasonType.Others;
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
         }
     }

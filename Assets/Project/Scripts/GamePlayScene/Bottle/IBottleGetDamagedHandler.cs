@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils;
+﻿using Project.Scripts.GamePlayScene.Gimmick;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Unity.UNetWeaver;
 using UnityEngine;
@@ -46,6 +47,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             // ボトルを死んだ状態にする
             _bottle.IsDead = true;
+
+            // 失敗原因を保持する
+            var gimmickType = gimmick.GetComponent<AbstractGimmickController>().GimmickType;
+            GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
 
             // 失敗状態に移行する
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
@@ -115,6 +120,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
                 // 自身が破壊された
                 _bottle.IsDead = true;
+
+                // 失敗原因を保持する
+                var gimmickType = gimmick.GetComponent<AbstractGimmickController>().GimmickType;
+                GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
 
                 // 失敗状態に移行する
                 GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);

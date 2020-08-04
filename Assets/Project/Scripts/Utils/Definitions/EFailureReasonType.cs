@@ -4,6 +4,7 @@ namespace Project.Scripts.Utils.Definitions
     {
         Tornado,
         Meteorite,
+        AimingMeteorite,
         Others
     }
 }
