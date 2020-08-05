@@ -40,5 +40,6 @@
         Tornado,
         Meteorite,
         AimingMeteorite,
+        Thunder,
     }
 }

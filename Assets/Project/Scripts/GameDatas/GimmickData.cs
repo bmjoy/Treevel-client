@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.GameDatas
 {
@@ -75,5 +76,10 @@ namespace Project.Scripts.GameDatas
         /// ＜竜巻｜隕石＞ランダム変数使用するか
         /// </summary>
         public bool isRandom;
+
+        /// <summary>
+        /// ＜雷＞攻撃目標配列
+        /// </summary>
+        public List<Vector2Int> targets;
     }
 }
