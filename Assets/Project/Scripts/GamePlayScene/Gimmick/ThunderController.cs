@@ -19,8 +19,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private static int IDLE_STATE_NAME_HASH = Animator.StringToHash("Idle");
 
-        private static int ENTRY_STATE_NAME_HASH = Animator.StringToHash("Entry");
-
         /// <summary>
         /// 雷を放つ際再生するSE
         /// </summary>
