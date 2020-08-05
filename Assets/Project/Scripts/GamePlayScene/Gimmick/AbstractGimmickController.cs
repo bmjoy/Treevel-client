@@ -16,7 +16,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         public virtual void Initialize(GimmickData gimmickData)
         {
-            GetComponent<Renderer>().sortingOrder = _gimmickId;
+            foreach (var renderer in GetComponentsInChildren<Renderer>()) {
+                renderer.sortingOrder = _gimmickId;
+            }
 
             try {
                 _gimmickId = checked((short)(_gimmickId + 1));
