@@ -84,7 +84,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         public override IEnumerator Trigger()
         {
             // 表示ON
-            foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>()){
+            foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>()) {
                 spriteRenderer.enabled = true;
             }
 
