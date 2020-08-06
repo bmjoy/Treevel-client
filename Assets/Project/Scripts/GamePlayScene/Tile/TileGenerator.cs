@@ -10,7 +10,16 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        public void CreateTiles(ICollection<TileData> tileDatas)
+        private static Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string>()
+        {
+            {ETileType.Normal, Address.NORMAL_TILE_PREFAB},
+            {ETileType.Warp, Address.WARP_TILE_PREFAB},
+            {ETileType.Ice, Address.ICE_TILE_PREFAB},
+            {ETileType.Holy, Address.HOLY_TILE_PREFAB},
+            {ETileType.Spiderweb, Address.SPIDERWEB_TILE_PREFAB},
+        };
+
+        public async void CreateTiles(ICollection<TileData> tileDatas)
         {
             // シーンに配置したノーマルタイルを初期化
             for (var tileNum = 1; tileNum <= StageSize.ROW * StageSize.COLUMN; ++tileNum) {
@@ -38,13 +47,12 @@ namespace Project.Scripts.GamePlayScene.Tile
                         CreateWarpTiles(tileData.number, tileData.pairNumber);
                         break;
                     case ETileType.Holy:
-                        CreateHolyTile(tileData.number);
-                        break;
                     case ETileType.Spiderweb:
-                        CreateSpiderwebTile(tileData.number);
-                        break;
                     case ETileType.Ice:
-                        CreateIceTile(tileData.number);
+                        var tileObj = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).Task;
+                        tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
+                        BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
+                        tileObj.GetComponent<SpriteRenderer>().enabled = true;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -70,42 +78,6 @@ namespace Project.Scripts.GamePlayScene.Tile
 
             firstTile.GetComponent<SpriteRenderer>().enabled = true;
             secondTile.GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        /// <summary>
-        /// 聖域タイルの作成
-        /// </summary>
-        private static async void CreateHolyTile(int tileNum)
-        {
-            var holyTile = await AddressableAssetManager.Instantiate(Address.HOLY_TILE_PREFAB).Task;
-
-            holyTile.GetComponent<HolyTileController>().Initialize(tileNum);
-
-            BoardManager.Instance.SetTile(holyTile.GetComponent<AbstractTileController>(), tileNum);
-
-            holyTile.GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        private static async void CreateSpiderwebTile(int tileNum)
-        {
-            var spiderwebTile = await AddressableAssetManager.Instantiate(Address.SPIDERWEB_TILE_PREFAB).Task;
-
-            spiderwebTile.GetComponent<SpiderwebTileController>().Initialize(tileNum);
-
-            BoardManager.Instance.SetTile(spiderwebTile.GetComponent<AbstractTileController>(), tileNum);
-
-            spiderwebTile.GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        private static async void CreateIceTile(int tileNum)
-        {
-            var iceTile = await AddressableAssetManager.Instantiate(Address.ICE_TILE_PREFAB).Task;
-
-            iceTile.GetComponent<IceTileController>().Initialize(tileNum);
-
-            BoardManager.Instance.SetTile(iceTile.GetComponent<AbstractTileController>(), tileNum);
-
-            iceTile.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }
