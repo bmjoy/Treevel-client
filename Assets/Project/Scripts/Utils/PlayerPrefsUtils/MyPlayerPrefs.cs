@@ -49,7 +49,6 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             PlayerPrefs.Save();
         }
 
-
         /// <summary>
         /// 指定されたオブジェクト情報を読み込む
         /// </summary>
