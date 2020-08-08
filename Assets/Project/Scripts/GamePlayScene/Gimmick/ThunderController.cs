@@ -8,6 +8,9 @@ using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene.Gimmick
 {
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AudioSource))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class ThunderController : AbstractGimmickController
     {
         /// <summary>
