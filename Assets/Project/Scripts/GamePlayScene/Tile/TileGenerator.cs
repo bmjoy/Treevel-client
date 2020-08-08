@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        private static Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string>()
+        private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string>()
         {
             {ETileType.Normal, Address.NORMAL_TILE_PREFAB},
             {ETileType.Warp, Address.WARP_TILE_PREFAB},
