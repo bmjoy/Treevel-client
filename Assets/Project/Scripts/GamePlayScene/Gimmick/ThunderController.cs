@@ -73,7 +73,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
             Debug.Assert(_targets.Count > 0, "Invalid Gimmick Data");
 
-            // 初期位置に
+            // 初期位置設定
             var initPos = BoardManager.Instance.GetTilePos(_targets[0].row, _targets[0].column);
             transform.position = initPos;
 
