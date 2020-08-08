@@ -17,7 +17,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// Idleステートのハッシュ値
         /// </summary>
-        private static int IDLE_STATE_NAME_HASH = Animator.StringToHash("Idle");
+        private static readonly int _IDLE_STATE_NAME_HASH = Animator.StringToHash("Idle");
 
         /// <summary>
         /// 雷を放つ際再生するSE
@@ -103,10 +103,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 _animator.SetTrigger("Warning");
 
                 // すぐには遷移してくれないそうなので、次のステート（警告）に遷移するまでちょっと待つ
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != IDLE_STATE_NAME_HASH);
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
 
                 // 攻撃アニメーション終わるまで待つ
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == IDLE_STATE_NAME_HASH && !_audioSource.isPlaying);
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !_audioSource.isPlaying);
             }
 
             // TODO:退場演出
