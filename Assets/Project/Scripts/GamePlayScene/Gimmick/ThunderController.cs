@@ -122,5 +122,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             _audioSource.PlayOneShot(_attackSE);
         }
+
+        protected override void OnEndGame()
+        {
+            _animator.speed = 0;
+            _audioSource.Stop();
+        }
     }
 }
