@@ -77,7 +77,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             var initPos = BoardManager.Instance.GetTilePos(_targets[0].row, _targets[0].column);
             transform.position = initPos;
 
-            // 描画順調整
+            // 描画順序の調整
             _cloud.GetComponent<Renderer>().sortingOrder++;
         }
 
