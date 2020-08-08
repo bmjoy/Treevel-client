@@ -22,6 +22,8 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         public virtual void Initialize(GimmickData gimmickData)
         {
+            GimmickType = gimmickData.type;
+
             GetComponent<Renderer>().sortingOrder = _gimmickId;
 
             try {

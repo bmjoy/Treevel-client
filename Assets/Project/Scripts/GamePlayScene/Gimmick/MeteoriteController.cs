@@ -57,7 +57,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
             switch (gimmickData.type) {
                 case EGimmickType.Meteorite:
-                    GimmickType = EGimmickType.Meteorite;
                     if (gimmickData.isRandom) {
                         var row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
                         var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
@@ -67,7 +66,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     }
                     break;
                 case EGimmickType.AimingMeteorite:
-                    GimmickType = EGimmickType.AimingMeteorite;
                     if (gimmickData.isRandom) {
                         // 乱数インデックスを重みに基づいて取得
                         var randomIndex = GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());

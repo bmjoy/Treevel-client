@@ -87,8 +87,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             base.Initialize(gimmickData);
 
-            GimmickType = EGimmickType.Tornado;
-
             _targetDirections = gimmickData.targetDirections.ToArray();
             _targetLines = gimmickData.targetLines.ToArray();
             if (gimmickData.randomDirection.Count > 0) _randomDirections = gimmickData.randomDirection.ToArray();
