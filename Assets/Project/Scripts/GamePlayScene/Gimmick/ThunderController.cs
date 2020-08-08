@@ -4,6 +4,7 @@ using Project.Scripts.Utils.Definitions;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.Utils.PlayerPrefsUtils;
+using Project.Scripts.GameDatas;
 
 namespace Project.Scripts.GamePlayScene.Gimmick
 {
@@ -39,7 +40,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private Transform _cloud;
 
-
         // 各コンポーネント
         private Animator _animator;
         private AudioSource _audioSource;
@@ -56,10 +56,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
             // 雲をタイルの少し上に移動する
             _cloud = transform.Find("Cloud");
-            _cloud.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * TileSize.HEIGHT, 0, Space.Self);
+            _cloud.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * TileSize.HEIGHT, 0);
         }
 
-        public override void Initialize(GameDatas.GimmickData gimmickData)
+        public override void Initialize(GimmickData gimmickData)
         {
             base.Initialize(gimmickData);
 
