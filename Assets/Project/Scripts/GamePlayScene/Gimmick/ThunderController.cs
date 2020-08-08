@@ -16,7 +16,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 雲をタイルの比率でオフセットさせる
         /// </summary>
-        private static readonly float _CLOUD_OFFSET_BY_TILE_RATIO = 0.6f;
+        private const float _CLOUD_OFFSET_BY_TILE_RATIO = 0.6f;
 
         /// <summary>
         /// Idleステートのハッシュ値
