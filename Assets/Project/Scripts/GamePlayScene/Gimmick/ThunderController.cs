@@ -41,7 +41,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 雲オブジェクト
         /// </summary>
-        private Transform _cloud;
+        [SerializeField] private GameObject _cloud;
 
         // 各コンポーネント
         private Animator _animator;
@@ -58,8 +58,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _audioSource.volume *= UserSettings.SEVolume;
 
             // 雲をタイルの少し上に移動する
-            _cloud = transform.Find("Cloud");
-            _cloud.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * TileSize.HEIGHT, 0);
+            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * TileSize.HEIGHT, 0);
         }
 
         public override void Initialize(GimmickData gimmickData)

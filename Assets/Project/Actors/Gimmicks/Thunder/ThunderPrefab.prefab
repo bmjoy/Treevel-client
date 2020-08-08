@@ -291,6 +291,7 @@ MonoBehaviour:
   _warningDisplayTime: 1
   _attackSE: {fileID: 8300000, guid: e141eba38ef494fe38b49ad437137deb, type: 3}
   _moveSpeed: 1.5
+  _cloud: {fileID: 1252275917}
 --- !u!82 &3899458119821525949
 AudioSource:
   m_ObjectHideFlags: 0
