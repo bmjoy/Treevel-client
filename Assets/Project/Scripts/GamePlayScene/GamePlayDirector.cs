@@ -479,6 +479,19 @@ namespace Project.Scripts.GamePlayScene
                 // 記録更新
                 StageStatus.Get(treeId, stageNumber).Update(success: false);
 
+                // 失敗原因を保存
+                var dic = MyPlayerPrefs.GetDictionary<EFailureReasonType, int>(PlayerPrefsKeys.FAILURE_REASONS_NUM);
+                if (dic.ContainsKey(Instance.failureReason)) {
+                    dic[Instance.failureReason]++;
+                }
+                else {
+                    dic[Instance.failureReason] = 1;
+                }
+                MyPlayerPrefs.SetDictionary(PlayerPrefsKeys.FAILURE_REASONS_NUM, dic);
+
+                // FIXME: マージ前に消す
+                Debug.Log($"{Instance.failureReason}：{dic[Instance.failureReason]}");
+
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
                     // StageSelectSceneに戻る

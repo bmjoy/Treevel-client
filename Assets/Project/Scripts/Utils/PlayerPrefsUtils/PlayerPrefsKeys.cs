@@ -19,6 +19,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public const char KEY_CONNECT_CHAR = '-';
 
         /// <summary>
+        /// 各失敗原因に対する失敗回数
+        /// </summary>
+        public const string FAILURE_REASONS_NUM = "FAILURE_REASONS_NUM";
+
+        /// <summary>
         /// 起動日数
         /// </summary>
         public const string STARTUP_DAYS = "STARTUP_DAYS";

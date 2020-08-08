@@ -38,11 +38,6 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public int failureNum = 0;
 
         /// <summary>
-        /// 各失敗原因に対する失敗回数
-        /// </summary>
-        public Dictionary<EFailureReasonType, int> failureReasonsNum = new Dictionary<EFailureReasonType, int>();
-
-        /// <summary>
         /// 初成功にかかった挑戦回数
         /// </summary>
         public int firstSuccessNum = 0;
