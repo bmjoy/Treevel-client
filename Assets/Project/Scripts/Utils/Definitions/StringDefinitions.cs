@@ -82,5 +82,6 @@
         public const string TURN_WARNING_BOTTOM_SPRITE = "turnBottom";
         public const string METEORITE_PREFAB = "MeteoritePrefab";
         public const string AIMING_METEORITE_PREFAB = "AimingMeteoritePrefab";
+        public const string THUNDER_PREFAB = "ThunderPrefab";
     }
 }
