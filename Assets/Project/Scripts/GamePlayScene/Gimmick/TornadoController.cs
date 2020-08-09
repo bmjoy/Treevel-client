@@ -74,6 +74,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private GameObject _warningObj;
 
+        /// <summary>
+        /// 警告のオフセット（ウィンドウの幅に対する比率）
+        /// </summary>
+        private const float _WARNING_OFFSET_RATIO = 0.16f;
+
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
@@ -315,7 +320,8 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 throw new NotImplementedException();
             }
             // 画面端から、警告の幅(or高さ)/2の分だけ画面内に移動させた座標に警告を配置
-            warningPosition += Vector2.Scale(motionVector, new Vector2(CartridgeWarningSize.POSITION_X, CartridgeWarningSize.POSITION_Y)) / 2;
+            var warningOffset = WindowSize.WIDTH * _WARNING_OFFSET_RATIO;
+            warningPosition += Vector2.Scale(motionVector, new Vector2(warningOffset, warningOffset)) / 2;
             return warningPosition;
         }
 
@@ -352,15 +358,16 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         private void SetInitialPosition(ETornadoDirection direction, int line)
         {
             float x = 0, y = 0;
+            var tornadoSize = GetComponent<SpriteRenderer>().size;
             if (IsHorizontal(direction)) {
                 // 目標列の一番右端のタイルのY座標を取得
                 var tileNum = line * StageSize.COLUMN;
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
 
                 if (direction == ETornadoDirection.ToLeft) {
-                    x = (WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
+                    x = (WindowSize.WIDTH + tornadoSize.x) / 2;
                 } else {
-                    x = -(WindowSize.WIDTH + CartridgeSize.WIDTH) / 2;
+                    x = -(WindowSize.WIDTH + tornadoSize.x) / 2;
                 }
             } else if (IsVertical(direction)) {
                 // 目標行の一列目のタイルのx座標を取得
@@ -368,9 +375,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 x = BoardManager.Instance.GetTilePos(tileNum).x;
 
                 if (direction == ETornadoDirection.ToUp) {
-                    y = -(WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
+                    y = -(WindowSize.HEIGHT + tornadoSize.y) / 2;
                 } else {
-                    y = (WindowSize.HEIGHT + CartridgeSize.HEIGHT) / 2;
+                    y = (WindowSize.HEIGHT + tornadoSize.y) / 2;
                 }
             } else {
                 throw new NotImplementedException();
