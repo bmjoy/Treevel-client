@@ -125,6 +125,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         protected override void OnEndGame()
         {
+            // 動きを止める
+            _rigidBody.velocity = Vector2.zero;
+            // アニメーション、SEを止める
             _animator.speed = 0;
             _audioSource.Stop();
         }
