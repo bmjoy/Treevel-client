@@ -9,6 +9,7 @@ namespace Project.Scripts.Utils.Definitions
         Tornado,
         Meteorite,
         AimingMeteorite,
+        Thunder
     }
 
     public static class Extension

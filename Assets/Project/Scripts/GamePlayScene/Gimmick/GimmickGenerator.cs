@@ -24,6 +24,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             {EGimmickType.Tornado, Address.TORNADO_PREFAB},
             {EGimmickType.Meteorite, Address.METEORITE_PREFAB},
             {EGimmickType.AimingMeteorite, Address.AIMING_METEORITE_PREFAB},
+            {EGimmickType.Thunder, Address.THUNDER_PREFAB},
         };
 
         public void Initialize(List<GimmickData> gimmicks)

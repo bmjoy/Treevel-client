@@ -225,6 +225,9 @@ namespace Project.Scripts.Utils
                     case EGimmickType.AimingMeteorite:
                         LoadAsset<GameObject>(Address.AIMING_METEORITE_PREFAB);
                         break;
+                    case EGimmickType.Thunder:
+                        LoadAsset<GameObject>(Address.THUNDER_PREFAB);
+                        break;
                     default:
                         throw new System.ArgumentOutOfRangeException();
                 }

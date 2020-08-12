@@ -379,6 +379,29 @@ namespace Project.Scripts.Editor
                             }
                             break;
                         }
+                    case EGimmickType.Thunder: {
+                            var targetsProp = gimmickDataProp.FindPropertyRelative("targets");
+                            this.DrawArrayProperty(targetsProp, (vecProp, idx) => {
+                                var xProp = vecProp.FindPropertyRelative("x");
+                                var yProp = vecProp.FindPropertyRelative("y");
+
+                                // Draw Prefix Label
+                                var rect = EditorGUILayout.GetControlRect();
+                                rect = EditorGUI.PrefixLabel(rect, new GUIContent($"Target {idx + 1}"));
+
+                                // Render input fields for row and column
+                                var subLabels = new GUIContent[] {
+                                    new GUIContent("Row"),
+                                    new GUIContent("Column")
+                                };
+                                var buffer = new int[] {xProp.intValue, yProp.intValue};
+                                EditorGUI.MultiIntField(rect, subLabels, buffer);
+
+                                xProp.intValue = Mathf.Clamp(buffer[0], 1, StageSize.ROW);
+                                yProp.intValue = Mathf.Clamp(buffer[1], 1, StageSize.COLUMN);
+                            });
+                            break;
+                        }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

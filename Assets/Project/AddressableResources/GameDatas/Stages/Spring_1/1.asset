@@ -119,7 +119,25 @@ MonoBehaviour:
       m_AssetGUID: 
       m_SubObjectName: 
     life: 0
-  gimmicks: []
+  gimmicks:
+  - loop: 0
+    appearTime: 1
+    interval: 0
+    type: 3
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets:
+    - {x: 1, y: 1}
+    - {x: 2, y: 3}
+    - {x: 3, y: 3}
   overviewGimmicks: 
   tutorial:
     type: 1
