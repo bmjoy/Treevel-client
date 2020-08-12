@@ -1,6 +1,14 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
     /// <summary>
+    /// 太陽光ギミックの攻撃方向
+    /// </summary>
+    public enum ESolarBeamDirection {
+        Vertical,
+        Horizontal,
+    }
+
+    /// <summary>
     /// 竜巻の移動方向
     /// </summary>
     public enum ETornadoDirection {
@@ -41,5 +49,6 @@
         Meteorite,
         AimingMeteorite,
         Thunder,
+        SolarBeam,
     }
 }

@@ -402,6 +402,23 @@ namespace Project.Scripts.Editor
                             });
                             break;
                         }
+                    case EGimmickType.SolarBeam: {
+                            var directionProp = gimmickDataProp.FindPropertyRelative("solarBeamDirection");
+
+                            EditorGUILayout.PropertyField(directionProp);
+
+                            switch ((ESolarBeamDirection)directionProp.intValue) {
+                                case ESolarBeamDirection.Horizontal:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
+                                    break;
+                                case ESolarBeamDirection.Vertical:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                            break;
+                        }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
