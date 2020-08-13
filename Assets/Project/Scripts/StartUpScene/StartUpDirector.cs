@@ -25,6 +25,9 @@ namespace Project.Scripts.StartUpScene
             // UIManager Initialize
             yield return new WaitWhile(() => !UIManager.Instance.Initialized);
 
+            // AppManager Initialize
+            AppManager.Instance.OnApplicationStart();
+
             // Network Initialization
             // TODO : ユーザー情報の初期化（IDの取得OR発行など）
             NetworkService.Execute(new HelloWorldRequest(), (data) => {
