@@ -23,6 +23,8 @@ namespace Project.Scripts.Utils.Definitions
                     return EFailureReasonType.Meteorite;
                 case EGimmickType.AimingMeteorite:
                     return EFailureReasonType.AimingMeteorite;
+                case EGimmickType.Thunder:
+                    return EFailureReasonType.Thunder;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
