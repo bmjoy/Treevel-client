@@ -21,7 +21,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 各失敗原因に対する失敗回数
         /// </summary>
-        public const string FAILURE_REASONS_NUM = "FAILURE_REASONS_NUM";
+        public const string FAILURE_REASONS_COUNT = "FAILURE_REASONS_COUNT";
 
         /// <summary>
         /// 起動日数
