@@ -84,10 +84,13 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// DateTime 型を PlayerPrefs から取得する
         /// </summary>
         /// <param name="key"> PlayerPrefs のキー </param>
-        public static DateTime GetDateTime(string key)
+        public static DateTime? GetDateTime(string key)
         {
             // String として取得
             var dateTimeStr = PlayerPrefs.GetString(key);
+
+            if (dateTimeStr.Equals("")) return null;
+
             // String -> Binary
             var dateTimeBinary = Convert.ToInt64(dateTimeStr);
             // Binary -> DateTime
