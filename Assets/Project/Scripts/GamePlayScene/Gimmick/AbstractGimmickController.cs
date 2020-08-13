@@ -24,8 +24,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             GimmickType = gimmickData.type;
 
-            GetComponent<Renderer>().sortingOrder = _gimmickId;
-
             foreach (var renderer in GetComponentsInChildren<Renderer>()) {
                 renderer.sortingOrder = _gimmickId;
             }
