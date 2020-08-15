@@ -156,7 +156,8 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="direction"> フリックする方向 </param>
-        public void HandleFlickedBottle(DynamicBottleController bottle, Vector2Int directionInt)
+        /// <returns> フリックした結果，ボトルが移動したかどうか </returns>
+        public bool HandleFlickedBottle(DynamicBottleController bottle, Vector2Int directionInt)
         {
             // tileNum は原点が左上だが，方向ベクトルは原点が左下なので，加工する
             directionInt.y = -directionInt.y;
@@ -168,9 +169,9 @@ namespace Project.Scripts.GamePlayScene
             // 移動先の位置をタイル番号に変換
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            if (targetTileNum == null) return;
+            if (targetTileNum == null) return false;
 
-            Move(bottle, targetTileNum.Value, directionInt);
+            return Move(bottle, targetTileNum.Value, directionInt);
         }
 
         /// <summary>
@@ -179,28 +180,29 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
-        public void Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
+        /// <returns> ボトルが移動したかどうか </returns>
+        public bool Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
         {
             // 移動するボトルが null の場合は移動しない
-            if (bottle == null) return;
+            if (bottle == null) return false;
 
             var xy = TileNumToXY(tileNum);
             // 範囲外のタイル番号が指定された場合には何もしない
-            if (xy == null) return;
+            if (xy == null) return false;
 
             var(x, y) = xy.Value;
 
             var targetSquare = _squares[x, y];
 
             // すでにボトルが置かれているタイルが指定された場合には何もしない
-            if (targetSquare.bottle != null) return;
+            if (targetSquare.bottle != null) return false;
 
 
             var bottleObject = bottle.gameObject;
 
             lock (targetSquare) {
                 // 移動先に既にボトルがある場合は移動しない
-                if (targetSquare.bottle != null) return;
+                if (targetSquare.bottle != null) return false;
 
                 // 移動元からボトルを無くす
                 var from = _bottlePositions[bottleObject];
@@ -218,6 +220,8 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, direction);
             }));
+
+            return true;
         }
 
         /// <summary>

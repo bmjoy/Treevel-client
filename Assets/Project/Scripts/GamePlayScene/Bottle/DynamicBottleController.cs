@@ -90,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var directionInt = Vector2Int.RoundToInt(ExtensionVector2.Normalize(gesture.ScreenFlickVector));
 
             // ボトルのフリック情報を伝える
-            BoardManager.Instance.HandleFlickedBottle(this, directionInt);
+            if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
         }
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
@@ -103,9 +103,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
 
             _moving = false;
-
-            // 計測
-            FlickNum += 1;
 
             callback();
         }
