@@ -155,7 +155,7 @@ namespace Project.Scripts.GamePlayScene
         /// ボトルをフリックする方向に移動する
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
-        /// <param name="direction"> フリックする方向 </param>
+        /// <param name="directionInt"> フリックする方向 </param>
         /// <returns> フリックした結果，ボトルが移動したかどうか </returns>
         public bool HandleFlickedBottle(DynamicBottleController bottle, Vector2Int directionInt)
         {
