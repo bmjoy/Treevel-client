@@ -30,42 +30,41 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             base.Initialize(gimmickData);
 
             var direction = gimmickData.solarBeamDirection;
-            switch (direction)
-            {
+            switch (direction) {
                 case ESolarBeamDirection.Horizontal: {
-                    var row = gimmickData.targetRow;
+                        var row = gimmickData.targetRow;
 
-                    // 親オブジェクトの位置設定
-                    var initialPos = BoardManager.Instance.GetTilePos(row, EColumn.Center);
-                    transform.position = initialPos;
+                        // 親オブジェクトの位置設定
+                        var initialPos = BoardManager.Instance.GetTilePos(row, EColumn.Center);
+                        transform.position = initialPos;
 
-                    // 太陽とビームの位置を調整する
-                    var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
-                    // 中央から1.5タイルサイズ＋1.5太陽の幅分ずらす
-                    var offset = new Vector2(TileSize.WIDTH * 1.5f + sunRenderer.size.x * 1.5f, 0);
-                    _sunObject.transform.position = initialPos + offset;
-                    sunRenderer.enabled = true;
+                        // 太陽とビームの位置を調整する
+                        var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
+                        // 中央から1.5タイルサイズ＋1.5太陽の幅分ずらす
+                        var offset = new Vector2(TileSize.WIDTH * 1.5f + sunRenderer.size.x * 1.5f, 0);
+                        _sunObject.transform.position = initialPos + offset;
+                        sunRenderer.enabled = true;
 
-                    break;
-                }
+                        break;
+                    }
                 case ESolarBeamDirection.Vertical: {
-                    var col = gimmickData.targetColumn;
+                        var col = gimmickData.targetColumn;
 
-                    // 親オブジェクトの位置設定
-                    var initialPos = BoardManager.Instance.GetTilePos(ERow.Third, col);
-                    transform.position = initialPos;
+                        // 親オブジェクトの位置設定
+                        var initialPos = BoardManager.Instance.GetTilePos(ERow.Third, col);
+                        transform.position = initialPos;
 
-                    // 太陽とビームの位置を調整する
-                    var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
-                    var offset = new Vector2(0, TileSize.HEIGHT * 2.5f + sunRenderer.size.y * 1.5f);
-                    _sunObject.transform.position = initialPos + offset;
-                    sunRenderer.enabled = true;
+                        // 太陽とビームの位置を調整する
+                        var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
+                        var offset = new Vector2(0, TileSize.HEIGHT * 2.5f + sunRenderer.size.y * 1.5f);
+                        _sunObject.transform.position = initialPos + offset;
+                        sunRenderer.enabled = true;
 
-                    _beamObject.transform.Rotate(Quaternion.Euler(0, 0, 90).eulerAngles);
-                    var beamSunDistance = Vector3.Distance(_beamObject.transform.position, _sunObject.transform.position);
-                    _beamObject.transform.position = _sunObject.transform.position + Vector3.down * beamSunDistance;
-                    break;
-                }
+                        _beamObject.transform.Rotate(Quaternion.Euler(0, 0, 90).eulerAngles);
+                        var beamSunDistance = Vector3.Distance(_beamObject.transform.position, _sunObject.transform.position);
+                        _beamObject.transform.position = _sunObject.transform.position + Vector3.down * beamSunDistance;
+                        break;
+                    }
             }
         }
 
