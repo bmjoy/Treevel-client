@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
 using UnityEngine.UI;
-using Project.Scripts.UIComponents;
 using Project.Scripts.MenuSelectScene.LevelSelect;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;

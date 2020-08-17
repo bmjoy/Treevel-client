@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
 {
