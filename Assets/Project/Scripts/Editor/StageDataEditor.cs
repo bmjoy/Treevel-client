@@ -240,12 +240,12 @@ namespace Project.Scripts.Editor
                                     EditorGUI.indentLevel++;
                                     EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                    if ((directionElem.intValue != (int)ETornadoDirection.Random) && (directionElem.intValue < 1 || 4 < directionElem.intValue))
+                                    if ((directionElem.intValue != (int)EGimmickDirection.Random) && (directionElem.intValue < 1 || 4 < directionElem.intValue))
                                         directionElem.intValue = 1;
 
-                                    switch ((ETornadoDirection)directionElem.intValue) {
-                                        case ETornadoDirection.ToBottom:
-                                        case ETornadoDirection.ToUp: {
+                                    switch ((EGimmickDirection)directionElem.intValue) {
+                                        case EGimmickDirection.ToBottom:
+                                        case EGimmickDirection.ToUp: {
                                                 // デフォルト値設定
                                                 if (lineElem.intValue < 1 || lineElem.intValue > StageSize.COLUMN)
                                                     lineElem.intValue = 1;
@@ -255,8 +255,8 @@ namespace Project.Scripts.Editor
                                                 lineElem.intValue = (int)Enum.Parse(typeof(EColumn), options[selectedIdx]);
                                                 break;
                                             }
-                                        case ETornadoDirection.ToRight:
-                                        case ETornadoDirection.ToLeft: {
+                                        case EGimmickDirection.ToRight:
+                                        case EGimmickDirection.ToLeft: {
                                                 // デフォルト値設定
                                                 if (lineElem.intValue < 1 || lineElem.intValue > StageSize.ROW)
                                                     lineElem.intValue = 1;
@@ -266,7 +266,7 @@ namespace Project.Scripts.Editor
                                                 lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
                                                 break;
                                             }
-                                        case ETornadoDirection.Random: {
+                                        case EGimmickDirection.Random: {
                                                 showRandomFiledsFlag = true;
                                                 break;
                                             }

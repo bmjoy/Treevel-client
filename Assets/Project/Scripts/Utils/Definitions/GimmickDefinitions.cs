@@ -9,9 +9,9 @@
     }
 
     /// <summary>
-    /// 竜巻の移動方向
+    /// ギミックの移動方向
     /// </summary>
-    public enum ETornadoDirection {
+    public enum EGimmickDirection {
         ToLeft = 1,
         ToRight,
         ToUp,

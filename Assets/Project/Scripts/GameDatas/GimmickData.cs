@@ -30,7 +30,7 @@ namespace Project.Scripts.GameDatas
         /// <summary>
         /// ＜竜巻＞攻撃方向リスト
         /// </summary>
-        public List<ETornadoDirection> targetDirections;
+        public List<EGimmickDirection> targetDirections;
 
         /// <summary>
         /// ＜竜巻＞攻撃行列リスト
