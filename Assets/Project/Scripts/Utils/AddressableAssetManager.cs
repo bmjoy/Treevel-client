@@ -228,6 +228,9 @@ namespace Project.Scripts.Utils
                     case EGimmickType.Thunder:
                         LoadAsset<GameObject>(Address.THUNDER_PREFAB);
                         break;
+                    case EGimmickType.SolarBeam:
+                        LoadAsset<GameObject>(Address.THUNDER_PREFAB);
+                        break;
                     default:
                         throw new System.ArgumentOutOfRangeException();
                 }
