@@ -39,7 +39,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の幅
         /// </summary>
-        [SerializeField] [Range(0, 0.2f)] private float _width;
+        [SerializeField] [Range(0, 0.2f)] protected float width;
 
         /// <summary>
         /// 道の長さ
@@ -85,7 +85,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             if (lineRenderer == null) return;
             lineRenderer.positionCount = _middlePointNum + 2;
-            lineRenderer.startWidth = lineRenderer.endWidth = (float)Screen.width * _width;
+            lineRenderer.startWidth = lineRenderer.endWidth = (float)Screen.width * width;
 
             var startPointLocalPosition = startObject.transform.localPosition;
             var endPointLocalPosition = endObject.transform.localPosition;

@@ -50,5 +50,14 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
             _trees.ForEach(tree => tree.Reset());
             _roads.ForEach(road => road.Reset());
         }
+
+        /// <summary>
+        /// 道の幅の変更
+        /// </summary>
+        /// <param name="scale"> 拡大率 </param>
+        public void ScaleRoad(float scale)
+        {
+            _roads.ForEach(road => road.ScaleWidth(scale));
+        }
     }
 }

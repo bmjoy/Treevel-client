@@ -4,6 +4,7 @@ using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
 using UnityEngine.UI;
 using Project.Scripts.UIComponents;
+using Project.Scripts.MenuSelectScene.LevelSelect;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 
@@ -98,6 +99,8 @@ namespace Project.Scripts.MenuSelectScene
             _newScale = Mathf.Clamp(_newScale, _SCALE_MIN, _SCALE_MAX);
             // Contentの拡大縮小
             _contentRect.localScale = new Vector2(_newScale, _newScale);
+            // 道の拡大縮小
+            LevelSelectDirector.Instance.ScaleRoad(_newScale);
 
             // 拡大縮小前の中点を拡大縮小後の中点に合わせるようにContentの平行移動量を求める
             var _preContentPoint = ConvertFromScreenToContent(_preMeanPoint, _preScale);
