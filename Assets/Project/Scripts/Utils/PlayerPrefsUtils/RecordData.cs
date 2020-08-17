@@ -54,5 +54,15 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
                 }
             }
         }
+
+        /// <summary>
+        /// 記録情報のリセット
+        /// </summary>
+        public static void Reset()
+        {
+            // 最終起動日だけはリセットしない
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.FAILURE_REASONS_COUNT);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.STARTUP_DAYS);
+        }
     }
 }
