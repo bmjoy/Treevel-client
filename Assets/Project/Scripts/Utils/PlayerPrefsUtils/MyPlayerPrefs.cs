@@ -84,7 +84,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="key"> PlayerPrefs のキー </param>
         public static DateTime? GetDateTime(string key)
         {
-            if (PlayerPrefs.HasKey(key)) return null;
+            if (!PlayerPrefs.HasKey(key)) return null;
 
             // String として取得
             var dateTimeStr = PlayerPrefs.GetString(key);

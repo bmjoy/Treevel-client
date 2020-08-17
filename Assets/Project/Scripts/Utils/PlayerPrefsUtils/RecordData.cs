@@ -11,9 +11,9 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 各失敗原因に対する失敗回数
         /// </summary>
-        private static Dictionary<EFailureReasonType, int> _failureReasonCount;
+        private Dictionary<EFailureReasonType, int> _failureReasonCount;
 
-        public static Dictionary<EFailureReasonType, int> FailureReasonCount
+        public Dictionary<EFailureReasonType, int> FailureReasonCount
         {
             get => _failureReasonCount;
             set
@@ -26,9 +26,9 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 起動日数
         /// </summary>
-        private static int _startupDays;
+        private int _startupDays;
 
-        public static int StartupDays
+        public int StartupDays
         {
             get => _startupDays;
             private set
@@ -60,9 +60,9 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 最終起動日
         /// </summary>
-        private static DateTime? _lastStartupDate;
+        private DateTime? _lastStartupDate;
 
-        public static DateTime? LastStartupDate
+        public DateTime? LastStartupDate
         {
             get => _lastStartupDate;
             set

@@ -15,11 +15,11 @@ namespace Project.Scripts.Utils
         public static void OnApplicationStart()
         {
             RecordData.Instance.UpdateStartupDays();
-            RecordData.LastStartupDate = DateTime.Today;
+            RecordData.Instance.LastStartupDate = DateTime.Today;
 
             // FIXME: マージ前に消す
-            Debug.Log($"起動日数：{RecordData.StartupDays}");
-            Debug.Log($"最終起動日：{RecordData.LastStartupDate}");
+            Debug.Log($"起動日数：{RecordData.Instance.StartupDays}");
+            Debug.Log($"最終起動日：{RecordData.Instance.LastStartupDate}");
         }
     }
 }
