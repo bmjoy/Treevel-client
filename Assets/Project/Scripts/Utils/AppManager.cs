@@ -15,7 +15,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         public void OnApplicationStart()
         {
-            UpdateStartupDays();
+            RecordData.UpdateStartupDays();
             RecordData.LastStartupDate = DateTime.Today;
 
             // FIXME: マージ前に消す
@@ -30,29 +30,12 @@ namespace Project.Scripts.Utils
             }
             else {
                 // アプリがバックグラウンドから復帰した時の処理
-                UpdateStartupDays();
+                RecordData.UpdateStartupDays();
                 RecordData.LastStartupDate = DateTime.Today;
 
                 // FIXME: マージ前に消す
                 Debug.Log($"起動日数：{RecordData.StartupDays}");
                 Debug.Log($"最終起動日：{RecordData.LastStartupDate}");
-            }
-        }
-
-        /// <summary>
-        /// 起動日数を更新する
-        /// </summary>
-        private static void UpdateStartupDays()
-        {
-            var lastStartupDate = RecordData.LastStartupDate;
-
-            if (lastStartupDate is DateTime date) {
-                if (date < DateTime.Today) {
-                    // 起動日数を加算する
-                    var startupDays = RecordData.StartupDays;
-                    // 起動日数を保存する
-                    RecordData.StartupDays = startupDays;
-                }
             }
         }
     }

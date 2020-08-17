@@ -30,10 +30,27 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public static int StartupDays
         {
             get => _startupDays;
-            set
+            private set
             {
                 _startupDays = value;
                 PlayerPrefs.SetInt(PlayerPrefsKeys.STARTUP_DAYS, _startupDays);
+            }
+        }
+
+        /// <summary>
+        /// 最終起動日に応じて，起動日数を更新する
+        /// </summary>
+        public static void UpdateStartupDays()
+        {
+            var lastStartupDate = LastStartupDate;
+
+            if (lastStartupDate is DateTime date) {
+                if (date < DateTime.Today) {
+                    // 起動日数を加算する
+                    var startupDays = StartupDays;
+                    // 起動日数を保存する
+                    StartupDays = startupDays;
+                }
             }
         }
 
