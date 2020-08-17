@@ -60,6 +60,8 @@ namespace Project.Scripts.MenuSelectScene
         {
             _preScale = UserSettings.LevelSelectCanvasScale;
             _contentRect.localScale = new Vector2(_preScale, _preScale);
+            // 道の拡大縮小
+            LevelSelectDirector.Instance.ScaleRoad(_preScale);
             // 2点のタッチ開始時
             _transformGesture.TransformStarted += OnTransformStarted;
             // 2点のタッチ中
