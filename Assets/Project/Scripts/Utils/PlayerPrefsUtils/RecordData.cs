@@ -25,7 +25,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <summary>
         /// 起動日数
         /// </summary>
-        private static int _startupDays = PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS, 0);
+        private static int _startupDays = PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS, 1);
 
         public static int StartupDays
         {

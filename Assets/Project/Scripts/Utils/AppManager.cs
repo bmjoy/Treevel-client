@@ -54,10 +54,6 @@ namespace Project.Scripts.Utils
                     RecordData.StartupDays = startupDays;
                 }
             }
-            else {
-                // 初起動日は，起動日数を 1 とする
-                RecordData.StartupDays = 1;
-            }
         }
     }
 }
