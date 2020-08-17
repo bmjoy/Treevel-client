@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Gimmick
 {
+    [RequireComponent(typeof(Animator))]
     public class SolarBeamController : AbstractGimmickController
     {
         [SerializeField] private GameObject _sunObject;
