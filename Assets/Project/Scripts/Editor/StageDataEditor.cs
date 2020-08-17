@@ -407,11 +407,13 @@ namespace Project.Scripts.Editor
 
                             EditorGUILayout.PropertyField(directionProp);
 
-                            switch ((ESolarBeamDirection)directionProp.intValue) {
-                                case ESolarBeamDirection.Horizontal:
+                            switch ((EGimmickDirection)directionProp.intValue) {
+                                case EGimmickDirection.ToRight:
+                                case EGimmickDirection.ToLeft:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
                                     break;
-                                case ESolarBeamDirection.Vertical:
+                                case EGimmickDirection.ToUp:
+                                case EGimmickDirection.ToBottom:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
                                     break;
                                 default:

@@ -85,6 +85,6 @@ namespace Project.Scripts.GameDatas
         /// <summary>
         /// ＜太陽光＞攻撃方向
         /// </summary>
-        public ESolarBeamDirection solarBeamDirection;
+        public EGimmickDirection solarBeamDirection;
     }
 }
