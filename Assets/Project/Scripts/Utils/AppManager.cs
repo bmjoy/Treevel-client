@@ -16,11 +16,11 @@ namespace Project.Scripts.Utils
         public void OnApplicationStart()
         {
             UpdateStartupDays();
-            MyPlayerPrefs.SetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE, DateTime.Today);
+            RecordData.LastStartupDate = DateTime.Today;
 
             // FIXME: マージ前に消す
-            Debug.Log($"起動日数：{PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS)}");
-            Debug.Log($"最終起動日：{MyPlayerPrefs.GetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE)}");
+            Debug.Log($"起動日数：{RecordData.StartupDays}");
+            Debug.Log($"最終起動日：{RecordData.LastStartupDate}");
         }
 
         private void OnApplicationPause(bool pauseStatus)
@@ -31,11 +31,11 @@ namespace Project.Scripts.Utils
             else {
                 // アプリがバックグラウンドから復帰した時の処理
                 UpdateStartupDays();
-                MyPlayerPrefs.SetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE, DateTime.Today);
+                RecordData.LastStartupDate = DateTime.Today;
 
                 // FIXME: マージ前に消す
-                Debug.Log($"起動日数：{PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS)}");
-                Debug.Log($"最終起動日：{MyPlayerPrefs.GetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE)}");
+                Debug.Log($"起動日数：{RecordData.StartupDays}");
+                Debug.Log($"最終起動日：{RecordData.LastStartupDate}");
             }
         }
 
@@ -44,19 +44,19 @@ namespace Project.Scripts.Utils
         /// </summary>
         private static void UpdateStartupDays()
         {
-            var lastStartupDate = MyPlayerPrefs.GetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE);
+            var lastStartupDate = RecordData.LastStartupDate;
 
             if (lastStartupDate is DateTime date) {
                 if (date < DateTime.Today) {
                     // 起動日数を加算する
-                    var startupDays = PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS) + 1;
+                    var startupDays = RecordData.StartupDays;
                     // 起動日数を保存する
-                    PlayerPrefs.SetInt(PlayerPrefsKeys.STARTUP_DAYS, startupDays);
+                    RecordData.StartupDays = startupDays;
                 }
             }
             else {
                 // 初起動日は，起動日数を 1 とする
-                PlayerPrefs.SetInt(PlayerPrefsKeys.STARTUP_DAYS, 1);
+                RecordData.StartupDays = 1;
             }
         }
     }

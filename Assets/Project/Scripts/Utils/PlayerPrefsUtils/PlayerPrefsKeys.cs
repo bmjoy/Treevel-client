@@ -17,20 +17,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public const string LEVEL_SELECT_CANVAS_SCALE = "LEVEL_SELECT_CANVAS_SCALE";
         public const string LEVEL_SELECT_SCROLL_POSITION = "LEVEL_SELECT_SCROLL_POSITION";
         public const char KEY_CONNECT_CHAR = '-';
-
-        /// <summary>
-        /// 各失敗原因に対する失敗回数
-        /// </summary>
         public const string FAILURE_REASONS_COUNT = "FAILURE_REASONS_COUNT";
-
-        /// <summary>
-        /// 起動日数
-        /// </summary>
         public const string STARTUP_DAYS = "STARTUP_DAYS";
-
-        /// <summary>
-        /// 最終起動日
-        /// </summary>
         public const string LAST_STARTUP_DATE = "LAST_STARTUP_DATE";
     }
 }

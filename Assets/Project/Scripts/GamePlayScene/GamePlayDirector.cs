@@ -480,14 +480,14 @@ namespace Project.Scripts.GamePlayScene
                 StageStatus.Get(treeId, stageNumber).Update(success: false);
 
                 // 失敗原因を保存
-                var dic = MyPlayerPrefs.GetDictionary<EFailureReasonType, int>(PlayerPrefsKeys.FAILURE_REASONS_COUNT);
+                var dic = RecordData.FailureReasonCount;
                 if (dic.ContainsKey(Instance.failureReason)) {
                     dic[Instance.failureReason]++;
                 }
                 else {
                     dic[Instance.failureReason] = 1;
                 }
-                MyPlayerPrefs.SetDictionary(PlayerPrefsKeys.FAILURE_REASONS_COUNT, dic);
+                RecordData.FailureReasonCount = dic;
 
                 // FIXME: マージ前に消す
                 Debug.Log($"{Instance.failureReason}：{dic[Instance.failureReason]}");
