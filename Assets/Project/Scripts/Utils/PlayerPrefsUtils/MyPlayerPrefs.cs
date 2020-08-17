@@ -72,7 +72,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <returns></returns>
         public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue> (string key)
         {
-            if (PlayerPrefs.HasKey(key)) return new Dictionary<TKey, TValue> ();
+            if (!PlayerPrefs.HasKey(key)) return new Dictionary<TKey, TValue> ();
 
             var serizlizedDictionary = PlayerPrefs.GetString(key);
             return Deserialize<Dictionary<TKey, TValue>> (serizlizedDictionary);
