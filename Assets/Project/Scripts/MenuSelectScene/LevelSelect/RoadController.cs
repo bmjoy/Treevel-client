@@ -93,7 +93,6 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// <param name="scale"> 拡大率 </param>
         public void ScaleWidth(float scale)
         {
-            Debug.Log(scale);
             lineRenderer.startWidth = lineRenderer.endWidth = (float)Screen.width * width * scale;
         }
     }
