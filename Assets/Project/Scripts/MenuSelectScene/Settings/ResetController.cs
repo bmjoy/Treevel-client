@@ -29,7 +29,7 @@ namespace Project.Scripts.MenuSelectScene.Settings
             StageStatus.Reset();
 
             // 記録情報をリセット
-            RecordData.Reset();
+            RecordData.Instance.Reset();
 
             // 道の解放条件をリセット
             LevelSelectDirector.Reset();
