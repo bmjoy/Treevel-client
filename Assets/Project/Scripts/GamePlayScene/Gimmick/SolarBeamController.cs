@@ -19,6 +19,8 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private const string _WARNING_TRIGGER_NAME = "Warning";
 
+        private static readonly int _IDLE_STATE_NAME_HASH = Animator.StringToHash("SolarBeam@idle");
+
         private Animator _animator;
 
         void Awake()
@@ -77,9 +79,17 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         public override IEnumerator Trigger()
         {
+            // 入場アニメーション再生完了まで待つ
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH);
+            // 待機時間待つ
             yield return new WaitForSeconds(_idleTime);
-
+            // 警告→攻撃→退場
             _animator.SetTrigger(_WARNING_TRIGGER_NAME);
+        }
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
         }
     }
 }
