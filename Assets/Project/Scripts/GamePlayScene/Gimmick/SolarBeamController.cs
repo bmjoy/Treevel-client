@@ -17,8 +17,14 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         [SerializeField] private float _idleTime = 2.0f;
 
+        /// <summary>
+        /// Animator用トリガー
+        /// </summary>
         private const string _WARNING_TRIGGER_NAME = "Warning";
 
+        /// <summary>
+        /// IDLEステートのハッシュ値
+        /// </summary>
         private static readonly int _IDLE_STATE_NAME_HASH = Animator.StringToHash("SolarBeam@idle");
 
         private Animator _animator;
@@ -90,6 +96,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         public void Destroy()
         {
             Destroy(gameObject);
+        }
+
+        protected override void OnEndGame()
+        {
+            _animator.speed = 0;
         }
     }
 }
