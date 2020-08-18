@@ -417,7 +417,9 @@ namespace Project.Scripts.Editor
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
                                     break;
                                 default:
-                                    throw new ArgumentOutOfRangeException();
+                                    // 合理の値に直してあげる
+                                    directionProp.intValue = (int)EGimmickDirection.ToLeft;
+                                    break;
                             }
                             break;
                         }
