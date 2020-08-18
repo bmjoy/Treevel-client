@@ -66,6 +66,11 @@ namespace Project.Scripts.GamePlayScene
         public static int stageNumber;
 
         /// <summary>
+        /// 失敗原因を保持
+        /// </summary>
+        public EFailureReasonType failureReason = EFailureReasonType.Others;
+
+        /// <summary>
         /// 各状態に対応するステートのインスタンス
         /// </summary>
         private readonly Dictionary<EGameState, State> _stateList = new Dictionary<EGameState, State>();
@@ -174,6 +179,7 @@ namespace Project.Scripts.GamePlayScene
         private void OnApplicationQuit()
         {
             // ゲーム失敗扱いとする
+            failureReason = EFailureReasonType.Others;
             Dispatch(EGameState.Failure);
         }
 
@@ -345,6 +351,18 @@ namespace Project.Scripts.GamePlayScene
             {
                 _customTimer.StopTimer();
                 _playingBGM.Stop();
+
+                // フリック回数の取得
+                var bottles = FindObjectsOfType<DynamicBottleController>();
+                var flickNum = bottles.Select(bottle => bottle.FlickNum).Sum();
+
+                // フリック回数の保存
+                var stageStatus = StageStatus.Get(treeId, stageNumber);
+                stageStatus.AddFlickNum(treeId, stageNumber, flickNum);
+
+                // FIXME: マージ前に消す
+                Debug.Log($"フリック回数：{flickNum}");
+                Debug.Log($"合計フリック回数：{stageStatus.flickNum}");
             }
         }
 
@@ -460,6 +478,19 @@ namespace Project.Scripts.GamePlayScene
             {
                 // 記録更新
                 StageStatus.Get(treeId, stageNumber).Update(success: false);
+
+                // 失敗原因を保存
+                var dic = RecordData.Instance.FailureReasonCount;
+                if (dic.ContainsKey(Instance.failureReason)) {
+                    dic[Instance.failureReason]++;
+                }
+                else {
+                    dic[Instance.failureReason] = 1;
+                }
+                RecordData.Instance.FailureReasonCount = dic;
+
+                // FIXME: マージ前に消す
+                Debug.Log($"{Instance.failureReason}：{dic[Instance.failureReason]}");
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {

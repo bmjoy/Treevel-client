@@ -28,6 +28,9 @@ namespace Project.Scripts.MenuSelectScene.Settings
             // 全ステージをリセット
             StageStatus.Reset();
 
+            // 記録情報をリセット
+            RecordData.Instance.Reset();
+
             // 道の解放条件をリセット
             LevelSelectDirector.Reset();
             // 枝の解放条件をリセット(同一シーンに存在しないため、シーン開始時にリセットする)

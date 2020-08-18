@@ -35,6 +35,19 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             PlayerPrefs.SetString(key, serizlizedDict);
         }
 
+        /// <summary>
+        /// DateTime 型を PlayerPrefs に保存する
+        /// </summary>
+        /// <param name="key"> PlayerPrefs のキー </param>
+        /// <param name="dateTime"> 保存したい DateTime </param>
+        public static void SetDateTime(string key, DateTime dateTime)
+        {
+            // DateTime -> Binary -> String
+            var dateTimeStr = dateTime.ToBinary().ToString();
+            // String として保存
+            PlayerPrefs.SetString(key, dateTimeStr);
+            PlayerPrefs.Save();
+        }
 
         /// <summary>
         /// 指定されたオブジェクト情報を読み込む
@@ -54,17 +67,34 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// 指定された辞書型オブジェクト情報を読み込む
         /// </summary>
         /// <param name="key"> キー </param>
-        /// <typeparam name="Key"> 辞書型オブジェクトのキーの型</typeparam>
-        /// <typeparam name="Value"> 辞書型オブジェクトの値の型 </typeparam>
+        /// <typeparam name="TKey"> 辞書型オブジェクトのキーの型</typeparam>
+        /// <typeparam name="TValue"> 辞書型オブジェクトの値の型 </typeparam>
         /// <returns></returns>
-        public static Dictionary<Key, Value> GetDictionary<Key, Value> (string key)
+        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue> (string key)
         {
-            if (PlayerPrefs.HasKey(key)) {
-                var serizlizedDictionary = PlayerPrefs.GetString(key);
-                return Deserialize<Dictionary<Key, Value>> (serizlizedDictionary);
-            }
+            if (!PlayerPrefs.HasKey(key)) return new Dictionary<TKey, TValue> ();
 
-            return new Dictionary<Key, Value> ();
+            var serizlizedDictionary = PlayerPrefs.GetString(key);
+            return Deserialize<Dictionary<TKey, TValue>> (serizlizedDictionary);
+        }
+
+        /// <summary>
+        /// DateTime 型を PlayerPrefs から取得する
+        /// </summary>
+        /// <param name="key"> PlayerPrefs のキー </param>
+        public static DateTime? GetDateTime(string key)
+        {
+            if (!PlayerPrefs.HasKey(key)) return null;
+
+            // String として取得
+            var dateTimeStr = PlayerPrefs.GetString(key);
+
+            // String -> Binary
+            var dateTimeBinary = Convert.ToInt64(dateTimeStr);
+            // Binary -> DateTime
+            var dateTime = DateTime.FromBinary(dateTimeBinary);
+
+            return dateTime;
         }
 
         /// <summary>
