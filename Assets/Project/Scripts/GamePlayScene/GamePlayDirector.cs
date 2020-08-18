@@ -434,7 +434,10 @@ namespace Project.Scripts.GamePlayScene
             public override void OnEnter(State from = null)
             {
                 // 記録更新
-                StageStatus.Get(treeId, stageNumber).Update(success: true);
+                var stageStatus = StageStatus.Get(treeId, stageNumber);
+                stageStatus.Update(success: true);
+
+                Debug.Log($"初成功した日付：{stageStatus.firstSuccessAt}");
 
                 _successSE.Play();
 

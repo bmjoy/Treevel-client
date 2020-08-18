@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Project.Scripts.GameDatas;
@@ -41,6 +40,12 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// 初成功にかかった挑戦回数
         /// </summary>
         public int firstSuccessNum = 0;
+
+        /// <summary>
+        /// 初成功した日付
+        /// yyyy/MM/dd HH:mm:ss 形式
+        /// </summary>
+        public string firstSuccessAt;
 
         /// <summary>
         /// フリック回数
@@ -106,7 +111,10 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// <param name="stageNumber"> ステージ番号 </param>
         public void ClearStage(ETreeId treeId, int stageNumber)
         {
-            if (state != EStageState.Cleared) firstSuccessNum = challengeNum;
+            if (state != EStageState.Cleared) {
+                firstSuccessNum = challengeNum;
+                firstSuccessAt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            }
             state = EStageState.Cleared;
             Set(treeId, stageNumber);
         }
