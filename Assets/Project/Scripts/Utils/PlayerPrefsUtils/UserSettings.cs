@@ -93,5 +93,16 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
                 _levelSelectScrollPosition = Default.LEVEL_SELECT_SCROLL_POSITION;
             }
         }
+
+        public static void ToDefault()
+        {
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.BGM_VOLUME);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.SE_VOLUME);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_DETAILS);
+
+            BGMVolume = Default.BGM_VOLUME;
+            SEVolume = Default.SE_VOLUME;
+            StageDetails = Default.STAGE_DETAILS;
+        }
     }
 }
