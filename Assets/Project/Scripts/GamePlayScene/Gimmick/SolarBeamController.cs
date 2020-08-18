@@ -80,6 +80,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         _beamObject.transform.position = _sunObject.transform.position + sign * Vector3.down * beamSunDistance;
                         break;
                     }
+                // TODO: ランダム方向の実装
+                case EGimmickDirection.Random:
+                default:
+                    throw new System.NotImplementedException();
             }
         }
 
