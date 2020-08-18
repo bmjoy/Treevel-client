@@ -121,16 +121,16 @@ MonoBehaviour:
     life: 0
   gimmicks:
   - loop: 0
-    appearTime: 1
+    appearTime: 3
     interval: 0
-    type: 3
+    type: 4
     targetDirections: 01000000
     targetLines: 01000000
     randomDirection: 
     randomRow: 
     randomColumn: 
     targetRow: 0
-    targetColumn: 0
+    targetColumn: 3
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
@@ -138,6 +138,26 @@ MonoBehaviour:
     - {x: 1, y: 1}
     - {x: 2, y: 3}
     - {x: 3, y: 3}
+    solarBeamDirection: 4
+  - loop: 1
+    appearTime: 1
+    interval: 5
+    type: 4
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 1
+    targetColumn: 1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets:
+    - {x: 1, y: 1}
+    - {x: 2, y: 3}
+    - {x: 3, y: 3}
+    solarBeamDirection: 1
   overviewGimmicks: 
   tutorial:
     type: 1
