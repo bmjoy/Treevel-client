@@ -49,6 +49,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _bottle.IsDead = true;
 
             // 失敗原因を保持する
+            if (gimmick.GetComponent<AbstractGimmickController>() == null) {
+                gimmick = gimmick.transform.parent.gameObject;
+            }
             var gimmickType = gimmick.GetComponent<AbstractGimmickController>().GimmickType;
             GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
 
