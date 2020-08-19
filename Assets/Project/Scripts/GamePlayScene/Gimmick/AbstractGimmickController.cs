@@ -12,10 +12,18 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         [SerializeField] protected float _warningDisplayTime = GimmickWarningParameter.WARNING_DISPLAYED_TIME;
 
+        public EGimmickType GimmickType
+        {
+            get;
+            private set;
+        }
+
         private static short _gimmickId = short.MinValue;
 
         public virtual void Initialize(GimmickData gimmickData)
         {
+            GimmickType = gimmickData.type;
+
             foreach (var renderer in GetComponentsInChildren<Renderer>()) {
                 renderer.sortingOrder = _gimmickId;
             }

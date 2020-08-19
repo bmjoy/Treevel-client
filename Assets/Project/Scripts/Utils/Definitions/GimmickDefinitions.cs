@@ -40,15 +40,4 @@
         Right,
         Random = -1
     }
-
-    /// <summary>
-    /// ギミックの種類
-    /// </summary>
-    public enum EGimmickType {
-        Tornado,
-        Meteorite,
-        AimingMeteorite,
-        Thunder,
-        SolarBeam,
-    }
 }

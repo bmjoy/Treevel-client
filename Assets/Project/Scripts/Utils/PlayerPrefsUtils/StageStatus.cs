@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Project.Scripts.GameDatas;
@@ -40,6 +41,11 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// 初成功にかかった挑戦回数
         /// </summary>
         public int firstSuccessNum = 0;
+
+        /// <summary>
+        /// フリック回数
+        /// </summary>
+        public int flickNum = 0;
 
         /// <summary>
         /// チュートリアルを見たかどうか
@@ -135,6 +141,18 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public void IncFailureNum(ETreeId treeId, int stageNumber)
         {
             failureNum++;
+            Set(treeId, stageNumber);
+        }
+
+        /// <summary>
+        /// フリック回数の加算
+        /// </summary>
+        /// <param name="treeId"> 木の ID </param>
+        /// <param name="stageNumber"> ステージ番号 </param>
+        /// <param name="flickNum"> 加算するフリック回数 </param>
+        public void AddFlickNum(ETreeId treeId, int stageNumber, int flickNum)
+        {
+            this.flickNum += flickNum;
             Set(treeId, stageNumber);
         }
 

@@ -39,6 +39,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private const float _SPEED = 0.3f;
 
+        public int FlickNum
+        {
+            get;
+            private set;
+        } = 0;
+
         protected override void Awake()
         {
             base.Awake();
@@ -84,7 +90,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var directionInt = Vector2Int.RoundToInt(ExtensionVector2.Normalize(gesture.ScreenFlickVector));
 
             // ボトルのフリック情報を伝える
-            BoardManager.Instance.HandleFlickedBottle(this, directionInt);
+            if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
         }
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)

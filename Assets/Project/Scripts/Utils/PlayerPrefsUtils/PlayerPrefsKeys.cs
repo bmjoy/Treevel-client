@@ -17,5 +17,8 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public const string LEVEL_SELECT_CANVAS_SCALE = "LEVEL_SELECT_CANVAS_SCALE";
         public const string LEVEL_SELECT_SCROLL_POSITION = "LEVEL_SELECT_SCROLL_POSITION";
         public const char KEY_CONNECT_CHAR = '-';
+        public const string FAILURE_REASONS_COUNT = "FAILURE_REASONS_COUNT";
+        public const string STARTUP_DAYS = "STARTUP_DAYS";
+        public const string LAST_STARTUP_DATE = "LAST_STARTUP_DATE";
     }
 }
