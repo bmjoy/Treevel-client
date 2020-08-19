@@ -359,10 +359,6 @@ namespace Project.Scripts.GamePlayScene
                 // フリック回数の保存
                 var stageStatus = StageStatus.Get(treeId, stageNumber);
                 stageStatus.AddFlickNum(treeId, stageNumber, flickNum);
-
-                // FIXME: マージ前に消す
-                Debug.Log($"フリック回数：{flickNum}");
-                Debug.Log($"合計フリック回数：{stageStatus.flickNum}");
             }
         }
 
@@ -434,10 +430,7 @@ namespace Project.Scripts.GamePlayScene
             public override void OnEnter(State from = null)
             {
                 // 記録更新
-                var stageStatus = StageStatus.Get(treeId, stageNumber);
-                stageStatus.Update(success: true);
-
-                Debug.Log($"初成功した日付：{stageStatus.firstSuccessAt}");
+                StageStatus.Get(treeId, stageNumber).Update(success: true);
 
                 _successSE.Play();
 
@@ -491,9 +484,6 @@ namespace Project.Scripts.GamePlayScene
                     dic[Instance.failureReason] = 1;
                 }
                 RecordData.Instance.FailureReasonCount = dic;
-
-                // FIXME: マージ前に消す
-                Debug.Log($"{Instance.failureReason}：{dic[Instance.failureReason]}");
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
