@@ -17,9 +17,8 @@ namespace Project.Scripts.MenuSelectScene.Settings
         /// </summary>
         public void ToDefaultButtonDown()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.BGM_VOLUME);
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.SE_VOLUME);
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.STAGE_DETAILS);
+            // 設定の更新
+            UserSettings.ToDefault();
 
             // Canvasの更新
             OnUpdate?.Invoke();
