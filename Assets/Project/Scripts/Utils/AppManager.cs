@@ -16,10 +16,6 @@ namespace Project.Scripts.Utils
         {
             RecordData.Instance.UpdateStartupDays();
             RecordData.Instance.LastStartupDate = DateTime.Today;
-
-            // FIXME: マージ前に消す
-            Debug.Log($"起動日数：{RecordData.Instance.StartupDays}");
-            Debug.Log($"最終起動日：{RecordData.Instance.LastStartupDate}");
         }
     }
 }
