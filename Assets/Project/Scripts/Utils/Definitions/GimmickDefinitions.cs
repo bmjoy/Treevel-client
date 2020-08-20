@@ -1,14 +1,6 @@
 ﻿namespace Project.Scripts.Utils.Definitions
 {
     /// <summary>
-    /// 太陽光ギミックの攻撃方向
-    /// </summary>
-    public enum ESolarBeamDirection {
-        Vertical,
-        Horizontal,
-    }
-
-    /// <summary>
     /// ギミックの移動方向
     /// </summary>
     public enum EGimmickDirection {
