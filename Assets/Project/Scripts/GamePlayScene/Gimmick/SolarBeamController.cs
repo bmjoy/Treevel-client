@@ -50,9 +50,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
                         // 太陽とビームの位置を調整する
                         var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
-                        // 中央から1.5タイルサイズ＋1.5太陽の幅分ずらす
                         var sign = direction == EGimmickDirection.ToLeft ? 1 : -1;
-                        var offset = new Vector2(TileSize.WIDTH * 1.5f + sunRenderer.size.x * 1.5f, 0);
+                        // 中央から1.5タイルサイズ＋1.5太陽の幅分ずらす
+                        var offsetTileCount = StageSize.COLUMN / 2.0f;
+                        // ぴったり右／左端にくっつけるようにするには0.5個分のはずだが、それだと変に足りないので1.5にした
+                        var offsetSunCount = 1.5f;
+                        var offset = new Vector2(TileSize.WIDTH * offsetTileCount + sunRenderer.size.x * offsetSunCount, 0);
                         _sunObject.transform.position = initialPos + sign * offset;
                         // ToRightの場合はx反転
                         _sunObject.transform.localScale = Vector3.Scale(_sunObject.transform.localScale, new Vector3(sign, 1, 1));
@@ -71,12 +74,20 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         // 太陽とビームの位置を調整する
                         var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
                         var sign = direction == EGimmickDirection.ToBottom ? 1 : -1;
-                        var offset = new Vector2(0, TileSize.HEIGHT * 2.5f + sunRenderer.size.y * 1.5f);
+
+                        // 中央からタイル2.5個分ずらす
+                        var offsetTileCount = StageSize.ROW / 2.0f;
+                        // ぴったり上／下端にくっつけるようにするには0.5個分のはずだが、それだと変に足りないので1.5にした
+                        var offsetSunCount = 1.5f;
+                        var offset = new Vector2(0, TileSize.HEIGHT * offsetTileCount + sunRenderer.size.y * offsetSunCount);
                         _sunObject.transform.position = initialPos + sign * offset;
                         sunRenderer.enabled = true;
 
+                        // ビームを縦にする
                         _beamObject.transform.Rotate(Quaternion.Euler(0, 0, sign * 90).eulerAngles);
+                        // ビームと太陽の距離を保持
                         var beamSunDistance = Vector3.Distance(_beamObject.transform.position, _sunObject.transform.position);
+                        // ビームの位置を太陽の上／下にする
                         _beamObject.transform.position = _sunObject.transform.position + sign * Vector3.down * beamSunDistance;
                         break;
                     }
