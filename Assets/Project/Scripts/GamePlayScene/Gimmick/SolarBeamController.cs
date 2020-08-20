@@ -29,7 +29,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private Animator _animator;
 
-        void Awake()
+        private void Awake()
         {
             _animator = GetComponent<Animator>();
         }
