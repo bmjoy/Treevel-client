@@ -168,7 +168,7 @@ namespace Project.Scripts.Editor
                     case EBottleType.Selfish: {
                             // デフォルト値設定
                             bottleDataProp.FindPropertyRelative("life").intValue = 1;
-                            
+
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));

@@ -37,11 +37,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             // TODO: gamestartと同時に処理を走らせる
             // TODO: retry時の挙動のために_selfishTimeを0にする?
-            if (!_isWatching) 
-            {
+            if (!_isWatching) {
                 _selfishTime++;
-                if (_selfishTime == _LIMIT_TO_MOVE)
-                {
+                if (_selfishTime == _LIMIT_TO_MOVE) {
                     // 空いている方向に移動させる
                     MoveToFreeDirection();
                     _selfishTime = 0f;
@@ -72,17 +70,17 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             // ボトルの位置を取得する
             var tileNum = BoardManager.Instance.GetBottlePos(this);
-            var (x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
+            var(x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
             var probabilityArray = new int[Enum.GetNames(typeof(EDirection)).Length];
             // 空いている方向を確認する
             // 左
-            if (BoardManager.Instance.IsEmpty(x-1, y)) probabilityArray[(int)EDirection.ToLeft] = 1;
+            if (BoardManager.Instance.IsEmpty(x - 1, y)) probabilityArray[(int)EDirection.ToLeft] = 1;
             // 右
-            if (BoardManager.Instance.IsEmpty(x+1, y)) probabilityArray[(int)EDirection.ToRight] = 1;
+            if (BoardManager.Instance.IsEmpty(x + 1, y)) probabilityArray[(int)EDirection.ToRight] = 1;
             // 上
-            if (BoardManager.Instance.IsEmpty(x, y-1)) probabilityArray[(int)EDirection.ToUp] = 1;
+            if (BoardManager.Instance.IsEmpty(x, y - 1)) probabilityArray[(int)EDirection.ToUp] = 1;
             // 下
-            if (BoardManager.Instance.IsEmpty(x, y+1)) probabilityArray[(int)EDirection.ToBottom] = 1;
+            if (BoardManager.Instance.IsEmpty(x, y + 1)) probabilityArray[(int)EDirection.ToBottom] = 1;
             // 空いている方向からランダムに1方向を選択する
             if (probabilityArray.Sum() == 0) return;
             var directionIndex = GimmickLibrary.SamplingArrayIndex(probabilityArray);

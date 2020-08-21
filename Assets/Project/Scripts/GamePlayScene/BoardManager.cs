@@ -141,7 +141,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum"> タイル番号 </param>
         /// <returns> (行, 列) </returns>
-        public (int, int)? TileNumToXY(int tileNum)
+        public(int, int)? TileNumToXY(int tileNum)
         {
             if (tileNum < 1 || 15 < tileNum) return null;
 
