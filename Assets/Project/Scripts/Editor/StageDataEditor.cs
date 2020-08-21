@@ -164,7 +164,11 @@ namespace Project.Scripts.Editor
                 EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
-                    case EBottleType.Normal: {
+                    case EBottleType.Normal:
+                    case EBottleType.Selfish: {
+                            // デフォルト値設定
+                            bottleDataProp.FindPropertyRelative("life").intValue = 1;
+                            
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
@@ -445,7 +449,7 @@ namespace Project.Scripts.Editor
 
         private IEnumerable<BottleData> GetAttackableBottles()
         {
-            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life);
+            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life || x.type == EBottleType.Selfish);
         }
 
         private static void ClearConsole()

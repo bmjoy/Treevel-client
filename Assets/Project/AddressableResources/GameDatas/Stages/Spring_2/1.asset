@@ -16,7 +16,7 @@ MonoBehaviour:
   stageNumber: 1
   tiles: []
   bottles:
-  - type: 2
+  - type: 5
     initPos: 4
     targetPos: 4
     bottleSprite:
@@ -25,7 +25,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
-    life: 0
+    life: 1
   - type: 2
     initPos: 5
     targetPos: 5
@@ -35,7 +35,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
-    life: 0
+    life: 1
   - type: 2
     initPos: 6
     targetPos: 6
@@ -45,7 +45,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
-    life: 0
+    life: 1
   - type: 2
     initPos: 7
     targetPos: 7
@@ -95,7 +95,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
-    life: 0
+    life: 1
   - type: 0
     initPos: 3
     targetPos: 0

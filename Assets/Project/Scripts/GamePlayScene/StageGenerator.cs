@@ -38,7 +38,7 @@ namespace Project.Scripts.GamePlayScene
                 tileGenerator.CreateTiles(stageData.TileDatas);
 
                 // ボトル生成
-                BottleGenerator.CreateBottles(stageData.BottleDatas);
+                BottleGenerator.Instance.CreateBottles(stageData.BottleDatas);
 
                 // ギミック生成
                 GimmickGenerator.Instance.Initialize(stageData.GimmickDatas);

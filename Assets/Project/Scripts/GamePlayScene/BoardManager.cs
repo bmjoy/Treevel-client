@@ -141,7 +141,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum"> タイル番号 </param>
         /// <returns> (行, 列) </returns>
-        private(int, int)? TileNumToXY(int tileNum)
+        public (int, int)? TileNumToXY(int tileNum)
         {
             if (tileNum < 1 || 15 < tileNum) return null;
 
@@ -149,6 +149,21 @@ namespace Project.Scripts.GamePlayScene
             var y = (tileNum - 1) / _squares.GetLength(0);
 
             return (x, y);
+        }
+
+        /// <summary>
+        /// x行y列にボトルが存在するかどうか
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public bool IsEmpty(int x, int y)
+        {
+            if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return false;
+
+            // すでにボトルが置かれているタイルが指定された場合には何もしない
+            if (_squares[x, y].bottle != null) return false;
+            return true;
         }
 
         /// <summary>

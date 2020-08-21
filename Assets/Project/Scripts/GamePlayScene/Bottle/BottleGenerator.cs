@@ -2,21 +2,23 @@
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
-    public static class BottleGenerator
+    public class BottleGenerator : SingletonObject<BottleGenerator>
     {
-        private static Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>()
+        private Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>()
         {
             {EBottleType.Dynamic, Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Static, Address.STATIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Normal, Address.NORMAL_BOTTLE_PREFAB},
             {EBottleType.Life, Address.LIFE_BOTTLE_PREFAB},
             {EBottleType.AttackableDummy, Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
+            {EBottleType.Selfish, Address.SELFISH_BOTTLE_PREFAB},
         };
 
-        public static void CreateBottles(List<BottleData> bottleDatas)
+        public void CreateBottles(List<BottleData> bottleDatas)
         {
             bottleDatas.ForEach(async bottleData => {
                 if (!_prefabAddressableKeys.ContainsKey(bottleData.type))

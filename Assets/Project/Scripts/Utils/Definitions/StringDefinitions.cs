@@ -53,6 +53,7 @@
         // ボトル関連
         public const string NORMAL_BOTTLE_PREFAB = "NormalBottlePrefab";
         public const string LIFE_BOTTLE_PREFAB = "LifeBottlePrefab";
+        public const string SELFISH_BOTTLE_PREFAB = "SelfishBottlePrefab";
         public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
         public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
         public const string ATTACKABLE_DUMMY_BOTTLE_PREFAB = "AttackableDummyBottlePrefab";

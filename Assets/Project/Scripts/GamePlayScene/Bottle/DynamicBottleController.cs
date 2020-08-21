@@ -78,7 +78,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// フリックイベントを処理する
         /// </summary>
-        private void HandleFlick(object sender, EventArgs e)
+        protected virtual void HandleFlick(object sender, EventArgs e)
         {
             if (!IsMovable) return;
 
@@ -126,7 +126,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        private void EndProcess()
+        protected virtual void EndProcess()
         {
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
             _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
