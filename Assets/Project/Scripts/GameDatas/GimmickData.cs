@@ -86,5 +86,10 @@ namespace Project.Scripts.GameDatas
         /// ＜太陽光＞攻撃方向
         /// </summary>
         public EGimmickDirection solarBeamDirection;
+
+        /// <summary>
+        /// ＜太陽光＞攻撃回数
+        /// </summary>
+        public int attackTimes;
     }
 }

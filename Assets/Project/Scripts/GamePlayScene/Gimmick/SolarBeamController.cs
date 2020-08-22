@@ -17,17 +17,23 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         [SerializeField] private float _idleTime = 2.0f;
 
-        /// <summary>
-        /// Animator用トリガー
-        /// </summary>
-        private const string _WARNING_TRIGGER_NAME = "Warning";
+        #region アニメータ用パラメータ
+        private const string _ANIMATOR_PARAM_TRIGGER_WARNING = "Warning";
+        private const string _ANIMATOR_PARAM_BOOL_LAST_ATTACK = "LastAttack";
 
         /// <summary>
         /// IDLEステートのハッシュ値
         /// </summary>
         private static readonly int _IDLE_STATE_NAME_HASH = Animator.StringToHash("SolarBeam@idle");
 
+        #endregion
+
         private Animator _animator;
+
+        /// <summary>
+        /// 攻撃回数
+        /// </summary>
+        private int _attackTimes;
 
         private void Awake()
         {
@@ -38,6 +44,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             base.Initialize(gimmickData);
 
+            _attackTimes = gimmickData.attackTimes;
             var direction = gimmickData.solarBeamDirection;
             switch (direction) {
                 case EGimmickDirection.ToLeft:
@@ -102,10 +109,24 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             // 入場アニメーション再生完了まで待つ
             yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH);
-            // 待機時間待つ
-            yield return new WaitForSeconds(_idleTime);
-            // 警告→攻撃→退場
-            _animator.SetTrigger(_WARNING_TRIGGER_NAME);
+
+            while (_attackTimes-- > 0) {
+                if (_attackTimes == 0)
+                    _animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_ATTACK, true);
+
+                // 待機時間待つ
+                yield return new WaitForSeconds(_idleTime);
+
+                // 警告→攻撃→退場
+                _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
+
+                // idle -> warning のTransition待ち
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
+
+                // 最終回以外はIDLEに戻るまで待つ
+                if (_attackTimes > 0)
+                    yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH);
+            }
         }
 
         public void Destroy()

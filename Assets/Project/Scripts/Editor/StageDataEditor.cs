@@ -403,10 +403,15 @@ namespace Project.Scripts.Editor
                             break;
                         }
                     case EGimmickType.SolarBeam: {
+                            // 攻撃回数
+                            var attackTimesProp = gimmickDataProp.FindPropertyRelative("attackTimes");
+                            // 1以上の値を入れる
+                            attackTimesProp.intValue = Math.Max(1, attackTimesProp.intValue);
+                            EditorGUILayout.PropertyField(attackTimesProp);
+
+                            // 攻撃方向
                             var directionProp = gimmickDataProp.FindPropertyRelative("solarBeamDirection");
-
                             EditorGUILayout.PropertyField(directionProp);
-
                             switch ((EGimmickDirection)directionProp.intValue) {
                                 case EGimmickDirection.ToRight:
                                 case EGimmickDirection.ToLeft:
