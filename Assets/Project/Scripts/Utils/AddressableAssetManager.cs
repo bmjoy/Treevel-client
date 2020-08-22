@@ -229,7 +229,7 @@ namespace Project.Scripts.Utils
                         LoadAsset<GameObject>(Address.THUNDER_PREFAB);
                         break;
                     case EGimmickType.SolarBeam:
-                        LoadAsset<GameObject>(Address.THUNDER_PREFAB);
+                        LoadAsset<GameObject>(Address.SOLAR_BEAM_PREFAB);
                         break;
                     default:
                         throw new System.ArgumentOutOfRangeException();
