@@ -417,7 +417,8 @@ namespace Project.Scripts.Editor
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
                                     break;
                                 default:
-                                    // 合理の値に直してあげる
+                                    // 描画を止めないように適当な値を設定する
+                                    Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
                                     directionProp.intValue = (int)EGimmickDirection.ToLeft;
                                     break;
                             }
