@@ -151,6 +151,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
                 SetDirection(currentDirection);
             }
+
+            // 範囲外になったらオブジェクトを消す
+            while (Math.Abs(transform.position.x) < WindowSize.WIDTH && Math.Abs(transform.position.y) < WindowSize.HEIGHT)
+                yield return new WaitForFixedUpdate();
+
+            Destroy(gameObject);
         }
 
         /// <summary>
