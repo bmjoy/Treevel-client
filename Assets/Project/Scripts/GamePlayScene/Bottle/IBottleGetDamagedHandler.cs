@@ -49,14 +49,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _bottle.IsDead = true;
 
             // 失敗原因を保持する
-            if (gimmick.GetComponent<AbstractGimmickController>() == null) {
-                gimmick = gimmick.transform.parent.gameObject;
-            }
             var controller = gimmick.GetComponent<AbstractGimmickController>();
             if (controller == null)
                 controller = gimmick.GetComponentInParent<AbstractGimmickController>();
-
-            Debug.Assert(controller != null, $"{gimmick.name} don't have AbstractGimmickController component");
 
             var gimmickType = controller.GimmickType;
             GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
@@ -133,8 +128,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 var controller = gimmick.GetComponent<AbstractGimmickController>();
                 if (controller == null)
                     controller = gimmick.GetComponentInParent<AbstractGimmickController>();
-
-                Debug.Assert(controller != null, $"{gimmick.name} don't have AbstractGimmickController component");
 
                 var gimmickType = controller.GimmickType;
                 GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
