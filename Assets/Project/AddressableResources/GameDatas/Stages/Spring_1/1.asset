@@ -129,7 +129,7 @@ MonoBehaviour:
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 0
+    targetRow: 1
     targetColumn: 3
     targetBottle: 0
     randomAttackableBottles: 
@@ -138,13 +138,14 @@ MonoBehaviour:
     - {x: 1, y: 1}
     - {x: 2, y: 3}
     - {x: 3, y: 3}
-    solarBeamDirection: 4
+    solarBeamDirection: 1
+    attackTimes: 2
   - loop: 1
     appearTime: 1
     interval: 5
-    type: 4
+    type: 0
     targetDirections: 01000000
-    targetLines: 01000000
+    targetLines: 04000000
     randomDirection: 
     randomRow: 
     randomColumn: 
@@ -158,6 +159,7 @@ MonoBehaviour:
     - {x: 2, y: 3}
     - {x: 3, y: 3}
     solarBeamDirection: 1
+    attackTimes: 1
   overviewGimmicks: 
   tutorial:
     type: 1
