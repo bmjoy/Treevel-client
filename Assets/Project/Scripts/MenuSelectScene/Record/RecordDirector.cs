@@ -53,7 +53,7 @@ namespace Project.Scripts.MenuSelectScene.Record
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
-            _snapScrollView.MaxPage = Enum.GetNames(typeof(ELevelName)).Length - 1;
+            _snapScrollView.MaxPage = 2;
             // ページの横幅の設定
             _snapScrollView.PageSize = ScaledCanvasSize.SIZE_DELTA.x;
 
