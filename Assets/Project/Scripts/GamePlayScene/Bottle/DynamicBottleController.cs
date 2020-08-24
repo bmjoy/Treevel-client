@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using TouchScript.Gestures;
@@ -61,6 +62,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
         }
 
+        public override void Initialize(BottleData bottleData)
+        {
+            // set handlers
+            if (bottleData.isSelfish) {
+                selfishHandler = new SelfishMoveHandler(this);
+            }
+
+            base.Initialize(bottleData);
+        }
+
         private void OnEnable()
         {
             GetComponent<FlickGesture>().Flicked += HandleFlick;
@@ -95,14 +106,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
-            _moving = true;
+            selfishHandler?.OnStartMove();
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
 
-            _moving = false;
+            selfishHandler?.OnEndMove();
 
             callback();
         }
@@ -128,6 +139,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
+            selfishHandler?.EndProcess();
+
             GetComponent<FlickGesture>().Flicked -= HandleFlick;
             _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
             _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;

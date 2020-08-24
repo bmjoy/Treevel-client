@@ -20,6 +20,5 @@
         Normal,
         Life,
         AttackableDummy,
-        Selfish,
     }
 }

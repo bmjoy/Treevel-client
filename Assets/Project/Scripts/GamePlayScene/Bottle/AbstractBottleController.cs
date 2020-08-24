@@ -42,6 +42,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         protected IBottleSuccessHandler successHandler;
 
         /// <summary>
+        /// ボトルを勝手に移動させる時の挙動
+        /// </summary>
+        protected ISelfishHandler selfishHandler;
+
+        /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
         public bool IsAttackable => getDamagedHandler != null;
@@ -52,6 +57,19 @@ namespace Project.Scripts.GamePlayScene.Bottle
         public bool Invincible = false;
 
         protected virtual void Awake() {}
+
+        private void FixedUpdate()
+        {
+            selfishHandler?.DoWhenFixedUpdate();
+        }
+
+        /// <summary>
+        /// ゲーム開始時の挙動
+        /// </summary>
+        public void OnStartGame()
+        {
+            selfishHandler?.OnStartGame();
+        }
 
         /// <summary>
         /// 衝突イベントを処理する

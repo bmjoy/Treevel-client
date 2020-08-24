@@ -11,8 +11,41 @@ using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
-    public class SelfishBottleController : NormalBottleController
+    public interface ISelfishHandler
     {
+        /// <summary>
+        /// ゲーム開始時の挙動
+        /// </summary>
+        void OnStartGame();
+
+        /// <summary>
+        /// FixedUpdate内の挙動
+        /// </summary>
+        void DoWhenFixedUpdate();
+
+        /// <summary>
+        /// フリック開始時の挙動
+        /// </summary>
+        void OnStartMove();
+
+        /// <summary>
+        /// フリック終了時の挙動
+        /// </summary>
+        void OnEndMove();
+
+        /// <summary>
+        /// ゲーム終了時の挙動
+        /// </summary>
+        void EndProcess();
+    }
+
+    internal class SelfishMoveHandler : ISelfishHandler
+    {
+        /// <summary>
+        /// ボトルのインスタンス
+        /// </summary>
+        private readonly DynamicBottleController _bottle;
+
         /// <summary>
         /// 勝手に移動するまでのフレーム数
         /// </summary>
@@ -21,45 +54,52 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 何もしていない時の累計フレーム数
         /// </summary>
-        private float _selfishTime = 0f;
+        private int _selfishTime = 0;
 
         /// <summary>
         /// フリックまたはホールド中かどうか
         /// </summary>
         private bool _isWatching = true;
 
-        public void OnStartGame()
+        internal SelfishMoveHandler(DynamicBottleController bottle)
+        {
+            _bottle = bottle;
+        }
+
+        void ISelfishHandler.OnStartGame()
         {
             _isWatching = false;
         }
 
-        private void FixedUpdate()
+        void ISelfishHandler.DoWhenFixedUpdate()
         {
-            // TODO: gamestartと同時に処理を走らせる
-            // TODO: retry時の挙動のために_selfishTimeを0にする?
             if (!_isWatching) {
                 _selfishTime++;
                 if (_selfishTime == _LIMIT_TO_MOVE) {
                     // 空いている方向に移動させる
                     MoveToFreeDirection();
-                    _selfishTime = 0f;
+                    _selfishTime = 0;
                 }
             }
         }
 
-        protected override void EndProcess()
-        {
-            base.EndProcess();
-            _isWatching = true;
-        }
-
-        protected override void HandleFlick(object sender, EventArgs s)
+        void ISelfishHandler.OnStartMove()
         {
             // フリック中は勝手に移動するまでのフレーム数を計上しない
             _isWatching = true;
-            base.HandleFlick(sender, s);
+        }
+
+        void ISelfishHandler.OnEndMove()
+        {
             _isWatching = false;
         }
+
+        void ISelfishHandler.EndProcess()
+        {
+            _isWatching = true;
+            _selfishTime = 0;
+        }
+
 
         // ホールド中は勝手に移動するまでのフレーム数を計上しない
 
@@ -69,7 +109,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private void MoveToFreeDirection()
         {
             // ボトルの位置を取得する
-            var tileNum = BoardManager.Instance.GetBottlePos(this);
+            var tileNum = BoardManager.Instance.GetBottlePos(_bottle);
             var(x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
             var probabilityArray = new int[Enum.GetNames(typeof(EDirection)).Length];
             // 空いている方向を確認する
@@ -86,16 +126,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var directionIndex = GimmickLibrary.SamplingArrayIndex(probabilityArray);
             switch (directionIndex) {
                 case (int) EDirection.ToLeft:
-                    BoardManager.Instance.Move(this, tileNum - 1);
+                    BoardManager.Instance.Move(_bottle, tileNum - 1);
                     break;
                 case (int) EDirection.ToRight:
-                    BoardManager.Instance.Move(this, tileNum + 1);
+                    BoardManager.Instance.Move(_bottle, tileNum + 1);
                     break;
                 case (int) EDirection.ToUp:
-                    BoardManager.Instance.Move(this, tileNum - StageSize.COLUMN);
+                    BoardManager.Instance.Move(_bottle, tileNum - StageSize.COLUMN);
                     break;
                 case (int) EDirection.ToBottom:
-                    BoardManager.Instance.Move(this, tileNum + StageSize.COLUMN);
+                    BoardManager.Instance.Move(_bottle, tileNum + StageSize.COLUMN);
                     break;
                 default:
                     throw new IndexOutOfRangeException();

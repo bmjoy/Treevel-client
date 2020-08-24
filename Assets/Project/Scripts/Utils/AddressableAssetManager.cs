@@ -176,9 +176,6 @@ namespace Project.Scripts.Utils
                     case Definitions.EBottleType.Life:
                         LoadAsset<GameObject>(Address.LIFE_BOTTLE_PREFAB);
                         break;
-                    case Definitions.EBottleType.Selfish:
-                        LoadAsset<GameObject>(Address.SELFISH_BOTTLE_PREFAB);
-                        break;
                     case EBottleType.AttackableDummy:
                         LoadAsset<GameObject>(Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
                         break;

@@ -15,7 +15,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             {EBottleType.Normal, Address.NORMAL_BOTTLE_PREFAB},
             {EBottleType.Life, Address.LIFE_BOTTLE_PREFAB},
             {EBottleType.AttackableDummy, Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
-            {EBottleType.Selfish, Address.SELFISH_BOTTLE_PREFAB},
         };
 
         public void CreateBottles(List<BottleData> bottleDatas)

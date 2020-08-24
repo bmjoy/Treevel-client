@@ -452,7 +452,7 @@ namespace Project.Scripts.Editor
 
         private IEnumerable<BottleData> GetAttackableBottles()
         {
-            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life || x.type == EBottleType.Selfish);
+            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life);
         }
 
         private static void ClearConsole()
