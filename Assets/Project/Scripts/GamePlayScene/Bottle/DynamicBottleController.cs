@@ -15,6 +15,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
     {
         private Animation _anim;
 
+        private FlickGesture _flickGesture;
+
         /// <summary>
         /// ワープタイルでワープする時のアニメーション
         /// </summary>
@@ -53,8 +55,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
             name = BottleName.DYNAMIC_DUMMY_BOTTLE;
             #endif
             // FlickGesture の設定
-            GetComponent<FlickGesture>().MinDistance = 0.2f;
-            GetComponent<FlickGesture>().FlickTime = 0.2f;
+            _flickGesture = GetComponent<FlickGesture>();
+            _flickGesture.MinDistance = 0.2f;
+            _flickGesture.FlickTime = 0.2f;
 
             // アニメーションの追加
             _anim = GetComponent<Animation>();
@@ -74,14 +77,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private void OnEnable()
         {
-            GetComponent<FlickGesture>().Flicked += HandleFlick;
+            _flickGesture.Flicked += HandleFlick;
             GamePlayDirector.OnSucceed += OnSucceed;
             GamePlayDirector.OnFail += OnFail;
         }
 
         private void OnDisable()
         {
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            _flickGesture.Flicked -= HandleFlick;
             GamePlayDirector.OnSucceed -= OnSucceed;
             GamePlayDirector.OnFail -= OnFail;
         }
@@ -106,6 +109,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
+            _flickGesture.enabled = false;
             selfishHandler?.OnStartMove();
 
             while (transform.position != targetPosition) {
@@ -114,6 +118,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
 
             selfishHandler?.OnEndMove();
+            _flickGesture.enabled = true;
 
             callback();
         }
@@ -141,7 +146,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             selfishHandler?.EndProcess();
 
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            _flickGesture.Flicked -= HandleFlick;
             _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
             _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
 
