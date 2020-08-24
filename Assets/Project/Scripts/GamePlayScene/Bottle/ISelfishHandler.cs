@@ -126,16 +126,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var directionIndex = GimmickLibrary.SamplingArrayIndex(probabilityArray);
             switch (directionIndex) {
                 case (int) EDirection.ToLeft:
-                    BoardManager.Instance.Move(_bottle, tileNum - 1);
+                    BoardManager.Instance.Move(_bottle, tileNum - 1, Vector2Int.left);
                     break;
                 case (int) EDirection.ToRight:
-                    BoardManager.Instance.Move(_bottle, tileNum + 1);
+                    BoardManager.Instance.Move(_bottle, tileNum + 1, Vector2Int.right);
                     break;
                 case (int) EDirection.ToUp:
-                    BoardManager.Instance.Move(_bottle, tileNum - StageSize.COLUMN);
+                    BoardManager.Instance.Move(_bottle, tileNum - StageSize.COLUMN, Vector2Int.up);
                     break;
                 case (int) EDirection.ToBottom:
-                    BoardManager.Instance.Move(_bottle, tileNum + StageSize.COLUMN);
+                    BoardManager.Instance.Move(_bottle, tileNum + StageSize.COLUMN, Vector2Int.down);
                     break;
                 default:
                     throw new IndexOutOfRangeException();

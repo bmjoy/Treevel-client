@@ -230,11 +230,20 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle = bottle;
             }
 
-            // ボトルを移動する
-            StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
+            if (direction != null)
+            {
+                // ボトルを移動する
+                StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
+                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                    targetSquare.tile.OnBottleEnter(bottleObject, direction);
+                }));
+            } else {
+                // ボトルを瞬間移動させる
+                bottle.transform.position = targetSquare.worldPosition;
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, direction);
-            }));
+            }
+            
 
             return true;
         }
