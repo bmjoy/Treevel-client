@@ -230,8 +230,7 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle = bottle;
             }
 
-            if (direction != null)
-            {
+            if (direction != null) {
                 // ボトルを移動する
                 StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
                     targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
@@ -243,7 +242,7 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, direction);
             }
-            
+
 
             return true;
         }
