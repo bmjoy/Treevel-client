@@ -1,4 +1,4 @@
-namespace Project.Scripts.Utils.Definitions
+﻿namespace Project.Scripts.Utils.Definitions
 {
     public enum EFailureReasonType
     {
@@ -6,6 +6,7 @@ namespace Project.Scripts.Utils.Definitions
         Tornado,
         Meteorite,
         AimingMeteorite,
-        Thunder
+        Thunder,
+        SolarBeam,
     }
 }

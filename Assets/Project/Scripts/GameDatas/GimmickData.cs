@@ -30,7 +30,7 @@ namespace Project.Scripts.GameDatas
         /// <summary>
         /// ＜竜巻＞攻撃方向リスト
         /// </summary>
-        public List<ETornadoDirection> targetDirections;
+        public List<EGimmickDirection> targetDirections;
 
         /// <summary>
         /// ＜竜巻＞攻撃行列リスト
@@ -53,12 +53,12 @@ namespace Project.Scripts.GameDatas
         public List<int> randomColumn;
 
         /// <summary>
-        /// ＜隕石＞目標行
+        /// ＜隕石｜太陽光＞目標行
         /// </summary>
         public ERow targetRow;
 
         /// <summary>
-        /// ＜隕石＞目標列
+        /// ＜隕石｜太陽光＞目標列
         /// </summary>
         public EColumn targetColumn;
 
@@ -81,5 +81,15 @@ namespace Project.Scripts.GameDatas
         /// ＜雷＞攻撃目標配列
         /// </summary>
         public List<Vector2Int> targets;
+
+        /// <summary>
+        /// ＜太陽光＞攻撃方向
+        /// </summary>
+        public EGimmickDirection solarBeamDirection;
+
+        /// <summary>
+        /// ＜太陽光＞攻撃回数
+        /// </summary>
+        public int attackTimes;
     }
 }

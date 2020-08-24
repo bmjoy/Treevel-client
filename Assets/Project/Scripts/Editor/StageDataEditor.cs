@@ -240,12 +240,12 @@ namespace Project.Scripts.Editor
                                     EditorGUI.indentLevel++;
                                     EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                    if ((directionElem.intValue != (int)ETornadoDirection.Random) && (directionElem.intValue < 1 || 4 < directionElem.intValue))
+                                    if ((directionElem.intValue != (int)EGimmickDirection.Random) && (directionElem.intValue < 1 || 4 < directionElem.intValue))
                                         directionElem.intValue = 1;
 
-                                    switch ((ETornadoDirection)directionElem.intValue) {
-                                        case ETornadoDirection.ToBottom:
-                                        case ETornadoDirection.ToUp: {
+                                    switch ((EGimmickDirection)directionElem.intValue) {
+                                        case EGimmickDirection.ToBottom:
+                                        case EGimmickDirection.ToUp: {
                                                 // デフォルト値設定
                                                 if (lineElem.intValue < 1 || lineElem.intValue > StageSize.COLUMN)
                                                     lineElem.intValue = 1;
@@ -255,8 +255,8 @@ namespace Project.Scripts.Editor
                                                 lineElem.intValue = (int)Enum.Parse(typeof(EColumn), options[selectedIdx]);
                                                 break;
                                             }
-                                        case ETornadoDirection.ToRight:
-                                        case ETornadoDirection.ToLeft: {
+                                        case EGimmickDirection.ToRight:
+                                        case EGimmickDirection.ToLeft: {
                                                 // デフォルト値設定
                                                 if (lineElem.intValue < 1 || lineElem.intValue > StageSize.ROW)
                                                     lineElem.intValue = 1;
@@ -266,7 +266,7 @@ namespace Project.Scripts.Editor
                                                 lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
                                                 break;
                                             }
-                                        case ETornadoDirection.Random: {
+                                        case EGimmickDirection.Random: {
                                                 showRandomFiledsFlag = true;
                                                 break;
                                             }
@@ -400,6 +400,33 @@ namespace Project.Scripts.Editor
                                 xProp.intValue = Mathf.Clamp(buffer[0], 1, StageSize.ROW);
                                 yProp.intValue = Mathf.Clamp(buffer[1], 1, StageSize.COLUMN);
                             });
+                            break;
+                        }
+                    case EGimmickType.SolarBeam: {
+                            // 攻撃回数
+                            var attackTimesProp = gimmickDataProp.FindPropertyRelative("attackTimes");
+                            // 1以上の値を入れる
+                            attackTimesProp.intValue = Math.Max(1, attackTimesProp.intValue);
+                            EditorGUILayout.PropertyField(attackTimesProp);
+
+                            // 攻撃方向
+                            var directionProp = gimmickDataProp.FindPropertyRelative("solarBeamDirection");
+                            EditorGUILayout.PropertyField(directionProp);
+                            switch ((EGimmickDirection)directionProp.intValue) {
+                                case EGimmickDirection.ToRight:
+                                case EGimmickDirection.ToLeft:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
+                                    break;
+                                case EGimmickDirection.ToUp:
+                                case EGimmickDirection.ToBottom:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
+                                    break;
+                                default:
+                                    // 描画を止めないように適当な値を設定する
+                                    Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
+                                    directionProp.intValue = (int)EGimmickDirection.ToLeft;
+                                    break;
+                            }
                             break;
                         }
                     default:

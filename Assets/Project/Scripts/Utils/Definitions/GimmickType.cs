@@ -9,7 +9,8 @@ namespace Project.Scripts.Utils.Definitions
         Tornado,
         Meteorite,
         AimingMeteorite,
-        Thunder
+        Thunder,
+        SolarBeam
     }
 
     public static class Extension
@@ -25,6 +26,8 @@ namespace Project.Scripts.Utils.Definitions
                     return EFailureReasonType.AimingMeteorite;
                 case EGimmickType.Thunder:
                     return EFailureReasonType.Thunder;
+                case EGimmickType.SolarBeam:
+                    return EFailureReasonType.SolarBeam;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
