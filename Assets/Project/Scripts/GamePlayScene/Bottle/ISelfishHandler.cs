@@ -34,6 +34,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         void OnEndMove();
 
         /// <summary>
+        /// プレス開始時の挙動
+        /// </summary>
+        void OnPressed();
+
+        /// <summary>
+        /// プレス終了時の挙動
+        /// </summary>
+        void OnReleased();
+
+        /// <summary>
         /// ゲーム終了時の挙動
         /// </summary>
         void EndProcess();
@@ -90,6 +100,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         void ISelfishHandler.OnEndMove()
+        {
+            _isWatching = false;
+        }
+
+        void ISelfishHandler.OnPressed()
+        {
+            _isWatching = true;
+        }
+
+        void ISelfishHandler.OnReleased()
         {
             _isWatching = false;
         }
