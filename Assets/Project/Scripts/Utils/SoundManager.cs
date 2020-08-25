@@ -18,7 +18,7 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// 複数SE同時再生を考慮し、SE用のAudioSourceを複数用意する
         /// </summary>
-        private AudioSource[] _SePlayers; 
+        private AudioSource[] _SePlayers;
 
         /// <summary>
         /// BGM再生用のAudioSource
