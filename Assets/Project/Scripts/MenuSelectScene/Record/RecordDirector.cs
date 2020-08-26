@@ -61,6 +61,12 @@ namespace Project.Scripts.MenuSelectScene.Record
             // Draw();
         }
 
+        public void MoveToRight()
+        {
+            _snapScrollView.Page = 1;
+            _snapScrollView.RefreshPage();
+        }
+
         /// <summary>
         /// 全難易度の画面を描画する
         /// </summary>

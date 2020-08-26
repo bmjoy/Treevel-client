@@ -4237,6 +4237,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f653cd2b67b54a109dee553b9257ca82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shareButton: {fileID: 410304127}
+  _individualButton: {fileID: 763297600}
+  _clearStageNum: {fileID: 2065324659}
+  _playNum: {fileID: 2039420582}
+  _playDays: {fileID: 63521117}
+  _flickNum: {fileID: 1733579490}
+  _failureNum: {fileID: 1362339611}
+  _recordDirectorGameObject: {fileID: 1197837566}
 --- !u!224 &700138103 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7367111263612083138, guid: 80d3585f332184b7c9fdc5aaccdfa93a,
