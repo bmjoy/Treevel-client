@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using Project.Scripts.GameDatas;
+using Project.Scripts.Utils;
 
 namespace Project.Scripts.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(Rigidbody2D))]
     public class ThunderController : AbstractGimmickController
     {
@@ -22,11 +22,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// Idleステートのハッシュ値
         /// </summary>
         private static readonly int _IDLE_STATE_NAME_HASH = Animator.StringToHash("Idle");
-
-        /// <summary>
-        /// 雷を放つ際再生するSE
-        /// </summary>
-        [SerializeField] private AudioClip _attackSE;
 
         /// <summary>
         /// 移動速度
@@ -45,17 +40,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         // 各コンポーネント
         private Animator _animator;
-        private AudioSource _audioSource;
         private Rigidbody2D _rigidBody;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _audioSource = GetComponent<AudioSource>();
             _rigidBody = GetComponent<Rigidbody2D>();
-
-            // SE音量を適用
-            _audioSource.volume *= UserSettings.SEVolume;
 
             // 雲をタイルの少し上に移動する
             _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * TileSize.HEIGHT, 0);
@@ -108,7 +98,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
 
                 // 攻撃アニメーション終わるまで待つ
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !_audioSource.isPlaying);
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !SoundManager.Instance.IsPlaying(ESEKey.SE_ThunderAttack));
             }
 
             // TODO:退場演出
@@ -120,7 +110,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private void Attack()
         {
-            _audioSource.PlayOneShot(_attackSE);
+            SoundManager.Instance.PlaySE(ESEKey.SE_ThunderAttack);
         }
 
         protected override void OnEndGame()
@@ -129,7 +119,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _rigidBody.velocity = Vector2.zero;
             // アニメーション、SEを止める
             _animator.speed = 0;
-            _audioSource.Stop();
+            SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
         }
     }
 }

@@ -269,11 +269,6 @@ namespace Project.Scripts.GamePlayScene
         private class PlayingState: State
         {
             /// <summary>
-            /// プレイ中の BGM
-            /// </summary>
-            private readonly AudioSource _playingBGM;
-
-            /// <summary>
             /// ゲーム時間を計測するタイマー
             /// </summary>
             private readonly CustomTimer _customTimer;
@@ -290,13 +285,6 @@ namespace Project.Scripts.GamePlayScene
 
             public PlayingState(GamePlayDirector caller)
             {
-                // BGM設定
-                _playingBGM = caller.GetComponents<AudioSource>().SingleOrDefault(audioSource => audioSource.clip.name == AudioClipName.PLAYING);
-                if (_playingBGM != null) {
-                    _playingBGM.time = 2.0f;
-                    _playingBGM.volume *= UserSettings.BGMVolume;
-                }
-
                 // タイマー設定
                 _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
                 _customTimer = caller.gameObject.AddComponent<CustomTimer>();
@@ -316,7 +304,7 @@ namespace Project.Scripts.GamePlayScene
                     StageInitialize();
                 }
 
-                _playingBGM.Play();
+                SoundManager.Instance.PlayBGM(EBGMKey.BGM_Gameplay, 2.0f);
             }
 
             public override void OnExit(State to)
@@ -350,7 +338,7 @@ namespace Project.Scripts.GamePlayScene
             private void EndProcess()
             {
                 _customTimer.StopTimer();
-                _playingBGM.Stop();
+                SoundManager.Instance.StopBGM();
 
                 // フリック回数の取得
                 var bottles = FindObjectsOfType<DynamicBottleController>();
@@ -411,20 +399,11 @@ namespace Project.Scripts.GamePlayScene
             /// </summary>
             private readonly GameObject _successPopup;
 
-            /// <summary>
-            /// 成功時の音
-            /// </summary>
-            private readonly AudioSource _successSE;
-
             public SuccessState(GamePlayDirector caller)
             {
                 // 成功ポップアップ設定
                 _successPopup = GameObject.Find(_SUCCESS_POPUP_NAME);
                 _successPopup.SetActive(false);
-
-                // 成功効果音設定
-                _successSE = caller.GetComponents<AudioSource>().SingleOrDefault(se => se.clip.name == AudioClipName.SUCCESS);
-                if (_successSE != null) _successSE.volume *= UserSettings.SEVolume;
             }
 
             public override void OnEnter(State from = null)
@@ -432,7 +411,7 @@ namespace Project.Scripts.GamePlayScene
                 // 記録更新
                 StageStatus.Get(treeId, stageNumber).Update(success: true);
 
-                _successSE.Play();
+                SoundManager.Instance.PlaySE(ESEKey.SE_Success);
 
                 // 成功ポップアップ表示
                 _successPopup.SetActive(true);
@@ -454,20 +433,11 @@ namespace Project.Scripts.GamePlayScene
             /// </summary>
             private readonly GameObject _failurePopup;
 
-            /// <summary>
-            /// 失敗時の音
-            /// </summary>
-            private readonly AudioSource _failureSE;
-
             public FailureState(GamePlayDirector caller)
             {
                 // 失敗ポップアップ設定
                 _failurePopup = GameObject.Find(_FAILURE_POPUP_NAME);
                 _failurePopup.SetActive(false);
-
-                // 失敗効果音設定
-                _failureSE = caller.GetComponents<AudioSource>().SingleOrDefault(se => se.clip.name == AudioClipName.FAILURE);
-                if (_failureSE != null) _failureSE.volume *= UserSettings.SEVolume;
             }
 
             public override void OnEnter(State from = null)
@@ -491,7 +461,7 @@ namespace Project.Scripts.GamePlayScene
                     TreeLibrary.LoadStageSelectScene(levelName);
                 } else {
                     // 失敗SE
-                    _failureSE.Play();
+                    SoundManager.Instance.PlaySE(ESEKey.SE_Failure);
 
                     // 失敗ポップアップを表示
                     _failurePopup.SetActive(true);
