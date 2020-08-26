@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 63521118}
   - component: {fileID: 63521117}
   m_Layer: 5
-  m_Name: Number
+  m_Name: PlayDays
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2936,7 +2936,7 @@ GameObject:
   - component: {fileID: 484366321}
   - component: {fileID: 484366320}
   m_Layer: 5
-  m_Name: FailureReason
+  m_Name: FailureNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9608,7 +9608,7 @@ GameObject:
   - component: {fileID: 1362339612}
   - component: {fileID: 1362339611}
   m_Layer: 5
-  m_Name: Number
+  m_Name: FailureNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13578,7 +13578,7 @@ GameObject:
   - component: {fileID: 1733579491}
   - component: {fileID: 1733579490}
   m_Layer: 5
-  m_Name: Number
+  m_Name: FlickNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13925,7 +13925,7 @@ GameObject:
   - component: {fileID: 1810369582}
   - component: {fileID: 1810369581}
   m_Layer: 5
-  m_Name: All
+  m_Name: StageNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15305,7 +15305,7 @@ GameObject:
   - component: {fileID: 2039420583}
   - component: {fileID: 2039420582}
   m_Layer: 5
-  m_Name: Number
+  m_Name: PlayNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15383,7 +15383,7 @@ GameObject:
   - component: {fileID: 2043206398}
   - component: {fileID: 2043206397}
   m_Layer: 5
-  m_Name: StageClearNum
+  m_Name: ClearStageNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15538,7 +15538,7 @@ GameObject:
   - component: {fileID: 2065324660}
   - component: {fileID: 2065324659}
   m_Layer: 5
-  m_Name: Clear
+  m_Name: ClearStageNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
