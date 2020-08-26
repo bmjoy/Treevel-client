@@ -98,7 +98,7 @@ namespace Project.Scripts.Utils
         {
             if (!ValidateKey(key))
                 return false;
-            
+
             var clip = _seDict[key];
             var player = _SePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
             return player != null && player.isPlaying;
@@ -147,7 +147,7 @@ namespace Project.Scripts.Utils
             _BgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume;
             foreach (var sePlayer in _SePlayers) {
                 sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume;
-            } 
+            }
         }
     }
 }

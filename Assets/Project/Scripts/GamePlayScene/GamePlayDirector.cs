@@ -449,8 +449,7 @@ namespace Project.Scripts.GamePlayScene
                 var dic = RecordData.Instance.FailureReasonCount;
                 if (dic.ContainsKey(Instance.failureReason)) {
                     dic[Instance.failureReason]++;
-                }
-                else {
+                } else {
                     dic[Instance.failureReason] = 1;
                 }
                 RecordData.Instance.FailureReasonCount = dic;
