@@ -57,8 +57,7 @@ namespace Project.Scripts.Utils
 
             _loadedAssets.Add(key, op);
 
-            if (UIManager.Instance.Initialized)
-                UIManager.Instance.ProgressBar.Load(op);
+            UIManager.Instance.ProgressBar.Load(op);
 
             return op;
         }

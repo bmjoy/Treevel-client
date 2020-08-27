@@ -1,15 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.PlayerPrefsUtils;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Project.Scripts.Utils
 {
+    public enum EBGMKey {
+        BGM_Gameplay
+    }
+
+    public enum ESEKey {
+        SE_Success,
+        SE_Failure,
+        SE_ThunderAttack,
+    }
+
     public class SoundManager : SingletonObject<SoundManager>
     {
+        /// <summary>
+        /// プレハブにクリップリストを保存できるようにデータ化するためのクラス
+        /// </summary>
+        [System.Serializable]
+        public class SoundData
+        {
+            [SerializeField] public string key;
+            [SerializeField] public AudioClip clip;
+        }
+
+
         /// <summary>
         /// 同時再生できるSEの数
         /// </summary>
@@ -28,12 +51,12 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// BGMリスト
         /// </summary>
-        private Dictionary<EBGMKey, AudioClip> _bgmDict;
+        [SerializeField] private List<SoundData> _bgmClipList;
 
         /// <summary>
         /// SEリスト
         /// </summary>
-        private Dictionary<ESEKey, AudioClip> _seDict;
+        [SerializeField] private List<SoundData> _seClipList;
 
         /// <summary>
         /// 初期BGMボリューム
@@ -47,9 +70,11 @@ namespace Project.Scripts.Utils
 
         private void Awake()
         {
+            // BGM再生用のAudioSourceをアタッチする
             _BgmPlayer = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
             _BgmPlayer.loop = true;
 
+            // SE再生用のAudioSourceをアタッチする
             _SePlayers = new AudioSource[_MAX_SE_NUM];
             for (var i = 0; i < _MAX_SE_NUM; i++) {
                 var player = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
@@ -58,26 +83,19 @@ namespace Project.Scripts.Utils
                 _SePlayers[i] = player;
             }
 
-            AddressableAssetManager.LoadAsset<AudioSheet>("AudioClipSheet").Completed += handled => {
-                var sheet = handled.Result;
-                _bgmDict = sheet.bgmDict.ToDictionary(data => (EBGMKey)Enum.Parse(typeof(EBGMKey), data.key), data => data.clip);
-                _seDict = sheet.seDict.ToDictionary(data => (ESEKey)Enum.Parse(typeof(ESEKey), data.key), data => data.clip);
-            };
-
-            ResetVolume();
             DontDestroyOnLoad(gameObject);
         }
 
         public void PlaySE(ESEKey key)
         {
-            if (!ValidateKey(key))
+            var clip = GetSEClip(key);
+            if (clip == null)
                 return;
 
             if (_SePlayers.Any(src => !src.isPlaying)) {
                 // 再生していないAudioSourceを探す
                 var player = _SePlayers.First(source => !source.isPlaying);
 
-                var clip = _seDict[key];
                 player.PlayOneShot(clip);
             } else {
                 Debug.LogWarning($"Failed to Play SE: {key} because there is no available audio source");
@@ -86,34 +104,34 @@ namespace Project.Scripts.Utils
 
         public void StopSE(ESEKey key)
         {
-            if (!ValidateKey(key))
+            var clip = GetSEClip(key);
+            if (clip == null)
                 return;
 
-            var clip = _seDict[key];
             var player = _SePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
             player?.Stop();
         }
 
         public bool IsPlaying(ESEKey key)
         {
-            if (!ValidateKey(key))
+            var clip = GetSEClip(key);
+            if (clip == null)
                 return false;
 
-            var clip = _seDict[key];
             var player = _SePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
             return player != null && player.isPlaying;
         }
 
         public void PlayBGM(EBGMKey key, float playback = 0f)
         {
-            if (!ValidateKey(key))
+            var clip = GetBGMClip(key);
+            if (clip == null)
                 return;
 
             // BGM再生中であれば停止しておく
             if (_BgmPlayer.isPlaying)
                 _BgmPlayer.Stop();
 
-            var clip = _bgmDict[key];
             _BgmPlayer.time = playback;
             _BgmPlayer.clip = clip;
             _BgmPlayer.Play();
@@ -124,22 +142,32 @@ namespace Project.Scripts.Utils
             _BgmPlayer.Stop();
         }
 
-        private bool ValidateKey(ESEKey key)
+        private AudioClip GetSEClip(ESEKey key)
         {
-            if (!_seDict.ContainsKey(key)) {
-                Debug.LogWarning($"Cannot Find Sound Effect clip with key: {key}");
-                return false;
+            try {
+                var soundData = _seClipList.Single(data => data.key.Equals(key.ToString()));
+                return soundData.clip;
+            } catch (InvalidOperationException) {
+                Debug.LogError($"Cannot Find SE clip with key: {key}");
+                return null;
+            } catch (ArgumentNullException) {
+                Debug.LogError($"SE Clip list is empty");
+                return null;
             }
-            return true;
         }
 
-        private bool ValidateKey(EBGMKey key)
+        private AudioClip GetBGMClip(EBGMKey key)
         {
-            if (!_bgmDict.ContainsKey(key)) {
-                Debug.LogWarning($"Cannot Find BGM clip with key: {key}");
-                return false;
+            try {
+                var soundData = _bgmClipList.Single(data => data.key.Equals(key.ToString()));
+                return soundData.clip;
+            } catch (InvalidOperationException) {
+                Debug.LogError($"Cannot Find BGM clip with key: {key}");
+                return null;
+            } catch (ArgumentNullException) {
+                Debug.LogError($"BGM Clip list is empty");
+                return null;
             }
-            return true;
         }
 
         public void ResetVolume()
@@ -150,4 +178,62 @@ namespace Project.Scripts.Utils
             }
         }
     }
+
+
+    #if UNITY_EDITOR
+    [CustomEditor(typeof(SoundManager))]
+    [CanEditMultipleObjects]
+    public class SoundManagerEditor : Editor
+    {
+        private SerializedProperty _bgmListProp;
+        private SerializedProperty _seListProp;
+
+        public void OnEnable()
+        {
+            _bgmListProp = serializedObject.FindProperty("_bgmClipList");
+            _seListProp = serializedObject.FindProperty("_seClipList");
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUI.BeginChangeCheck();
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"));
+
+            _bgmListProp.arraySize = Math.Max(_bgmListProp.arraySize, Enum.GetValues(typeof(EBGMKey)).Length);
+            _seListProp.arraySize = Math.Max(_seListProp.arraySize, Enum.GetValues(typeof(ESEKey)).Length);
+
+            EditorGUILayout.LabelField("BGM List", EditorStyles.boldLabel);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            foreach (var eBgm in Enum.GetValues(typeof(EBGMKey)) as EBGMKey[]) {
+                var soundDataProp = _bgmListProp.GetArrayElementAtIndex((int)eBgm);
+                // BGMのキーを保存
+                var keyProp = soundDataProp.FindPropertyRelative("key");
+                keyProp.stringValue = eBgm.ToString();
+
+                EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eBgm.ToString()));
+            }
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.LabelField("SE List", EditorStyles.boldLabel);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            foreach (var eSe in Enum.GetValues(typeof(ESEKey)) as ESEKey[]) {
+                var soundDataProp = _seListProp.GetArrayElementAtIndex((int)eSe);
+                var keyProp = soundDataProp.FindPropertyRelative("key");
+                keyProp.stringValue = eSe.ToString();
+
+                EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eSe.ToString()));
+            }
+            EditorGUILayout.EndVertical();
+
+            if (!EditorGUI.EndChangeCheck()) return;
+
+            // Set object dirty, this will make it be saved after saving the project.
+            EditorUtility.SetDirty(serializedObject.targetObject);
+
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+    #endif
 }
