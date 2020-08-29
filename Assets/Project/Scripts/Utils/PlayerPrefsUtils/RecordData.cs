@@ -48,7 +48,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             if (lastStartupDate is DateTime date) {
                 if (date < DateTime.Today) {
                     // 起動日数を加算する
-                    var startupDays = StartupDays;
+                    var startupDays = StartupDays + 1;
                     // 起動日数を保存する
                     StartupDays = startupDays;
                 }
