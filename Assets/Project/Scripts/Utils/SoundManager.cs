@@ -86,6 +86,10 @@ namespace Project.Scripts.Utils
             DontDestroyOnLoad(gameObject);
         }
 
+        /// <summary>
+        /// SEを再生する
+        /// </summary>
+        /// <param name="key"> 再生するSEのキー </param>
         public void PlaySE(ESEKey key)
         {
             var clip = GetSEClip(key);
@@ -102,6 +106,10 @@ namespace Project.Scripts.Utils
             }
         }
 
+        /// <summary>
+        /// SEを停止する
+        /// </summary>
+        /// <param name="key"> 停止するSEのキー </param>
         public void StopSE(ESEKey key)
         {
             var clip = GetSEClip(key);
@@ -112,6 +120,11 @@ namespace Project.Scripts.Utils
             player?.Stop();
         }
 
+        /// <summary>
+        /// SE再生中かどうか
+        /// </summary>
+        /// <param name="key"> 確認したいSEのキー </param>
+        /// <returns>再生中であれば`true`、そうでなければ`false`</returns>
         public bool IsPlaying(ESEKey key)
         {
             var clip = GetSEClip(key);
@@ -122,6 +135,11 @@ namespace Project.Scripts.Utils
             return player != null && player.isPlaying;
         }
 
+        /// <summary>
+        /// BGMを再生する
+        /// </summary>
+        /// <param name="key"> 再生するBGMのキー </param>
+        /// <param name="playback"></param>
         public void PlayBGM(EBGMKey key, float playback = 0f)
         {
             var clip = GetBGMClip(key);
@@ -137,6 +155,9 @@ namespace Project.Scripts.Utils
             _BgmPlayer.Play();
         }
 
+        /// <summary>
+        /// 再生中のBGMを停止する
+        /// </summary>
         public void StopBGM()
         {
             _BgmPlayer.Stop();
@@ -181,6 +202,9 @@ namespace Project.Scripts.Utils
 
 
     #if UNITY_EDITOR
+    /// <summary>
+    /// 簡単にゲーム中使用するSE、BGMを登録できるためエディタを改造する
+    /// </summary>
     [CustomEditor(typeof(SoundManager))]
     [CanEditMultipleObjects]
     public class SoundManagerEditor : Editor
