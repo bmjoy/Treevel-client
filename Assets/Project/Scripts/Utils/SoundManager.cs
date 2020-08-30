@@ -23,17 +23,6 @@ namespace Project.Scripts.Utils
     public class SoundManager : SingletonObject<SoundManager>
     {
         /// <summary>
-        /// プレハブにクリップリストを保存できるようにデータ化するためのクラス
-        /// </summary>
-        [System.Serializable]
-        public class SoundData
-        {
-            [SerializeField] public string key;
-            [SerializeField] public AudioClip clip;
-        }
-
-
-        /// <summary>
         /// 同時再生できるSEの数
         /// </summary>
         private const int _MAX_SE_NUM = 8;
@@ -198,66 +187,75 @@ namespace Project.Scripts.Utils
                 sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume;
             }
         }
-    }
 
-
-    #if UNITY_EDITOR
-    /// <summary>
-    /// 簡単にゲーム中使用するSE、BGMを登録できるためエディタを改造する
-    /// </summary>
-    [CustomEditor(typeof(SoundManager))]
-    [CanEditMultipleObjects]
-    public class SoundManagerEditor : Editor
-    {
-        private SerializedProperty _bgmListProp;
-        private SerializedProperty _seListProp;
-
-        public void OnEnable()
+        /// <summary>
+        /// プレハブにクリップリストを保存できるようにデータ化するためのクラス
+        /// </summary>
+        [System.Serializable]
+        private class SoundData
         {
-            _bgmListProp = serializedObject.FindProperty("_bgmClipList");
-            _seListProp = serializedObject.FindProperty("_seClipList");
+            [SerializeField] public string key;
+            [SerializeField] public AudioClip clip;
         }
 
-        public override void OnInspectorGUI()
+        #if UNITY_EDITOR
+        /// <summary>
+        /// 簡単にゲーム中使用するSE、BGMを登録できるためエディタを改造する
+        /// </summary>
+        [CustomEditor(typeof(SoundManager))]
+        [CanEditMultipleObjects]
+        public class SoundManagerEditor : Editor
         {
-            EditorGUI.BeginChangeCheck();
+            private SerializedProperty _bgmListProp;
+            private SerializedProperty _seListProp;
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"));
-
-            _bgmListProp.arraySize = Math.Max(_bgmListProp.arraySize, Enum.GetValues(typeof(EBGMKey)).Length);
-            _seListProp.arraySize = Math.Max(_seListProp.arraySize, Enum.GetValues(typeof(ESEKey)).Length);
-
-            EditorGUILayout.LabelField("BGM List", EditorStyles.boldLabel);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            foreach (var eBgm in Enum.GetValues(typeof(EBGMKey)) as EBGMKey[]) {
-                var soundDataProp = _bgmListProp.GetArrayElementAtIndex((int)eBgm);
-                // BGMのキーを保存
-                var keyProp = soundDataProp.FindPropertyRelative("key");
-                keyProp.stringValue = eBgm.ToString();
-
-                EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eBgm.ToString()));
+            public void OnEnable()
+            {
+                _bgmListProp = serializedObject.FindProperty("_bgmClipList");
+                _seListProp = serializedObject.FindProperty("_seClipList");
             }
-            EditorGUILayout.EndVertical();
 
-            EditorGUILayout.LabelField("SE List", EditorStyles.boldLabel);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            foreach (var eSe in Enum.GetValues(typeof(ESEKey)) as ESEKey[]) {
-                var soundDataProp = _seListProp.GetArrayElementAtIndex((int)eSe);
-                var keyProp = soundDataProp.FindPropertyRelative("key");
-                keyProp.stringValue = eSe.ToString();
+            public override void OnInspectorGUI()
+            {
+                EditorGUI.BeginChangeCheck();
 
-                EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eSe.ToString()));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"));
+
+                _bgmListProp.arraySize = Math.Max(_bgmListProp.arraySize, Enum.GetValues(typeof(EBGMKey)).Length);
+                _seListProp.arraySize = Math.Max(_seListProp.arraySize, Enum.GetValues(typeof(ESEKey)).Length);
+
+                EditorGUILayout.LabelField("BGM List", EditorStyles.boldLabel);
+                EditorGUILayout.BeginVertical(GUI.skin.box);
+                foreach (var eBgm in Enum.GetValues(typeof(EBGMKey)) as EBGMKey[]) {
+                    var soundDataProp = _bgmListProp.GetArrayElementAtIndex((int)eBgm);
+                    // BGMのキーを保存
+                    var keyProp = soundDataProp.FindPropertyRelative("key");
+                    keyProp.stringValue = eBgm.ToString();
+
+                    EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eBgm.ToString()));
+                }
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.LabelField("SE List", EditorStyles.boldLabel);
+                EditorGUILayout.BeginVertical(GUI.skin.box);
+                foreach (var eSe in Enum.GetValues(typeof(ESEKey)) as ESEKey[]) {
+                    var soundDataProp = _seListProp.GetArrayElementAtIndex((int)eSe);
+                    var keyProp = soundDataProp.FindPropertyRelative("key");
+                    keyProp.stringValue = eSe.ToString();
+
+                    EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eSe.ToString()));
+                }
+                EditorGUILayout.EndVertical();
+
+                if (!EditorGUI.EndChangeCheck()) return;
+
+                // Set object dirty, this will make it be saved after saving the project.
+                EditorUtility.SetDirty(serializedObject.targetObject);
+
+                serializedObject.ApplyModifiedProperties();
             }
-            EditorGUILayout.EndVertical();
-
-            if (!EditorGUI.EndChangeCheck()) return;
-
-            // Set object dirty, this will make it be saved after saving the project.
-            EditorUtility.SetDirty(serializedObject.targetObject);
-
-            serializedObject.ApplyModifiedProperties();
         }
+        #endif
     }
-    #endif
 }
