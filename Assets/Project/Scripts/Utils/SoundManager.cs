@@ -216,18 +216,16 @@ namespace Project.Scripts.Utils
                 var src = target as SoundManager;
 
                 // 新規追加のBGMキーがある時の対応
-                src._bgmClipList = 
-                    Enum.GetNames(typeof(EBGMKey))
-                        .ToDictionary(key => key, key => src._bgmClipList.Find(data => data.key.Equals(key)))
-                        .Select(pair => pair.Value)
-                        .ToList();
-                
+                src._bgmClipList = Enum.GetNames(typeof(EBGMKey))
+                    .ToDictionary(key => key, key => src._bgmClipList.Find(data => data.key.Equals(key)))
+                    .Select(pair => pair.Value)
+                    .ToList();
+
                 // 新規追加のSEキーがある時の対応
-                src._seClipList = 
-                    Enum.GetNames(typeof(ESEKey))
-                        .ToDictionary(key => key, key => src._seClipList.Find(data => data.key.Equals(key)))
-                        .Select(pair => pair.Value)
-                        .ToList();
+                src._seClipList = Enum.GetNames(typeof(ESEKey))
+                    .ToDictionary(key => key, key => src._seClipList.Find(data => data.key.Equals(key)))
+                    .Select(pair => pair.Value)
+                    .ToList();
             }
 
             public override void OnInspectorGUI()
