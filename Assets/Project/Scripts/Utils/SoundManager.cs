@@ -212,6 +212,22 @@ namespace Project.Scripts.Utils
             {
                 _bgmListProp = serializedObject.FindProperty("_bgmClipList");
                 _seListProp = serializedObject.FindProperty("_seClipList");
+
+                var src = target as SoundManager;
+
+                // 新規追加のBGMキーがある時の対応
+                src._bgmClipList = 
+                    Enum.GetNames(typeof(EBGMKey))
+                        .ToDictionary(key => key, key => src._bgmClipList.Find(data => data.key.Equals(key)))
+                        .Select(pair => pair.Value)
+                        .ToList();
+                
+                // 新規追加のSEキーがある時の対応
+                src._seClipList = 
+                    Enum.GetNames(typeof(ESEKey))
+                        .ToDictionary(key => key, key => src._seClipList.Find(data => data.key.Equals(key)))
+                        .Select(pair => pair.Value)
+                        .ToList();
             }
 
             public override void OnInspectorGUI()
@@ -220,9 +236,6 @@ namespace Project.Scripts.Utils
 
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"));
-
-                _bgmListProp.arraySize = Math.Max(_bgmListProp.arraySize, Enum.GetValues(typeof(EBGMKey)).Length);
-                _seListProp.arraySize = Math.Max(_seListProp.arraySize, Enum.GetValues(typeof(ESEKey)).Length);
 
                 EditorGUILayout.LabelField("BGM List", EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(GUI.skin.box);
