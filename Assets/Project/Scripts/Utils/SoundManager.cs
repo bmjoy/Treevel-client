@@ -203,7 +203,6 @@ namespace Project.Scripts.Utils
         /// 簡単にゲーム中使用するSE、BGMを登録できるためエディタを改造する
         /// </summary>
         [CustomEditor(typeof(SoundManager))]
-        [CanEditMultipleObjects]
         public class SoundManagerEditor : Editor
         {
             private SerializedProperty _bgmListProp;
