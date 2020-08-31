@@ -410,7 +410,7 @@ namespace Project.Scripts.Editor
                             EditorGUILayout.PropertyField(attackTimesProp);
 
                             // 攻撃方向
-                            var directionProp = gimmickDataProp.FindPropertyRelative("solarBeamDirection");
+                            var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
                             EditorGUILayout.PropertyField(directionProp);
                             switch ((EGimmickDirection)directionProp.intValue) {
                                 case EGimmickDirection.ToRight:

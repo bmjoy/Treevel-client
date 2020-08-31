@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -85,7 +85,7 @@ namespace Project.Scripts.GameDatas
         /// <summary>
         /// ＜太陽光＞攻撃方向
         /// </summary>
-        public EGimmickDirection solarBeamDirection;
+        public EGimmickDirection targetDirection;
 
         /// <summary>
         /// ＜太陽光＞攻撃回数
