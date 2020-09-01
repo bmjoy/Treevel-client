@@ -33,7 +33,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private bool _isWatching = true;
 
         private Animator _animator;
-        private const string _SELFISH_TIME = "SelfishTime";
+        private const string _ANIMATOR_PARAM_INT_SELFISH_TIME = "SelfishTime";
+        private const string _ANIMATOR_PARAM_TRIGGER_IDLE = "Idle";
 
         private void Awake()
         {
@@ -52,16 +53,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             if (!_isWatching) {
                 _selfishTime++;
-                if (_selfishTime == 36) {
-                    _animator.SetInteger(_SELFISH_TIME, _selfishTime);
-                } else if (_selfishTime == 78) {
-                    _animator.SetInteger(_SELFISH_TIME, _selfishTime);
-                } else if (_selfishTime == _LIMIT_TO_MOVE) {
+                if (_selfishTime == _LIMIT_TO_MOVE) {
                     // 空いている方向に移動させる
                     MoveToFreeDirection();
-                    _animator.SetInteger(_SELFISH_TIME, _selfishTime);
                     _selfishTime = 0;
+                    _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
                 }
+                _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
             }
         }
 
