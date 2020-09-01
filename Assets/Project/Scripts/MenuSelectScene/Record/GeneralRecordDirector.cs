@@ -26,6 +26,16 @@ namespace Project.Scripts.MenuSelectScene.Record
         [SerializeField] private Text _clearStageNum;
 
         /// <summary>
+        /// [UI] "ステージ数" テキスト
+        /// </summary>
+        [SerializeField] private Text _stageNum;
+
+        /// <summary>
+        /// [UI] ステージクリア割合ゲージ
+        /// </summary>
+        [SerializeField] private Image _clearStageGauge;
+
+        /// <summary>
         /// [UI] "プレイ回数" テキスト
         /// </summary>
         [SerializeField] private Text _playNum;
@@ -73,6 +83,8 @@ namespace Project.Scripts.MenuSelectScene.Record
             _shareButton.onClick.AddListener(ShareGeneralRecord);
             _individualButton.onClick.AddListener(_recordDirector.MoveToRight);
             _clearStageNum.text = GetClearStageNum();
+            _stageNum.text = GetStageNum();
+            _clearStageGauge.fillAmount = GetClearStagePercentage();
             _playNum.text = GetPlayNum();
             _playDays.text = GetPlayDays();
             _flickNum.text = GetFlickNum();
@@ -89,6 +101,23 @@ namespace Project.Scripts.MenuSelectScene.Record
             var clearStageNum = _stageStatuses.Select(stageStatuses => stageStatuses.successNum > 0 ? 1 : 0).Sum();
 
             return clearStageNum.ToString();
+        }
+
+        private string GetStageNum()
+        {
+            var stageNum = _stageStatuses.Count;
+
+            return stageNum.ToString();
+        }
+
+        private float GetClearStagePercentage()
+        {
+            var stageNum = _stageStatuses.Count;
+            var clearStageNum = _stageStatuses.Select(stageStatuses => stageStatuses.successNum > 0 ? 1 : 0).Sum();
+
+            var percentage = (float) clearStageNum / stageNum;
+
+            return percentage;
         }
 
         private string GetPlayNum()
