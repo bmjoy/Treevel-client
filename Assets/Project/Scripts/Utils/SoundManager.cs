@@ -52,12 +52,16 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// 初期BGMボリューム
         /// </summary>
-        [SerializeField] private float _INITIAL_BGM_VOLUME = 0.25f;
+        [SerializeField]
+        [Range(0, 1)]
+        private float _INITIAL_BGM_VOLUME = 0.25f;
 
         /// <summary>
         /// 初期SEボリューム
         /// </summary>
-        [SerializeField] private float _INITIAL_SE_VOLUME = 1.0f;
+        [SerializeField]
+        [Range(0, 1)]
+        private float _INITIAL_SE_VOLUME = 1.0f;
 
         private void Awake()
         {
@@ -244,8 +248,8 @@ namespace Project.Scripts.Utils
             {
                 EditorGUI.BeginChangeCheck();
 
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"), new GUIContent("Initial BGM Volume"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"), new GUIContent("Initial SE Volume"));
 
                 EditorGUILayout.LabelField("BGM List", EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(GUI.skin.box);
