@@ -58,19 +58,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         protected virtual void Awake() {}
 
-        private void FixedUpdate()
-        {
-            selfishHandler?.DoWhenFixedUpdate();
-        }
-
-        /// <summary>
-        /// ゲーム開始時の挙動
-        /// </summary>
-        public void OnStartGame()
-        {
-            selfishHandler?.OnStartGame();
-        }
-
         /// <summary>
         /// 衝突イベントを処理する
         /// </summary>

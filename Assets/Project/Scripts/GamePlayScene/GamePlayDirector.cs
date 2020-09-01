@@ -342,9 +342,6 @@ namespace Project.Scripts.GamePlayScene
 
                 // ギミックの生成
                 GimmickGenerator.Instance.FireGimmick();
-
-                var bottles = FindObjectsOfType<AbstractBottleController>().ToList<AbstractBottleController>();
-                bottles.ForEach(bottle => bottle.OnStartGame());
             }
 
             /// <summary>

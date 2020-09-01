@@ -77,7 +77,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             // set handlers
             if (bottleData.isSelfish) {
-                selfishHandler = new SelfishMoveHandler(this);
+                selfishHandler = new SelfishMoveHandler(gameObject);
             }
 
             base.Initialize(bottleData);
