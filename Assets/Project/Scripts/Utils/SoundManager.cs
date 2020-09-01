@@ -155,8 +155,8 @@ namespace Project.Scripts.Utils
             if (_bgmPlayer.isPlaying)
                 _bgmPlayer.Stop();
 
-            _bgmPlayer.time = playback;
             _bgmPlayer.clip = clip;
+            _bgmPlayer.time = playback;
             _bgmPlayer.Play();
         }
 
