@@ -72,6 +72,7 @@ namespace Project.Scripts.Utils
                 _SePlayers[i] = player;
             }
 
+            ResetVolume();
             DontDestroyOnLoad(gameObject);
         }
 
