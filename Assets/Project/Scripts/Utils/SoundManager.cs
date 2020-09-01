@@ -99,7 +99,7 @@ namespace Project.Scripts.Utils
 
                 player.PlayOneShot(clip);
             } else {
-                Debug.LogWarning($"Failed to Play SE: {key} because there is no available audio source");
+                Debug.LogWarning($"Failed to Play SE: {key} because audio sources are fully assigned");
             }
         }
 
