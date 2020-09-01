@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Scripts.MenuSelectScene;
+using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 #if UNITY_EDITOR
@@ -59,6 +61,11 @@ namespace Project.Scripts.Utils
 
         private void Awake()
         {
+            if (!gameObject) {
+                UIManager.Instance.ShowErrorMessage(EErrorCode.UnknownError);
+                return;
+            }
+
             // BGM再生用のAudioSourceをアタッチする
             _bgmPlayer = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
             _bgmPlayer.loop = true;
