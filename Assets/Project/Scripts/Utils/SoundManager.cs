@@ -106,7 +106,9 @@ namespace Project.Scripts.Utils
             if (clip == null)
                 return;
 
-            var player = _sePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
+            var player = _sePlayers
+                .Where(src => src.clip != null)
+                .SingleOrDefault(src => src.clip.name == clip.name);
             player?.Stop();
         }
 
@@ -121,7 +123,9 @@ namespace Project.Scripts.Utils
             if (clip == null)
                 return false;
 
-            var player = _sePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
+            var player = _sePlayers
+                .Where(src => src.clip != null)
+                .SingleOrDefault(src => src.clip.name == clip.name);
             return player != null && player.isPlaying;
         }
 
