@@ -33,7 +33,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private bool _isWatching = true;
 
         private Animator _animator;
-        private const string _SELFISH_TIME= "SelfishTime";
+        private const string _SELFISH_TIME = "SelfishTime";
 
         private void Awake()
         {
