@@ -98,7 +98,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
 
                 // 攻撃アニメーション終わるまで待つ
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !SoundManager.Instance.IsPlaying(ESEKey.SE_ThunderAttack));
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack));
             }
 
             // TODO:退場演出

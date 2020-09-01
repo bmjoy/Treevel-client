@@ -115,7 +115,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         /// <param name="key"> 確認したいSEのキー </param>
         /// <returns>再生中であれば`true`、そうでなければ`false`</returns>
-        public bool IsPlaying(ESEKey key)
+        public bool IsPlayingSE(ESEKey key)
         {
             var clip = GetSEClip(key);
             if (clip == null)
