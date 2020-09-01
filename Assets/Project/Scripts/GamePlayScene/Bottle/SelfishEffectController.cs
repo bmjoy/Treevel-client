@@ -35,6 +35,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private Animator _animator;
         private const string _ANIMATOR_PARAM_INT_SELFISH_TIME = "SelfishTime";
         private const string _ANIMATOR_PARAM_TRIGGER_IDLE = "Idle";
+        private const string _ANIMATOR_PARAM_SPEED = "Speed";
 
         private void Awake()
         {
@@ -102,9 +103,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
         }
 
-        public void SetIsWatching(bool _isWatching)
+        public void Watching(bool _isWatching)
         {
             this._isWatching = _isWatching;
+            if (_isWatching) {
+                _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+            } else {
+                _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 1f);
+            }
         }
 
         public void SetSelfishTime(int _selfishTime)
@@ -165,28 +171,28 @@ namespace Project.Scripts.GamePlayScene.Bottle
         void ISelfishHandler.OnStartMove()
         {
             // フリック中は勝手に移動するまでのフレーム数を計上しない
-            _selfishEffectController.SetIsWatching(true);
+            _selfishEffectController.Watching(true);
         }
 
         void ISelfishHandler.OnEndMove()
         {
-            _selfishEffectController.SetIsWatching(false);
+            _selfishEffectController.Watching(false);
         }
 
         void ISelfishHandler.OnPressed()
         {
             // ホールド中は勝手に移動するまでのフレーム数を計上しない
-            _selfishEffectController.SetIsWatching(true);
+            _selfishEffectController.Watching(true);
         }
 
         void ISelfishHandler.OnReleased()
         {
-            _selfishEffectController.SetIsWatching(false);
+            _selfishEffectController.Watching(false);
         }
 
         void ISelfishHandler.EndProcess()
         {
-            _selfishEffectController.SetIsWatching(true);
+            _selfishEffectController.Watching(true);
             _selfishEffectController.SetSelfishTime(0);
         }
     }
