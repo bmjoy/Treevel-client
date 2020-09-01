@@ -36,6 +36,11 @@ namespace Project.Scripts.MenuSelectScene.Record
         [SerializeField] private Image _clearStageGauge;
 
         /// <summary>
+        /// [UI] ステージクリア割合ゲージの先端
+        /// </summary>
+        [SerializeField] private Image _clearStageIndicator;
+
+        /// <summary>
         /// [UI] "プレイ回数" テキスト
         /// </summary>
         [SerializeField] private Text _playNum;
@@ -85,6 +90,7 @@ namespace Project.Scripts.MenuSelectScene.Record
             _clearStageNum.text = GetClearStageNum();
             _stageNum.text = GetStageNum();
             _clearStageGauge.fillAmount = GetClearStagePercentage();
+            _clearStageIndicator.GetComponent<RectTransform>().localPosition = GetClearStageIndicatorPosition();
             _playNum.text = GetPlayNum();
             _playDays.text = GetPlayDays();
             _flickNum.text = GetFlickNum();
@@ -118,6 +124,18 @@ namespace Project.Scripts.MenuSelectScene.Record
             var percentage = (float) clearStageNum / stageNum;
 
             return percentage;
+        }
+
+        private Vector3 GetClearStageIndicatorPosition()
+        {
+            var radius = _clearStageGauge.GetComponent<RectTransform>().rect.width / 2;
+            var angle = GetClearStagePercentage() * 2 * Mathf.PI;
+
+            // FIXME: 0.95 はゲージの太さを考慮するための Magic Number です
+            var x = radius * Mathf.Sin(angle) * 0.95f;
+            var y = radius * Mathf.Cos(angle) * 0.95f;
+
+            return new Vector3(x, y);
         }
 
         private string GetPlayNum()
