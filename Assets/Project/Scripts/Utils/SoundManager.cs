@@ -231,6 +231,11 @@ namespace Project.Scripts.Utils
 
                 var src = target as SoundManager;
 
+                if (!src) {
+                    Debug.LogWarning("Failed to cast target to SoundManager");
+                    return;
+                }
+
                 // 新規追加のBGMキーがある時の対応
                 src._bgmClipList = Enum.GetNames(typeof(EBGMKey))
                     .ToDictionary(key => key, key => src._bgmClipList.Find(data => data.key.Equals(key)))
