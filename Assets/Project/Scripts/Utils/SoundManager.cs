@@ -30,12 +30,12 @@ namespace Project.Scripts.Utils
         /// <summary>
         /// 複数SE同時再生を考慮し、SE用のAudioSourceを複数用意する
         /// </summary>
-        private AudioSource[] _SePlayers;
+        private AudioSource[] _sePlayers;
 
         /// <summary>
         /// BGM再生用のAudioSource
         /// </summary>
-        private AudioSource _BgmPlayer;
+        private AudioSource _bgmPlayer;
 
         /// <summary>
         /// BGMリスト
@@ -60,16 +60,16 @@ namespace Project.Scripts.Utils
         private void Awake()
         {
             // BGM再生用のAudioSourceをアタッチする
-            _BgmPlayer = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
-            _BgmPlayer.loop = true;
+            _bgmPlayer = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+            _bgmPlayer.loop = true;
 
             // SE再生用のAudioSourceをアタッチする
-            _SePlayers = new AudioSource[_MAX_SE_NUM];
+            _sePlayers = new AudioSource[_MAX_SE_NUM];
             for (var i = 0; i < _MAX_SE_NUM; i++) {
                 var player = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
                 player.loop = false;
 
-                _SePlayers[i] = player;
+                _sePlayers[i] = player;
             }
 
             ResetVolume();
@@ -86,9 +86,9 @@ namespace Project.Scripts.Utils
             if (clip == null)
                 return;
 
-            if (_SePlayers.Any(src => !src.isPlaying)) {
+            if (_sePlayers.Any(src => !src.isPlaying)) {
                 // 再生していないAudioSourceを探す
-                var player = _SePlayers.First(source => !source.isPlaying);
+                var player = _sePlayers.First(source => !source.isPlaying);
 
                 player.PlayOneShot(clip);
             } else {
@@ -106,7 +106,7 @@ namespace Project.Scripts.Utils
             if (clip == null)
                 return;
 
-            var player = _SePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
+            var player = _sePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
             player?.Stop();
         }
 
@@ -121,7 +121,7 @@ namespace Project.Scripts.Utils
             if (clip == null)
                 return false;
 
-            var player = _SePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
+            var player = _sePlayers.Where(src => src.clip != null).SingleOrDefault(src => src.clip.name == clip.name);
             return player != null && player.isPlaying;
         }
 
@@ -137,12 +137,12 @@ namespace Project.Scripts.Utils
                 return;
 
             // BGM再生中であれば停止しておく
-            if (_BgmPlayer.isPlaying)
-                _BgmPlayer.Stop();
+            if (_bgmPlayer.isPlaying)
+                _bgmPlayer.Stop();
 
-            _BgmPlayer.time = playback;
-            _BgmPlayer.clip = clip;
-            _BgmPlayer.Play();
+            _bgmPlayer.time = playback;
+            _bgmPlayer.clip = clip;
+            _bgmPlayer.Play();
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Project.Scripts.Utils
         /// </summary>
         public void StopBGM()
         {
-            _BgmPlayer.Stop();
+            _bgmPlayer.Stop();
         }
 
         private AudioClip GetSEClip(ESEKey key)
@@ -183,8 +183,8 @@ namespace Project.Scripts.Utils
 
         public void ResetVolume()
         {
-            _BgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume;
-            foreach (var sePlayer in _SePlayers) {
+            _bgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume;
+            foreach (var sePlayer in _sePlayers) {
                 sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume;
             }
         }
