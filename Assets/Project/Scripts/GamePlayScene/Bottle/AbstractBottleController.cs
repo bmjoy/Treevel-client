@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Project.Scripts.GameDatas;
+using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
@@ -95,6 +96,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var elapsedTime = 0f;
             while (true) {
                 if (elapsedTime >= timeOut) {
+                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadDataError);
                     throw new System.ArgumentNullException("ボトル画像の読み込みが失敗しました");
                 }
 

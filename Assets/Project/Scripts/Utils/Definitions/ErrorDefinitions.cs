@@ -7,7 +7,7 @@
     /// </summary>
     public enum EErrorCode {
         UnknownError,
-        LoadSceneError,     // シーンのロードに失敗
+        LoadDataError,     // データの読み込みに失敗
         InvalidBottleID,    // ボトルIDが不正
     }
 }
