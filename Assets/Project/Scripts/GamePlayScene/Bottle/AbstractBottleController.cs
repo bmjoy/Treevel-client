@@ -92,14 +92,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             // 無限ループを防ぐためにタイムアウトを設ける
             const float timeOut = 2f;
-            float elapsed = 0f;
+            var elapsedTime = 0f;
             while (true) {
-                if (elapsed >= timeOut) {
+                if (elapsedTime >= timeOut) {
                     throw new System.ArgumentNullException("ボトル画像の読み込みが失敗しました");
                 }
 
                 // 経過時間計算
-                elapsed += Time.deltaTime;
+                elapsedTime += Time.deltaTime;
                 var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(spriteAsset);
                 if (bottleSprite == null)
                     yield return new WaitForEndOfFrame();
