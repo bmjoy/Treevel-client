@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6174364387037006770}
   - component: {fileID: -1525596078930005612}
   - component: {fileID: 8018115131031875109}
+  - component: {fileID: 7675137770996352934}
   m_Layer: 11
   m_Name: DynamicDummyBottlePrefab
   m_TagString: Bottle
@@ -241,3 +242,22 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   ignoreChildren: 0
+--- !u!95 &7675137770996352934
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667971508019858}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e34641e6ab8f3455ab86c39ce72fccaa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

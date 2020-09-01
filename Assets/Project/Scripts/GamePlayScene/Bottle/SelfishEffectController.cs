@@ -17,6 +17,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
     {
         private DynamicBottleController _bottleController;
 
+        private Animator _bottleAnimator;
+
         /// <summary>
         /// 勝手に移動するまでのフレーム数
         /// </summary>
@@ -34,8 +36,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private Animator _animator;
         private const string _ANIMATOR_PARAM_INT_SELFISH_TIME = "SelfishTime";
-        private const string _ANIMATOR_PARAM_TRIGGER_IDLE = "Idle";
-        private const string _ANIMATOR_PARAM_SPEED = "Speed";
+        private const string _ANIMATOR_PARAM_TRIGGER_IDLE = "SelfishIdle";
+        private const string _ANIMATOR_PARAM_SPEED = "SelfishSpeed";
 
         private void Awake()
         {
@@ -48,6 +50,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
             transform.parent = bottle.transform;
             transform.localPosition = Vector3.zero;
             _bottleController = bottle.GetComponent<DynamicBottleController>();
+            _bottleAnimator = bottle.GetComponent<Animator>();
+            Debug.Log(_bottleAnimator);
         }
 
         private void FixedUpdate()
@@ -59,8 +63,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
                     MoveToFreeDirection();
                     _selfishTime = 0;
                     _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
+                    _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
                 }
                 _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
+                _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
             }
         }
 
@@ -108,8 +114,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             this._isWatching = _isWatching;
             if (_isWatching) {
                 _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
             } else {
                 _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 1f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 1f);
             }
         }
 
