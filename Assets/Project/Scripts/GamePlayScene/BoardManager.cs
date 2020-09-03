@@ -96,6 +96,37 @@ namespace Project.Scripts.GamePlayScene
             return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
         }
 
+        public GameObject[] GetBottlesOnRow(ERow row)
+        {
+            List<GameObject> ret = new List<GameObject>();
+
+            for (var c = 0 ; c < StageSize.COLUMN ; c++) {
+                for (var r = 0 ; r < StageSize.ROW ; r++) {
+                    if (r == ((int)row - 1) && !_squares[c, r].bottle) {
+                        ret.Add(_squares[c, r].bottle.gameObject);
+                    }
+                }
+            }
+            return ret.ToArray();
+        }
+
+        public GameObject[] GetBottlesOnColumn(EColumn column)
+        {
+            List<GameObject> ret = new List<GameObject>();
+
+            for (var c = 0 ; c < StageSize.COLUMN ; c++) {
+                if (c != ((int)column - 1))
+                    continue;
+
+                for (var r = 0 ; r < StageSize.ROW ; r++) {
+                    if (c == ((int)column - 1) && !_squares[c, r].bottle) {
+                        ret.Add(_squares[c, r].bottle.gameObject);
+                    }
+                }
+            }
+            return ret.ToArray();
+        }
+
         /// <summary>
         /// ボトルIDからボトルの現在位置を取得
         /// </summary>
