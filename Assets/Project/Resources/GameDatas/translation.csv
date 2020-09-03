@@ -29,6 +29,6 @@ Error,エラー,ERROR
 Downloading,ダウンロード中...,Downloading...
 ErrorUnknown,不明なエラー,Unknwon Error
 ReturnToTitle,タイトルに戻る,Return to title
-ErrorLoadSceneFailed,ローディングが失敗しました,Failed to load
+ErrorLoadDataFailed,データの読み込みが失敗しました。,Failed to load data
 StartGame,スタート！,Tap to Start
 ErrorInavlidBottleAccess,ボトルの不正アクセスが発生しました。,Invalid bottle access.
