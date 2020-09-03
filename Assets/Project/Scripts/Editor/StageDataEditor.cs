@@ -402,6 +402,7 @@ namespace Project.Scripts.Editor
                             });
                             break;
                         }
+                    case EGimmickType.GustWind:
                     case EGimmickType.SolarBeam: {
                             // 攻撃回数
                             var attackTimesProp = gimmickDataProp.FindPropertyRelative("attackTimes");
