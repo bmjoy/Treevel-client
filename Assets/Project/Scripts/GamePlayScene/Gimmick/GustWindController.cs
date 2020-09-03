@@ -85,14 +85,14 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         var start = (_targetLine - 1) * StageSize.COLUMN + 1;
                         return Enumerable.Range(start, StageSize.COLUMN).Reverse().ToArray();
                     }
-                case EGimmickDirection.ToBottom: {
+                case EGimmickDirection.ToUp: {
                         var ret = new int[StageSize.ROW];
                         for (var i = 0 ; i < StageSize.ROW ; ++i) {
                             ret[i] = _targetLine + StageSize.COLUMN * i;
                         }
                         return ret;
                     }
-                case EGimmickDirection.ToUp: {
+                case EGimmickDirection.ToBottom: {
                         var ret = new int[StageSize.ROW];
                         for (var i = 0 ; i < StageSize.ROW ; ++i) {
                             ret[i] = _targetLine + StageSize.COLUMN * i;
@@ -113,11 +113,19 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
             var targetBottles = bottleObjsOnTargetLine
                 .Where(go => go.GetComponent<DynamicBottleController>() != null)
-                .Select(go => go.GetComponent<DynamicBottleController>())
-                .OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()))
-                .ToArray();
+                .Select(go => go.GetComponent<DynamicBottleController>());
 
-            return targetBottles;
+            switch (_targetDirection) {
+                case EGimmickDirection.ToLeft:
+                case EGimmickDirection.ToUp:
+                    return targetBottles.OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
+                case EGimmickDirection.ToBottom:
+                case EGimmickDirection.ToRight:
+                    return targetBottles.OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
+                case EGimmickDirection.Random:
+                default:
+                    throw new NotImplementedException();
+            }
         }
     }
 }
