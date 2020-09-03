@@ -102,7 +102,7 @@ namespace Project.Scripts.GamePlayScene
 
             for (var c = 0 ; c < StageSize.COLUMN ; c++) {
                 for (var r = 0 ; r < StageSize.ROW ; r++) {
-                    if (r == ((int)row - 1) && !_squares[c, r].bottle) {
+                    if (r == ((int)row - 1) && _squares[c, r].bottle) {
                         ret.Add(_squares[c, r].bottle.gameObject);
                     }
                 }
@@ -119,7 +119,7 @@ namespace Project.Scripts.GamePlayScene
                     continue;
 
                 for (var r = 0 ; r < StageSize.ROW ; r++) {
-                    if (c == ((int)column - 1) && !_squares[c, r].bottle) {
+                    if (c == ((int)column - 1) && _squares[c, r].bottle) {
                         ret.Add(_squares[c, r].bottle.gameObject);
                     }
                 }
