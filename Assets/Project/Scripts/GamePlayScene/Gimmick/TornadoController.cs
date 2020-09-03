@@ -175,7 +175,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         var previousLine = _targetLines[i - 1];
                         var previousDirection = _targetDirections[i - 1];
 
-                        if (IsHorizontal(previousDirection)) { // 左右を移動している場合
+                        if (GimmickLibrary.IsHorizontal(previousDirection)) { // 左右を移動している場合
                             if (previousLine == (int)ERow.Fifth) { // 最下行
                                 direction = EGimmickDirection.ToUp;
                             } else if (previousLine == (int)ERow.First) { // 最上行
@@ -185,7 +185,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                                 tempRandomDirections[(int)EGimmickDirection.ToLeft - 1] = tempRandomDirections[(int)EGimmickDirection.ToRight - 1] = 0;
                                 direction = (EGimmickDirection)Enum.ToObject(typeof(EGimmickDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
-                        } else if (IsVertical(previousDirection)) { // 上下を移動している場合
+                        } else if (GimmickLibrary.IsVertical(previousDirection)) { // 上下を移動している場合
                             if (previousLine == (int)EColumn.Left) { // 最左列
                                 direction = EGimmickDirection.ToRight;
                             } else if (previousLine == (int)EColumn.Right) { // 最右列
@@ -200,9 +200,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 }
 
                 if (line == -1) {
-                    if ((i != 0 && IsHorizontal(direction)) || (i == 0 && IsVertical(direction))) {
+                    if ((i != 0 && GimmickLibrary.IsHorizontal(direction)) || (i == 0 && GimmickLibrary.IsVertical(direction))) {
                         line = GimmickLibrary.SamplingArrayIndex(_randomColumn) + 1;
-                    } else if ((i != 0 && IsVertical(direction)) || (i == 0 && IsHorizontal(direction))) {
+                    } else if ((i != 0 && GimmickLibrary.IsVertical(direction)) || (i == 0 && GimmickLibrary.IsHorizontal(direction))) {
                         line = GimmickLibrary.SamplingArrayIndex(_randomRow) + 1;
                     }
                 }
@@ -283,10 +283,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         private Vector2 CalculateOtherWarningPos(EGimmickDirection currentDirection, int currentLine, int nextLine)
         {
             int col, row;
-            if (IsHorizontal(currentDirection)) {
+            if (GimmickLibrary.IsHorizontal(currentDirection)) {
                 row = currentLine;
                 col = nextLine;
-            } else if (IsVertical(currentDirection)) {
+            } else if (GimmickLibrary.IsVertical(currentDirection)) {
                 col = currentLine;
                 row = nextLine;
             } else {
@@ -307,7 +307,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             Vector2 motionVector;
             Vector2 warningPosition;
-            if (IsHorizontal(direction)) {
+            if (GimmickLibrary.IsHorizontal(direction)) {
                 var sign = direction == EGimmickDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
                 warningPosition = new Vector2(sign * WindowSize.WIDTH / 2,
@@ -315,7 +315,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 motionVector = direction == EGimmickDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
-            } else if (IsVertical(direction)) {
+            } else if (GimmickLibrary.IsVertical(direction)) {
                 var sign = direction == EGimmickDirection.ToUp ? -1 : 1;
                 // x座標は同じ列のタイルと同じ値、y座標は画面端
                 warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
@@ -366,7 +366,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             float x = 0, y = 0;
             var tornadoSize = GetComponent<SpriteRenderer>().size;
-            if (IsHorizontal(direction)) {
+            if (GimmickLibrary.IsHorizontal(direction)) {
                 // 目標列の一番右端のタイルのY座標を取得
                 var tileNum = line * StageSize.COLUMN;
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
@@ -376,7 +376,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 } else {
                     x = -(WindowSize.WIDTH + tornadoSize.x) / 2;
                 }
-            } else if (IsVertical(direction)) {
+            } else if (GimmickLibrary.IsVertical(direction)) {
                 // 目標行の一列目のタイルのx座標を取得
                 var tileNum = line;
                 x = BoardManager.Instance.GetTilePos(tileNum).x;
@@ -409,16 +409,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             if (_warningObj != null) {
                 _warningPrefab.ReleaseInstance(_warningObj);
             }
-        }
-
-        private bool IsHorizontal(EGimmickDirection direction)
-        {
-            return direction == EGimmickDirection.ToRight || direction == EGimmickDirection.ToLeft;
-        }
-
-        private bool IsVertical(EGimmickDirection direction)
-        {
-            return direction == EGimmickDirection.ToUp || direction == EGimmickDirection.ToBottom;
         }
     }
 }

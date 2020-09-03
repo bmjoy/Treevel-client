@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Project.Scripts.Utils.Definitions;
 
 namespace Project.Scripts.Utils.Library
 {
@@ -34,6 +35,22 @@ namespace Project.Scripts.Utils.Library
             }
 
             return index - 1;
+        }
+
+        /// <summary>
+        /// ギミックの移動方向は横向きか
+        /// </summary>
+        public static bool IsHorizontal(EGimmickDirection direction)
+        {
+            return direction == EGimmickDirection.ToRight || direction == EGimmickDirection.ToLeft;
+        }
+
+        /// <summary>
+        /// ギミックの方向は縦向きか
+        /// </summary>
+        public static bool IsVertical(EGimmickDirection direction)
+        {
+            return direction == EGimmickDirection.ToUp || direction == EGimmickDirection.ToBottom;
         }
     }
 }
