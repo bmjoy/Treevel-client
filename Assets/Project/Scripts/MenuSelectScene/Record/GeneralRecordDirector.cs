@@ -61,6 +61,16 @@ namespace Project.Scripts.MenuSelectScene.Record
         [SerializeField] private Text _failureNum;
 
         /// <summary>
+        /// [UI] 失敗理由グラフの背景
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonGraphBackground;
+
+        /// <summary>
+        /// [UI] 失敗理由グラフの要素（Prefab）
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonGraphElementPrefab;
+
+        /// <summary>
         /// [GameObject] RecordDirector
         /// </summary>
         [SerializeField] private GameObject _recordDirectorGameObject;
@@ -95,6 +105,8 @@ namespace Project.Scripts.MenuSelectScene.Record
             _playDays.text = GetPlayDays();
             _flickNum.text = GetFlickNum();
             _failureNum.text = GetFailureNum();
+
+            SetupFailureReasonGraph();
         }
 
         private static void ShareGeneralRecord()
@@ -164,6 +176,48 @@ namespace Project.Scripts.MenuSelectScene.Record
             var failureNum = _stageStatuses.Select(stageStatuses => stageStatuses.failureNum).Sum();
 
             return failureNum.ToString();
+        }
+
+        private void SetupFailureReasonGraph()
+        {
+            // 失敗回数の合計
+            float sum = RecordData.Instance.FailureReasonCount
+                .Select(dic => dic.Value)
+                .Sum();
+
+            // 最後の要素
+            var lastItem = RecordData.Instance.FailureReasonCount
+                .Last();
+
+            float startPoint = 0;
+
+            foreach (var dic in RecordData.Instance.FailureReasonCount) {
+                float fillAmount;
+
+                if (dic.Equals(lastItem)) {
+                    // 最後の場合は，全てを埋めるようにする
+                    fillAmount = 1 - startPoint;
+                } else {
+                    fillAmount = dic.Value / sum;
+                }
+
+                var element = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
+
+                // 親を指定すると，localPosition や sizeDelta が prefab の時と変わるので調整する
+                element.transform.localPosition = Vector3.zero;
+                element.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+
+                element.GetComponent<Image>().fillAmount = fillAmount;
+
+                // 暫定的にランダムな色を適用
+                element.GetComponent<Image>().color = UnityEngine.Random.ColorHSV();
+
+                // z 軸を変えることで fillAmount の開始地点を変える
+                element.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
+
+                // 開始地点をずらす
+                startPoint += fillAmount;
+            }
         }
     }
 }

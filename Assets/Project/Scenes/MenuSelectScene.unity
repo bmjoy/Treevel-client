@@ -875,7 +875,7 @@ GameObject:
   - component: {fileID: 118893310}
   - component: {fileID: 118893309}
   m_Layer: 5
-  m_Name: Image
+  m_Name: FailureReasonGraphBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -927,14 +927,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.06274474, b: 0.06274474, a: 0.392}
+  m_Color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 2e26e8622911d475ea0248c58e3193b4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4411,6 +4411,9 @@ MonoBehaviour:
   _playDays: {fileID: 63521117}
   _flickNum: {fileID: 1733579490}
   _failureNum: {fileID: 1362339611}
+  _failureReasonGraphBackground: {fileID: 118893307}
+  _failureReasonGraphElementPrefab: {fileID: 7084596908502496827, guid: 244d7477470884396acc4ea5457f2486,
+    type: 3}
   _recordDirectorGameObject: {fileID: 1197837566}
 --- !u!224 &700138103 stripped
 RectTransform:
