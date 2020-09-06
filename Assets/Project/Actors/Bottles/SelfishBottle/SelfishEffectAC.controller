@@ -51,7 +51,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: b4cc58fcd07c949618a5e6871379ebab, type: 2}
   m_Tag: 
-  m_SpeedParameter: Speed
+  m_SpeedParameter: SelfishSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -69,19 +69,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Speed
+    m_Controller: {fileID: 0}
+  - m_Name: SelfishSpeed
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Idle
+    m_Controller: {fileID: 0}
+  - m_Name: SelfishIdle
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -108,7 +108,7 @@ AnimatorStateTransition:
     m_EventTreshold: 48
   - m_ConditionMode: 4
     m_ConditionEvent: SelfishTime
-    m_EventTreshold: 94
+    m_EventTreshold: 96
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8000773732675316670}
   m_Solo: 0
@@ -146,7 +146,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: e4c3cff942d204c8784b72ee3081f930, type: 2}
   m_Tag: 
-  m_SpeedParameter: Speed
+  m_SpeedParameter: SelfishSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -184,7 +184,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Idle
+    m_ConditionEvent: SelfishIdle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -315495281779850054}
@@ -223,7 +223,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 2549a6511a5b04d5091d5d63bf08a23d, type: 2}
   m_Tag: 
-  m_SpeedParameter: Speed
+  m_SpeedParameter: SelfishSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
