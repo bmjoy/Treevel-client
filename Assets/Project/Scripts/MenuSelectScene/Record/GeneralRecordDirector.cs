@@ -85,6 +85,11 @@ namespace Project.Scripts.MenuSelectScene.Record
         /// </summary>
         private readonly List<StageStatus> _stageStatuses = new List<StageStatus>();
 
+        /// <summary>
+        /// 失敗理由を表示する最低割合
+        /// </summary>
+        private const float _FAILURE_REASON_SHOW_PERCENTAGE = 0.1f;
+
         private void Awake()
         {
             _recordDirector = _recordDirectorGameObject.GetComponent<RecordDirector>();
@@ -185,21 +190,16 @@ namespace Project.Scripts.MenuSelectScene.Record
                 .Select(dic => dic.Value)
                 .Sum();
 
-            // 最後の要素
-            var lastItem = RecordData.Instance.FailureReasonCount
-                .Last();
-
             float startPoint = 0;
 
             foreach (var dic in RecordData.Instance.FailureReasonCount) {
-                float fillAmount;
+                // Others は別途扱う
+                if (dic.Key.Equals(EFailureReasonType.Others)) continue;
 
-                if (dic.Equals(lastItem)) {
-                    // 最後の場合は，全てを埋めるようにする
-                    fillAmount = 1 - startPoint;
-                } else {
-                    fillAmount = dic.Value / sum;
-                }
+                var fillAmount = dic.Value / sum;
+
+                // 10 % 未満なら Others に含める
+                if (fillAmount < _FAILURE_REASON_SHOW_PERCENTAGE) continue;
 
                 var element = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
 
@@ -218,6 +218,21 @@ namespace Project.Scripts.MenuSelectScene.Record
                 // 開始地点をずらす
                 startPoint += fillAmount;
             }
+
+            // Others の表示
+            var othersElement = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
+
+            // 親を指定すると，localPosition や sizeDelta が prefab の時と変わるので調整する
+            othersElement.transform.localPosition = Vector3.zero;
+            othersElement.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+
+            othersElement.GetComponent<Image>().fillAmount = 1 - startPoint;
+
+            // 暫定的にランダムな色を適用
+            othersElement.GetComponent<Image>().color = Color.gray;
+
+            // z 軸を変えることで fillAmount の開始地点を変える
+            othersElement.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
         }
     }
 }
