@@ -51,7 +51,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             transform.localPosition = Vector3.zero;
             _bottleController = bottle.GetComponent<DynamicBottleController>();
             _bottleAnimator = bottle.GetComponent<Animator>();
-            Debug.Log(_bottleAnimator);
         }
 
         private void FixedUpdate()
@@ -125,6 +124,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             this._selfishTime = _selfishTime;
         }
+
+        public void EndProcess()
+        {
+            _isWatching = true;
+            _selfishTime = 0;
+            _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+        }
     }
 
     public interface ISelfishHandler
@@ -171,9 +178,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             var selfishEffect = await AddressableAssetManager.Instantiate(Address.SELFISH_EFFECT_PREFAB).Task;
             _selfishEffectController = selfishEffect.GetComponent<SelfishEffectController>();
-            Debug.Log(_selfishEffectController);
             _selfishEffectController.Initialize(bottle);
-            Debug.Log(_selfishEffectController);
         }
 
         void ISelfishHandler.OnStartMove()
@@ -200,8 +205,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         void ISelfishHandler.EndProcess()
         {
-            _selfishEffectController.Watching(true);
-            _selfishEffectController.SetSelfishTime(0);
+            _selfishEffectController.EndProcess();
         }
     }
 }
