@@ -157,7 +157,7 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public bool IsEmpty(int x, int y)
+        public bool IsExist(int x, int y)
         {
             if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return false;
 
