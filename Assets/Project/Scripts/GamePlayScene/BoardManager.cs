@@ -161,8 +161,9 @@ namespace Project.Scripts.GamePlayScene
         {
             if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return false;
 
-            // すでにボトルが置かれているタイルが指定された場合には何もしない
+            // ボトルが存在する
             if (_squares[x, y].bottle != null) return false;
+            // ボトルが存在しない
             return true;
         }
 

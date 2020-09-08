@@ -61,6 +61,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
                     // 空いている方向に移動させる
                     MoveToFreeDirection();
                     _selfishTime = 0;
+                    // 通常時アニメーションの起動
                     _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
                 }
@@ -108,6 +109,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
         }
 
+        /// <summary>
+        /// 動き出すまでの時間の計測を状態に合わせてアニメーションの再開・停止させる
+        /// </summary>
+        /// <param name="_isStopping"></param>
         public void SetIsStopping(bool _isStopping)
         {
             this._isStopping = _isStopping;
@@ -120,11 +125,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
         }
 
-        public void SetSelfishTime(int _selfishTime)
-        {
-            this._selfishTime = _selfishTime;
-        }
 
+        /// <summary>
+        /// ゲーム終了時の処理
+        /// </summary>
         public void EndProcess()
         {
             _isStopping = true;
