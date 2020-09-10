@@ -4414,6 +4414,18 @@ MonoBehaviour:
   _failureReasonGraphBackground: {fileID: 118893307}
   _failureReasonGraphElementPrefab: {fileID: 7084596908502496827, guid: 244d7477470884396acc4ea5457f2486,
     type: 3}
+  _failureReasonOthersIconPrefab: {fileID: 5955561060645360907, guid: 1a4e69acee7bd4329a28dc16967afea0,
+    type: 3}
+  _failureReasonTornadoIconPrefab: {fileID: 8114703438820012783, guid: 5f132557883164ef7997c06d5102b5cf,
+    type: 3}
+  _failureReasonMeteoriteIconPrefab: {fileID: 6362438692868398472, guid: af87c466859dd499ab8e58c7e0921eb8,
+    type: 3}
+  _failureReasonAimingMeteoriteIconPrefab: {fileID: 3570820866407123034, guid: 553250dac7540444082d90dfd9d33a93,
+    type: 3}
+  _failureReasonThunderIconPrefab: {fileID: 5363204157152882746, guid: 5a1b14183c11e4c64bdf07f6e6ee78d2,
+    type: 3}
+  _failureReasonSolarBeamIconPrefab: {fileID: 7757400692400011978, guid: 600a633c9324a4425923d6897d38206f,
+    type: 3}
   _recordDirectorGameObject: {fileID: 1197837566}
 --- !u!224 &700138103 stripped
 RectTransform:

@@ -71,6 +71,36 @@ namespace Project.Scripts.MenuSelectScene.Record
         [SerializeField] private GameObject _failureReasonGraphElementPrefab;
 
         /// <summary>
+        /// [UI] Others のアイコン（Prefab）
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonOthersIconPrefab;
+
+        /// <summary>
+        /// [UI] Tornado のアイコン（Prefab）
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonTornadoIconPrefab;
+
+        /// <summary>
+        /// [UI] Meteorite のアイコン（Prefab）
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonMeteoriteIconPrefab;
+
+        /// <summary>
+        /// [UI] AimingMeteorite のアイコン（Prefab）
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonAimingMeteoriteIconPrefab;
+
+        /// <summary>
+        /// [UI] Thunder のアイコン（Prefab）
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonThunderIconPrefab;
+
+        /// <summary>
+        /// [UI] SolarBeam のアイコン（Prefab）
+        /// </summary>
+        [SerializeField] private GameObject _failureReasonSolarBeamIconPrefab;
+
+        /// <summary>
         /// [GameObject] RecordDirector
         /// </summary>
         [SerializeField] private GameObject _recordDirectorGameObject;
