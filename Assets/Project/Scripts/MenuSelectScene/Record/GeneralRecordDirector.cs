@@ -255,6 +255,43 @@ namespace Project.Scripts.MenuSelectScene.Record
 
             // z 軸を変えることで fillAmount の開始地点を変える
             element.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
+
+            GameObject iconPrefab;
+            switch (type) {
+                case EFailureReasonType.Tornado:
+                    iconPrefab = _failureReasonTornadoIconPrefab;
+                    break;
+                case EFailureReasonType.Meteorite:
+                    iconPrefab = _failureReasonMeteoriteIconPrefab;
+                    break;
+                case EFailureReasonType.AimingMeteorite:
+                    iconPrefab = _failureReasonAimingMeteoriteIconPrefab;
+                    break;
+                case EFailureReasonType.Thunder:
+                    iconPrefab = _failureReasonThunderIconPrefab;
+                    break;
+                case EFailureReasonType.SolarBeam:
+                    iconPrefab = _failureReasonSolarBeamIconPrefab;
+                    break;
+                case EFailureReasonType.Others:
+                    iconPrefab = _failureReasonOthersIconPrefab;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+
+            var elementIcon = Instantiate(iconPrefab, element.transform, true);
+
+            var radius = _failureReasonGraphBackground.GetComponent<RectTransform>().rect.width / 2;
+            var angle = (fillAmount / 2) * 2 * Mathf.PI;
+
+            var x = radius * Mathf.Sin(angle) * 0.5f;
+            var y = radius * Mathf.Cos(angle) * 0.5f;
+
+            // アイコンを円グラフの領域の中央に配置する
+            elementIcon.transform.localPosition = new Vector3(x, y);
+            // 親を指定すると，sizeDelta が prefab の時と変わるので調整する
+            elementIcon.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
         }
     }
 }
