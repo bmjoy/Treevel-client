@@ -240,7 +240,7 @@ namespace Project.Scripts.MenuSelectScene.Record
                 element.GetComponent<Image>().fillAmount = fillAmount;
 
                 // 暫定的にランダムな色を適用
-                element.GetComponent<Image>().color = UnityEngine.Random.ColorHSV();
+                element.GetComponent<Image>().color = dic.Key.GetColor();
 
                 // z 軸を変えることで fillAmount の開始地点を変える
                 element.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
@@ -259,7 +259,7 @@ namespace Project.Scripts.MenuSelectScene.Record
             othersElement.GetComponent<Image>().fillAmount = 1 - startPoint;
 
             // 暫定的にランダムな色を適用
-            othersElement.GetComponent<Image>().color = Color.gray;
+            othersElement.GetComponent<Image>().color = EFailureReasonType.Others.GetColor();
 
             // z 軸を変えることで fillAmount の開始地点を変える
             othersElement.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
