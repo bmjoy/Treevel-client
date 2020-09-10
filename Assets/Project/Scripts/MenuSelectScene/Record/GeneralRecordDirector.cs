@@ -231,38 +231,30 @@ namespace Project.Scripts.MenuSelectScene.Record
                 // 10 % 未満なら Others に含める
                 if (fillAmount < _FAILURE_REASON_SHOW_PERCENTAGE) continue;
 
-                var element = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
-
-                // 親を指定すると，localPosition や sizeDelta が prefab の時と変わるので調整する
-                element.transform.localPosition = Vector3.zero;
-                element.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
-
-                element.GetComponent<Image>().fillAmount = fillAmount;
-
-                // 暫定的にランダムな色を適用
-                element.GetComponent<Image>().color = dic.Key.GetColor();
-
-                // z 軸を変えることで fillAmount の開始地点を変える
-                element.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
+                CreateFailureReasonGraphElement(dic.Key, startPoint, fillAmount);
 
                 // 開始地点をずらす
                 startPoint += fillAmount;
             }
 
-            // Others の表示
-            var othersElement = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
+            CreateFailureReasonGraphElement(EFailureReasonType.Others, startPoint, 1 - startPoint);
+        }
+
+        private void CreateFailureReasonGraphElement(EFailureReasonType type, float startPoint, float fillAmount)
+        {
+            var element = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
 
             // 親を指定すると，localPosition や sizeDelta が prefab の時と変わるので調整する
-            othersElement.transform.localPosition = Vector3.zero;
-            othersElement.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+            element.transform.localPosition = Vector3.zero;
+            element.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
 
-            othersElement.GetComponent<Image>().fillAmount = 1 - startPoint;
+            element.GetComponent<Image>().fillAmount = fillAmount;
 
             // 暫定的にランダムな色を適用
-            othersElement.GetComponent<Image>().color = EFailureReasonType.Others.GetColor();
+            element.GetComponent<Image>().color = type.GetColor();
 
             // z 軸を変えることで fillAmount の開始地点を変える
-            othersElement.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
+            element.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
         }
     }
 }
