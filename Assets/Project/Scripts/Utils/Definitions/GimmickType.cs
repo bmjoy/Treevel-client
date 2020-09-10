@@ -13,7 +13,7 @@ namespace Project.Scripts.Utils.Definitions
         SolarBeam
     }
 
-    public static class Extension
+    public static class EGimmickTypeExtension
     {
         public static EFailureReasonType GetFailureReason(this EGimmickType type)
         {
