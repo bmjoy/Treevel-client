@@ -15,6 +15,7 @@ using Project.Scripts.GameDatas;
 using UnityEngine.Video;
 using Project.Scripts.Utils.Attributes;
 using Project.Scripts.GamePlayScene.Gimmick;
+using Project.Scripts.GamePlayScene.Tile;
 
 namespace Project.Scripts.GamePlayScene
 {
@@ -244,6 +245,12 @@ namespace Project.Scripts.GamePlayScene
             foreach (var gimmick in gimmicks) {
                 // 銃弾の削除
                 DestroyImmediate(gimmick);
+            }
+
+            // ノーマルタイル以外のタイルを削除
+            var specialTiles = FindObjectsOfType<AbstractTileController>().Where(t => !(t is NormalTileController));
+            foreach (var tile in specialTiles) {
+                DestroyImmediate(tile.gameObject);
             }
         }
 
