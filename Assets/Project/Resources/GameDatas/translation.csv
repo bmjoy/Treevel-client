@@ -32,3 +32,10 @@ ReturnToTitle,タイトルに戻る,Return to title
 ErrorLoadSceneFailed,ローディングが失敗しました,Failed to load
 StartGame,スタート！,Tap to Start
 ErrorInavlidBottleAccess,ボトルの不正アクセスが発生しました。,Invalid bottle access.
+RecordShareButton,共有,Share
+RecordIndividualButton,個別記録へ,Individual
+RecordClearStageNum,ステージクリア数,Clear Stages
+RecordPlayNum,プレイ回数,Play Counts
+RecordPlayDays,起動日数,Play Days
+RecordFlickNum,フリック回数,Flick Counts
+RecordFailureNum,失敗回数,Failure Counts
