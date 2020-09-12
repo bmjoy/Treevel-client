@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using UnityEngine;
@@ -113,7 +114,7 @@ namespace Project.Scripts.MenuSelectScene.Record
         /// <summary>
         /// 全ステージの記録情報
         /// </summary>
-        private readonly List<StageStatus> _stageStatuses = new List<StageStatus>();
+        private List<StageStatus> _stageStatuses;
 
         /// <summary>
         /// 失敗理由を表示する最低割合
@@ -124,11 +125,9 @@ namespace Project.Scripts.MenuSelectScene.Record
         {
             _recordDirector = _recordDirectorGameObject.GetComponent<RecordDirector>();
 
-            foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
-                foreach (var stageNumber in Enumerable.Range(1, TreeInfo.NUM[treeId])) {
-                    _stageStatuses.Add(StageStatus.Get(treeId, stageNumber));
-                }
-            }
+            _stageStatuses = GameDataBase.GetAllStages()
+                .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
+                .ToList();
 
             _shareButton.onClick.AddListener(ShareGeneralRecord);
             _individualButton.onClick.AddListener(_recordDirector.MoveToRight);
