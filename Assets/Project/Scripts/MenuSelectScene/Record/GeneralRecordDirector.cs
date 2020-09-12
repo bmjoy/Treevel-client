@@ -138,7 +138,7 @@ namespace Project.Scripts.MenuSelectScene.Record
 
         private string GetClearStageNum()
         {
-            var clearStageNum = _stageStatuses.Select(stageStatuses => stageStatuses.successNum > 0 ? 1 : 0).Sum();
+            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
 
             return clearStageNum.ToString();
         }
@@ -153,7 +153,7 @@ namespace Project.Scripts.MenuSelectScene.Record
         private float GetClearStagePercentage()
         {
             var stageNum = _stageStatuses.Count;
-            var clearStageNum = _stageStatuses.Select(stageStatuses => stageStatuses.successNum > 0 ? 1 : 0).Sum();
+            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
 
             var percentage = (float) clearStageNum / stageNum;
 
@@ -174,7 +174,7 @@ namespace Project.Scripts.MenuSelectScene.Record
 
         private string GetPlayNum()
         {
-            var playNum = _stageStatuses.Select(stageStatuses => stageStatuses.challengeNum).Sum();
+            var playNum = _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum();
 
             return playNum.ToString();
         }
@@ -188,14 +188,14 @@ namespace Project.Scripts.MenuSelectScene.Record
 
         private string GetFlickNum()
         {
-            var flickNum = _stageStatuses.Select(stageStatuses => stageStatuses.flickNum).Sum();
+            var flickNum = _stageStatuses.Select(stageStatus => stageStatus.flickNum).Sum();
 
             return flickNum.ToString();
         }
 
         private string GetFailureNum()
         {
-            var failureNum = _stageStatuses.Select(stageStatuses => stageStatuses.failureNum).Sum();
+            var failureNum = _stageStatuses.Select(stageStatus => stageStatus.failureNum).Sum();
 
             return failureNum.ToString();
         }
@@ -203,9 +203,7 @@ namespace Project.Scripts.MenuSelectScene.Record
         private void SetupFailureReasonGraph()
         {
             // 失敗回数の合計
-            float sum = RecordData.Instance.FailureReasonCount
-                .Select(dic => dic.Value)
-                .Sum();
+            float sum = RecordData.Instance.FailureReasonCount.Sum(pair => pair.Value);
 
             float startPoint = 0;
 
@@ -214,11 +212,11 @@ namespace Project.Scripts.MenuSelectScene.Record
                 .Select(pair => pair.Value != 0)
                 .First();
 
-            foreach (var dic in RecordData.Instance.FailureReasonCount) {
+            foreach (var pair in RecordData.Instance.FailureReasonCount) {
                 // Others は別途扱う
-                if (dic.Key.Equals(EFailureReasonType.Others)) continue;
+                if (pair.Key.Equals(EFailureReasonType.Others)) continue;
 
-                var fillAmount = dic.Value / sum;
+                var fillAmount = pair.Value / sum;
 
                 // 10 % 未満なら Others に含める
                 if (fillAmount < _FAILURE_REASON_SHOW_PERCENTAGE) {
@@ -226,7 +224,7 @@ namespace Project.Scripts.MenuSelectScene.Record
                     continue;
                 }
 
-                CreateFailureReasonGraphElement(dic.Key, startPoint, fillAmount);
+                CreateFailureReasonGraphElement(pair.Key, startPoint, fillAmount);
 
                 // 開始地点をずらす
                 startPoint += fillAmount;
@@ -247,7 +245,6 @@ namespace Project.Scripts.MenuSelectScene.Record
 
             element.GetComponent<Image>().fillAmount = fillAmount;
 
-            // 暫定的にランダムな色を適用
             element.GetComponent<Image>().color = type.GetColor();
 
             // z 軸を変えることで fillAmount の開始地点を変える
