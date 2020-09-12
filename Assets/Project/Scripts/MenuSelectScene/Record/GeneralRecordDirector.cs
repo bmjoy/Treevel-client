@@ -209,6 +209,11 @@ namespace Project.Scripts.MenuSelectScene.Record
 
             float startPoint = 0;
 
+            var showOthers = RecordData.Instance.FailureReasonCount
+                .Where(pair => pair.Key == EFailureReasonType.Others)
+                .Select(pair => pair.Value != 0)
+                .First();
+
             foreach (var dic in RecordData.Instance.FailureReasonCount) {
                 // Others は別途扱う
                 if (dic.Key.Equals(EFailureReasonType.Others)) continue;
@@ -216,7 +221,10 @@ namespace Project.Scripts.MenuSelectScene.Record
                 var fillAmount = dic.Value / sum;
 
                 // 10 % 未満なら Others に含める
-                if (fillAmount < _FAILURE_REASON_SHOW_PERCENTAGE) continue;
+                if (fillAmount < _FAILURE_REASON_SHOW_PERCENTAGE) {
+                    showOthers = true;
+                    continue;
+                }
 
                 CreateFailureReasonGraphElement(dic.Key, startPoint, fillAmount);
 
@@ -224,7 +232,9 @@ namespace Project.Scripts.MenuSelectScene.Record
                 startPoint += fillAmount;
             }
 
-            CreateFailureReasonGraphElement(EFailureReasonType.Others, startPoint, 1 - startPoint);
+            if (showOthers) {
+                CreateFailureReasonGraphElement(EFailureReasonType.Others, startPoint, 1 - startPoint);
+            }
         }
 
         private void CreateFailureReasonGraphElement(EFailureReasonType type, float startPoint, float fillAmount)
