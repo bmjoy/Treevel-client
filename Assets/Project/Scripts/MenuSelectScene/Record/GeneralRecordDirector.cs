@@ -102,16 +102,6 @@ namespace Project.Scripts.MenuSelectScene.Record
         [SerializeField] private GameObject _failureReasonSolarBeamIconPrefab;
 
         /// <summary>
-        /// [GameObject] RecordDirector
-        /// </summary>
-        [SerializeField] private GameObject _recordDirectorGameObject;
-
-        /// <summary>
-        /// [Script] RecordDirector
-        /// </summary>
-        private RecordDirector _recordDirector;
-
-        /// <summary>
         /// 全ステージの記録情報
         /// </summary>
         private List<StageStatus> _stageStatuses;
@@ -123,14 +113,12 @@ namespace Project.Scripts.MenuSelectScene.Record
 
         private void Awake()
         {
-            _recordDirector = _recordDirectorGameObject.GetComponent<RecordDirector>();
-
             _stageStatuses = GameDataBase.GetAllStages()
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToList();
 
             _shareButton.onClick.AddListener(ShareGeneralRecord);
-            _individualButton.onClick.AddListener(_recordDirector.MoveToRight);
+            _individualButton.onClick.AddListener(RecordDirector.Instance.MoveToRight);
             _clearStageNum.text = GetClearStageNum();
             _stageNum.text = GetStageNum();
             _clearStageGauge.fillAmount = GetClearStagePercentage();

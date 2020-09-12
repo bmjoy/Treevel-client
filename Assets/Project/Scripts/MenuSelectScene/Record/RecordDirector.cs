@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
 using SnapScroll;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.Record
 {
-    public class RecordDirector : MonoBehaviour
+    public class RecordDirector : SingletonObject<RecordDirector>
     {
         [SerializeField] private GameObject _graphPrefab;
 
