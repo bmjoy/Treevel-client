@@ -42,40 +42,38 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _attackMoveDistance = WindowSize.HEIGHT + GetComponent<SpriteRenderer>().size.y * transform.localScale.y;
             switch (_targetDirection) {
                 case EGimmickDirection.ToLeft:
-                case EGimmickDirection.ToRight:
-                {
-                    _targetLine = (int)gimmickData.targetRow;
+                case EGimmickDirection.ToRight: {
+                        _targetLine = (int)gimmickData.targetRow;
 
-                    var sign = _targetDirection == EGimmickDirection.ToRight ? 1 : -1;
-                    var yPos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center).y;
-                    var startX = -sign * _attackMoveDistance * 0.5f;
-                    var endX = -startX;
+                        var sign = _targetDirection == EGimmickDirection.ToRight ? 1 : -1;
+                        var yPos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center).y;
+                        var startX = -sign * _attackMoveDistance * 0.5f;
+                        var endX = -startX;
 
-                    _attackStartPos = new Vector2(startX, yPos);
-                    _attackEndPos = new Vector2(endX, yPos);
+                        _attackStartPos = new Vector2(startX, yPos);
+                        _attackEndPos = new Vector2(endX, yPos);
 
-                    transform.position = _attackStartPos;
-                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-sign, 1, 1));
-                    transform.Rotate(Quaternion.Euler(0, 0, sign * 90).eulerAngles);
-                    break;
-                }
+                        transform.position = _attackStartPos;
+                        transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-sign, 1, 1));
+                        transform.Rotate(Quaternion.Euler(0, 0, sign * 90).eulerAngles);
+                        break;
+                    }
                 case EGimmickDirection.ToBottom:
-                case EGimmickDirection.ToUp:
-                {
-                    _targetLine = (int)gimmickData.targetColumn;
+                case EGimmickDirection.ToUp: {
+                        _targetLine = (int)gimmickData.targetColumn;
 
-                    var sign = _targetDirection == EGimmickDirection.ToBottom ? 1 : -1;
-                    var xCord = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn).x;
-                    var startY = sign * _attackMoveDistance * 0.5f;
-                    var endY = -startY;
+                        var sign = _targetDirection == EGimmickDirection.ToBottom ? 1 : -1;
+                        var xCord = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn).x;
+                        var startY = sign * _attackMoveDistance * 0.5f;
+                        var endY = -startY;
 
-                    _attackStartPos = new Vector2(xCord, startY);
-                    _attackEndPos = new Vector2(xCord, endY);
+                        _attackStartPos = new Vector2(xCord, startY);
+                        _attackEndPos = new Vector2(xCord, endY);
 
-                    transform.position = _attackStartPos;
-                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
-                    break;
-                }
+                        transform.position = _attackStartPos;
+                        transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
+                        break;
+                    }
                 case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
@@ -185,7 +183,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 default:
                     throw new NotImplementedException();
             }
-            
+
             // 障害物があるまで取る
             return candidateList.TakeWhile(tileNum => {
                 var bottleOnTile = BoardManager.Instance.GetBottle(tileNum);
