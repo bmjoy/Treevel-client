@@ -225,6 +225,8 @@ namespace Project.Scripts.MenuSelectScene.Record
             foreach (var pair in RecordData.Instance.FailureReasonCount) {
                 // Others は別途扱う
                 if (pair.Key.Equals(EFailureReasonType.Others)) continue;
+                // 0 の場合は無視する
+                if (pair.Value == 0) continue;
 
                 var fillAmount = (float) pair.Value / sum;
 
