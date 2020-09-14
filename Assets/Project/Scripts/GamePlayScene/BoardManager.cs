@@ -239,7 +239,7 @@ namespace Project.Scripts.GamePlayScene
                 // ボトルを瞬間移動させる
                 bottle.transform.position = targetSquare.worldPosition;
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                targetSquare.tile.OnBottleEnter(bottleObject, direction);
+                targetSquare.tile.OnBottleEnter(bottleObject, null);
             }
 
 
