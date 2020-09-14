@@ -152,17 +152,17 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
-        /// x行y列にボトルが存在するかどうか
+        /// x行y列のタイル上が空かどうか
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public bool IsExistBottle(int x, int y)
+        public bool IsEmptyTile(int x, int y)
         {
             if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return false;
 
             // ボトルが存在するかどうか
-            return _squares[x, y].bottle != null;
+            return _squares[x, y].bottle == null;
         }
 
         /// <summary>

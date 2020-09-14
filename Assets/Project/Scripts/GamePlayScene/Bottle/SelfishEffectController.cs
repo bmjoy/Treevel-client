@@ -79,30 +79,32 @@ namespace Project.Scripts.GamePlayScene.Bottle
             // ボトルの位置を取得する
             var tileNum = BoardManager.Instance.GetBottlePos(_bottleController);
             var(x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
-            var probabilityArray = new int[Enum.GetNames(typeof(EDirection)).Length];
+
+            var canMoveDirections = new int[Enum.GetNames(typeof(EDirection)).Length];
             // 空いている方向を確認する
             // 左
-            if (!BoardManager.Instance.IsExistBottle(x - 1, y)) probabilityArray[(int)EDirection.ToLeft] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x - 1, y)) canMoveDirections[(int)EDirection.ToLeft] = 1;
             // 右
-            if (!BoardManager.Instance.IsExistBottle(x + 1, y)) probabilityArray[(int)EDirection.ToRight] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x + 1, y)) canMoveDirections[(int)EDirection.ToRight] = 1;
             // 上
-            if (!BoardManager.Instance.IsExistBottle(x, y - 1)) probabilityArray[(int)EDirection.ToUp] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x, y - 1)) canMoveDirections[(int)EDirection.ToUp] = 1;
             // 下
-            if (!BoardManager.Instance.IsExistBottle(x, y + 1)) probabilityArray[(int)EDirection.ToBottom] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int)EDirection.ToBottom] = 1;
+
             // 空いている方向からランダムに1方向を選択する
-            if (probabilityArray.Sum() == 0) return;
-            var directionIndex = GimmickLibrary.SamplingArrayIndex(probabilityArray);
-            switch (directionIndex) {
-                case (int) EDirection.ToLeft:
+            if (canMoveDirections.Sum() == 0) return;
+            var direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
+            switch (direction) {
+                case EDirection.ToLeft:
                     BoardManager.Instance.Move(_bottleController, tileNum - 1, Vector2Int.left);
                     break;
-                case (int) EDirection.ToRight:
+                case EDirection.ToRight:
                     BoardManager.Instance.Move(_bottleController, tileNum + 1, Vector2Int.right);
                     break;
-                case (int) EDirection.ToUp:
+                case EDirection.ToUp:
                     BoardManager.Instance.Move(_bottleController, tileNum - StageSize.COLUMN, Vector2Int.up);
                     break;
-                case (int) EDirection.ToBottom:
+                case EDirection.ToBottom:
                     BoardManager.Instance.Move(_bottleController, tileNum + StageSize.COLUMN, Vector2Int.down);
                     break;
                 default:
