@@ -38,7 +38,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _isStopping = false;
         }
 
         public void Initialize(GameObject bottle)
@@ -47,6 +46,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
             transform.localPosition = Vector3.zero;
             _bottleController = bottle.GetComponent<DynamicBottleController>();
             _bottleAnimator = bottle.GetComponent<Animator>();
+
+            _isStopping = false;
         }
 
         private void FixedUpdate()
