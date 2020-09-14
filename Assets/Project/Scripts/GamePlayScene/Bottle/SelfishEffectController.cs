@@ -45,6 +45,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             transform.parent = bottle.transform;
             transform.localPosition = Vector3.zero;
             _bottleController = bottle.GetComponent<DynamicBottleController>();
+            if (_bottleController == null) {
+                Debug.LogError("There is no DynamicBottleController");
+                return;
+            }
             _bottleAnimator = bottle.GetComponent<Animator>();
 
             _isStopping = false;
