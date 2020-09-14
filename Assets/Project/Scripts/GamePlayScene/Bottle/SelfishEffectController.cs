@@ -13,8 +13,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
     {
         private DynamicBottleController _bottleController;
 
-        private Animator _bottleAnimator;
-
         /// <summary>
         /// 勝手に移動するまでのフレーム数
         /// </summary>
@@ -31,6 +29,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private bool _isStopping = true;
 
         private Animator _animator;
+        private Animator _bottleAnimator;
         private const string _ANIMATOR_PARAM_INT_SELFISH_TIME = "SelfishTime";
         private const string _ANIMATOR_PARAM_TRIGGER_IDLE = "SelfishIdle";
         private const string _ANIMATOR_PARAM_SPEED = "SelfishSpeed";
