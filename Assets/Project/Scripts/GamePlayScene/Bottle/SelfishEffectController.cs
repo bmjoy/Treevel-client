@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using TouchScript.Gestures;
 using UnityEngine;
 using UnityEngine.Events;
-using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
