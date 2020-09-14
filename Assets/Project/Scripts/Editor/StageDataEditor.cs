@@ -402,7 +402,7 @@ namespace Project.Scripts.Editor
                             });
                             break;
                         }
-                    case EGimmickType.GustWind:{
+                    case EGimmickType.GustWind: {
                             // 攻撃方向
                             var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
                             EditorGUILayout.PropertyField(directionProp);
