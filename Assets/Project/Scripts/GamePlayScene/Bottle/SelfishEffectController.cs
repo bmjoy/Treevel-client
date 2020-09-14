@@ -16,17 +16,18 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 勝手に移動するまでのフレーム数
         /// </summary>
-        private const int _LIMIT_TO_MOVE = 120;
+        private const int _FRAMES_TO_MOVE = 120;
 
         /// <summary>
-        /// 何もしていない時の累計フレーム数
+        /// 勝手に移動していないフレーム数
         /// </summary>
-        private int _selfishTime = 0;
+        private int _calmFrames = 0;
 
         /// <summary>
-        /// 動き出すまでの時間を計測するかどうか
+        /// "勝手に移動していないフレーム数"を数えるかどうか
+        /// ジェスチャー検知時は"勝手に移動していないフレーム数"を数えない
         /// </summary>
-        private bool _isStopping = true;
+        private bool _countCalmFrames = false;
 
         private Animator _animator;
         private Animator _bottleAnimator;
@@ -50,28 +51,28 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
             _bottleAnimator = bottle.GetComponent<Animator>();
 
-            _isStopping = false;
+            _countCalmFrames = true;
         }
 
         private void FixedUpdate()
         {
-            if (_isStopping) return;
+            if (!_countCalmFrames) return;
 
-            _selfishTime++;
-            if (_selfishTime == _LIMIT_TO_MOVE) {
-                // 空いている方向に移動させる
+            _calmFrames++;
+            if (_calmFrames == _FRAMES_TO_MOVE) {
+                // 空いている方向にBottleを移動させる
                 MoveToFreeDirection();
-                _selfishTime = 0;
+                _calmFrames = 0;
                 // 通常時アニメーションの起動
                 _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
                 _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
             }
-            _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
-            _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
+            _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
+            _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
         }
 
         /// <summary>
-        /// 空いている方向に移動させる
+        /// 空いている方向にBottleを移動させる
         /// </summary>
         private void MoveToFreeDirection()
         {
@@ -115,10 +116,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 動き出すまでの時間の計測を状態に合わせてアニメーションの再開・停止させる
         /// </summary>
         /// <param name="_isStopping"></param>
-        public void SetIsStopping(bool isStopping)
+        public void SetIsStopping(bool countCalmFrames)
         {
-            _isStopping = isStopping;
-            if (_isStopping) {
+            _countCalmFrames = countCalmFrames;
+            if (_countCalmFrames) {
                 _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
             } else {
@@ -133,8 +134,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         public void EndProcess()
         {
-            _isStopping = true;
-            _selfishTime = 0;
+            _countCalmFrames = true;
+            _calmFrames = 0;
             _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
             _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
         }
