@@ -287,6 +287,13 @@ namespace Project.Scripts.MenuSelectScene.Record
             }
 
             var elementIcon = Instantiate(iconPrefab, element.transform, true);
+            elementIcon.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+
+            var fillAmountInt = (int) fillAmount;
+            if (fillAmountInt == 1) {
+                elementIcon.transform.localPosition = Vector3.zero;
+                return;
+            }
 
             var radius = _failureReasonGraphBackground.GetComponent<RectTransform>().rect.width / 2;
             var angle = (fillAmount / 2) * 2 * Mathf.PI;
@@ -296,8 +303,6 @@ namespace Project.Scripts.MenuSelectScene.Record
 
             // アイコンを円グラフの領域の中央に配置する
             elementIcon.transform.localPosition = new Vector3(x, y);
-            // 親を指定すると，sizeDelta が prefab の時と変わるので調整する
-            elementIcon.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
         }
     }
 }
