@@ -114,9 +114,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 動き出すまでの時間の計測を状態に合わせてアニメーションの再開・停止させる
         /// </summary>
         /// <param name="_isStopping"></param>
-        public void SetIsStopping(bool _isStopping)
+        public void SetIsStopping(bool isStopping)
         {
-            this._isStopping = _isStopping;
+            _isStopping = isStopping;
             if (_isStopping) {
                 _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
