@@ -67,6 +67,11 @@ namespace Project.Scripts.MenuSelectScene.Record
         [SerializeField] private GameObject _failureReasonGraphBackground;
 
         /// <summary>
+        /// [UI] 失敗理由グラフの "No Data" テキスト
+        /// </summary>
+        [SerializeField] private Text _failureReasonGraphNoData;
+
+        /// <summary>
         /// [UI] 失敗理由グラフの要素（Prefab）
         /// </summary>
         [SerializeField] private GameObject _failureReasonGraphElementPrefab;
@@ -205,7 +210,10 @@ namespace Project.Scripts.MenuSelectScene.Record
             // 失敗回数の合計
             var sum = RecordData.Instance.FailureReasonCount.Sum(pair => pair.Value);
 
-            if (sum == 0) return;
+            if (sum == 0) {
+                _failureReasonGraphNoData.gameObject.SetActive(true);
+                return;
+            }
 
             float startPoint = 0;
 
