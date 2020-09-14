@@ -25,20 +25,18 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
-        public static async void CreateStages(ETreeId treeId, int stageNumber)
+        public static void CreateStages(ETreeId treeId, int stageNumber)
         {
             CreatedFinished = false;
-
-            var tileGenerator = TileGenerator.Instance;
 
             // ステージデータ読み込む
             var stageData = GameDataBase.GetStage(treeId, stageNumber);
             if (stageData != null) {
                 // タイル生成
-                tileGenerator.CreateTiles(stageData.TileDatas);
+                TileGenerator.Instance.CreateTiles(stageData.TileDatas);
 
                 // ボトル生成
-                BottleGenerator.Instance.CreateBottles(stageData.BottleDatas);
+                BottleGenerator.CreateBottles(stageData.BottleDatas);
 
                 // ギミック生成
                 GimmickGenerator.Instance.Initialize(stageData.GimmickDatas);

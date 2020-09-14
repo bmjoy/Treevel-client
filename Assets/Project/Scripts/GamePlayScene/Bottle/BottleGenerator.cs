@@ -6,9 +6,9 @@ using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
-    public class BottleGenerator : SingletonObject<BottleGenerator>
+    public static class BottleGenerator
     {
-        private Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>()
+        private static Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>()
         {
             {EBottleType.Dynamic, Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Static, Address.STATIC_DUMMY_BOTTLE_PREFAB},
@@ -17,7 +17,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             {EBottleType.AttackableDummy, Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
         };
 
-        public void CreateBottles(List<BottleData> bottleDatas)
+        public static void CreateBottles(List<BottleData> bottleDatas)
         {
             bottleDatas.ForEach(async bottleData => {
                 if (!_prefabAddressableKeys.ContainsKey(bottleData.type))
