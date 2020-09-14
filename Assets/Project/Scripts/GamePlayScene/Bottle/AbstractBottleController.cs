@@ -1,7 +1,10 @@
-﻿using Project.Scripts.GameDatas;
+﻿using System.Collections;
+using Project.Scripts.GameDatas;
+using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
@@ -91,8 +94,28 @@ namespace Project.Scripts.GamePlayScene.Bottle
             bottleEnterTileHandler?.OnExitTile(targetTile);
         }
 
-        private void InitializeSprite()
+        private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
         {
+            // 無限ループを防ぐためにタイムアウトを設ける
+            const float timeOut = 2f;
+            var elapsedTime = 0f;
+            while (true) {
+                if (elapsedTime >= timeOut) {
+                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadDataError);
+                    throw new System.ArgumentNullException("ボトル画像の読み込みが失敗しました");
+                }
+
+                // 経過時間計算
+                elapsedTime += Time.deltaTime;
+                var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(spriteAsset);
+                if (bottleSprite == null)
+                    yield return new WaitForEndOfFrame();
+                else {
+                    GetComponent<SpriteRenderer>().sprite = bottleSprite;
+                    break;
+                }
+            }
+
             // ボトル画像のサイズを取得
             var bottleWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
             var bottleHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
@@ -103,6 +126,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
             }
             GetComponent<Renderer>().sortingLayerName = SortingLayerName.BOTTLE;
+            GetComponent<SpriteRenderer>().enabled = true;
         }
 
         /// <summary>
@@ -116,13 +140,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
             // ボトルをボードに設定
             BoardManager.Instance.InitializeBottle(this, Id);
 
-            if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
-                var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.bottleSprite);
-                GetComponent<SpriteRenderer>().sprite = bottleSprite;
-            }
-
-            InitializeSprite();
-            GetComponent<SpriteRenderer>().enabled = true;
+            // sprite が設定されている場合読み込む
+            if (bottleData.bottleSprite.RuntimeKeyIsValid())
+                StartCoroutine(InitializeSprite(bottleData.bottleSprite));
         }
 
         /// <summary>
