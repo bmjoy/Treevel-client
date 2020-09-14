@@ -56,19 +56,19 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private void FixedUpdate()
         {
-            if (!_isStopping) {
-                _selfishTime++;
-                if (_selfishTime == _LIMIT_TO_MOVE) {
-                    // 空いている方向に移動させる
-                    MoveToFreeDirection();
-                    _selfishTime = 0;
-                    // 通常時アニメーションの起動
-                    _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
-                    _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
-                }
-                _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
-                _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
+            if (_isStopping) return;
+
+            _selfishTime++;
+            if (_selfishTime == _LIMIT_TO_MOVE) {
+                // 空いている方向に移動させる
+                MoveToFreeDirection();
+                _selfishTime = 0;
+                // 通常時アニメーションの起動
+                _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
+                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
             }
+            _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
+            _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _selfishTime);
         }
 
         /// <summary>
