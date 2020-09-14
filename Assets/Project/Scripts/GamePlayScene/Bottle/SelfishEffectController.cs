@@ -78,13 +78,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var probabilityArray = new int[Enum.GetNames(typeof(EDirection)).Length];
             // 空いている方向を確認する
             // 左
-            if (BoardManager.Instance.IsExist(x - 1, y)) probabilityArray[(int)EDirection.ToLeft] = 1;
+            if (!BoardManager.Instance.IsExistBottle(x - 1, y)) probabilityArray[(int)EDirection.ToLeft] = 1;
             // 右
-            if (BoardManager.Instance.IsExist(x + 1, y)) probabilityArray[(int)EDirection.ToRight] = 1;
+            if (!BoardManager.Instance.IsExistBottle(x + 1, y)) probabilityArray[(int)EDirection.ToRight] = 1;
             // 上
-            if (BoardManager.Instance.IsExist(x, y - 1)) probabilityArray[(int)EDirection.ToUp] = 1;
+            if (!BoardManager.Instance.IsExistBottle(x, y - 1)) probabilityArray[(int)EDirection.ToUp] = 1;
             // 下
-            if (BoardManager.Instance.IsExist(x, y + 1)) probabilityArray[(int)EDirection.ToBottom] = 1;
+            if (!BoardManager.Instance.IsExistBottle(x, y + 1)) probabilityArray[(int)EDirection.ToBottom] = 1;
             // 空いている方向からランダムに1方向を選択する
             if (probabilityArray.Sum() == 0) return;
             var directionIndex = GimmickLibrary.SamplingArrayIndex(probabilityArray);
