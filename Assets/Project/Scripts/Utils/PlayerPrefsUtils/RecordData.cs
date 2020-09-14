@@ -77,7 +77,15 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
 
         private void Awake()
         {
-            _failureReasonCount = MyPlayerPrefs.GetDictionary<EFailureReasonType, int>(PlayerPrefsKeys.FAILURE_REASONS_COUNT);
+            _failureReasonCount = MyPlayerPrefs.GetDictionary(PlayerPrefsKeys.FAILURE_REASONS_COUNT, new Dictionary<EFailureReasonType, int>
+            {
+                {EFailureReasonType.Others, 0},
+                {EFailureReasonType.Tornado, 0},
+                {EFailureReasonType.Meteorite, 0},
+                {EFailureReasonType.AimingMeteorite, 0},
+                {EFailureReasonType.Thunder, 0},
+                {EFailureReasonType.SolarBeam, 0}
+            });
             _startupDays = PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS, 1);
             _lastStartupDate = MyPlayerPrefs.GetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE);
         }

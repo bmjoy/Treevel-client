@@ -203,7 +203,9 @@ namespace Project.Scripts.MenuSelectScene.Record
         private void SetupFailureReasonGraph()
         {
             // 失敗回数の合計
-            float sum = RecordData.Instance.FailureReasonCount.Sum(pair => pair.Value);
+            var sum = RecordData.Instance.FailureReasonCount.Sum(pair => pair.Value);
+
+            if (sum == 0) return;
 
             float startPoint = 0;
 
@@ -216,7 +218,7 @@ namespace Project.Scripts.MenuSelectScene.Record
                 // Others は別途扱う
                 if (pair.Key.Equals(EFailureReasonType.Others)) continue;
 
-                var fillAmount = pair.Value / sum;
+                var fillAmount = (float) pair.Value / sum;
 
                 // 10 % 未満なら Others に含める
                 if (fillAmount < _FAILURE_REASON_SHOW_PERCENTAGE) {
