@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 28692800}
   - component: {fileID: 28692799}
   - component: {fileID: 28692798}
+  - component: {fileID: 28692801}
   m_Layer: 13
   m_Name: BackgroundCanvas
   m_TagString: Untagged
@@ -276,6 +277,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &28692801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28692796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e091a00d71c543bc9f703455766de30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &43107928
 GameObject:
   m_ObjectHideFlags: 0
