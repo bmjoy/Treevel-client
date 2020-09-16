@@ -125,11 +125,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             var targetBottles = GetTargetBottles();
             var destinationTiles = GetDestinationTiles();
             foreach (var bottle in targetBottles) {
-                
+                // ボトルが今いるタイルのインデックスを探す
                 var currTileIdx = Array.FindIndex(destinationTiles, n => n == BoardManager.Instance.GetBottlePos(bottle));
-                while (currTileIdx + 1 < destinationTiles.Length)
-                {
+                while (currTileIdx + 1 < destinationTiles.Length) {
                     var bottleOnTargetTile = BoardManager.Instance.GetBottle(destinationTiles[currTileIdx + 1]);
+                    // 次のタイルがStaticBottleの場合はループ終了、そうでない場合は次のタイルへ進む
                     if (bottleOnTargetTile && bottleOnTargetTile.GetComponent<StaticBottleController>() != null) {
                         break;
                     } else {
@@ -138,10 +138,14 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 }
 
                 BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], GetMoveDirection());
+                // 移動完了のボトルがいるタイル以降は次のボトルの選択肢から外す
                 destinationTiles = destinationTiles.Take(currTileIdx).ToArray();
             }
         }
 
+        /// <summary>
+        /// ボトルの移動ベクトルを取得する
+        /// </summary>
         private Vector2Int GetMoveDirection()
         {
             switch (_targetDirection) {
@@ -194,7 +198,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         }
 
         /// <summary>
-        /// 目標行・列上の全てのボトルを取得
+        /// 目標行・列上の全てのボトルを取得し、攻撃方向から移動する順序を決めてソートする
         /// </summary>
         private DynamicBottleController[] GetTargetBottles()
         {
