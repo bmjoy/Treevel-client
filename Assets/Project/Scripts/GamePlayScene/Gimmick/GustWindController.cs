@@ -6,6 +6,7 @@ using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
+using Project.Scripts.MenuSelectScene;
 
 namespace Project.Scripts.GamePlayScene.Gimmick
 {
@@ -123,9 +124,21 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             // 目標ボトルを移動させる
             var targetBottles = GetTargetBottles();
             var destinationTiles = GetDestinationTiles();
-            var index = 0;
             foreach (var bottle in targetBottles) {
-                BoardManager.Instance.Move(bottle, destinationTiles[index++], GetMoveDirection());
+                
+                var currTileIdx = Array.FindIndex(destinationTiles, n => n == BoardManager.Instance.GetBottlePos(bottle));
+                while (currTileIdx + 1 < destinationTiles.Length)
+                {
+                    var bottleOnTargetTile = BoardManager.Instance.GetBottle(destinationTiles[currTileIdx + 1]);
+                    if (bottleOnTargetTile && bottleOnTargetTile.GetComponent<StaticBottleController>() != null) {
+                        break;
+                    } else {
+                        currTileIdx++;
+                    }
+                }
+
+                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], GetMoveDirection());
+                destinationTiles = destinationTiles.Take(currTileIdx).ToArray();
             }
         }
 
@@ -151,44 +164,33 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private int[] GetDestinationTiles()
         {
-            int[] candidateList = null;
             switch (_targetDirection) {
                 case EGimmickDirection.ToLeft: {
                         var start = (_targetLine - 1) * StageSize.COLUMN + 1;
-                        candidateList = Enumerable.Range(start, StageSize.COLUMN).Reverse().ToArray();
-                        break;
+                        return Enumerable.Range(start, StageSize.COLUMN).Reverse().ToArray();
                     }
                 case EGimmickDirection.ToRight: {
                         var start = (_targetLine - 1) * StageSize.COLUMN + 1;
-                        candidateList = Enumerable.Range(start, StageSize.COLUMN).ToArray();
-                        break;
+                        return Enumerable.Range(start, StageSize.COLUMN).ToArray();
                     }
                 case EGimmickDirection.ToUp: {
                         var ret = new int[StageSize.ROW];
                         for (var i = 0 ; i < StageSize.ROW ; ++i) {
                             ret[i] = _targetLine + StageSize.COLUMN * i;
                         }
-                        candidateList = ret.Reverse().ToArray();
-                        break;
+                        return ret.Reverse().ToArray();
                     }
                 case EGimmickDirection.ToBottom: {
                         var ret = new int[StageSize.ROW];
                         for (var i = 0 ; i < StageSize.ROW ; ++i) {
                             ret[i] = _targetLine + StageSize.COLUMN * i;
                         }
-                        candidateList = ret;
-                        break;
+                        return ret;
                     }
                 case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }
-
-            // 障害物があるまで取る
-            return candidateList.TakeWhile(tileNum => {
-                var bottleOnTile = BoardManager.Instance.GetBottle(tileNum);
-                return bottleOnTile == null || bottleOnTile.GetComponent<AbstractBottleController>() is DynamicBottleController;
-            }).Reverse().ToArray();
         }
 
         /// <summary>
