@@ -116,7 +116,9 @@ namespace Project.Scripts.MenuSelectScene.Record
         /// </summary>
         private const float _FAILURE_REASON_SHOW_PERCENTAGE = 0.1f;
 
-        private void Awake()
+        private readonly List<GameObject> _shouldDestroyPrefabsOnDisable = new List<GameObject>();
+
+        private void OnEnable()
         {
             _stageStatuses = GameDataBase.GetAllStages()
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
@@ -134,6 +136,12 @@ namespace Project.Scripts.MenuSelectScene.Record
             _failureNum.text = GetFailureNum();
 
             SetupFailureReasonGraph();
+        }
+
+        private void OnDisable()
+        {
+            _shouldDestroyPrefabsOnDisable.ForEach(Destroy);
+            _shouldDestroyPrefabsOnDisable.Clear();
         }
 
         private static void ShareGeneralRecord()
@@ -250,6 +258,7 @@ namespace Project.Scripts.MenuSelectScene.Record
         private void CreateFailureReasonGraphElement(EFailureReasonType type, float startPoint, float fillAmount)
         {
             var element = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
+            _shouldDestroyPrefabsOnDisable.Add(element);
 
             // 親を指定すると，localPosition や sizeDelta が prefab の時と変わるので調整する
             element.transform.localPosition = Vector3.zero;
@@ -287,6 +296,7 @@ namespace Project.Scripts.MenuSelectScene.Record
             }
 
             var elementIcon = Instantiate(iconPrefab, element.transform, true);
+            _shouldDestroyPrefabsOnDisable.Add(elementIcon);
             elementIcon.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
 
             var fillAmountInt = (int) fillAmount;
