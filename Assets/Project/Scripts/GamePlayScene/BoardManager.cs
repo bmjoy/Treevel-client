@@ -96,6 +96,9 @@ namespace Project.Scripts.GamePlayScene
             return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
         }
 
+        /// <summary>
+        /// 指定した行上の全てのボトルオブジェクトを取得
+        /// </summary>
         public GameObject[] GetBottlesOnRow(ERow row)
         {
             List<GameObject> ret = new List<GameObject>();
@@ -110,6 +113,9 @@ namespace Project.Scripts.GamePlayScene
             return ret.ToArray();
         }
 
+        /// <summary>
+        /// 指定した列上の全てのボトルオブジェクトを取得する
+        /// </summary>
         public GameObject[] GetBottlesOnColumn(EColumn column)
         {
             List<GameObject> ret = new List<GameObject>();
