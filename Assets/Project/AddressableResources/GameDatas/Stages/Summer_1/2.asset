@@ -117,22 +117,73 @@ MonoBehaviour:
       m_SubObjectName: 
     life: 0
   gimmicks:
-  - loop: 0
+  - loop: 1
     appearTime: 2
-    interval: 0
+    interval: 4
     type: 5
     targetDirections: 01000000
     targetLines: 01000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 0
+    targetRow: 1
     targetColumn: 1
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
     targets: []
+    targetDirection: 2
+    attackTimes: 1
+  - loop: 1
+    appearTime: 3
+    interval: 4
+    type: 5
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 3
+    targetColumn: 3
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
     targetDirection: 4
+    attackTimes: 1
+  - loop: 1
+    appearTime: 4
+    interval: 4
+    type: 5
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 5
+    targetColumn: 1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 1
+    attackTimes: 1
+  - loop: 1
+    appearTime: 5
+    interval: 4
+    type: 5
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 3
+    targetColumn: 1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 3
     attackTimes: 1
   overviewGimmicks: 
   tutorial:
