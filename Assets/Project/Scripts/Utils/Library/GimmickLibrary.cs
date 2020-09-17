@@ -53,7 +53,10 @@ namespace Project.Scripts.Utils.Library
         {
             return direction == EGimmickDirection.ToUp || direction == EGimmickDirection.ToBottom;
         }
-        
+
+        /// <summary>
+        /// `EGimmickDirection`の方向からベクターに変換する
+        /// </summary>
         public static Vector2Int GetDirectionVector(EGimmickDirection direction)
         {
             switch (direction) {
