@@ -46,7 +46,7 @@ namespace Project.Scripts.Utils.Library
         }
 
         /// <summary>
-        /// ギミックの方向は縦向きか
+        /// ギミックの移動方向は縦向きか
         /// </summary>
         public static bool IsVertical(EGimmickDirection direction)
         {
