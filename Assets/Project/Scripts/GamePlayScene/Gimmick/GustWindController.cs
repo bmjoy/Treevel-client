@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System;
 using System.Linq;
 using Project.Scripts.GameDatas;
@@ -105,7 +105,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             var attackAnimationTime = attackAnimClip.length;
             var speed = _attackMoveDistance / attackAnimationTime;
 
-            var direction = (_attackEndPos - _attackStartPos).normalized;
+            var direction = (Vector3)(Vector3Int)GimmickLibrary.GetDirectionVector(_targetDirection);
             while ((_attackEndPos - transform.position).normalized == direction) {
                 transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
                 yield return new WaitForFixedUpdate();
@@ -135,29 +135,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     }
                 }
 
-                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], GetMoveDirection());
+                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], GimmickLibrary.GetDirectionVector(_targetDirection));
                 // 移動完了のボトルがいるタイル以降は次のボトルの選択肢から外す
                 destinationTiles = destinationTiles.Take(currTileIdx).ToArray();
-            }
-        }
-
-        /// <summary>
-        /// ボトルの移動ベクトルを取得する
-        /// </summary>
-        private Vector2Int GetMoveDirection()
-        {
-            switch (_targetDirection) {
-                case EGimmickDirection.ToLeft:
-                    return Vector2Int.left;
-                case EGimmickDirection.ToRight:
-                    return Vector2Int.right;
-                case EGimmickDirection.ToUp:
-                    return Vector2Int.up;
-                case EGimmickDirection.ToBottom:
-                    return Vector2Int.down;
-                case EGimmickDirection.Random:
-                default:
-                    throw new NotImplementedException();
             }
         }
 
