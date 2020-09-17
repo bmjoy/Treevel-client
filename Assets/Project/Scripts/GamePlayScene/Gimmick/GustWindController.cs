@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System;
 using System.Linq;
 using Project.Scripts.GameDatas;
@@ -13,8 +13,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
     [RequireComponent(typeof(Animator))]
     public class GustWindController : AbstractGimmickController
     {
-        [SerializeField] private float MoveBottleSpeed = 6.0f;
-
         private const float TIME_BEFORE_WARNING = 2.0f;
 
         private EGimmickDirection _targetDirection;
