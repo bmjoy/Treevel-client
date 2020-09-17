@@ -77,34 +77,39 @@ namespace Project.Scripts.MenuSelectScene.Record
         [SerializeField] private GameObject _failureReasonGraphElementPrefab;
 
         /// <summary>
-        /// [UI] Others のアイコン（Prefab）
+        /// [UI] 失敗理由グラフのアイコン（Prefab）
         /// </summary>
-        [SerializeField] private GameObject _failureReasonOthersIconPrefab;
+        [SerializeField] private GameObject _failureReasonGraphIconPrefab;
 
         /// <summary>
-        /// [UI] Tornado のアイコン（Prefab）
+        /// [UI] Others のアイコン（Sprite）
         /// </summary>
-        [SerializeField] private GameObject _failureReasonTornadoIconPrefab;
+        [SerializeField] private Sprite _failureReasonOthersIconSprite;
 
         /// <summary>
-        /// [UI] Meteorite のアイコン（Prefab）
+        /// [UI] Tornado のアイコン（Sprite）
         /// </summary>
-        [SerializeField] private GameObject _failureReasonMeteoriteIconPrefab;
+        [SerializeField] private Sprite _failureReasonTornadoIconSprite;
 
         /// <summary>
-        /// [UI] AimingMeteorite のアイコン（Prefab）
+        /// [UI] Meteorite のアイコン（Sprite）
         /// </summary>
-        [SerializeField] private GameObject _failureReasonAimingMeteoriteIconPrefab;
+        [SerializeField] private Sprite _failureReasonMeteoriteIconSprite;
 
         /// <summary>
-        /// [UI] Thunder のアイコン（Prefab）
+        /// [UI] AimingMeteorite のアイコン（Sprite）
         /// </summary>
-        [SerializeField] private GameObject _failureReasonThunderIconPrefab;
+        [SerializeField] private Sprite _failureReasonAimingMeteoriteIconSprite;
 
         /// <summary>
-        /// [UI] SolarBeam のアイコン（Prefab）
+        /// [UI] Thunder のアイコン（Sprite）
         /// </summary>
-        [SerializeField] private GameObject _failureReasonSolarBeamIconPrefab;
+        [SerializeField] private Sprite _failureReasonThunderIconSprite;
+
+        /// <summary>
+        /// [UI] SolarBeam のアイコン（Sprite）
+        /// </summary>
+        [SerializeField] private Sprite _failureReasonSolarBeamIconSprite;
 
         /// <summary>
         /// 全ステージの記録情報
@@ -271,31 +276,33 @@ namespace Project.Scripts.MenuSelectScene.Record
             // z 軸を変えることで fillAmount の開始地点を変える
             element.transform.localEulerAngles = new Vector3(0, 0, -360 * startPoint);
 
-            GameObject iconPrefab;
+            Sprite iconSprite;
             switch (type) {
                 case EFailureReasonType.Tornado:
-                    iconPrefab = _failureReasonTornadoIconPrefab;
+                    iconSprite = _failureReasonTornadoIconSprite;
                     break;
                 case EFailureReasonType.Meteorite:
-                    iconPrefab = _failureReasonMeteoriteIconPrefab;
+                    iconSprite = _failureReasonMeteoriteIconSprite;
                     break;
                 case EFailureReasonType.AimingMeteorite:
-                    iconPrefab = _failureReasonAimingMeteoriteIconPrefab;
+                    iconSprite = _failureReasonAimingMeteoriteIconSprite;
                     break;
                 case EFailureReasonType.Thunder:
-                    iconPrefab = _failureReasonThunderIconPrefab;
+                    iconSprite = _failureReasonThunderIconSprite;
                     break;
                 case EFailureReasonType.SolarBeam:
-                    iconPrefab = _failureReasonSolarBeamIconPrefab;
+                    iconSprite = _failureReasonSolarBeamIconSprite;
                     break;
                 case EFailureReasonType.Others:
-                    iconPrefab = _failureReasonOthersIconPrefab;
+                    iconSprite = _failureReasonOthersIconSprite;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
-            var elementIcon = Instantiate(iconPrefab, element.transform, true);
+            var elementIcon = Instantiate(_failureReasonGraphIconPrefab, element.transform, true);
+            elementIcon.GetComponent<Image>().sprite = iconSprite;
+
             _shouldDestroyPrefabsOnDisable.Add(elementIcon);
             elementIcon.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
 

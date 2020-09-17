@@ -4457,17 +4457,19 @@ MonoBehaviour:
   _failureReasonGraphNoData: {fileID: 1563342222}
   _failureReasonGraphElementPrefab: {fileID: 7084596908502496827, guid: 244d7477470884396acc4ea5457f2486,
     type: 3}
-  _failureReasonOthersIconPrefab: {fileID: 5955561060645360907, guid: 1a4e69acee7bd4329a28dc16967afea0,
+  _failureReasonGraphIconPrefab: {fileID: 3570820866407123034, guid: 553250dac7540444082d90dfd9d33a93,
     type: 3}
-  _failureReasonTornadoIconPrefab: {fileID: 8114703438820012783, guid: 5f132557883164ef7997c06d5102b5cf,
+  _failureReasonOthersIconSprite: {fileID: 21300000, guid: 8a576fb1bb9d74d2e973b1671790fa30,
     type: 3}
-  _failureReasonMeteoriteIconPrefab: {fileID: 6362438692868398472, guid: af87c466859dd499ab8e58c7e0921eb8,
+  _failureReasonTornadoIconSprite: {fileID: 21300000, guid: c360b2ff95db24b8dae028bb612e9380,
     type: 3}
-  _failureReasonAimingMeteoriteIconPrefab: {fileID: 3570820866407123034, guid: 553250dac7540444082d90dfd9d33a93,
+  _failureReasonMeteoriteIconSprite: {fileID: 21300000, guid: 677659810aa03400bbcce4413c7640d3,
     type: 3}
-  _failureReasonThunderIconPrefab: {fileID: 5363204157152882746, guid: 5a1b14183c11e4c64bdf07f6e6ee78d2,
+  _failureReasonAimingMeteoriteIconSprite: {fileID: 21300000, guid: 6060798cdc0cb45d3865b6c8949c8d92,
     type: 3}
-  _failureReasonSolarBeamIconPrefab: {fileID: 7757400692400011978, guid: 600a633c9324a4425923d6897d38206f,
+  _failureReasonThunderIconSprite: {fileID: 21300000, guid: 66f865d0122f3485cbb4242b6f874e7e,
+    type: 3}
+  _failureReasonSolarBeamIconSprite: {fileID: 21300000, guid: e4f81375ecf5b43c18637ad183407e0e,
     type: 3}
 --- !u!224 &700138103 stripped
 RectTransform:
