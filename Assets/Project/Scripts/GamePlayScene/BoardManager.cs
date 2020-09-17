@@ -103,13 +103,13 @@ namespace Project.Scripts.GamePlayScene
         {
             List<GameObject> ret = new List<GameObject>();
 
+            var r = (int)row - 1;
             for (var c = 0 ; c < StageSize.COLUMN ; c++) {
-                for (var r = 0 ; r < StageSize.ROW ; r++) {
-                    if (r == ((int)row - 1) && _squares[c, r].bottle) {
-                        ret.Add(_squares[c, r].bottle.gameObject);
-                    }
+                if (_squares[c, r].bottle) {
+                    ret.Add(_squares[c, r].bottle.gameObject);
                 }
             }
+
             return ret.ToArray();
         }
 
@@ -120,16 +120,13 @@ namespace Project.Scripts.GamePlayScene
         {
             List<GameObject> ret = new List<GameObject>();
 
-            for (var c = 0 ; c < StageSize.COLUMN ; c++) {
-                if (c != ((int)column - 1))
-                    continue;
-
-                for (var r = 0 ; r < StageSize.ROW ; r++) {
-                    if (c == ((int)column - 1) && _squares[c, r].bottle) {
-                        ret.Add(_squares[c, r].bottle.gameObject);
-                    }
+            var c = (int)column - 1;
+            for (var r = 0 ; r < StageSize.ROW ; r++) {
+                if (_squares[c, r].bottle) {
+                    ret.Add(_squares[c, r].bottle.gameObject);
                 }
             }
+
             return ret.ToArray();
         }
 
