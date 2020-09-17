@@ -62,12 +62,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         _targetLine = (int)gimmickData.targetColumn;
 
                         var sign = _targetDirection == EGimmickDirection.ToBottom ? 1 : -1;
-                        var xCord = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn).x;
+                        var xPos = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn).x;
                         var startY = sign * _attackMoveDistance * 0.5f;
                         var endY = -startY;
 
-                        _attackStartPos = new Vector2(xCord, startY);
-                        _attackEndPos = new Vector2(xCord, endY);
+                        _attackStartPos = new Vector2(xPos, startY);
+                        _attackEndPos = new Vector2(xPos, endY);
 
                         transform.position = _attackStartPos;
                         transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
