@@ -12,8 +12,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
     [RequireComponent(typeof(Animator))]
     public class GustWindController : AbstractGimmickController
     {
-        private const float TIME_BEFORE_WARNING = 2.0f;
-
         private EGimmickDirection _targetDirection;
 
         private int _targetLine;
@@ -80,8 +78,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         public override IEnumerator Trigger()
         {
-            yield return new WaitForSeconds(TIME_BEFORE_WARNING);
-
             // 警告出す
 
             // 警告終わり
