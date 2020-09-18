@@ -4385,7 +4385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe2bcc98c7cc4bf99e7a0f0c785abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  synchronizedObject: {fileID: 1610455063}
+  _scrollRect: {fileID: 2042313698}
+  _synchronizedObject: {fileID: 1610455063}
 --- !u!1 &1849571190
 GameObject:
   m_ObjectHideFlags: 0
