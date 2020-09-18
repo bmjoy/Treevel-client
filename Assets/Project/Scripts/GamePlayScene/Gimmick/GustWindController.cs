@@ -6,7 +6,6 @@ using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 using UnityEngine;
-using Project.Scripts.MenuSelectScene;
 
 namespace Project.Scripts.GamePlayScene.Gimmick
 {
