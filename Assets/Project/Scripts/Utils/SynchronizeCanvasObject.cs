@@ -16,14 +16,16 @@ namespace Project.Scripts.Utils
         /// <returns></returns>
         [SerializeField] private GameObject _synchronizedObject;
 
-        void Awake() {
+        void Awake()
+        {
             _scrollRect.onValueChanged.AddListener(delegate {
                 _synchronizedObject.transform.localPosition = gameObject.transform.localPosition;
                 _synchronizedObject.transform.localScale = gameObject.transform.localScale;
             });
         }
 
-        void OnEnable() {
+        void OnEnable()
+        {
             _synchronizedObject.transform.localPosition = gameObject.transform.localPosition;
             _synchronizedObject.transform.localScale = gameObject.transform.localScale;
         }
