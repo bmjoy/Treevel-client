@@ -5,8 +5,7 @@ namespace Project.Scripts.Utils.Definitions
     /// <summary>
     /// ギミックの移動方向
     /// </summary>
-    public enum EGimmickDirection 
-    {
+    public enum EGimmickDirection {
         ToLeft = 1,
         ToRight,
         ToUp,
@@ -14,7 +13,7 @@ namespace Project.Scripts.Utils.Definitions
         Random = -1
     }
 
-    public static class GimmickDirectionExtension 
+    public static class GimmickDirectionExtension
     {
         /// <summary>
         /// `EGimmickDirection`の方向からベクターに変換する
