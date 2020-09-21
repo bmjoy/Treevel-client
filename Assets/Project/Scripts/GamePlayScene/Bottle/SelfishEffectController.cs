@@ -120,11 +120,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             _countCalmFrames = countCalmFrames;
             if (_countCalmFrames) {
-                _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
-            } else {
                 _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 1f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 1f);
+            } else {
+                _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
             }
         }
 
@@ -134,7 +134,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         public void EndProcess()
         {
-            _countCalmFrames = true;
+            _countCalmFrames = false;
             _calmFrames = 0;
             _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
             _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
@@ -191,23 +191,23 @@ namespace Project.Scripts.GamePlayScene.Bottle
         void ISelfishHandler.OnStartMove()
         {
             // フリック中は勝手に移動するまでのフレーム数を計上しない
-            _selfishEffectController.SetIsStopping(true);
+            _selfishEffectController.SetIsStopping(false);
         }
 
         void ISelfishHandler.OnEndMove()
         {
-            _selfishEffectController.SetIsStopping(false);
+            _selfishEffectController.SetIsStopping(true);
         }
 
         void ISelfishHandler.OnPressed()
         {
             // ホールド中は勝手に移動するまでのフレーム数を計上しない
-            _selfishEffectController.SetIsStopping(true);
+            _selfishEffectController.SetIsStopping(false);
         }
 
         void ISelfishHandler.OnReleased()
         {
-            _selfishEffectController.SetIsStopping(false);
+            _selfishEffectController.SetIsStopping(true);
         }
 
         void ISelfishHandler.EndProcess()
