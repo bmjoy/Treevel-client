@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Project.Scripts.GamePlayScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
@@ -14,9 +15,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private DynamicBottleController _bottleController;
 
         /// <summary>
+        /// 勝手に移動するまでの秒数
+        /// </summary>
+        private const float _SECONDS_TO_MOVE = 2.4f;
+
+        /// <summary>
         /// 勝手に移動するまでのフレーム数
         /// </summary>
-        private const int _FRAMES_TO_MOVE = 120;
+        private int _frames_to_move;
 
         /// <summary>
         /// 勝手に移動していないフレーム数
@@ -37,6 +43,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private void Awake()
         {
+            _frames_to_move = (int)(GamePlayDirector.FRAME_RATE * _SECONDS_TO_MOVE);
             _animator = GetComponent<Animator>();
         }
 
@@ -59,7 +66,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (!_countCalmFrames) return;
 
             _calmFrames++;
-            if (_calmFrames == _FRAMES_TO_MOVE) {
+            if (_calmFrames == _frames_to_move) {
                 // 空いている方向にBottleを移動させる
                 MoveToFreeDirection();
                 _calmFrames = 0;
