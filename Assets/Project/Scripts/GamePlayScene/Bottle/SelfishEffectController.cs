@@ -32,6 +32,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// "勝手に移動していないフレーム数"を数えるかどうか
         /// ジェスチャー検知時は"勝手に移動していないフレーム数"を数えない
+        /// 初期化が終了するまでは数えないように"false"とする
         /// </summary>
         private bool _countCalmFrames = false;
 
@@ -58,6 +59,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
             _bottleAnimator = bottle.GetComponent<Animator>();
 
+            // 移動していないフレーム数を数え始める
             _countCalmFrames = true;
         }
 
