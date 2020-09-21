@@ -22,12 +22,6 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private int _targetLine;
 
-        private Animator _animator;
-
-        private const string _ANIMATOR_PARAM_TRIGGER_WARNING = "Warning";
-        private const string _ATTACK_ANIMATION_CLIP_NAME = "GustWind@attack";
-        private static readonly int _ATTACK_STATE_NAME_HASH = Animator.StringToHash("GustWind@attack");
-
         /// <summary>
         /// 攻撃アニメーション開始時の位置
         /// </summary>
@@ -42,6 +36,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// 攻撃アニメーション中の移動総距離（縦の場合を基準とする）
         /// </summary>
         private float _attackMoveDistance;
+
+        private const string _ANIMATOR_PARAM_TRIGGER_WARNING = "Warning";
+        private const string _ATTACK_ANIMATION_CLIP_NAME = "GustWind@attack";
+        private static readonly int _ATTACK_STATE_NAME_HASH = Animator.StringToHash("GustWind@attack");
+
+        private Animator _animator;
 
         private void Awake()
         {
@@ -142,8 +142,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private void MoveBottles()
         {
-            // 目標ボトルを移動させる
+            // 目標ボトルを取得
             var targetBottles = GetTargetBottles();
+            // 目標行・列上のタイルを取得
             var destinationTiles = GetDestinationTiles();
             foreach (var bottle in targetBottles) {
                 // ボトルが今いるタイルのインデックスを探す
