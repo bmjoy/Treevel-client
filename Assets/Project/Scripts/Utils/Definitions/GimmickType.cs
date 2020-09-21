@@ -14,7 +14,7 @@ namespace Project.Scripts.Utils.Definitions
         GustWind
     }
 
-    public static class Extension
+    public static class GimmickTypeExtension
     {
         public static EFailureReasonType GetFailureReason(this EGimmickType type)
         {

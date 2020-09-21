@@ -105,7 +105,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             var attackAnimationTime = attackAnimClip.length;
             var speed = _attackMoveDistance / attackAnimationTime;
 
-            var direction = (Vector3)(Vector3Int)GimmickLibrary.GetDirectionVector(_targetDirection);
+            var direction = (Vector3)(Vector3Int)_targetDirection.GetDirectionVector();
             while ((_attackEndPos - transform.position).normalized == direction) {
                 transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
                 yield return new WaitForFixedUpdate();
@@ -135,7 +135,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                     }
                 }
 
-                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], GimmickLibrary.GetDirectionVector(_targetDirection));
+                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], _targetDirection.GetDirectionVector());
                 // 移動完了のボトルがいるタイル以降は次のボトルの選択肢から外す
                 destinationTiles = destinationTiles.Take(currTileIdx).ToArray();
             }
