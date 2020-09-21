@@ -12,8 +12,14 @@ namespace Project.Scripts.GamePlayScene.Gimmick
     [RequireComponent(typeof(Animator))]
     public class GustWindController : AbstractGimmickController
     {
+        /// <summary>
+        /// 攻撃方向
+        /// </summary>
         private EGimmickDirection _targetDirection;
 
+        /// <summary>
+        /// 対象行・列
+        /// </summary>
         private int _targetLine;
 
         private Animator _animator;
@@ -22,8 +28,19 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         private const string _ATTACK_ANIMATION_CLIP_NAME = "GustWind@attack";
         private static readonly int _ATTACK_STATE_NAME_HASH = Animator.StringToHash("GustWind@attack");
 
+        /// <summary>
+        /// 攻撃アニメーション開始時の位置
+        /// </summary>
         private Vector3 _attackStartPos;
+
+        /// <summary>
+        /// 攻撃アニメーション終了時の位置
+        /// </summary>
         private Vector3 _attackEndPos;
+
+        /// <summary>
+        /// 攻撃アニメーション中の移動総距離（縦の場合を基準とする）
+        /// </summary>
         private float _attackMoveDistance;
 
         private void Awake()
@@ -98,6 +115,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// 攻撃アニメーション中の移動計算
+        /// </summary>
         private IEnumerator MoveDuringAttack()
         {
             // 攻撃のクリップの長さ、スタート位置、終了位置からスピードを算出
@@ -117,6 +137,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             MoveBottles();
         }
 
+        /// <summary>
+        /// 対象行・列上のボトルを一斉動かす
+        /// </summary>
         private void MoveBottles()
         {
             // 目標ボトルを移動させる
