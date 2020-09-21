@@ -37,6 +37,11 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// </summary>
         private float _attackMoveDistance;
 
+        /// <summary>
+        /// ボトル動かしたか
+        /// </summary>
+        private bool _isBottleMoved = false;
+
         private const string _ANIMATOR_PARAM_TRIGGER_WARNING = "Warning";
         private const string _ATTACK_ANIMATION_CLIP_NAME = "GustWind@attack";
         private static readonly int _ATTACK_STATE_NAME_HASH = Animator.StringToHash("GustWind@attack");
@@ -134,7 +139,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            MoveBottles();
+            if (!_isBottleMoved) {
+                _isBottleMoved = true;
+                MoveBottles();
+            }
         }
 
         /// <summary>
