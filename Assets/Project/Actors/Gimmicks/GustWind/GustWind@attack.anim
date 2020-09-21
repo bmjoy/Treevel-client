@@ -42,7 +42,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: 
+    path: Core
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -70,7 +70,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: 
+    path: Core
     classID: 61
     script: {fileID: 0}
   m_PPtrCurves:
@@ -118,7 +118,7 @@ AnimationClip:
       value: {fileID: -7211767634265321381, guid: 75bfa7b0a06e54b25ae6c609aed4f7b0,
         type: 3}
     attribute: m_Sprite
-    path: 
+    path: Core
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 24
@@ -210,7 +210,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: 
+    path: Core
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -238,7 +238,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: 
+    path: Core
     classID: 61
     script: {fileID: 0}
   m_EulerEditorCurves: []

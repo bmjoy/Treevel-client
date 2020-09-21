@@ -34,10 +34,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         public override void Initialize(GimmickData gimmickData)
         {
             base.Initialize(gimmickData);
+
+            var coreSprite = transform.Find("Core").GetComponent<SpriteRenderer>();
             _targetDirection = gimmickData.targetDirection;
             // 縦の時は、ピッタリ画面端の外から画面もう一端の外まで動かせるように、
             // 横の時は、ピッタリ画面端からスタートし、縦と同じ距離を移動する（アニメーションの秒数でスピードを決めているので）
-            _attackMoveDistance = WindowSize.HEIGHT + GetComponent<SpriteRenderer>().size.y * transform.localScale.y;
+            _attackMoveDistance = WindowSize.HEIGHT + coreSprite.size.y * transform.localScale.y;
             switch (_targetDirection) {
                 case EGimmickDirection.ToLeft:
                 case EGimmickDirection.ToRight: {
@@ -45,7 +47,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
                         var sign = _targetDirection == EGimmickDirection.ToRight ? 1 : -1;
                         var yPos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center).y;
-                        var startX = -sign * (WindowSize.WIDTH + GetComponent<SpriteRenderer>().size.y * transform.localScale.y) * 0.5f;
+                        var startX = -sign * (WindowSize.WIDTH + coreSprite.size.y * transform.localScale.y) * 0.5f;
                         var endX = startX + sign * _attackMoveDistance;
 
                         _attackStartPos = new Vector2(startX, yPos);
