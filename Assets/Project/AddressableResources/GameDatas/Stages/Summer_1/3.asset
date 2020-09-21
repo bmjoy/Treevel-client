@@ -119,7 +119,7 @@ MonoBehaviour:
   gimmicks:
   - loop: 1
     appearTime: 1
-    interval: 2
+    interval: 5
     type: 5
     targetDirections: 01000000
     targetLines: 01000000
@@ -127,12 +127,12 @@ MonoBehaviour:
     randomRow: 
     randomColumn: 
     targetRow: 2
-    targetColumn: 3
+    targetColumn: 2
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: 4
+    targetDirection: 3
     attackTimes: 0
   overviewGimmicks: 
   tutorial:
