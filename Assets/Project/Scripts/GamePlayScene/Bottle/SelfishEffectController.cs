@@ -48,16 +48,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _animator = GetComponent<Animator>();
         }
 
-        public void Initialize(GameObject bottle)
+        public void Initialize(DynamicBottleController bottleController)
         {
-            transform.parent = bottle.transform;
+            transform.parent = bottleController.transform;
             transform.localPosition = Vector3.zero;
-            _bottleController = bottle.GetComponent<DynamicBottleController>();
-            if (_bottleController == null) {
-                Debug.LogError("There is no DynamicBottleController");
-                return;
-            }
-            _bottleAnimator = bottle.GetComponent<Animator>();
+            _bottleController = bottleController;
+            _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // 移動していないフレーム数を数え始める
             _countCalmFrames = true;
@@ -185,16 +181,16 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private SelfishEffectController _selfishEffectController;
 
-        internal SelfishMoveHandler(GameObject bottle)
+        internal SelfishMoveHandler(DynamicBottleController bottleController)
         {
-            Initialize(bottle);
+            Initialize(bottleController);
         }
 
-        private async void Initialize(GameObject bottle)
+        private async void Initialize(DynamicBottleController bottleController)
         {
             var selfishEffect = await AddressableAssetManager.Instantiate(Address.SELFISH_EFFECT_PREFAB).Task;
             _selfishEffectController = selfishEffect.GetComponent<SelfishEffectController>();
-            _selfishEffectController.Initialize(bottle);
+            _selfishEffectController.Initialize(bottleController);
         }
 
         void ISelfishHandler.OnStartMove()
