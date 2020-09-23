@@ -77,6 +77,23 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
 
         private void Awake()
         {
+            Initialize();
+        }
+
+        /// <summary>
+        /// 記録情報のリセット
+        /// </summary>
+        public void Reset()
+        {
+            // 最終起動日だけはリセットしない
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.FAILURE_REASONS_COUNT);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.STARTUP_DAYS);
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             _failureReasonCount = MyPlayerPrefs.GetDictionary(PlayerPrefsKeys.FAILURE_REASONS_COUNT, new Dictionary<EFailureReasonType, int>
             {
                 {EFailureReasonType.Others, 0},
@@ -88,16 +105,6 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             });
             _startupDays = PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS, 1);
             _lastStartupDate = MyPlayerPrefs.GetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE);
-        }
-
-        /// <summary>
-        /// 記録情報のリセット
-        /// </summary>
-        public void Reset()
-        {
-            // 最終起動日だけはリセットしない
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.FAILURE_REASONS_COUNT);
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.STARTUP_DAYS);
         }
     }
 }
