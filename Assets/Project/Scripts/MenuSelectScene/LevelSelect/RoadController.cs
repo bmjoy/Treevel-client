@@ -71,14 +71,14 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             // 終点の木の状態の更新
             _endObjectController.state = ETreeState.Released;
-            
+
             // 道の更新アニメーション
             for (var i = 0; i < 100; i++) {
                 lineRenderer.startColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
                 lineRenderer.endColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
                 yield return null;
             }
-            
+
             // 終点の木の状態の更新アニメーション
             _endObjectController.ReflectTreeState();
         }
