@@ -48,7 +48,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             if (lastStartupDate is DateTime date) {
                 if (date < DateTime.Today) {
                     // 起動日数を加算する
-                    var startupDays = StartupDays;
+                    var startupDays = StartupDays + 1;
                     // 起動日数を保存する
                     StartupDays = startupDays;
                 }
@@ -77,9 +77,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
 
         private void Awake()
         {
-            _failureReasonCount = MyPlayerPrefs.GetDictionary<EFailureReasonType, int>(PlayerPrefsKeys.FAILURE_REASONS_COUNT);
-            _startupDays = PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS, 1);
-            _lastStartupDate = MyPlayerPrefs.GetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE);
+            Initialize();
         }
 
         /// <summary>
@@ -90,6 +88,23 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             // 最終起動日だけはリセットしない
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.FAILURE_REASONS_COUNT);
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.STARTUP_DAYS);
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _failureReasonCount = MyPlayerPrefs.GetDictionary(PlayerPrefsKeys.FAILURE_REASONS_COUNT, new Dictionary<EFailureReasonType, int>
+            {
+                {EFailureReasonType.Others, 0},
+                {EFailureReasonType.Tornado, 0},
+                {EFailureReasonType.Meteorite, 0},
+                {EFailureReasonType.AimingMeteorite, 0},
+                {EFailureReasonType.Thunder, 0},
+                {EFailureReasonType.SolarBeam, 0}
+            });
+            _startupDays = PlayerPrefs.GetInt(PlayerPrefsKeys.STARTUP_DAYS, 1);
+            _lastStartupDate = MyPlayerPrefs.GetDateTime(PlayerPrefsKeys.LAST_STARTUP_DATE);
         }
     }
 }

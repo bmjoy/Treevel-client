@@ -35,6 +35,15 @@ namespace Project.Scripts.Utils.Definitions
         ReturnToTitle,   // タイトルに戻る
         StartGame,       // スタート
 
+        // 記録画面
+        RecordShareButton,    // 共有ボタン
+        RecordIndividualButton,    // 個別記録へボタン
+        RecordClearStageNum,    // ステージクリア数
+        RecordPlayNum,    // プレイ回数
+        RecordPlayDays,    // 起動日数
+        RecordFlickNum,    // フリック回数
+        RecordFailureNum,    // 失敗回数
+
         ErrorTextStart = 10000, // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart, // 不明なエラー
         ErrorLoadSceneFailed, // データの読み込みが失敗しました
