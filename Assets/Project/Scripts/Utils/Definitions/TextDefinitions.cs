@@ -46,7 +46,7 @@ namespace Project.Scripts.Utils.Definitions
 
         ErrorTextStart = 10000, // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart, // 不明なエラー
-        ErrorLoadSceneFailed, // ローディングが失敗しました
+        ErrorLoadSceneFailed, // データの読み込みが失敗しました
         ErrorInavlidBottleAccess, // ボトルの不正アクセスが発生しました。
     }
 }
