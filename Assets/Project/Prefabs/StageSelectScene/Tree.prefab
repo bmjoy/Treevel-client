@@ -1121,7 +1121,7 @@ PrefabInstance:
     - target: {fileID: 6861449145583276910, guid: 995502db3c4e3402e8a8e9a9e999c831,
         type: 3}
       propertyPath: m_Name
-      value: BranchDummy_1
+      value: Branch0_1
       objectReference: {fileID: 0}
     - target: {fileID: 6861449145583276910, guid: 995502db3c4e3402e8a8e9a9e999c831,
         type: 3}
