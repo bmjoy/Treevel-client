@@ -18,7 +18,7 @@ namespace Project.Scripts.Utils
 
         private void Awake()
         {
-            _scrollRect.onValueChanged.AddListener(delegate {
+            _scrollRect.onValueChanged.AddListener(_ => {
                 _synchronizedObject.transform.localPosition = gameObject.transform.localPosition;
                 _synchronizedObject.transform.localScale = gameObject.transform.localScale;
             });
