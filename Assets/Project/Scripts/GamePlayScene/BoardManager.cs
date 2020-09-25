@@ -180,8 +180,9 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
+        /// <param name="immediately"> 瞬間移動か </param>
         /// <returns> ボトルが移動したかどうか </returns>
-        public bool Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
+        public bool Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null, bool immediately = false)
         {
             // 移動するボトルが null の場合は移動しない
             if (bottle == null) return false;
@@ -215,11 +216,17 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle = bottle;
             }
 
-            // ボトルを移動する
-            StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
+            if (immediately) {
+                bottle.transform.position = targetSquare.worldPosition;
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, direction);
-            }));
+            } else {
+                // ボトルスムーズに移動する
+                StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
+                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                    targetSquare.tile.OnBottleEnter(bottleObject, direction);
+                }));
+            }
 
             return true;
         }

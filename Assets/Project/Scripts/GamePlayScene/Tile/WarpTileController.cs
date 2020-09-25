@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
+    [RequireComponent(typeof(Animator))]
     public class WarpTileController : AbstractTileController
     {
         // 相方のWarpTile
@@ -18,15 +19,29 @@ namespace Project.Scripts.GamePlayScene.Tile
         private GameObject _warpTileEffect;
 
         /// <summary>
+        /// ワープするボトルをアタッチするオブジェクト
+        /// </summary>
+        private GameObject _warpTarget;
+
+        /// <summary>
         /// warpできるかどうか
         /// </summary>
         private bool _warpEnabled = true;
+
+        private const string _ANIMATOR_PARAM_TRIGGER_BOTTLEIN = "BottleIn";
+        private const string _ANIMATOR_PARAM_TRIGGER_BOTTLEOUT = "BottleOut";
+        private static readonly int _ANIMATOR_NAME_HASH_BOTTLEIN = Animator.StringToHash("WarpTile@bottle_in");
+        private static readonly int _ANIMATOR_NAME_HASH_BOTTLEOUT = Animator.StringToHash("WarpTile@bottle_out");
+
+        private Animator _animator;
 
         protected override void Awake()
         {
             base.Awake();
             bottleHandler = new WarpTileBottleHandler(this);
             _warpTileEffect = transform.Find("WarpTileEffectPrefab").gameObject;
+            _warpTarget = transform.Find("WarpTarget").gameObject;
+            _animator = GetComponent<Animator>();
         }
 
         /// <summary>
@@ -86,21 +101,41 @@ namespace Project.Scripts.GamePlayScene.Tile
             // 相方を一時的にワープ不能にする
             pairTileController._warpEnabled = false;
 
+            // 元々の親を一時保存
+            var bottleParent = bottle.transform.parent;
+            var bottleScale = bottle.transform.localScale;
+
+            // 相方のワープオブジェクトの大きさをゼロにしておく
+            var pairTileWarpObject = _pairTile.transform.Find("WarpTarget");
+            pairTileWarpObject.transform.localScale = Vector3.zero;
+
             // warpTileの粒子アニメーション
             GetComponent<ParticleSystem>().Play();
-            var anim = bottle.GetComponent<Animation>();
+
+            // ボトルをWarpTargetの子オブジェクトに
+            bottle.transform.SetParent(_warpTarget.transform);
             // bottleがワープに入るアニメーション
-            anim.Play(AnimationClipName.BOTTLE_WARP);
+            _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEIN);
             // アニメーションの終了を待つ
-            while (anim.isPlaying) yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEIN);
 
             // ボトルを移動する
-            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber);
+            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber, null, immediately: true);
+
+            // 相方のWarpTargetの子オブジェクトに
+            bottle.transform.SetParent(pairTileWarpObject, false);
 
             // bottleがワープから戻るアニメーション
-            anim.Play(AnimationClipName.BOTTLE_WARP_REVERSE);
-            // アニメーションの終了を待つ
-            while (anim.isPlaying) yield return new WaitForFixedUpdate();
+            var pairAnimator = _pairTile.GetComponent<Animator>();
+            pairAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEOUT);
+
+            // アニメーション開始直後にスケール戻す
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => pairAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEOUT);
+
+            // ボトルの親オブジェクトを戻す
+            bottle.transform.SetParent(bottleParent);
 
             // 相方のワープ状態を戻す
             pairTileController._warpEnabled = true;
