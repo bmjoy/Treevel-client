@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 957508379597345922}
   - component: {fileID: 8350893800382395972}
-  - component: {fileID: 6793777626336466694}
   m_Layer: 12
   m_Name: WarpTileEffectPrefab
   m_TagString: Untagged
@@ -82,25 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6793777626336466694
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145332969949921221}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 41ec0eb240def4b5aa41e00ef4ec07da, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2281809373051226156
 GameObject:
   m_ObjectHideFlags: 0

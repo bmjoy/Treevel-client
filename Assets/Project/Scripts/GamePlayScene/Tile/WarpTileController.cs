@@ -14,11 +14,6 @@ namespace Project.Scripts.GamePlayScene.Tile
         [SerializeField, NonEditable] private GameObject _pairTile;
 
         /// <summary>
-        /// warpTile上のeffect
-        /// </summary>
-        private GameObject _warpTileEffect;
-
-        /// <summary>
         /// ワープするボトルをアタッチするオブジェクト
         /// </summary>
         private GameObject _warpTarget;
@@ -39,7 +34,6 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             base.Awake();
             bottleHandler = new WarpTileBottleHandler(this);
-            _warpTileEffect = transform.Find("WarpTileEffectPrefab").gameObject;
             _warpTarget = transform.Find("WarpTarget").gameObject;
             _animator = GetComponent<Animator>();
         }
@@ -87,8 +81,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             // すでに生成された粒子を消す
             GetComponent<ParticleSystem>().Clear();
             // warpTileEffectを止める
-            // TODO: 実際のアニメーション実装の際にnull checkなどを行う
-            _warpTileEffect.GetComponent<Animator>().speed = 0;
+            _animator.speed = 0;
         }
 
         private IEnumerator WarpBottle(GameObject bottle)
