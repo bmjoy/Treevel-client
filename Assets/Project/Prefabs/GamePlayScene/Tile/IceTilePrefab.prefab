@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1081002965159137795}
   - component: {fileID: 1025009851747015073}
   - component: {fileID: 7924455655039089364}
+  - component: {fileID: 930854030061919341}
   m_Layer: 12
   m_Name: IceTilePrefab
   m_TagString: Tile
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1928078809
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 725d5274000694b53aa64550ef15bccd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,3 +95,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176857993b5b94cf685ba3e4efbe8960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &930854030061919341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5845266341071709951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RatioToWindowWidth: 0.22
+  ImageRatio: 1
