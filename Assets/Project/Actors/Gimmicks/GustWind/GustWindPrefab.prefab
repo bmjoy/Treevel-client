@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.2
-  ImageRatio: 8
+  ImageRatio: 8.9
 --- !u!61 &7894972585210036848
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.2
-  ImageRatio: 10
+  ImageRatio: 8.9
 --- !u!1 &5785665014836084646
 GameObject:
   m_ObjectHideFlags: 0
