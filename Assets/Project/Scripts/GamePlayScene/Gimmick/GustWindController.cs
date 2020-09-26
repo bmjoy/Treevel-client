@@ -53,6 +53,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _animator = GetComponent<Animator>();
         }
 
+        protected override void OnEndGame()
+        {
+            base.OnEndGame();
+            _animator.speed = 0;
+        }
+
         public override void Initialize(GimmickData gimmickData)
         {
             base.Initialize(gimmickData);
