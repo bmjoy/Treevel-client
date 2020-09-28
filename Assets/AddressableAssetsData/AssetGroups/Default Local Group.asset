@@ -60,7 +60,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 6cb6fca6a4b44457bb8a9762f4238b0b
-    m_Address: AutomnStageSelectScene
+    m_Address: AutumnStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
