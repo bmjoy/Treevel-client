@@ -97,6 +97,40 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
+        /// 指定した行上の全てのボトルオブジェクトを取得
+        /// </summary>
+        public GameObject[] GetBottlesOnRow(ERow row)
+        {
+            List<GameObject> ret = new List<GameObject>();
+
+            var r = (int)row - 1;
+            for (var c = 0 ; c < StageSize.COLUMN ; c++) {
+                if (_squares[c, r].bottle) {
+                    ret.Add(_squares[c, r].bottle.gameObject);
+                }
+            }
+
+            return ret.ToArray();
+        }
+
+        /// <summary>
+        /// 指定した列上の全てのボトルオブジェクトを取得する
+        /// </summary>
+        public GameObject[] GetBottlesOnColumn(EColumn column)
+        {
+            List<GameObject> ret = new List<GameObject>();
+
+            var c = (int)column - 1;
+            for (var r = 0 ; r < StageSize.ROW ; r++) {
+                if (_squares[c, r].bottle) {
+                    ret.Add(_squares[c, r].bottle.gameObject);
+                }
+            }
+
+            return ret.ToArray();
+        }
+
+        /// <summary>
         /// ボトルIDからボトルの現在位置を取得
         /// </summary>
         /// <param name="bottleId"></param>
