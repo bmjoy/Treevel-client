@@ -29,6 +29,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             set {
                 _BGMVolume = value;
                 PlayerPrefs.SetFloat(PlayerPrefsKeys.BGM_VOLUME, _BGMVolume);
+                SoundManager.Instance.ResetVolume();
             }
         }
 
@@ -40,6 +41,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
             set {
                 _SEVolume = value;
                 PlayerPrefs.SetFloat(PlayerPrefsKeys.SE_VOLUME, _SEVolume);
+                SoundManager.Instance.ResetVolume();
             }
         }
 

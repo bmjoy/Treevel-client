@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
 using SnapScroll;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Project.Scripts.MenuSelectScene.Record
 {
-    public class RecordDirector : MonoBehaviour
+    public class RecordDirector : SingletonObject<RecordDirector>
     {
         [SerializeField] private GameObject _graphPrefab;
 
@@ -53,12 +54,18 @@ namespace Project.Scripts.MenuSelectScene.Record
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
-            _snapScrollView.MaxPage = Enum.GetNames(typeof(ELevelName)).Length - 1;
+            _snapScrollView.MaxPage = 2;
             // ページの横幅の設定
             _snapScrollView.PageSize = ScaledCanvasSize.SIZE_DELTA.x;
 
             // 各種グラフなどを全て描画する
             // Draw();
+        }
+
+        public void MoveToRight()
+        {
+            _snapScrollView.Page = 1;
+            _snapScrollView.RefreshPage();
         }
 
         /// <summary>

@@ -129,7 +129,7 @@ namespace Project.Scripts.Utils
                     // アンロード終了後、辞書から削除
                     _loadedAssets.Remove(sceneName);
                 } else {
-                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadSceneError);
+                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadDataError);
                 }
             };
 

@@ -46,7 +46,7 @@ namespace Project.Scripts.StageSelectScene
 
             if (!released) {
                 if (constraintObjects.Length == 0) {
-                    // 初期状態で解放されている道
+                    // 初期状態で解放されている枝
                     released = true;
                 } else {
                     released = constraintObjects.All(stage => stage.GetComponent<StageController>().state >= EStageState.Cleared);
