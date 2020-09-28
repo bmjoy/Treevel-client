@@ -14,9 +14,9 @@ namespace Project.Scripts.Utils.Definitions
         Summer_1 = 1001,    // 夏の木
         Summer_2 = 1002,
         Summer_3 = 1003,
-        Automn_1 = 2001,     // 秋の木
-        Automn_2 = 2002,
-        Automn_3 = 2003,
+        Autumn_1 = 2001,     // 秋の木
+        Autumn_2 = 2002,
+        Autumn_3 = 2003,
         Winter_1 = 3001,    // 冬の木
         Winter_2 = 3002,
         Winter_3 = 3003,
@@ -42,9 +42,9 @@ namespace Project.Scripts.Utils.Definitions
             {ETreeId.Summer_1, 10},
             {ETreeId.Summer_2, 10},
             {ETreeId.Summer_3, 10},
-            {ETreeId.Automn_1, 10},
-            {ETreeId.Automn_2, 10},
-            {ETreeId.Automn_3, 10},
+            {ETreeId.Autumn_1, 10},
+            {ETreeId.Autumn_2, 10},
+            {ETreeId.Autumn_3, 10},
             {ETreeId.Winter_1, 10},
             {ETreeId.Winter_2, 10},
             {ETreeId.Winter_3, 10},
@@ -59,9 +59,9 @@ namespace Project.Scripts.Utils.Definitions
             {ETreeId.Summer_1, new NumClearTreeHandler(ETreeId.Summer_1, 1)},
             {ETreeId.Summer_2, new NumClearTreeHandler(ETreeId.Summer_3, 1)},
             {ETreeId.Summer_3, new NumClearTreeHandler(ETreeId.Summer_3, 1)},
-            {ETreeId.Automn_1, new NumClearTreeHandler(ETreeId.Automn_1, 1)},
-            {ETreeId.Automn_2, new NumClearTreeHandler(ETreeId.Automn_2, 1)},
-            {ETreeId.Automn_3, new NumClearTreeHandler(ETreeId.Automn_3, 1)},
+            {ETreeId.Autumn_1, new NumClearTreeHandler(ETreeId.Autumn_1, 1)},
+            {ETreeId.Autumn_2, new NumClearTreeHandler(ETreeId.Autumn_2, 1)},
+            {ETreeId.Autumn_3, new NumClearTreeHandler(ETreeId.Autumn_3, 1)},
             {ETreeId.Winter_1, new NumClearTreeHandler(ETreeId.Winter_1, 1)},
             {ETreeId.Winter_2, new NumClearTreeHandler(ETreeId.Winter_2, 1)},
             {ETreeId.Winter_3, new NumClearTreeHandler(ETreeId.Winter_3, 1)},
