@@ -277,8 +277,9 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
 
                 // ボトルがタイルに配置された場合の処理を行う
-                // `tile.OnBottleEnter` は仕様上呼ばない方が良いと判断
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                // Note: 蜘蛛の巣タイルやワープタイルの上に初期配置でボトルを置くと動作が実行される
+                targetSquare.tile.OnBottleEnter(targetSquare.bottle.gameObject, null);
             }
         }
 
