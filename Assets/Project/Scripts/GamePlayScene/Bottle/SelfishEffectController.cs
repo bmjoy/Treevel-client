@@ -22,7 +22,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 勝手に移動するまでのフレーム数
         /// </summary>
-        private int _frames_to_move;
+        private int _framesToMove;
 
         /// <summary>
         /// 勝手に移動していないフレーム数
@@ -44,7 +44,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private void Awake()
         {
-            _frames_to_move = (int)(GamePlayDirector.FRAME_RATE * _SECONDS_TO_MOVE);
+            _framesToMove = (int)(GamePlayDirector.FRAME_RATE * _SECONDS_TO_MOVE);
             _animator = GetComponent<Animator>();
         }
 
@@ -64,7 +64,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (!_countCalmFrames) return;
 
             _calmFrames++;
-            if (_calmFrames == _frames_to_move) {
+            if (_calmFrames == _framesToMove) {
                 // 空いている方向にBottleを移動させる
                 MoveToFreeDirection();
                 _calmFrames = 0;
