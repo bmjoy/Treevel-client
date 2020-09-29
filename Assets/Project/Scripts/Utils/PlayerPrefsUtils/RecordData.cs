@@ -16,8 +16,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public Dictionary<EFailureReasonType, int> FailureReasonCount
         {
             get => _failureReasonCount;
-            set
-            {
+            set {
                 _failureReasonCount = value;
                 MyPlayerPrefs.SetDictionary(PlayerPrefsKeys.FAILURE_REASONS_COUNT, _failureReasonCount);
             }
@@ -31,8 +30,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public int StartupDays
         {
             get => _startupDays;
-            private set
-            {
+            private set {
                 _startupDays = value;
                 PlayerPrefs.SetInt(PlayerPrefsKeys.STARTUP_DAYS, _startupDays);
             }
@@ -65,8 +63,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         public DateTime? LastStartupDate
         {
             get => _lastStartupDate;
-            set
-            {
+            set {
                 _lastStartupDate = value;
 
                 if (_lastStartupDate is DateTime date) {
@@ -94,8 +91,7 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
 
         private void Initialize()
         {
-            _failureReasonCount = MyPlayerPrefs.GetDictionary(PlayerPrefsKeys.FAILURE_REASONS_COUNT, new Dictionary<EFailureReasonType, int>
-            {
+            _failureReasonCount = MyPlayerPrefs.GetDictionary(PlayerPrefsKeys.FAILURE_REASONS_COUNT, new Dictionary<EFailureReasonType, int> {
                 {EFailureReasonType.Others, 0},
                 {EFailureReasonType.Tornado, 0},
                 {EFailureReasonType.Meteorite, 0},
