@@ -8,7 +8,7 @@
         public const string MENU_SELECT_SCENE = "MenuSelectScene";
         public const string SPRING_STAGE_SELECT_SCENE = "SpringStageSelectScene";
         public const string SUMMER_STAGE_SELECT_SCENE = "SummerStageSelectScene";
-        public const string AUTOMN_STAGE_SELECT_SCENE = "AutomnStageSelectScene";
+        public const string AUTUMN_STAGE_SELECT_SCENE = "AutumnStageSelectScene";
         public const string WINTER_STAGE_SELECT_SCENE = "WinterStageSelectScene";
         public const string GAME_PLAY_SCENE = "GamePlayScene";
         public const string START_UP_SCENE = "StartUpScene";

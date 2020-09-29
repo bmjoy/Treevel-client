@@ -20,7 +20,7 @@ namespace Project.Scripts.Utils.Library
                     AddressableAssetManager.LoadScene(SceneName.SUMMER_STAGE_SELECT_SCENE);
                     break;
                 case ELevelName.Hard:
-                    AddressableAssetManager.LoadScene(SceneName.AUTOMN_STAGE_SELECT_SCENE);
+                    AddressableAssetManager.LoadScene(SceneName.AUTUMN_STAGE_SELECT_SCENE);
                     break;
                 case ELevelName.VeryHard:
                     AddressableAssetManager.LoadScene(SceneName.WINTER_STAGE_SELECT_SCENE);
