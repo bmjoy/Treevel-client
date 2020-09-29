@@ -71,7 +71,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile4
     life: 0
     isSelfish: 0
-  - type: 2
+  - type: 1
     initPos: 8
     targetPos: 8
     bottleSprite:
@@ -126,7 +126,24 @@ MonoBehaviour:
       m_SubObjectName: 
     life: 0
     isSelfish: 0
-  gimmicks: []
+  gimmicks:
+  - loop: 1
+    appearTime: 1
+    interval: 5
+    type: 5
+    targetDirections: 01000000
+    targetLines: 01000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 2
+    targetColumn: 2
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 3
+    attackTimes: 0
   overviewGimmicks: 
   tutorial:
     type: 0

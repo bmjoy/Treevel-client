@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Project.Scripts.GameDatas;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -46,6 +47,11 @@ namespace Project.Scripts.Utils
                 return _stageDataMap[stageKey];
             else
                 return null;
+        }
+
+        public static StageData[] GetAllStages()
+        {
+            return _stageDataMap.Values.ToArray();
         }
     }
 }

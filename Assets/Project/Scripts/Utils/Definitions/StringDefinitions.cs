@@ -87,5 +87,6 @@
         public const string AIMING_METEORITE_PREFAB = "AimingMeteoritePrefab";
         public const string THUNDER_PREFAB = "ThunderPrefab";
         public const string SOLAR_BEAM_PREFAB = "SolarBeamPrefab";
+        public const string GUST_WIND_PREFAB = "GustWindPrefab";
     }
 }

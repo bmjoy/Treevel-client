@@ -10,10 +10,11 @@ namespace Project.Scripts.Utils.Definitions
         Meteorite,
         AimingMeteorite,
         Thunder,
-        SolarBeam
+        SolarBeam,
+        GustWind
     }
 
-    public static class Extension
+    public static class GimmickTypeExtension
     {
         public static EFailureReasonType GetFailureReason(this EGimmickType type)
         {
@@ -28,6 +29,8 @@ namespace Project.Scripts.Utils.Definitions
                     return EFailureReasonType.Thunder;
                 case EGimmickType.SolarBeam:
                     return EFailureReasonType.SolarBeam;
+                case EGimmickType.GustWind:
+                    return EFailureReasonType.GustWind;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

@@ -67,12 +67,15 @@ namespace Project.Scripts.Utils.PlayerPrefsUtils
         /// 指定された辞書型オブジェクト情報を読み込む
         /// </summary>
         /// <param name="key"> キー </param>
+        /// <param name="defaultDic"> デフォルト値 </param>
         /// <typeparam name="TKey"> 辞書型オブジェクトのキーの型</typeparam>
         /// <typeparam name="TValue"> 辞書型オブジェクトの値の型 </typeparam>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue> (string key)
+        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue> (string key, Dictionary<TKey, TValue> defaultDic = null)
         {
-            if (!PlayerPrefs.HasKey(key)) return new Dictionary<TKey, TValue> ();
+            if (!PlayerPrefs.HasKey(key)) {
+                return defaultDic ?? new Dictionary<TKey, TValue> ();
+            }
 
             var serizlizedDictionary = PlayerPrefs.GetString(key);
             return Deserialize<Dictionary<TKey, TValue>> (serizlizedDictionary);

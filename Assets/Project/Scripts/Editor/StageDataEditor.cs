@@ -409,6 +409,27 @@ namespace Project.Scripts.Editor
                             });
                             break;
                         }
+                    case EGimmickType.GustWind: {
+                            // 攻撃方向
+                            var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
+                            EditorGUILayout.PropertyField(directionProp);
+                            switch ((EGimmickDirection)directionProp.intValue) {
+                                case EGimmickDirection.ToRight:
+                                case EGimmickDirection.ToLeft:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
+                                    break;
+                                case EGimmickDirection.ToUp:
+                                case EGimmickDirection.ToBottom:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
+                                    break;
+                                default:
+                                    // 描画を止めないように適当な値を設定する
+                                    Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
+                                    directionProp.intValue = (int)EGimmickDirection.ToLeft;
+                                    break;
+                            }
+                            break;
+                        }
                     case EGimmickType.SolarBeam: {
                             // 攻撃回数
                             var attackTimesProp = gimmickDataProp.FindPropertyRelative("attackTimes");
@@ -417,7 +438,7 @@ namespace Project.Scripts.Editor
                             EditorGUILayout.PropertyField(attackTimesProp);
 
                             // 攻撃方向
-                            var directionProp = gimmickDataProp.FindPropertyRelative("solarBeamDirection");
+                            var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
                             EditorGUILayout.PropertyField(directionProp);
                             switch ((EGimmickDirection)directionProp.intValue) {
                                 case EGimmickDirection.ToRight:
