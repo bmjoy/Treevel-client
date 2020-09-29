@@ -334,8 +334,9 @@ namespace Project.Scripts.GamePlayScene
 
                 // ボトルがタイルに配置された場合の処理を行う
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                // Note: 蜘蛛の巣タイルやワープタイルの上に初期配置でボトルを置くと動作が実行される
-                targetSquare.tile.OnBottleEnter(targetSquare.bottle.gameObject, null);
+                if (targetSquare.tile.RunOnBottleEnterAtInit) {
+                    targetSquare.tile.OnBottleEnter(targetSquare.bottle.gameObject, null);
+                }
             }
         }
 

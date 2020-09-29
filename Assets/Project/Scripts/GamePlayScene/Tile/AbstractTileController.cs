@@ -14,6 +14,11 @@ namespace Project.Scripts.GamePlayScene.Tile
             private set;
         }
 
+        /// <summary>
+        /// 初期配置された際に `OnBottleEnter` を実行するかどうか
+        /// </summary>
+        public abstract bool RunOnBottleEnterAtInit { get; }
+
         protected IBottleHandler bottleHandler = new DefaultBottleHandler();
 
         protected virtual void Awake()

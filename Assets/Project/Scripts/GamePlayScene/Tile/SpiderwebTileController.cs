@@ -7,6 +7,8 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class SpiderwebTileController : AbstractTileController
     {
+        public override bool RunOnBottleEnterAtInit => true;
+
         /// <summary>
         /// 蜘蛛の巣によってボトルが止まる秒数
         /// </summary>
