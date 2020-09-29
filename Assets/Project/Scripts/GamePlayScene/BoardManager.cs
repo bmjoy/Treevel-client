@@ -97,6 +97,40 @@ namespace Project.Scripts.GamePlayScene
         }
 
         /// <summary>
+        /// 指定した行上の全てのボトルオブジェクトを取得
+        /// </summary>
+        public GameObject[] GetBottlesOnRow(ERow row)
+        {
+            List<GameObject> ret = new List<GameObject>();
+
+            var r = (int)row - 1;
+            for (var c = 0 ; c < StageSize.COLUMN ; c++) {
+                if (_squares[c, r].bottle) {
+                    ret.Add(_squares[c, r].bottle.gameObject);
+                }
+            }
+
+            return ret.ToArray();
+        }
+
+        /// <summary>
+        /// 指定した列上の全てのボトルオブジェクトを取得する
+        /// </summary>
+        public GameObject[] GetBottlesOnColumn(EColumn column)
+        {
+            List<GameObject> ret = new List<GameObject>();
+
+            var c = (int)column - 1;
+            for (var r = 0 ; r < StageSize.ROW ; r++) {
+                if (_squares[c, r].bottle) {
+                    ret.Add(_squares[c, r].bottle.gameObject);
+                }
+            }
+
+            return ret.ToArray();
+        }
+
+        /// <summary>
         /// ボトルIDからボトルの現在位置を取得
         /// </summary>
         /// <param name="bottleId"></param>
@@ -141,7 +175,7 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         /// <param name="tileNum"> タイル番号 </param>
         /// <returns> (行, 列) </returns>
-        private(int, int)? TileNumToXY(int tileNum)
+        public(int, int)? TileNumToXY(int tileNum)
         {
             if (tileNum < 1 || 15 < tileNum) return null;
 
@@ -149,6 +183,20 @@ namespace Project.Scripts.GamePlayScene
             var y = (tileNum - 1) / _squares.GetLength(0);
 
             return (x, y);
+        }
+
+        /// <summary>
+        /// x行y列のタイル上が空かどうか
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public bool IsEmptyTile(int x, int y)
+        {
+            if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return false;
+
+            // ボトルが存在するかどうか
+            return _squares[x, y].bottle == null;
         }
 
         /// <summary>
@@ -180,6 +228,7 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
+        /// <param name="immediately"> 瞬間移動か </param>
         /// <returns> ボトルが移動したかどうか </returns>
         public bool Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
         {
@@ -215,11 +264,18 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle = bottle;
             }
 
-            // ボトルを移動する
-            StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
+            if (direction != null) {
+                // ボトルを移動する
+                StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
+                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                    targetSquare.tile.OnBottleEnter(bottleObject, direction);
+                }));
+            } else {
+                // ボトルを瞬間移動させる
+                bottle.transform.position = targetSquare.worldPosition;
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                targetSquare.tile.OnBottleEnter(bottleObject, direction);
-            }));
+                targetSquare.tile.OnBottleEnter(bottleObject, null);
+            }
 
             return true;
         }

@@ -2,6 +2,7 @@
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {

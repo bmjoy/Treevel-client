@@ -45,7 +45,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             base.Initialize(gimmickData);
 
             _attackTimes = gimmickData.attackTimes;
-            var direction = gimmickData.solarBeamDirection;
+            var direction = gimmickData.targetDirection;
             switch (direction) {
                 case EGimmickDirection.ToLeft:
                 case EGimmickDirection.ToRight: {

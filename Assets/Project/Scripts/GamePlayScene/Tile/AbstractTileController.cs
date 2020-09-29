@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
 {
-    [RequireComponent(typeof(SpriteRenderer))]
     public abstract class AbstractTileController : MonoBehaviour
     {
         /// <summary>
@@ -19,21 +18,7 @@ namespace Project.Scripts.GamePlayScene.Tile
 
         protected virtual void Awake()
         {
-            InitializeSprite();
-        }
 
-        /// <summary>
-        /// 画像の大きさを調整
-        /// </summary>
-        protected void InitializeSprite()
-        {
-            // タイル画像のサイズを取得
-            var tileWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-            var tileHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
-            // タイルの初期設定
-            transform.localScale = new Vector2(TileSize.WIDTH / tileWidth, TileSize.HEIGHT / tileHeight);
-
-            GetComponent<Renderer>().sortingLayerName = SortingLayerName.TILE;
         }
 
         /// <summary>

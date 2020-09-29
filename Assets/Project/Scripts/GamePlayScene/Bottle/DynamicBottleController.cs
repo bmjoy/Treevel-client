@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using TouchScript.Gestures;
@@ -10,9 +11,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(FlickGesture))]
+    [RequireComponent(typeof(PressGesture))]
+    [RequireComponent(typeof(ReleaseGesture))]
     public class DynamicBottleController : AbstractBottleController
     {
         private Animation _anim;
+
+        private FlickGesture _flickGesture;
+        private PressGesture _pressGesture;
+        private ReleaseGesture _releaseGesture;
 
         /// <summary>
         /// ワープタイルでワープする時のアニメーション
@@ -52,8 +59,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
             name = BottleName.DYNAMIC_DUMMY_BOTTLE;
             #endif
             // FlickGesture の設定
-            GetComponent<FlickGesture>().MinDistance = 0.2f;
-            GetComponent<FlickGesture>().FlickTime = 0.2f;
+            _flickGesture = GetComponent<FlickGesture>();
+            _flickGesture.MinDistance = 0.2f;
+            _flickGesture.FlickTime = 0.2f;
+            // PressGesture の設定
+            _pressGesture = GetComponent<PressGesture>();
+            // ReleaseGesture の設定
+            _releaseGesture = GetComponent<ReleaseGesture>();
 
             // アニメーションの追加
             _anim = GetComponent<Animation>();
@@ -61,16 +73,30 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
         }
 
+        public override void Initialize(BottleData bottleData)
+        {
+            // set handlers
+            if (bottleData.isSelfish) {
+                selfishHandler = new SelfishMoveHandler(this);
+            }
+
+            base.Initialize(bottleData);
+        }
+
         private void OnEnable()
         {
-            GetComponent<FlickGesture>().Flicked += HandleFlick;
+            _flickGesture.Flicked += HandleFlick;
+            _pressGesture.Pressed += HandlePress;
+            _releaseGesture.Released += HandleRelease;
             GamePlayDirector.OnSucceed += OnSucceed;
             GamePlayDirector.OnFail += OnFail;
         }
 
         private void OnDisable()
         {
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            _flickGesture.Flicked -= HandleFlick;
+            _pressGesture.Pressed -= HandlePress;
+            _releaseGesture.Released -= HandleRelease;
             GamePlayDirector.OnSucceed -= OnSucceed;
             GamePlayDirector.OnFail -= OnFail;
         }
@@ -93,16 +119,49 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
         }
 
+        /// <summary>
+        /// プレス開始イベントを処理する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void HandlePress(object sender, EventArgs e)
+        {
+            selfishHandler?.OnPressed();
+        }
+
+        /// <summary>
+        /// プレス終了イベントを処理する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleRelease(object sender, EventArgs e)
+        {
+            selfishHandler?.OnReleased();
+        }
+
+        /// <summary>
+        /// アタッチされているTouchScriptイベントの状態を変更する
+        /// </summary>
+        /// <param name="isEnable"></param>
+        private void SetGesturesEnabled(bool isEnable)
+        {
+            _flickGesture.enabled = isEnable;
+            _pressGesture.enabled = isEnable;
+            _releaseGesture.enabled = isEnable;
+        }
+
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
-            _moving = true;
+            SetGesturesEnabled(false);
+            selfishHandler?.OnStartMove();
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
 
-            _moving = false;
+            selfishHandler?.OnEndMove();
+            SetGesturesEnabled(true);
 
             callback();
         }
@@ -126,9 +185,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        private void EndProcess()
+        protected virtual void EndProcess()
         {
-            GetComponent<FlickGesture>().Flicked -= HandleFlick;
+            selfishHandler?.EndProcess();
+
+            _flickGesture.Flicked -= HandleFlick;
+            _pressGesture.Pressed -= HandlePress;
+            _releaseGesture.Released -= HandleRelease;
             _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
             _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
 

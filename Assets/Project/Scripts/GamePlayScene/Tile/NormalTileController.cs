@@ -11,7 +11,6 @@ namespace Project.Scripts.GamePlayScene.Tile
         public void SetSprite(Sprite sprite)
         {
             GetComponent<SpriteRenderer>().sprite = sprite;
-            InitializeSprite();
         }
     }
 }

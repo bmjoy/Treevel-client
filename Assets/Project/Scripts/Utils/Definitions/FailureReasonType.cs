@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Project.Scripts.Utils.Definitions
 {
-    public enum EFailureReasonType
-    {
+    public enum EFailureReasonType {
         Others,
         Tornado,
         Meteorite,
         AimingMeteorite,
         Thunder,
         SolarBeam,
+        GustWind
     }
 
     public static class EFailureReasonTypeExtension
