@@ -228,6 +228,7 @@ namespace Project.Scripts.GamePlayScene
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
+        /// <param name="immediately"> 瞬間移動か </param>
         /// <returns> ボトルが移動したかどうか </returns>
         public bool Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
         {
@@ -275,7 +276,6 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, null);
             }
-
 
             return true;
         }
