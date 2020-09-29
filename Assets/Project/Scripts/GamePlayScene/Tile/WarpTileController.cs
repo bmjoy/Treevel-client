@@ -109,7 +109,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEIN);
 
             // ボトルを移動する
-            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber, null, immediately: true);
+            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber, null);
 
             // 相方のWarpTargetの子オブジェクトに
             var pairTileWarpObject = _pairTile.transform.Find("WarpTarget");
