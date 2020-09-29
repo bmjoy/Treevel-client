@@ -28,8 +28,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2800000, guid: 05e33fc634f2946648a856bb7e195599, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 05e33fc634f2946648a856bb7e195599, type: 3}
   - m_GUID: 10de9115a09e5477d8d5a1d4f7035df7
     m_Address: lifeBottle7
     m_ReadOnly: 0
@@ -54,8 +54,8 @@ MonoBehaviour:
     m_Address: gy
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 2800000, guid: 306499f0dbaa04cb386a1aa39a34d9e9, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 306499f0dbaa04cb386a1aa39a34d9e9, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3ad34613c20ab4a8f9d82c5e184a0f2a
     m_Address: bvy
     m_ReadOnly: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
-    m_MainAsset: {fileID: 2800000, guid: 41f716d06fdde47dc943a807354a489b, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 41f716d06fdde47dc943a807354a489b, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 44a494e351155459dbfee62492c655bd
     m_Address: voy
     m_ReadOnly: 0

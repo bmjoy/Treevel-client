@@ -45,8 +45,8 @@ MonoBehaviour:
     m_Address: SummerStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 102900000, guid: 2e3f7758a15714f3795287619f50fc82, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: 2e3f7758a15714f3795287619f50fc82, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 358175ea13e4e4b71ad0826173ab32a8
     m_Address: AimingMeteoriteWarningPrefab
     m_ReadOnly: 0
@@ -59,8 +59,14 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 4c4af0bb603454198915ffaacebff62f
+    m_Address: SelfishEffectPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 6cb6fca6a4b44457bb8a9762f4238b0b
-    m_Address: AutomnStageSelectScene
+    m_Address: AutumnStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -99,8 +105,8 @@ MonoBehaviour:
     m_Address: SE_Failure
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
   - m_GUID: a14d6b98f708440f2bc2826d29e996ca
     m_Address: SE_Success
     m_ReadOnly: 0
@@ -137,20 +143,26 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: c992eb222563c460d84bff90f23a0b42
-    m_Address: Assets/Project/Prefabs/ProgressBar.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 8871262989416576049, guid: c992eb222563c460d84bff90f23a0b42,
-      type: 3}
-    m_TargetAsset: {fileID: 8871262989416576049, guid: c992eb222563c460d84bff90f23a0b42,
-      type: 3}
-  - m_GUID: cc35221e1f2c54ae8ba023299eb797d3
-    m_Address: StaticDummyBottlePrefab
+  - m_GUID: bd437beea7ec54cb882658bd390a3e28
+    m_Address: GustWindPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: c992eb222563c460d84bff90f23a0b42
+    m_Address: Assets/Project/Prefabs/ProgressBar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cc35221e1f2c54ae8ba023299eb797d3
+    m_Address: StaticDummyBottlePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+      type: 3}
+    m_TargetAsset: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+      type: 3}
   - m_GUID: d16fddeae14184ddf8c14eba3f866b67
     m_Address: DynamicDummyBottlePrefab
     m_ReadOnly: 0

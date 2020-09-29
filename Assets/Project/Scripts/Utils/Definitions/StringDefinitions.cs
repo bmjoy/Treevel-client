@@ -8,7 +8,7 @@
         public const string MENU_SELECT_SCENE = "MenuSelectScene";
         public const string SPRING_STAGE_SELECT_SCENE = "SpringStageSelectScene";
         public const string SUMMER_STAGE_SELECT_SCENE = "SummerStageSelectScene";
-        public const string AUTOMN_STAGE_SELECT_SCENE = "AutomnStageSelectScene";
+        public const string AUTUMN_STAGE_SELECT_SCENE = "AutumnStageSelectScene";
         public const string WINTER_STAGE_SELECT_SCENE = "WinterStageSelectScene";
         public const string GAME_PLAY_SCENE = "GamePlayScene";
         public const string START_UP_SCENE = "StartUpScene";
@@ -61,6 +61,9 @@
         public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";
         public const string LIFE_BOTTLE_SPRITE_PREFIX = "lifeBottle";
 
+        // ボトル関連のエフェクト
+        public const string SELFISH_EFFECT_PREFAB = "SelfishEffectPrefab";
+
         // タイル関連
         public const string NORMAL_TILE_PREFAB = "NormalTilePrefab";
         public const string WARP_TILE_PREFAB = "WarpTilePrefab";
@@ -84,5 +87,6 @@
         public const string AIMING_METEORITE_PREFAB = "AimingMeteoritePrefab";
         public const string THUNDER_PREFAB = "ThunderPrefab";
         public const string SOLAR_BEAM_PREFAB = "SolarBeamPrefab";
+        public const string GUST_WIND_PREFAB = "GustWindPrefab";
     }
 }

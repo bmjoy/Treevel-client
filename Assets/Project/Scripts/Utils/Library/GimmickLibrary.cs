@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Project.Scripts.Utils.Definitions;
+using UnityEngine;
 
 namespace Project.Scripts.Utils.Library
 {
@@ -34,6 +36,42 @@ namespace Project.Scripts.Utils.Library
             }
 
             return index - 1;
+        }
+
+        /// <summary>
+        /// ギミックの移動方向は横向きか
+        /// </summary>
+        public static bool IsHorizontal(EGimmickDirection direction)
+        {
+            return direction == EGimmickDirection.ToRight || direction == EGimmickDirection.ToLeft;
+        }
+
+        /// <summary>
+        /// ギミックの移動方向は縦向きか
+        /// </summary>
+        public static bool IsVertical(EGimmickDirection direction)
+        {
+            return direction == EGimmickDirection.ToUp || direction == EGimmickDirection.ToBottom;
+        }
+
+        /// <summary>
+        /// `EGimmickDirection`の方向からベクターに変換する
+        /// </summary>
+        public static Vector2Int GetDirectionVector(EGimmickDirection direction)
+        {
+            switch (direction) {
+                case EGimmickDirection.ToLeft:
+                    return Vector2Int.left;
+                case EGimmickDirection.ToRight:
+                    return Vector2Int.right;
+                case EGimmickDirection.ToUp:
+                    return Vector2Int.up;
+                case EGimmickDirection.ToBottom:
+                    return Vector2Int.down;
+                case EGimmickDirection.Random:
+                default:
+                    throw new System.NotImplementedException();
+            }
         }
     }
 }

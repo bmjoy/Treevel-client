@@ -40,4 +40,14 @@
         /// </summary>
         Cleared
     }
+
+    /// <summary>
+    /// 盤面の四方向
+    /// </summary>
+    public enum EDirection {
+        ToLeft,
+        ToRight,
+        ToUp,
+        ToBottom,
+    }
 }
