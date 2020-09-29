@@ -59,6 +59,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 4c4af0bb603454198915ffaacebff62f
+    m_Address: SelfishEffectPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 6cb6fca6a4b44457bb8a9762f4238b0b
     m_Address: AutomnStageSelectScene
     m_ReadOnly: 0
@@ -99,8 +105,8 @@ MonoBehaviour:
     m_Address: SE_Failure
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
   - m_GUID: a14d6b98f708440f2bc2826d29e996ca
     m_Address: SE_Success
     m_ReadOnly: 0
@@ -153,8 +159,10 @@ MonoBehaviour:
     m_Address: StaticDummyBottlePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+      type: 3}
+    m_TargetAsset: {fileID: 1218310520019280, guid: cc35221e1f2c54ae8ba023299eb797d3,
+      type: 3}
   - m_GUID: d16fddeae14184ddf8c14eba3f866b67
     m_Address: DynamicDummyBottlePrefab
     m_ReadOnly: 0

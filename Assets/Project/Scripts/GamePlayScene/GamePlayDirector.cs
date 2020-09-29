@@ -21,6 +21,11 @@ namespace Project.Scripts.GamePlayScene
 {
     public class GamePlayDirector : SingletonObject<GamePlayDirector>
     {
+        /// <summary>
+        /// FPS
+        /// </summary>
+        public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime) ;
+
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string _TIMER_TEXT_NAME = "TimerText";
         private const string _PAUSE_WINDOW_NAME = "PauseWindow";

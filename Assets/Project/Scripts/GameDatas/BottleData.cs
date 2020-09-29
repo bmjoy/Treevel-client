@@ -13,5 +13,6 @@ namespace Project.Scripts.GameDatas
         public AssetReferenceSprite bottleSprite;
         public AssetReferenceSprite targetTileSprite;
         public short life;
+        public bool isSelfish;
     }
 }

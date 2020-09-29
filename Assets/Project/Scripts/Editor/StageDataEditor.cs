@@ -165,24 +165,31 @@ namespace Project.Scripts.Editor
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
+                            // デフォルト値設定
+                            bottleDataProp.FindPropertyRelative("life").intValue = 1;
+
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         }
                         break;
-
                     case EBottleType.Life: {
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("life"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         }
                         break;
                     case EBottleType.AttackableDummy:
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("life"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         break;
                     case EBottleType.Dynamic:
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                        break;
                     case EBottleType.Static:
                         break;
                     default:

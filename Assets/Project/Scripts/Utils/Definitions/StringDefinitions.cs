@@ -61,6 +61,9 @@
         public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";
         public const string LIFE_BOTTLE_SPRITE_PREFIX = "lifeBottle";
 
+        // ボトル関連のエフェクト
+        public const string SELFISH_EFFECT_PREFAB = "SelfishEffectPrefab";
+
         // タイル関連
         public const string NORMAL_TILE_PREFAB = "NormalTilePrefab";
         public const string WARP_TILE_PREFAB = "WarpTilePrefab";
