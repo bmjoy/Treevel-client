@@ -26,6 +26,8 @@ namespace Project.Scripts.GamePlayScene
         /// </summary>
         public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime) ;
 
+        private const float BGM_VOLUME_RATIO_ON_PAUSE = 0.5f;
+
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string _TIMER_TEXT_NAME = "TimerText";
         private const string _PAUSE_WINDOW_NAME = "PauseWindow";
@@ -386,6 +388,8 @@ namespace Project.Scripts.GamePlayScene
             {
                 // ゲーム内の時間を一時停止する
                 Time.timeScale = 0.0f;
+                // ポーズ中は BGM を少し下げる
+                SoundManager.Instance.ChangeBGMVolume(BGM_VOLUME_RATIO_ON_PAUSE);
                 // 一時停止ポップアップ表示
                 _pauseWindow.SetActive(true);
                 _pauseBackground.SetActive(true);
@@ -395,7 +399,8 @@ namespace Project.Scripts.GamePlayScene
             {
                 // ゲーム内の時間を元に戻す
                 Time.timeScale = 1.0f;
-
+                // BGM を元に戻す
+                SoundManager.Instance.ChangeBGMVolume(1 / BGM_VOLUME_RATIO_ON_PAUSE);
                 if (!(to is FailureState)) {
                     // 一時停止ウィンドウを非表示にする
                     _pauseWindow.SetActive(false);
