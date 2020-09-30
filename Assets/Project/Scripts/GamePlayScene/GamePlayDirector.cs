@@ -24,7 +24,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// FPS
         /// </summary>
-        public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime) ;
+        public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime);
 
         private const float BGM_VOLUME_RATIO_ON_PAUSE = 0.5f;
 
