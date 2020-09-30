@@ -4,6 +4,8 @@ namespace Project.Scripts.GamePlayScene.Tile
 {
     public class NormalTileController : AbstractTileController
     {
+        public override bool RunOnBottleEnterAtInit => false;
+
         /// <summary>
         /// タイルの画像を設定する
         /// </summary>
