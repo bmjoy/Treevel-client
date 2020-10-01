@@ -161,6 +161,18 @@ namespace Project.Scripts.Utils
         }
 
         /// <summary>
+        /// BGM の音量を変更する
+        /// </summary>
+        /// <param name="ratio"> 音量への倍率 </param>
+        public void ChangeBGMVolume(float ratio)
+        {
+            // BGM が再生中ではないなら，何もしない
+            if (!_bgmPlayer.isPlaying) return;
+
+            _bgmPlayer.volume *= ratio;
+        }
+
+        /// <summary>
         /// 再生中のBGMを停止する
         /// </summary>
         public void StopBGM()
