@@ -25,7 +25,12 @@ namespace Project.Scripts.Utils.Definitions
         GameNext,        // 次に進む
         LanguageJapanese,   // 日本語
         LanguageEnglish,    // 英語
-        StageSelectStartGame,     // ゲームを始める
+        StageSelectOverviewStartGame,           // すすむ
+        StageSelectOverviewCloseWindow,         // とじる
+        StageSelectOverviewSuccessPercentage,   // 成功割合
+        StageSelectOverviewShortestClearTime,         // 最速クリアタイム
+        StageSelectOverviewAppearGimmick,       // 登場ギミック
+        CommonUnitSecond,                       // 秒
         LevelFirst,      // レベル1
         LevelSecond,     // レベル2
         LevelThird,      // レベル3

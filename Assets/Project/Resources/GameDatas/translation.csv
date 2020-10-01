@@ -14,7 +14,12 @@ GameNext,次に進む,Next
 GameWarning,アプリがバックグラウンドに移動しました,The app has moved to the background
 LanguageJapanese,日本語,日本語
 LanguageEnglish,English,English
-StageSelectStartGame,ゲームを始める,Start the Game
+StageSelectOverviewStartGame,すすむ,START
+StageSelectOverviewCloseWindow,とじる,CLOSE
+StageSelectOverviewSuccessPercentage,成功割合,
+StageSelectOverviewShortestClearTime,最速クリアタイム,
+StageSelectOverviewAppearGimmick,登場ギミック,
+CommonUnitSecond,秒,sec.
 LevelFirst,かんたん,Easy
 LevelSecond,ふつう,Normal
 LevelThird,むずかしい,Hard
