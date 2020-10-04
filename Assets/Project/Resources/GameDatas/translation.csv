@@ -16,9 +16,9 @@ LanguageJapanese,日本語,日本語
 LanguageEnglish,English,English
 StageSelectOverviewStartGame,すすむ,START
 StageSelectOverviewCloseWindow,とじる,CLOSE
-StageSelectOverviewSuccessPercentage,成功割合,
-StageSelectOverviewShortestClearTime,最速クリアタイム,
-StageSelectOverviewAppearGimmick,登場ギミック,
+StageSelectOverviewSuccessPercentage,前ユーザ成功割合,DUMMY
+StageSelectOverviewShortestClearTime,最速クリアタイム,DUMMY
+StageSelectOverviewAppearGimmick,登場ギミック,DUMMY
 CommonUnitSecond,秒,sec.
 LevelFirst,かんたん,Easy
 LevelSecond,ふつう,Normal
