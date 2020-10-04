@@ -13,11 +13,6 @@ namespace Project.Scripts.StageSelectScene
         private Text _stageNumberText;
 
         /// <summary>
-        /// ステージ難易度
-        /// </summary>
-        private Text _stageDifficultyText;
-
-        /// <summary>
         /// クリア割合
         /// </summary>
         private Text _clearPercentageText;
@@ -38,9 +33,8 @@ namespace Project.Scripts.StageSelectScene
 
         private void Awake()
         {
-            _stageNumberText = transform.Find("PanelBackground/StageId").GetComponent<Text>();
-            _stageDifficultyText = transform.Find("PanelBackground/StageDifficulty").GetComponent<Text>();
-            _clearPercentageText = transform.Find("PanelBackground/ClearPercentage").GetComponent<Text>();
+            _stageNumberText = transform.Find("PanelBackground/StageNumIconBase/StageNumText").GetComponent<Text>();
+            _clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Title").GetComponent<Text>();
             _appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
             goToGame = transform.Find("PanelBackground/GoToGame").gameObject;
 
@@ -69,7 +63,7 @@ namespace Project.Scripts.StageSelectScene
             if (stageData == null)
                 return;
 
-            _stageDifficultyText.GetComponent<Text>().text = _treeId.ToString();
+            // _stageDifficultyText.GetComponent<Text>().text = _treeId.ToString();
 
             // TODO:サーバで全ユーザのデータを持ったら実装
             // _clearPercentage.GetComponent<Text>().text = ...
