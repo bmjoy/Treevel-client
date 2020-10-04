@@ -141,8 +141,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
             BoardManager.Instance.InitializeBottle(this, Id);
 
             // sprite が設定されている場合読み込む
-            if (bottleData.bottleSprite.RuntimeKeyIsValid())
+            if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
                 StartCoroutine(InitializeSprite(bottleData.bottleSprite));
+            } else {
+                GetComponent<Renderer>().sortingLayerName = SortingLayerName.BOTTLE;
+                GetComponent<SpriteRenderer>().enabled = true;
+            }
         }
 
         /// <summary>
