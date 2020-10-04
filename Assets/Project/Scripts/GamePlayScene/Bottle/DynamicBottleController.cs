@@ -22,16 +22,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private ReleaseGesture _releaseGesture;
 
         /// <summary>
-        /// ワープタイルでワープする時のアニメーション
-        /// </summary>
-        [SerializeField] protected AnimationClip warpAnimation;
-
-        /// <summary>
-        /// ワープタイルでワープした後のアニメーション
-        /// </summary>
-        [SerializeField] protected AnimationClip warpReverseAnimation;
-
-        /// <summary>
         /// 動くことができる状態か
         /// </summary>
         public bool IsMovable = true;
@@ -69,8 +59,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             // アニメーションの追加
             _anim = GetComponent<Animation>();
-            _anim.AddClip(warpAnimation, AnimationClipName.BOTTLE_WARP);
-            _anim.AddClip(warpReverseAnimation, AnimationClipName.BOTTLE_WARP_REVERSE);
         }
 
         public override void Initialize(BottleData bottleData)
@@ -192,8 +180,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _flickGesture.Flicked -= HandleFlick;
             _pressGesture.Pressed -= HandlePress;
             _releaseGesture.Released -= HandleRelease;
-            _anim[AnimationClipName.BOTTLE_WARP].speed = 0.0f;
-            _anim[AnimationClipName.BOTTLE_WARP_REVERSE].speed = 0.0f;
 
             // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
             if (!IsDead) {
