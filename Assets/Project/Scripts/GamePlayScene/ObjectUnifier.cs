@@ -12,10 +12,20 @@ namespace Project.Scripts.GamePlayScene
         [Tooltip("画像の横縦比")]
         public float ImageRatio = 1f;
 
+        private SpriteRenderer _renderer;
+
         private void Awake()
         {
-            var originalWidth = GetComponent<SpriteRenderer>().size.x;
-            var originalHeight = GetComponent<SpriteRenderer>().size.y;
+            _renderer = GetComponent<SpriteRenderer>();
+            if (_renderer.sprite != null) {
+                Unify();
+            }
+        }
+
+        public void Unify()
+        {
+            var originalWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
+            var originalHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
 
             var widthEfficient = WindowSize.WIDTH * RatioToWindowWidth;
             var heightEfficient = widthEfficient * ImageRatio ;
