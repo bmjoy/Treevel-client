@@ -197,7 +197,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
-            HandleOnEndMove?.Invoke();
+            HandleOnEndProcess?.Invoke();
 
             _flickGesture.Flicked -= Flicked;
             _pressGesture.Pressed -= Pressed;
