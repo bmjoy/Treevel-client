@@ -28,6 +28,12 @@ namespace Project.Scripts.StartUpScene
             // AppManager Initialize
             AppManager.OnApplicationStart();
 
+            #if ENV_DEV
+            Debug.Log("DEV");
+            #else
+            Debug.Log("PROD");
+            #endif
+
             // Network Initialization
             // TODO : ユーザー情報の初期化（IDの取得OR発行など）
             NetworkService.Execute(new HelloWorldRequest(), (data) => {
