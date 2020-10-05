@@ -11,31 +11,38 @@ namespace Project.Scripts.Editor
         public static void Dev(){
             var symbols = GetSymbols();
 
-            if (symbols.Contains("ENV_DEV")) return;
-
             symbols.Remove("ENV_PROD");
-            Menu.SetChecked("Environment/PROD", false);
-
             symbols.Add("ENV_DEV");
-            Menu.SetChecked("Environment/DEV", true);
 
             SetSymbols(symbols);
         }
 
-        // 本番環境に切り替え
-        [MenuItem("Environment/PROD")]
-        public static void Prod(){
+        [MenuItem("Environment/DEV", validate = true)]
+        public static bool DevValidation()
+        {
             var symbols = GetSymbols();
 
-            if (symbols.Contains("ENV_PROD")) return;
+            return !symbols.Contains("ENV_DEV");
+        }
+
+        // 本番環境に切り替え
+        [MenuItem("Environment/PROD")]
+        public static void Prod()
+        {
+            var symbols = GetSymbols();
 
             symbols.Remove("ENV_DEV");
-            Menu.SetChecked("Environment/DEV", false);
-
             symbols.Add("ENV_PROD");
-            Menu.SetChecked("Environment/PROD", true);
 
             SetSymbols(symbols);
+        }
+
+        [MenuItem("Environment/PROD", validate = true)]
+        public static bool ProdValidation()
+        {
+            var symbols = GetSymbols();
+
+            return !symbols.Contains("ENV_PROD");
         }
 
         // 設定されているシンボル定義を取得する
