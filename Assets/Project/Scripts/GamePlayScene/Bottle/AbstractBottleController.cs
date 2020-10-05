@@ -9,6 +9,7 @@ using UnityEngine.AddressableAssets;
 namespace Project.Scripts.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(ObjectUnifier))]
     public abstract class AbstractBottleController : MonoBehaviour
     {
         /// <summary>
@@ -59,7 +60,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         public bool Invincible = false;
 
-        protected virtual void Awake() {}
+        protected virtual void Awake()
+        {
+            Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == SortingLayerName.BOTTLE, $"Sorting Layer Name should be {SortingLayerName.BOTTLE}");
+        }
 
         /// <summary>
         /// 衝突イベントを処理する
@@ -144,7 +148,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
                 StartCoroutine(InitializeSprite(bottleData.bottleSprite));
             } else {
-                GetComponent<Renderer>().sortingLayerName = SortingLayerName.BOTTLE;
+                GetComponent<ObjectUnifier>().Unify();
                 GetComponent<SpriteRenderer>().enabled = true;
             }
         }
