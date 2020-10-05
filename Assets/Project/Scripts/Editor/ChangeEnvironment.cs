@@ -22,7 +22,10 @@ namespace Project.Scripts.Editor
         {
             var symbols = GetSymbols();
 
-            return !symbols.Contains("ENV_DEV");
+            var isDev = symbols.Contains("ENV_DEV");
+            Menu.SetChecked("Environment/DEV", isDev);
+
+            return !isDev;
         }
 
         // 本番環境に切り替え
@@ -42,7 +45,10 @@ namespace Project.Scripts.Editor
         {
             var symbols = GetSymbols();
 
-            return !symbols.Contains("ENV_PROD");
+            var isProd = symbols.Contains("ENV_PROD");
+            Menu.SetChecked("Environment/PROD", isProd);
+
+            return !isProd;
         }
 
         // 設定されているシンボル定義を取得する
