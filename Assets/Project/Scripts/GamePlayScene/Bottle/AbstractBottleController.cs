@@ -46,11 +46,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
         protected IBottleSuccessHandler successHandler;
 
         /// <summary>
-        /// ボトルを勝手に移動させる時の挙動
-        /// </summary>
-        protected ISelfishHandler selfishHandler;
-
-        /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
         public bool IsAttackable => getDamagedHandler != null;

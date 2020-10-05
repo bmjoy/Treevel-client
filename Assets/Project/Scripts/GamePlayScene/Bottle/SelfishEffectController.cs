@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
-using Project.Scripts.GamePlayScene;
-using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 
@@ -55,6 +52,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _bottleController = bottleController;
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
+            // イベントに処理を登録する
+            _bottleController.HandleOnStartMove += HandleOnStartMove;
+            _bottleController.HandleOnEndMove += HandleOnEndMove;
+            _bottleController.HandleOnPressed += HandleOnPressed;
+            _bottleController.HandleOnReleased += HandleOnReleased;
+            _bottleController.HandleOnEndProcess += HandleOnEndProcess;
+
             // 移動していないフレーム数を数え始める
             _countCalmFrames = true;
         }
@@ -74,6 +78,49 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
             _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
             _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
+        }
+
+        /// <summary>
+        /// 移動開始時の処理
+        /// </summary>
+        public void HandleOnStartMove()
+        {
+            SetIsStopping(false);
+        }
+
+        /// <summary>
+        /// 移動終了時の処理
+        /// </summary>
+        public void HandleOnEndMove()
+        {
+            SetIsStopping(true);
+        }
+
+        /// <summary>
+        /// ホールド開始時の処理
+        /// </summary>
+        public void HandleOnPressed()
+        {
+            SetIsStopping(false);
+        }
+
+        /// <summary>
+        /// ホールド終了時の処理
+        /// </summary>
+        public void HandleOnReleased()
+        {
+            SetIsStopping(true);
+        }
+
+        /// <summary>
+        /// ゲーム終了時の処理
+        /// </summary>
+        public void HandleOnEndProcess()
+        {
+            _countCalmFrames = false;
+            _calmFrames = 0;
+            _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
         }
 
         /// <summary>
@@ -131,93 +178,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
             }
-        }
-
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        public void EndProcess()
-        {
-            _countCalmFrames = false;
-            _calmFrames = 0;
-            _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
-            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
-        }
-    }
-
-    public interface ISelfishHandler
-    {
-        /// <summary>
-        /// フリック開始時の挙動
-        /// </summary>
-        void OnStartMove();
-
-        /// <summary>
-        /// フリック終了時の挙動
-        /// </summary>
-        void OnEndMove();
-
-        /// <summary>
-        /// プレス開始時の挙動
-        /// </summary>
-        void OnPressed();
-
-        /// <summary>
-        /// プレス終了時の挙動
-        /// </summary>
-        void OnReleased();
-
-        /// <summary>
-        /// ゲーム終了時の挙動
-        /// </summary>
-        void EndProcess();
-    }
-
-    internal class SelfishMoveHandler : ISelfishHandler
-    {
-        /// <summary>
-        /// SelfishBottleのEffectインスタンス
-        /// </summary>
-        private SelfishEffectController _selfishEffectController;
-
-        internal SelfishMoveHandler(DynamicBottleController bottleController)
-        {
-            Initialize(bottleController);
-        }
-
-        private async void Initialize(DynamicBottleController bottleController)
-        {
-            var selfishEffect = await AddressableAssetManager.Instantiate(Address.SELFISH_EFFECT_PREFAB).Task;
-            _selfishEffectController = selfishEffect.GetComponent<SelfishEffectController>();
-            _selfishEffectController.Initialize(bottleController);
-        }
-
-        void ISelfishHandler.OnStartMove()
-        {
-            // フリック中は勝手に移動するまでのフレーム数を計上しない
-            _selfishEffectController.SetIsStopping(false);
-        }
-
-        void ISelfishHandler.OnEndMove()
-        {
-            _selfishEffectController.SetIsStopping(true);
-        }
-
-        void ISelfishHandler.OnPressed()
-        {
-            // ホールド中は勝手に移動するまでのフレーム数を計上しない
-            _selfishEffectController.SetIsStopping(false);
-        }
-
-        void ISelfishHandler.OnReleased()
-        {
-            _selfishEffectController.SetIsStopping(true);
-        }
-
-        void ISelfishHandler.EndProcess()
-        {
-            _selfishEffectController.EndProcess();
         }
     }
 }
