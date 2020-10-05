@@ -13,12 +13,23 @@ namespace Project.Scripts.GamePlayScene.Bottle
     public class NormalBottleController : DynamicBottleController
     {
         /// <summary>
+        /// 目標位置
+        /// </summary>
+        private int _targetPos;
+
+        /// <summary>
+        /// 光らせるエフェクト
+        /// </summary>
+        private SpriteGlowEffect _spriteGlowEffect;
+
+        /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
         public override void Initialize(BottleData bottleData)
         {
-            GetComponent<SpriteGlowEffect>().enabled = false;
+            _spriteGlowEffect = GetComponent<SpriteGlowEffect>();
+            _spriteGlowEffect.enabled = false;
 
             // parse data
             var finalPos = bottleData.targetPos;
@@ -30,8 +41,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             } else {
                 getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
             }
-            successHandler = new NormalBottleSuccessHandler(this, finalPos);
-            bottleEnterTileHandler = new NormalBottleEnterTileHandler(this, successHandler);
+            _targetPos = finalPos;
 
             base.Initialize(bottleData);
 
@@ -43,66 +53,40 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var finalTile = BoardManager.Instance.GetTile(finalPos);
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
-    }
 
-    internal class NormalBottleEnterTileHandler : IBottleEnterTileHandler
-    {
-        private readonly AbstractBottleController _bottle;
-        private readonly IBottleSuccessHandler _successHandler;
-
-        internal NormalBottleEnterTileHandler(AbstractBottleController bottle, IBottleSuccessHandler successHandler)
+        public override void OnEnterTile(GameObject targetTile)
         {
-            if (successHandler == null)
-                throw new System.NullReferenceException("SuccessHandler can not be null");
-
-            _bottle = bottle;
-            _successHandler = successHandler;
-        }
-
-        public void OnEnterTile(GameObject tile)
-        {
-            if (_successHandler.IsSuccess()) {
+            base.OnEnterTile(targetTile);
+            if (IsSuccess()) {
                 // 最終タイルにいるかどうかで，光らせるかを決める
-                _bottle.GetComponent<SpriteGlowEffect>().enabled = true;
+                _spriteGlowEffect.enabled = true;
 
-                _successHandler.DoWhenSuccess();
+                DoWhenSuccess();
             }
         }
 
-        public void OnExitTile(GameObject tile)
+        public override void OnExitTile(GameObject targetTile)
         {
-            _bottle.GetComponent<SpriteGlowEffect>().enabled = false;
-        }
-    }
-
-    internal class NormalBottleSuccessHandler : IBottleSuccessHandler
-    {
-        /// <summary>
-        /// 目標位置
-        /// </summary>
-        private readonly int _targetPos;
-
-        /// <summary>
-        /// ボトルのインスタンス
-        /// </summary>
-        private readonly AbstractBottleController _bottle;
-
-        internal NormalBottleSuccessHandler(AbstractBottleController bottle, int targetPos)
-        {
-            _bottle = bottle;
-            _targetPos = targetPos;
+            base.OnExitTile(targetTile);
+            _spriteGlowEffect.enabled = false;
         }
 
-        public void DoWhenSuccess()
+        /// <summary>
+        /// 目標タイルにいる時の処理
+        /// </summary>
+        private void DoWhenSuccess()
         {
             // ステージの成功判定
             GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
         }
 
-        public bool IsSuccess()
+        /// <summary>
+        /// 目標タイルにいるかどうか
+        /// </summary>
+        /// <returns></returns>
+        public override bool IsSuccess()
         {
-            var currPos = BoardManager.Instance.GetBottlePos(_bottle);
-            return currPos == _targetPos;
+            return BoardManager.Instance.GetBottlePos(this) == _targetPos;
         }
     }
 }

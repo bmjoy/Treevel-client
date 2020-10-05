@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Project.Scripts.GameDatas;
 using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
@@ -38,12 +39,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected IBottleEnterTileHandler bottleEnterTileHandler;
+        protected event Action<GameObject> HandleOnEnterTile;
 
         /// <summary>
-        /// ボトルの成功判定と成功時の挙動
+        /// タイルから出る時の挙動
         /// </summary>
-        protected IBottleSuccessHandler successHandler;
+        protected event Action<GameObject> HandleOnExitTile;
 
         /// <summary>
         /// 攻撃対象かどうか
@@ -79,18 +80,18 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// タイルに移動した時の挙動
         /// </summary>
         /// <param name="targetTile">目標のタイル</param>
-        public void OnEnterTile(GameObject targetTile)
+        public virtual void OnEnterTile(GameObject targetTile)
         {
-            bottleEnterTileHandler?.OnEnterTile(targetTile);
+            HandleOnEnterTile?.Invoke(targetTile);
         }
 
         /// <summary>
         /// タイルから出た時の挙動
         /// </summary>
         /// <param name="targetTile">出たタイル</param>
-        public void OnExitTile(GameObject targetTile)
+        public virtual void OnExitTile(GameObject targetTile)
         {
-            bottleEnterTileHandler?.OnExitTile(targetTile);
+            HandleOnExitTile?.Invoke(targetTile);
         }
 
         private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
@@ -151,10 +152,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ボトルの成功判定
         /// </summary>
-        public bool IsSuccess()
+        public virtual bool IsSuccess()
         {
-            // SuccessHandler未定義の時は成功とみなす。
-            return successHandler?.IsSuccess() ?? true;
+            // 未定義の時は成功とみなす
+            return true;
         }
     }
 }
