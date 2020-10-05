@@ -8,7 +8,7 @@ namespace Project.Scripts.Editor
     {
         // 開発環境に切り替え
         [MenuItem("Environment/DEV")]
-        public static void Develop(){
+        public static void Dev(){
             var symbols = GetSymbols();
 
             if (symbols.Contains("ENV_DEV")) return;
@@ -24,7 +24,7 @@ namespace Project.Scripts.Editor
 
         // 本番環境に切り替え
         [MenuItem("Environment/PROD")]
-        public static void Release(){
+        public static void Prod(){
             var symbols = GetSymbols();
 
             if (symbols.Contains("ENV_PROD")) return;
