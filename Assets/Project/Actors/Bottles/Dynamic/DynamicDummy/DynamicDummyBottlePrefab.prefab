@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -1525596078930005612}
   - component: {fileID: 8018115131031875109}
   - component: {fileID: 7675137770996352934}
+  - component: {fileID: 8091818209348953339}
   m_Layer: 11
   m_Name: DynamicDummyBottlePrefab
   m_TagString: Bottle
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1604723703
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fd1c05083854b4e4f8cf9ab179f4c6b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -101,9 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Invincible: 0
-  warpAnimation: {fileID: 7400000, guid: 467e6d58563c2407a97bf5cf71d1dd28, type: 2}
-  warpReverseAnimation: {fileID: 7400000, guid: 6dbff78a220f949bf9fd28dd0a7d9135,
-    type: 2}
   IsMovable: 1
 --- !u!61 &-2211765263296871505
 BoxCollider2D:
@@ -261,3 +259,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8091818209348953339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667971508019858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RatioToWindowWidth: 0.209
+  ImageRatio: 1
