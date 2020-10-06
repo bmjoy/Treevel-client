@@ -128,7 +128,14 @@ namespace Project.Scripts.Editor
                 EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("number"));
 
                 var tileTypeProp = tileDataProp.FindPropertyRelative("type");
-                tileTypeProp.enumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
+
+                var newTileType = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
+
+                // タイプが変わっていたらデータをリセット
+                if (newTileType != tileTypeProp.enumValueIndex) {
+                    tileTypeProp.enumValueIndex = newTileType;
+                    ResetData(tileDataProp);
+                }
 
                 switch ((ETileType)tileTypeProp.enumValueIndex) {
                     case ETileType.Normal:
@@ -160,7 +167,15 @@ namespace Project.Scripts.Editor
                 EditorGUI.indentLevel++;
 
                 var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
-                bottleTypeProp.enumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
+
+                var newBottleType = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
+
+                // タイプが変わっていたらデータをリセット
+                if (newBottleType != bottleTypeProp.enumValueIndex){
+                    bottleTypeProp.enumValueIndex = newBottleType;
+                    ResetData(bottleDataProp);
+                }
+
                 EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
@@ -214,10 +229,16 @@ namespace Project.Scripts.Editor
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
 
-                gimmickTypeProp.enumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                int newGimmickType = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                         label: new GUIContent("Type"),
                         selected: (EGimmickType)gimmickTypeProp.enumValueIndex
-                    );
+                );
+
+                // タイプが変わっていたらデータをリセット
+                if (newGimmickType != gimmickTypeProp.enumValueIndex){
+                    gimmickTypeProp.enumValueIndex = newGimmickType;
+                    ResetData(gimmickDataProp);
+                }
 
                 switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
@@ -482,6 +503,38 @@ namespace Project.Scripts.Editor
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
+        }
+
+        /// <summary>
+        /// SerializedPropertyをデフォルト値に戻す。
+        /// BottleData、TileData、GimmickDataにだけ動作を保証する
+        /// </summary>
+        /// <param name="prop"> 対象のSerializedProperty </param>
+        private void ResetData(SerializedProperty prop)
+        {
+            foreach (var child in prop.GetChildren())
+            {
+                // タイプがリセットしたら意味ない
+                if (child.name == "type")
+                    continue;
+
+                if (child.isArray) {
+                    child.arraySize = 0;
+                } else {
+                    switch (child.propertyType) {
+                        case SerializedPropertyType.Boolean:
+                            child.boolValue = false; break;
+                        case SerializedPropertyType.Integer:
+                            child.intValue = 0; break;
+                        case SerializedPropertyType.Float:
+                            child.floatValue = 0; break;
+                        case SerializedPropertyType.Enum:
+                            child.enumValueIndex = child.intValue = 0; break;
+                        case SerializedPropertyType.ObjectReference:
+                            child.objectReferenceValue = null; break;
+                    }
+                }
+            }
         }
     }
 }
