@@ -171,7 +171,7 @@ namespace Project.Scripts.Editor
                 var newBottleType = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
 
                 // タイプが変わっていたらデータをリセット
-                if (newBottleType != bottleTypeProp.enumValueIndex){
+                if (newBottleType != bottleTypeProp.enumValueIndex) {
                     bottleTypeProp.enumValueIndex = newBottleType;
                     ResetData(bottleDataProp);
                 }
@@ -232,10 +232,10 @@ namespace Project.Scripts.Editor
                 int newGimmickType = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                         label: new GUIContent("Type"),
                         selected: (EGimmickType)gimmickTypeProp.enumValueIndex
-                );
+                    );
 
                 // タイプが変わっていたらデータをリセット
-                if (newGimmickType != gimmickTypeProp.enumValueIndex){
+                if (newGimmickType != gimmickTypeProp.enumValueIndex) {
                     gimmickTypeProp.enumValueIndex = newGimmickType;
                     ResetData(gimmickDataProp);
                 }
@@ -512,8 +512,7 @@ namespace Project.Scripts.Editor
         /// <param name="prop"> 対象のSerializedProperty </param>
         private void ResetData(SerializedProperty prop)
         {
-            foreach (var child in prop.GetChildren())
-            {
+            foreach (var child in prop.GetChildren()) {
                 // タイプがリセットしたら意味ない
                 if (child.name == "type")
                     continue;
@@ -523,15 +522,20 @@ namespace Project.Scripts.Editor
                 } else {
                     switch (child.propertyType) {
                         case SerializedPropertyType.Boolean:
-                            child.boolValue = false; break;
+                            child.boolValue = false;
+                            break;
                         case SerializedPropertyType.Integer:
-                            child.intValue = 0; break;
+                            child.intValue = 0;
+                            break;
                         case SerializedPropertyType.Float:
-                            child.floatValue = 0; break;
+                            child.floatValue = 0;
+                            break;
                         case SerializedPropertyType.Enum:
-                            child.enumValueIndex = child.intValue = 0; break;
+                            child.enumValueIndex = child.intValue = 0;
+                            break;
                         case SerializedPropertyType.ObjectReference:
-                            child.objectReferenceValue = null; break;
+                            child.objectReferenceValue = null;
+                            break;
                     }
                 }
             }

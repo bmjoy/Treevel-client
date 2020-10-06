@@ -66,12 +66,12 @@ namespace Project.Scripts.Editor
             SerializedProperty currentProperty = serializedProperty.Copy();
             SerializedProperty nextSiblingProperty = serializedProperty.Copy();
             nextSiblingProperty.Next(false);
-        
+
             if (currentProperty.Next(true)) {
                 do {
                     if (SerializedProperty.EqualContents(currentProperty, nextSiblingProperty))
                         break;
-        
+
                     yield return currentProperty;
                 } while (currentProperty.Next(false));
             }
