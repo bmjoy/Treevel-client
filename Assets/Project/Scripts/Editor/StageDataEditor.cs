@@ -166,21 +166,21 @@ namespace Project.Scripts.Editor
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
                             var lifeProp = bottleDataProp.FindPropertyRelative("life");
-                            if (bottleDataProp.FindPropertyRelative("life").intValue < 1) 
+                            if (bottleDataProp.FindPropertyRelative("life").intValue < 1)
                                 lifeProp.intValue = 1;
                             EditorGUILayout.PropertyField(lifeProp);
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));                     
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         }
                         break;
-                    case EBottleType.Dynamic: 
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                    case EBottleType.Dynamic:
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         break;
                     case EBottleType.AttackableDummy: {
                             var lifeProp = bottleDataProp.FindPropertyRelative("life");
-                            if (bottleDataProp.FindPropertyRelative("life").intValue < 1) 
+                            if (bottleDataProp.FindPropertyRelative("life").intValue < 1)
                                 lifeProp.intValue = 1;
                             EditorGUILayout.PropertyField(lifeProp);
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));

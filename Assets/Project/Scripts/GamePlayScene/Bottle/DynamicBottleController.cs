@@ -80,7 +80,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         public override async void Initialize(BottleData bottleData)
         {
             base.Initialize(bottleData);
-            
+
             // set handlers
             if (bottleData.isSelfish) {
                 var selfishEffect = await AddressableAssetManager.Instantiate(Address.SELFISH_EFFECT_PREFAB).Task;

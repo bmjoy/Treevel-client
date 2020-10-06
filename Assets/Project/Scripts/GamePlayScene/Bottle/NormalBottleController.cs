@@ -37,7 +37,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
 
             base.Initialize(bottleData);
-            
+
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Address.LIFE_EFFECT_PREFAB).Task;
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
