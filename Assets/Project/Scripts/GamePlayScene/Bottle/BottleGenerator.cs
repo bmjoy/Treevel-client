@@ -13,7 +13,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             {EBottleType.Dynamic, Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Static, Address.STATIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Normal, Address.NORMAL_BOTTLE_PREFAB},
-            {EBottleType.Life, Address.LIFE_BOTTLE_PREFAB},
             {EBottleType.AttackableDummy, Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
         };
 

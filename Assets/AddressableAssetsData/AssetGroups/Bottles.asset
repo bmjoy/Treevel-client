@@ -23,31 +23,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 05e33fc634f2946648a856bb7e195599
-    m_Address: lifeBottle8
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
-    m_MainAsset: {fileID: 2800000, guid: 05e33fc634f2946648a856bb7e195599, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 05e33fc634f2946648a856bb7e195599, type: 3}
-  - m_GUID: 10de9115a09e5477d8d5a1d4f7035df7
-    m_Address: lifeBottle7
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 11aa24a33708845baa52d895bf928590
     m_Address: 6_s
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 29710d3db6d314249a7702b4fcf39de4
-    m_Address: lifeBottle1
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 306499f0dbaa04cb386a1aa39a34d9e9
@@ -62,24 +41,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 3e71494f40ea8454e97c37f324f3d39f
-    m_Address: lifeBottle4
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 3e7b664c3229c4b66a919e9db2641a63
     m_Address: rp
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 41f716d06fdde47dc943a807354a489b
-    m_Address: lifeBottle5
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 44a494e351155459dbfee62492c655bd
@@ -104,13 +69,6 @@ MonoBehaviour:
     m_Address: BottleDead
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 607b919a004154fb5b8043ce025ffa8b
-    m_Address: lifeBottle2
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 6a6b75adbaa3d4155bac201a3b28e45d
@@ -199,13 +157,6 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: df64f47fca508448c9bc702a060be7dc
-    m_Address: lifeBottle6
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: e20bd75f6fe65412e9ba128655794bfa
     m_Address: 8_y
     m_ReadOnly: 0
@@ -216,13 +167,6 @@ MonoBehaviour:
     m_Address: 1_b
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: e9b15a88b58ca483c8aeb69e6313289b
-    m_Address: lifeBottle3
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Panel
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: eb4cf5d6d54524f2697dfe9ea7cdcb8e

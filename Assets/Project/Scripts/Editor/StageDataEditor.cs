@@ -165,30 +165,26 @@ namespace Project.Scripts.Editor
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
-                            // デフォルト値設定
-                            bottleDataProp.FindPropertyRelative("life").intValue = 1;
-
+                            var lifeProp = bottleDataProp.FindPropertyRelative("life");
+                            if (bottleDataProp.FindPropertyRelative("life").intValue < 1) 
+                                lifeProp.intValue = 1;
+                            EditorGUILayout.PropertyField(lifeProp);
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));                     
                         }
                         break;
-                    case EBottleType.Life: {
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("life"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
+                    case EBottleType.Dynamic: 
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                        break;
+                    case EBottleType.AttackableDummy: {
+                            var lifeProp = bottleDataProp.FindPropertyRelative("life");
+                            if (bottleDataProp.FindPropertyRelative("life").intValue < 1) 
+                                lifeProp.intValue = 1;
+                            EditorGUILayout.PropertyField(lifeProp);
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         }
-                        break;
-                    case EBottleType.AttackableDummy:
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("life"));
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
-                        break;
-                    case EBottleType.Dynamic:
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         break;
                     case EBottleType.Static:
                         break;
@@ -473,7 +469,7 @@ namespace Project.Scripts.Editor
 
         private IEnumerable<BottleData> GetAttackableBottles()
         {
-            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.Life);
+            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal);
         }
 
         private static void ClearConsole()

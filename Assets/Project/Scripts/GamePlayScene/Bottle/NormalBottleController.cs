@@ -26,24 +26,21 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
-        public override void Initialize(BottleData bottleData)
+        public override async void Initialize(BottleData bottleData)
         {
             _spriteGlowEffect = GetComponent<SpriteGlowEffect>();
             _spriteGlowEffect.enabled = false;
 
             // parse data
             var finalPos = bottleData.targetPos;
+            _targetPos = finalPos;
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
 
-            // set handlers
-            if (bottleData.life <= 1) {
-                getDamagedHandler = new OneLifeBottleGetDamagedHandler(this);
-            } else {
-                getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
-            }
-            _targetPos = finalPos;
-
             base.Initialize(bottleData);
+            
+            // set handler
+            var lifeEffect = await AddressableAssetManager.Instantiate(Address.LIFE_EFFECT_PREFAB).Task;
+            lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
 
             #if UNITY_EDITOR
             name = BottleName.NORMAL_BOTTLE + Id.ToString();

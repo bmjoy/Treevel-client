@@ -62,6 +62,7 @@
         public const string LIFE_BOTTLE_SPRITE_PREFIX = "lifeBottle";
 
         // ボトル関連のエフェクト
+        public const string LIFE_EFFECT_PREFAB = "LifeEffectPrefab";
         public const string SELFISH_EFFECT_PREFAB = "SelfishEffectPrefab";
 
         // タイル関連

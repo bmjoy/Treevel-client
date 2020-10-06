@@ -23,18 +23,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 自身が死んだかどうか
-        /// </summary>
-        protected internal bool IsDead
-        {
-            get;
-            internal set;
-        }
-
-        /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        protected IBottleGetDamagedHandler getDamagedHandler;
+        public event Action<GameObject> HandleOnGetDamaged;
 
         /// <summary>
         /// タイルに移動した時の挙動
@@ -49,7 +40,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
-        public bool IsAttackable => getDamagedHandler != null;
+        public bool IsAttackable => HandleOnGetDamaged != null;
 
         /// <summary>
         /// 無敵状態かどうか
@@ -73,7 +64,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             // 無敵状態なら，衝突を考えない
             if (Invincible) return;
 
-            getDamagedHandler?.OnGetDamaged(other.gameObject);
+            HandleOnGetDamaged?.Invoke(other.gameObject);
         }
 
         /// <summary>

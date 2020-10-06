@@ -10,14 +10,12 @@ using UnityEngine.Events;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
-    [RequireComponent(typeof(Animation))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(FlickGesture))]
     [RequireComponent(typeof(PressGesture))]
     [RequireComponent(typeof(ReleaseGesture))]
     public class DynamicBottleController : AbstractBottleController
     {
-        private Animation _anim;
-
         private FlickGesture _flickGesture;
         private PressGesture _pressGesture;
         private ReleaseGesture _releaseGesture;
@@ -77,20 +75,17 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _pressGesture = GetComponent<PressGesture>();
             // ReleaseGesture の設定
             _releaseGesture = GetComponent<ReleaseGesture>();
-
-            // アニメーションの追加
-            _anim = GetComponent<Animation>();
         }
 
         public override async void Initialize(BottleData bottleData)
         {
+            base.Initialize(bottleData);
+            
             // set handlers
             if (bottleData.isSelfish) {
                 var selfishEffect = await AddressableAssetManager.Instantiate(Address.SELFISH_EFFECT_PREFAB).Task;
                 selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
             }
-
-            base.Initialize(bottleData);
         }
 
         private void OnEnable()
@@ -202,11 +197,6 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _flickGesture.Flicked -= Flicked;
             _pressGesture.Pressed -= Pressed;
             _releaseGesture.Released -= Released;
-
-            // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
-            if (!IsDead) {
-                _anim.wrapMode = WrapMode.Default;
-            }
         }
     }
 }
