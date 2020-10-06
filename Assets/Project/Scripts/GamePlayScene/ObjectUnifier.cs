@@ -17,15 +17,16 @@ namespace Project.Scripts.GamePlayScene
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
-            if (_renderer.sprite != null) {
-                Unify();
-            }
+            Unify();
         }
 
         public void Unify()
         {
-            var originalWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-            var originalHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+            if (_renderer.sprite == null)
+                return;
+
+            var originalWidth = _renderer.sprite.bounds.size.x;
+            var originalHeight = _renderer.sprite.bounds.size.y;
 
             var widthEfficient = WindowSize.WIDTH * RatioToWindowWidth;
             var heightEfficient = widthEfficient * ImageRatio ;
