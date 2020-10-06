@@ -518,6 +518,7 @@ namespace Project.Scripts.Editor
                     continue;
 
                 if (child.isArray) {
+                    child.ClearArray();
                     child.arraySize = 0;
                 } else {
                     switch (child.propertyType) {
