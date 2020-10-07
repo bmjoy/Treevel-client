@@ -25,7 +25,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
-    life: 0
+    life: 1
     isSelfish: 0
   - type: 2
     initPos: 5
@@ -36,7 +36,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
-    life: 0
+    life: 1
     isSelfish: 0
   - type: 2
     initPos: 6
@@ -47,7 +47,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
-    life: 0
+    life: 1
     isSelfish: 0
   - type: 2
     initPos: 7
@@ -58,7 +58,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
       m_SubObjectName: numberTile4
-    life: 0
+    life: 1
     isSelfish: 0
   - type: 2
     initPos: 8
@@ -69,7 +69,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
       m_SubObjectName: numberTile5
-    life: 0
+    life: 1
     isSelfish: 0
   - type: 2
     initPos: 9
@@ -80,7 +80,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 002d879f7321744279709540f5b88837
       m_SubObjectName: numberTile6
-    life: 0
+    life: 1
     isSelfish: 0
   - type: 2
     initPos: 10
@@ -91,7 +91,7 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
       m_SubObjectName: numberTile7
-    life: 0
+    life: 1
     isSelfish: 0
   - type: 2
     initPos: 14
@@ -102,26 +102,26 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
-    life: 0
+    life: 1
     isSelfish: 0
   gimmicks:
   - loop: 1
     appearTime: 1
     interval: 5
     type: 0
-    line: 0
-    direction: 0
     targetDirections: ffffffffffffffff
     targetLines: ffffffffffffffff
     randomDirection: 01000000010000000100000001000000
     randomRow: 0100000000000000000000000000000000000000
     randomColumn: 000000000a0000000a000000
-    turnLines: 
-    aimingBottles: 
-    randomCartridgeDirection: 
-    randomLine: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
   overviewGimmicks: 
   tutorial:
     type: 0

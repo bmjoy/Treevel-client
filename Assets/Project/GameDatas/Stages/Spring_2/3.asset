@@ -142,7 +142,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 1
     targets: []
-    solarBeamDirection: 0
+    targetDirection: 0
     attackTimes: 0
   - loop: 1
     appearTime: 1
@@ -156,10 +156,10 @@ MonoBehaviour:
     targetRow: 0
     targetColumn: 0
     targetBottle: 4
-    randomAttackableBottles: 0100000001000000010000000100000001000000010000000100000001000000
+    randomAttackableBottles: 
     isRandom: 1
     targets: []
-    solarBeamDirection: 0
+    targetDirection: 0
     attackTimes: 0
   overviewGimmicks: 
   tutorial:
