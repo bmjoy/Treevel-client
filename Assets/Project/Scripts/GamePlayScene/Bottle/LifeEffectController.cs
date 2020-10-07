@@ -19,26 +19,26 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 自身のライフ
         /// </summary>
         private int _life;
+        
+        private Animator _animator;
+        private Animator _bottleAnimator;
+        private const string _ANIMATOR_PARAM_TRIGGER_ATTACKED = "LifeAttacked";
+        private const string _ANIMATOR_PARAM_TRIGGER_DEAD = "LifeDead";
+        private const string _ANIMATOR_PARAM_FLOAT_SPPED = "LifeSpeed";
+        private const string _ANIMATOR_PARAM_BOOL_ATTACKED_LOOP = "LifeAttackedLoop";
 
-        private Animation _bottleAnimation;
+        private void Awake()
+        {
+            // 現状、LifeEffectについてのアニメーション演出はない
+            _animator = GetComponent<Animator>();
+        }
 
         public void Initialize(DynamicBottleController bottleController, int life)
         {
             transform.parent = bottleController.transform;
             transform.localPosition = Vector3.zero;
             _bottleController = bottleController;
-            _bottleAnimation = bottleController.GetComponent<Animation>();
-            // ボトルが死んだときのアニメーション
-            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_DEAD).Completed += (handle) => {
-                _bottleAnimation.AddClip(handle.Result, AnimationClipName.BOTTLE_DEAD);
-            };
-
-            if (life > 1) {
-                // ボトルがギミックに攻撃されたときのアニメーション
-                AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_GET_ATTACKED).Completed += (handle) => {
-                    _bottleAnimation.AddClip(handle.Result, AnimationClipName.BOTTLE_GET_ATTACKED);
-                };
-            }
+            _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
             _bottleController.HandleOnGetDamaged += HandleOnGetDamaged;
@@ -58,7 +58,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 Debug.LogError("_currentLife が負の値になっている");
             } else if (_life == 0) {
                 // 失敗演出
-                _bottleAnimation.Play(AnimationClipName.BOTTLE_DEAD, PlayMode.StopAll);
+                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_DEAD);
 
                 // ボトルを死んだ状態にする
                 _isDead = true;
@@ -75,10 +75,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
             } else if (_life == 1) {
                 // ループさせて危機感っぽい
-                _bottleAnimation.wrapMode = WrapMode.Loop;
-                _bottleAnimation.Play(AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                _bottleAnimator.SetBool(_ANIMATOR_PARAM_BOOL_ATTACKED_LOOP, true);
+                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
             } else {
-                _bottleAnimation.Play(AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
             }
         }
 
@@ -89,7 +89,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             // 自身が破壊されていない場合はアニメーションを止める
             if (!_isDead) {
-                _bottleAnimation.wrapMode = WrapMode.Default;
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
             }
         }
     }

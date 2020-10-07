@@ -65,12 +65,6 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 594ed3ef43ae0448587bed753a2434e6
-    m_Address: BottleDead
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 6a6b75adbaa3d4155bac201a3b28e45d
     m_Address: normalBottle1
     m_ReadOnly: 0
@@ -180,12 +174,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Panel
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: ffc1129f38cd246bb8e73a118f1ff87e
-    m_Address: BottleGetAttacked
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
