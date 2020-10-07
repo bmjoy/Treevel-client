@@ -19,7 +19,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 自身のライフ
         /// </summary>
         private int _life;
-        
+
         private Animator _animator;
         private Animator _bottleAnimator;
         private const string _ANIMATOR_PARAM_TRIGGER_ATTACKED = "LifeAttacked";
