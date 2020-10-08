@@ -63,8 +63,8 @@ namespace Project.Scripts.Editor
         /// </summary>
         public static IEnumerable<SerializedProperty> GetChildren(this SerializedProperty serializedProperty)
         {
-            SerializedProperty currentProperty = serializedProperty.Copy();
-            SerializedProperty nextSiblingProperty = serializedProperty.Copy();
+            var currentProperty = serializedProperty.Copy();
+            var nextSiblingProperty = serializedProperty.Copy();
             nextSiblingProperty.Next(false);
 
             if (currentProperty.Next(true)) {
