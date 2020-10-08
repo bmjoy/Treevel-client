@@ -347,7 +347,7 @@ namespace Project.Scripts.GamePlayScene
         /// <returns> タイル番号 </returns>
         public int GetBottlePos(AbstractBottleController bottle)
         {
-            // ボトルは必ず盤面内に収まっているので，強制アンラップ
+            if (!_bottlePositions.ContainsKey(bottle.gameObject)) return -1;
             return XYToTileNum(_bottlePositions[bottle.gameObject]).Value;
         }
 
