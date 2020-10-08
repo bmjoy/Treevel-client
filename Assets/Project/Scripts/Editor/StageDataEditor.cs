@@ -183,6 +183,7 @@ namespace Project.Scripts.Editor
                             if (bottleDataProp.FindPropertyRelative("life").intValue < 1)
                                 lifeProp.intValue = 1;
                             EditorGUILayout.PropertyField(lifeProp);
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         }
                         break;
@@ -469,7 +470,7 @@ namespace Project.Scripts.Editor
 
         private IEnumerable<BottleData> GetAttackableBottles()
         {
-            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal);
+            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.AttackableDummy);
         }
 
         private static void ClearConsole()
