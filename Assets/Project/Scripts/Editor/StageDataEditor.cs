@@ -520,24 +520,25 @@ namespace Project.Scripts.Editor
                 if (child.isArray) {
                     child.ClearArray();
                     child.arraySize = 0;
-                } else {
-                    switch (child.propertyType) {
-                        case SerializedPropertyType.Boolean:
-                            child.boolValue = false;
-                            break;
-                        case SerializedPropertyType.Integer:
-                            child.intValue = 0;
-                            break;
-                        case SerializedPropertyType.Float:
-                            child.floatValue = 0;
-                            break;
-                        case SerializedPropertyType.Enum:
-                            child.enumValueIndex = child.intValue = 0;
-                            break;
-                        case SerializedPropertyType.ObjectReference:
-                            child.objectReferenceValue = null;
-                            break;
-                    }
+                    continue;
+                }
+
+                switch (child.propertyType) {
+                    case SerializedPropertyType.Boolean:
+                        child.boolValue = false;
+                        break;
+                    case SerializedPropertyType.Integer:
+                        child.intValue = 0;
+                        break;
+                    case SerializedPropertyType.Float:
+                        child.floatValue = 0;
+                        break;
+                    case SerializedPropertyType.Enum:
+                        child.enumValueIndex = child.intValue = 0;
+                        break;
+                    case SerializedPropertyType.ObjectReference:
+                        child.objectReferenceValue = null;
+                        break;
                 }
             }
         }
