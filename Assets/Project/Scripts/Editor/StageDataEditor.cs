@@ -525,16 +525,16 @@ namespace Project.Scripts.Editor
 
                 switch (child.propertyType) {
                     case SerializedPropertyType.Boolean:
-                        child.boolValue = false;
+                        child.boolValue = default;
                         break;
                     case SerializedPropertyType.Integer:
-                        child.intValue = 0;
+                        child.intValue = default;
                         break;
                     case SerializedPropertyType.Float:
-                        child.floatValue = 0;
+                        child.floatValue = default;
                         break;
                     case SerializedPropertyType.Enum:
-                        child.enumValueIndex = child.intValue = 0;
+                        child.enumValueIndex = child.intValue = default;
                         break;
                     case SerializedPropertyType.ObjectReference:
                         child.objectReferenceValue = null;
