@@ -28,27 +28,27 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 移動開始時の処理
         /// </summary>
-        public event Action HandleOnStartMove;
+        public event Action OnStartMove;
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
-        public event Action HandleOnEndMove;
+        public event Action OnEndMove;
 
         /// <summary>
         /// ホールド開始時の処理
         /// </summary>
-        public event Action HandleOnPressed;
+        public event Action OnPressed;
 
         /// <summary>
         /// ホールド終了時の処理
         /// </summary>
-        public event Action HandleOnReleased;
+        public event Action OnReleased;
 
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        public event Action HandleOnEndProcess;
+        public event Action OnEndProcess;
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -90,26 +90,26 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private void OnEnable()
         {
-            _flickGesture.Flicked += Flicked;
-            _pressGesture.Pressed += Pressed;
-            _releaseGesture.Released += Released;
-            GamePlayDirector.OnSucceed += OnSucceed;
-            GamePlayDirector.OnFail += OnFail;
+            _flickGesture.Flicked += HandleFlicked;
+            _pressGesture.Pressed += HandlePressed;
+            _releaseGesture.Released += HandleReleased;
+            GamePlayDirector.OnSucceed += HandleOnSucceed;
+            GamePlayDirector.OnFail += HandleOnFail;
         }
 
         private void OnDisable()
         {
-            _flickGesture.Flicked -= Flicked;
-            _pressGesture.Pressed -= Pressed;
-            _releaseGesture.Released -= Released;
-            GamePlayDirector.OnSucceed -= OnSucceed;
-            GamePlayDirector.OnFail -= OnFail;
+            _flickGesture.Flicked -= HandleFlicked;
+            _pressGesture.Pressed -= HandlePressed;
+            _releaseGesture.Released -= HandleReleased;
+            GamePlayDirector.OnSucceed -= HandleOnSucceed;
+            GamePlayDirector.OnFail -= HandleOnFail;
         }
 
         /// <summary>
         /// フリックイベントを処理する
         /// </summary>
-        private void Flicked(object sender, EventArgs e)
+        private void HandleFlicked(object sender, EventArgs e)
         {
             if (!IsMovable) return;
 
@@ -129,9 +129,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private void Pressed(object sender, EventArgs e)
+        private void HandlePressed(object sender, EventArgs e)
         {
-            HandleOnPressed?.Invoke();
+            OnPressed?.Invoke();
         }
 
         /// <summary>
@@ -139,9 +139,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Released(object sender, EventArgs e)
+        private void HandleReleased(object sender, EventArgs e)
         {
-            HandleOnReleased?.Invoke();
+            OnReleased?.Invoke();
         }
 
         /// <summary>
@@ -158,14 +158,14 @@ namespace Project.Scripts.GamePlayScene.Bottle
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
             SetGesturesEnabled(false);
-            HandleOnStartMove?.Invoke();
+            OnStartMove?.Invoke();
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
 
-            HandleOnEndMove?.Invoke();
+            OnEndMove?.Invoke();
             SetGesturesEnabled(true);
 
             callback();
@@ -174,7 +174,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム成功時の処理
         /// </summary>
-        protected virtual void OnSucceed()
+        protected virtual void HandleOnSucceed()
         {
             EndProcess();
         }
@@ -182,7 +182,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム失敗時の処理
         /// </summary>
-        protected virtual void OnFail()
+        protected virtual void HandleOnFail()
         {
             EndProcess();
         }
@@ -192,11 +192,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
-            HandleOnEndProcess?.Invoke();
-
-            _flickGesture.Flicked -= Flicked;
-            _pressGesture.Pressed -= Pressed;
-            _releaseGesture.Released -= Released;
+            OnEndProcess?.Invoke();
         }
     }
 }
