@@ -58,6 +58,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
 
+        private void OnDestroy()
+        {
+            OnEnterTile -= HandleOnEnterTile;
+            OnExitTile -= HandleOnExitTile;
+        }
+
         private void HandleOnEnterTile(GameObject targetTile)
         {
             if (IsSuccess()) {

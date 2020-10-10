@@ -47,6 +47,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _life = life;
         }
 
+        private void OnDestroy()
+        {
+            _bottleController.OnGetDamaged -= HandleOnGetDamaged;
+            _bottleController.OnEndProcess -= HandleOnEndProcess;
+        }
+
         /// <summary>
         /// ギミックに攻撃されたときの処理
         /// </summary>

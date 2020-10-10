@@ -63,6 +63,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _countCalmFrames = true;
         }
 
+        private void OnDestroy()
+        {
+            _bottleController.OnStartMove -= HandleOnStartMove;
+            _bottleController.OnEndMove -= HandleOnEndMove;
+            _bottleController.OnPressed -= HandleOnPressed;
+            _bottleController.OnReleased -= HandleOnReleased;
+            _bottleController.OnEndProcess -= HandleOnEndProcess;
+        }
+
         private void FixedUpdate()
         {
             if (!_countCalmFrames) return;
