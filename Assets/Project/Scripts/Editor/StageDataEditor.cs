@@ -510,7 +510,7 @@ namespace Project.Scripts.Editor
         /// BottleData、TileData、GimmickDataにだけ動作を保証する
         /// </summary>
         /// <param name="prop"> 対象のSerializedProperty </param>
-        private void ResetData(SerializedProperty prop)
+        private static void ResetData(SerializedProperty prop)
         {
             foreach (var child in prop.GetChildren()) {
                 // タイプがリセットしたら意味ない
