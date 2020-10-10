@@ -255,7 +255,7 @@ namespace Project.Scripts.GamePlayScene
 
                 // 移動元からボトルを無くす
                 var from = _bottlePositions[bottleObject];
-                bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
+                bottle.TriggerOnExitTile(_squares[from.x, from.y].tile.gameObject);
                 _squares[from.x, from.y].bottle = null;
                 _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
 
@@ -267,13 +267,13 @@ namespace Project.Scripts.GamePlayScene
             if (direction != null) {
                 // ボトルを移動する
                 StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
-                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                    targetSquare.bottle.TriggerOnEnterTile(targetSquare.tile.gameObject);
                     targetSquare.tile.OnBottleEnter(bottleObject, direction);
                 }));
             } else {
                 // ボトルを瞬間移動させる
                 bottle.transform.position = targetSquare.worldPosition;
-                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                targetSquare.bottle.TriggerOnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, null);
             }
 
@@ -333,7 +333,7 @@ namespace Project.Scripts.GamePlayScene
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
 
                 // ボトルがタイルに配置された場合の処理を行う
-                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                targetSquare.bottle.TriggerOnEnterTile(targetSquare.tile.gameObject);
                 if (targetSquare.tile.RunOnBottleEnterAtInit) {
                     targetSquare.tile.OnBottleEnter(targetSquare.bottle.gameObject, null);
                 }
@@ -347,7 +347,6 @@ namespace Project.Scripts.GamePlayScene
         /// <returns> タイル番号 </returns>
         public int GetBottlePos(AbstractBottleController bottle)
         {
-            if (!_bottlePositions.ContainsKey(bottle.gameObject)) return -1;
             return XYToTileNum(_bottlePositions[bottle.gameObject]).Value;
         }
 

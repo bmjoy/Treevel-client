@@ -22,6 +22,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// </summary>
         private SpriteGlowEffect _spriteGlowEffect;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            OnEnterTile += HandleOnEnterTile;
+            OnExitTile += HandleOnExitTile;
+        }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -51,9 +58,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
 
-        public override void OnEnterTile(GameObject targetTile)
+        private void HandleOnEnterTile(GameObject targetTile)
         {
-            base.OnEnterTile(targetTile);
             if (IsSuccess()) {
                 // 最終タイルにいるかどうかで，光らせるかを決める
                 _spriteGlowEffect.enabled = true;
@@ -62,9 +68,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
         }
 
-        public override void OnExitTile(GameObject targetTile)
+        private void HandleOnExitTile(GameObject targetTile)
         {
-            base.OnExitTile(targetTile);
             _spriteGlowEffect.enabled = false;
         }
 

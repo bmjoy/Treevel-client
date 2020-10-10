@@ -41,8 +41,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.HandleOnGetDamaged += HandleOnGetDamaged;
             _bottleController.HandleOnEndProcess += HandleOnEndProcess;
+            _bottleController.OnGetDamaged += HandleOnGetDamaged;
 
             _life = life;
         }

@@ -25,22 +25,22 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        public event Action<GameObject> HandleOnGetDamaged;
+        public event Action<GameObject> OnGetDamaged;
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected event Action<GameObject> HandleOnEnterTile;
+        protected event Action<GameObject> OnEnterTile;
 
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
-        protected event Action<GameObject> HandleOnExitTile;
+        protected event Action<GameObject> OnExitTile;
 
         /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
-        public bool IsAttackable => HandleOnGetDamaged != null;
+        public bool IsAttackable => OnGetDamaged != null;
 
         /// <summary>
         /// 無敵状態かどうか
@@ -64,25 +64,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             // 無敵状態なら，衝突を考えない
             if (Invincible) return;
 
-            HandleOnGetDamaged?.Invoke(other.gameObject);
-        }
-
-        /// <summary>
-        /// タイルに移動した時の挙動
-        /// </summary>
-        /// <param name="targetTile">目標のタイル</param>
-        public virtual void OnEnterTile(GameObject targetTile)
-        {
-            HandleOnEnterTile?.Invoke(targetTile);
-        }
-
-        /// <summary>
-        /// タイルから出た時の挙動
-        /// </summary>
-        /// <param name="targetTile">出たタイル</param>
-        public virtual void OnExitTile(GameObject targetTile)
-        {
-            HandleOnExitTile?.Invoke(targetTile);
+            OnGetDamaged?.Invoke(other.gameObject);
         }
 
         private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
@@ -138,6 +120,24 @@ namespace Project.Scripts.GamePlayScene.Bottle
                 GetComponent<ObjectUnifier>().Unify();
                 GetComponent<SpriteRenderer>().enabled = true;
             }
+        }
+
+        /// <summary>
+        /// タイルに移動した時のイベント発火
+        /// </summary>
+        /// <param name="targetTile">目標の出たタイル</param>
+        public void TriggerOnEnterTile(GameObject targetTile)
+        {
+            OnEnterTile?.Invoke(targetTile);
+        }
+
+        /// <summary>
+        /// タイルから出た時のイベント発火
+        /// </summary>
+        /// <param name="targetTile">出たタイル</param>
+        public void TriggerOnExitTile(GameObject targetTile)
+        {
+            OnExitTile?.Invoke(targetTile);
         }
 
         /// <summary>

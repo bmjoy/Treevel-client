@@ -53,11 +53,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.HandleOnStartMove += HandleOnStartMove;
-            _bottleController.HandleOnEndMove += HandleOnEndMove;
-            _bottleController.HandleOnPressed += HandleOnPressed;
-            _bottleController.HandleOnReleased += HandleOnReleased;
-            _bottleController.HandleOnEndProcess += HandleOnEndProcess;
+            _bottleController.OnStartMove += HandleOnStartMove;
+            _bottleController.OnEndMove += HandleOnEndMove;
+            _bottleController.OnPressed += HandleOnPressed;
+            _bottleController.OnReleased += HandleOnReleased;
+            _bottleController.OnEndProcess += HandleOnEndProcess;
 
             // 移動していないフレーム数を数え始める
             _countCalmFrames = true;
