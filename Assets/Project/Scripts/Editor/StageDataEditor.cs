@@ -523,6 +523,7 @@ namespace Project.Scripts.Editor
                     continue;
                 }
 
+                // 現状，リセットする必要がある型だけをリセットしている
                 switch (child.propertyType) {
                     case SerializedPropertyType.Boolean:
                         child.boolValue = default;
