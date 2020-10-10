@@ -199,7 +199,7 @@ namespace Project.Scripts.GamePlayScene
             if (!StageGenerator.CreatedFinished)
                 return;
 
-            var bottles = GameObject.FindObjectsOfType<AbstractBottleController>();
+            var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
             if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
 
             // 全ての成功判定が付くボトルが成功の場合，成功状態に遷移

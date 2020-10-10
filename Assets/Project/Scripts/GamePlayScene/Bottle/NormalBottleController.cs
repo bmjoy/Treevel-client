@@ -92,9 +92,9 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 目標タイルにいるかどうか
         /// </summary>
         /// <returns></returns>
-        public override bool IsSuccess()
+        public bool IsSuccess()
         {
-            return BoardManager.Instance.GetBottlePos(this) == _targetPos;
+            return _targetPos != 0 ? BoardManager.Instance.GetBottlePos(this) == _targetPos : false;
         }
     }
 }

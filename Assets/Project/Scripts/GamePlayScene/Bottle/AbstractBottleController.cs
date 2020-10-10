@@ -139,14 +139,5 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             OnExitTile?.Invoke(targetTile);
         }
-
-        /// <summary>
-        /// ボトルの成功判定
-        /// </summary>
-        public virtual bool IsSuccess()
-        {
-            // 未定義の時は成功とみなす
-            return true;
-        }
     }
 }
