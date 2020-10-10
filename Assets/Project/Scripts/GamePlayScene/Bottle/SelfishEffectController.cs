@@ -83,7 +83,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 移動開始時の処理
         /// </summary>
-        public void HandleOnStartMove()
+        private void HandleOnStartMove()
         {
             SetIsStopping(false);
         }
@@ -91,7 +91,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
-        public void HandleOnEndMove()
+        private void HandleOnEndMove()
         {
             SetIsStopping(true);
         }
@@ -99,7 +99,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ホールド開始時の処理
         /// </summary>
-        public void HandleOnPressed()
+        private void HandleOnPressed()
         {
             SetIsStopping(false);
         }
@@ -107,7 +107,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ホールド終了時の処理
         /// </summary>
-        public void HandleOnReleased()
+        private void HandleOnReleased()
         {
             SetIsStopping(true);
         }
@@ -115,7 +115,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        public void HandleOnEndProcess()
+        private void HandleOnEndProcess()
         {
             _countCalmFrames = false;
             _calmFrames = 0;
@@ -168,7 +168,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// 動き出すまでの時間の計測を状態に合わせてアニメーションの再開・停止させる
         /// </summary>
         /// <param name="_isStopping"></param>
-        public void SetIsStopping(bool countCalmFrames)
+        private void SetIsStopping(bool countCalmFrames)
         {
             _countCalmFrames = countCalmFrames;
             if (_countCalmFrames) {
