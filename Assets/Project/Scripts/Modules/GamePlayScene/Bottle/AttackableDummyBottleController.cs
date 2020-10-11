@@ -1,4 +1,6 @@
-﻿namespace Project.Scripts.GamePlayScene.Bottle
+﻿using Project.Scripts.Common.Utils;
+
+namespace Project.Scripts.GamePlayScene.Bottle
 {
     /// <summary>
     /// ライフ付き、成功判定なし、フリック可能なボトル
@@ -10,7 +12,7 @@
             base.Initialize(bottleData);
 
             #if UNITY_EDITOR
-            name = Utils.Definitions.BottleName.ATTACKABLE_DUMMY_BOTTLE;
+            name = Constants.BottleName.ATTACKABLE_DUMMY_BOTTLE;
             #endif
 
             if (bottleData.life <= 1) {

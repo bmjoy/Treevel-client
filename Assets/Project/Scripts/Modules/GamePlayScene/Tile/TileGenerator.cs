@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
@@ -12,17 +13,17 @@ namespace Project.Scripts.GamePlayScene.Tile
     {
         private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string>()
         {
-            {ETileType.Normal, Address.NORMAL_TILE_PREFAB},
-            {ETileType.Warp, Address.WARP_TILE_PREFAB},
-            {ETileType.Ice, Address.ICE_TILE_PREFAB},
-            {ETileType.Holy, Address.HOLY_TILE_PREFAB},
-            {ETileType.Spiderweb, Address.SPIDERWEB_TILE_PREFAB},
+            {ETileType.Normal, Constants.Address.NORMAL_TILE_PREFAB},
+            {ETileType.Warp, Constants.Address.WARP_TILE_PREFAB},
+            {ETileType.Ice, Constants.Address.ICE_TILE_PREFAB},
+            {ETileType.Holy, Constants.Address.HOLY_TILE_PREFAB},
+            {ETileType.Spiderweb, Constants.Address.SPIDERWEB_TILE_PREFAB},
         };
 
         public async void CreateTiles(ICollection<TileData> tileDatas)
         {
             // シーンに配置したノーマルタイルを初期化
-            for (var tileNum = 1; tileNum <= StageSize.ROW * StageSize.COLUMN; ++tileNum) {
+            for (var tileNum = 1; tileNum <= Constants.StageSize.ROW * Constants.StageSize.COLUMN; ++tileNum) {
                 var currTileObj = transform.Find($"NormalTile{tileNum}");
                 if (currTileObj == null)
                     continue;
@@ -67,8 +68,8 @@ namespace Project.Scripts.GamePlayScene.Tile
         /// <param name="secondTileNum"> ワープタイル2 </param>
         private static async void CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
-            var firstTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
-            var secondTile = await AddressableAssetManager.Instantiate(Address.WARP_TILE_PREFAB).Task;
+            var firstTile = await AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).Task;
+            var secondTile = await AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).Task;
 
             firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
             secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);

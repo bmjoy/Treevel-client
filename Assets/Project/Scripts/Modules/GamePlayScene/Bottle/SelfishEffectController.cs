@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using UnityEngine;
-using UnityEngine.Events;
-using Project.Scripts.GamePlayScene;
 using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
 
 namespace Project.Scripts.GamePlayScene.Bottle
@@ -85,32 +83,32 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var tileNum = BoardManager.Instance.GetBottlePos(_bottleController);
             var(x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
 
-            var canMoveDirections = new int[Enum.GetNames(typeof(EDirection)).Length];
+            var canMoveDirections = new int[Enum.GetNames(typeof(EBottleDirection)).Length];
             // 空いている方向を確認する
             // 左
-            if (BoardManager.Instance.IsEmptyTile(x - 1, y)) canMoveDirections[(int)EDirection.ToLeft] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x - 1, y)) canMoveDirections[(int)EBottleDirection.ToLeft] = 1;
             // 右
-            if (BoardManager.Instance.IsEmptyTile(x + 1, y)) canMoveDirections[(int)EDirection.ToRight] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x + 1, y)) canMoveDirections[(int)EBottleDirection.ToRight] = 1;
             // 上
-            if (BoardManager.Instance.IsEmptyTile(x, y - 1)) canMoveDirections[(int)EDirection.ToUp] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x, y - 1)) canMoveDirections[(int)EBottleDirection.ToUp] = 1;
             // 下
-            if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int)EDirection.ToBottom] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int)EBottleDirection.ToBottom] = 1;
 
             // 空いている方向からランダムに1方向を選択する
             if (canMoveDirections.Sum() == 0) return;
-            var direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
+            var direction = (EBottleDirection)Enum.ToObject(typeof(EBottleDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
             switch (direction) {
-                case EDirection.ToLeft:
+                case EBottleDirection.ToLeft:
                     BoardManager.Instance.Move(_bottleController, tileNum - 1, Vector2Int.left);
                     break;
-                case EDirection.ToRight:
+                case EBottleDirection.ToRight:
                     BoardManager.Instance.Move(_bottleController, tileNum + 1, Vector2Int.right);
                     break;
-                case EDirection.ToUp:
-                    BoardManager.Instance.Move(_bottleController, tileNum - StageSize.COLUMN, Vector2Int.up);
+                case EBottleDirection.ToUp:
+                    BoardManager.Instance.Move(_bottleController, tileNum - Constants.StageSize.COLUMN, Vector2Int.up);
                     break;
-                case EDirection.ToBottom:
-                    BoardManager.Instance.Move(_bottleController, tileNum + StageSize.COLUMN, Vector2Int.down);
+                case EBottleDirection.ToBottom:
+                    BoardManager.Instance.Move(_bottleController, tileNum + Constants.StageSize.COLUMN, Vector2Int.down);
                     break;
                 default:
                     throw new IndexOutOfRangeException();
@@ -188,7 +186,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private async void Initialize(DynamicBottleController bottleController)
         {
-            var selfishEffect = await AddressableAssetManager.Instantiate(Address.SELFISH_EFFECT_PREFAB).Task;
+            var selfishEffect = await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).Task;
             _selfishEffectController = selfishEffect.GetComponent<SelfishEffectController>();
             _selfishEffectController.Initialize(bottleController);
         }

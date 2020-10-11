@@ -45,7 +45,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void UpdateState()
         {
-            var stageData = GameDataBase.GetStage(_treeId, stageNumber);
+            var stageData = GameDataManager.GetStage(_treeId, stageNumber);
             if (stageData == null)
                 return;
 

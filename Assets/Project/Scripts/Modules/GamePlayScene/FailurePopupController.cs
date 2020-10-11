@@ -1,4 +1,4 @@
-﻿using Project.Scripts.Utils.Library;
+﻿using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene
@@ -19,7 +19,7 @@ namespace Project.Scripts.GamePlayScene
         public void BackButtonDown()
         {
             // StageSelectSceneに戻る
-            TreeLibrary.LoadStageSelectScene(GamePlayDirector.levelName);
+            LevelInfo.LoadStageSelectScene(GamePlayDirector.levelName);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Project.Scripts.GamePlayScene
             CreatedFinished = false;
 
             // ステージデータ読み込む
-            var stageData = GameDataBase.GetStage(treeId, stageNumber);
+            var stageData = GameDataManager.GetStage(treeId, stageNumber);
             if (stageData != null) {
                 // タイル生成
                 TileGenerator.Instance.CreateTiles(stageData.TileDatas);

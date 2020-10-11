@@ -1,4 +1,5 @@
-﻿using Project.Scripts.GamePlayScene.Gimmick;
+﻿using Project.Scripts.Common.Utils;
+using Project.Scripts.GamePlayScene.Gimmick;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
 using Unity.UNetWeaver;
@@ -35,15 +36,15 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
 
             // ボトルが死んだときのアニメーション
-            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_DEAD).Completed += (handle) => {
-                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.BOTTLE_DEAD);
+            AddressableAssetManager.LoadAsset<AnimationClip>(Constants.AnimationClipName.BOTTLE_DEAD).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, Constants.AnimationClipName.BOTTLE_DEAD);
             };
         }
 
         void IBottleGetDamagedHandler.OnGetDamaged(GameObject gimmick)
         {
             // 失敗演出
-            _bottle.GetComponent<Animation>()?.Play(AnimationClipName.BOTTLE_DEAD, PlayMode.StopAll);
+            _bottle.GetComponent<Animation>()?.Play(Constants.AnimationClipName.BOTTLE_DEAD, PlayMode.StopAll);
 
             // ボトルを死んだ状態にする
             _bottle.IsDead = true;
@@ -98,13 +99,13 @@ namespace Project.Scripts.GamePlayScene.Bottle
             }
 
             // ボトルが死んだときのアニメーション
-            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_DEAD).Completed += (handle) => {
-                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.BOTTLE_DEAD);
+            AddressableAssetManager.LoadAsset<AnimationClip>(Constants.AnimationClipName.BOTTLE_DEAD).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, Constants.AnimationClipName.BOTTLE_DEAD);
             };
 
             // ボトルがギミックに攻撃されたときのアニメーション
-            AddressableAssetManager.LoadAsset<AnimationClip>(AnimationClipName.BOTTLE_GET_ATTACKED).Completed += (handle) => {
-                _bottle.GetComponent<Animation>().AddClip(handle.Result, AnimationClipName.BOTTLE_GET_ATTACKED);
+            AddressableAssetManager.LoadAsset<AnimationClip>(Constants.AnimationClipName.BOTTLE_GET_ATTACKED).Completed += (handle) => {
+                _bottle.GetComponent<Animation>().AddClip(handle.Result, Constants.AnimationClipName.BOTTLE_GET_ATTACKED);
             };
         }
 
@@ -120,7 +121,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
             } else if (_currentLife == 0) {
                 // 失敗演出
-                anim.Play(AnimationClipName.BOTTLE_DEAD, PlayMode.StopAll);
+                anim.Play(Constants.AnimationClipName.BOTTLE_DEAD, PlayMode.StopAll);
 
                 // 自身が破壊された
                 _bottle.IsDead = true;
@@ -138,10 +139,10 @@ namespace Project.Scripts.GamePlayScene.Bottle
             } else if (_currentLife == 1) {
                 // ループさせて危機感っぽい
                 anim.wrapMode = WrapMode.Loop;
-                anim.Play(AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(Constants.AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
 
             } else {
-                anim.Play(AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
+                anim.Play(Constants.AnimationClipName.BOTTLE_GET_ATTACKED, PlayMode.StopAll);
             }
         }
     }

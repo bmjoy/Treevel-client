@@ -1,7 +1,7 @@
-﻿using Project.Scripts.GameDatas;
+﻿using Project.Scripts.Common.Utils;
+using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
 using SpriteGlow;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -36,7 +36,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             base.Initialize(bottleData);
 
             #if UNITY_EDITOR
-            name = BottleName.NORMAL_BOTTLE + Id.ToString();
+            name = Constants.BottleName.NORMAL_BOTTLE + Id.ToString();
             #endif
 
             // 目標とするタイルのスプライトを設定

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
@@ -62,7 +63,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         protected virtual void Awake()
         {
-            Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == SortingLayerName.BOTTLE, $"Sorting Layer Name should be {SortingLayerName.BOTTLE}");
+            Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE, $"Sorting Layer Name should be {Constants.SortingLayerName.BOTTLE}");
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         private void OnTriggerEnter2D(Collider2D other)
         {
             // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
-            if (!other.gameObject.CompareTag(TagName.GIMMICK)) return;
+            if (!other.gameObject.CompareTag(Constants.TagName.GIMMICK)) return;
             // 銃痕(hole)が出現したフレーム以外では衝突を考えない
             if (other.gameObject.transform.position.z < 0) return;
             // 無敵状態なら，衝突を考えない
@@ -124,12 +125,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
             var bottleWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
             var bottleHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
             // ボトルの初期設定
-            transform.localScale = new Vector2(BottleSize.WIDTH / bottleWidth, BottleSize.HEIGHT / bottleHeight);
+            transform.localScale = new Vector2(Constants.BottleSize.WIDTH / bottleWidth, Constants.BottleSize.HEIGHT / bottleHeight);
 
             if (GetComponent<Collider2D>() is BoxCollider2D) {
                 GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
             }
-            GetComponent<Renderer>().sortingLayerName = SortingLayerName.BOTTLE;
+            GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.BOTTLE;
             GetComponent<SpriteRenderer>().enabled = true;
         }
 

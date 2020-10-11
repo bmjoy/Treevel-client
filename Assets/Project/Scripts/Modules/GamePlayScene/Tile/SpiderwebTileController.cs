@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             base.Initialize(tileNum);
 
             #if UNITY_EDITOR
-            name = TileName.SPIDERWEB_TILE;
+            name = Constants.TileName.SPIDERWEB_TILE;
             #endif
         }
 

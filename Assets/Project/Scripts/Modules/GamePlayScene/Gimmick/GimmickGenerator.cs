@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
@@ -21,12 +22,12 @@ namespace Project.Scripts.GamePlayScene.Gimmick
 
         private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys = new Dictionary<EGimmickType, string>()
         {
-            {EGimmickType.Tornado, Address.TORNADO_PREFAB},
-            {EGimmickType.Meteorite, Address.METEORITE_PREFAB},
-            {EGimmickType.AimingMeteorite, Address.AIMING_METEORITE_PREFAB},
-            {EGimmickType.Thunder, Address.THUNDER_PREFAB},
-            {EGimmickType.SolarBeam, Address.SOLAR_BEAM_PREFAB},
-            {EGimmickType.GustWind, Address.GUST_WIND_PREFAB},
+            {EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB},
+            {EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB},
+            {EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB},
+            {EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB},
+            {EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB},
+            {EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB},
         };
 
         public void Initialize(List<GimmickData> gimmicks)

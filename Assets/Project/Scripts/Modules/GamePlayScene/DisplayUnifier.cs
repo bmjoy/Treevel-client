@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace Project.Scripts.GamePlayScene
         private IEnumerator UnifyDisplay()
         {
             // 想定するデバイスのアスペクト比
-            const float targetRatio = WindowSize.WIDTH / WindowSize.HEIGHT;
+            const float targetRatio = Constants.WindowSize.WIDTH / Constants.WindowSize.HEIGHT;
             // 実際のデバイスのアスペクト比
             var currentRatio = (float)Screen.width / Screen.height;
             // 許容するアスペクト比の誤差
@@ -48,7 +49,7 @@ namespace Project.Scripts.GamePlayScene
                 // 横長のデバイスの場合
                 var ratio = targetRatio / currentRatio;
                 var rectX = (1 - ratio) / 2f;
-                background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight);
+                background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth / ratio, Constants.WindowSize.HEIGHT / originalHeight);
                 // GameAreaPanelの大きさを変更
                 rect.anchorMin = new Vector2(rectX, 0);
                 rect.anchorMax = new Vector2(rectX + ratio, 1);
@@ -62,7 +63,7 @@ namespace Project.Scripts.GamePlayScene
                 // 縦長のデバイスの場合
                 var ratio = currentRatio / targetRatio;
                 var rectY = (1 - ratio) / 2f;
-                background.transform.localScale = new Vector2(WindowSize.WIDTH / originalWidth / ratio, WindowSize.HEIGHT / originalHeight / ratio);
+                background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth / ratio, Constants.WindowSize.HEIGHT / originalHeight / ratio);
                 rect.anchorMin = new Vector2(0, rectY);
                 rect.anchorMax = new Vector2(1, rectY + ratio);
                 yield return null;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils;
@@ -153,7 +154,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             }
 
             // 範囲外になったらオブジェクトを消す
-            while (Math.Abs(transform.position.x) < WindowSize.WIDTH && Math.Abs(transform.position.y) < WindowSize.HEIGHT)
+            while (Math.Abs(transform.position.x) < Constants.WindowSize.WIDTH && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
                 yield return new WaitForFixedUpdate();
 
             Destroy(gameObject);
@@ -236,20 +237,20 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             string addressKey;
             switch (direction) {
                 case EGimmickDirection.ToLeft:
-                    addressKey = Address.TURN_WARNING_LEFT_SPRITE;
+                    addressKey = Constants.Address.TURN_WARNING_LEFT_SPRITE;
                     break;
                 case EGimmickDirection.ToRight:
-                    addressKey = Address.TURN_WARNING_RIGHT_SPRITE;
+                    addressKey = Constants.Address.TURN_WARNING_RIGHT_SPRITE;
                     break;
                 case EGimmickDirection.ToUp:
-                    addressKey = Address.TURN_WARNING_UP_SPRITE;
+                    addressKey = Constants.Address.TURN_WARNING_UP_SPRITE;
                     break;
                 case EGimmickDirection.ToBottom:
-                    addressKey = Address.TURN_WARNING_BOTTOM_SPRITE;
+                    addressKey = Constants.Address.TURN_WARNING_BOTTOM_SPRITE;
                     break;
                 case EGimmickDirection.Random:
                 default:
-                    addressKey = Address.TORNADO_WARNING_SPRITE;
+                    addressKey = Constants.Address.TORNADO_WARNING_SPRITE;
                     break;
             }
 
@@ -312,16 +313,16 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             if (GimmickLibrary.IsHorizontal(direction)) {
                 var sign = direction == EGimmickDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
-                warningPosition = new Vector2(sign * WindowSize.WIDTH / 2,
-                    TileSize.HEIGHT * (StageSize.ROW / 2 + 1 - line));
+                warningPosition = new Vector2(sign * Constants.WindowSize.WIDTH / 2,
+                    Constants.TileSize.HEIGHT * (Constants.StageSize.ROW / 2 + 1 - line));
                 motionVector = direction == EGimmickDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
             } else if (GimmickLibrary.IsVertical(direction)) {
                 var sign = direction == EGimmickDirection.ToUp ? -1 : 1;
                 // x座標は同じ列のタイルと同じ値、y座標は画面端
-                warningPosition = new Vector2(TileSize.WIDTH * (line - (StageSize.COLUMN / 2 + 1)),
-                    sign * WindowSize.HEIGHT / 2);
+                warningPosition = new Vector2(Constants.TileSize.WIDTH * (line - (Constants.StageSize.COLUMN / 2 + 1)),
+                    sign * Constants.WindowSize.HEIGHT / 2);
                 motionVector = direction == EGimmickDirection.ToUp ?
                     Vector2.up :
                     Vector2.down;
@@ -329,7 +330,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 throw new NotImplementedException();
             }
             // 画面端から、警告の幅(or高さ)/2の分だけ画面内に移動させた座標に警告を配置
-            var warningOffset = WindowSize.WIDTH * _WARNING_OFFSET_RATIO;
+            var warningOffset = Constants.WindowSize.WIDTH * _WARNING_OFFSET_RATIO;
             warningPosition += Vector2.Scale(motionVector, new Vector2(warningOffset, warningOffset)) / 2;
             return warningPosition;
         }
@@ -370,13 +371,13 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             var tornadoSize = GetComponent<SpriteRenderer>().size;
             if (GimmickLibrary.IsHorizontal(direction)) {
                 // 目標列の一番右端のタイルのY座標を取得
-                var tileNum = line * StageSize.COLUMN;
+                var tileNum = line * Constants.StageSize.COLUMN;
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
 
                 if (direction == EGimmickDirection.ToLeft) {
-                    x = (WindowSize.WIDTH + tornadoSize.x) / 2;
+                    x = (Constants.WindowSize.WIDTH + tornadoSize.x) / 2;
                 } else {
-                    x = -(WindowSize.WIDTH + tornadoSize.x) / 2;
+                    x = -(Constants.WindowSize.WIDTH + tornadoSize.x) / 2;
                 }
             } else if (GimmickLibrary.IsVertical(direction)) {
                 // 目標行の一列目のタイルのx座標を取得
@@ -384,9 +385,9 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 x = BoardManager.Instance.GetTilePos(tileNum).x;
 
                 if (direction == EGimmickDirection.ToUp) {
-                    y = -(WindowSize.HEIGHT + tornadoSize.y) / 2;
+                    y = -(Constants.WindowSize.HEIGHT + tornadoSize.y) / 2;
                 } else {
-                    y = (WindowSize.HEIGHT + tornadoSize.y) / 2;
+                    y = (Constants.WindowSize.HEIGHT + tornadoSize.y) / 2;
                 }
             } else {
                 throw new NotImplementedException();

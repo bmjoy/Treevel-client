@@ -125,7 +125,7 @@ namespace Project.Scripts.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _stageStatuses = GameDataBase.GetAllStages()
+            _stageStatuses = GameDataManager.GetAllStages()
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToList();
 

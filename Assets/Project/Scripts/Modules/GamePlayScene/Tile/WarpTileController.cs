@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Attributes;
 using Project.Scripts.Utils.Definitions;
@@ -49,7 +50,7 @@ namespace Project.Scripts.GamePlayScene.Tile
         {
             base.Initialize(tileNum);
             #if UNITY_EDITOR
-            name = TileName.WARP_TILE;
+            name = Constants.TileName.WARP_TILE;
             #endif
             _pairTile = pairTile;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
@@ -67,7 +68,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _targetDirection = gimmickData.targetDirection;
             // 縦の時は、ピッタリ画面端の外から画面もう一端の外まで動かせるように、
             // 横の時は、ピッタリ画面端からスタートし、縦と同じ距離を移動する（アニメーションの秒数でスピードを決めているので）
-            _attackMoveDistance = WindowSize.HEIGHT + coreSprite.size.y * transform.localScale.y;
+            _attackMoveDistance = Constants.WindowSize.HEIGHT + coreSprite.size.y * transform.localScale.y;
             switch (_targetDirection) {
                 case EGimmickDirection.ToLeft:
                 case EGimmickDirection.ToRight: {
@@ -76,7 +77,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         var sign = _targetDirection == EGimmickDirection.ToLeft ? 1 : -1;
                         var centerTilePos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center);
                         var yPos = centerTilePos.y;
-                        var startX = -sign * (WindowSize.WIDTH + coreSprite.size.y * transform.localScale.y) * 0.5f;
+                        var startX = -sign * (Constants.WindowSize.WIDTH + coreSprite.size.y * transform.localScale.y) * 0.5f;
                         var endX = startX + sign * _attackMoveDistance;
 
                         _attackStartPos = new Vector2(startX, yPos);
@@ -186,24 +187,24 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         {
             switch (_targetDirection) {
                 case EGimmickDirection.ToLeft: {
-                        var start = (_targetLine - 1) * StageSize.COLUMN + 1;
-                        return Enumerable.Range(start, StageSize.COLUMN).Reverse().ToArray();
+                        var start = (_targetLine - 1) * Constants.StageSize.COLUMN + 1;
+                        return Enumerable.Range(start, Constants.StageSize.COLUMN).Reverse().ToArray();
                     }
                 case EGimmickDirection.ToRight: {
-                        var start = (_targetLine - 1) * StageSize.COLUMN + 1;
-                        return Enumerable.Range(start, StageSize.COLUMN).ToArray();
+                        var start = (_targetLine - 1) * Constants.StageSize.COLUMN + 1;
+                        return Enumerable.Range(start, Constants.StageSize.COLUMN).ToArray();
                     }
                 case EGimmickDirection.ToUp: {
-                        var ret = new int[StageSize.ROW];
-                        for (var i = 0 ; i < StageSize.ROW ; ++i) {
-                            ret[i] = _targetLine + StageSize.COLUMN * i;
+                        var ret = new int[Constants.StageSize.ROW];
+                        for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
+                            ret[i] = _targetLine + Constants.StageSize.COLUMN * i;
                         }
                         return ret.Reverse().ToArray();
                     }
                 case EGimmickDirection.ToBottom: {
-                        var ret = new int[StageSize.ROW];
-                        for (var i = 0 ; i < StageSize.ROW ; ++i) {
-                            ret[i] = _targetLine + StageSize.COLUMN * i;
+                        var ret = new int[Constants.StageSize.ROW];
+                        for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
+                            ret[i] = _targetLine + Constants.StageSize.COLUMN * i;
                         }
                         return ret;
                     }

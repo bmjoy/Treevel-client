@@ -1,4 +1,4 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Common.Utils;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
@@ -8,7 +8,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             base.Awake();
             #if UNITY_EDITOR
-            name = BottleName.STATIC_DUMMY_BOTTLE;
+            name = Constants.BottleName.STATIC_DUMMY_BOTTLE;
             #endif
         }
     }

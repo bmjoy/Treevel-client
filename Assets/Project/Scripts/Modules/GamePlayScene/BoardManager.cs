@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.GamePlayScene.Tile;
 using Project.Scripts.MenuSelectScene;
@@ -14,7 +15,7 @@ namespace Project.Scripts.GamePlayScene
         /// <summary>
         /// タイル、ボトルとそれぞれのワールド座標を保持する square の二次元配列
         /// </summary>
-        private readonly Square[,] _squares = new Square[StageSize.COLUMN, StageSize.ROW];
+        private readonly Square[,] _squares = new Square[Constants.StageSize.COLUMN, Constants.StageSize.ROW];
 
         /// <summary>
         /// key: ボトル (GameObject)，value: ボトルの現在位置 (Vector2Int)
@@ -24,11 +25,11 @@ namespace Project.Scripts.GamePlayScene
         private void Awake()
         {
             // `squares` の初期化
-            for (var col = 0; col < StageSize.COLUMN; ++col) {
-                for (var row = 0; row < StageSize.ROW; ++row) {
+            for (var col = 0; col < Constants.StageSize.COLUMN; ++col) {
+                for (var row = 0; row < Constants.StageSize.ROW; ++row) {
                     // ワールド座標を求める
-                    var x = TileSize.WIDTH * (col - StageSize.COLUMN / 2);
-                    var y = TileSize.HEIGHT * (StageSize.ROW / 2 - row);
+                    var x = Constants.TileSize.WIDTH * (col - Constants.StageSize.COLUMN / 2);
+                    var y = Constants.TileSize.HEIGHT * (Constants.StageSize.ROW / 2 - row);
 
                     _squares[col, row] = new Square(x, y);
                 }
@@ -104,7 +105,7 @@ namespace Project.Scripts.GamePlayScene
             List<GameObject> ret = new List<GameObject>();
 
             var r = (int)row - 1;
-            for (var c = 0 ; c < StageSize.COLUMN ; c++) {
+            for (var c = 0 ; c < Constants.StageSize.COLUMN ; c++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
                 }
@@ -121,7 +122,7 @@ namespace Project.Scripts.GamePlayScene
             List<GameObject> ret = new List<GameObject>();
 
             var c = (int)column - 1;
-            for (var r = 0 ; r < StageSize.ROW ; r++) {
+            for (var r = 0 ; r < Constants.StageSize.ROW ; r++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
                 }
@@ -165,7 +166,7 @@ namespace Project.Scripts.GamePlayScene
         /// <returns> タイル番号 </returns>
         private int? XYToTileNum(int x, int y)
         {
-            if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return null;
+            if (x < 0 || Constants.StageSize.COLUMN - 1 < x || y < 0 || Constants.StageSize.ROW - 1 < y) return null;
 
             return (y * _squares.GetLength(0)) + (x + 1);
         }
@@ -193,7 +194,7 @@ namespace Project.Scripts.GamePlayScene
         /// <returns></returns>
         public bool IsEmptyTile(int x, int y)
         {
-            if (x < 0 || StageSize.COLUMN - 1 < x || y < 0 || StageSize.ROW - 1 < y) return false;
+            if (x < 0 || Constants.StageSize.COLUMN - 1 < x || y < 0 || Constants.StageSize.ROW - 1 < y) return false;
 
             // ボトルが存在するかどうか
             return _squares[x, y].bottle == null;

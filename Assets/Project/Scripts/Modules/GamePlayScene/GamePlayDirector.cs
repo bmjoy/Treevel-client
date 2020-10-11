@@ -11,6 +11,7 @@ using Project.Scripts.Utils.Library;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using UnityEngine.Video;
 using Project.Scripts.Utils.Attributes;
@@ -248,7 +249,7 @@ namespace Project.Scripts.GamePlayScene
                 DestroyImmediate(bottle.gameObject);
             }
 
-            var gimmicks = GameObject.FindGameObjectsWithTag(TagName.GIMMICK);
+            var gimmicks = GameObject.FindGameObjectsWithTag(Constants.TagName.GIMMICK);
             foreach (var gimmick in gimmicks) {
                 // 銃弾の削除
                 DestroyImmediate(gimmick);
@@ -272,7 +273,7 @@ namespace Project.Scripts.GamePlayScene
         /// </returns>
         private bool ShouldShowTutorial()
         {
-            var stageData = GameDataBase.GetStage(treeId, stageNumber);
+            var stageData = GameDataManager.GetStage(treeId, stageNumber);
             if (stageData.Tutorial.type == ETutorialType.None)
                 return false;
 
@@ -474,7 +475,7 @@ namespace Project.Scripts.GamePlayScene
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
                     // StageSelectSceneに戻る
-                    TreeLibrary.LoadStageSelectScene(levelName);
+                    LevelInfo.LoadStageSelectScene(levelName);
                 } else {
                     // 失敗SE
                     SoundManager.Instance.PlaySE(ESEKey.SE_Failure);
@@ -504,7 +505,7 @@ namespace Project.Scripts.GamePlayScene
 
             public override void OnEnter(State from = null)
             {
-                var stageData = GameDataBase.GetStage(treeId, stageNumber);
+                var stageData = GameDataManager.GetStage(treeId, stageNumber);
                 var tutorialData = stageData.Tutorial;
                 if (tutorialData.type == ETutorialType.None)
                     return;

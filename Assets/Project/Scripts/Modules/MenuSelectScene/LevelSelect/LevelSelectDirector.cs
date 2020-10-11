@@ -2,6 +2,7 @@
 using Project.Scripts.Utils.Patterns;
 using System.Linq;
 using System.Collections.Generic;
+using Project.Scripts.Common.Utils;
 using UnityEngine;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
@@ -20,8 +21,8 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         private void Awake()
         {
-            _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList<LevelTreeController>();
-            _roads = GameObject.FindGameObjectsWithTag(TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
+            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList<LevelTreeController>();
+            _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
         }
 
         /// <summary>

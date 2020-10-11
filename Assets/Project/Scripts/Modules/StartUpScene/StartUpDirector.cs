@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.MenuSelectScene;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
@@ -44,7 +45,7 @@ namespace Project.Scripts.StartUpScene
             AddressableAssetManager.Initialize().Completed += OnAASInitializeCompleted;
 
             // Database Initialize
-            GameDataBase.Initialize();
+            GameDataManager.Initialize();
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace Project.Scripts.StartUpScene
         /// </summary>
         private void OnAASInitializeCompleted(AsyncOperationHandle handle)
         {
-            var menuSelectSceneHandler = AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive);
+            var menuSelectSceneHandler = AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive);
             menuSelectSceneHandler.Completed += async(handle2) => {
                 // TODO remove before merged
                 await Task.Delay(1000);
@@ -65,7 +66,7 @@ namespace Project.Scripts.StartUpScene
         public void OnStartButtonClicked()
         {
             // Unload Startup Scene
-            SceneManager.UnloadSceneAsync(SceneName.START_UP_SCENE);
+            SceneManager.UnloadSceneAsync(Constants.SceneName.START_UP_SCENE);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library.Extension;
 using TouchScript.Gestures;
 using UnityEngine;
@@ -46,7 +46,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         {
             base.Awake();
             #if UNITY_EDITOR
-            name = BottleName.DYNAMIC_DUMMY_BOTTLE;
+            name = Constants.BottleName.DYNAMIC_DUMMY_BOTTLE;
             #endif
             // FlickGesture の設定
             _flickGesture = GetComponent<FlickGesture>();
@@ -101,7 +101,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
             // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
-            var directionInt = Vector2Int.RoundToInt(ExtensionVector2.Normalize(gesture.ScreenFlickVector));
+            var directionInt = Vector2Int.RoundToInt(Vector2Extension.Normalize(gesture.ScreenFlickVector));
 
             // ボトルのフリック情報を伝える
             if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;

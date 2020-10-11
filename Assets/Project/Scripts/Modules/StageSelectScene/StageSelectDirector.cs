@@ -6,6 +6,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using SnapScroll;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using UnityEngine;
 
 namespace Project.Scripts.StageSelectScene
@@ -71,9 +72,9 @@ namespace Project.Scripts.StageSelectScene
 
         private void Awake()
         {
-            _trees = GameObject.FindGameObjectsWithTag(TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
-            BranchController.branchStates = MyPlayerPrefs.GetDictionary<string, bool>(PlayerPrefsKeys.BRANCH_STATE);
-            _branches = GameObject.FindGameObjectsWithTag(TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
+            BranchController.branchStates = PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
+            _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
             _leftButton = GameObject.Find("LeftButton");
             _rightButton = GameObject.Find("RightButton");
@@ -83,11 +84,11 @@ namespace Project.Scripts.StageSelectScene
             // ページの最大値を設定
             _snapScrollView.MaxPage = LevelInfo.TREE_NUM[levelName] - 1;
             // ページの横幅の設定
-            _snapScrollView.PageSize = ScaledCanvasSize.SIZE_DELTA.x;
+            _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
             // ページ遷移時のイベント登録
             _snapScrollView.OnPageChanged += () => {
                 // 木IDを更新
-                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / TreeInfo.MAX_TREE_NUM_IN_SEASON));
+                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON));
 
                 // ボタン表示/非表示
                 _leftButton.SetActive(_snapScrollView.Page != 0);
@@ -95,7 +96,7 @@ namespace Project.Scripts.StageSelectScene
             };
 
             // ページの設定
-            _snapScrollView.Page = (int)treeId % TreeInfo.MAX_TREE_NUM_IN_SEASON - 1;
+            _snapScrollView.Page = (int)treeId % Constants.MAX_TREE_NUM_IN_SEASON - 1;
             _snapScrollView.RefreshPage(false);
 
             // UIの設定
@@ -128,7 +129,7 @@ namespace Project.Scripts.StageSelectScene
         private void OnDisable()
         {
             _branches.ForEach(branch => branch.SaveState());
-            MyPlayerPrefs.SetDictionary(PlayerPrefsKeys.BRANCH_STATE, BranchController.branchStates);
+            PlayerPrefsUtility.SetDictionary(Constants.PlayerPrefsKeys.BRANCH_STATE, BranchController.branchStates);
         }
 
         /// <summary>
@@ -180,7 +181,7 @@ namespace Project.Scripts.StageSelectScene
             AddressableAssetManager.LoadStageDependencies(treeId, stageNumber);
 
             // シーン遷移
-            AddressableAssetManager.LoadScene(SceneName.GAME_PLAY_SCENE);
+            AddressableAssetManager.LoadScene(Constants.SceneName.GAME_PLAY_SCENE);
         }
 
         /// <summary>
@@ -206,7 +207,7 @@ namespace Project.Scripts.StageSelectScene
         /// </summary>
         public void BackButtonDown()
         {
-            AddressableAssetManager.LoadScene(SceneName.MENU_SELECT_SCENE);
+            AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils.Definitions;
 using UnityEngine;
@@ -59,10 +60,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
                         var sign = direction == EGimmickDirection.ToLeft ? 1 : -1;
                         // 中央から1.5タイルサイズ＋1.5太陽の幅分ずらす
-                        var offsetTileCount = StageSize.COLUMN / 2.0f;
+                        var offsetTileCount = Constants.StageSize.COLUMN / 2.0f;
                         // 0.5個分太陽の幅をずらす
                         var offsetSunCount = 0.5f * _sunObject.transform.localScale.x;
-                        var offset = new Vector2(TileSize.WIDTH * offsetTileCount + sunRenderer.size.x * offsetSunCount, 0);
+                        var offset = new Vector2(Constants.TileSize.WIDTH * offsetTileCount + sunRenderer.size.x * offsetSunCount, 0);
                         _sunObject.transform.position = initialPos + sign * offset;
                         // ToRightの場合はx反転
                         _sunObject.transform.localScale = Vector3.Scale(_sunObject.transform.localScale, new Vector3(sign, 1, 1));
@@ -83,10 +84,10 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                         var sign = direction == EGimmickDirection.ToBottom ? 1 : -1;
 
                         // 中央からタイル2.5個分ずらす
-                        var offsetTileCount = StageSize.ROW / 2.0f;
+                        var offsetTileCount = Constants.StageSize.ROW / 2.0f;
                         // 0.5個分太陽の高さをずらす
                         var offsetSunCount = 0.5f * _sunObject.transform.localScale.y;
-                        var offset = new Vector2(0, TileSize.HEIGHT * offsetTileCount + sunRenderer.size.y * offsetSunCount);
+                        var offset = new Vector2(0, Constants.TileSize.HEIGHT * offsetTileCount + sunRenderer.size.y * offsetSunCount);
                         _sunObject.transform.position = initialPos + sign * offset;
                         sunRenderer.enabled = true;
 

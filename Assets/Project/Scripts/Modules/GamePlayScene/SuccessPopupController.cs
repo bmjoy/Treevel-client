@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Utils.Library;
+﻿using Project.Scripts.Utils.Definitions;
+using Project.Scripts.Utils.Library;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -12,7 +13,7 @@ namespace Project.Scripts.GamePlayScene
         public void NextButtonDown()
         {
             // StageSelectSceneに戻る
-            TreeLibrary.LoadStageSelectScene(GamePlayDirector.levelName);
+            LevelInfo.LoadStageSelectScene(GamePlayDirector.levelName);
         }
 
         /// <summary>

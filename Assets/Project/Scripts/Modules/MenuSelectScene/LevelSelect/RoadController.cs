@@ -3,6 +3,7 @@ using Project.Scripts.Utils.PlayerPrefsUtils;
 using System;
 using System.Collections;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using UnityEngine;
 
 namespace Project.Scripts.MenuSelectScene.LevelSelect
@@ -25,7 +26,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         protected override void SetSaveKey()
         {
-            saveKey = $"{startObject.GetComponent<LevelTreeController>().treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
+            saveKey = $"{startObject.GetComponent<LevelTreeController>().treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
         }
 
         public void Reset()

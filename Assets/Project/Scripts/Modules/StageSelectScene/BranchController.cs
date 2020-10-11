@@ -3,6 +3,7 @@ using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using UnityEngine;
 
 namespace Project.Scripts.StageSelectScene
@@ -26,12 +27,12 @@ namespace Project.Scripts.StageSelectScene
 
         protected override void SetSaveKey()
         {
-            saveKey = $"{_treeId}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
+            saveKey = $"{_treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
         public static void Reset()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.BRANCH_STATE);
+            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
 using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
 
 namespace Project.Scripts.GamePlayScene.Bottle
 {
@@ -10,11 +10,11 @@ namespace Project.Scripts.GamePlayScene.Bottle
     {
         private static Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>()
         {
-            {EBottleType.Dynamic, Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
-            {EBottleType.Static, Address.STATIC_DUMMY_BOTTLE_PREFAB},
-            {EBottleType.Normal, Address.NORMAL_BOTTLE_PREFAB},
-            {EBottleType.Life, Address.LIFE_BOTTLE_PREFAB},
-            {EBottleType.AttackableDummy, Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
+            {EBottleType.Dynamic, Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
+            {EBottleType.Static, Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB},
+            {EBottleType.Normal, Constants.Address.NORMAL_BOTTLE_PREFAB},
+            {EBottleType.Life, Constants.Address.LIFE_BOTTLE_PREFAB},
+            {EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
         };
 
         public static void CreateBottles(List<BottleData> bottleDatas)

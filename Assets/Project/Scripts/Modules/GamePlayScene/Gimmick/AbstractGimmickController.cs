@@ -10,7 +10,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
         /// <summary>
         /// 警告の表示秒数
         /// </summary>
-        [SerializeField] protected float _warningDisplayTime = GimmickWarningParameter.WARNING_DISPLAYED_TIME;
+        [SerializeField] protected float _warningDisplayTime = 1.0f;
 
         public EGimmickType GimmickType
         {

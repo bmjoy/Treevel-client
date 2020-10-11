@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Patterns;
 using SnapScroll;
@@ -56,7 +57,7 @@ namespace Project.Scripts.MenuSelectScene.Record
             // ページの最大値を設定
             _snapScrollView.MaxPage = 2;
             // ページの横幅の設定
-            _snapScrollView.PageSize = ScaledCanvasSize.SIZE_DELTA.x;
+            _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
 
             // 各種グラフなどを全て描画する
             // Draw();

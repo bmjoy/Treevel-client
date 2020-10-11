@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.GamePlayScene.Bottle;
 using Project.Scripts.Utils.Definitions;
@@ -146,7 +147,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
                 // 衝突したオブジェクトは赤色に変える
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
-                gameObject.GetComponent<Renderer>().sortingLayerName = SortingLayerName.GIMMICK;
+                gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
 
                 // 隕石を衝突したボトルに追従させる
                 gameObject.transform.SetParent(other.transform);

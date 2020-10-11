@@ -1,5 +1,5 @@
-﻿using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.Utils.Definitions;
+﻿using Project.Scripts.Common.Utils;
+using Project.Scripts.GamePlayScene.Bottle;
 using UnityEngine;
 
 namespace Project.Scripts.GamePlayScene.Tile
@@ -13,7 +13,7 @@ namespace Project.Scripts.GamePlayScene.Tile
             base.Initialize(tileNum);
 
             #if UNITY_EDITOR
-            name = TileName.ICE_TILE;
+            name = Constants.TileName.ICE_TILE;
             #endif
 
             bottleHandler = new IceTileBottleHandler(TileNumber);

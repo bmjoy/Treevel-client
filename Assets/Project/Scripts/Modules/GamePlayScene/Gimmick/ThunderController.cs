@@ -3,6 +3,7 @@ using UnityEngine;
 using Project.Scripts.Utils.Definitions;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.Utils.PlayerPrefsUtils;
 using Project.Scripts.GameDatas;
 using Project.Scripts.Utils;
@@ -48,7 +49,7 @@ namespace Project.Scripts.GamePlayScene.Gimmick
             _rigidBody = GetComponent<Rigidbody2D>();
 
             // 雲をタイルの少し上に移動する
-            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * TileSize.HEIGHT, 0);
+            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * Constants.TileSize.HEIGHT, 0);
         }
 
         public override void Initialize(GimmickData gimmickData)

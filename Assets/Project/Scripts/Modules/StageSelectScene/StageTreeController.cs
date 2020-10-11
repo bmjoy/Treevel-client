@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.MenuSelectScene.LevelSelect;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.PlayerPrefsUtils;
@@ -42,7 +43,7 @@ namespace Project.Scripts.StageSelectScene
         public override void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
-            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
+            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
 
             // 非解放状態の時、自身を制約する木の解放状態に応じて自身の解放状態を更新する
             if (state == ETreeState.Unreleased) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Project.Scripts.Common.Utils;
 using Project.Scripts.StageSelectScene;
 using Project.Scripts.Utils.Definitions;
 using Project.Scripts.Utils.Library;
@@ -25,7 +26,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         public override void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
-            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
+            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased:
@@ -52,7 +53,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
 
         public void Reset()
         {
-            PlayerPrefs.DeleteKey(PlayerPrefsKeys.TREE + treeId.ToString());
+            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.TREE + treeId.ToString());
         }
 
         protected override void ReflectUnreleasedState()
@@ -91,7 +92,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         {
             StageSelectDirector.levelName = _levelName;
             StageSelectDirector.treeId = treeId;
-            TreeLibrary.LoadStageSelectScene(_levelName);
+            LevelInfo.LoadStageSelectScene(_levelName);
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace Project.Scripts.MenuSelectScene.LevelSelect
         /// </summary>
         public void SaveState()
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.TREE + treeId.ToString(), Convert.ToInt32(state));
+            PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(), Convert.ToInt32(state));
         }
     }
 }
