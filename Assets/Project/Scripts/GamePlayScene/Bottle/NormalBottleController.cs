@@ -25,8 +25,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
-            OnEnterTile += HandleOnEnterTile;
-            OnExitTile += HandleOnExitTile;
+            onEnterTile += HandleOnEnterTile;
+            onExitTile += HandleOnExitTile;
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace Project.Scripts.GamePlayScene.Bottle
 
         private void OnDestroy()
         {
-            OnEnterTile -= HandleOnEnterTile;
-            OnExitTile -= HandleOnExitTile;
+            onEnterTile -= HandleOnEnterTile;
+            onExitTile -= HandleOnExitTile;
         }
 
         private void HandleOnEnterTile(GameObject targetTile)

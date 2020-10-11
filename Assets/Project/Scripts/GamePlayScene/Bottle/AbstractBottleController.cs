@@ -30,12 +30,12 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected event Action<GameObject> OnEnterTile;
+        protected event Action<GameObject> onEnterTile;
 
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
-        protected event Action<GameObject> OnExitTile;
+        protected event Action<GameObject> onExitTile;
 
         /// <summary>
         /// 攻撃対象かどうか
@@ -128,7 +128,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="targetTile">目標の出たタイル</param>
         public void TriggerOnEnterTile(GameObject targetTile)
         {
-            OnEnterTile?.Invoke(targetTile);
+            onEnterTile?.Invoke(targetTile);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Project.Scripts.GamePlayScene.Bottle
         /// <param name="targetTile">出たタイル</param>
         public void TriggerOnExitTile(GameObject targetTile)
         {
-            OnExitTile?.Invoke(targetTile);
+            onExitTile?.Invoke(targetTile);
         }
     }
 }
