@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.Patterns.StateMachine
+namespace Treevel.Common.Patterns.StateMachine
 {
     public class StateMachine
     {

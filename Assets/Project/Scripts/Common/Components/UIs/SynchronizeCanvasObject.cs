@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Components.UIs
 {
     [DefaultExecutionOrder(1)]
     public class SynchronizeCanvasObject : MonoBehaviour

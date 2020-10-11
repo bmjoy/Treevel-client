@@ -1,4 +1,4 @@
-﻿using Project.Scripts.Utils.Attributes;
+﻿using Treevel.Common.Attributes;
 using UnityEditor;
 using UnityEngine;
 

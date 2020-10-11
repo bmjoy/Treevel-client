@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Project.Scripts.GamePlayScene.Gimmick
+namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     public class GimmickGenerator : SingletonObject<GimmickGenerator>
     {

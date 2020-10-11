@@ -1,7 +1,6 @@
-﻿using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Tile
+namespace Treevel.Modules.GamePlayScene.Tile
 {
     public abstract class AbstractTileController : MonoBehaviour
     {

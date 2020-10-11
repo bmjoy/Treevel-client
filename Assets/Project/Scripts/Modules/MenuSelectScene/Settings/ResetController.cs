@@ -1,11 +1,11 @@
-﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Treevel.Common.Entities;
+using Treevel.Common.Utils;
+using Treevel.Modules.MenuSelectScene.LevelSelect;
+using Treevel.Modules.StageSelectScene;
 using UnityEngine;
 using UnityEngine.UI;
-using Project.Scripts.MenuSelectScene.LevelSelect;
-using Project.Scripts.StageSelectScene;
 
-namespace Project.Scripts.MenuSelectScene.Settings
+namespace Treevel.Modules.MenuSelectScene.Settings
 {
     public class ResetController : MonoBehaviour
     {

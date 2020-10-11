@@ -1,4 +1,4 @@
-﻿using Project.Scripts.StageSelectScene;
+﻿using Treevel.Modules.StageSelectScene;
 using UnityEditor;
 
 namespace Project.Scripts.Editor

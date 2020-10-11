@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.Attributes
+namespace Treevel.Common.Attributes
 {
     /// <summary>
     /// Mark a method with an integer argument with this to display the argument as an enum popup in the UnityEvent

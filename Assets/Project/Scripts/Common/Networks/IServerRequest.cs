@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Project.Scripts.Utils.Library.Extension;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Project.Scripts.Networks
+namespace Treevel.Common.Networks
 {
     public interface IServerRequest
     {

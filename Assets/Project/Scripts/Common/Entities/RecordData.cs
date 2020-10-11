@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
+using Treevel.Common.Managers;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.PlayerPrefsUtils
+namespace Treevel.Common.Entities
 {
     public class RecordData : SingletonObject<RecordData>
     {

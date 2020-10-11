@@ -1,7 +1,6 @@
-﻿using SpriteGlow;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     public interface IBottleEnterTileHandler
     {

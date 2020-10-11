@@ -1,7 +1,7 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using Treevel.Common.Entities;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene
+namespace Treevel.Modules.GamePlayScene
 {
     public class PauseWindow : MonoBehaviour
     {

@@ -1,12 +1,12 @@
-﻿using Project.Scripts.Common.Utils;
-using Project.Scripts.GameDatas;
-using Project.Scripts.GamePlayScene.Tile;
-using Project.Scripts.Utils;
-using SpriteGlow;
+﻿using SpriteGlow;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Tile;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]

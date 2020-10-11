@@ -1,9 +1,9 @@
-﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.TextUtils;
+﻿using Treevel.Common.Entities;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.UIComponents
+namespace Treevel.Common.Components.UIs
 {
     /// <summary>
     /// 多言語に対応するテキスト

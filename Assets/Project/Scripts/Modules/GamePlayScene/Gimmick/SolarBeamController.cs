@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Gimmick
+namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(Animator))]
     public class SolarBeamController : AbstractGimmickController

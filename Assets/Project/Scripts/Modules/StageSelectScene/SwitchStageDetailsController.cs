@@ -1,10 +1,8 @@
-﻿using Project.Scripts.MenuSelectScene.Settings;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Treevel.Common.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.StageSelectScene
+namespace Treevel.Modules.StageSelectScene
 {
     public class SwitchStageDetailsController : MonoBehaviour
     {

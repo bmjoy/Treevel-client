@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.Utils.Attributes
+namespace Treevel.Common.Attributes
 {
     /// <summary>
     /// NonEditableDrawer.cs で実装

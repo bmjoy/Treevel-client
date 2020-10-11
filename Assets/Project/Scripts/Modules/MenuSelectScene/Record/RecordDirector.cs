@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
 using SnapScroll;
+using Treevel.Common.Entities;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.MenuSelectScene.Record
+namespace Treevel.Modules.MenuSelectScene.Record
 {
     public class RecordDirector : SingletonObject<RecordDirector>
     {

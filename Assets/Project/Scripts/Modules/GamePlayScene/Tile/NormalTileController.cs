@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Tile
+namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class NormalTileController : AbstractTileController
     {

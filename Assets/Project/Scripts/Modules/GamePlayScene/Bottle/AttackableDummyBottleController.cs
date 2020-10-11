@@ -1,13 +1,14 @@
-﻿using Project.Scripts.Common.Utils;
+﻿using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Utils;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     /// <summary>
     /// ライフ付き、成功判定なし、フリック可能なボトル
     /// </summary>
     public class AttackableDummyBottleController : DynamicBottleController
     {
-        public override void Initialize(GameDatas.BottleData bottleData)
+        public override void Initialize(BottleData bottleData)
         {
             base.Initialize(bottleData);
 

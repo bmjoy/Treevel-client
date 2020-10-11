@@ -1,6 +1,6 @@
-﻿using Project.Scripts.Common.Utils;
+﻿using Treevel.Common.Utils;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     public class StaticBottleController : AbstractBottleController
     {

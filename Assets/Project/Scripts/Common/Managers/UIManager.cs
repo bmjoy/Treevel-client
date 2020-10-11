@@ -1,10 +1,10 @@
-using Project.Scripts.UIComponents;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
+using Treevel.Common.Components.UIs;
+using Treevel.Common.Entities;
+using Treevel.Common.Patterns.Singleton;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Project.Scripts.MenuSelectScene
+namespace Treevel.Common.Managers
 {
     /// <summary>
     /// 全体ゲームに出現するUI（プログレスバー、メッセージダイアログ等）

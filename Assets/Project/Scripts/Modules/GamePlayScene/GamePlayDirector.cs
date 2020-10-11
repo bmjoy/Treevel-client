@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
-using Project.Scripts.Utils.Patterns.StateMachine;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using Project.Scripts.Utils.Library;
+using System.Reflection;
+using Treevel.Common.Attributes;
+using Treevel.Common.Components;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Patterns.StateMachine;
+using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Bottle;
+using Treevel.Modules.GamePlayScene.Gimmick;
+using Treevel.Modules.GamePlayScene.Tile;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Reflection;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GameDatas;
 using UnityEngine.Video;
-using Project.Scripts.Utils.Attributes;
-using Project.Scripts.GamePlayScene.Gimmick;
-using Project.Scripts.GamePlayScene.Tile;
 
-namespace Project.Scripts.GamePlayScene
+namespace Treevel.Modules.GamePlayScene
 {
     public class GamePlayDirector : SingletonObject<GamePlayDirector>
     {

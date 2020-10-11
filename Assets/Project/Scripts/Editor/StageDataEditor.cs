@@ -1,10 +1,10 @@
-﻿using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Project.Scripts.Common.Utils;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Utils;
 using UnityEditor;
 using UnityEngine;
 

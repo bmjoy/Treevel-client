@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Components
 {
     public class CustomTimer : MonoBehaviour
     {

@@ -1,11 +1,10 @@
-﻿using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using System;
+﻿using System;
+using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.StageSelectScene
+namespace Treevel.Modules.StageSelectScene
 {
     [RequireComponent(typeof(Button))]
     public class StageController : MonoBehaviour

@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using TouchScript.Gestures.TransformGestures;
+using Treevel.Common.Entities;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Project.Scripts.UIComponents;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using Project.Scripts.MenuSelectScene.Settings;
 
-namespace Project.Scripts.MenuSelectScene
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     public class SavableScrollRect : ScrollRect
     {

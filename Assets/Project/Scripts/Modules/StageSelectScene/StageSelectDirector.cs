@@ -1,15 +1,14 @@
-﻿using Project.Scripts.GamePlayScene;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using SnapScroll;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.Common.Utils;
+using SnapScroll;
+using Treevel.Common.Entities;
+using Treevel.Common.Managers;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene;
 using UnityEngine;
 
-namespace Project.Scripts.StageSelectScene
+namespace Treevel.Modules.StageSelectScene
 {
     public class StageSelectDirector : SingletonObject<StageSelectDirector>
     {

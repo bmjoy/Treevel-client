@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.Utils.Definitions
+namespace Treevel.Common.Entities
 {
     /// <summary>
     /// ギミックの移動方向

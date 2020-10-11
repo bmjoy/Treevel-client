@@ -1,9 +1,8 @@
-﻿using Project.Scripts.Common.Utils;
+﻿using Treevel.Common.Components.UIs;
+using Treevel.Common.Entities;
 using UnityEngine;
-using Project.Scripts.Utils.TextUtils;
-using Project.Scripts.UIComponents;
 
-namespace Project.Scripts.Utils.Definitions
+namespace Treevel.Common.Utils
 {
     public static class Default
     {

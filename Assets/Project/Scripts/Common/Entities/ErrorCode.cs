@@ -1,4 +1,4 @@
-﻿namespace Project.Scripts.Utils.Definitions
+﻿namespace Treevel.Common.Entities
 {
     /// <summary>
     /// エラー発生時に追跡し易くするため、各種エラーコードを定義し、<see cref="ErrorMessageBox">からユーザに提示する。

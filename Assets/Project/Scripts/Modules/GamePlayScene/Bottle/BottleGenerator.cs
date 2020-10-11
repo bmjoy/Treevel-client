@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     public static class BottleGenerator
     {

@@ -1,6 +1,6 @@
-﻿using Project.Scripts.Utils.Definitions;
+﻿using Treevel.Common.Entities;
 
-namespace Project.Scripts.MenuSelectScene.LevelSelect
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     /// <summary>
     /// 木のクリア条件を決める

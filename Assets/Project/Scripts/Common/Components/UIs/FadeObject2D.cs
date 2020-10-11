@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Project.Scripts.UIComponents
+namespace Treevel.Common.Components.UIs
 {
     public class FadeObject2D : MonoBehaviour
     {

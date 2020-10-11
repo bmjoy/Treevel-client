@@ -1,4 +1,4 @@
-namespace Project.Scripts.Common.Utils
+namespace Treevel.Common.Entities
 {
     /// <summary>
     /// 盤面の四方向

@@ -1,9 +1,9 @@
-using Project.Scripts.Utils.TextUtils;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+using Treevel.Common.Entities;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Project.Scripts.MenuSelectScene.Settings
+namespace Treevel.Modules.MenuSelectScene.Settings
 {
     /// <summary>
     /// ボタンで言語選択を制御するためのオブジェクトクラス

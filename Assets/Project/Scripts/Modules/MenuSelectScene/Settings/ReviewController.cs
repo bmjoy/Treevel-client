@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-#if UNITY_IOS
 using UnityEngine.iOS;
+#if UNITY_IOS
+
 #endif
 
-namespace Project.Scripts.MenuSelectScene.Settings
+namespace Treevel.Modules.MenuSelectScene.Settings
 {
     public class ReviewController : MonoBehaviour
     {

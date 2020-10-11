@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Utils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using Project.Scripts.MenuSelectScene;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
+using UnityEngine.SceneManagement;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Managers
 {
     public static class AddressableAssetManager
     {
@@ -171,10 +170,10 @@ namespace Project.Scripts.Utils
                         LoadAsset<GameObject>(Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB);
                         LoadAsset<Sprite>(Constants.Address.STATIC_DUMMY_BOTTLE_SPRITE);
                         break;
-                    case Definitions.EBottleType.Normal:
+                    case EBottleType.Normal:
                         LoadAsset<GameObject>(Constants.Address.NORMAL_BOTTLE_PREFAB);
                         break;
-                    case Definitions.EBottleType.Life:
+                    case EBottleType.Life:
                         LoadAsset<GameObject>(Constants.Address.LIFE_BOTTLE_PREFAB);
                         break;
                     case EBottleType.AttackableDummy:

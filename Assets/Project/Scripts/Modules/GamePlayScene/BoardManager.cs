@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.GamePlayScene.Tile;
-using Project.Scripts.MenuSelectScene;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
+using Treevel.Common.Entities;
+using Treevel.Common.Managers;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Bottle;
+using Treevel.Modules.GamePlayScene.Tile;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene
+namespace Treevel.Modules.GamePlayScene
 {
     public class BoardManager : SingletonObject<BoardManager>
     {

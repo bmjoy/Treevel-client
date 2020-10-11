@@ -1,9 +1,8 @@
-﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using System;
+﻿using System;
 using System.Linq;
+using Treevel.Common.Entities;
 
-namespace Project.Scripts.MenuSelectScene.LevelSelect
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     /// <summary>
     /// クリアしているステージの割合がクリア条件

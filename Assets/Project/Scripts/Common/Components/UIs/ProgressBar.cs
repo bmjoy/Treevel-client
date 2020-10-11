@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
-namespace Project.Scripts.UIComponents
+namespace Treevel.Common.Components.UIs
 {
     public class ProgressBar : MonoBehaviour
     {

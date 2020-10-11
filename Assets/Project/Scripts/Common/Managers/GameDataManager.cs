@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.GameDatas;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Project.Scripts.Utils.Definitions;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Managers
 {
     public static class GameDataManager
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Utils;
 using UnityEngine;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
 
-namespace Project.Scripts.Utils.PlayerPrefsUtils
+namespace Treevel.Common.Entities
 {
     [Serializable]
     public class StageStatus

@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.MenuSelectScene;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-#if UNITY_EDITOR
+using Treevel.Common.Entities;
+using Treevel.Common.Patterns.Singleton;
 using UnityEditor;
-#endif
 using UnityEngine;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Managers
 {
     public enum EBGMKey {
         BGM_Gameplay

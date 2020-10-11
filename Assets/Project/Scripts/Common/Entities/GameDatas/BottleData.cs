@@ -1,8 +1,7 @@
-﻿using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Project.Scripts.GameDatas
+namespace Treevel.Common.Entities.GameDatas
 {
     [System.Serializable]
     public class BottleData

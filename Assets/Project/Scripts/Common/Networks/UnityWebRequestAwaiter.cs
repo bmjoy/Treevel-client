@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Project.Scripts.Utils.Library.Extension
+namespace Treevel.Common.Networks
 {
     /// <summary>
     /// UnityWebRequestをawait可能にするための拡張

@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEditorInternal;
-using Project.Scripts.Utils.Attributes;
+using Treevel.Common.Attributes;
 
 namespace Project.Scripts.Editor
 {

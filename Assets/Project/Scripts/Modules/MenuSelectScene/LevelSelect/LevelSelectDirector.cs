@@ -1,11 +1,10 @@
-﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.MenuSelectScene.LevelSelect
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     public class LevelSelectDirector : SingletonObject<LevelSelectDirector>
     {

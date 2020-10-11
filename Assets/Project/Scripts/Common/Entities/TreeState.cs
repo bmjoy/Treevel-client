@@ -1,4 +1,4 @@
-namespace Project.Scripts.Utils.Definitions
+namespace Treevel.Common.Entities
 {
     /// <summary>
     /// 木の状態

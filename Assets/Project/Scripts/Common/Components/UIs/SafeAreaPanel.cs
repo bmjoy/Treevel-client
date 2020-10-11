@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.UIComponents
+namespace Treevel.Common.Components.UIs
 {
     public class SafeAreaPanel : MonoBehaviour
     {

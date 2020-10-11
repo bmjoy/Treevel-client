@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Project.Scripts.Common.Utils;
+using Treevel.Common.Entities;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
 using UnityEngine;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Library;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
     public class SelfishEffectController : MonoBehaviour

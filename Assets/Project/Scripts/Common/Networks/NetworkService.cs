@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Project.Scripts.Networks
+namespace Treevel.Common.Networks
 {
     public static class NetworkService
     {

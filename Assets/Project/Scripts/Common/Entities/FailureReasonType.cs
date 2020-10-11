@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.Definitions
+namespace Treevel.Common.Entities
 {
     public enum EFailureReasonType {
         Others,

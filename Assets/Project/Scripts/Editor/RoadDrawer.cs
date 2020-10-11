@@ -1,4 +1,4 @@
-﻿using Project.Scripts.MenuSelectScene.LevelSelect;
+﻿using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEditor;
 
 namespace Project.Scripts.Editor

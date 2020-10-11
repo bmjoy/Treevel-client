@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.MenuSelectScene.Record
+namespace Treevel.Modules.MenuSelectScene.Record
 {
     public class GeneralRecordDirector : MonoBehaviour
     {

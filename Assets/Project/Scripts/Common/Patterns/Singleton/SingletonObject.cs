@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.Utils.Patterns
+namespace Treevel.Common.Patterns.Singleton
 {
     /// <summary>
     /// Monobehaviourを継承したSingletonクラス

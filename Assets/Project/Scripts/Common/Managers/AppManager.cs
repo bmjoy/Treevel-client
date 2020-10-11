@@ -1,8 +1,7 @@
 using System;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using UnityEngine;
+using Treevel.Common.Entities;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Managers
 {
     /// <summary>
     /// アプリの起動，終了を管理

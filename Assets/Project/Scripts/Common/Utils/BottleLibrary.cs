@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.Utils.Definitions;
+using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.Library
+namespace Treevel.Common.Utils
 {
     public static class BottleLibrary
     {

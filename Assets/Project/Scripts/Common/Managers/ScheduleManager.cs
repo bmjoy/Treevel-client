@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Managers
 {
     public static class ScheduleManager
     {

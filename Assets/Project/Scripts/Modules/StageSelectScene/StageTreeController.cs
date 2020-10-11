@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.MenuSelectScene.LevelSelect;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+using Treevel.Common.Entities;
+using Treevel.Common.Utils;
+using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.StageSelectScene
+namespace Treevel.Modules.StageSelectScene
 {
     public class StageTreeController : TreeController
     {

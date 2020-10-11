@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Library.Extension;
 using TouchScript.Gestures;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Extensions;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animation))]
     [RequireComponent(typeof(FlickGesture))]

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.Library.Extension
+namespace Treevel.Common.Extensions
 {
     public static class Vector2Extension
     {

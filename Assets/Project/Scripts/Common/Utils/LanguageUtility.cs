@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+using Treevel.Common.Entities;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.TextUtils
+namespace Treevel.Common.Utils
 {
     /// <summary>
     /// 使える言語のリスト

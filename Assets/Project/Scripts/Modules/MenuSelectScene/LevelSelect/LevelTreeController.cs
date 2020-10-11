@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.StageSelectScene;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+using Treevel.Common.Entities;
+using Treevel.Common.Utils;
+using Treevel.Modules.StageSelectScene;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.MenuSelectScene.LevelSelect
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Button))]

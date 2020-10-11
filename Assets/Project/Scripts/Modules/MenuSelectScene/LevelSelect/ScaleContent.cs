@@ -1,13 +1,11 @@
 ﻿using System;
-using Project.Scripts.Common.Utils;
 using TouchScript.Gestures.TransformGestures;
+using Treevel.Common.Entities;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.UI;
-using Project.Scripts.MenuSelectScene.LevelSelect;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
 
-namespace Project.Scripts.MenuSelectScene
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     public class ScaleContent : MonoBehaviour
     {

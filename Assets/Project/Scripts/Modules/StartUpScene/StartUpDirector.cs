@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.MenuSelectScene;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Networks.Requests;
-using Project.Scripts.Networks;
+using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
-namespace Project.Scripts.StartUpScene
+namespace Treevel.Modules.StartUpScene
 {
     public class StartUpDirector : MonoBehaviour
     {

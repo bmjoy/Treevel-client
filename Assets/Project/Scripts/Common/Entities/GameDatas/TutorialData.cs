@@ -1,7 +1,7 @@
 using UnityEngine.AddressableAssets;
 using UnityEngine.Video;
 
-namespace Project.Scripts.GameDatas
+namespace Treevel.Common.Entities.GameDatas
 {
 
     public enum ETutorialType {

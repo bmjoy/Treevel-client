@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Project.Scripts.MenuSelectScene.LevelSelect;
+using Treevel.Modules.MenuSelectScene.LevelSelect;
 
-namespace Project.Scripts.Utils.Definitions
+namespace Treevel.Common.Entities
 {
     /// <summary>
     /// 木一覧

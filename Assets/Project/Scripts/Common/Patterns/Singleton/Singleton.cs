@@ -1,4 +1,4 @@
-﻿namespace Project.Scripts.Utils.Patterns
+﻿namespace Treevel.Common.Patterns.Singleton
 {
     /// <summary>
     /// Singleton Class

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace Project.Scripts.Utils
+namespace Treevel.Common.Utils
 {
     public static class CSVReader
     {

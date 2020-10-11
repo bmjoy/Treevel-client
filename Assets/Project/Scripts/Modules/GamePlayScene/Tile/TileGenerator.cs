@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Patterns;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
+using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Tile
+namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {

@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.Utils.Definitions;
+using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Tile
+namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class SpiderwebTileController : AbstractTileController
     {

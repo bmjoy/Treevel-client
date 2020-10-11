@@ -1,6 +1,6 @@
 using System;
 
-namespace Project.Scripts.Utils.Definitions
+namespace Treevel.Common.Entities
 {
     /// <summary>
     /// ギミックの種類

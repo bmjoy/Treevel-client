@@ -1,7 +1,7 @@
-﻿using Project.Scripts.Common.Utils;
+﻿using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene
+namespace Treevel.Common.Components
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class ObjectUnifier : MonoBehaviour

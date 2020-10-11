@@ -1,9 +1,8 @@
-﻿using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
+﻿using Treevel.Common.Entities;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Project.Scripts.GamePlayScene
+namespace Treevel.Modules.GamePlayScene
 {
     public class SuccessPopupController : MonoBehaviour
     {

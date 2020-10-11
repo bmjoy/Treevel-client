@@ -1,9 +1,9 @@
-﻿using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
+﻿using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Project.Scripts.StageSelectScene
+namespace Treevel.Modules.StageSelectScene
 {
     public class OverviewPopup : MonoBehaviour
     {

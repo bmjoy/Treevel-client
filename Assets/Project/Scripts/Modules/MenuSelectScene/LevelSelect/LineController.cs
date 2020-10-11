@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Project.Scripts.MenuSelectScene.LevelSelect
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(LineRenderer))]
     public abstract class LineController : MonoBehaviour

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.PlayerPrefsUtils
+namespace Treevel.Common.Utils
 {
     public class PlayerPrefsUtility
     {

@@ -1,10 +1,9 @@
 ﻿using System;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.TextUtils;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.PlayerPrefsUtils
+namespace Treevel.Common.Entities
 {
     public static class UserSettings
     {

@@ -1,12 +1,12 @@
 ﻿using System;
-using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.GamePlayScene.Tile;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils;
+using Treevel.Common.Entities;
+using Treevel.Common.Managers;
+using Treevel.Modules.GamePlayScene.Bottle;
+using Treevel.Modules.GamePlayScene.Gimmick;
+using Treevel.Modules.GamePlayScene.Tile;
 using UnityEngine;
-using Project.Scripts.GamePlayScene.Gimmick;
 
-namespace Project.Scripts.GamePlayScene
+namespace Treevel.Modules.GamePlayScene
 {
     public static class StageGenerator
     {

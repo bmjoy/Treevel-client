@@ -2,10 +2,10 @@
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEditor.SceneManagement;
-using Project.Scripts.UIComponents;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Treevel.Common.Components.UIs;
 
 namespace Project.Scripts.Editor
 {

@@ -1,12 +1,11 @@
 ﻿using System.Collections;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.GamePlayScene.Bottle;
-using Project.Scripts.Utils.Attributes;
-using Project.Scripts.Utils.Definitions;
 using TouchScript.Gestures;
+using Treevel.Common.Attributes;
+using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Tile
+namespace Treevel.Modules.GamePlayScene.Tile
 {
     [RequireComponent(typeof(Animator))]
     public class WarpTileController : AbstractTileController

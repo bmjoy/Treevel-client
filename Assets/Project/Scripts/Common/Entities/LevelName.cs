@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.Definitions
+namespace Treevel.Common.Entities
 {
     /// <summary>
     /// ステージの難易度一覧

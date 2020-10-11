@@ -1,4 +1,4 @@
-﻿namespace Project.Scripts.Utils.Patterns.StateMachine
+﻿namespace Treevel.Common.Patterns.StateMachine
 {
     public abstract class State
     {

@@ -1,7 +1,6 @@
-﻿using Project.Scripts.Utils.Definitions;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Project.Scripts.GameDatas
+namespace Treevel.Common.Entities.GameDatas
 {
     [System.Serializable]
     public class TileData

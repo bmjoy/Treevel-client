@@ -1,7 +1,7 @@
-﻿using Project.Scripts.Utils.PlayerPrefsUtils;
+﻿using Treevel.Common.Entities;
 using UnityEngine;
 
-namespace Project.Scripts.MenuSelectScene.Settings
+namespace Treevel.Modules.MenuSelectScene.Settings
 {
     public class ToDefaultController : MonoBehaviour
     {

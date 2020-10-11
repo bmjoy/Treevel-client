@@ -1,12 +1,11 @@
-﻿using Project.Scripts.MenuSelectScene.LevelSelect;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.PlayerPrefsUtils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Project.Scripts.Common.Utils;
+using Treevel.Common.Entities;
+using Treevel.Common.Utils;
+using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
 
-namespace Project.Scripts.StageSelectScene
+namespace Treevel.Modules.StageSelectScene
 {
     public class BranchController : LineController
     {

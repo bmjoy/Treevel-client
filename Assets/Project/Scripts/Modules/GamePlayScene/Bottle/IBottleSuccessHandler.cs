@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Project.Scripts.GamePlayScene.Bottle
+﻿namespace Treevel.Modules.GamePlayScene.Bottle
 {
     /// <summary>
     /// 成功判定を処理するインターフェイス

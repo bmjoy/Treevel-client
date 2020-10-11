@@ -1,11 +1,11 @@
-﻿using Project.Scripts.Common.Utils;
-using Project.Scripts.GamePlayScene.Gimmick;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
+﻿using Treevel.Common.Entities;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Gimmick;
 using Unity.UNetWeaver;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Bottle
+namespace Treevel.Modules.GamePlayScene.Bottle
 {
     public interface IBottleGetDamagedHandler
     {

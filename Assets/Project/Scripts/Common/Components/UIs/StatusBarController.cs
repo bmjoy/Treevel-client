@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-#if UNITY_IOS
 using UnityEngine.iOS;
-#endif
 
-namespace Project.Scripts.UIComponents
+namespace Treevel.Common.Components.UIs
 {
     /// <summary>
     /// ステータスバーの表示を行う

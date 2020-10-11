@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Project.Scripts.Common.Utils
+namespace Treevel.Common.Utils
 {
     public class RuntimeConstants
     {

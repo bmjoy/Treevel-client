@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Linq;
-using Project.Scripts.StageSelectScene;
-using Project.Scripts.Utils.Definitions;
-using Project.Scripts.Utils.Library;
-using Project.Scripts.Utils.PlayerPrefsUtils;
+using Treevel.Common.Entities;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Project.Scripts.MenuSelectScene.LevelSelect
+namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     public abstract class TreeController : MonoBehaviour
     {

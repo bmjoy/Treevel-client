@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using Project.Scripts.Utils.Definitions;
+using Treevel.Common.Entities;
 using UnityEngine;
 
-namespace Project.Scripts.Utils.Library
+namespace Treevel.Common.Utils
 {
     public static class GimmickLibrary
     {

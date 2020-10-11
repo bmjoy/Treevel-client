@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene.Gimmick
+namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     public abstract class AbstractGimmickController : MonoBehaviour
     {

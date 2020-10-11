@@ -1,10 +1,9 @@
-﻿using Project.Scripts.Utils.Definitions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Project.Scripts.Common.Utils;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.GameDatas
+namespace Treevel.Common.Entities.GameDatas
 {
     [CreateAssetMenu(fileName = "stage.asset", menuName = "Stage")]
     public class StageData : ScriptableObject

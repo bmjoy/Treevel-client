@@ -1,5 +1,5 @@
-﻿using Project.Scripts.UIComponents;
-using Project.Scripts.Utils.Definitions;
+﻿using Treevel.Common.Components.UIs;
+using Treevel.Common.Entities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;

@@ -1,10 +1,10 @@
-﻿using Project.Scripts.Common.Utils;
-using Project.Scripts.Utils;
-using Project.Scripts.Utils.Definitions;
+﻿using Treevel.Common.Entities;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Project.Scripts.UIComponents
+namespace Treevel.Common.Components.UIs
 {
     /// <summary>
     /// エラー発生時にユーザに提示するエラーメッセージのポップアップ

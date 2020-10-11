@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Networking;
 
-namespace Project.Scripts.Networks.Requests
+namespace Treevel.Common.Networks.Requests
 {
     public class HelloWorldRequest : GetServerRequest
     {

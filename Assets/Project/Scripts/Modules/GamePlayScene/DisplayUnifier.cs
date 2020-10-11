@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using Project.Scripts.Common.Utils;
-using Project.Scripts.Utils.Definitions;
+using Treevel.Common.Utils;
 using UnityEngine;
 
-namespace Project.Scripts.GamePlayScene
+namespace Treevel.Modules.GamePlayScene
 {
     public class DisplayUnifier : MonoBehaviour
     {
