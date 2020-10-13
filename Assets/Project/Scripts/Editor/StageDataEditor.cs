@@ -129,11 +129,11 @@ namespace Project.Scripts.Editor
 
                 var tileTypeProp = tileDataProp.FindPropertyRelative("type");
 
-                var newTileType = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
+                var newEnumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
 
                 // タイプが変わっていたらデータをリセット
-                if (newTileType != tileTypeProp.enumValueIndex) {
-                    tileTypeProp.enumValueIndex = newTileType;
+                if (newEnumValueIndex != tileTypeProp.enumValueIndex) {
+                    tileTypeProp.enumValueIndex = newEnumValueIndex;
                     ResetData(tileDataProp);
                 }
 
@@ -168,11 +168,11 @@ namespace Project.Scripts.Editor
 
                 var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
 
-                var newBottleType = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
+                var newEnumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
 
                 // タイプが変わっていたらデータをリセット
-                if (newBottleType != bottleTypeProp.enumValueIndex) {
-                    bottleTypeProp.enumValueIndex = newBottleType;
+                if (newEnumValueIndex != bottleTypeProp.enumValueIndex) {
+                    bottleTypeProp.enumValueIndex = newEnumValueIndex;
                     ResetData(bottleDataProp);
                 }
 
@@ -229,14 +229,14 @@ namespace Project.Scripts.Editor
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
 
-                int newGimmickType = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                         label: new GUIContent("Type"),
                         selected: (EGimmickType)gimmickTypeProp.enumValueIndex
                     );
 
                 // タイプが変わっていたらデータをリセット
-                if (newGimmickType != gimmickTypeProp.enumValueIndex) {
-                    gimmickTypeProp.enumValueIndex = newGimmickType;
+                if (newEnumValueIndex != gimmickTypeProp.enumValueIndex) {
+                    gimmickTypeProp.enumValueIndex = newEnumValueIndex;
                     ResetData(gimmickDataProp);
                 }
 
@@ -513,7 +513,7 @@ namespace Project.Scripts.Editor
         private static void ResetData(SerializedProperty prop)
         {
             foreach (var child in prop.GetChildren()) {
-                // タイプがリセットしたら意味ない
+                // タイプをリセットしたら意味ない
                 if (child.name == "type")
                     continue;
 
