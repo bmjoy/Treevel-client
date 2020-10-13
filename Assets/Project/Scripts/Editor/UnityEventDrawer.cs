@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Treevel.Common.Attributes;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEditorInternal;
-using Project.Scripts.Utils.Attributes;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     [CustomPropertyDrawer(typeof(UnityEvent), true)]
     [CustomPropertyDrawer(typeof(UnityEvent<bool>), true)]

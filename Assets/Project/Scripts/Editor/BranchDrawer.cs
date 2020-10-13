@@ -1,7 +1,7 @@
-﻿using Project.Scripts.StageSelectScene;
+﻿using Treevel.Modules.StageSelectScene;
 using UnityEditor;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     /// <summary>
     /// BranchDrawerのエディタ拡張
