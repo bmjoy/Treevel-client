@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using UnityEditor;
-using UnityEngine.UI;
+﻿using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     public class CanvasScalerSetting : ScriptableObject
     {

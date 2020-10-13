@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     [CustomPropertyDrawer(typeof(NonEditableAttribute))]
     public class NonEditableDrawer : PropertyDrawer

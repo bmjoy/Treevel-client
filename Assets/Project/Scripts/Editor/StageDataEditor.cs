@@ -8,7 +8,7 @@ using Treevel.Common.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     [CustomEditor(typeof(StageData))]
     [CanEditMultipleObjects]

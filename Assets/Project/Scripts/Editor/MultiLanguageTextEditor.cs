@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     [CustomEditor(typeof(MultiLanguageText))]
     public class MultiLanguageTextEditor : UnityEditor.UI.TextEditor

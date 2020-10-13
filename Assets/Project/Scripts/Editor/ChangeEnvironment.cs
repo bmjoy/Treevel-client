@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     public static class ChangeEnvironment
     {

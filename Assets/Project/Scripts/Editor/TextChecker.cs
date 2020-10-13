@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using UnityEditor;
-using UnityEngine.UI;
-using UnityEditor.SceneManagement;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Treevel.Common.Components.UIs;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     public class TextChecker : EditorWindow
     {

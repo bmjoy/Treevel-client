@@ -1,7 +1,7 @@
 ﻿using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEditor;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     /// <summary>
     /// RoadDrawerのエディタ拡張
