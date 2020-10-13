@@ -54,7 +54,7 @@ namespace Treevel.Modules.GamePlayScene
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth, Constants.WindowSize.HEIGHT / originalHeight * ratio);
                 // GameAreaPanelの大きさを変更
                 rect.anchorMin = new Vector2(rectX, 0);
-                rect.anchorMax = new Vector2(rectX + ratio, 1);   
+                rect.anchorMax = new Vector2(rectX + ratio, 1);
             } else if (currentRatio < targetRatio - aspectRatioError) {
                 // 縦長のデバイスの場合
                 var ratio = currentRatio / targetRatio;
