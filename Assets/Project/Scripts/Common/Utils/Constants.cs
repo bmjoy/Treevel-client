@@ -73,11 +73,6 @@ namespace Treevel.Common.Utils
             /// タイルの合計数
             /// </summary>
             public const int TILE_NUM = ROW * COLUMN;
-
-            /// <summary>
-            /// ナンバーボトルの数
-            /// </summary>
-            public const int NUMBER_BOTTLE_NUM = 8;
         }
 
         /// <summary>
