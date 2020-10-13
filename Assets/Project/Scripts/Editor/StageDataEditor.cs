@@ -1,13 +1,14 @@
-﻿using Project.Scripts.GameDatas;
-using Project.Scripts.Utils.Definitions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace Project.Scripts.Editor
+namespace Treevel.Editor
 {
     [CustomEditor(typeof(StageData))]
     [CanEditMultipleObjects]
@@ -251,7 +252,7 @@ namespace Project.Scripts.Editor
                                         case EGimmickDirection.ToBottom:
                                         case EGimmickDirection.ToUp: {
                                                 // デフォルト値設定
-                                                if (lineElem.intValue < 1 || lineElem.intValue > StageSize.COLUMN)
+                                                if (lineElem.intValue < 1 || lineElem.intValue > Constants.StageSize.COLUMN)
                                                     lineElem.intValue = 1;
 
                                                 var options = Enum.GetNames(typeof(EColumn)).Where(str => str != "Random").ToArray();
@@ -262,7 +263,7 @@ namespace Project.Scripts.Editor
                                         case EGimmickDirection.ToRight:
                                         case EGimmickDirection.ToLeft: {
                                                 // デフォルト値設定
-                                                if (lineElem.intValue < 1 || lineElem.intValue > StageSize.ROW)
+                                                if (lineElem.intValue < 1 || lineElem.intValue > Constants.StageSize.ROW)
                                                     lineElem.intValue = 1;
 
                                                 var options = Enum.GetNames(typeof(ERow)).Where(str => str != "Random").ToArray();
@@ -291,15 +292,15 @@ namespace Project.Scripts.Editor
                                 }
                                 {
                                     var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                    randomRowProp.arraySize = StageSize.ROW;
-                                    var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    randomRowProp.arraySize = Constants.StageSize.ROW;
+                                    var subLabels = Enumerable.Range(1, Constants.StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
                                     var rect = EditorGUILayout.GetControlRect();
                                     EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
                                 }
                                 {
                                     var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                    randomColumnProp.arraySize = StageSize.COLUMN;
-                                    var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN;
+                                    var subLabels = Enumerable.Range(1, Constants.StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
                                     var rect = EditorGUILayout.GetControlRect();
                                     EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
                                 }
@@ -319,20 +320,20 @@ namespace Project.Scripts.Editor
 
                                 {
                                     var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                    randomRowProp.arraySize = StageSize.ROW;
-                                    var subLabels = Enumerable.Range(1, StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    randomRowProp.arraySize = Constants.StageSize.ROW;
+                                    var subLabels = Enumerable.Range(1, Constants.StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
                                     var rect = EditorGUILayout.GetControlRect();
                                     EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
                                 }
                                 {
                                     var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                    randomColumnProp.arraySize = StageSize.COLUMN;
-                                    var subLabels = Enumerable.Range(1, StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN;
+                                    var subLabels = Enumerable.Range(1, Constants.StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
                                     var rect = EditorGUILayout.GetControlRect();
                                     EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
                                 }
                             } else {
-                                if (rowProp.intValue < 1 || rowProp.intValue > StageSize.ROW)
+                                if (rowProp.intValue < 1 || rowProp.intValue > Constants.StageSize.ROW)
                                     rowProp.intValue = 1;
 
                                 rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
@@ -343,7 +344,7 @@ namespace Project.Scripts.Editor
                                         includeObsolete: false
                                     );
 
-                                if (colProp.intValue < 1 || colProp.intValue > StageSize.COLUMN)
+                                if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN)
                                     colProp.intValue = 1;
                                 colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                         label: new GUIContent("ColuEColumn"),
@@ -401,8 +402,8 @@ namespace Project.Scripts.Editor
                                 var buffer = new int[] {xProp.intValue, yProp.intValue};
                                 EditorGUI.MultiIntField(rect, subLabels, buffer);
 
-                                xProp.intValue = Mathf.Clamp(buffer[0], 1, StageSize.ROW);
-                                yProp.intValue = Mathf.Clamp(buffer[1], 1, StageSize.COLUMN);
+                                xProp.intValue = Mathf.Clamp(buffer[0], 1, Constants.StageSize.ROW);
+                                yProp.intValue = Mathf.Clamp(buffer[1], 1, Constants.StageSize.COLUMN);
                             });
                             break;
                         }

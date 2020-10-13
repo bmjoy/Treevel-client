@@ -19,7 +19,7 @@ MonoBehaviour:
     number: 14
     pairNumber: 0
   bottles:
-  - type: 3
+  - type: 2
     initPos: 1
     targetPos: 4
     bottleSprite:
@@ -30,7 +30,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile1
     life: 3
     isSelfish: 0
-  - type: 3
+  - type: 2
     initPos: 3
     targetPos: 5
     bottleSprite:

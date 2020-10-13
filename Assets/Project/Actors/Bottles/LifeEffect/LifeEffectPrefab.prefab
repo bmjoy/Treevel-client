@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4966638403937660}
   - component: {fileID: 212448339726182954}
   - component: {fileID: 8173901480666266857}
-  - component: {fileID: 520686916639672997}
   - component: {fileID: -1759325406944430398}
+  - component: {fileID: 8631500646673489353}
   m_Layer: 8
   m_Name: LifeEffectPrefab
   m_TagString: Bottle
@@ -49,6 +49,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -103,18 +104,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &520686916639672997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556909149041080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e69a8d40ab6fa4ee6837ce6731f256dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1759325406944430398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,3 +118,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.11
   ImageRatio: 1
+--- !u!114 &8631500646673489353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556909149041080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21662811c953f4a7e93f036c9a36cd8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -19,7 +19,7 @@ MonoBehaviour:
     number: 1
     pairNumber: 2
   bottles:
-  - type: 3
+  - type: 0
     initPos: 3
     targetPos: 0
     bottleSprite:

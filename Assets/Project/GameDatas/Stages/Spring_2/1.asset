@@ -16,7 +16,7 @@ MonoBehaviour:
   stageNumber: 1
   tiles: []
   bottles:
-  - type: 3
+  - type: 2
     initPos: 4
     targetPos: 4
     bottleSprite:
