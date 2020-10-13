@@ -26,22 +26,49 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        public event Action<GameObject> OnGetDamaged;
+        public event Action<GameObject> OnGetDamaged
+        {
+            add {
+                _onGetDamaged += value;
+            }
+            remove {
+                _onGetDamaged -= value;
+            }
+        }
+        private event Action<GameObject> _onGetDamaged;
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected event Action<GameObject> onEnterTile;
+        protected event Action<GameObject> onEnterTile
+        {
+            add {
+                _onEnterTile += value;
+            }
+            remove {
+                _onEnterTile -= value;
+            }
+        }
+        private event Action<GameObject> _onEnterTile;
 
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
-        protected event Action<GameObject> onExitTile;
+        protected event Action<GameObject> onExitTile
+        {
+            add {
+                _onExitTile += value;
+            }
+            remove {
+                _onExitTile -= value;
+            }
+        }
+        private event Action<GameObject> _onExitTile;
 
         /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
-        public bool IsAttackable => OnGetDamaged != null;
+        public bool IsAttackable => _onGetDamaged != null;
 
         /// <summary>
         /// 無敵状態かどうか
@@ -65,7 +92,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 無敵状態なら，衝突を考えない
             if (Invincible) return;
 
-            OnGetDamaged?.Invoke(other.gameObject);
+            _onGetDamaged?.Invoke(other.gameObject);
         }
 
         private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
@@ -129,7 +156,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile">目標の出たタイル</param>
         public void TriggerOnEnterTile(GameObject targetTile)
         {
-            onEnterTile?.Invoke(targetTile);
+            _onEnterTile?.Invoke(targetTile);
         }
 
         /// <summary>
@@ -138,7 +165,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile">出たタイル</param>
         public void TriggerOnExitTile(GameObject targetTile)
         {
-            onExitTile?.Invoke(targetTile);
+            _onExitTile?.Invoke(targetTile);
         }
     }
 }
