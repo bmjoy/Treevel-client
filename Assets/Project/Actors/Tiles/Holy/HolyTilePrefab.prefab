@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2698875455333977674}
   - component: {fileID: 6650673804721058915}
   - component: {fileID: 1423629175187906828}
-  - component: {fileID: 3610048724987905326}
   m_Layer: 12
   m_Name: HolyTilePrefab
   m_TagString: Tile
@@ -48,6 +47,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -95,17 +95,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc9a6e6c2742b4bd687fe96908eccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3610048724987905326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906666572760857407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RatioToWindowWidth: 0.22
-  ImageRatio: 1
