@@ -129,7 +129,14 @@ namespace Treevel.Editor
                 EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("number"));
 
                 var tileTypeProp = tileDataProp.FindPropertyRelative("type");
-                tileTypeProp.enumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
+
+                var newEnumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
+
+                // タイプが変わっていたらデータをリセット
+                if (newEnumValueIndex != tileTypeProp.enumValueIndex) {
+                    tileTypeProp.enumValueIndex = newEnumValueIndex;
+                    ResetData(tileDataProp);
+                }
 
                 switch ((ETileType)tileTypeProp.enumValueIndex) {
                     case ETileType.Normal:
@@ -161,7 +168,15 @@ namespace Treevel.Editor
                 EditorGUI.indentLevel++;
 
                 var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
-                bottleTypeProp.enumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
+
+                var newEnumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
+
+                // タイプが変わっていたらデータをリセット
+                if (newEnumValueIndex != bottleTypeProp.enumValueIndex) {
+                    bottleTypeProp.enumValueIndex = newEnumValueIndex;
+                    ResetData(bottleDataProp);
+                }
+
                 EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
@@ -215,10 +230,16 @@ namespace Treevel.Editor
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
 
-                gimmickTypeProp.enumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                         label: new GUIContent("Type"),
                         selected: (EGimmickType)gimmickTypeProp.enumValueIndex
                     );
+
+                // タイプが変わっていたらデータをリセット
+                if (newEnumValueIndex != gimmickTypeProp.enumValueIndex) {
+                    gimmickTypeProp.enumValueIndex = newEnumValueIndex;
+                    ResetData(gimmickDataProp);
+                }
 
                 switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
@@ -483,6 +504,45 @@ namespace Treevel.Editor
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
+        }
+
+        /// <summary>
+        /// SerializedPropertyをデフォルト値に戻す。
+        /// BottleData、TileData、GimmickDataにだけ動作を保証する
+        /// </summary>
+        /// <param name="prop"> 対象のSerializedProperty </param>
+        private static void ResetData(SerializedProperty prop)
+        {
+            foreach (var child in prop.GetChildren()) {
+                // タイプをリセットしたら意味ない
+                if (child.name == "type")
+                    continue;
+
+                if (child.isArray) {
+                    child.ClearArray();
+                    child.arraySize = 0;
+                    continue;
+                }
+
+                // 現状，リセットする必要がある型だけをリセットしている
+                switch (child.propertyType) {
+                    case SerializedPropertyType.Boolean:
+                        child.boolValue = default;
+                        break;
+                    case SerializedPropertyType.Integer:
+                        child.intValue = default;
+                        break;
+                    case SerializedPropertyType.Float:
+                        child.floatValue = default;
+                        break;
+                    case SerializedPropertyType.Enum:
+                        child.enumValueIndex = child.intValue = default;
+                        break;
+                    case SerializedPropertyType.ObjectReference:
+                        child.objectReferenceValue = null;
+                        break;
+                }
+            }
         }
     }
 }

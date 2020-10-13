@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -53,6 +54,26 @@ namespace Treevel.Editor
                 } else {
                     EditorGUILayout.PropertyField(arrayElementProperty, new GUIContent(arrayElementProperty.displayName));
                 }
+            }
+        }
+
+        /// <summary>
+        /// プロパティから該当データのメンバープロパティを取得する
+        /// https://forum.unity.com/threads/loop-through-serializedproperty-children.435119/
+        /// </summary>
+        public static IEnumerable<SerializedProperty> GetChildren(this SerializedProperty serializedProperty)
+        {
+            var currentProperty = serializedProperty.Copy();
+            var nextSiblingProperty = serializedProperty.Copy();
+            nextSiblingProperty.Next(false);
+
+            if (currentProperty.Next(true)) {
+                do {
+                    if (SerializedProperty.EqualContents(currentProperty, nextSiblingProperty))
+                        break;
+
+                    yield return currentProperty;
+                } while (currentProperty.Next(false));
             }
         }
     }
