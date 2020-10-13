@@ -87,7 +87,7 @@ namespace Treevel.Common.Components.UIs
         {
             while (true) {
                 // 進捗の計算
-                var percent = _loadingOps.Select(op => op.PercentComplete ).Sum() / _loadingOps.Count;
+                var percent = _loadingOps.Select(op => op.PercentComplete).Sum() / _loadingOps.Count;
 
                 // Set Progress
                 Progress = percent;

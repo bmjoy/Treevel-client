@@ -16,7 +16,10 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <summary>
         /// 初期配置された際に `OnBottleEnter` を実行するかどうか
         /// </summary>
-        public abstract bool RunOnBottleEnterAtInit { get; }
+        public abstract bool RunOnBottleEnterAtInit
+        {
+            get;
+        }
 
         protected IBottleHandler bottleHandler = new DefaultBottleHandler();
 

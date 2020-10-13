@@ -8,7 +8,8 @@ namespace Treevel.Editor
     {
         // 開発環境に切り替え
         [MenuItem("Environment/DEV")]
-        public static void Dev(){
+        public static void Dev()
+        {
             var symbols = GetSymbols();
 
             symbols.Remove("ENV_PROD");
@@ -52,12 +53,14 @@ namespace Treevel.Editor
         }
 
         // 設定されているシンボル定義を取得する
-        private static List<string> GetSymbols(){
+        private static List<string> GetSymbols()
+        {
             return PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup).Split(';').ToList();
         }
 
         // シンボル定義をセットする
-        private static void SetSymbols(List<string> symbols){
+        private static void SetSymbols(List<string> symbols)
+        {
             var symbolStr = string.Empty;
             symbols.ForEach(s => symbolStr += s + ";");
             PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, symbolStr);

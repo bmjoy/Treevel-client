@@ -16,7 +16,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             #if UNITY_EDITOR
             name = Constants.BottleName.ATTACKABLE_DUMMY_BOTTLE;
             #endif
-            
+
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).Task;
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
