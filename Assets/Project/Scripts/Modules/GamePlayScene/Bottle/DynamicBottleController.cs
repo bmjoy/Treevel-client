@@ -30,70 +30,50 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         public event Action OnStartMove
         {
-            add {
-                _onStartMove += value;
-            }
-            remove {
-                _onStartMove -= value;
-            }
+            add => _onStartMoveInvoker += value;
+            remove => _onStartMoveInvoker -= value;
         }
-        private event Action _onStartMove;
+        private event Action _onStartMoveInvoker;
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
         public event Action OnEndMove
         {
-            add {
-                _onEndMove += value;
-            }
-            remove {
-                _onEndMove -= value;
-            }
+            add => _onEndMoveInvoker += value;
+            remove => _onEndMoveInvoker -= value;
         }
-        private event Action _onEndMove;
+        private event Action _onEndMoveInvoker;
 
         /// <summary>
         /// ホールド開始時の処理
         /// </summary>
         public event Action OnPressed
         {
-            add {
-                _onPressed += value;
-            }
-            remove {
-                _onPressed -= value;
-            }
+            add => _onPressedInvoker += value;
+            remove => _onPressedInvoker -= value;
         }
-        private event Action _onPressed;
+        private event Action _onPressedInvoker;
 
         /// <summary>
         /// ホールド終了時の処理
         /// </summary>
         public event Action OnReleased
         {
-            add {
-                _onReleased += value;
-            }
-            remove {
-                _onReleased -= value;
-            }
+            add => _onReleasedInvoker += value;
+            remove => _onReleasedInvoker -= value;
         }
-        private event Action _onReleased;
+        private event Action _onReleasedInvoker;
 
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
         public event Action OnEndProcess
         {
-            add {
-                _onEndProcess += value;
-            }
-            remove {
-                _onEndProcess -= value;
-            }
+            add => _onEndProcessInvoker += value;
+            remove => _onEndProcessInvoker -= value;
         }
-        private event Action _onEndProcess;
+        private event Action _onEndProcessInvoker;
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -176,7 +156,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="eventArgs"></param>
         private void HandlePressed(object sender, EventArgs e)
         {
-            _onPressed?.Invoke();
+            _onPressedInvoker?.Invoke();
         }
 
         /// <summary>
@@ -186,7 +166,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="e"></param>
         private void HandleReleased(object sender, EventArgs e)
         {
-            _onReleased?.Invoke();
+            _onReleasedInvoker?.Invoke();
         }
 
         /// <summary>
@@ -203,14 +183,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
             SetGesturesEnabled(false);
-            _onStartMove?.Invoke();
+            _onStartMoveInvoker?.Invoke();
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
 
-            _onEndMove?.Invoke();
+            _onEndMoveInvoker?.Invoke();
             SetGesturesEnabled(true);
 
             callback();
@@ -237,7 +217,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
-            _onEndProcess?.Invoke();
+            _onEndProcessInvoker?.Invoke();
         }
     }
 }
