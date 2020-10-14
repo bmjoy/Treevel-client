@@ -93,7 +93,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <returns></returns>
         public bool IsSuccess()
         {
-            return _targetPos != 0 ? BoardManager.Instance.GetBottlePos(this) == _targetPos : false;
+            return _targetPos != 0 && BoardManager.Instance.GetBottlePos(this) == _targetPos;
         }
     }
 }
