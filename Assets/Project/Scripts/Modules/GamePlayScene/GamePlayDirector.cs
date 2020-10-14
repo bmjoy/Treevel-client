@@ -42,28 +42,20 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public static event Action OnSucceed
         {
-            add {
-                _onSucceed += value;
-            }
-            remove {
-                _onSucceed -= value;
-            }
+            add => _onSucceedInvoker += value;
+            remove => _onSucceedInvoker -= value;
         }
-        private static event Action _onSucceed;
+        private static event Action _onSucceedInvoker;
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
         public static event Action OnFail
         {
-            add {
-                _onFail += value;
-            }
-            remove {
-                _onFail -= value;
-            }
+            add => _onFailInvoker += value;
+            remove => _onFailInvoker -= value;
         }
-        private static event Action _onFail;
+        private static event Action _onFailInvoker;
 
         /// <summary>
         /// ゲームの状態一覧
@@ -452,7 +444,7 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(true);
 
                 // 成功イベント
-                _onSucceed?.Invoke();
+                _onSucceedInvoker?.Invoke();
             }
 
             public override void OnExit(State to)
@@ -501,7 +493,7 @@ namespace Treevel.Modules.GamePlayScene
                     _failurePopup.SetActive(true);
 
                     // 失敗イベント
-                    _onFail?.Invoke();
+                    _onFailInvoker?.Invoke();
                 }
             }
 
