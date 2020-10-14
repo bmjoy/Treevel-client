@@ -67,9 +67,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void HandleOnEnterTile(GameObject targetTile)
         {
             if (IsSuccess()) {
-                // 最終タイルにいるかどうかで，光らせるかを決める
-                _spriteGlowEffect.enabled = true;
-
                 DoWhenSuccess();
             }
         }
@@ -84,8 +81,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private void DoWhenSuccess()
         {
+            // 光らせる
+            _spriteGlowEffect.enabled = true;
             // ステージの成功判定
-            GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
+            GamePlayDirector.Instance.CheckClear();
         }
 
         /// <summary>
