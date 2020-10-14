@@ -113,7 +113,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _flickGesture.Flicked += HandleFlicked;
             _pressGesture.Pressed += HandlePressed;
@@ -122,7 +122,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             GamePlayDirector.OnFail += HandleOnFail;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             _flickGesture.Flicked -= HandleFlicked;
             _pressGesture.Pressed -= HandlePressed;

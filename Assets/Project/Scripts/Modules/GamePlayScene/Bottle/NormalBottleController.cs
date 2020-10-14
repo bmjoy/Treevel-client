@@ -25,8 +25,20 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
             onEnterTile += HandleOnEnterTile;
             onExitTile += HandleOnExitTile;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            onEnterTile -= HandleOnEnterTile;
+            onExitTile -= HandleOnExitTile;
         }
 
         /// <summary>
@@ -56,12 +68,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 目標とするタイルのスプライトを設定
             var finalTile = BoardManager.Instance.GetTile(finalPos);
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
-        }
-
-        private void OnDestroy()
-        {
-            onEnterTile -= HandleOnEnterTile;
-            onExitTile -= HandleOnExitTile;
         }
 
         private void HandleOnEnterTile(GameObject targetTile)
