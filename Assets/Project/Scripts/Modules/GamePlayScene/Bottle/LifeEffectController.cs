@@ -94,6 +94,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             // 自身が破壊されていない場合はアニメーションを止める
             if (!_isDead) {
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
             }
         }
