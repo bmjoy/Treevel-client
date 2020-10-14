@@ -68,12 +68,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        public event Action OnEndProcess
+        public event Action OnEndGame
         {
-            add => _onEndProcessInvoker += value;
-            remove => _onEndProcessInvoker -= value;
+            add => _onEndGameInvoker += value;
+            remove => _onEndGameInvoker -= value;
         }
-        private event Action _onEndProcessInvoker;
+        private event Action _onEndGameInvoker;
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -118,8 +118,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture.Flicked += HandleFlicked;
             _pressGesture.Pressed += HandlePressed;
             _releaseGesture.Released += HandleReleased;
-            GamePlayDirector.OnSucceed += HandleOnSucceed;
-            GamePlayDirector.OnFail += HandleOnFail;
+            GamePlayDirector.OnSucceedGame += HandleOnSucceedGame;
+            GamePlayDirector.OnFailGame += HandleOnFailGame;
         }
 
         protected virtual void OnDisable()
@@ -127,8 +127,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture.Flicked -= HandleFlicked;
             _pressGesture.Pressed -= HandlePressed;
             _releaseGesture.Released -= HandleReleased;
-            GamePlayDirector.OnSucceed -= HandleOnSucceed;
-            GamePlayDirector.OnFail -= HandleOnFail;
+            GamePlayDirector.OnSucceedGame -= HandleOnSucceedGame;
+            GamePlayDirector.OnFailGame -= HandleOnFailGame;
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム成功時の処理
         /// </summary>
-        protected virtual void HandleOnSucceed()
+        protected virtual void HandleOnSucceedGame()
         {
             EndProcess();
         }
@@ -207,7 +207,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム失敗時の処理
         /// </summary>
-        protected virtual void HandleOnFail()
+        protected virtual void HandleOnFailGame()
         {
             EndProcess();
         }
@@ -217,7 +217,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
-            _onEndProcessInvoker?.Invoke();
+            _onEndGameInvoker?.Invoke();
         }
     }
 }

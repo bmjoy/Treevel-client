@@ -57,7 +57,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.OnEndMove += HandleOnEndMove;
             _bottleController.OnPressed += HandleOnPressed;
             _bottleController.OnReleased += HandleOnReleased;
-            _bottleController.OnEndProcess += HandleOnEndProcess;
+            _bottleController.OnEndGame += HandleOnEndGame;
 
             // 移動していないフレーム数を数え始める
             _countCalmFrames = true;
@@ -69,7 +69,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.OnEndMove -= HandleOnEndMove;
             _bottleController.OnPressed -= HandleOnPressed;
             _bottleController.OnReleased -= HandleOnReleased;
-            _bottleController.OnEndProcess -= HandleOnEndProcess;
+            _bottleController.OnEndGame -= HandleOnEndGame;
         }
 
         private void FixedUpdate()
@@ -124,7 +124,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        private void HandleOnEndProcess()
+        private void HandleOnEndGame()
         {
             _countCalmFrames = false;
             _calmFrames = 0;

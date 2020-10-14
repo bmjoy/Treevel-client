@@ -41,7 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // イベントに処理を登録する
             _bottleController.OnGetDamaged += HandleOnGetDamaged;
-            _bottleController.OnEndProcess += HandleOnEndProcess;
+            _bottleController.OnEndGame += HandleOnEndGame;
 
             _life = life;
         }
@@ -49,7 +49,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void OnDestroy()
         {
             _bottleController.OnGetDamaged -= HandleOnGetDamaged;
-            _bottleController.OnEndProcess -= HandleOnEndProcess;
+            _bottleController.OnEndGame -= HandleOnEndGame;
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        private void HandleOnEndProcess()
+        private void HandleOnEndGame()
         {
             // 自身が破壊されていない場合はアニメーションを止める
             if (!_isDead) {
