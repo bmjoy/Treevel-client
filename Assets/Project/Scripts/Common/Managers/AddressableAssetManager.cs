@@ -173,9 +173,6 @@ namespace Treevel.Common.Managers
                     case EBottleType.Normal:
                         LoadAsset<GameObject>(Constants.Address.NORMAL_BOTTLE_PREFAB);
                         break;
-                    case EBottleType.Life:
-                        LoadAsset<GameObject>(Constants.Address.LIFE_BOTTLE_PREFAB);
-                        break;
                     case EBottleType.AttackableDummy:
                         LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
                         break;

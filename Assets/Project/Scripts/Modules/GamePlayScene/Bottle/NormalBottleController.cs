@@ -13,27 +13,53 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     public class NormalBottleController : DynamicBottleController
     {
         /// <summary>
+        /// 目標位置
+        /// </summary>
+        private int _targetPos;
+
+        /// <summary>
+        /// 光らせるエフェクト
+        /// </summary>
+        private SpriteGlowEffect _spriteGlowEffect;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            onEnterTile += HandleOnEnterTile;
+            onExitTile += HandleOnExitTile;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            onEnterTile -= HandleOnEnterTile;
+            onExitTile -= HandleOnExitTile;
+        }
+
+        /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
-        public override void Initialize(BottleData bottleData)
+        public override async void Initialize(BottleData bottleData)
         {
-            GetComponent<SpriteGlowEffect>().enabled = false;
+            _spriteGlowEffect = GetComponent<SpriteGlowEffect>();
+            _spriteGlowEffect.enabled = false;
 
             // parse data
             var finalPos = bottleData.targetPos;
+            _targetPos = finalPos;
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
 
-            // set handlers
-            if (bottleData.life <= 1) {
-                getDamagedHandler = new OneLifeBottleGetDamagedHandler(this);
-            } else {
-                getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
-            }
-            successHandler = new NormalBottleSuccessHandler(this, finalPos);
-            bottleEnterTileHandler = new NormalBottleEnterTileHandler(this, successHandler);
-
             base.Initialize(bottleData);
+
+            // set handler
+            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).Task;
+            lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
 
             #if UNITY_EDITOR
             name = Constants.BottleName.NORMAL_BOTTLE + Id.ToString();
@@ -43,66 +69,37 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             var finalTile = BoardManager.Instance.GetTile(finalPos);
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
-    }
 
-    internal class NormalBottleEnterTileHandler : IBottleEnterTileHandler
-    {
-        private readonly AbstractBottleController _bottle;
-        private readonly IBottleSuccessHandler _successHandler;
-
-        internal NormalBottleEnterTileHandler(AbstractBottleController bottle, IBottleSuccessHandler successHandler)
+        private void HandleOnEnterTile(GameObject targetTile)
         {
-            if (successHandler == null)
-                throw new System.NullReferenceException("SuccessHandler can not be null");
-
-            _bottle = bottle;
-            _successHandler = successHandler;
-        }
-
-        public void OnEnterTile(GameObject tile)
-        {
-            if (_successHandler.IsSuccess()) {
-                // 最終タイルにいるかどうかで，光らせるかを決める
-                _bottle.GetComponent<SpriteGlowEffect>().enabled = true;
-
-                _successHandler.DoWhenSuccess();
+            if (IsSuccess()) {
+                DoWhenSuccess();
             }
         }
 
-        public void OnExitTile(GameObject tile)
+        private void HandleOnExitTile(GameObject targetTile)
         {
-            _bottle.GetComponent<SpriteGlowEffect>().enabled = false;
-        }
-    }
-
-    internal class NormalBottleSuccessHandler : IBottleSuccessHandler
-    {
-        /// <summary>
-        /// 目標位置
-        /// </summary>
-        private readonly int _targetPos;
-
-        /// <summary>
-        /// ボトルのインスタンス
-        /// </summary>
-        private readonly AbstractBottleController _bottle;
-
-        internal NormalBottleSuccessHandler(AbstractBottleController bottle, int targetPos)
-        {
-            _bottle = bottle;
-            _targetPos = targetPos;
+            _spriteGlowEffect.enabled = false;
         }
 
-        public void DoWhenSuccess()
+        /// <summary>
+        /// 目標タイルにいる時の処理
+        /// </summary>
+        private void DoWhenSuccess()
         {
+            // 光らせる
+            _spriteGlowEffect.enabled = true;
             // ステージの成功判定
-            GameObject.FindObjectOfType<GamePlayDirector>().CheckClear();
+            GamePlayDirector.Instance.CheckClear();
         }
 
+        /// <summary>
+        /// 目標タイルにいるかどうか
+        /// </summary>
+        /// <returns></returns>
         public bool IsSuccess()
         {
-            var currPos = BoardManager.Instance.GetBottlePos(_bottle);
-            return currPos == _targetPos;
+            return _targetPos != 0 && BoardManager.Instance.GetBottlePos(this) == _targetPos;
         }
     }
 }

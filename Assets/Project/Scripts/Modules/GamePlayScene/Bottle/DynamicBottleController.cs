@@ -3,20 +3,19 @@ using System.Collections;
 using TouchScript.Gestures;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Extensions;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
-    [RequireComponent(typeof(Animation))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(FlickGesture))]
     [RequireComponent(typeof(PressGesture))]
     [RequireComponent(typeof(ReleaseGesture))]
     public class DynamicBottleController : AbstractBottleController
     {
-        private Animation _anim;
-
         private FlickGesture _flickGesture;
         private PressGesture _pressGesture;
         private ReleaseGesture _releaseGesture;
@@ -27,9 +26,54 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public bool IsMovable = true;
 
         /// <summary>
-        /// ボトルが移動中かどうか
+        /// 移動開始時の処理
         /// </summary>
-        private bool _moving = false;
+        public event Action OnStartMove
+        {
+            add => _onStartMoveInvoker += value;
+            remove => _onStartMoveInvoker -= value;
+        }
+        private event Action _onStartMoveInvoker;
+
+        /// <summary>
+        /// 移動終了時の処理
+        /// </summary>
+        public event Action OnEndMove
+        {
+            add => _onEndMoveInvoker += value;
+            remove => _onEndMoveInvoker -= value;
+        }
+        private event Action _onEndMoveInvoker;
+
+        /// <summary>
+        /// ホールド開始時の処理
+        /// </summary>
+        public event Action OnPressed
+        {
+            add => _onPressedInvoker += value;
+            remove => _onPressedInvoker -= value;
+        }
+        private event Action _onPressedInvoker;
+
+        /// <summary>
+        /// ホールド終了時の処理
+        /// </summary>
+        public event Action OnReleased
+        {
+            add => _onReleasedInvoker += value;
+            remove => _onReleasedInvoker -= value;
+        }
+        private event Action _onReleasedInvoker;
+
+        /// <summary>
+        /// ゲーム終了時の処理
+        /// </summary>
+        public event Action OnEndGame
+        {
+            add => _onEndGameInvoker += value;
+            remove => _onEndGameInvoker -= value;
+        }
+        private event Action _onEndGameInvoker;
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -56,43 +100,41 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _pressGesture = GetComponent<PressGesture>();
             // ReleaseGesture の設定
             _releaseGesture = GetComponent<ReleaseGesture>();
-
-            // アニメーションの追加
-            _anim = GetComponent<Animation>();
         }
 
-        public override void Initialize(BottleData bottleData)
+        public override async void Initialize(BottleData bottleData)
         {
+            base.Initialize(bottleData);
+
             // set handlers
             if (bottleData.isSelfish) {
-                selfishHandler = new SelfishMoveHandler(this);
+                var selfishEffect = await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).Task;
+                selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
             }
-
-            base.Initialize(bottleData);
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            _flickGesture.Flicked += HandleFlick;
-            _pressGesture.Pressed += HandlePress;
-            _releaseGesture.Released += HandleRelease;
-            GamePlayDirector.OnSucceed += OnSucceed;
-            GamePlayDirector.OnFail += OnFail;
+            _flickGesture.Flicked += HandleFlicked;
+            _pressGesture.Pressed += HandlePressed;
+            _releaseGesture.Released += HandleReleased;
+            GamePlayDirector.OnSucceedGame += HandleOnSucceedGame;
+            GamePlayDirector.OnFailGame += HandleOnFailGame;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
-            _flickGesture.Flicked -= HandleFlick;
-            _pressGesture.Pressed -= HandlePress;
-            _releaseGesture.Released -= HandleRelease;
-            GamePlayDirector.OnSucceed -= OnSucceed;
-            GamePlayDirector.OnFail -= OnFail;
+            _flickGesture.Flicked -= HandleFlicked;
+            _pressGesture.Pressed -= HandlePressed;
+            _releaseGesture.Released -= HandleReleased;
+            GamePlayDirector.OnSucceedGame -= HandleOnSucceedGame;
+            GamePlayDirector.OnFailGame -= HandleOnFailGame;
         }
 
         /// <summary>
         /// フリックイベントを処理する
         /// </summary>
-        private void HandleFlick(object sender, EventArgs e)
+        private void HandleFlicked(object sender, EventArgs e)
         {
             if (!IsMovable) return;
 
@@ -112,9 +154,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private void HandlePress(object sender, EventArgs e)
+        private void HandlePressed(object sender, EventArgs e)
         {
-            selfishHandler?.OnPressed();
+            _onPressedInvoker?.Invoke();
         }
 
         /// <summary>
@@ -122,9 +164,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void HandleRelease(object sender, EventArgs e)
+        private void HandleReleased(object sender, EventArgs e)
         {
-            selfishHandler?.OnReleased();
+            _onReleasedInvoker?.Invoke();
         }
 
         /// <summary>
@@ -141,14 +183,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
             SetGesturesEnabled(false);
-            selfishHandler?.OnStartMove();
+            _onStartMoveInvoker?.Invoke();
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
 
-            selfishHandler?.OnEndMove();
+            _onEndMoveInvoker?.Invoke();
             SetGesturesEnabled(true);
 
             callback();
@@ -157,7 +199,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム成功時の処理
         /// </summary>
-        protected virtual void OnSucceed()
+        protected virtual void HandleOnSucceedGame()
         {
             EndProcess();
         }
@@ -165,7 +207,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム失敗時の処理
         /// </summary>
-        protected virtual void OnFail()
+        protected virtual void HandleOnFailGame()
         {
             EndProcess();
         }
@@ -175,16 +217,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
-            selfishHandler?.EndProcess();
-
-            _flickGesture.Flicked -= HandleFlick;
-            _pressGesture.Pressed -= HandlePress;
-            _releaseGesture.Released -= HandleRelease;
-
-            // 自身が破壊されてない場合には，自身のアニメーションの繰り返しを停止
-            if (!IsDead) {
-                _anim.wrapMode = WrapMode.Default;
-            }
+            _onEndGameInvoker?.Invoke();
         }
     }
 }

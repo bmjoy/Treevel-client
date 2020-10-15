@@ -1,4 +1,4 @@
-using UnityEngine.AddressableAssets;
+﻿using UnityEngine.AddressableAssets;
 using UnityEngine.Video;
 
 namespace Treevel.Common.Entities.GameDatas

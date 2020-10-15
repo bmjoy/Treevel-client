@@ -16,7 +16,7 @@ MonoBehaviour:
   stageNumber: 5
   tiles: []
   bottles:
-  - type: 3
+  - type: 2
     initPos: 7
     targetPos: 4
     bottleSprite:
@@ -27,7 +27,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile1
     life: 2
     isSelfish: 0
-  - type: 3
+  - type: 2
     initPos: 8
     targetPos: 5
     bottleSprite:
@@ -38,7 +38,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile2
     life: 2
     isSelfish: 0
-  - type: 3
+  - type: 2
     initPos: 9
     targetPos: 6
     bottleSprite:
@@ -49,7 +49,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile3
     life: 2
     isSelfish: 0
-  - type: 3
+  - type: 2
     initPos: 10
     targetPos: 7
     bottleSprite:
@@ -60,7 +60,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile4
     life: 2
     isSelfish: 0
-  - type: 3
+  - type: 2
     initPos: 11
     targetPos: 8
     bottleSprite:
@@ -82,7 +82,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile6
     life: 1
     isSelfish: 0
-  - type: 3
+  - type: 2
     initPos: 13
     targetPos: 10
     bottleSprite:
@@ -93,7 +93,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile7
     life: 2
     isSelfish: 0
-  - type: 3
+  - type: 2
     initPos: 14
     targetPos: 11
     bottleSprite:
@@ -120,7 +120,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    solarBeamDirection: 0
+    targetDirection: 0
     attackTimes: 0
   overviewGimmicks: 
   tutorial:

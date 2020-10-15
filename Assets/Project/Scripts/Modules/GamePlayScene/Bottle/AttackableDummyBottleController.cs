@@ -1,4 +1,5 @@
-﻿using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
@@ -8,7 +9,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     /// </summary>
     public class AttackableDummyBottleController : DynamicBottleController
     {
-        public override void Initialize(BottleData bottleData)
+        public override async void Initialize(BottleData bottleData)
         {
             base.Initialize(bottleData);
 
@@ -16,11 +17,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             name = Constants.BottleName.ATTACKABLE_DUMMY_BOTTLE;
             #endif
 
-            if (bottleData.life <= 1) {
-                getDamagedHandler = new OneLifeBottleGetDamagedHandler(this);
-            } else {
-                getDamagedHandler = new MultiLifeBottleGetDamagedHandler(this, bottleData.life);
-            }
+            // set handler
+            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).Task;
+            lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
         }
     }
 }

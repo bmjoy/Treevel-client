@@ -13,7 +13,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             {EBottleType.Dynamic, Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Static, Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB},
             {EBottleType.Normal, Constants.Address.NORMAL_BOTTLE_PREFAB},
-            {EBottleType.Life, Constants.Address.LIFE_BOTTLE_PREFAB},
             {EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
         };
 

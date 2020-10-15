@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -23,38 +24,39 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 自身が死んだかどうか
-        /// </summary>
-        protected internal bool IsDead
-        {
-            get;
-            internal set;
-        }
-
-        /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        protected IBottleGetDamagedHandler getDamagedHandler;
+        public event Action<GameObject> OnGetDamaged
+        {
+            add => _onGetDamagedInvoker += value;
+            remove => _onGetDamagedInvoker -= value;
+        }
+        private event Action<GameObject> _onGetDamagedInvoker;
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected IBottleEnterTileHandler bottleEnterTileHandler;
+        protected event Action<GameObject> onEnterTile
+        {
+            add => _onEnterTileInvoker += value;
+            remove => _onEnterTileInvoker -= value;
+        }
+        private event Action<GameObject> _onEnterTileInvoker;
 
         /// <summary>
-        /// ボトルの成功判定と成功時の挙動
+        /// タイルから出る時の挙動
         /// </summary>
-        protected IBottleSuccessHandler successHandler;
-
-        /// <summary>
-        /// ボトルを勝手に移動させる時の挙動
-        /// </summary>
-        protected ISelfishHandler selfishHandler;
+        protected event Action<GameObject> onExitTile
+        {
+            add => _onExitTileInvoker += value;
+            remove => _onExitTileInvoker -= value;
+        }
+        private event Action<GameObject> _onExitTileInvoker;
 
         /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
-        public bool IsAttackable => getDamagedHandler != null;
+        public bool IsAttackable => _onGetDamagedInvoker != null;
 
         /// <summary>
         /// 無敵状態かどうか
@@ -78,25 +80,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 無敵状態なら，衝突を考えない
             if (Invincible) return;
 
-            getDamagedHandler?.OnGetDamaged(other.gameObject);
-        }
-
-        /// <summary>
-        /// タイルに移動した時の挙動
-        /// </summary>
-        /// <param name="targetTile">目標のタイル</param>
-        public void OnEnterTile(GameObject targetTile)
-        {
-            bottleEnterTileHandler?.OnEnterTile(targetTile);
-        }
-
-        /// <summary>
-        /// タイルから出た時の挙動
-        /// </summary>
-        /// <param name="targetTile">出たタイル</param>
-        public void OnExitTile(GameObject targetTile)
-        {
-            bottleEnterTileHandler?.OnExitTile(targetTile);
+            _onGetDamagedInvoker?.Invoke(other.gameObject);
         }
 
         private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
@@ -155,12 +139,21 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// ボトルの成功判定
+        /// タイルに移動した時のイベント発火
         /// </summary>
-        public bool IsSuccess()
+        /// <param name="targetTile">目標の出たタイル</param>
+        public void TriggerOnEnterTile(GameObject targetTile)
         {
-            // SuccessHandler未定義の時は成功とみなす。
-            return successHandler?.IsSuccess() ?? true;
+            _onEnterTileInvoker?.Invoke(targetTile);
+        }
+
+        /// <summary>
+        /// タイルから出た時のイベント発火
+        /// </summary>
+        /// <param name="targetTile">出たタイル</param>
+        public void TriggerOnExitTile(GameObject targetTile)
+        {
+            _onExitTileInvoker?.Invoke(targetTile);
         }
     }
 }

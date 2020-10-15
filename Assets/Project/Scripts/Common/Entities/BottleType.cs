@@ -4,7 +4,6 @@
         Dynamic,
         Static,
         Normal,
-        Life,
         AttackableDummy,
     }
 }

@@ -40,12 +40,22 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 成功時のイベント
         /// </summary>
-        public static event Action OnSucceed;
+        public static event Action OnSucceedGame
+        {
+            add => _onSucceedGameInvoker += value;
+            remove => _onSucceedGameInvoker -= value;
+        }
+        private static event Action _onSucceedGameInvoker;
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
-        public static event Action OnFail;
+        public static event Action OnFailGame
+        {
+            add => _onFailGameInvoker += value;
+            remove => _onFailGameInvoker -= value;
+        }
+        private static event Action _onFailGameInvoker;
 
         /// <summary>
         /// ゲームの状態一覧
@@ -199,7 +209,7 @@ namespace Treevel.Modules.GamePlayScene
             if (!StageGenerator.CreatedFinished)
                 return;
 
-            var bottles = GameObject.FindObjectsOfType<AbstractBottleController>();
+            var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
             if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
 
             // 全ての成功判定が付くボトルが成功の場合，成功状態に遷移
@@ -434,7 +444,7 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(true);
 
                 // 成功イベント
-                OnSucceed?.Invoke();
+                _onSucceedGameInvoker?.Invoke();
             }
 
             public override void OnExit(State to)
@@ -483,7 +493,7 @@ namespace Treevel.Modules.GamePlayScene
                     _failurePopup.SetActive(true);
 
                     // 失敗イベント
-                    OnFail?.Invoke();
+                    _onFailGameInvoker?.Invoke();
                 }
             }
 

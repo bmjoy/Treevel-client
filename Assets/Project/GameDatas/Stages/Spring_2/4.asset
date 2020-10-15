@@ -120,7 +120,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    solarBeamDirection: 0
+    targetDirection: 0
     attackTimes: 0
   overviewGimmicks: 
   tutorial:
