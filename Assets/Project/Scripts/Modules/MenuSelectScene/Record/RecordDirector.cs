@@ -78,8 +78,31 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _toIndividualButton.onClick.AddListener(MoveToRight);
             _toGeneralButton.onClick.AddListener(MoveToLeft);
 
+            _toGeneralButton.gameObject.SetActive(false);
+
             // 各種グラフなどを全て描画する
             // Draw();
+        }
+
+        private void OnEnable()
+        {
+            _snapScrollView.OnPageChanged += HandleOnPageChanged;
+        }
+
+        private void OnDisable()
+        {
+            _snapScrollView.OnPageChanged -= HandleOnPageChanged;
+        }
+
+        private void HandleOnPageChanged()
+        {
+            if (_snapScrollView.Page == 0) {
+                _toIndividualButton.gameObject.SetActive(true);
+                _toGeneralButton.gameObject.SetActive(false);
+            } else {
+                _toIndividualButton.gameObject.SetActive(false);
+                _toGeneralButton.gameObject.SetActive(true);
+            }
         }
 
         private static void ShareRecord()
