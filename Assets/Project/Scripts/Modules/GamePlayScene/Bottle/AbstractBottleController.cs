@@ -36,7 +36,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        protected event Action<GameObject> onEnterTile
+        public event Action<GameObject> OnEnterTile
         {
             add => _onEnterTileInvoker += value;
             remove => _onEnterTileInvoker -= value;
@@ -46,7 +46,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
-        protected event Action<GameObject> onExitTile
+        public event Action<GameObject> OnExitTile
         {
             add => _onExitTileInvoker += value;
             remove => _onExitTileInvoker -= value;

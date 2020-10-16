@@ -13,5 +13,6 @@ namespace Treevel.Common.Entities.GameDatas
         public AssetReferenceSprite targetTileSprite;
         public short life;
         public bool isSelfish;
+        public bool isDark;
     }
 }

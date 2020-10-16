@@ -30,15 +30,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void OnEnable()
         {
             base.OnEnable();
-            onEnterTile += HandleOnEnterTile;
-            onExitTile += HandleOnExitTile;
+            OnEnterTile += HandleOnEnterTile;
+            OnExitTile += HandleOnExitTile;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            onEnterTile -= HandleOnEnterTile;
-            onExitTile -= HandleOnExitTile;
+            OnEnterTile -= HandleOnEnterTile;
+            OnExitTile -= HandleOnExitTile;
         }
 
         /// <summary>
@@ -60,6 +60,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).Task;
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
+            if (bottleData.isDark) {
+                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB).Task;
+                darkEffect.GetComponent<DarkEffectController>().Initialize(this);
+            }
 
             #if UNITY_EDITOR
             name = Constants.BottleName.NORMAL_BOTTLE + Id.ToString();
