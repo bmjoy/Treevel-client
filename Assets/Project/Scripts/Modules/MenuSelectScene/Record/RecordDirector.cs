@@ -12,6 +12,21 @@ namespace Treevel.Modules.MenuSelectScene.Record
 {
     public class RecordDirector : SingletonObject<RecordDirector>
     {
+        /// <summary>
+        /// [UI] "Share" ボタン
+        /// </summary>
+        [SerializeField] private Button _shareButton;
+
+        /// <summary>
+        /// [UI] "個別記録へ" ボタン
+        /// </summary>
+        [SerializeField] private Button _toIndividualButton;
+
+        /// <summary>
+        /// [UI] "総合記録へ" ボタン
+        /// </summary>
+        [SerializeField] private Button _toGeneralButton;
+
         [SerializeField] private GameObject _graphPrefab;
 
         [SerializeField] private GameObject _stageNumPrefab;
@@ -59,13 +74,28 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // ページの横幅の設定
             _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
 
+            _shareButton.onClick.AddListener(ShareRecord);
+            _toIndividualButton.onClick.AddListener(MoveToRight);
+            _toGeneralButton.onClick.AddListener(MoveToLeft);
+
             // 各種グラフなどを全て描画する
             // Draw();
         }
 
-        public void MoveToRight()
+        private static void ShareRecord()
+        {
+            Application.OpenURL("https://twitter.com/intent/tweet?hashtags=Treevel");
+        }
+
+        private void MoveToRight()
         {
             _snapScrollView.Page = 1;
+            _snapScrollView.RefreshPage();
+        }
+
+        private void MoveToLeft()
+        {
+            _snapScrollView.Page = 0;
             _snapScrollView.RefreshPage();
         }
 
