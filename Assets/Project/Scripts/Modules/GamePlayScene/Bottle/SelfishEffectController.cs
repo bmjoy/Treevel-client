@@ -37,7 +37,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private Animator _bottleAnimator;
         private const string _ANIMATOR_PARAM_INT_SELFISH_TIME = "SelfishTime";
         private const string _ANIMATOR_PARAM_TRIGGER_IDLE = "SelfishIdle";
-        private const string _ANIMATOR_PARAM_SPEED = "SelfishSpeed";
+        private const string _ANIMATOR_PARAM_FLOAT_SPEED = "SelfishSpeed";
 
         private void Awake()
         {
@@ -128,8 +128,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _countCalmFrames = false;
             _calmFrames = 0;
-            _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
-            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+            _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
         }
 
         /// <summary>
@@ -181,11 +181,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _countCalmFrames = countCalmFrames;
             if (_countCalmFrames) {
-                _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 1f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 1f);
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
             } else {
-                _animator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_SPEED, 0f);
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
             }
         }
     }
