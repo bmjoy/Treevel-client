@@ -10,9 +10,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private NormalBottleController _bottleController;
 
         /// <summary>
-        /// 暗闇状態かどうか
+        /// 成功状態かどうか
         /// </summary>
-        private bool _isDark;
+        private bool _isSuccess;
 
         private Animator _animator;
         private const string _ANIMATOR_IS_DARK = "IsDark";
@@ -32,17 +32,21 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // イベントに処理を登録する
             _bottleController.OnEnterTile += HandleOnEnterTile;
             _bottleController.OnExitTile += HandleOnExitTile;
+            _bottleController.OnPressed += HandleOnPressed;
+            _bottleController.OnReleased += HandleOnReleased;
             _bottleController.OnEndGame += HandleOnEndGame;
 
             // 初期状態の登録
-            _isDark = !_bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, _isDark);
+            _isSuccess = _bottleController.IsSuccess();
+            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
         }
 
         private void OnDestroy()
         {
             _bottleController.OnEnterTile -= HandleOnEnterTile;
             _bottleController.OnExitTile -= HandleOnExitTile;
+            _bottleController.OnPressed -= HandleOnPressed;
+            _bottleController.OnReleased -= HandleOnReleased;
             _bottleController.OnEndGame -= HandleOnEndGame;
         }
 
@@ -52,8 +56,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile"></param>
         private void HandleOnEnterTile(GameObject targetTile)
         {
-            _isDark = !_bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, _isDark);
+            _isSuccess = _bottleController.IsSuccess();
+            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
         }
 
         /// <summary>
@@ -62,8 +66,24 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile"></param>
         private void HandleOnExitTile(GameObject targetTile)
         {
-            _isDark = !_bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, _isDark);
+            _isSuccess = !_bottleController.IsSuccess();
+            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
+        }
+
+        /// <summary>
+        /// ホールド開始時の処理
+        /// </summary>
+        private void HandleOnPressed()
+        {
+            _animator.SetBool(_ANIMATOR_IS_DARK, false);
+        }
+
+        /// <summary>
+        /// ホールド終了時の処理
+        /// </summary>
+        private void HandleOnReleased()
+        {
+            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
         }
 
         /// <summary>
