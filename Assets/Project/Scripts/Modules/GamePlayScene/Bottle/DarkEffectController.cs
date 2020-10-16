@@ -12,14 +12,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 暗闇状態かどうか
         /// </summary>
-        private bool _isDark
-        {
-            get => _isDark;
-            set {
-                _isDark = value;
-                _animator.SetBool(_ANIMATOR_PARAM_FLOAT_SPEED, _isDark);
-            }
-        }
+        private bool _isDark;
 
         private Animator _animator;
         private const string _ANIMATOR_IS_DARK = "IsDark";
@@ -42,7 +35,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.OnEndGame += HandleOnEndGame;
 
             // 初期状態の登録
-            // _isDark = _bottleController.IsSuccess();
+            _isDark = !_bottleController.IsSuccess();
+            _animator.SetBool(_ANIMATOR_IS_DARK, _isDark);
         }
 
         private void OnDestroy()
@@ -58,7 +52,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile"></param>
         private void HandleOnEnterTile(GameObject targetTile)
         {
-            // _isDark = _bottleController.IsSuccess();
+            _isDark = !_bottleController.IsSuccess();
+            _animator.SetBool(_ANIMATOR_IS_DARK, _isDark);
         }
 
         /// <summary>
@@ -67,7 +62,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile"></param>
         private void HandleOnExitTile(GameObject targetTile)
         {
-            // _isDark = _bottleController.IsSuccess();
+            _isDark = !_bottleController.IsSuccess();
+            _animator.SetBool(_ANIMATOR_IS_DARK, _isDark);
         }
 
         /// <summary>
