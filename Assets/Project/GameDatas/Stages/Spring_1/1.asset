@@ -114,7 +114,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile7
     life: 3
     isSelfish: 0
-    isDark: 0
+    isDark: 1
   - type: 2
     initPos: 14
     targetPos: 11
@@ -125,7 +125,7 @@ MonoBehaviour:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
     life: 5
-    isSelfish: 0
+    isSelfish: 1
     isDark: 1
   - type: 1
     initPos: 15
