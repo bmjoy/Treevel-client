@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Treevel.Common.Components
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class ObjectUnifier : MonoBehaviour
+    public class SpriteUnifier : MonoBehaviour
     {
         [Range(0, 1), Tooltip("画面の横幅に占める比率")]
         public float RatioToWindowWidth;

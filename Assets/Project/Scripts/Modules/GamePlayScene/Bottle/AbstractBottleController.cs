@@ -11,7 +11,7 @@ using UnityEngine.AddressableAssets;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    [RequireComponent(typeof(ObjectUnifier))]
+    [RequireComponent(typeof(SpriteUnifier))]
     public abstract class AbstractBottleController : MonoBehaviour
     {
         /// <summary>
@@ -133,7 +133,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
                 StartCoroutine(InitializeSprite(bottleData.bottleSprite));
             } else {
-                GetComponent<ObjectUnifier>().Unify();
+                GetComponent<SpriteUnifier>().Unify();
                 GetComponent<SpriteRenderer>().enabled = true;
             }
         }
