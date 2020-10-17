@@ -143,7 +143,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (gesture.State != FlickGesture.GestureState.Recognized) return;
 
             // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
-            var directionInt = Vector2Int.RoundToInt(Vector2Extension.Normalize(gesture.ScreenFlickVector));
+            var directionInt = Vector2Int.RoundToInt(gesture.ScreenFlickVector.NormalizeDirection());
 
             // ボトルのフリック情報を伝える
             if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
