@@ -1,9 +1,10 @@
 ﻿using Treevel.Common.Utils;
+using Treevel.Common.Patterns.Singleton;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
-    public class DisplayUnifier : MonoBehaviour
+    public class DisplayUnifier : SingletonObject<DisplayUnifier>
     {
         /// <summary>
         /// ゲーム画面以外を埋める背景
@@ -14,6 +15,8 @@ namespace Treevel.Modules.GamePlayScene
         /// ゲーム画面と同じ大きさの背景用マスク
         /// </summary>
         [SerializeField] private GameObject _backgroundMask;
+
+        public float gameWindowWidth = Constants.WindowSize.WIDTH;
 
         /// <summary>
         /// 9:16のゲーム領域を覆うPanel
@@ -50,8 +53,8 @@ namespace Treevel.Modules.GamePlayScene
                 // 横長のデバイスの場合
                 var ratio = targetRatio / currentRatio;
                 var rectX = (1 - ratio) / 2f;
-                _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight * ratio);
-                _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth, Constants.WindowSize.HEIGHT / originalHeight * ratio);
+                _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth, Constants.WindowSize.HEIGHT / originalHeight);
+                _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth / ratio, Constants.WindowSize.HEIGHT / originalHeight);
                 // GameAreaPanelの大きさを変更
                 rect.anchorMin = new Vector2(rectX, 0);
                 rect.anchorMax = new Vector2(rectX + ratio, 1);
@@ -63,12 +66,11 @@ namespace Treevel.Modules.GamePlayScene
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight);
                 rect.anchorMin = new Vector2(0, rectY);
                 rect.anchorMax = new Vector2(1, rectY + ratio);
+                // ゲーム画面の横幅を更新
+                gameWindowWidth *= ratio;
             }
             _backgroundMask.GetComponent<SpriteMask>().enabled = true;
             _background.GetComponent<SpriteRenderer>().enabled = true;
-
-            // このオブジェクトを破壊
-            Destroy(gameObject);
         }
     }
 }
