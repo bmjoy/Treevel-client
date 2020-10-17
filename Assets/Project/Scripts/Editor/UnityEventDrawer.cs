@@ -18,7 +18,7 @@ namespace Treevel.Editor
     {
         private Dictionary<string, State> m_States = new Dictionary<string, State>();
         // Find internal methods with reflection
-        private static MethodInfo findMethod = typeof(UnityEventBase).GetMethod("FindMethod", BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.Standard, new Type[] { typeof(string), typeof(object), typeof(PersistentListenerMode), typeof(Type) }, null);
+        private static MethodInfo findMethod = typeof(UnityEventBase).GetMethod("FindMethod", BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.Standard, new Type[] { typeof(string), typeof(Type), typeof(PersistentListenerMode), typeof(Type) }, null);
         private static MethodInfo temp = typeof(GUIContent).GetMethod("Temp", BindingFlags.NonPublic | BindingFlags.Static, null, CallingConventions.Standard, new Type[] { typeof(string) }, null);
         private static PropertyInfo mixedValueContent = typeof(EditorGUI).GetProperty("mixedValueContent", BindingFlags.NonPublic | BindingFlags.Static);
         private Styles m_Styles;
@@ -31,7 +31,7 @@ namespace Treevel.Editor
 
         private static string GetEventParams(UnityEventBase evt)
         {
-            var method = (MethodInfo)findMethod.Invoke(evt, new object[] { "Invoke", evt, PersistentListenerMode.EventDefined, null });
+            var method = (MethodInfo)findMethod.Invoke(evt, new object[] { "Invoke", evt.GetType(), PersistentListenerMode.EventDefined, null });
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(" (");
             var array = ((IEnumerable<ParameterInfo>)method.GetParameters()).Select(x => x.ParameterType).ToArray();
@@ -345,7 +345,7 @@ namespace Treevel.Editor
 
         private static MethodInfo GetMethod(UnityEventBase dummyEvent, string methodName, UnityEngine.Object uObject, PersistentListenerMode modeEnum, Type argumentType)
         {
-            return (MethodInfo)findMethod.Invoke(dummyEvent, new object[] { methodName, uObject, modeEnum, argumentType });
+            return (MethodInfo)findMethod.Invoke(dummyEvent, new object[] { methodName, uObject.GetType(), modeEnum, argumentType });
         }
 
         private static GenericMenu BuildPopupList(UnityEngine.Object target, UnityEventBase dummyEvent, SerializedProperty listener)
