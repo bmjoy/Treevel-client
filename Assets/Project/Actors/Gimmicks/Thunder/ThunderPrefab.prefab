@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252275918}
   - component: {fileID: 1252275919}
-  - component: {fileID: 8738676151035059012}
+  - component: {fileID: 2490255250417828685}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Gimmick
@@ -47,6 +47,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1957745791
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -6981827254641702772, guid: 4c020acc7e07944dcab0deb65a5a3d69,
     type: 3}
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8738676151035059012
+--- !u!114 &2490255250417828685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,11 +93,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1252275917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
+  m_Script: {fileID: 11500000, guid: c0c48ee6b0648441da1a1c58aef83f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.3
-  ImageRatio: 0.66
+  ImageRatio: 1
 --- !u!1 &8954458054354922760
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,8 +108,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8954458054354922761}
   - component: {fileID: 2798508139326069883}
-  - component: {fileID: 6066410761100306198}
   - component: {fileID: 2202089891535575663}
+  - component: {fileID: 6924343976475138377}
   m_Layer: 0
   m_Name: Thunder
   m_TagString: Gimmick
@@ -145,6 +146,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -167,7 +169,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1957745791
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -4288467010276819980, guid: ace2de903c3aa49cc88703f6fd4e6217,
     type: 3}
@@ -181,20 +183,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6066410761100306198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8954458054354922760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RatioToWindowWidth: 0.2
-  ImageRatio: 1
 --- !u!61 &2202089891535575663
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -221,6 +209,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.92, y: 1.92}
   m_EdgeRadius: 0
+--- !u!114 &6924343976475138377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954458054354922760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c48ee6b0648441da1a1c58aef83f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RatioToWindowWidth: 0.2
+  ImageRatio: 1
 --- !u!1 &8954458054731302087
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +291,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _warningDisplayTime: 1
-  _attackSE: {fileID: 8300000, guid: e141eba38ef494fe38b49ad437137deb, type: 3}
   _moveSpeed: 1.5
   _cloud: {fileID: 1252275917}
 --- !u!82 &3899458119821525949

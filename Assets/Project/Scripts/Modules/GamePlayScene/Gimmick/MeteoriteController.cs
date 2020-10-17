@@ -11,7 +11,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
-    [RequireComponent(typeof(SpriteUnifier))]
+    [RequireComponent(typeof(GameSpriteUnifier))]
     [RequireComponent(typeof(Collider2D))]
     public class MeteoriteController : AbstractGimmickController
     {

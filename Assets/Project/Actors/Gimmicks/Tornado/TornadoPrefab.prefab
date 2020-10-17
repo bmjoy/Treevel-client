@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3179508892951581984}
   - component: {fileID: 4002950461031127232}
   - component: {fileID: -2053460268268751404}
-  - component: {fileID: 4933567334964378376}
   - component: {fileID: 2586220007133709870}
+  - component: {fileID: 3909452991710956227}
   m_Layer: 9
   m_Name: TornadoPrefab
   m_TagString: Gimmick
@@ -71,6 +71,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -93,7 +94,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1957745791
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 66e1ee24968914d3ebacbe3ee90ee87c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,20 +124,6 @@ MonoBehaviour:
   _warningPrefab:
     m_AssetGUID: 187750991088a47b09988c392fc0009e
     m_SubObjectName: 
---- !u!114 &4933567334964378376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336118223516990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RatioToWindowWidth: 0.15
-  ImageRatio: 1
 --- !u!61 &2586220007133709870
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,3 +150,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &3909452991710956227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336118223516990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c48ee6b0648441da1a1c58aef83f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RatioToWindowWidth: 0.15
+  ImageRatio: 1
