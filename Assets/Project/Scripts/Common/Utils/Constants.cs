@@ -175,19 +175,19 @@ namespace Treevel.Common.Utils
         /// <summary>
         /// タイルの大きさ
         /// </summary>
-        public static class TileSize
+        public static class TileRatioToWindowWidth
         {
-            public const float WIDTH = WindowSize.WIDTH * 0.22f;
-            public const float HEIGHT = WIDTH;
+            public const float WIDTH_RATIO = 0.22f;
+            public const float HEIGHT_RATIO = WIDTH_RATIO;
         }
 
         /// <summary>
         /// ボトルの大きさ
         /// </summary>
-        public static class BottleSize
+        public static class BottleRatioToWindowWidth
         {
-            public const float WIDTH = TileSize.WIDTH * 0.95f;
-            public const float HEIGHT = WIDTH;
+            public const float WIDTH_RATIO = TileRatioToWindowWidth.WIDTH_RATIO * 0.95f;
+            public const float HEIGHT_RATIO = WIDTH_RATIO;
         }
 
         /// <summary>

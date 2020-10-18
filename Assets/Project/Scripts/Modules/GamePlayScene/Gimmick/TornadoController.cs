@@ -314,14 +314,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var sign = direction == EGimmickDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
                 warningPosition = new Vector2(sign * Constants.WindowSize.WIDTH / 2,
-                    Constants.TileSize.HEIGHT * (Constants.StageSize.ROW / 2 + 1 - line));
+                    GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 + 1 - line));
                 motionVector = direction == EGimmickDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
             } else if (GimmickLibrary.IsVertical(direction)) {
                 var sign = direction == EGimmickDirection.ToUp ? -1 : 1;
                 // x座標は同じ列のタイルと同じ値、y座標は画面端
-                warningPosition = new Vector2(Constants.TileSize.WIDTH * (line - (Constants.StageSize.COLUMN / 2 + 1)),
+                warningPosition = new Vector2(GameWindowController.Instance.GetTileWidth() * (line - (Constants.StageSize.COLUMN / 2 + 1)),
                     sign * Constants.WindowSize.HEIGHT / 2);
                 motionVector = direction == EGimmickDirection.ToUp ?
                     Vector2.up :

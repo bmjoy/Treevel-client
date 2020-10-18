@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
-    public class DisplayUnifier : SingletonObject<DisplayUnifier>
+    [DefaultExecutionOrder(-1)]
+    public class GameWindowController : SingletonObject<GameWindowController>
     {
         /// <summary>
         /// ゲーム画面以外を埋める背景
@@ -16,7 +17,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         [SerializeField] private GameObject _backgroundMask;
 
-        public float gameWindowWidth = Constants.WindowSize.WIDTH;
+        private float gameWindowWidth = Constants.WindowSize.WIDTH;
 
         /// <summary>
         /// 9:16のゲーム領域を覆うPanel
@@ -71,6 +72,31 @@ namespace Treevel.Modules.GamePlayScene
             }
             _backgroundMask.GetComponent<SpriteMask>().enabled = true;
             _background.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        public float GetGameWindowWidth()
+        {
+            return gameWindowWidth;
+        }
+
+        public float GetTileWidth()
+        {
+            return gameWindowWidth * Constants.TileRatioToWindowWidth.WIDTH_RATIO;
+        }
+
+        public float GetTileHeight()
+        {
+            return gameWindowWidth * Constants.TileRatioToWindowWidth.HEIGHT_RATIO;
+        }
+
+        public float GetBottleWidth()
+        {
+            return gameWindowWidth * Constants.BottleRatioToWindowWidth.WIDTH_RATIO;
+        }
+
+        public float GetBottleHeight()
+        {
+            return gameWindowWidth * Constants.BottleRatioToWindowWidth.HEIGHT_RATIO;
         }
     }
 }
