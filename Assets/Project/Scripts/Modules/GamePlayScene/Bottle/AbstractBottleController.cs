@@ -105,16 +105,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }
             }
 
-            // ボトル画像のサイズを取得
-            var bottleWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-            var bottleHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
-            // ボトルの初期設定
-            transform.localScale = new Vector2(Constants.BottleSize.WIDTH / bottleWidth, Constants.BottleSize.HEIGHT / bottleHeight);
-
-            if (GetComponent<Collider2D>() is BoxCollider2D) {
-                GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
-            }
-            GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.BOTTLE;
+            // ボトル画像のサイズを調整
+            GetComponent<GameSpriteUnifier>().Unify();
             GetComponent<SpriteRenderer>().enabled = true;
         }
 
