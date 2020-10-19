@@ -66,7 +66,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile"></param>
         private void HandleOnExitTile(GameObject targetTile)
         {
-            _isSuccess = !_bottleController.IsSuccess();
+            _isSuccess = _bottleController.IsSuccess();
             _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
         }
 
