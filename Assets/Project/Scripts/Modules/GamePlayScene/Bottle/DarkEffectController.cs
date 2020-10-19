@@ -32,7 +32,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // イベントに処理を登録する
             _bottleController.OnEnterTile += HandleOnEnterTile;
             _bottleController.OnExitTile += HandleOnExitTile;
-            _bottleController.OnPressed += HandleOnPressed;
+            _bottleController.OnLongPressed += HandleOnLongPressed;
             _bottleController.OnReleased += HandleOnReleased;
             _bottleController.OnEndGame += HandleOnEndGame;
 
@@ -45,7 +45,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _bottleController.OnEnterTile -= HandleOnEnterTile;
             _bottleController.OnExitTile -= HandleOnExitTile;
-            _bottleController.OnPressed -= HandleOnPressed;
+            _bottleController.OnLongPressed -= HandleOnLongPressed;
             _bottleController.OnReleased -= HandleOnReleased;
             _bottleController.OnEndGame -= HandleOnEndGame;
         }
@@ -73,7 +73,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ホールド開始時の処理
         /// </summary>
-        private void HandleOnPressed()
+        private void HandleOnLongPressed()
         {
             _animator.SetBool(_ANIMATOR_IS_DARK, false);
         }

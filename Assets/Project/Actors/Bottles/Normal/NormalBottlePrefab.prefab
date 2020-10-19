@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 8508243079957657246}
   - component: {fileID: 199597489305304372}
   - component: {fileID: -3681241733428531822}
+  - component: {fileID: -8491268406887753677}
   m_Layer: 8
   m_Name: NormalBottlePrefab
   m_TagString: Bottle
@@ -56,6 +57,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -303,3 +305,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.209
   ImageRatio: 1
+--- !u!114 &-8491268406887753677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667971508019858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c8d97aff62a473e888feae3bec54cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  basicEditor: 1
+  generalProps: 0
+  limitsProps: 0
+  advancedProps: 0
+  minPointers: 0
+  maxPointers: 0
+  useSendMessage: 0
+  sendStateChangeMessages: 0
+  sendMessageTarget: {fileID: 0}
+  useUnityEvents: 0
+  sendStateChangeEvents: 0
+  requireGestureToFail: {fileID: 0}
+  friendlyGestures: []
+  OnLongPress:
+    m_PersistentCalls:
+      m_Calls: []
+  timeToPress: 0.3
+  distanceLimit: Infinity
