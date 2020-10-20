@@ -37,15 +37,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void OnEnable()
         {
             base.OnEnable();
-            OnEnterTile += HandleOnEnterTile;
-            OnExitTile += HandleOnExitTile;
+            EnterTile += HandleEnterTile;
+            ExitTile += HandleExitTile;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            OnEnterTile -= HandleOnEnterTile;
-            OnExitTile -= HandleOnExitTile;
+            EnterTile -= HandleEnterTile;
+            ExitTile -= HandleExitTile;
         }
 
         /// <summary>
@@ -81,14 +81,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
 
-        private void HandleOnEnterTile(GameObject targetTile)
+        private void HandleEnterTile(GameObject targetTile)
         {
             if (IsSuccess()) {
                 DoWhenSuccess();
             }
         }
 
-        private void HandleOnExitTile(GameObject targetTile)
+        private void HandleExitTile(GameObject targetTile)
         {
             _spriteGlowEffect.enabled = false;
         }

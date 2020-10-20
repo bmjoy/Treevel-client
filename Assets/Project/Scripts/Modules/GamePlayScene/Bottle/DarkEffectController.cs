@@ -29,11 +29,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            _bottleController.OnEnterTile += HandleOnEnterTile;
-            _bottleController.OnExitTile += HandleOnExitTile;
+            _bottleController.EnterTile += HandleEnterTile;
+            _bottleController.ExitTile += HandleExitTile;
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.OnEndGame += HandleOnEndGame;
+            _bottleController.EndGame += HandleEndGame;
 
             // 初期状態の登録
             _isSuccess = _bottleController.IsSuccess();
@@ -42,18 +42,18 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private void OnDestroy()
         {
-            _bottleController.OnEnterTile -= HandleOnEnterTile;
-            _bottleController.OnExitTile -= HandleOnExitTile;
+            _bottleController.EnterTile -= HandleEnterTile;
+            _bottleController.ExitTile -= HandleExitTile;
             _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
             _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.OnEndGame -= HandleOnEndGame;
+            _bottleController.EndGame -= HandleEndGame;
         }
 
         /// <summary>
         /// タイルから移動した時の挙動
         /// </summary>
         /// <param name="targetTile"></param>
-        private void HandleOnEnterTile(GameObject targetTile)
+        private void HandleEnterTile(GameObject targetTile)
         {
             _isSuccess = _bottleController.IsSuccess();
             _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
@@ -63,7 +63,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// タイルから出る時の挙動
         /// </summary>
         /// <param name="targetTile"></param>
-        private void HandleOnExitTile(GameObject targetTile)
+        private void HandleExitTile(GameObject targetTile)
         {
             _isSuccess = _bottleController.IsSuccess();
             _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
@@ -88,7 +88,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の挙動
         /// </summary>
-        private void HandleOnEndGame()
+        private void HandleEndGame()
         {
             _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
         }

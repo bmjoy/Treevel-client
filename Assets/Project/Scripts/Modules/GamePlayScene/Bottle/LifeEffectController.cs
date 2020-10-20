@@ -40,23 +40,23 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.OnGetDamaged += HandleOnGetDamaged;
-            _bottleController.OnEndGame += HandleOnEndGame;
+            _bottleController.GetDamaged += HandleGetDamaged;
+            _bottleController.EndGame += HandleEndGame;
 
             _life = life;
         }
 
         private void OnDestroy()
         {
-            _bottleController.OnGetDamaged -= HandleOnGetDamaged;
-            _bottleController.OnEndGame -= HandleOnEndGame;
+            _bottleController.GetDamaged -= HandleGetDamaged;
+            _bottleController.EndGame -= HandleEndGame;
         }
 
         /// <summary>
         /// ギミックに攻撃されたときの処理
         /// </summary>
         /// <param name="gimmick"></param>
-        private void HandleOnGetDamaged(GameObject gimmick)
+        private void HandleGetDamaged(GameObject gimmick)
         {
             _life--;
             if (_life < 0) {
@@ -90,7 +90,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        private void HandleOnEndGame()
+        private void HandleEndGame()
         {
             // 自身が破壊されていない場合はアニメーションを止める
             if (!_isDead) {

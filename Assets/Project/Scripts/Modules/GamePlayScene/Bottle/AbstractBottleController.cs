@@ -26,37 +26,37 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        public event Action<GameObject> OnGetDamaged
+        public event Action<GameObject> GetDamaged
         {
-            add => _onGetDamagedInvoker += value;
-            remove => _onGetDamagedInvoker -= value;
+            add => _getDamagedInvoker += value;
+            remove => _getDamagedInvoker -= value;
         }
-        private event Action<GameObject> _onGetDamagedInvoker;
+        private event Action<GameObject> _getDamagedInvoker;
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        public event Action<GameObject> OnEnterTile
+        public event Action<GameObject> EnterTile
         {
-            add => _onEnterTileInvoker += value;
-            remove => _onEnterTileInvoker -= value;
+            add => _enterTileInvoker += value;
+            remove => _enterTileInvoker -= value;
         }
-        private event Action<GameObject> _onEnterTileInvoker;
+        private event Action<GameObject> _enterTileInvoker;
 
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
-        public event Action<GameObject> OnExitTile
+        public event Action<GameObject> ExitTile
         {
-            add => _onExitTileInvoker += value;
-            remove => _onExitTileInvoker -= value;
+            add => _exitTileInvoker += value;
+            remove => _exitTileInvoker -= value;
         }
-        private event Action<GameObject> _onExitTileInvoker;
+        private event Action<GameObject> _exitTileInvoker;
 
         /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
-        public bool IsAttackable => _onGetDamagedInvoker != null;
+        public bool IsAttackable => _getDamagedInvoker != null;
 
         /// <summary>
         /// 無敵状態かどうか
@@ -80,7 +80,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 無敵状態なら，衝突を考えない
             if (Invincible) return;
 
-            _onGetDamagedInvoker?.Invoke(other.gameObject);
+            _getDamagedInvoker?.Invoke(other.gameObject);
         }
 
         private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
@@ -142,18 +142,18 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// タイルに移動した時のイベント発火
         /// </summary>
         /// <param name="targetTile">目標の出たタイル</param>
-        public void TriggerOnEnterTile(GameObject targetTile)
+        public void OnEnterTile(GameObject targetTile)
         {
-            _onEnterTileInvoker?.Invoke(targetTile);
+            _enterTileInvoker?.Invoke(targetTile);
         }
 
         /// <summary>
         /// タイルから出た時のイベント発火
         /// </summary>
         /// <param name="targetTile">出たタイル</param>
-        public void TriggerOnExitTile(GameObject targetTile)
+        public void OnExitTile(GameObject targetTile)
         {
-            _onExitTileInvoker?.Invoke(targetTile);
+            _exitTileInvoker?.Invoke(targetTile);
         }
     }
 }

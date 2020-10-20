@@ -28,32 +28,32 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 移動開始時の処理
         /// </summary>
-        public event Action OnStartMove
+        public event Action StartMove
         {
-            add => _onStartMoveInvoker += value;
-            remove => _onStartMoveInvoker -= value;
+            add => _startMoveInvoker += value;
+            remove => _startMoveInvoker -= value;
         }
-        private event Action _onStartMoveInvoker;
+        private event Action _startMoveInvoker;
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
-        public event Action OnEndMove
+        public event Action EndMove
         {
-            add => _onEndMoveInvoker += value;
-            remove => _onEndMoveInvoker -= value;
+            add => _endMoveInvoker += value;
+            remove => _endMoveInvoker -= value;
         }
-        private event Action _onEndMoveInvoker;
+        private event Action _endMoveInvoker;
 
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        public event Action OnEndGame
+        public event Action EndGame
         {
-            add => _onEndGameInvoker += value;
-            remove => _onEndGameInvoker -= value;
+            add => _endGameInvoker += value;
+            remove => _endGameInvoker -= value;
         }
-        private event Action _onEndGameInvoker;
+        private event Action _endGameInvoker;
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -139,14 +139,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
             SetGesturesEnabled(false);
-            _onStartMoveInvoker?.Invoke();
+            _startMoveInvoker?.Invoke();
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
 
-            _onEndMoveInvoker?.Invoke();
+            _endMoveInvoker?.Invoke();
             SetGesturesEnabled(true);
 
             callback();
@@ -173,7 +173,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
-            _onEndGameInvoker?.Invoke();
+            _endGameInvoker?.Invoke();
         }
     }
 }

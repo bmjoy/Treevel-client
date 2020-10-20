@@ -256,7 +256,7 @@ namespace Treevel.Modules.GamePlayScene
 
                 // 移動元からボトルを無くす
                 var from = _bottlePositions[bottleObject];
-                bottle.TriggerOnExitTile(_squares[from.x, from.y].tile.gameObject);
+                bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
                 _squares[from.x, from.y].bottle = null;
                 _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
 
@@ -268,13 +268,13 @@ namespace Treevel.Modules.GamePlayScene
             if (direction != null) {
                 // ボトルを移動する
                 StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
-                    targetSquare.bottle.TriggerOnEnterTile(targetSquare.tile.gameObject);
+                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                     targetSquare.tile.OnBottleEnter(bottleObject, direction);
                 }));
             } else {
                 // ボトルを瞬間移動させる
                 bottle.transform.position = targetSquare.worldPosition;
-                targetSquare.bottle.TriggerOnEnterTile(targetSquare.tile.gameObject);
+                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 targetSquare.tile.OnBottleEnter(bottleObject, null);
             }
 
@@ -334,7 +334,7 @@ namespace Treevel.Modules.GamePlayScene
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
 
                 // ボトルがタイルに配置された場合の処理を行う
-                targetSquare.bottle.TriggerOnEnterTile(targetSquare.tile.gameObject);
+                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                 if (targetSquare.tile.RunOnBottleEnterAtInit) {
                     targetSquare.tile.OnBottleEnter(targetSquare.bottle.gameObject, null);
                 }

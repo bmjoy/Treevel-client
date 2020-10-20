@@ -53,11 +53,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.OnStartMove += HandleOnStartMove;
-            _bottleController.OnEndMove += HandleOnEndMove;
+            _bottleController.StartMove += HandleStartMove;
+            _bottleController.EndMove += HandleEndMove;
             _bottleController.pressGesture.Pressed += HandlePressed;
             _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.OnEndGame += HandleOnEndGame;
+            _bottleController.EndGame += HandleEndGame;
 
             // 移動していないフレーム数を数え始める
             _countCalmFrames = true;
@@ -65,11 +65,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private void OnDestroy()
         {
-            _bottleController.OnStartMove -= HandleOnStartMove;
-            _bottleController.OnEndMove -= HandleOnEndMove;
+            _bottleController.StartMove -= HandleStartMove;
+            _bottleController.EndMove -= HandleEndMove;
             _bottleController.pressGesture.Pressed -= HandlePressed;
             _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.OnEndGame -= HandleOnEndGame;
+            _bottleController.EndGame -= HandleEndGame;
         }
 
         private void FixedUpdate()
@@ -92,7 +92,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 移動開始時の処理
         /// </summary>
-        private void HandleOnStartMove()
+        private void HandleStartMove()
         {
             SetIsStopping(false);
         }
@@ -100,7 +100,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
-        private void HandleOnEndMove()
+        private void HandleEndMove()
         {
             SetIsStopping(true);
         }
@@ -124,7 +124,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        private void HandleOnEndGame()
+        private void HandleEndGame()
         {
             _countCalmFrames = false;
             _calmFrames = 0;
