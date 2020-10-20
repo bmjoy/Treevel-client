@@ -97,7 +97,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
             }
-            
+
             _bottleController.GetDamaged -= HandleGetDamaged;
             _bottleController.EndGame -= HandleEndGame;
         }
