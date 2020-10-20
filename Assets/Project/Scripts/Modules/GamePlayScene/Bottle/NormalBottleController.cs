@@ -15,7 +15,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(LongPressGesture))]
     public class NormalBottleController : DynamicBottleController
     {
-        private LongPressGesture _longPressGesture;
+        public LongPressGesture longPressGesture;
 
         /// <summary>
         /// 目標位置
@@ -27,21 +27,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private SpriteGlowEffect _spriteGlowEffect;
 
-        /// <summary>
-        /// 長押しされたときの処理
-        /// </summary>
-        public event Action OnLongPressed
-        {
-            add => _onLongPressedInvoker += value;
-            remove => _onLongPressedInvoker -= value;
-        }
-        private event Action _onLongPressedInvoker;
-
         protected override void Awake()
         {
             base.Awake();
-            _longPressGesture = GetComponent<LongPressGesture>();
-            _longPressGesture.TimeToPress = 0.15f;
+            longPressGesture = GetComponent<LongPressGesture>();
+            longPressGesture.TimeToPress = 0.15f;
         }
 
         protected override void OnEnable()
@@ -49,7 +39,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             base.OnEnable();
             OnEnterTile += HandleOnEnterTile;
             OnExitTile += HandleOnExitTile;
-            _longPressGesture.LongPressed += HandleOnLongPressed;
         }
 
         protected override void OnDisable()
@@ -57,7 +46,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             base.OnDisable();
             OnEnterTile -= HandleOnEnterTile;
             OnExitTile -= HandleOnExitTile;
-            _longPressGesture.LongPressed -= HandleOnLongPressed;
         }
 
         /// <summary>
@@ -103,11 +91,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void HandleOnExitTile(GameObject targetTile)
         {
             _spriteGlowEffect.enabled = false;
-        }
-
-        private void HandleOnLongPressed(object sender, EventArgs e)
-        {
-            _onLongPressedInvoker?.Invoke();
         }
 
         /// <summary>

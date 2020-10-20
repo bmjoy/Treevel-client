@@ -55,8 +55,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // イベントに処理を登録する
             _bottleController.OnStartMove += HandleOnStartMove;
             _bottleController.OnEndMove += HandleOnEndMove;
-            _bottleController.OnPressed += HandleOnPressed;
-            _bottleController.OnReleased += HandleOnReleased;
+            _bottleController.pressGesture.Pressed += HandlePressed;
+            _bottleController.releaseGesture.Released += HandleReleased;
             _bottleController.OnEndGame += HandleOnEndGame;
 
             // 移動していないフレーム数を数え始める
@@ -67,8 +67,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _bottleController.OnStartMove -= HandleOnStartMove;
             _bottleController.OnEndMove -= HandleOnEndMove;
-            _bottleController.OnPressed -= HandleOnPressed;
-            _bottleController.OnReleased -= HandleOnReleased;
+            _bottleController.pressGesture.Pressed -= HandlePressed;
+            _bottleController.releaseGesture.Released -= HandleReleased;
             _bottleController.OnEndGame -= HandleOnEndGame;
         }
 
@@ -108,7 +108,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ホールド開始時の処理
         /// </summary>
-        private void HandleOnPressed()
+        private void HandlePressed(object sender, EventArgs e)
         {
             SetIsStopping(false);
         }
@@ -116,7 +116,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ホールド終了時の処理
         /// </summary>
-        private void HandleOnReleased()
+        private void HandleReleased(object sender, EventArgs e)
         {
             SetIsStopping(true);
         }

@@ -17,8 +17,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     public class DynamicBottleController : AbstractBottleController
     {
         private FlickGesture _flickGesture;
-        private PressGesture _pressGesture;
-        private ReleaseGesture _releaseGesture;
+        public PressGesture pressGesture;
+        public ReleaseGesture releaseGesture;
 
         /// <summary>
         /// 動くことができる状態か
@@ -44,26 +44,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             remove => _onEndMoveInvoker -= value;
         }
         private event Action _onEndMoveInvoker;
-
-        /// <summary>
-        /// ホールド開始時の処理
-        /// </summary>
-        public event Action OnPressed
-        {
-            add => _onPressedInvoker += value;
-            remove => _onPressedInvoker -= value;
-        }
-        private event Action _onPressedInvoker;
-
-        /// <summary>
-        /// ホールド終了時の処理
-        /// </summary>
-        public event Action OnReleased
-        {
-            add => _onReleasedInvoker += value;
-            remove => _onReleasedInvoker -= value;
-        }
-        private event Action _onReleasedInvoker;
 
         /// <summary>
         /// ゲーム終了時の処理
@@ -97,9 +77,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture.MinDistance = 0.2f;
             _flickGesture.FlickTime = 0.2f;
             // PressGesture の設定
-            _pressGesture = GetComponent<PressGesture>();
+            pressGesture = GetComponent<PressGesture>();
             // ReleaseGesture の設定
-            _releaseGesture = GetComponent<ReleaseGesture>();
+            releaseGesture = GetComponent<ReleaseGesture>();
         }
 
         public override async void Initialize(BottleData bottleData)
@@ -116,8 +96,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void OnEnable()
         {
             _flickGesture.Flicked += HandleFlicked;
-            _pressGesture.Pressed += HandlePressed;
-            _releaseGesture.Released += HandleReleased;
             GamePlayDirector.OnSucceedGame += HandleOnSucceedGame;
             GamePlayDirector.OnFailGame += HandleOnFailGame;
         }
@@ -125,8 +103,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void OnDisable()
         {
             _flickGesture.Flicked -= HandleFlicked;
-            _pressGesture.Pressed -= HandlePressed;
-            _releaseGesture.Released -= HandleReleased;
             GamePlayDirector.OnSucceedGame -= HandleOnSucceedGame;
             GamePlayDirector.OnFailGame -= HandleOnFailGame;
         }
@@ -150,34 +126,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// プレス開始イベントを処理する
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="eventArgs"></param>
-        private void HandlePressed(object sender, EventArgs e)
-        {
-            _onPressedInvoker?.Invoke();
-        }
-
-        /// <summary>
-        /// プレス終了イベントを処理する
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HandleReleased(object sender, EventArgs e)
-        {
-            _onReleasedInvoker?.Invoke();
-        }
-
-        /// <summary>
         /// アタッチされているTouchScriptイベントの状態を変更する
         /// </summary>
         /// <param name="isEnable"></param>
         private void SetGesturesEnabled(bool isEnable)
         {
             _flickGesture.enabled = isEnable;
-            _pressGesture.enabled = isEnable;
-            _releaseGesture.enabled = isEnable;
+            pressGesture.enabled = isEnable;
+            releaseGesture.enabled = isEnable;
         }
 
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
