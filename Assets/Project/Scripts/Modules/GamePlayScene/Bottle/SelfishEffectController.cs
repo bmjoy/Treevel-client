@@ -130,6 +130,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _calmFrames = 0;
             _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
             _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+
+            _bottleController.StartMove -= HandleStartMove;
+            _bottleController.EndMove -= HandleEndMove;
+            _bottleController.pressGesture.Pressed -= HandlePressed;
+            _bottleController.releaseGesture.Released -= HandleReleased;
+            _bottleController.EndGame -= HandleEndGame;
         }
 
         /// <summary>

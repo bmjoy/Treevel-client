@@ -174,6 +174,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void EndProcess()
         {
             _endGameInvoker?.Invoke();
+            _flickGesture.Flicked -= HandleFlicked;
+            GamePlayDirector.SucceededGame -= HandleSucceededGame;
+            GamePlayDirector.FailedGame -= HandleFailedGame;
         }
     }
 }

@@ -91,6 +91,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void HandleEndGame()
         {
             _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+
+            _bottleController.EnterTile -= HandleEnterTile;
+            _bottleController.ExitTile -= HandleExitTile;
+            _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
+            _bottleController.releaseGesture.Released -= HandleReleased;
+            _bottleController.EndGame -= HandleEndGame;
         }
     }
 }

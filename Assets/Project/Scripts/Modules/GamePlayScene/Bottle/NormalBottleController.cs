@@ -112,5 +112,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             return _targetPos != 0 && BoardManager.Instance.GetBottlePos(this) == _targetPos;
         }
+
+        protected override void EndProcess()
+        {
+            base.EndProcess();
+            EnterTile -= HandleEnterTile;
+            ExitTile -= HandleExitTile;
+        }
     }
 }
