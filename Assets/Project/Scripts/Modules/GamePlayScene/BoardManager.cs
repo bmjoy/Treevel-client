@@ -38,22 +38,22 @@ namespace Treevel.Modules.GamePlayScene
 
         private void OnEnable()
         {
-            GamePlayDirector.OnSucceedGame += OnSucceed;
-            GamePlayDirector.OnFailGame += OnFail;
+            GamePlayDirector.SucceededGame += HandleSucceededGame;
+            GamePlayDirector.FailedGame += HandleFailedGame;
         }
 
         private void OnDisable()
         {
-            GamePlayDirector.OnSucceedGame -= OnSucceed;
-            GamePlayDirector.OnFailGame -= OnFail;
+            GamePlayDirector.SucceededGame -= HandleSucceededGame;
+            GamePlayDirector.FailedGame -= HandleFailedGame;
         }
 
-        private void OnSucceed()
+        private void HandleSucceededGame()
         {
             EndProcess();
         }
 
-        private void OnFail()
+        private void HandleFailedGame()
         {
             EndProcess();
         }

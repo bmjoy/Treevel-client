@@ -96,15 +96,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void OnEnable()
         {
             _flickGesture.Flicked += HandleFlicked;
-            GamePlayDirector.OnSucceedGame += HandleOnSucceedGame;
-            GamePlayDirector.OnFailGame += HandleOnFailGame;
+            GamePlayDirector.SucceededGame += HandleSucceededGame;
+            GamePlayDirector.FailedGame += HandleFailedGame;
         }
 
         protected virtual void OnDisable()
         {
             _flickGesture.Flicked -= HandleFlicked;
-            GamePlayDirector.OnSucceedGame -= HandleOnSucceedGame;
-            GamePlayDirector.OnFailGame -= HandleOnFailGame;
+            GamePlayDirector.SucceededGame -= HandleSucceededGame;
+            GamePlayDirector.FailedGame -= HandleFailedGame;
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム成功時の処理
         /// </summary>
-        protected virtual void HandleOnSucceedGame()
+        protected virtual void HandleSucceededGame()
         {
             EndProcess();
         }
@@ -163,7 +163,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ゲーム失敗時の処理
         /// </summary>
-        protected virtual void HandleOnFailGame()
+        protected virtual void HandleFailedGame()
         {
             EndProcess();
         }
