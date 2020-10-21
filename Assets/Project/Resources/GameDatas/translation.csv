@@ -38,7 +38,8 @@ ErrorLoadDataFailed,データの読み込みが失敗しました。,Failed to l
 StartGame,スタート！,Tap to Start
 ErrorInavlidBottleAccess,ボトルの不正アクセスが発生しました。,Invalid bottle access.
 RecordShareButton,共有,Share
-RecordIndividualButton,個別記録へ,Individual
+RecordToIndividualButton,個別記録へ,Individual
+RecordToGeneralButton,総合記録へ,General
 RecordClearStageNum,ステージクリア数,Clear Stages
 RecordPlayNum,プレイ回数,Play Counts
 RecordPlayDays,起動日数,Play Days

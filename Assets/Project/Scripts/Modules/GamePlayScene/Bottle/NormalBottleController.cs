@@ -1,4 +1,6 @@
 ﻿using SpriteGlow;
+using System;
+using TouchScript.Gestures;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
@@ -10,8 +12,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
+    [RequireComponent(typeof(LongPressGesture))]
     public class NormalBottleController : DynamicBottleController
     {
+        public LongPressGesture longPressGesture;
+
         /// <summary>
         /// 目標位置
         /// </summary>
@@ -25,20 +30,22 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
+            longPressGesture = GetComponent<LongPressGesture>();
+            longPressGesture.TimeToPress = 0.15f;
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            onEnterTile += HandleOnEnterTile;
-            onExitTile += HandleOnExitTile;
+            EnterTile += HandleEnterTile;
+            ExitTile += HandleExitTile;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            onEnterTile -= HandleOnEnterTile;
-            onExitTile -= HandleOnExitTile;
+            EnterTile -= HandleEnterTile;
+            ExitTile -= HandleExitTile;
         }
 
         /// <summary>
@@ -60,6 +67,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).Task;
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
+            if (bottleData.isDark) {
+                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB).Task;
+                darkEffect.GetComponent<DarkEffectController>().Initialize(this);
+            }
 
             #if UNITY_EDITOR
             name = Constants.BottleName.NORMAL_BOTTLE + Id.ToString();
@@ -70,14 +81,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
         }
 
-        private void HandleOnEnterTile(GameObject targetTile)
+        private void HandleEnterTile(GameObject targetTile)
         {
             if (IsSuccess()) {
                 DoWhenSuccess();
             }
         }
 
-        private void HandleOnExitTile(GameObject targetTile)
+        private void HandleExitTile(GameObject targetTile)
         {
             _spriteGlowEffect.enabled = false;
         }
@@ -100,6 +111,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public bool IsSuccess()
         {
             return _targetPos != 0 && BoardManager.Instance.GetBottlePos(this) == _targetPos;
+        }
+
+        protected override void EndProcess()
+        {
+            base.EndProcess();
+            EnterTile -= HandleEnterTile;
+            ExitTile -= HandleExitTile;
         }
     }
 }

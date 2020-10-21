@@ -42,7 +42,8 @@ namespace Treevel.Common.Entities
 
         // 記録画面
         RecordShareButton,    // 共有ボタン
-        RecordIndividualButton,    // 個別記録へボタン
+        RecordToIndividualButton,    // 個別記録へボタン
+        RecordToGeneralButton,    // 総合記録へボタン
         RecordClearStageNum,    // ステージクリア数
         RecordPlayNum,    // プレイ回数
         RecordPlayDays,    // 起動日数

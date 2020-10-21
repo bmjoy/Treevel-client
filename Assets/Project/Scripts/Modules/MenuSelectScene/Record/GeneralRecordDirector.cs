@@ -11,16 +11,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
     public class GeneralRecordDirector : MonoBehaviour
     {
         /// <summary>
-        /// [UI] "Share" ボタン
-        /// </summary>
-        [SerializeField] private Button _shareButton;
-
-        /// <summary>
-        /// [UI] "個別記録へ" ボタン
-        /// </summary>
-        [SerializeField] private Button _individualButton;
-
-        /// <summary>
         /// [UI] "ステージクリア数" テキスト
         /// </summary>
         [SerializeField] private Text _clearStageNum;
@@ -128,8 +118,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToList();
 
-            _shareButton.onClick.AddListener(ShareGeneralRecord);
-            _individualButton.onClick.AddListener(RecordDirector.Instance.MoveToRight);
             _clearStageNum.text = GetClearStageNum();
             _stageNum.text = GetStageNum();
             _clearStageGauge.fillAmount = GetClearStagePercentage();
@@ -146,11 +134,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             _shouldDestroyPrefabsOnDisable.ForEach(Destroy);
             _shouldDestroyPrefabsOnDisable.Clear();
-        }
-
-        private static void ShareGeneralRecord()
-        {
-            Application.OpenURL("https://twitter.com/intent/tweet?hashtags=Treevel");
         }
 
         private string GetClearStageNum()

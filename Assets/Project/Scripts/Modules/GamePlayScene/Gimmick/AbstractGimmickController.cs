@@ -42,22 +42,22 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            GamePlayDirector.OnSucceedGame += OnSucceedGame;
-            GamePlayDirector.OnFailGame += OnFailGame;
+            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
+            GamePlayDirector.GameFailed += HandleGameFailed;
         }
 
         private void OnDisable()
         {
-            GamePlayDirector.OnSucceedGame -= OnSucceedGame;
-            GamePlayDirector.OnFailGame -= OnFailGame;
+            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
+            GamePlayDirector.GameFailed -= HandleGameFailed;
         }
 
-        protected virtual void OnSucceedGame()
+        protected virtual void HandleGameSucceeded()
         {
             OnEndGame();
         }
 
-        protected virtual void OnFailGame()
+        protected virtual void HandleGameFailed()
         {
             OnEndGame();
         }

@@ -173,6 +173,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: e752028e379ec4cd6bfb97db9e9e3553
+    m_Address: DarkEffectPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: ef461da11be2d452db392699e49179bd
     m_Address: WinterStageSelectScene
     m_ReadOnly: 0
