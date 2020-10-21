@@ -154,7 +154,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
 
             // 範囲外になったらオブジェクトを消す
-            while (Math.Abs(transform.position.x) < Constants.WindowSize.WIDTH && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
+            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameWindowWidth() && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
                 yield return new WaitForFixedUpdate();
 
             Destroy(gameObject);
@@ -313,7 +313,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             if (GimmickLibrary.IsHorizontal(direction)) {
                 var sign = direction == EGimmickDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
-                warningPosition = new Vector2(sign * Constants.WindowSize.WIDTH / 2,
+                warningPosition = new Vector2(sign * GameWindowController.Instance.GetGameWindowWidth() / 2,
                     GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 + 1 - line));
                 motionVector = direction == EGimmickDirection.ToLeft ?
                     Vector2.left :
@@ -330,7 +330,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 throw new NotImplementedException();
             }
             // 画面端から、警告の幅(or高さ)/2の分だけ画面内に移動させた座標に警告を配置
-            var warningOffset = Constants.WindowSize.WIDTH * _WARNING_OFFSET_RATIO;
+            var warningOffset = GameWindowController.Instance.GetGameWindowWidth() * _WARNING_OFFSET_RATIO;
             warningPosition += Vector2.Scale(motionVector, new Vector2(warningOffset, warningOffset)) / 2;
             return warningPosition;
         }
@@ -375,9 +375,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
 
                 if (direction == EGimmickDirection.ToLeft) {
-                    x = (Constants.WindowSize.WIDTH + tornadoSize.x) / 2;
+                    x = (GameWindowController.Instance.GetGameWindowWidth() + tornadoSize.x) / 2;
                 } else {
-                    x = -(Constants.WindowSize.WIDTH + tornadoSize.x) / 2;
+                    x = -(GameWindowController.Instance.GetGameWindowWidth() + tornadoSize.x) / 2;
                 }
             } else if (GimmickLibrary.IsVertical(direction)) {
                 // 目標行の一列目のタイルのx座標を取得
