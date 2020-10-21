@@ -23,6 +23,8 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         [SerializeField] private GameObject _gameAreaPanel;
 
+        private float _horizontalSpeedRatio = 1f;
+
         private void Awake()
         {
             UnifyDisplay();
@@ -68,6 +70,8 @@ namespace Treevel.Modules.GamePlayScene
                 rect.anchorMax = new Vector2(rect.anchorMax.x, Mathf.Min(rect.anchorMax.y, rectY + ratio));
                 // ゲーム画面の横幅を更新
                 gameWindowWidth *= ratio;
+                // 横方向のオブジェクトの移動速度の調整値を更新
+                _horizontalSpeedRatio *= ratio;
             }
             _backgroundMask.GetComponent<SpriteMask>().enabled = true;
             _background.GetComponent<SpriteRenderer>().enabled = true;
@@ -98,6 +102,16 @@ namespace Treevel.Modules.GamePlayScene
         public float GetTileHeight()
         {
             return gameWindowWidth * Constants.TileRatioToWindowWidth.HEIGHT_RATIO;
+        }
+
+        /// <summary>
+        /// 縦横比を揃えたゲーム画面を横方向に移動するオブジェクトの速さを調整する
+        /// </summary>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public float GetHorizontalSpeed(float speed)
+        {
+            return speed * _horizontalSpeedRatio;
         }
     }
 }
