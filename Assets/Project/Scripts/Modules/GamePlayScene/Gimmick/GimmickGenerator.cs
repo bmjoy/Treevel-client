@@ -84,17 +84,17 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            GamePlayDirector.OnSucceedGame += OnEndGame;
-            GamePlayDirector.OnFailGame += OnEndGame;
+            GamePlayDirector.GameSucceeded += OnGameEnd;
+            GamePlayDirector.GameFailed += OnGameEnd;
         }
 
         private void OnDisable()
         {
-            GamePlayDirector.OnSucceedGame -= OnEndGame;
-            GamePlayDirector.OnFailGame -= OnEndGame;
+            GamePlayDirector.GameSucceeded -= OnGameEnd;
+            GamePlayDirector.GameFailed -= OnGameEnd;
         }
 
-        private void OnEndGame()
+        private void OnGameEnd()
         {
             // 全てのGimmickを停止させる
             StopAllCoroutines();
