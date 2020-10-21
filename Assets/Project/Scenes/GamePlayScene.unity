@@ -1754,7 +1754,7 @@ GameObject:
   - component: {fileID: 1427070994}
   - component: {fileID: 1427070993}
   m_Layer: 0
-  m_Name: DiplayUnifier
+  m_Name: GameWindowController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
