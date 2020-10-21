@@ -40,22 +40,22 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 成功時のイベント
         /// </summary>
-        public static event Action SucceededGame
+        public static event Action GameSucceeded
         {
-            add => _succeededGameInvoker += value;
-            remove => _succeededGameInvoker -= value;
+            add => _gameSucceededInvoker += value;
+            remove => _gameSucceededInvoker -= value;
         }
-        private static event Action _succeededGameInvoker;
+        private static event Action _gameSucceededInvoker;
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
-        public static event Action FailedGame
+        public static event Action GameFailed
         {
-            add => _failedGameInvoker += value;
-            remove => _failedGameInvoker -= value;
+            add => _gameFailedInvoker += value;
+            remove => _gameFailedInvoker -= value;
         }
-        private static event Action _failedGameInvoker;
+        private static event Action _gameFailedInvoker;
 
         /// <summary>
         /// ゲームの状態一覧
@@ -444,7 +444,7 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(true);
 
                 // 成功イベント
-                _succeededGameInvoker?.Invoke();
+                _gameSucceededInvoker?.Invoke();
             }
 
             public override void OnExit(State to)
@@ -493,7 +493,7 @@ namespace Treevel.Modules.GamePlayScene
                     _failurePopup.SetActive(true);
 
                     // 失敗イベント
-                    _failedGameInvoker?.Invoke();
+                    _gameFailedInvoker?.Invoke();
                 }
             }
 
