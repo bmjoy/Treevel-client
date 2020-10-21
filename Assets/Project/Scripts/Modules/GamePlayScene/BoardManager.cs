@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
+    [DefaultExecutionOrder(1)]
     public class BoardManager : SingletonObject<BoardManager>
     {
         /// <summary>

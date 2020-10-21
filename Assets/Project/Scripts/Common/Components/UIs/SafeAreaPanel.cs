@@ -2,6 +2,7 @@
 
 namespace Treevel.Common.Components.UIs
 {
+    [DefaultExecutionOrder(-1)]
     public class SafeAreaPanel : MonoBehaviour
     {
         private RectTransform _panel;

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
-    [DefaultExecutionOrder(-1)]
     public class GameWindowController : SingletonObject<GameWindowController>
     {
         /// <summary>
@@ -57,16 +56,16 @@ namespace Treevel.Modules.GamePlayScene
                 _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth, Constants.WindowSize.HEIGHT / originalHeight);
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth / ratio, Constants.WindowSize.HEIGHT / originalHeight);
                 // GameAreaPanelの大きさを変更
-                rect.anchorMin = new Vector2(rectX, 0);
-                rect.anchorMax = new Vector2(rectX + ratio, 1);
+                rect.anchorMin = new Vector2(Mathf.Max(rect.anchorMin.x, rectX), rect.anchorMin.y);
+                rect.anchorMax = new Vector2(Mathf.Min(rect.anchorMax.x, rectX + ratio), rect.anchorMax.y);
             } else if (currentRatio < targetRatio - aspectRatioError) {
                 // 縦長のデバイスの場合
                 var ratio = currentRatio / targetRatio;
                 var rectY = (1 - ratio) / 2f;
                 _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight * ratio);
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight);
-                rect.anchorMin = new Vector2(0, rectY);
-                rect.anchorMax = new Vector2(1, rectY + ratio);
+                rect.anchorMin = new Vector2(rect.anchorMin.x, Mathf.Max(rect.anchorMin.y, rectY));
+                rect.anchorMax = new Vector2(rect.anchorMax.x, Mathf.Min(rect.anchorMax.y, rectY + ratio));
                 // ゲーム画面の横幅を更新
                 gameWindowWidth *= ratio;
             }
@@ -87,16 +86,6 @@ namespace Treevel.Modules.GamePlayScene
         public float GetTileHeight()
         {
             return gameWindowWidth * Constants.TileRatioToWindowWidth.HEIGHT_RATIO;
-        }
-
-        public float GetBottleWidth()
-        {
-            return gameWindowWidth * Constants.BottleRatioToWindowWidth.WIDTH_RATIO;
-        }
-
-        public float GetBottleHeight()
-        {
-            return gameWindowWidth * Constants.BottleRatioToWindowWidth.HEIGHT_RATIO;
         }
     }
 }

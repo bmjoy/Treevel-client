@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
+    [DefaultExecutionOrder(1)]
     public class GameSpriteUnifier : SpriteUnifier
     {
         protected override void SetBaseWidth()
