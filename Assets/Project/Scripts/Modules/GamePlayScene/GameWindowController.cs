@@ -73,16 +73,28 @@ namespace Treevel.Modules.GamePlayScene
             _background.GetComponent<SpriteRenderer>().enabled = true;
         }
 
+        /// <summary>
+        /// ゲーム画面の横幅を取得する
+        /// </summary>
+        /// <returns></returns>
         public float GetGameWindowWidth()
         {
             return gameWindowWidth;
         }
 
+        /// <summary>
+        /// タイルの横幅を取得する
+        /// </summary>
+        /// <returns></returns>
         public float GetTileWidth()
         {
             return gameWindowWidth * Constants.TileRatioToWindowWidth.WIDTH_RATIO;
         }
 
+        /// <summary>
+        /// タイルの縦幅を取得する
+        /// </summary>
+        /// <returns></returns>
         public float GetTileHeight()
         {
             return gameWindowWidth * Constants.TileRatioToWindowWidth.HEIGHT_RATIO;
