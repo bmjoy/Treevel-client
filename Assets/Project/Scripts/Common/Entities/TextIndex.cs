@@ -52,7 +52,7 @@ namespace Treevel.Common.Entities
 
         ErrorTextStart = 10000, // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart, // 不明なエラー
-        ErrorLoadSceneFailed, // データの読み込みが失敗しました
+        ErrorLoadDataFailed, // データの読み込みが失敗しました
         ErrorInavlidBottleAccess, // ボトルの不正アクセスが発生しました。
     }
 }
