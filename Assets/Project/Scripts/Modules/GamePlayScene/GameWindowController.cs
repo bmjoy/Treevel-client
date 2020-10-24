@@ -97,15 +97,5 @@ namespace Treevel.Modules.GamePlayScene
         {
             return gameWindowWidth * Constants.TileRatioToWindowWidth.HEIGHT_RATIO;
         }
-
-        /// <summary>
-        /// 縦横比を揃えたゲーム画面を横方向に移動するオブジェクトの速さを調整する
-        /// </summary>
-        /// <param name="speed"></param>
-        /// <returns></returns>
-        public float GetHorizontalSpeed(float speed)
-        {
-            return speed * _horizontalSpeedRatio;
-        }
     }
 }
