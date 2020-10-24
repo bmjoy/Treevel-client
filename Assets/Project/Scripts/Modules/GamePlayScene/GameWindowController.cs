@@ -18,11 +18,6 @@ namespace Treevel.Modules.GamePlayScene
 
         private float gameWindowWidth = Constants.WindowSize.WIDTH;
 
-        /// <summary>
-        /// 9:16のゲーム領域を覆うPanel
-        /// </summary>
-        [SerializeField] private GameObject _gameAreaPanel;
-
         private float _horizontalSpeedRatio = 1f;
 
         private void Awake()
@@ -49,7 +44,6 @@ namespace Treevel.Modules.GamePlayScene
             var backgroundSize = _background.GetComponent<SpriteRenderer>().size;
             var originalWidth = backgroundSize.x;
             var originalHeight = backgroundSize.y;
-            var rect = _gameAreaPanel.GetComponent<RectTransform>();
             var camera = Camera.main;
             if (currentRatio > targetRatio + aspectRatioError) {
                 // 横長のデバイスの場合
@@ -58,16 +52,12 @@ namespace Treevel.Modules.GamePlayScene
                 _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth, Constants.WindowSize.HEIGHT / originalHeight);
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth / ratio, Constants.WindowSize.HEIGHT / originalHeight);
                 // GameAreaPanelの大きさを変更
-                rect.anchorMin = new Vector2(Mathf.Max(rect.anchorMin.x, rectX), rect.anchorMin.y);
-                rect.anchorMax = new Vector2(Mathf.Min(rect.anchorMax.x, rectX + ratio), rect.anchorMax.y);
             } else if (currentRatio < targetRatio - aspectRatioError) {
                 // 縦長のデバイスの場合
                 var ratio = currentRatio / targetRatio;
                 var rectY = (1 - ratio) / 2f;
                 _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight * ratio);
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight);
-                rect.anchorMin = new Vector2(rect.anchorMin.x, Mathf.Max(rect.anchorMin.y, rectY));
-                rect.anchorMax = new Vector2(rect.anchorMax.x, Mathf.Min(rect.anchorMax.y, rectY + ratio));
                 // ゲーム画面の横幅を更新
                 gameWindowWidth *= ratio;
                 // 横方向のオブジェクトの移動速度の調整値を更新
