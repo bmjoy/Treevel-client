@@ -263,7 +263,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _warningObj.GetComponent<SpriteRenderer>().sprite = sprite;
             _warningObj.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
 
-            _warningObj.GetComponent<SpriteUnifier>().Unify();
+            _warningObj.GetComponent<SpriteRendererUnifier>().Unify();
 
             // 画像の切り替えでチラつくので切り替えの後に表示する
             _warningObj.GetComponent<SpriteRenderer>().enabled = true;

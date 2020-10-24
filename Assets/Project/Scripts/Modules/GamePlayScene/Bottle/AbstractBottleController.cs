@@ -11,7 +11,7 @@ using UnityEngine.AddressableAssets;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    [RequireComponent(typeof(GameSpriteUnifier))]
+    [RequireComponent(typeof(GameSpriteRendererUnifier))]
     public abstract class AbstractBottleController : MonoBehaviour
     {
         /// <summary>
@@ -106,7 +106,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }
 
             // ボトル画像のサイズを調整
-            GetComponent<GameSpriteUnifier>().Unify();
+            GetComponent<GameSpriteRendererUnifier>().Unify();
             GetComponent<SpriteRenderer>().enabled = true;
         }
 
@@ -125,7 +125,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
                 StartCoroutine(InitializeSprite(bottleData.bottleSprite));
             } else {
-                GetComponent<SpriteUnifier>().Unify();
+                GetComponent<SpriteRendererUnifier>().Unify();
                 GetComponent<SpriteRenderer>().enabled = true;
             }
         }

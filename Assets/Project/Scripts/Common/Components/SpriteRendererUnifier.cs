@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Treevel.Common.Components
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class SpriteUnifier : MonoBehaviour
+    public class SpriteRendererUnifier : MonoBehaviour
     {
         /// <summary>
         /// 基準とする横幅
