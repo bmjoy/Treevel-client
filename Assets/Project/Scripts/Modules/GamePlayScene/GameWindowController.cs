@@ -73,8 +73,12 @@ namespace Treevel.Modules.GamePlayScene
                 // 横方向のオブジェクトの移動速度の調整値を更新
                 _horizontalSpeedRatio *= ratio;
             }
+
+            #if ENV_DEV
+            // ゲーム画面を9:16に区切るダミー背景を描画する
             _backgroundMask.GetComponent<SpriteMask>().enabled = true;
             _background.GetComponent<SpriteRenderer>().enabled = true;
+            #endif
         }
 
         /// <summary>
