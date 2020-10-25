@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 465705915431857418}
   - component: {fileID: 1488077701041527112}
   - component: {fileID: 7894972585210036848}
-  - component: {fileID: 5831085549185001897}
+  - component: {fileID: 5854696154825769141}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -111,7 +111,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.39, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &5831085549185001897
+--- !u!114 &5854696154825769141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 275284648700898656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c48ee6b0648441da1a1c58aef83f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.2
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2461613542187426270}
   - component: {fileID: 7753444328174355427}
-  - component: {fileID: 6071079414869703602}
+  - component: {fileID: 3105503167032761670}
   m_Layer: 0
   m_Name: Warning
   m_TagString: Untagged
@@ -209,7 +209,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6071079414869703602
+--- !u!114 &3105503167032761670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5499724286749153215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c48ee6b0648441da1a1c58aef83f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.2
