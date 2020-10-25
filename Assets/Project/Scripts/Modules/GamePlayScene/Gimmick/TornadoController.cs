@@ -154,7 +154,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
 
             // 範囲外になったらオブジェクトを消す
-            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameWindowWidth() && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
+            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetDeviceWindowWidth() && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
                 yield return new WaitForFixedUpdate();
 
             Destroy(gameObject);
@@ -313,7 +313,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             if (GimmickLibrary.IsHorizontal(direction)) {
                 var sign = direction == EGimmickDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
-                warningPosition = new Vector2(sign * GameWindowController.Instance.GetGameWindowWidth() / 2,
+                warningPosition = new Vector2(sign * GameWindowController.Instance.GetDeviceWindowWidth() / 2,
                     GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 + 1 - line));
                 motionVector = direction == EGimmickDirection.ToLeft ?
                     Vector2.left :
@@ -375,9 +375,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
 
                 if (direction == EGimmickDirection.ToLeft) {
-                    x = (GameWindowController.Instance.GetGameWindowWidth() + tornadoSize.x) / 2;
+                    x = (GameWindowController.Instance.GetDeviceWindowWidth() + tornadoSize.x) / 2;
                 } else {
-                    x = -(GameWindowController.Instance.GetGameWindowWidth() + tornadoSize.x) / 2;
+                    x = -(GameWindowController.Instance.GetDeviceWindowWidth() + tornadoSize.x) / 2;
                 }
             } else if (GimmickLibrary.IsVertical(direction)) {
                 // 目標行の一列目のタイルのx座標を取得
