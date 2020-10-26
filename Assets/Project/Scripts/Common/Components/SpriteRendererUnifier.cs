@@ -4,8 +4,13 @@ using UnityEngine;
 namespace Treevel.Common.Components
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class ObjectUnifier : MonoBehaviour
+    public class SpriteRendererUnifier : MonoBehaviour
     {
+        /// <summary>
+        /// 基準とする横幅
+        /// </summary>
+        protected float baseWidth;
+
         [Range(0, 1), Tooltip("画面の横幅に占める比率")]
         public float RatioToWindowWidth;
 
@@ -17,7 +22,13 @@ namespace Treevel.Common.Components
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            SetBaseWidth();
             Unify();
+        }
+
+        protected virtual void SetBaseWidth()
+        {
+            baseWidth = Constants.WindowSize.WIDTH;
         }
 
         public void Unify()
@@ -28,7 +39,7 @@ namespace Treevel.Common.Components
             var originalWidth = _renderer.sprite.bounds.size.x;
             var originalHeight = _renderer.sprite.bounds.size.y;
 
-            var widthEfficient = Constants.WindowSize.WIDTH * RatioToWindowWidth;
+            var widthEfficient = baseWidth * RatioToWindowWidth;
             var heightEfficient = widthEfficient * ImageRatio ;
             transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight);
 

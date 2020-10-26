@@ -2,6 +2,7 @@
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
+    [RequireComponent(typeof(GameSpriteRendererUnifier))]
     public abstract class AbstractTileController : MonoBehaviour
     {
         /// <summary>

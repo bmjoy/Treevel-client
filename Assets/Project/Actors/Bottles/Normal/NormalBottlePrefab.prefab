@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -8703334640072386220}
   - component: {fileID: 8508243079957657246}
   - component: {fileID: 199597489305304372}
-  - component: {fileID: -3681241733428531822}
+  - component: {fileID: 3191877913524096823}
   - component: {fileID: -8491268406887753677}
   m_Layer: 8
   m_Name: NormalBottlePrefab
@@ -291,7 +291,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-3681241733428531822
+--- !u!114 &3191877913524096823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1667971508019858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5753871e3c8ca4feca41fd57ba343e13, type: 3}
+  m_Script: {fileID: 11500000, guid: c0c48ee6b0648441da1a1c58aef83f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.209

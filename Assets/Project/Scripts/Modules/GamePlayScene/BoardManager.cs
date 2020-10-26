@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
+    [DefaultExecutionOrder(1)]
     public class BoardManager : SingletonObject<BoardManager>
     {
         /// <summary>
@@ -28,8 +29,8 @@ namespace Treevel.Modules.GamePlayScene
             for (var col = 0; col < Constants.StageSize.COLUMN; ++col) {
                 for (var row = 0; row < Constants.StageSize.ROW; ++row) {
                     // ワールド座標を求める
-                    var x = Constants.TileSize.WIDTH * (col - Constants.StageSize.COLUMN / 2);
-                    var y = Constants.TileSize.HEIGHT * (Constants.StageSize.ROW / 2 - row);
+                    var x = GameWindowController.Instance.GetTileWidth() * (col - Constants.StageSize.COLUMN / 2);
+                    var y = GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 - row);
 
                     _squares[col, row] = new Square(x, y);
                 }

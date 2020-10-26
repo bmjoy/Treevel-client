@@ -11,7 +11,7 @@ using UnityEngine.AddressableAssets;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    [RequireComponent(typeof(ObjectUnifier))]
+    [RequireComponent(typeof(GameSpriteRendererUnifier))]
     public abstract class AbstractBottleController : MonoBehaviour
     {
         /// <summary>
@@ -105,16 +105,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }
             }
 
-            // ボトル画像のサイズを取得
-            var bottleWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-            var bottleHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
-            // ボトルの初期設定
-            transform.localScale = new Vector2(Constants.BottleSize.WIDTH / bottleWidth, Constants.BottleSize.HEIGHT / bottleHeight);
-
-            if (GetComponent<Collider2D>() is BoxCollider2D) {
-                GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
-            }
-            GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.BOTTLE;
+            // ボトル画像のサイズを調整
+            GetComponent<GameSpriteRendererUnifier>().Unify();
             GetComponent<SpriteRenderer>().enabled = true;
         }
 
@@ -133,7 +125,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
                 StartCoroutine(InitializeSprite(bottleData.bottleSprite));
             } else {
-                GetComponent<ObjectUnifier>().Unify();
+                GetComponent<SpriteRendererUnifier>().Unify();
                 GetComponent<SpriteRenderer>().enabled = true;
             }
         }
