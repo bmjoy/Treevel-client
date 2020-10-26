@@ -17,16 +17,14 @@ namespace Treevel.Modules.GamePlayScene
         [SerializeField] private GameObject _backgroundMask;
 
         /// <summary>
-        /// 想定するゲーム画面の横幅
+        /// ゲーム空間の横幅
         /// </summary>
-        private float _gameWindowWidth = Constants.WindowSize.WIDTH;
+        private float _gameSpaceWidth = Constants.WindowSize.WIDTH;
 
         /// <summary>
-        /// 正規化後のデバイスの横幅
+        /// ゲーム空間のうち、任意のデバイスで描画が保証される領域の横幅
         /// </summary>
-        private float _deviceWindowWidth = Constants.WindowSize.WIDTH;
-
-        private float _horizontalSpeedRatio = 1f;
+        private float _gameCoreSpaceWidth = Constants.WindowSize.WIDTH;
 
         private void Awake()
         {
@@ -59,7 +57,7 @@ namespace Treevel.Modules.GamePlayScene
                 var rectX = (1 - ratio) / 2f;
                 _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth, Constants.WindowSize.HEIGHT / originalHeight);
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth / ratio, Constants.WindowSize.HEIGHT / originalHeight);
-                _deviceWindowWidth /= ratio;
+                _gameSpaceWidth /= ratio;
             } else if (currentRatio < targetRatio - aspectRatioError) {
                 // 縦長のデバイスの場合
                 var ratio = currentRatio / targetRatio;
@@ -67,10 +65,8 @@ namespace Treevel.Modules.GamePlayScene
                 _backgroundMask.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight * ratio);
                 _background.transform.localScale = new Vector2(Constants.WindowSize.WIDTH / originalWidth * ratio, Constants.WindowSize.HEIGHT / originalHeight);
                 // ゲーム画面の横幅を更新
-                _gameWindowWidth *= ratio;
-                _deviceWindowWidth *= ratio;
-                // 横方向のオブジェクトの移動速度の調整値を更新
-                _horizontalSpeedRatio *= ratio;
+                _gameSpaceWidth *= ratio;
+                _gameCoreSpaceWidth *= ratio;
             }
 
             #if ENV_DEV
@@ -81,21 +77,21 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
-        /// ゲーム画面の横幅を取得する
-        /// </summary>
-        /// <returns></returns>
-        public float GetGameWindowWidth()
-        {
-            return _gameWindowWidth;
-        }
-
-        /// <summary>
         /// デバイスの横幅を取得する
         /// </summary>
         /// <returns></returns>
-        public float GetDeviceWindowWidth()
+        public float GetGameSpaceWidth()
         {
-            return _deviceWindowWidth;
+            return _gameSpaceWidth;
+        }
+
+        /// <summary>
+        /// ゲーム空間のうち、任意のデバイスで描画が保証される領域の横幅を取得する
+        /// </summary>
+        /// <returns></returns>
+        public float GetGameCoreSpaceWidth()
+        {
+            return _gameCoreSpaceWidth;
         }
 
         /// <summary>
@@ -104,7 +100,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <returns></returns>
         public float GetTileWidth()
         {
-            return _gameWindowWidth * Constants.TileRatioToWindowWidth.WIDTH_RATIO;
+            return _gameCoreSpaceWidth * Constants.TileRatioToWindowWidth.WIDTH_RATIO;
         }
 
         /// <summary>
@@ -113,7 +109,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <returns></returns>
         public float GetTileHeight()
         {
-            return _gameWindowWidth * Constants.TileRatioToWindowWidth.HEIGHT_RATIO;
+            return _gameCoreSpaceWidth * Constants.TileRatioToWindowWidth.HEIGHT_RATIO;
         }
     }
 }

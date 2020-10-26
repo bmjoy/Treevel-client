@@ -10,7 +10,7 @@ namespace Treevel.Modules.GamePlayScene
     {
         protected override void SetBaseWidth()
         {
-            baseWidth = GameWindowController.Instance.GetGameWindowWidth();
+            baseWidth = GameWindowController.Instance.GetGameCoreSpaceWidth();
         }
     }
 }
