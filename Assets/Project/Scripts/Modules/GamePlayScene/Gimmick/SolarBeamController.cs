@@ -49,8 +49,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             var direction = gimmickData.targetDirection;
             // TODO: ランダム方向の実装
             switch (direction) {
-                case EGimmickDirection.ToLeft:
-                case EGimmickDirection.ToRight: {
+                case EDirection.ToLeft:
+                case EDirection.ToRight: {
                         var row = gimmickData.targetRow;
 
                         // 親オブジェクトの位置設定
@@ -59,7 +59,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                         // 太陽とビームの位置を調整する
                         var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
-                        var sign = direction == EGimmickDirection.ToLeft ? 1 : -1;
+                        var sign = direction == EDirection.ToLeft ? 1 : -1;
                         // 中央から1.5タイルサイズ＋1.5太陽の幅分ずらす
                         var offsetTileCount = Constants.StageSize.COLUMN / 2.0f;
                         // 0.5個分太陽の幅をずらす
@@ -72,8 +72,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                         break;
                     }
-                case EGimmickDirection.ToUp:
-                case EGimmickDirection.ToBottom: {
+                case EDirection.ToUp:
+                case EDirection.ToBottom: {
                         var col = gimmickData.targetColumn;
 
                         // 親オブジェクトの位置設定
@@ -82,7 +82,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                         // 太陽とビームの位置を調整する
                         var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
-                        var sign = direction == EGimmickDirection.ToBottom ? 1 : -1;
+                        var sign = direction == EDirection.ToBottom ? 1 : -1;
 
                         // 中央からタイル2.5個分ずらす
                         var offsetTileCount = Constants.StageSize.ROW / 2.0f;

@@ -41,17 +41,17 @@ namespace Treevel.Common.Utils
         /// <summary>
         /// ギミックの移動方向は横向きか
         /// </summary>
-        public static bool IsHorizontal(EGimmickDirection direction)
+        public static bool IsHorizontal(EDirection direction)
         {
-            return direction == EGimmickDirection.ToRight || direction == EGimmickDirection.ToLeft;
+            return direction == EDirection.ToRight || direction == EDirection.ToLeft;
         }
 
         /// <summary>
         /// ギミックの移動方向は縦向きか
         /// </summary>
-        public static bool IsVertical(EGimmickDirection direction)
+        public static bool IsVertical(EDirection direction)
         {
-            return direction == EGimmickDirection.ToUp || direction == EGimmickDirection.ToBottom;
+            return direction == EDirection.ToUp || direction == EDirection.ToBottom;
         }
     }
 }

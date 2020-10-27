@@ -29,7 +29,7 @@ namespace Treevel.Common.Entities.GameDatas
         /// <summary>
         /// ＜竜巻＞攻撃方向リスト
         /// </summary>
-        public List<EGimmickDirection> targetDirections;
+        public List<EDirection> targetDirections;
 
         /// <summary>
         /// ＜竜巻＞攻撃行列リスト
@@ -84,7 +84,7 @@ namespace Treevel.Common.Entities.GameDatas
         /// <summary>
         /// ＜太陽光｜突風＞攻撃方向
         /// </summary>
-        public EGimmickDirection targetDirection;
+        public EDirection targetDirection;
 
         /// <summary>
         /// ＜太陽光＞攻撃回数

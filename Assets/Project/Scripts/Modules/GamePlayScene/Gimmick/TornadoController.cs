@@ -31,7 +31,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 竜巻の移動方向
         /// </summary>
-        private EGimmickDirection[] _targetDirections;
+        private EDirection[] _targetDirections;
 
         /// <summary>
         /// 攻撃する行／列
@@ -41,7 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 曲がる方向の重み
         /// </summary>
-        private int[] _randomDirections = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(EGimmickDirection)).Length - 1);
+        private int[] _randomDirections = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(EDirection)).Length - 1);
 
         /// <summary>
         /// 曲がる行の重み
@@ -171,30 +171,30 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var line = _targetLines[i];
                 if (isRandomDirection) {
                     if (i == 0) { // 最初の方向は制限ないのでそのまま乱数生成
-                        direction = (EGimmickDirection)Enum.ToObject(typeof(EGimmickDirection), GimmickLibrary.SamplingArrayIndex(_randomDirections) + 1);
+                        direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(_randomDirections) + 1);
                     } else { // それ以降は前回の結果に依存する
                         var previousLine = _targetLines[i - 1];
                         var previousDirection = _targetDirections[i - 1];
 
                         if (GimmickLibrary.IsHorizontal(previousDirection)) { // 左右を移動している場合
                             if (previousLine == (int)ERow.Fifth) { // 最下行
-                                direction = EGimmickDirection.ToUp;
+                                direction = EDirection.ToUp;
                             } else if (previousLine == (int)ERow.First) { // 最上行
-                                direction = EGimmickDirection.ToBottom;
+                                direction = EDirection.ToBottom;
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 左右を除いた乱数配列
-                                tempRandomDirections[(int)EGimmickDirection.ToLeft - 1] = tempRandomDirections[(int)EGimmickDirection.ToRight - 1] = 0;
-                                direction = (EGimmickDirection)Enum.ToObject(typeof(EGimmickDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                tempRandomDirections[(int)EDirection.ToLeft - 1] = tempRandomDirections[(int)EDirection.ToRight - 1] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
                         } else if (GimmickLibrary.IsVertical(previousDirection)) { // 上下を移動している場合
                             if (previousLine == (int)EColumn.Left) { // 最左列
-                                direction = EGimmickDirection.ToRight;
+                                direction = EDirection.ToRight;
                             } else if (previousLine == (int)EColumn.Right) { // 最右列
-                                direction = EGimmickDirection.ToLeft;
+                                direction = EDirection.ToLeft;
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 上下を除いた乱数配列
-                                tempRandomDirections[(int)EGimmickDirection.ToUp - 1] = tempRandomDirections[(int)EGimmickDirection.ToBottom - 1] = 0;
-                                direction = (EGimmickDirection)Enum.ToObject(typeof(EGimmickDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                tempRandomDirections[(int)EDirection.ToUp - 1] = tempRandomDirections[(int)EDirection.ToBottom - 1] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
                         }
                     }
@@ -227,7 +227,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <param name="direction">竜巻の次の移動方向</param>
         /// <param name="displayTime">表示時間</param>
         /// <returns></returns>
-        private IEnumerator ShowWarning(Vector2 warningPos, EGimmickDirection? direction, float displayTime)
+        private IEnumerator ShowWarning(Vector2 warningPos, EDirection? direction, float displayTime)
         {
             // 一個前の警告まだ消えていない
             if (_warningObj != null) {
@@ -236,16 +236,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             string addressKey;
             switch (direction) {
-                case EGimmickDirection.ToLeft:
+                case EDirection.ToLeft:
                     addressKey = Constants.Address.TURN_WARNING_LEFT_SPRITE;
                     break;
-                case EGimmickDirection.ToRight:
+                case EDirection.ToRight:
                     addressKey = Constants.Address.TURN_WARNING_RIGHT_SPRITE;
                     break;
-                case EGimmickDirection.ToUp:
+                case EDirection.ToUp:
                     addressKey = Constants.Address.TURN_WARNING_UP_SPRITE;
                     break;
-                case EGimmickDirection.ToBottom:
+                case EDirection.ToBottom:
                     addressKey = Constants.Address.TURN_WARNING_BOTTOM_SPRITE;
                     break;
                 default:
@@ -282,7 +282,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <param name="currentLine">曲がる前の行列</param>
         /// <param name="nextLine">曲がる後の行列</param>
         /// <returns></returns>
-        private Vector2 CalculateOtherWarningPos(EGimmickDirection currentDirection, int currentLine, int nextLine)
+        private Vector2 CalculateOtherWarningPos(EDirection currentDirection, int currentLine, int nextLine)
         {
             int col, row;
             if (GimmickLibrary.IsHorizontal(currentDirection)) {
@@ -305,24 +305,24 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <param name="direction">登場時方向</param>
         /// <param name="line">登場時目標行列</param>
         /// <returns></returns>
-        private Vector2 CalculateFirstWarningPos(EGimmickDirection direction, int line)
+        private Vector2 CalculateFirstWarningPos(EDirection direction, int line)
         {
             Vector2 motionVector;
             Vector2 warningPosition;
             if (GimmickLibrary.IsHorizontal(direction)) {
-                var sign = direction == EGimmickDirection.ToRight ? -1 : 1;
+                var sign = direction == EDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
                 warningPosition = new Vector2(sign * GameWindowController.Instance.GetGameSpaceWidth() / 2,
                     GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 + 1 - line));
-                motionVector = direction == EGimmickDirection.ToLeft ?
+                motionVector = direction == EDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
             } else if (GimmickLibrary.IsVertical(direction)) {
-                var sign = direction == EGimmickDirection.ToUp ? -1 : 1;
+                var sign = direction == EDirection.ToUp ? -1 : 1;
                 // x座標は同じ列のタイルと同じ値、y座標は画面端
                 warningPosition = new Vector2(GameWindowController.Instance.GetTileWidth() * (line - (Constants.StageSize.COLUMN / 2 + 1)),
                     sign * Constants.WindowSize.HEIGHT / 2);
-                motionVector = direction == EGimmickDirection.ToUp ?
+                motionVector = direction == EDirection.ToUp ?
                     Vector2.up :
                     Vector2.down;
             } else {
@@ -338,19 +338,19 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// 移動方向の設定
         /// </summary>
         /// <param name="direction">移動方向</param>
-        private void SetDirection(EGimmickDirection direction)
+        private void SetDirection(EDirection direction)
         {
             switch (direction) {
-                case EGimmickDirection.ToUp:
+                case EDirection.ToUp:
                     _rigidBody.velocity = Vector2.up * _speed;
                     break;
-                case EGimmickDirection.ToLeft:
+                case EDirection.ToLeft:
                     _rigidBody.velocity = Vector2.left * _speed;
                     break;
-                case EGimmickDirection.ToRight:
+                case EDirection.ToRight:
                     _rigidBody.velocity = Vector2.right * _speed;
                     break;
-                case EGimmickDirection.ToBottom:
+                case EDirection.ToBottom:
                     _rigidBody.velocity = Vector2.down * _speed;
                     break;
                 default:
@@ -363,7 +363,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         /// <param name="direction">初期の移動方向</param>
         /// <param name="line">攻撃する行（1~5）／列（1~3）</param>
-        private void SetInitialPosition(EGimmickDirection direction, int line)
+        private void SetInitialPosition(EDirection direction, int line)
         {
             float x = 0, y = 0;
             var tornadoSize = GetComponent<SpriteRenderer>().size;
@@ -372,7 +372,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var tileNum = line * Constants.StageSize.COLUMN;
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
 
-                if (direction == EGimmickDirection.ToLeft) {
+                if (direction == EDirection.ToLeft) {
                     x = (GameWindowController.Instance.GetGameSpaceWidth() + tornadoSize.x) / 2;
                 } else {
                     x = -(GameWindowController.Instance.GetGameSpaceWidth() + tornadoSize.x) / 2;
@@ -382,7 +382,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var tileNum = line;
                 x = BoardManager.Instance.GetTilePos(tileNum).x;
 
-                if (direction == EGimmickDirection.ToUp) {
+                if (direction == EDirection.ToUp) {
                     y = -(Constants.WindowSize.HEIGHT + tornadoSize.y) / 2;
                 } else {
                     y = (Constants.WindowSize.HEIGHT + tornadoSize.y) / 2;
