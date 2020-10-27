@@ -106,7 +106,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
                         break;
                     }
-                case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }
@@ -207,7 +206,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         }
                         return ret;
                     }
-                case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }
@@ -233,7 +231,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EGimmickDirection.ToBottom:
                 case EGimmickDirection.ToRight:
                     return targetBottles.OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
-                case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }

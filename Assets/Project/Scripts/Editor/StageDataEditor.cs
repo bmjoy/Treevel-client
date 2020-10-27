@@ -267,7 +267,7 @@ namespace Treevel.Editor
                                     EditorGUI.indentLevel++;
                                     EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                    if ((directionElem.intValue != (int)EGimmickDirection.Random) && (directionElem.intValue < 1 || 4 < directionElem.intValue))
+                                    if (directionElem.intValue < 1 || 4 < directionElem.intValue)
                                         directionElem.intValue = 1;
 
                                     switch ((EGimmickDirection)directionElem.intValue) {
@@ -291,10 +291,6 @@ namespace Treevel.Editor
                                                 var options = Enum.GetNames(typeof(ERow)).Where(str => str != "Random").ToArray();
                                                 var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Row"), lineElem.intValue - 1, options);
                                                 lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
-                                                break;
-                                            }
-                                        case EGimmickDirection.Random: {
-                                                showRandomFiledsFlag = true;
                                                 break;
                                             }
                                         default:

@@ -47,6 +47,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _attackTimes = gimmickData.attackTimes;
             var direction = gimmickData.targetDirection;
+            // TODO: ランダム方向の実装
             switch (direction) {
                 case EGimmickDirection.ToLeft:
                 case EGimmickDirection.ToRight: {
@@ -99,8 +100,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         _beamObject.transform.position = _sunObject.transform.position + sign * Vector3.down * beamSunDistance;
                         break;
                     }
-                // TODO: ランダム方向の実装
-                case EGimmickDirection.Random:
                 default:
                     throw new System.NotImplementedException();
             }

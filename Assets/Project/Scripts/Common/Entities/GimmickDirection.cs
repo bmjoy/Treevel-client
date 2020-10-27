@@ -10,7 +10,6 @@ namespace Treevel.Common.Entities
         ToRight,
         ToUp,
         ToBottom,
-        Random = -1
     }
 
     public static class GimmickDirectionExtension
@@ -29,7 +28,6 @@ namespace Treevel.Common.Entities
                     return Vector2Int.up;
                 case EGimmickDirection.ToBottom:
                     return Vector2Int.down;
-                case EGimmickDirection.Random:
                 default:
                     throw new System.NotImplementedException();
             }

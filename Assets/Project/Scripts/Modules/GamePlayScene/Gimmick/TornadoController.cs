@@ -103,7 +103,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 throw new InvalidOperationException($"size of targetDirections = {_targetDirections.Length}, size of targetLines = {_targetLines.Length}");
             }
 
-            InitializeDirectionsAndLines();
+            InitializeDirectionsAndLines(gimmickData.isRandom);
 
             SetInitialPosition(_targetDirections[0], _targetLines[0]);
             // 初期位置についたら表示する
@@ -163,13 +163,13 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 方向と行列に対して、ランダムなものがあれば有効な数値で入れ替える
         /// </summary>
-        private void InitializeDirectionsAndLines()
+        private void InitializeDirectionsAndLines(bool isRandomDirection)
         {
             var targetNum = _targetDirections.Length;
             for (var i = 0 ; i < targetNum ; i++) {
                 var direction = _targetDirections[i];
                 var line = _targetLines[i];
-                if (direction == EGimmickDirection.Random) {
+                if (isRandomDirection) {
                     if (i == 0) { // 最初の方向は制限ないのでそのまま乱数生成
                         direction = (EGimmickDirection)Enum.ToObject(typeof(EGimmickDirection), GimmickLibrary.SamplingArrayIndex(_randomDirections) + 1);
                     } else { // それ以降は前回の結果に依存する
@@ -248,7 +248,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EGimmickDirection.ToBottom:
                     addressKey = Constants.Address.TURN_WARNING_BOTTOM_SPRITE;
                     break;
-                case EGimmickDirection.Random:
                 default:
                     addressKey = Constants.Address.TORNADO_WARNING_SPRITE;
                     break;
@@ -354,7 +353,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EGimmickDirection.ToBottom:
                     _rigidBody.velocity = Vector2.down * _speed;
                     break;
-                case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }
