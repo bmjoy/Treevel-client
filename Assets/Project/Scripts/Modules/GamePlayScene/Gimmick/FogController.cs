@@ -30,11 +30,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
             _duration = gimmickData.duration;
         }
-        
+
         public override IEnumerator Trigger()
         {
             yield return null;
-        } 
+        }
 
         protected override void OnEndGame()
         {

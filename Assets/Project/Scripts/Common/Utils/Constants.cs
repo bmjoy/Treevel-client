@@ -162,7 +162,7 @@ namespace Treevel.Common.Utils
             public const string THUNDER_PREFAB = "ThunderPrefab";
             public const string SOLAR_BEAM_PREFAB = "SolarBeamPrefab";
             public const string GUST_WIND_PREFAB = "GustWindPrefab";
-            public const string FOG_PREFAB = "FogPrefab";   
+            public const string FOG_PREFAB = "FogPrefab";
         }
 
         /// <summary>
