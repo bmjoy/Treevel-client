@@ -42,22 +42,22 @@ namespace Treevel.Common.Entities.GameDatas
         public List<int> randomDirection;
 
         /// <summary>
-        /// ＜竜巻｜隕石＞ランダム攻撃行重みリスト
+        /// ＜竜巻｜隕石｜霧＞ランダム攻撃行重みリスト
         /// </summary>
         public List<int> randomRow;
 
         /// <summary>
-        /// ＜竜巻｜隕石＞ランダム攻撃列重みリスト
+        /// ＜竜巻｜隕石｜霧＞ランダム攻撃列重みリスト
         /// </summary>
         public List<int> randomColumn;
 
         /// <summary>
-        /// ＜隕石｜太陽光｜突風＞目標行
+        /// ＜隕石｜太陽光｜突風｜霧＞目標行
         /// </summary>
         public ERow targetRow;
 
         /// <summary>
-        /// ＜隕石｜太陽光｜突風＞目標列
+        /// ＜隕石｜太陽光｜突風｜霧＞目標列
         /// </summary>
         public EColumn targetColumn;
 
@@ -72,7 +72,7 @@ namespace Treevel.Common.Entities.GameDatas
         public List<int> randomAttackableBottles;
 
         /// <summary>
-        /// ＜竜巻｜隕石＞ランダム変数使用するか
+        /// ＜竜巻｜隕石｜霧＞ランダム変数使用するか
         /// </summary>
         public bool isRandom;
 
@@ -90,5 +90,10 @@ namespace Treevel.Common.Entities.GameDatas
         /// ＜太陽光＞攻撃回数
         /// </summary>
         public int attackTimes;
+
+        /// <summary>
+        /// ＜霧＞持続時間(<=interval)
+        /// </summary>
+        public float duration;
     }
 }

@@ -28,6 +28,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             {EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB},
             {EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB},
             {EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB},
+            {EGimmickType.Fog, Constants.Address.FOG_PREFAB},
         };
 
         public void Initialize(List<GimmickData> gimmicks)
