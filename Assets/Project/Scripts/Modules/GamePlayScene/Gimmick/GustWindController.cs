@@ -135,7 +135,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             var attackAnimationTime = attackAnimClip.length;
             var speed = _attackMoveDistance / attackAnimationTime;
 
-            var direction = (Vector3)(Vector3Int)_targetDirection.GetDirectionVector();
+            var direction = (Vector3)(Vector3Int)_targetDirection.GetVectorInt();
             while ((_attackEndPos - transform.position).normalized == direction) {
                 transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
                 yield return new WaitForFixedUpdate();
@@ -172,7 +172,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     }
                 }
 
-                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], _targetDirection.GetDirectionVector());
+                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], _targetDirection.GetVectorInt());
                 // 移動完了のボトルがいるタイル以降は次のボトルの選択肢から外す
                 destinationTiles = destinationTiles.Take(currTileIdx).ToArray();
             }

@@ -17,7 +17,7 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// `EDirection`の方向からベクターに変換する
         /// </summary>
-        public static Vector2Int GetDirectionVector(this EDirection direction)
+        public static Vector2Int GetVectorInt(this EDirection direction)
         {
             switch (direction) {
                 case EDirection.ToLeft:
