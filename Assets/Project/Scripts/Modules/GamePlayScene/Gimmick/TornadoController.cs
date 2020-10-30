@@ -41,7 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 曲がる方向の重み
         /// </summary>
-        private int[] _randomDirections = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(EDirection)).Length - 1);
+        private int[] _randomDirections = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(EDirection)).Length);
 
         /// <summary>
         /// 曲がる行の重み
