@@ -156,7 +156,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 上
             if (BoardManager.Instance.IsEmptyTile(x, y - 1)) canMoveDirections[(int)EDirection.ToUp] = 1;
             // 下
-            if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int)EDirection.ToBottom] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int)EDirection.ToDown] = 1;
 
             // 空いている方向からランダムに1方向を選択する
             if (canMoveDirections.Sum() == 0) return;
@@ -171,7 +171,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 case EDirection.ToUp:
                     BoardManager.Instance.Move(_bottleController, tileNum - Constants.StageSize.COLUMN, Vector2Int.up);
                     break;
-                case EDirection.ToBottom:
+                case EDirection.ToDown:
                     BoardManager.Instance.Move(_bottleController, tileNum + Constants.StageSize.COLUMN, Vector2Int.down);
                     break;
                 default:

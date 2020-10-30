@@ -89,7 +89,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                         break;
                     }
-                case EDirection.ToBottom:
+                case EDirection.ToDown:
                 case EDirection.ToUp: {
                         _targetLine = (int)gimmickData.targetColumn;
 
@@ -199,7 +199,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         }
                         return ret.Reverse().ToArray();
                     }
-                case EDirection.ToBottom: {
+                case EDirection.ToDown: {
                         var ret = new int[Constants.StageSize.ROW];
                         for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
                             ret[i] = _targetLine + Constants.StageSize.COLUMN * i;
@@ -228,7 +228,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EDirection.ToLeft:
                 case EDirection.ToUp:
                     return targetBottles.OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
-                case EDirection.ToBottom:
+                case EDirection.ToDown:
                 case EDirection.ToRight:
                     return targetBottles.OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
                 default:

@@ -180,7 +180,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                             if (previousLine == (int)ERow.Fifth) { // 最下行
                                 direction = EDirection.ToUp;
                             } else if (previousLine == (int)ERow.First) { // 最上行
-                                direction = EDirection.ToBottom;
+                                direction = EDirection.ToDown;
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 左右を除いた乱数配列
                                 tempRandomDirections[(int)EDirection.ToLeft - 1] = tempRandomDirections[(int)EDirection.ToRight - 1] = 0;
@@ -193,7 +193,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                                 direction = EDirection.ToLeft;
                             } else {
                                 var tempRandomDirections = _randomDirections.ToArray(); // 上下を除いた乱数配列
-                                tempRandomDirections[(int)EDirection.ToUp - 1] = tempRandomDirections[(int)EDirection.ToBottom - 1] = 0;
+                                tempRandomDirections[(int)EDirection.ToUp - 1] = tempRandomDirections[(int)EDirection.ToDown - 1] = 0;
                                 direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
                         }
@@ -245,7 +245,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EDirection.ToUp:
                     addressKey = Constants.Address.TURN_WARNING_UP_SPRITE;
                     break;
-                case EDirection.ToBottom:
+                case EDirection.ToDown:
                     addressKey = Constants.Address.TURN_WARNING_BOTTOM_SPRITE;
                     break;
                 default:
@@ -350,7 +350,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EDirection.ToRight:
                     _rigidBody.velocity = Vector2.right * _speed;
                     break;
-                case EDirection.ToBottom:
+                case EDirection.ToDown:
                     _rigidBody.velocity = Vector2.down * _speed;
                     break;
                 default:

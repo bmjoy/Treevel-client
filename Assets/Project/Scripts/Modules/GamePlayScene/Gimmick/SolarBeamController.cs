@@ -73,7 +73,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         break;
                     }
                 case EDirection.ToUp:
-                case EDirection.ToBottom: {
+                case EDirection.ToDown: {
                         var col = gimmickData.targetColumn;
 
                         // 親オブジェクトの位置設定
@@ -82,7 +82,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                         // 太陽とビームの位置を調整する
                         var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
-                        var sign = direction == EDirection.ToBottom ? 1 : -1;
+                        var sign = direction == EDirection.ToDown ? 1 : -1;
 
                         // 中央からタイル2.5個分ずらす
                         var offsetTileCount = Constants.StageSize.ROW / 2.0f;

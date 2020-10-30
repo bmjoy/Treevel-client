@@ -51,7 +51,7 @@ namespace Treevel.Common.Utils
         /// </summary>
         public static bool IsVertical(EDirection direction)
         {
-            return direction == EDirection.ToUp || direction == EDirection.ToBottom;
+            return direction == EDirection.ToUp || direction == EDirection.ToDown;
         }
     }
 }

@@ -271,7 +271,7 @@ namespace Treevel.Editor
                                         directionElem.intValue = 1;
 
                                     switch ((EDirection)directionElem.intValue) {
-                                        case EDirection.ToBottom:
+                                        case EDirection.ToDown:
                                         case EDirection.ToUp: {
                                                 // デフォルト値設定
                                                 if (lineElem.intValue < 1 || lineElem.intValue > Constants.StageSize.COLUMN)
@@ -435,7 +435,7 @@ namespace Treevel.Editor
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
                                     break;
                                 case EDirection.ToUp:
-                                case EDirection.ToBottom:
+                                case EDirection.ToDown:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
                                     break;
                                 default:
@@ -462,7 +462,7 @@ namespace Treevel.Editor
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
                                     break;
                                 case EDirection.ToUp:
-                                case EDirection.ToBottom:
+                                case EDirection.ToDown:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
                                     break;
                                 default:

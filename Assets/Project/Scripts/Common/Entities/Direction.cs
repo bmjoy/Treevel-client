@@ -9,7 +9,7 @@ namespace Treevel.Common.Entities
         ToLeft = 1,
         ToRight,
         ToUp,
-        ToBottom,
+        ToDown,
     }
 
     public static class DirectionExtension
@@ -26,7 +26,7 @@ namespace Treevel.Common.Entities
                     return Vector2Int.right;
                 case EDirection.ToUp:
                     return Vector2Int.up;
-                case EDirection.ToBottom:
+                case EDirection.ToDown:
                     return Vector2Int.down;
                 default:
                     throw new System.NotImplementedException();
