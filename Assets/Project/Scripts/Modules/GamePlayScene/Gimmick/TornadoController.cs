@@ -39,21 +39,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private int[] _targetLines;
 
         /// <summary>
-        /// 曲がる方向の重み
-        /// </summary>
-        private int[] _randomDirections = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(EDirection)).Length);
-
-        /// <summary>
-        /// 曲がる行の重み
-        /// </summary>
-        private int[] _randomRow = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(ERow)).Length - 1);
-
-        /// <summary>
-        /// 曲がる列の重み
-        /// </summary>
-        private int[] _randomColumn = GimmickLibrary.GetInitialArray(Enum.GetNames(typeof(EColumn)).Length - 1);
-
-        /// <summary>
         /// 警告表示座標のリスト
         /// </summary>
         private readonly List<Vector2> _warningPosList = new List<Vector2>();
@@ -95,15 +80,12 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _targetDirections = gimmickData.targetDirections.ToArray();
             _targetLines = gimmickData.targetLines.ToArray();
-            if (gimmickData.randomDirection.Count > 0) _randomDirections = gimmickData.randomDirection.ToArray();
-            if (gimmickData.randomColumn.Count > 0) _randomColumn = gimmickData.randomColumn.ToArray();
-            if (gimmickData.randomRow.Count > 0) _randomRow = gimmickData.randomRow.ToArray();
 
             if (_targetDirections.Length <= 0 || _targetLines.Length <= 0 || _targetDirections.Length != _targetLines.Length) {
                 throw new InvalidOperationException($"size of targetDirections = {_targetDirections.Length}, size of targetLines = {_targetLines.Length}");
             }
 
-            InitializeDirectionsAndLines(gimmickData.isRandom);
+            InitializeDirectionsAndLines(gimmickData);
 
             SetInitialPosition(_targetDirections[0], _targetLines[0]);
             // 初期位置についたら表示する
@@ -163,15 +145,15 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 方向と行列に対して、ランダムなものがあれば有効な数値で入れ替える
         /// </summary>
-        private void InitializeDirectionsAndLines(bool isRandomDirection)
+        private void InitializeDirectionsAndLines(GimmickData gimmickData)
         {
             var targetNum = _targetDirections.Length;
             for (var i = 0 ; i < targetNum ; i++) {
                 var direction = _targetDirections[i];
                 var line = _targetLines[i];
-                if (isRandomDirection) {
+                if (gimmickData.isRandom) {
                     if (i == 0) { // 最初の方向は制限ないのでそのまま乱数生成
-                        direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(_randomDirections) + 1);
+                        direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(gimmickData.randomDirection.ToArray()) + 1);
                     } else { // それ以降は前回の結果に依存する
                         var previousLine = _targetLines[i - 1];
                         var previousDirection = _targetDirections[i - 1];
@@ -182,7 +164,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                             } else if (previousLine == (int)ERow.First) { // 最上行
                                 direction = EDirection.ToDown;
                             } else {
-                                var tempRandomDirections = _randomDirections.ToArray(); // 左右を除いた乱数配列
+                                var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 左右を除いた乱数配列
                                 tempRandomDirections[(int)EDirection.ToLeft - 1] = tempRandomDirections[(int)EDirection.ToRight - 1] = 0;
                                 direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
@@ -192,7 +174,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                             } else if (previousLine == (int)EColumn.Right) { // 最右列
                                 direction = EDirection.ToLeft;
                             } else {
-                                var tempRandomDirections = _randomDirections.ToArray(); // 上下を除いた乱数配列
+                                var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 上下を除いた乱数配列
                                 tempRandomDirections[(int)EDirection.ToUp - 1] = tempRandomDirections[(int)EDirection.ToDown - 1] = 0;
                                 direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
                             }
@@ -202,9 +184,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                 if (line == -1) {
                     if ((i != 0 && GimmickLibrary.IsHorizontal(direction)) || (i == 0 && GimmickLibrary.IsVertical(direction))) {
-                        line = GimmickLibrary.SamplingArrayIndex(_randomColumn) + 1;
+                        line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
                     } else if ((i != 0 && GimmickLibrary.IsVertical(direction)) || (i == 0 && GimmickLibrary.IsHorizontal(direction))) {
-                        line = GimmickLibrary.SamplingArrayIndex(_randomRow) + 1;
+                        line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
                     }
                 }
 
