@@ -15,7 +15,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 攻撃方向
         /// </summary>
-        private EGimmickDirection _targetDirection;
+        private EDirection _targetDirection;
 
         /// <summary>
         /// 対象行・列
@@ -69,11 +69,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 横の時は、ピッタリ画面端からスタートし、縦と同じ距離を移動する（アニメーションの秒数でスピードを決めているので）
             _attackMoveDistance = Constants.WindowSize.HEIGHT + coreSprite.size.y * transform.localScale.y;
             switch (_targetDirection) {
-                case EGimmickDirection.ToLeft:
-                case EGimmickDirection.ToRight: {
+                case EDirection.ToLeft:
+                case EDirection.ToRight: {
                         _targetLine = (int)gimmickData.targetRow;
 
-                        var sign = _targetDirection == EGimmickDirection.ToLeft ? 1 : -1;
+                        var sign = _targetDirection == EDirection.ToLeft ? 1 : -1;
                         var centerTilePos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center);
                         var yPos = centerTilePos.y;
                         var startX = -sign * (Constants.WindowSize.WIDTH + coreSprite.size.y * transform.localScale.y) * 0.5f;
@@ -89,11 +89,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                         break;
                     }
-                case EGimmickDirection.ToBottom:
-                case EGimmickDirection.ToUp: {
+                case EDirection.ToDown:
+                case EDirection.ToUp: {
                         _targetLine = (int)gimmickData.targetColumn;
 
-                        var sign = _targetDirection == EGimmickDirection.ToUp ? 1 : -1;
+                        var sign = _targetDirection == EDirection.ToUp ? 1 : -1;
                         var centerTilePos = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn);
                         var xPos = centerTilePos.x;
                         var startY = sign * _attackMoveDistance * 0.5f;
@@ -106,7 +106,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
                         break;
                     }
-                case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }
@@ -136,7 +135,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             var attackAnimationTime = attackAnimClip.length;
             var speed = _attackMoveDistance / attackAnimationTime;
 
-            var direction = (Vector3)(Vector3Int)_targetDirection.GetDirectionVector();
+            var direction = (Vector3)(Vector3Int)_targetDirection.GetVectorInt();
             while ((_attackEndPos - transform.position).normalized == direction) {
                 transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
                 yield return new WaitForFixedUpdate();
@@ -173,7 +172,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     }
                 }
 
-                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], _targetDirection.GetDirectionVector());
+                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], _targetDirection.GetVectorInt());
                 // 移動完了のボトルがいるタイル以降は次のボトルの選択肢から外す
                 destinationTiles = destinationTiles.Take(currTileIdx).ToArray();
             }
@@ -185,29 +184,28 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private int[] GetDestinationTiles()
         {
             switch (_targetDirection) {
-                case EGimmickDirection.ToLeft: {
+                case EDirection.ToLeft: {
                         var start = (_targetLine - 1) * Constants.StageSize.COLUMN + 1;
                         return Enumerable.Range(start, Constants.StageSize.COLUMN).Reverse().ToArray();
                     }
-                case EGimmickDirection.ToRight: {
+                case EDirection.ToRight: {
                         var start = (_targetLine - 1) * Constants.StageSize.COLUMN + 1;
                         return Enumerable.Range(start, Constants.StageSize.COLUMN).ToArray();
                     }
-                case EGimmickDirection.ToUp: {
+                case EDirection.ToUp: {
                         var ret = new int[Constants.StageSize.ROW];
                         for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
                             ret[i] = _targetLine + Constants.StageSize.COLUMN * i;
                         }
                         return ret.Reverse().ToArray();
                     }
-                case EGimmickDirection.ToBottom: {
+                case EDirection.ToDown: {
                         var ret = new int[Constants.StageSize.ROW];
                         for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
                             ret[i] = _targetLine + Constants.StageSize.COLUMN * i;
                         }
                         return ret;
                     }
-                case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }
@@ -227,13 +225,12 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 .Select(go => go.GetComponent<DynamicBottleController>());
 
             switch (_targetDirection) {
-                case EGimmickDirection.ToLeft:
-                case EGimmickDirection.ToUp:
+                case EDirection.ToLeft:
+                case EDirection.ToUp:
                     return targetBottles.OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
-                case EGimmickDirection.ToBottom:
-                case EGimmickDirection.ToRight:
+                case EDirection.ToDown:
+                case EDirection.ToRight:
                     return targetBottles.OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
-                case EGimmickDirection.Random:
                 default:
                     throw new NotImplementedException();
             }

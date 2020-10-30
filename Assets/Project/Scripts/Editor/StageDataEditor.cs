@@ -267,12 +267,12 @@ namespace Treevel.Editor
                                     EditorGUI.indentLevel++;
                                     EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                    if ((directionElem.intValue != (int)EGimmickDirection.Random) && (directionElem.intValue < 1 || 4 < directionElem.intValue))
+                                    if (directionElem.intValue < 1 || 4 < directionElem.intValue)
                                         directionElem.intValue = 1;
 
-                                    switch ((EGimmickDirection)directionElem.intValue) {
-                                        case EGimmickDirection.ToBottom:
-                                        case EGimmickDirection.ToUp: {
+                                    switch ((EDirection)directionElem.intValue) {
+                                        case EDirection.ToDown:
+                                        case EDirection.ToUp: {
                                                 // デフォルト値設定
                                                 if (lineElem.intValue < 1 || lineElem.intValue > Constants.StageSize.COLUMN)
                                                     lineElem.intValue = 1;
@@ -282,8 +282,8 @@ namespace Treevel.Editor
                                                 lineElem.intValue = (int)Enum.Parse(typeof(EColumn), options[selectedIdx]);
                                                 break;
                                             }
-                                        case EGimmickDirection.ToRight:
-                                        case EGimmickDirection.ToLeft: {
+                                        case EDirection.ToRight:
+                                        case EDirection.ToLeft: {
                                                 // デフォルト値設定
                                                 if (lineElem.intValue < 1 || lineElem.intValue > Constants.StageSize.ROW)
                                                     lineElem.intValue = 1;
@@ -291,10 +291,6 @@ namespace Treevel.Editor
                                                 var options = Enum.GetNames(typeof(ERow)).Where(str => str != "Random").ToArray();
                                                 var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Row"), lineElem.intValue - 1, options);
                                                 lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
-                                                break;
-                                            }
-                                        case EGimmickDirection.Random: {
-                                                showRandomFiledsFlag = true;
                                                 break;
                                             }
                                         default:
@@ -433,19 +429,19 @@ namespace Treevel.Editor
                             // 攻撃方向
                             var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
                             EditorGUILayout.PropertyField(directionProp);
-                            switch ((EGimmickDirection)directionProp.intValue) {
-                                case EGimmickDirection.ToRight:
-                                case EGimmickDirection.ToLeft:
+                            switch ((EDirection)directionProp.intValue) {
+                                case EDirection.ToRight:
+                                case EDirection.ToLeft:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
                                     break;
-                                case EGimmickDirection.ToUp:
-                                case EGimmickDirection.ToBottom:
+                                case EDirection.ToUp:
+                                case EDirection.ToDown:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
                                     break;
                                 default:
                                     // 描画を止めないように適当な値を設定する
                                     Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
-                                    directionProp.intValue = (int)EGimmickDirection.ToLeft;
+                                    directionProp.intValue = (int)EDirection.ToLeft;
                                     break;
                             }
                             break;
@@ -460,19 +456,19 @@ namespace Treevel.Editor
                             // 攻撃方向
                             var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
                             EditorGUILayout.PropertyField(directionProp);
-                            switch ((EGimmickDirection)directionProp.intValue) {
-                                case EGimmickDirection.ToRight:
-                                case EGimmickDirection.ToLeft:
+                            switch ((EDirection)directionProp.intValue) {
+                                case EDirection.ToRight:
+                                case EDirection.ToLeft:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
                                     break;
-                                case EGimmickDirection.ToUp:
-                                case EGimmickDirection.ToBottom:
+                                case EDirection.ToUp:
+                                case EDirection.ToDown:
                                     EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
                                     break;
                                 default:
                                     // 描画を止めないように適当な値を設定する
                                     Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
-                                    directionProp.intValue = (int)EGimmickDirection.ToLeft;
+                                    directionProp.intValue = (int)EDirection.ToLeft;
                                     break;
                             }
                             break;
