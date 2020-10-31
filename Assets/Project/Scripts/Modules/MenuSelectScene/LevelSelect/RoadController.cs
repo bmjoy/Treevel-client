@@ -11,6 +11,22 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
     {
         private LevelTreeController _endObjectController;
 
+        /// <summary>
+        /// 道の解放アニメーションのフレーム数
+        /// </summary>
+        private const int _CLEAR_ANIMATION_FRAMES = 500;
+
+        /// <summary>
+        /// 解放時の道の色
+        /// </summary>
+        private static readonly Color _ROAD_RELEASED_COLOR = Color.white;
+
+        /// <summary>
+        /// 非解放時の道の色
+        /// </summary>
+        /// <returns></returns>
+        private static readonly Color _ROAD_UNRELEASED_COLOR = new Color(0.2f, 0.2f, 0.7f);
+
         protected override void Awake()
         {
             base.Awake();
@@ -58,8 +74,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
             if (!released) {
                 // 非解放時
-                lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
-                lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
+                lineRenderer.startColor = lineRenderer.endColor = _ROAD_UNRELEASED_COLOR;
+            } else {
+                lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
             }
         }
 
@@ -73,9 +90,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _endObjectController.state = ETreeState.Released;
 
             // 道の更新アニメーション
-            for (var i = 0; i < 100; i++) {
-                lineRenderer.startColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
-                lineRenderer.endColor = new Color((float)i / 100, (float)i / 100, (float)i / 100);
+            for (var i = 0; i < _CLEAR_ANIMATION_FRAMES; i++) {
+                // 非解放状態から解放状態まで線形補間
+                lineRenderer.startColor = lineRenderer.endColor = Color.Lerp(_ROAD_UNRELEASED_COLOR, _ROAD_RELEASED_COLOR, (float) i / _CLEAR_ANIMATION_FRAMES);
                 yield return null;
             }
 
