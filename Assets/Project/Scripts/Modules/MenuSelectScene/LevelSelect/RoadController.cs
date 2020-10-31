@@ -14,7 +14,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の解放アニメーションのフレーム数
         /// </summary>
-        private const int _CLEAR_ANIMATION_FRAMES = 500;
+        private const int _CLEAR_ANIMATION_FRAMES = 200;
 
         /// <summary>
         /// 解放時の道の色
