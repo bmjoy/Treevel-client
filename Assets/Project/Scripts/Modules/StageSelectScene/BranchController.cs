@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
@@ -37,7 +38,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override void UpdateState()
+        public override IEnumerator UpdateState()
         {
             if (branchStates.ContainsKey(saveKey))
                 released = branchStates[saveKey];
@@ -55,6 +56,7 @@ namespace Treevel.Modules.StageSelectScene
                     // 終点のステージの状態の更新
                     _endObjectController.ReleaseStage();
                     _endObjectController.ReflectTreeState();
+                    yield return null;
                 }
             }
 

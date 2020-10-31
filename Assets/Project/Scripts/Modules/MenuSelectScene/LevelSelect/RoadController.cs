@@ -52,7 +52,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の状態の更新
         /// </summary>
-        public override void UpdateState()
+        public override IEnumerator UpdateState()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.ROAD_RELEASED) == 1;
 
@@ -67,7 +67,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                     released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
                     if (released) {
                         // 道が非解放状態から解放状態に変わった時
-                        StartCoroutine(ReleaseEndObject());
+                        yield return StartCoroutine(ReleaseEndObject());
                     }
                 }
             }
