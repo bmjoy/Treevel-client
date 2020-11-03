@@ -113,9 +113,9 @@ MonoBehaviour:
     isSelfish: 0
     isDark: 0
   gimmicks:
-  - loop: 1
+  - loop: 0
     appearTime: 1
-    interval: 10
+    interval: 0
     type: 6
     targetDirections: 
     targetLines: 
@@ -130,10 +130,12 @@ MonoBehaviour:
     targets: []
     targetDirection: -1
     attackTimes: 0
-    duration: 5
-  - loop: 1
+    duration: 1000
+    width: 1
+    height: 1
+  - loop: 0
     appearTime: 1
-    interval: 3
+    interval: 0
     type: 6
     targetDirections: 
     targetLines: 
@@ -141,14 +143,16 @@ MonoBehaviour:
     randomRow: 
     randomColumn: 
     targetRow: 1
-    targetColumn: 3
+    targetColumn: 2
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
     targets: []
     targetDirection: -1
     attackTimes: 0
-    duration: 2
+    duration: 1000
+    width: 2
+    height: 1
   - loop: 1
     appearTime: 1
     interval: 2
@@ -167,6 +171,8 @@ MonoBehaviour:
     targetDirection: -1
     attackTimes: 0
     duration: 0
+    width: 0
+    height: 0
   - loop: 0
     appearTime: 1
     interval: 0
@@ -176,7 +182,7 @@ MonoBehaviour:
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 5
+    targetRow: 4
     targetColumn: 1
     targetBottle: 0
     randomAttackableBottles: 
@@ -185,6 +191,28 @@ MonoBehaviour:
     targetDirection: -1
     attackTimes: 0
     duration: 1000
+    width: 1
+    height: 2
+  - loop: 1
+    appearTime: 2
+    interval: 1
+    type: 6
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 0a0000000a0000000a0000000a000000
+    randomColumn: 0a0000000a000000
+    targetRow: -1
+    targetColumn: -1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 1
+    targets: []
+    targetDirection: -1
+    attackTimes: 0
+    duration: 1
+    width: 2
+    height: 2
   overviewGimmicks: 
   tutorial:
     type: 0

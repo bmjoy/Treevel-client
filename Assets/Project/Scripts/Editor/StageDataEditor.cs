@@ -5,6 +5,7 @@ using System.Reflection;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Gimmick;
 using UnityEditor;
 using UnityEngine;
 
@@ -495,17 +496,25 @@ namespace Treevel.Editor
                                 // 行、列をランダムに
                                 rowProp.intValue = colProp.intValue = -1;
 
+                                var widthProp = gimmickDataProp.FindPropertyRelative("width");
+                                if (widthProp.intValue < 1 || widthProp.intValue > FogController.WIDTH_MAX)
+                                    widthProp.intValue = 1;
+                                EditorGUILayout.PropertyField(widthProp);
+                                var heightProp = gimmickDataProp.FindPropertyRelative("height");
+                                if (heightProp.intValue < 1 || heightProp.intValue > FogController.HEIGHT_MAX)
+                                    heightProp.intValue = 1;
+                                EditorGUILayout.PropertyField(heightProp);
                                 {
                                     var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                    randomRowProp.arraySize = Constants.StageSize.ROW;
-                                    var subLabels = Enumerable.Range(1, Constants.StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    randomRowProp.arraySize = Constants.StageSize.ROW + 1 - heightProp.intValue;
+                                    var subLabels = Enumerable.Range(1, randomRowProp.arraySize).Select(n => new GUIContent(n.ToString())).ToArray();
                                     var rect = EditorGUILayout.GetControlRect();
                                     EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
                                 }
                                 {
                                     var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN;
-                                    var subLabels = Enumerable.Range(1, Constants.StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN + 1 - widthProp.intValue;
+                                    var subLabels = Enumerable.Range(1, randomColumnProp.arraySize).Select(n => new GUIContent(n.ToString())).ToArray();
                                     var rect = EditorGUILayout.GetControlRect();
                                     EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
                                 }
@@ -530,6 +539,16 @@ namespace Treevel.Editor
                                         checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
                                         includeObsolete: false
                                     );
+                                
+                                // 横幅、縦幅の設定
+                                var widthProp = gimmickDataProp.FindPropertyRelative("width");
+                                if (widthProp.intValue < 1 || widthProp.intValue > Mathf.Min(FogController.WIDTH_MAX, Constants.StageSize.COLUMN + 1 - colProp.intValue))
+                                    widthProp.intValue = 1;
+                                EditorGUILayout.PropertyField(widthProp);
+                                var heightProp = gimmickDataProp.FindPropertyRelative("height");
+                                if (heightProp.intValue < 1 || heightProp.intValue > Mathf.Min(FogController.HEIGHT_MAX, Constants.StageSize.ROW + 1 - rowProp.intValue))
+                                    heightProp.intValue = 1;
+                                EditorGUILayout.PropertyField(heightProp);
                             }
                             break;
                         }

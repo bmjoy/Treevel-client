@@ -95,5 +95,15 @@ namespace Treevel.Common.Entities.GameDatas
         /// ＜霧＞持続時間(<=interval)
         /// </summary>
         public float duration;
+
+        /// <summary>
+        /// ＜霧＞横幅
+        /// </summary>
+        public int width;
+
+        /// <summary>
+        /// ＜霧＞縦幅
+        /// </summary>
+        public int height;
     }
 }
