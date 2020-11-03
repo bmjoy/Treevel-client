@@ -539,7 +539,7 @@ namespace Treevel.Editor
                                         checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
                                         includeObsolete: false
                                     );
-                                
+
                                 // 横幅、縦幅の設定
                                 var widthProp = gimmickDataProp.FindPropertyRelative("width");
                                 if (widthProp.intValue < 1 || widthProp.intValue > Mathf.Min(FogController.WIDTH_MAX, Constants.StageSize.COLUMN + 1 - colProp.intValue))
