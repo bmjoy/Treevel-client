@@ -52,6 +52,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -74,7 +75,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1881990489
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -87,7 +88,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1.692
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -96,7 +97,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1.692
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -161,6 +162,6 @@ MonoBehaviour:
   firstControlPoint: {x: 0, y: 0}
   secondControlPoint: {x: 0, y: 0}
   _middlePointNum: 0
-  _width: 0.03
+  width: 0
   lineRenderer: {fileID: 2850028561387380508}
   _treeId: 0
