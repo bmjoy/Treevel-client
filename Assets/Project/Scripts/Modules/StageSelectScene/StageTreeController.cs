@@ -19,7 +19,7 @@ namespace Treevel.Modules.StageSelectScene
         [SerializeField] private Material _material;
 
         /// <summary>
-        /// 木全体を覆うオブジェクト(デフォルトでは表示されている)
+        /// 木全体を覆うオブジェクト(デフォルトでは表示されていない)
         /// </summary>
         [SerializeField] private GameObject _mask;
 
@@ -87,6 +87,7 @@ namespace Treevel.Modules.StageSelectScene
 
         protected override void ReflectUnreleasedState()
         {
+            _mask.SetActive(true);
             // グレースケール
             _treeImage.material = _material;
         }
