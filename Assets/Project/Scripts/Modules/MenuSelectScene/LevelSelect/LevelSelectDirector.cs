@@ -30,7 +30,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         private void OnEnable()
         {
             _trees.ForEach(tree => tree.UpdateState());
-            _roads.ForEach(road => road.UpdateState());
+            _roads.ForEach(road => StartCoroutine(road.UpdateState()));
         }
 
         /// <summary>
