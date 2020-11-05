@@ -231,6 +231,9 @@ namespace Treevel.Common.Managers
                     case EGimmickType.GustWind:
                         LoadAsset<GameObject>(Constants.Address.GUST_WIND_PREFAB);
                         break;
+                    case EGimmickType.Fog:
+                        LoadAsset<GameObject>(Constants.Address.FOG_PREFAB);
+                        break;
                     default:
                         throw new System.ArgumentOutOfRangeException();
                 }

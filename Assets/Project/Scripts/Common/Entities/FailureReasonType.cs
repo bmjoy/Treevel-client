@@ -10,7 +10,6 @@ namespace Treevel.Common.Entities
         AimingMeteorite,
         Thunder,
         SolarBeam,
-        GustWind
     }
 
     public static class EFailureReasonTypeExtension

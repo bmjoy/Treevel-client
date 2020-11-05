@@ -5,6 +5,7 @@ using System.Reflection;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Gimmick;
 using UnityEditor;
 using UnityEngine;
 
@@ -223,8 +224,10 @@ namespace Treevel.Editor
                 EditorGUI.indentLevel++;
 
                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
-                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("interval"));
-                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("loop"));
+                var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
+                EditorGUILayout.PropertyField(intervalProp);
+                var loopProp = gimmickDataProp.FindPropertyRelative("loop");
+                EditorGUILayout.PropertyField(loopProp);
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
 
@@ -365,7 +368,7 @@ namespace Treevel.Editor
                                 if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN)
                                     colProp.intValue = 1;
                                 colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("ColuEColumn"),
+                                        label: new GUIContent("EColumn"),
                                         selected: (EColumn)colProp.intValue,
                                         //ランダムは選択不能にする
                                         checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
@@ -425,27 +428,6 @@ namespace Treevel.Editor
                             });
                             break;
                         }
-                    case EGimmickType.GustWind: {
-                            // 攻撃方向
-                            var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
-                            EditorGUILayout.PropertyField(directionProp);
-                            switch ((EDirection)directionProp.intValue) {
-                                case EDirection.ToRight:
-                                case EDirection.ToLeft:
-                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
-                                    break;
-                                case EDirection.ToUp:
-                                case EDirection.ToDown:
-                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
-                                    break;
-                                default:
-                                    // 描画を止めないように適当な値を設定する
-                                    Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
-                                    directionProp.intValue = (int)EDirection.ToLeft;
-                                    break;
-                            }
-                            break;
-                        }
                     case EGimmickType.SolarBeam: {
                             // 攻撃回数
                             var attackTimesProp = gimmickDataProp.FindPropertyRelative("attackTimes");
@@ -470,6 +452,99 @@ namespace Treevel.Editor
                                     Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
                                     directionProp.intValue = (int)EDirection.ToLeft;
                                     break;
+                            }
+                            break;
+                        }
+                    case EGimmickType.GustWind: {
+                            // 攻撃方向
+                            var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
+                            EditorGUILayout.PropertyField(directionProp);
+                            switch ((EDirection)directionProp.intValue) {
+                                case EDirection.ToRight:
+                                case EDirection.ToLeft:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
+                                    break;
+                                case EDirection.ToUp:
+                                case EDirection.ToDown:
+                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
+                                    break;
+                                default:
+                                    // 描画を止めないように適当な値を設定する
+                                    Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
+                                    directionProp.intValue = (int)EDirection.ToLeft;
+                                    break;
+                            }
+                            break;
+                        }
+                    case EGimmickType.Fog: {
+                            var durationProp = gimmickDataProp.FindPropertyRelative("duration");
+                            // 持続時間は登場間隔より短くする
+                            if (loopProp.boolValue && durationProp.floatValue > intervalProp.floatValue)
+                                durationProp.floatValue = intervalProp.floatValue;
+                            EditorGUILayout.PropertyField(durationProp);
+                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
+                            var rowProp = gimmickDataProp.FindPropertyRelative("targetRow");
+                            var colProp = gimmickDataProp.FindPropertyRelative("targetColumn");
+
+                            EditorGUILayout.PropertyField(useRandomProp);
+
+                            if (useRandomProp.boolValue) {
+                                // 行、列をランダムに
+                                rowProp.intValue = colProp.intValue = -1;
+
+                                var widthProp = gimmickDataProp.FindPropertyRelative("width");
+                                if (widthProp.intValue < 1 || widthProp.intValue > FogController.WIDTH_MAX)
+                                    widthProp.intValue = 1;
+                                EditorGUILayout.PropertyField(widthProp);
+                                var heightProp = gimmickDataProp.FindPropertyRelative("height");
+                                if (heightProp.intValue < 1 || heightProp.intValue > FogController.HEIGHT_MAX)
+                                    heightProp.intValue = 1;
+                                EditorGUILayout.PropertyField(heightProp);
+                                {
+                                    var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
+                                    randomRowProp.arraySize = Constants.StageSize.ROW + 1 - heightProp.intValue;
+                                    var subLabels = Enumerable.Range(1, randomRowProp.arraySize).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    var rect = EditorGUILayout.GetControlRect();
+                                    EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
+                                }
+                                {
+                                    var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
+                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN + 1 - widthProp.intValue;
+                                    var subLabels = Enumerable.Range(1, randomColumnProp.arraySize).Select(n => new GUIContent(n.ToString())).ToArray();
+                                    var rect = EditorGUILayout.GetControlRect();
+                                    EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
+                                }
+                            } else {
+                                if (rowProp.intValue < 1 || rowProp.intValue > Constants.StageSize.ROW)
+                                    rowProp.intValue = 1;
+
+                                rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                        label: new GUIContent("Row"),
+                                        selected: (ERow)rowProp.intValue,
+                                        //ランダムは選択不能にする
+                                        checkEnabled: (eType) => (ERow)eType != ERow.Random,
+                                        includeObsolete: false
+                                    );
+
+                                if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN)
+                                    colProp.intValue = 1;
+                                colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
+                                        label: new GUIContent("EColumn"),
+                                        selected: (EColumn)colProp.intValue,
+                                        //ランダムは選択不能にする
+                                        checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
+                                        includeObsolete: false
+                                    );
+
+                                // 横幅、縦幅の設定
+                                var widthProp = gimmickDataProp.FindPropertyRelative("width");
+                                if (widthProp.intValue < 1 || widthProp.intValue > Mathf.Min(FogController.WIDTH_MAX, Constants.StageSize.COLUMN + 1 - colProp.intValue))
+                                    widthProp.intValue = 1;
+                                EditorGUILayout.PropertyField(widthProp);
+                                var heightProp = gimmickDataProp.FindPropertyRelative("height");
+                                if (heightProp.intValue < 1 || heightProp.intValue > Mathf.Min(FogController.HEIGHT_MAX, Constants.StageSize.ROW + 1 - rowProp.intValue))
+                                    heightProp.intValue = 1;
+                                EditorGUILayout.PropertyField(heightProp);
                             }
                             break;
                         }
