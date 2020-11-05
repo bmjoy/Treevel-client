@@ -42,12 +42,12 @@ namespace Treevel.Common.Entities.GameDatas
         public List<int> randomDirection;
 
         /// <summary>
-        /// ＜竜巻｜隕石｜霧＞ランダム攻撃行重みリスト
+        /// ＜竜巻｜隕石｜霧＞ランダム行重みリスト
         /// </summary>
         public List<int> randomRow;
 
         /// <summary>
-        /// ＜竜巻｜隕石｜霧＞ランダム攻撃列重みリスト
+        /// ＜竜巻｜隕石｜霧＞ランダム列重みリスト
         /// </summary>
         public List<int> randomColumn;
 
