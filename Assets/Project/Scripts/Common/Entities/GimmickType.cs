@@ -30,10 +30,6 @@ namespace Treevel.Common.Entities
                     return EFailureReasonType.Thunder;
                 case EGimmickType.SolarBeam:
                     return EFailureReasonType.SolarBeam;
-                case EGimmickType.GustWind:
-                    return EFailureReasonType.GustWind;
-                case EGimmickType.Fog:
-                    return EFailureReasonType.Fog;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
