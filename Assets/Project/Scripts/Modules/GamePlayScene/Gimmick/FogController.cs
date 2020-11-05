@@ -16,11 +16,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private ParticleSystem _particleSystem;
 
-        /// <summary>
-        /// 目標座標
-        /// </summary>
-        private Vector2 _targetPos;
-
         public override void Initialize(GimmickData gimmickData)
         {
             base.Initialize(gimmickData);
@@ -44,8 +39,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
             var leftTopPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
             var rightBottomPos = BoardManager.Instance.GetTilePos(column - 1 + width - 1, row - 1 + height - 1);
-            _targetPos = (leftTopPos + rightBottomPos) / 2;
-            transform.position = _targetPos;
+            transform.position = (leftTopPos + rightBottomPos) / 2;
 
             var mainModule = _particleSystem.main;
             // 持続時間
