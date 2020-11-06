@@ -45,3 +45,7 @@ RecordPlayNum,プレイ回数,Play Counts
 RecordPlayDays,起動日数,Play Days
 RecordFlickNum,フリック回数,Flick Counts
 RecordFailureNum,失敗回数,Failure Counts
+SpringShort,春,SPR
+SummerShort,夏,SMR
+AutumnShort,秋,AUT
+WinterShort,冬,WTR

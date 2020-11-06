@@ -49,6 +49,10 @@ namespace Treevel.Common.Entities
         RecordPlayDays,    // 起動日数
         RecordFlickNum,    // フリック回数
         RecordFailureNum,    // 失敗回数
+        SpringShort,    // 春の略記
+        SummerShort,    // 夏の略記
+        AutumnShort,    // 秋の略記
+        WinterShort,    // 冬の略記
 
         ErrorTextStart = 10000, // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart, // 不明なエラー
