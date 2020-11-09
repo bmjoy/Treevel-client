@@ -727,6 +727,16 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
       value: 2.61
       objectReference: {fileID: 0}
+    - target: {fileID: 1706829439639562986, guid: 28c9fd4dd33d84b6b82b268bb586c041,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1590084813}
+    - target: {fileID: 1706829439639562986, guid: 28c9fd4dd33d84b6b82b268bb586c041,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RightButtonDown
+      objectReference: {fileID: 0}
     - target: {fileID: 1706829439666749346, guid: 28c9fd4dd33d84b6b82b268bb586c041,
         type: 3}
       propertyPath: m_Name
@@ -856,6 +866,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BackButtonDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706829440555125864, guid: 28c9fd4dd33d84b6b82b268bb586c041,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1590084813}
+    - target: {fileID: 1706829440555125864, guid: 28c9fd4dd33d84b6b82b268bb586c041,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeftButtonDown
       objectReference: {fileID: 0}
     - target: {fileID: 1706829441294677237, guid: 28c9fd4dd33d84b6b82b268bb586c041,
         type: 3}
