@@ -218,8 +218,8 @@ namespace Treevel.Editor
         {
             // Powderギミックが存在するかどうか
             var isExistPowder = false;
-            for (var i=0; i<_gimmickDatasProp.arraySize; i++) {
-                isExistPowder = isExistPowder || ((EGimmickType)(_gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex)==EGimmickType.Powder);
+            for (var i = 0; i < _gimmickDatasProp.arraySize; i++) {
+                isExistPowder = isExistPowder || ((EGimmickType)(_gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex) == EGimmickType.Powder);
             }
 
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
@@ -227,7 +227,7 @@ namespace Treevel.Editor
 
                 if (!gimmickDataProp.isExpanded) return;
 
-                EditorGUI.indentLevel++; 
+                EditorGUI.indentLevel++;
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
                 int newEnumValueIndex;
