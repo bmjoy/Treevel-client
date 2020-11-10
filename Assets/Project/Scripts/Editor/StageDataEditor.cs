@@ -216,31 +216,51 @@ namespace Treevel.Editor
 
         private void DrawGimmickList()
         {
+            // Powderギミックが存在するかどうか
+            var isExistPowder = false;
+            for (var i=0; i<_gimmickDatasProp.arraySize; i++) {
+                isExistPowder = isExistPowder || ((EGimmickType)(_gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex)==EGimmickType.Powder);
+            }
+
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
                 gimmickDataProp.isExpanded = EditorGUILayout.Foldout(gimmickDataProp.isExpanded, $"Gimmick {index + 1}");
 
                 if (!gimmickDataProp.isExpanded) return;
 
-                EditorGUI.indentLevel++;
+                EditorGUI.indentLevel++; 
+
+                var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
+                int newEnumValueIndex;
+                if (isExistPowder) {
+                    newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                            label: new GUIContent("Type"),
+                            selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
+                            // Poderギミックは１ステージに１つまで
+                            checkEnabled: (ETileType) => (EGimmickType)ETileType != EGimmickType.Powder,
+                            includeObsolete: false
+                        );
+                } else {
+                    newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                            label: new GUIContent("Type"),
+                            selected: (EGimmickType)gimmickTypeProp.enumValueIndex
+                        );
+                }
+                // タイプが変わっていたらデータをリセット
+                if (newEnumValueIndex != gimmickTypeProp.enumValueIndex) {
+                    gimmickTypeProp.enumValueIndex = newEnumValueIndex;
+                    ResetData(gimmickDataProp);
+                }
+
+                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
+                    EditorGUI.indentLevel--;
+                    return;
+                }
 
                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
                 var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
                 EditorGUILayout.PropertyField(intervalProp);
                 var loopProp = gimmickDataProp.FindPropertyRelative("loop");
                 EditorGUILayout.PropertyField(loopProp);
-
-                var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
-
-                int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
-                        label: new GUIContent("Type"),
-                        selected: (EGimmickType)gimmickTypeProp.enumValueIndex
-                    );
-
-                // タイプが変わっていたらデータをリセット
-                if (newEnumValueIndex != gimmickTypeProp.enumValueIndex) {
-                    gimmickTypeProp.enumValueIndex = newEnumValueIndex;
-                    ResetData(gimmickDataProp);
-                }
 
                 switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
