@@ -11,7 +11,8 @@ namespace Treevel.Common.Entities
         AimingMeteorite,
         Thunder,
         SolarBeam,
-        GustWind
+        GustWind,
+        Fog,
     }
 
     public static class GimmickTypeExtension
@@ -29,8 +30,6 @@ namespace Treevel.Common.Entities
                     return EFailureReasonType.Thunder;
                 case EGimmickType.SolarBeam:
                     return EFailureReasonType.SolarBeam;
-                case EGimmickType.GustWind:
-                    return EFailureReasonType.GustWind;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

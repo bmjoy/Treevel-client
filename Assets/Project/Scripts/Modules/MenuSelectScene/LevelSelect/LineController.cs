@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
@@ -73,7 +74,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected abstract void SetSaveKey();
 
-        public abstract void UpdateState();
+        public abstract IEnumerator UpdateState();
 
         public abstract void SaveState();
 
