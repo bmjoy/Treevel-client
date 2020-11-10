@@ -19,20 +19,15 @@ namespace Treevel.Modules.StageSelectScene
 
         private SnapScrollView _snapScrollView;
 
-        private const string _LOADING_BACKGROUND = "LoadingBackground";
-        private const string _LOADING = "Loading";
-        private const string _TREENAME = "TreeName";
-        private const string _TREECANVAS = "TreeCanvas";
-
         /// <summary>
         /// ロード中の背景
         /// </summary>
-        private GameObject _loadingBackground;
+        [SerializeField] private GameObject _loadingBackground;
 
         /// <summary>
         /// ロード中のアニメーション
         /// </summary>
-        private GameObject _loading;
+        [SerializeField] private GameObject _loading;
 
         /// <summary>
         /// 木のレベル
@@ -47,7 +42,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 表示している木の名前
         /// </summary>
-        private GameObject _treeName;
+        [SerializeField] private GameObject _treeName;
 
         /// <summary>
         /// 木
@@ -62,21 +57,18 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 左の木に遷移するボタン
         /// </summary>
-        private GameObject _leftButton;
+        [SerializeField] private GameObject _leftButton;
 
         /// <summary>
         /// 右の木に遷移するボタン
         /// </summary>
-        private GameObject _rightButton;
+        [SerializeField] private GameObject _rightButton;
 
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
             BranchController.branchStates = PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
             _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
-
-            _leftButton = GameObject.Find("LeftButton");
-            _rightButton = GameObject.Find("RightButton");
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
@@ -98,18 +90,9 @@ namespace Treevel.Modules.StageSelectScene
             _snapScrollView.Page = (int)treeId % Constants.MAX_TREE_NUM_IN_SEASON - 1;
             _snapScrollView.RefreshPage(false);
 
-            // UIの設定
-            _treeName = GameObject.Find(_TREENAME);
-
             // TODO: 表示している木の名前を描画する
             DrawTreeName();
 
-            // ロード中背景を非表示にする
-            _loadingBackground = GameObject.Find(_LOADING_BACKGROUND);
-            _loadingBackground.SetActive(false);
-            // ロードアニメーションを非表示にする
-            _loading = GameObject.Find(_LOADING);
-            _loading.SetActive(false);
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
         }
 
