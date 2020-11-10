@@ -10,6 +10,7 @@ namespace Treevel.Common.Entities
         AimingMeteorite,
         Thunder,
         SolarBeam,
+        Powder,
     }
 
     public static class EFailureReasonTypeExtension
@@ -29,6 +30,8 @@ namespace Treevel.Common.Entities
                     return Color.yellow;
                 case EFailureReasonType.SolarBeam:
                     return Color.magenta;
+                case EFailureReasonType.Powder:
+                    return new Color(0.95f, 0.80f, 0.70f);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
