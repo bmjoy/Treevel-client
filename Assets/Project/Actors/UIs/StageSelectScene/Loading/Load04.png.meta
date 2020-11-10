@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 726d110b4658644ae8b452f7224b6f11
+guid: ef6835afacd7e44eeb70f348a9e2245b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -23,6 +23,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -57,6 +58,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
@@ -77,7 +79,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: fecb417cbf8c64dd391722f7bbeb0f03
+    spriteID: 020327eed03cb499298e03c7f793a8b3
     internalID: 0
     vertices: []
     indices: 
