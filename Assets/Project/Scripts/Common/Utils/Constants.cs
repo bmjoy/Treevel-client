@@ -163,6 +163,13 @@ namespace Treevel.Common.Utils
             public const string SOLAR_BEAM_PREFAB = "SolarBeamPrefab";
             public const string GUST_WIND_PREFAB = "GustWindPrefab";
             public const string FOG_PREFAB = "FogPrefab";
+            public const string POWDER_PREFAB = "PowderPrefab";
+            public const string PILED_UP_POWDER_PREFAB = "PiledUpPowderPrefab";
+            public const string PARTICLE_POWDER_PREFAB = "ParticlePowderPrefab";
+            public const string DANCE_POWDER_PREFAB = "DancePowderPrefab";
+            public const string POWDER_SAND = "Sand";
+            public const string POWDER_SAND_BACKGROUND = "SandBackground";
+            public const string POWDER_SAND_PARTICLE = "SandParticle";
         }
 
         /// <summary>

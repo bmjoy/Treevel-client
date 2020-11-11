@@ -234,6 +234,25 @@ namespace Treevel.Common.Managers
                     case EGimmickType.Fog:
                         LoadAsset<GameObject>(Constants.Address.FOG_PREFAB);
                         break;
+                    case EGimmickType.Powder:
+                        switch ((ESeasonId)((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON)) {
+                            case ESeasonId.Spring:
+                            case ESeasonId.Summer:
+                            case ESeasonId.Autumn:
+                            case ESeasonId.Winter:
+                                // TODO: 季節ごとにアセットを変更する
+                                LoadAsset<Sprite>(Constants.Address.POWDER_SAND);
+                                LoadAsset<Sprite>(Constants.Address.POWDER_SAND_BACKGROUND);
+                                LoadAsset<Sprite>(Constants.Address.POWDER_SAND_PARTICLE);
+                                LoadAsset<GameObject>(Constants.Address.POWDER_PREFAB);
+                                LoadAsset<GameObject>(Constants.Address.PILED_UP_POWDER_PREFAB);
+                                LoadAsset<GameObject>(Constants.Address.PARTICLE_POWDER_PREFAB);
+                                LoadAsset<GameObject>(Constants.Address.DANCE_POWDER_PREFAB);
+                                break;
+                            default:
+                                throw new System.ArgumentOutOfRangeException();
+                        }
+                        break;
                     default:
                         throw new System.ArgumentOutOfRangeException();
                 }
