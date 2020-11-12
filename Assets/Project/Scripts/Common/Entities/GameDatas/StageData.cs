@@ -38,7 +38,7 @@ namespace Treevel.Common.Entities.GameDatas
         /// <returns> StageKey(= treeId_stageNumber) </returns>
         public static string EncodeStageIdKey(ETreeId treeId, int stageNumber)
         {
-            return $"{treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{stageNumber}";
+            return $"{treeId.GetTreeIdAsKey()}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{stageNumber}";
         }
 
         /// <summary>

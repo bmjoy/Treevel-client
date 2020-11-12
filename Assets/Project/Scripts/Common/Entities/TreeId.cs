@@ -22,6 +22,14 @@ namespace Treevel.Common.Entities
         Winter_3 = 3003,
     }
 
+    public static class TreeIdExtension
+    {
+        public static string GetTreeIdAsKey(this ETreeId treeId)
+        {
+            return treeId.ToString().Replace("_", "-");
+        }
+    }
+
     public static class TreeInfo
     {
         /// <summary>
