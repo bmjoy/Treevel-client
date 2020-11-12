@@ -2,7 +2,11 @@
 using System.Linq;
 using SnapScroll;
 using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Objects;
+using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene;
@@ -152,10 +156,12 @@ namespace Treevel.Modules.StageSelectScene
 
         public void ShowOverPopup(ETreeId treeId, int stageNumber)
         {
-            // ポップアップを初期化する
-            _overviewPopup.GetComponent<OverviewPopup>().SetStageId(treeId, stageNumber);
-            // ポップアップを表示する
-            _overviewPopup.gameObject.SetActive(true);
+            NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)), (data) => {
+                // ポップアップを初期化する
+                _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
+                // ポップアップを表示する
+                _overviewPopup.gameObject.SetActive(true);
+            });
         }
 
         /// <summary>

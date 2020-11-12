@@ -1,5 +1,6 @@
 ﻿using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks.Objects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,10 +32,12 @@ namespace Treevel.Modules.StageSelectScene
 
         private int _stageNumber;
 
+        private StageStats _stageStats;
+
         private void Awake()
         {
             _stageNumberText = transform.Find("PanelBackground/StageNumIconBase/StageNumText").GetComponent<Text>();
-            _clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Title").GetComponent<Text>();
+            _clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Data").GetComponent<Text>();
             _appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
             goToGame = transform.Find("PanelBackground/GoToGame").gameObject;
 
@@ -47,10 +50,11 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
-        public void SetStageId(ETreeId treeId, int stageNumber)
+        public void Initialize(ETreeId treeId, int stageNumber, StageStats stats)
         {
             _treeId = treeId;
             _stageNumber = stageNumber;
+            _stageStats = stats;
         }
 
         void OnEnable()
@@ -65,8 +69,7 @@ namespace Treevel.Modules.StageSelectScene
 
             // _stageDifficultyText.GetComponent<Text>().text = _treeId.ToString();
 
-            // TODO:サーバで全ユーザのデータを持ったら実装
-            // _clearPercentage.GetComponent<Text>().text = ...
+            _clearPercentageText.text = string.Format("{0:n2}%", _stageStats.clear_rate * 100f);
 
             var overviewGimmicks = stageData.OverviewGimmicks;
             for (int i = 1 ; i <= 3 ; ++i) {
