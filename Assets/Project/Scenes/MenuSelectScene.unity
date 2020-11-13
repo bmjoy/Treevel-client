@@ -14306,7 +14306,7 @@ GameObject:
   - component: {fileID: 1673266327}
   - component: {fileID: 1673266326}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ToStageSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19427,7 +19427,7 @@ GameObject:
   - component: {fileID: 1994170263}
   - component: {fileID: 1994170262}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TreeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
