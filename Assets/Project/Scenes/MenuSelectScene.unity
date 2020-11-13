@@ -2127,7 +2127,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -2424,7 +2424,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -5520,7 +5520,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -8817,7 +8817,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -12013,7 +12013,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -12288,7 +12288,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -14683,7 +14683,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -14976,7 +14976,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -18209,7 +18209,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
@@ -19554,7 +19554,7 @@ PrefabInstance:
     - target: {fileID: 301150511639903123, guid: 02c890c41db804506ac8ac080949f41a,
         type: 3}
       propertyPath: m_Name
-      value: BarGraph
+      value: Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c890c41db804506ac8ac080949f41a, type: 3}
