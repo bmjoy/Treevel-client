@@ -8964,7 +8964,7 @@ PrefabInstance:
     - target: {fileID: 1664642187462754051, guid: 08bc31bccfd004d24846b057a089c860,
         type: 3}
       propertyPath: m_Name
-      value: Base Multi Language Text
+      value: YAxisLabel
       objectReference: {fileID: 0}
     - target: {fileID: 8335351129932690981, guid: 08bc31bccfd004d24846b057a089c860,
         type: 3}
