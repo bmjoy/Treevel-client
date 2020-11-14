@@ -245,7 +245,6 @@ namespace Treevel.Common.Managers
                                 LoadAsset<Sprite>(Constants.Address.POWDER_SAND_PARTICLE_SPRITE);
                                 LoadAsset<GameObject>(Constants.Address.POWDER_PREFAB);
                                 LoadAsset<GameObject>(Constants.Address.PILED_UP_POWDER_PREFAB);
-                                LoadAsset<GameObject>(Constants.Address.PARTICLE_POWDER_PREFAB);
                                 LoadAsset<GameObject>(Constants.Address.DANCE_POWDER_PREFAB);
                                 break;
                             default:
