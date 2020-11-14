@@ -3,9 +3,7 @@ using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
-using Treevel.Modules.GamePlayScene;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 {
@@ -26,7 +24,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                 case ESeasonId.Summer:
                 case ESeasonId.Autumn:
                 case ESeasonId.Winter:
-                    // 季節ごとにSpriteを変更する
+                    // TODO:季節ごとにSpriteを変更する
                     particleAddressKey = Constants.Address.POWDER_SAND_PARTICLE_SPRITE;
                     backgroundAddressKey = Constants.Address.POWDER_SAND_BACKGROUND_SPRITE;
                     break;
