@@ -17,11 +17,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             LoadSprites();
         }
 
-        private void LoadSprites() {
+        private void LoadSprites()
+        {
             string particleAddressKey;
             string backgroundAddressKey;
-            switch (GamePlayDirector.treeId.GetSeasonId())
-            {
+            switch (GamePlayDirector.treeId.GetSeasonId()) {
                 case ESeasonId.Spring:
                 case ESeasonId.Summer:
                 case ESeasonId.Autumn:
@@ -36,7 +36,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
             var particleSprite = AddressableAssetManager.GetAsset<Sprite>(particleAddressKey);
             var backgroundSprite = AddressableAssetManager.GetAsset<Sprite>(backgroundAddressKey);
-            
+
             var background = transform.Find("background").GetComponent<SpriteRenderer>();
             background.sprite = backgroundSprite;
             var originalWidth = backgroundSprite.bounds.size.x;
@@ -45,7 +45,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         }
 
         public override IEnumerator Trigger()
-        {            
+        {
             yield return null;
         }
     }
