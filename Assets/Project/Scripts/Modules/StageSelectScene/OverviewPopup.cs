@@ -59,7 +59,7 @@ namespace Treevel.Modules.StageSelectScene
             goToGameButton.onClick.AddListener(() => StageSelectDirector.Instance.GoToGame(treeId, stageNumber));
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             goToGameButton.onClick.RemoveAllListeners();
         }
