@@ -34,7 +34,7 @@ namespace Treevel.Modules.StageSelectScene
 
             // クリア割合
             var clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Data").GetComponent<Text>();
-            clearPercentageText.text = string.Format("{0:n2}%", stats.clear_rate * 100f);
+            clearPercentageText.text = $"{stats.clear_rate * 100f:n2}%";
 
             // 最速クリアタイム
             var minClearTimeText = transform.Find("PanelBackground/StatusPanel/ShortestClearTime/Data").GetComponent<Text>();
