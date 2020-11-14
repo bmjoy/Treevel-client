@@ -38,7 +38,7 @@ namespace Treevel.Modules.StageSelectScene
 
             // 最速クリアタイム
             var minClearTimeText = transform.Find("PanelBackground/StatusPanel/ShortestClearTime/Data").GetComponent<Text>();
-            TimeSpan time = TimeSpan.FromSeconds(stats.min_clear_time);
+            var time = TimeSpan.FromSeconds(stats.min_clear_time);
             minClearTimeText.text = $"{time.Minutes}:{time.Seconds}'{time.Milliseconds}";
 
             // 登場ギミック
