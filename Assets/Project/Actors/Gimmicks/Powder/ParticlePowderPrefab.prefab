@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6749913729601608633}
   - component: {fileID: 9200829681120998971}
   m_Layer: 0
-  m_Name: ParticlePoderPrefab
+  m_Name: ParticlePowderPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
