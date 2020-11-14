@@ -27,6 +27,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile1
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 5
     targetPos: 5
@@ -38,6 +39,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile2
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 6
     targetPos: 6
@@ -49,6 +51,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile3
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 7
     targetPos: 7
@@ -60,6 +63,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile4
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 8
     targetPos: 8
@@ -71,6 +75,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile5
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 9
     targetPos: 9
@@ -82,6 +87,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile6
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 10
     targetPos: 10
@@ -93,6 +99,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile7
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 14
     targetPos: 11
@@ -104,6 +111,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile8
     life: 3
     isSelfish: 0
+    isDark: 0
   - type: 0
     initPos: 3
     targetPos: 0
@@ -115,6 +123,7 @@ MonoBehaviour:
       m_SubObjectName: 
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 1
     initPos: 15
     targetPos: 0
@@ -126,24 +135,28 @@ MonoBehaviour:
       m_SubObjectName: 
     life: 0
     isSelfish: 0
+    isDark: 0
   gimmicks:
-  - loop: 1
-    appearTime: 1
-    interval: 5
-    type: 0
-    targetDirections: ffffffff
-    targetLines: ffffffff
-    randomDirection: 64000000640000000000000000000000
-    randomRow: 6400000064000000640000006400000064000000
-    randomColumn: 000000000000000000000000
-    targetRow: 0
-    targetColumn: 0
+  - loop: 0
+    appearTime: 0
+    interval: 0
+    type: 7
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: -1
+    targetColumn: -1
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: 0
+    targetDirection: 1
     attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 
   tutorial:
     type: 0
