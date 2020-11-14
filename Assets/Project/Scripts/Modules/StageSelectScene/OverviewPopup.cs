@@ -19,6 +19,7 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
+        /// <param name="stats"> サーバからもらったステージスタッツデータ </param>
         public void Initialize(ETreeId treeId, int stageNumber, StageStats stats)
         {
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
