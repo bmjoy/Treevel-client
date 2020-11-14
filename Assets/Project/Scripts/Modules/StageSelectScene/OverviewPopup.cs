@@ -44,7 +44,7 @@ namespace Treevel.Modules.StageSelectScene
             // 登場ギミック
             var overviewGimmicks = stageData.OverviewGimmicks;
             var appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
-            for (int i = 1 ; i <= 3 ; ++i) {
+            for (var i = 1 ; i <= 3 ; ++i) {
                 var gimmickOverviewBottle = appearingGimmicks.transform.Find($"GimmickOverview{i}");
                 if (overviewGimmicks.Count >= i) {
                     gimmickOverviewBottle.GetComponentInChildren<Text>().text = overviewGimmicks[i - 1].ToString();
