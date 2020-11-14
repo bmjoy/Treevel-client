@@ -23,6 +23,14 @@ namespace Treevel.Common.Entities
         Winter_3 = ESeasonId.Winter * Constants.MAX_TREE_NUM_IN_SEASON + 3,
     }
 
+    public static class ETreeIdExtension
+    {
+        public static ESeasonId GetSeasonId(this ETreeId treeId)
+        {
+            return (ESeasonId)((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON);
+        }
+    }
+
     public static class TreeInfo
     {
         /// <summary>

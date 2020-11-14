@@ -235,7 +235,7 @@ namespace Treevel.Common.Managers
                         LoadAsset<GameObject>(Constants.Address.FOG_PREFAB);
                         break;
                     case EGimmickType.Powder:
-                        switch ((ESeasonId)((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON)) {
+                        switch (treeId.GetSeasonId()) {
                             case ESeasonId.Spring:
                             case ESeasonId.Summer:
                             case ESeasonId.Autumn:
