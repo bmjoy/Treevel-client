@@ -242,7 +242,7 @@ namespace Treevel.Common.Managers
                             case ESeasonId.Winter:
                                 // TODO: 季節ごとにアセットを変更する
                                 LoadAsset<Sprite>(Constants.Address.POWDER_SAND_BACKGROUND_SPRITE);
-                                LoadAsset<Sprite>(Constants.Address.POWDER_SAND_PARTICLE_SPRITE);
+                                LoadAsset<Material>(Constants.Address.POWDER_SAND_PARTICLE_MATERIAL);
                                 LoadAsset<GameObject>(Constants.Address.POWDER_PREFAB);
                                 LoadAsset<GameObject>(Constants.Address.PILED_UP_POWDER_PREFAB);
                                 LoadAsset<GameObject>(Constants.Address.DANCE_POWDER_PREFAB);

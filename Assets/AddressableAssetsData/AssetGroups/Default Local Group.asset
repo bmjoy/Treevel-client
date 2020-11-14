@@ -17,12 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 36fdf415407fc4d90bf691d9413d4847
   m_SerializeEntries:
-  - m_GUID: 0590e356fec89496889a3dc806115c55
-    m_Address: ParticlePowderPrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 0593c4ede4e4f4e91b2c9b27d92b2019
     m_Address: SolarBeamPrefab
     m_ReadOnly: 0
@@ -85,12 +79,6 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 6cb6fca6a4b44457bb8a9762f4238b0b
     m_Address: AutumnStageSelectScene
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 74df74ec472cf4c27ae68a09d40a6cab
-    m_Address: SandParticle
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -187,6 +175,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: cc35221e1f2c54ae8ba023299eb797d3
     m_Address: StaticDummyBottlePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ccf73d1ef931d4256b7516d18a46d390
+    m_Address: SandParticle
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
