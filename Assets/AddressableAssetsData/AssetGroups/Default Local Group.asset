@@ -17,6 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 36fdf415407fc4d90bf691d9413d4847
   m_SerializeEntries:
+  - m_GUID: 0590e356fec89496889a3dc806115c55
+    m_Address: ParticlePowderPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 0593c4ede4e4f4e91b2c9b27d92b2019
     m_Address: SolarBeamPrefab
     m_ReadOnly: 0
@@ -65,6 +71,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 5d6630d9733a941a4a90ef46368cb9a3
+    m_Address: DancePowderPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 5dcf4b8cd16234d1ba989b504e6f823a
     m_Address: FogPrefab
     m_ReadOnly: 0
@@ -77,8 +89,20 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 74df74ec472cf4c27ae68a09d40a6cab
+    m_Address: SandParticle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 74ed1e4c608194da3ae4de7b8cab8e1f
     m_Address: NormalBottlePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 830116bc543a14264b53f8cacf4324cf
+    m_Address: PiledUpPowderPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -97,6 +121,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 8be1f6b14d385471d9f6832b2b4d3e8b
     m_Address: AimingMeteoritePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 936e2c04f6f794ab58cfc0e303ef75c4
+    m_Address: SandBackground
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -163,6 +193,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: d16fddeae14184ddf8c14eba3f866b67
     m_Address: DynamicDummyBottlePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d2341912f46804d3393d29a107de86ed
+    m_Address: PowderPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

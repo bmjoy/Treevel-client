@@ -167,9 +167,8 @@ namespace Treevel.Common.Utils
             public const string PILED_UP_POWDER_PREFAB = "PiledUpPowderPrefab";
             public const string PARTICLE_POWDER_PREFAB = "ParticlePowderPrefab";
             public const string DANCE_POWDER_PREFAB = "DancePowderPrefab";
-            public const string POWDER_SAND = "Sand";
-            public const string POWDER_SAND_BACKGROUND = "SandBackground";
-            public const string POWDER_SAND_PARTICLE = "SandParticle";
+            public const string POWDER_SAND_BACKGROUND_SPRITE = "SandBackground";
+            public const string POWDER_SAND_PARTICLE_SPRITE = "SandParticle";
         }
 
         /// <summary>
