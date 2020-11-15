@@ -30,6 +30,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile1
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 8
     targetPos: 5
@@ -41,6 +42,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile2
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 9
     targetPos: 6
@@ -52,6 +54,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile3
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 10
     targetPos: 7
@@ -63,6 +66,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile4
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 11
     targetPos: 8
@@ -74,6 +78,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile5
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 12
     targetPos: 9
@@ -85,6 +90,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile6
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 13
     targetPos: 10
@@ -96,6 +102,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile7
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 14
     targetPos: 11
@@ -107,6 +114,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile8
     life: 0
     isSelfish: 0
+    isDark: 0
   - type: 4
     initPos: 1
     targetPos: 11
@@ -118,24 +126,28 @@ MonoBehaviour:
       m_SubObjectName: numberTile8
     life: 3
     isSelfish: 0
+    isDark: 0
   gimmicks:
   - loop: 1
     appearTime: 1
     interval: 5
     type: 0
-    line: 0
-    direction: 0
     targetDirections: 0100000004000000020000000300000001000000
     targetLines: 0100000001000000020000000300000001000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    turnLines: 
-    aimingBottles: 
-    randomCartridgeDirection: 
-    randomLine: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 01000000
   tutorial:
     type: 0
