@@ -160,6 +160,9 @@ MonoBehaviour:
     - {x: 3, y: 3}
     targetDirection: 1
     attackTimes: 2
+    duration: 0
+    width: 0
+    height: 0
   - loop: 1
     appearTime: 3
     interval: 5
@@ -178,6 +181,9 @@ MonoBehaviour:
     - {x: 1, y: 1}
     targetDirection: 1
     attackTimes: 1
+    duration: 0
+    width: 0
+    height: 0
   - loop: 0
     appearTime: 3
     interval: 5
@@ -196,6 +202,9 @@ MonoBehaviour:
     - {x: 1, y: 1}
     targetDirection: 1
     attackTimes: 1
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 
   tutorial:
     type: 1
