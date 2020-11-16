@@ -24,6 +24,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
+        /// ボトルタイプ
+        /// </summary>
+        private EBottleType bottleType;
+
+        /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
         public event Action<GameObject> GetDamaged
@@ -56,7 +61,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
-        public bool IsAttackable => _getDamagedInvoker != null;
+        public bool IsAttackable => bottleType.IsAttackable();
 
         /// <summary>
         /// 無敵状態かどうか
@@ -117,6 +122,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public virtual void Initialize(BottleData bottleData)
         {
             Id = bottleData.initPos;
+            bottleType = bottleData.type;
 
             // ボトルをボードに設定
             BoardManager.Instance.InitializeBottle(this, Id);

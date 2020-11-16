@@ -564,7 +564,7 @@ namespace Treevel.Editor
 
         private IEnumerable<BottleData> GetAttackableBottles()
         {
-            return _src.BottleDatas?.Where(x => x.type == EBottleType.Normal || x.type == EBottleType.AttackableDummy);
+            return _src.BottleDatas?.Where(x => x.type.IsAttackable());
         }
 
         private static void ClearConsole()
