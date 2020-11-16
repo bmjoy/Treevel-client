@@ -19144,15 +19144,15 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 5357296407548438020}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 3490433069220697113}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!224 &1347690880467604202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23581,11 +23581,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1511965578142431496}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 3490433069220697113}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -24110,11 +24110,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 5754515689094590288}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 3490433069220697113}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -24157,11 +24157,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 7828312497220434530}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 3490433069220697113}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
