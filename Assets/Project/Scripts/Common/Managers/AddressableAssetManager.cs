@@ -245,7 +245,6 @@ namespace Treevel.Common.Managers
                                 LoadAsset<Material>(Constants.Address.POWDER_SAND_PARTICLE_MATERIAL);
                                 LoadAsset<GameObject>(Constants.Address.POWDER_PREFAB);
                                 LoadAsset<GameObject>(Constants.Address.PILED_UP_POWDER_PREFAB);
-                                LoadAsset<GameObject>(Constants.Address.DANCE_POWDER_PREFAB);
                                 break;
                             default:
                                 throw new System.ArgumentOutOfRangeException();
