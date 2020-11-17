@@ -115,7 +115,7 @@ MonoBehaviour:
     life: 0
     isSelfish: 0
     isDark: 0
-  - type: 4
+  - type: 2
     initPos: 1
     targetPos: 11
     bottleSprite:
