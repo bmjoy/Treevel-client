@@ -277,23 +277,29 @@ namespace Treevel.Editor
                                         case EDirection.ToDown:
                                         case EDirection.ToUp: {
                                                 // デフォルト値設定
-                                                if (lineElem.intValue < 1 || lineElem.intValue > Constants.StageSize.COLUMN)
-                                                    lineElem.intValue = 1;
+                                                lineElem.intValue = Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.COLUMN - 1);
 
-                                                var options = Enum.GetNames(typeof(EColumn)).Where(str => str != "Random").ToArray();
-                                                var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Column"), lineElem.intValue - 1, options);
-                                                lineElem.intValue = (int)Enum.Parse(typeof(EColumn), options[selectedIdx]);
+                                                lineElem.intValue =  (int)(EColumn)EditorGUILayout.EnumPopup(
+                                                    label: new GUIContent("Target Column"),
+                                                    selected: (EColumn)lineElem.intValue,
+                                                    //ランダムは選択不能にする
+                                                    checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
+                                                    includeObsolete: false
+                                                );
                                                 break;
                                             }
                                         case EDirection.ToRight:
                                         case EDirection.ToLeft: {
                                                 // デフォルト値設定
-                                                if (lineElem.intValue < 1 || lineElem.intValue > Constants.StageSize.ROW)
-                                                    lineElem.intValue = 1;
+                                                lineElem.intValue = Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.ROW - 1);
 
-                                                var options = Enum.GetNames(typeof(ERow)).Where(str => str != "Random").ToArray();
-                                                var selectedIdx = EditorGUILayout.Popup(new GUIContent($"Target Row"), lineElem.intValue - 1, options);
-                                                lineElem.intValue = (int)Enum.Parse(typeof(ERow), options[selectedIdx]);
+                                                lineElem.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
+                                                    label: new GUIContent("Target Row"),
+                                                    selected: (ERow)lineElem.intValue,
+                                                    //ランダムは選択不能にする
+                                                    checkEnabled: (eType) => (ERow)eType != ERow.Random,
+                                                    includeObsolete: false
+                                                );
                                                 break;
                                             }
                                         default:
@@ -493,12 +499,12 @@ namespace Treevel.Editor
                                 rowProp.intValue = colProp.intValue = -1;
 
                                 var widthProp = gimmickDataProp.FindPropertyRelative("width");
-                                if (widthProp.intValue < 1 || widthProp.intValue > FogController.WIDTH_MAX)
-                                    widthProp.intValue = 1;
+                                widthProp.intValue = Mathf.Clamp(widthProp.intValue, 1, FogController.WIDTH_MAX);
+
                                 EditorGUILayout.PropertyField(widthProp);
                                 var heightProp = gimmickDataProp.FindPropertyRelative("height");
-                                if (heightProp.intValue < 1 || heightProp.intValue > FogController.HEIGHT_MAX)
-                                    heightProp.intValue = 1;
+                                heightProp.intValue = Mathf.Clamp(heightProp.intValue, 1, FogController.HEIGHT_MAX);
+
                                 EditorGUILayout.PropertyField(heightProp);
                                 {
                                     var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
@@ -515,9 +521,7 @@ namespace Treevel.Editor
                                     EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
                                 }
                             } else {
-                                if (rowProp.intValue < 1 || rowProp.intValue > Constants.StageSize.ROW)
-                                    rowProp.intValue = 1;
-
+                                rowProp.intValue = Mathf.Clamp(rowProp.intValue, 0, Constants.StageSize.ROW - 1);
                                 rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
                                         label: new GUIContent("Row"),
                                         selected: (ERow)rowProp.intValue,
@@ -526,8 +530,7 @@ namespace Treevel.Editor
                                         includeObsolete: false
                                     );
 
-                                if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN)
-                                    colProp.intValue = 1;
+                                colProp.intValue = Mathf.Clamp(colProp.intValue, 0, Constants.StageSize.COLUMN - 1);
                                 colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                         label: new GUIContent("EColumn"),
                                         selected: (EColumn)colProp.intValue,

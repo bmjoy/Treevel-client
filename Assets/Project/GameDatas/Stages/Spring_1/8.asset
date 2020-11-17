@@ -118,7 +118,7 @@ MonoBehaviour:
     interval: 5
     type: 1
     targetDirections: 01000000
-    targetLines: 01000000
+    targetLines: 00000000
     randomDirection: 
     randomRow: 6400000014000000140000001400000064000000
     randomColumn: 1e000000640000001e000000

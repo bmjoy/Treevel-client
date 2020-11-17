@@ -142,12 +142,12 @@ MonoBehaviour:
     interval: 5
     type: 5
     targetDirections: 01000000
-    targetLines: 01000000
+    targetLines: 00000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 2
-    targetColumn: 2
+    targetRow: 1
+    targetColumn: 1
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0

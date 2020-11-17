@@ -184,9 +184,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                 if (line == -1) {
                     if ((i != 0 && GimmickLibrary.IsHorizontal(direction)) || (i == 0 && GimmickLibrary.IsVertical(direction))) {
-                        line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
+                        line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
                     } else if ((i != 0 && GimmickLibrary.IsVertical(direction)) || (i == 0 && GimmickLibrary.IsHorizontal(direction))) {
-                        line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
+                        line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray());
                     }
                 }
 
@@ -278,7 +278,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 throw new InvalidOperationException();
             }
 
-            return BoardManager.Instance.GetTilePos(col - 1, row - 1);
+            return BoardManager.Instance.GetTilePos(col, row);
         }
 
         /// <summary>

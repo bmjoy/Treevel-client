@@ -59,11 +59,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             switch (gimmickData.type) {
                 case EGimmickType.Meteorite:
                     if (gimmickData.isRandom) {
-                        var row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
-                        var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
-                        _targetPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
+                        var row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray());
+                        var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
+                        _targetPos = BoardManager.Instance.GetTilePos(column, row);
                     } else {
-                        _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn - 1, (int)gimmickData.targetRow - 1);
+                        _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn, (int)gimmickData.targetRow);
                     }
                     break;
                 case EGimmickType.AimingMeteorite:
