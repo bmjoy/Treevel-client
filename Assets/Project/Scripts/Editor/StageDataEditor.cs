@@ -279,13 +279,13 @@ namespace Treevel.Editor
                                                 // デフォルト値設定
                                                 lineElem.intValue = Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.COLUMN - 1);
 
-                                                lineElem.intValue =  (int)(EColumn)EditorGUILayout.EnumPopup(
-                                                    label: new GUIContent("Target Column"),
-                                                    selected: (EColumn)lineElem.intValue,
-                                                    //ランダムは選択不能にする
-                                                    checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
-                                                    includeObsolete: false
-                                                );
+                                                lineElem.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
+                                                        label: new GUIContent("Target Column"),
+                                                        selected: (EColumn)lineElem.intValue,
+                                                        //ランダムは選択不能にする
+                                                        checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
+                                                        includeObsolete: false
+                                                    );
                                                 break;
                                             }
                                         case EDirection.ToRight:
@@ -294,12 +294,12 @@ namespace Treevel.Editor
                                                 lineElem.intValue = Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.ROW - 1);
 
                                                 lineElem.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                                    label: new GUIContent("Target Row"),
-                                                    selected: (ERow)lineElem.intValue,
-                                                    //ランダムは選択不能にする
-                                                    checkEnabled: (eType) => (ERow)eType != ERow.Random,
-                                                    includeObsolete: false
-                                                );
+                                                        label: new GUIContent("Target Row"),
+                                                        selected: (ERow)lineElem.intValue,
+                                                        //ランダムは選択不能にする
+                                                        checkEnabled: (eType) => (ERow)eType != ERow.Random,
+                                                        includeObsolete: false
+                                                    );
                                                 break;
                                             }
                                         default:
