@@ -295,14 +295,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var sign = direction == EDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
                 warningPosition = new Vector2(sign * GameWindowController.Instance.GetGameSpaceWidth() / 2,
-                    GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 + 1 - line));
+                    GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 - line));
                 motionVector = direction == EDirection.ToLeft ?
                     Vector2.left :
                     Vector2.right;
             } else if (GimmickLibrary.IsVertical(direction)) {
                 var sign = direction == EDirection.ToUp ? -1 : 1;
                 // x座標は同じ列のタイルと同じ値、y座標は画面端
-                warningPosition = new Vector2(GameWindowController.Instance.GetTileWidth() * (line - (Constants.StageSize.COLUMN / 2 + 1)),
+                warningPosition = new Vector2(GameWindowController.Instance.GetTileWidth() * (line - (Constants.StageSize.COLUMN / 2)),
                     sign * Constants.WindowSize.HEIGHT / 2);
                 motionVector = direction == EDirection.ToUp ?
                     Vector2.up :
@@ -351,7 +351,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             var tornadoSize = GetComponent<SpriteRenderer>().size;
             if (GimmickLibrary.IsHorizontal(direction)) {
                 // 目標列の一番右端のタイルのY座標を取得
-                var tileNum = line * Constants.StageSize.COLUMN;
+                var tileNum = (line + 1) * Constants.StageSize.COLUMN;
                 y = BoardManager.Instance.GetTilePos(tileNum).y;
 
                 if (direction == EDirection.ToLeft) {
@@ -361,7 +361,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 }
             } else if (GimmickLibrary.IsVertical(direction)) {
                 // 目標行の一列目のタイルのx座標を取得
-                var tileNum = line;
+                var tileNum = line + 1;
                 x = BoardManager.Instance.GetTilePos(tileNum).x;
 
                 if (direction == EDirection.ToUp) {
