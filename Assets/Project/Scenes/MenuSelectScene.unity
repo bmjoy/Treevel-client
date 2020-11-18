@@ -13833,7 +13833,7 @@ GameObject:
   - component: {fileID: 1673266327}
   - component: {fileID: 1673266326}
   m_Layer: 5
-  m_Name: ToStageSceneButton
+  m_Name: ToStageSelectSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
