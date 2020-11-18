@@ -18617,6 +18617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7e57f29cc90480ca6701297f01fe89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _toStageSelectSceneButton: {fileID: 1673266326}
 --- !u!1001 &2065056793
 PrefabInstance:
   m_ObjectHideFlags: 0
