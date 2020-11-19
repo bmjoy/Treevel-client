@@ -18,8 +18,6 @@
                 case EBottleType.Normal:
                 case EBottleType.AttackableDummy:
                     return true;
-                default:
-                    throw new System.NotImplementedException();
             }
         }
     }
