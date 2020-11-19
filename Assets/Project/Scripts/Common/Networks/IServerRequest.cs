@@ -36,21 +36,14 @@ namespace Treevel.Common.Networks
 
         public async Task<object> GetData()
         {
-            if (Application.internetReachability == NetworkReachability.NotReachable) {
-                return GetData_Local();
-            } else {
-                return await GetData_Remote();
-            }
-        }
-
-        private async Task<object> GetData_Remote()
-        {
-            if (ServerRequest == null)
-                return null;
+            Debug.Assert(ServerRequest != null, "ServerRequest not implemented.");
 
             // TODO Show Progress bar
             await ServerRequest.SendWebRequest();
 
+            if (!IsRemoteDataValid()) {
+                return GetData_Local();
+            }
             // TODO check need to update cache
 
             return DeserializeResponse();
