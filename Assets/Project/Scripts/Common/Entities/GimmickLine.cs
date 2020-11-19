@@ -4,7 +4,7 @@
     /// 盤面の行番号
     /// </summary>
     public enum ERow {
-        First = 1,
+        First,
         Second,
         Third,
         Fourth,
@@ -16,7 +16,7 @@
     /// 盤面の列番号
     /// </summary>
     public enum EColumn {
-        Left = 1,
+        Left,
         Center,
         Right,
         Random = -1

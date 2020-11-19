@@ -142,12 +142,12 @@ MonoBehaviour:
     interval: 6
     type: 5
     targetDirections: 01000000
-    targetLines: 01000000
+    targetLines: 00000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 1
-    targetColumn: 1
+    targetRow: 0
+    targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
@@ -162,12 +162,12 @@ MonoBehaviour:
     interval: 6
     type: 5
     targetDirections: 01000000
-    targetLines: 01000000
+    targetLines: 00000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 3
-    targetColumn: 3
+    targetRow: 2
+    targetColumn: 2
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
@@ -182,12 +182,12 @@ MonoBehaviour:
     interval: 6
     type: 5
     targetDirections: 01000000
-    targetLines: 01000000
+    targetLines: 00000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 5
-    targetColumn: 1
+    targetRow: 4
+    targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
@@ -202,12 +202,12 @@ MonoBehaviour:
     interval: 6
     type: 5
     targetDirections: 01000000
-    targetLines: 01000000
+    targetLines: 00000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 3
-    targetColumn: 1
+    targetRow: 2
+    targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0

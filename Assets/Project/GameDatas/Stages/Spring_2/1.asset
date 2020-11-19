@@ -122,8 +122,8 @@ MonoBehaviour:
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 1
-    targetColumn: 1
+    targetRow: 0
+    targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
@@ -142,8 +142,8 @@ MonoBehaviour:
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 1
-    targetColumn: 2
+    targetRow: 0
+    targetColumn: 1
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
@@ -162,8 +162,8 @@ MonoBehaviour:
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 1
-    targetColumn: 3
+    targetRow: 0
+    targetColumn: 2
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
@@ -182,8 +182,8 @@ MonoBehaviour:
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: 4
-    targetColumn: 1
+    targetRow: 3
+    targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0

@@ -185,24 +185,24 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             switch (_targetDirection) {
                 case EDirection.ToLeft: {
-                        var start = (_targetLine - 1) * Constants.StageSize.COLUMN + 1;
+                        var start = _targetLine * Constants.StageSize.COLUMN + 1;
                         return Enumerable.Range(start, Constants.StageSize.COLUMN).Reverse().ToArray();
                     }
                 case EDirection.ToRight: {
-                        var start = (_targetLine - 1) * Constants.StageSize.COLUMN + 1;
+                        var start = _targetLine * Constants.StageSize.COLUMN + 1;
                         return Enumerable.Range(start, Constants.StageSize.COLUMN).ToArray();
                     }
                 case EDirection.ToUp: {
                         var ret = new int[Constants.StageSize.ROW];
                         for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
-                            ret[i] = _targetLine + Constants.StageSize.COLUMN * i;
+                            ret[i] = _targetLine + 1 + Constants.StageSize.COLUMN * i;
                         }
                         return ret.Reverse().ToArray();
                     }
                 case EDirection.ToDown: {
                         var ret = new int[Constants.StageSize.ROW];
                         for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
-                            ret[i] = _targetLine + Constants.StageSize.COLUMN * i;
+                            ret[i] = _targetLine + 1 + Constants.StageSize.COLUMN * i;
                         }
                         return ret;
                     }

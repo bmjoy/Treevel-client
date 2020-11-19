@@ -150,7 +150,7 @@ MonoBehaviour:
     targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
-    isRandom: 0
+    isRandom: 1
     targets: []
     targetDirection: 0
     attackTimes: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
     targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
-    isRandom: 0
+    isRandom: 1
     targets: []
     targetDirection: 0
     attackTimes: 0
