@@ -11,24 +11,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
     public class GeneralRecordDirector : MonoBehaviour
     {
         /// <summary>
-        /// [UI] "ステージクリア数" テキスト
+        /// [UI] "ステージクリア数" の prefab
         /// </summary>
-        [SerializeField] private Text _clearStageNum;
-
-        /// <summary>
-        /// [UI] "ステージ数" テキスト
-        /// </summary>
-        [SerializeField] private Text _stageNum;
-
-        /// <summary>
-        /// [UI] ステージクリア割合ゲージ
-        /// </summary>
-        [SerializeField] private Image _clearStageGauge;
-
-        /// <summary>
-        /// [UI] ステージクリア割合ゲージの先端
-        /// </summary>
-        [SerializeField] private Image _clearStageIndicator;
+        [SerializeField] private GameObject _clearStageNum;
 
         /// <summary>
         /// [UI] "プレイ回数" テキスト
@@ -118,10 +103,10 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToList();
 
-            _clearStageNum.text = GetClearStageNum();
-            _stageNum.text = GetStageNum();
-            _clearStageGauge.fillAmount = GetClearStagePercentage();
-            _clearStageIndicator.GetComponent<RectTransform>().localPosition = GetClearStageIndicatorPosition();
+            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
+            var totalStageNum = _stageStatuses.Count;
+            _clearStageNum.GetComponent<ClearStageNumDirector>().Setup(clearStageNum, totalStageNum, Color.blue);
+
             _playNum.text = GetPlayNum();
             _playDays.text = GetPlayDays();
             _flickNum.text = GetFlickNum();
@@ -134,42 +119,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             _shouldDestroyPrefabsOnDisable.ForEach(Destroy);
             _shouldDestroyPrefabsOnDisable.Clear();
-        }
-
-        private string GetClearStageNum()
-        {
-            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
-
-            return clearStageNum.ToString();
-        }
-
-        private string GetStageNum()
-        {
-            var stageNum = _stageStatuses.Count;
-
-            return stageNum.ToString();
-        }
-
-        private float GetClearStagePercentage()
-        {
-            var stageNum = _stageStatuses.Count;
-            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
-
-            var percentage = (float) clearStageNum / stageNum;
-
-            return percentage;
-        }
-
-        private Vector3 GetClearStageIndicatorPosition()
-        {
-            var radius = _clearStageGauge.GetComponent<RectTransform>().rect.width / 2;
-            var angle = GetClearStagePercentage() * 2 * Mathf.PI;
-
-            // FIXME: 0.95 はゲージの太さを考慮するための Magic Number です
-            var x = radius * Mathf.Sin(angle) * 0.95f;
-            var y = radius * Mathf.Cos(angle) * 0.95f;
-
-            return new Vector3(x, y);
         }
 
         private string GetPlayNum()
