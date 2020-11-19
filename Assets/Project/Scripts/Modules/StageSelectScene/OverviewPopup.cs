@@ -46,12 +46,12 @@ namespace Treevel.Modules.StageSelectScene
             var overviewGimmicks = stageData.OverviewGimmicks;
             var appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
             for (var i = 1 ; i <= 3 ; ++i) {
-                var gimmickOverviewBottle = appearingGimmicks.transform.Find($"GimmickOverview{i}");
+                var newFeatureOverview = appearingGimmicks.transform.Find($"GimmickOverview{i}");
                 if (overviewGimmicks.Count >= i) {
-                    gimmickOverviewBottle.GetComponentInChildren<Text>().text = overviewGimmicks[i - 1].ToString();
-                    gimmickOverviewBottle.gameObject.SetActive(true);
+                    newFeatureOverview.GetComponentInChildren<Text>().text = overviewGimmicks[i - 1].ToString();
+                    newFeatureOverview.gameObject.SetActive(true);
                 } else {
-                    gimmickOverviewBottle.gameObject.SetActive(false);
+                    newFeatureOverview.gameObject.SetActive(false);
                 }
             }
 
