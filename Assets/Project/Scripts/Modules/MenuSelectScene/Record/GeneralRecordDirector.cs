@@ -86,11 +86,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
         [SerializeField] private Sprite _failureReasonSolarBeamIconSprite;
 
         /// <summary>
-        /// 全ステージの記録情報
-        /// </summary>
-        private List<StageStatus> _stageStatuses;
-
-        /// <summary>
         /// 失敗理由を表示する最低割合
         /// </summary>
         private const float _FAILURE_REASON_SHOW_PERCENTAGE = 0.1f;
@@ -99,18 +94,18 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _stageStatuses = GameDataManager.GetAllStages()
+            var stageStatuses = GameDataManager.GetAllStages()
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToList();
 
-            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
-            var totalStageNum = _stageStatuses.Count;
+            var clearStageNum = stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
+            var totalStageNum = stageStatuses.Count;
             _clearStageNum.GetComponent<ClearStageNumDirector>().Setup(clearStageNum, totalStageNum, Color.blue);
 
-            _playNum.text = GetPlayNum();
-            _playDays.text = GetPlayDays();
-            _flickNum.text = GetFlickNum();
-            _failureNum.text = GetFailureNum();
+            _playNum.text = stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
+            _playDays.text = RecordData.Instance.StartupDays.ToString();
+            _flickNum.text = stageStatuses.Select(stageStatus => stageStatus.flickNum).Sum().ToString();
+            _failureNum.text = stageStatuses.Select(stageStatus => stageStatus.failureNum).Sum().ToString();
 
             SetupFailureReasonGraph();
         }
@@ -119,34 +114,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             _shouldDestroyPrefabsOnDisable.ForEach(Destroy);
             _shouldDestroyPrefabsOnDisable.Clear();
-        }
-
-        private string GetPlayNum()
-        {
-            var playNum = _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum();
-
-            return playNum.ToString();
-        }
-
-        private static string GetPlayDays()
-        {
-            var playDays = RecordData.Instance.StartupDays;
-
-            return playDays.ToString();
-        }
-
-        private string GetFlickNum()
-        {
-            var flickNum = _stageStatuses.Select(stageStatus => stageStatus.flickNum).Sum();
-
-            return flickNum.ToString();
-        }
-
-        private string GetFailureNum()
-        {
-            var failureNum = _stageStatuses.Select(stageStatus => stageStatus.failureNum).Sum();
-
-            return failureNum.ToString();
         }
 
         private void SetupFailureReasonGraph()
