@@ -1,5 +1,7 @@
 ﻿using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks.Objects;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,76 +10,59 @@ namespace Treevel.Modules.StageSelectScene
     public class OverviewPopup : MonoBehaviour
     {
         /// <summary>
-        /// ステージID
-        /// </summary>
-        private Text _stageNumberText;
-
-        /// <summary>
-        /// クリア割合
-        /// </summary>
-        private Text _clearPercentageText;
-
-        /// <summary>
-        /// 出現する銃弾
-        /// </summary>
-        private GameObject _appearingGimmicks;
-
-        /// <summary>
         /// ゲームを開始するボタン
         /// </summary>
-        public GameObject goToGame;
-
-        private ETreeId _treeId;
-
-        private int _stageNumber;
-
-        private void Awake()
-        {
-            _stageNumberText = transform.Find("PanelBackground/StageNumIconBase/StageNumText").GetComponent<Text>();
-            _clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Title").GetComponent<Text>();
-            _appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
-            goToGame = transform.Find("PanelBackground/GoToGame").gameObject;
-
-            // ゲームを開始するボタン
-            goToGame.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<StageSelectDirector>().GoToGame(_treeId, _stageNumber));
-        }
+        public Button goToGameButton;
 
         /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
-        public void SetStageId(ETreeId treeId, int stageNumber)
+        /// <param name="stats"> サーバからもらったステージスタッツデータ </param>
+        public void Initialize(ETreeId treeId, int stageNumber, StageStats stats)
         {
-            _treeId = treeId;
-            _stageNumber = stageNumber;
-        }
+            var stageData = GameDataManager.GetStage(treeId, stageNumber);
 
-        void OnEnable()
-        {
-            var stageData = GameDataManager.GetStage(_treeId, _stageNumber);
+            if (stageData == null) {
+                UIManager.Instance.ShowErrorMessage(EErrorCode.UnknownError);
+                return;
+            }
 
             // ステージID
-            _stageNumberText.text = _stageNumber.ToString();
+            var stageNumberText = transform.Find("PanelBackground/StageNumIconBase/StageNumText").GetComponent<Text>();
+            stageNumberText.text = stageNumber.ToString();
 
-            if (stageData == null)
-                return;
+            // クリア割合
+            var clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Data").GetComponent<Text>();
+            clearPercentageText.text = $"{stats.clearRate * 100f:n2}%";
 
-            // _stageDifficultyText.GetComponent<Text>().text = _treeId.ToString();
+            // 最速クリアタイム
+            var minClearTimeText = transform.Find("PanelBackground/StatusPanel/ShortestClearTime/Data").GetComponent<Text>();
+            var time = TimeSpan.FromSeconds(stats.minClearTime);
+            minClearTimeText.text = $"{time.Minutes}:{time.Seconds}'{time.Milliseconds}";
 
-            // TODO:サーバで全ユーザのデータを持ったら実装
-            // _clearPercentage.GetComponent<Text>().text = ...
-
+            // 登場ギミック
             var overviewGimmicks = stageData.OverviewGimmicks;
-            for (int i = 1 ; i <= 3 ; ++i) {
-                var gimmickOverviewBottle = _appearingGimmicks.transform.Find($"GimmickOverview{i}");
+            var appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
+            for (var i = 1 ; i <= 3 ; ++i) {
+                var newFeatureOverview = appearingGimmicks.transform.Find($"GimmickOverview{i}");
                 if (overviewGimmicks.Count >= i) {
-                    gimmickOverviewBottle.GetComponentInChildren<Text>().text = overviewGimmicks[i - 1].ToString();
-                    gimmickOverviewBottle.gameObject.SetActive(true);
+                    newFeatureOverview.GetComponentInChildren<Text>().text = overviewGimmicks[i - 1].ToString();
+                    newFeatureOverview.gameObject.SetActive(true);
                 } else {
-                    gimmickOverviewBottle.gameObject.SetActive(false);
+                    newFeatureOverview.gameObject.SetActive(false);
                 }
             }
+
+            // ゲームを開始するボタン
+            goToGameButton = transform.Find("PanelBackground/GoToGame").GetComponent<Button>();
+            goToGameButton.onClick.AddListener(() => StageSelectDirector.Instance.GoToGame(treeId, stageNumber));
+        }
+
+        private void OnDisable()
+        {
+            goToGameButton.onClick.RemoveAllListeners();
         }
     }
 }

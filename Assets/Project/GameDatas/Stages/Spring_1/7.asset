@@ -27,6 +27,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile1
     life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 5
     targetPos: 5
@@ -38,6 +39,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile2
     life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 6
     targetPos: 6
@@ -49,6 +51,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile3
     life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 7
     targetPos: 7
@@ -60,6 +63,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile4
     life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 8
     targetPos: 8
@@ -71,6 +75,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile5
     life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 9
     targetPos: 9
@@ -82,6 +87,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile6
     life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 10
     targetPos: 10
@@ -93,6 +99,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile7
     life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 14
     targetPos: 11
@@ -104,6 +111,7 @@ MonoBehaviour:
       m_SubObjectName: numberTile8
     life: 1
     isSelfish: 0
+    isDark: 0
   gimmicks:
   - loop: 1
     appearTime: 1
@@ -118,10 +126,13 @@ MonoBehaviour:
     targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
-    isRandom: 0
+    isRandom: 1
     targets: []
     targetDirection: 0
     attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 
   tutorial:
     type: 0

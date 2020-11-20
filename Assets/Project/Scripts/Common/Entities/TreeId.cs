@@ -31,6 +31,14 @@ namespace Treevel.Common.Entities
         }
     }
 
+    public static class TreeIdExtension
+    {
+        public static string GetTreeIdAsKey(this ETreeId treeId)
+        {
+            return treeId.ToString().Replace("_", "-");
+        }
+    }
+
     public static class TreeInfo
     {
         /// <summary>

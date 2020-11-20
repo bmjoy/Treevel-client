@@ -28,8 +28,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
-    life: 0
+    life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 8
     targetPos: 5
@@ -39,8 +40,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
-    life: 0
+    life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 9
     targetPos: 6
@@ -50,8 +52,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
-    life: 0
+    life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 10
     targetPos: 7
@@ -61,8 +64,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
       m_SubObjectName: numberTile4
-    life: 0
+    life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 11
     targetPos: 8
@@ -72,8 +76,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
       m_SubObjectName: numberTile5
-    life: 0
+    life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 12
     targetPos: 9
@@ -83,8 +88,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 002d879f7321744279709540f5b88837
       m_SubObjectName: numberTile6
-    life: 0
+    life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 13
     targetPos: 10
@@ -94,8 +100,9 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
       m_SubObjectName: numberTile7
-    life: 0
+    life: 1
     isSelfish: 0
+    isDark: 0
   - type: 2
     initPos: 14
     targetPos: 11
@@ -105,9 +112,10 @@ MonoBehaviour:
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
-    life: 0
+    life: 1
     isSelfish: 0
-  - type: 4
+    isDark: 0
+  - type: 2
     initPos: 1
     targetPos: 11
     bottleSprite:
@@ -118,24 +126,28 @@ MonoBehaviour:
       m_SubObjectName: numberTile8
     life: 3
     isSelfish: 0
+    isDark: 0
   gimmicks:
   - loop: 1
     appearTime: 1
     interval: 5
     type: 0
-    line: 0
-    direction: 0
     targetDirections: 0100000004000000020000000300000001000000
-    targetLines: 0100000001000000020000000300000001000000
+    targetLines: 0000000000000000010000000200000000000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    turnLines: 
-    aimingBottles: 
-    randomCartridgeDirection: 
-    randomLine: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 01000000
   tutorial:
     type: 0

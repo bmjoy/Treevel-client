@@ -31,14 +31,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             int row;
             int column;
             if (gimmickData.isRandom) {
-                row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray()) + 1;
-                column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray()) + 1;
+                row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray());
+                column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
             } else {
                 row = (int)gimmickData.targetRow;
                 column = (int)gimmickData.targetColumn;
             }
-            var leftTopPos = BoardManager.Instance.GetTilePos(column - 1, row - 1);
-            var rightBottomPos = BoardManager.Instance.GetTilePos(column - 1 + width - 1, row - 1 + height - 1);
+            var leftTopPos = BoardManager.Instance.GetTilePos(column, row);
+            var rightBottomPos = BoardManager.Instance.GetTilePos(column + width - 1, row + height - 1);
             transform.position = (leftTopPos + rightBottomPos) / 2;
 
             var mainModule = _particleSystem.main;
