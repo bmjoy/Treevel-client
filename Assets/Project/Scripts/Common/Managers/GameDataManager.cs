@@ -49,6 +49,14 @@ namespace Treevel.Common.Managers
                 return null;
         }
 
+        public static StageData[] GetStages(ETreeId treeId)
+        {
+            return StageData.EncodeStageIdKeys(treeId)
+                .Where(stageKey => _stageDataMap.ContainsKey(stageKey))
+                .Select(stageKey => _stageDataMap[stageKey])
+                .ToArray();
+        }
+
         public static StageData[] GetAllStages()
         {
             return _stageDataMap.Values.ToArray();

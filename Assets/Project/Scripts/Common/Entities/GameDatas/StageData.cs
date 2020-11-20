@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Treevel.Common.Utils;
 using UnityEngine;
 
@@ -39,6 +40,13 @@ namespace Treevel.Common.Entities.GameDatas
         public static string EncodeStageIdKey(ETreeId treeId, int stageNumber)
         {
             return $"{treeId.GetTreeIdAsKey()}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{stageNumber}";
+        }
+
+        public static string[] EncodeStageIdKeys(ETreeId treeId)
+        {
+            return Enumerable.Range(1, TreeInfo.NUM[treeId])
+                .Select(stageId => $"{treeId.GetTreeIdAsKey()}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{stageId}")
+                .ToArray();
         }
 
         /// <summary>
