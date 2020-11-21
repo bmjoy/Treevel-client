@@ -241,10 +241,10 @@ namespace Treevel.Common.Managers
                             case ESeasonId.Autumn:
                             case ESeasonId.Winter:
                                 // TODO: 季節ごとにアセットを変更する
-                                LoadAsset<Sprite>(Constants.Address.POWDER_SAND_BACKGROUND_SPRITE);
-                                LoadAsset<Material>(Constants.Address.POWDER_SAND_PARTICLE_MATERIAL);
+                                LoadAsset<Sprite>(Constants.Address.SAND_POWDER_BACKGROUND_SPRITE);
+                                LoadAsset<Material>(Constants.Address.SAND_POWDER_PARTICLE_MATERIAL);
                                 LoadAsset<GameObject>(Constants.Address.POWDER_PREFAB);
-                                LoadAsset<GameObject>(Constants.Address.PILED_UP_POWDER_PREFAB);
+                                LoadAsset<GameObject>(Constants.Address.SAND_PILED_UP_POWDER_PREFAB);
                                 break;
                             default:
                                 throw new System.ArgumentOutOfRangeException();

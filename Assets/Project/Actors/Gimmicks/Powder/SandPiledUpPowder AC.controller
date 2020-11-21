@@ -56,7 +56,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PiledUpPowder AC
+  m_Name: SandPiledUpPowder AC
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: PiledUpTrigger
@@ -91,7 +91,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PiledUp@action
+  m_Name: SandPiledUpPowder@action
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -143,7 +143,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PiledUp@idle
+  m_Name: SandPiledUpPowder@idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

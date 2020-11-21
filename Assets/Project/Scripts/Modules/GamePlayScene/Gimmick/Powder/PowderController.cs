@@ -19,14 +19,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         {
             base.Initialize(gimmickData);
 
-            // 季節ごとのSpriteをセットする
-            LoadSprites();
+            // 背景をセットする
+            SetBackground();
 
             // 積み上がるPowderギミックを作成する
             InstantiatePiledUpPowder();
         }
 
-        private void LoadSprites()
+        private void SetBackground()
         {
             string particleAddressKey;
             string backgroundAddressKey;
@@ -36,8 +36,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                 case ESeasonId.Autumn:
                 case ESeasonId.Winter:
                     // TODO:季節ごとにSpriteを変更する
-                    particleAddressKey = Constants.Address.POWDER_SAND_PARTICLE_MATERIAL;
-                    backgroundAddressKey = Constants.Address.POWDER_SAND_BACKGROUND_SPRITE;
+                    particleAddressKey = Constants.Address.SAND_POWDER_PARTICLE_MATERIAL;
+                    backgroundAddressKey = Constants.Address.SAND_POWDER_BACKGROUND_SPRITE;
                     break;
                 default:
                     throw new System.ArgumentOutOfRangeException();
@@ -94,15 +94,26 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         private async void InstantiatePiledUpPowder()
         {
+            string address;
+            switch (GamePlayDirector.treeId.GetSeasonId()) {
+                case ESeasonId.Spring:
+                case ESeasonId.Summer:
+                case ESeasonId.Autumn:
+                case ESeasonId.Winter:
+                    // TODO:季節ごとにprefabを変更する
+                    address = Constants.Address.SAND_PILED_UP_POWDER_PREFAB;
+                    break;
+                default:
+                    throw new System.ArgumentOutOfRangeException();
+            }
+
             var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
-            var i = 0;
-            foreach (var bottle in bottles) {
-                var piledUpPowder = await AddressableAssetManager.Instantiate(Constants.Address.PILED_UP_POWDER_PREFAB).Task;
+            for (var i = 0; i<bottles.Length; i++) {
+                var piledUpPowder = await AddressableAssetManager.Instantiate(address).Task;
                 var piledUpPoderController = piledUpPowder.GetComponent<PiledUpPowderController>();
                 _piledUpPowders[i] = piledUpPoderController;
-                piledUpPoderController.Initialize(bottle);
-                i++;
+                piledUpPoderController.Initialize(bottles[i]);
             }
         }
 
