@@ -22,16 +22,22 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         public void Initialize(NormalBottleController bottleController)
         {
+            var preLocalScale = transform.localScale;
             transform.parent = bottleController.transform;
+            transform.localScale = new Vector2(1f, 1f);
             transform.localPosition = Vector3.zero;
             _bottleController = bottleController;
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
+            _bottleController.StartMove += HandleStartMove;
+            _bottleController.EndMove += HandleEndMove;
         }
 
         private void OnDestroy()
         {
+            _bottleController.StartMove -= HandleStartMove;
+            _bottleController.EndMove -= HandleEndMove;
         }
 
         public override IEnumerator Trigger()
@@ -40,8 +46,18 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             yield return null;
         }
 
+        private void HandleStartMove()
+        {
+            _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, false);
+        }
+
+        private void HandleEndMove()
+        {
+            _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
+        }
+
         /// <summary>
-        /// ボトルを失敗扱いにする
+        /// ボトルを失敗扱いにする(Animationから呼び出し)
         /// </summary>
         private void SetBottleFailed()
         {
@@ -55,6 +71,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         protected override void OnEndGame()
         {
+            _bottleController.StartMove -= HandleStartMove;
+            _bottleController.EndMove -= HandleEndMove;
             // 自身が失敗原因でない場合はアニメーションを止める
             if (!_isPiledUp) {
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
