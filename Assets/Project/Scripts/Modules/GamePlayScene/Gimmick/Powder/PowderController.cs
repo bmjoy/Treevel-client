@@ -1,9 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
@@ -12,6 +13,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
     {
         private ParticleSystem _upperParticleSystem;
         private ParticleSystem _lowerParticleSystem;
+        private PiledUpPowderController[] _piledUpPowders;
 
         public override void Initialize(GimmickData gimmickData)
         {
@@ -19,6 +21,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
             // 季節ごとのSpriteをセットする
             LoadSprites();
+
+            // 積み上がるPowderギミックを作成する
+            InstantiatePiledUpPowder();
         }
 
         private void LoadSprites()
@@ -77,9 +82,29 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         public override IEnumerator Trigger()
         {
+            // 粒子を発生させる
             _upperParticleSystem.Play();
             _lowerParticleSystem.Play();
+            // 積み上げる粉ギミックを開始する
+            foreach(var piledUpPowder in _piledUpPowders)
+            {
+                StartCoroutine(piledUpPowder.Trigger());
+            }
             yield return null;
+        }
+
+        private async void InstantiatePiledUpPowder()
+        {
+            var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
+            _piledUpPowders = new PiledUpPowderController[bottles.Length];
+            var i = 0;
+            foreach(var bottle in bottles) {
+                var piledUpPowder = await AddressableAssetManager.Instantiate(Constants.Address.PILED_UP_POWDER_PREFAB).Task;
+                var piledUpPoderController = piledUpPowder.GetComponent<PiledUpPowderController>();
+                _piledUpPowders[i] = piledUpPoderController;
+                piledUpPoderController.Initialize(bottle);
+                i++;
+            }
         }
 
         protected override void OnEndGame()
