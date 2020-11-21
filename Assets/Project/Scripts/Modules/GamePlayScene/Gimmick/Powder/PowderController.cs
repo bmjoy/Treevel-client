@@ -109,7 +109,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
             var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
-            for (var i = 0; i<bottles.Length; i++) {
+            for (var i = 0; i < bottles.Length; i++) {
                 var piledUpPowder = await AddressableAssetManager.Instantiate(address).Task;
                 var piledUpPoderController = piledUpPowder.GetComponent<PiledUpPowderController>();
                 _piledUpPowders[i] = piledUpPoderController;
