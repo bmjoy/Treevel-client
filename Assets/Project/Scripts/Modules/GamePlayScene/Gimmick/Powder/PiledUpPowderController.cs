@@ -43,7 +43,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// <summary>
         /// ボトルを失敗扱いにする
         /// </summary>
-        private void SetBottleFailed() {
+        private void SetBottleFailed()
+        {
             _isPiledUp = true;
             _bottleAnimator.SetTrigger(LifeEffectController.ANIMATOR_PARAM_TRIGGER_DEAD);
             // 失敗原因を保持する
@@ -52,7 +53,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
         }
 
-        protected override void OnEndGame() {
+        protected override void OnEndGame()
+        {
             // 自身が失敗原因でない場合はアニメーションを止める
             if (!_isPiledUp) {
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);

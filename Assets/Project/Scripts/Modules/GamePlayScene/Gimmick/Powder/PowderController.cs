@@ -86,8 +86,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             _upperParticleSystem.Play();
             _lowerParticleSystem.Play();
             // 積み上げる粉ギミックを開始する
-            foreach(var piledUpPowder in _piledUpPowders)
-            {
+            foreach (var piledUpPowder in _piledUpPowders) {
                 StartCoroutine(piledUpPowder.Trigger());
             }
             yield return null;
@@ -98,7 +97,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
             var i = 0;
-            foreach(var bottle in bottles) {
+            foreach (var bottle in bottles) {
                 var piledUpPowder = await AddressableAssetManager.Instantiate(Constants.Address.PILED_UP_POWDER_PREFAB).Task;
                 var piledUpPoderController = piledUpPowder.GetComponent<PiledUpPowderController>();
                 _piledUpPowders[i] = piledUpPoderController;
