@@ -35,7 +35,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected override void Start()
         {
-            base.Awake();
+            base.Start();
             lineRenderer.material.SetTextureScale("_MainTex", new Vector2(8 / lineLength, 1f));
         }
 
