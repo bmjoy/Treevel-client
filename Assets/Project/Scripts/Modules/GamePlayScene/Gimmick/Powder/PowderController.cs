@@ -11,8 +11,18 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 {
     public class PowderController : AbstractGimmickController
     {
+        /// <summary>
+        /// 背景上部分のParticleSystem
+        /// </summary>
         private ParticleSystem _upperParticleSystem;
+        /// <summary>
+        /// 背景下部分のParticleSystem
+        /// </summary>
         private ParticleSystem _lowerParticleSystem;
+
+        /// <summary>
+        /// 各NumberBottle上の堆積Powderギミック
+        /// </summary>
         private PiledUpPowderController[] _piledUpPowders;
 
         public override void Initialize(GimmickData gimmickData)
@@ -22,10 +32,13 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // 背景をセットする
             SetBackground();
 
-            // 積み上がるPowderギミックを作成する
+            // 堆積Powderギミックを作成する
             InstantiatePiledUpPowder();
         }
 
+        /// <summary>
+        /// 背景画像、背景Particleをセットする
+        /// </summary>
         private void SetBackground()
         {
             string particleAddressKey;
@@ -85,13 +98,17 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // 粒子を発生させる
             _upperParticleSystem.Play();
             _lowerParticleSystem.Play();
-            // 積み上げる粉ギミックを開始する
+            // 堆積Powderギミックを開始する
             foreach (var piledUpPowder in _piledUpPowders) {
                 StartCoroutine(piledUpPowder.Trigger());
             }
             yield return null;
         }
 
+        /// <summary>
+        /// 堆積Powderギミックを作成する
+        /// </summary>
+        /// <returns></returns>
         private async void InstantiatePiledUpPowder()
         {
             string address;

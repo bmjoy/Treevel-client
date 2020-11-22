@@ -11,7 +11,12 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         private Animator _animator;
         private Animator _bottleAnimator;
+
+        /// <summary>
+        /// 堆積して失敗したかどうか
+        /// </summary>
         private bool _isPiledUp = false;
+
         private const string _ANIMATOR_PARAM_BOOL_TRIGGER = "PiledUpTrigger";
         private const string _ANIMATOR_PARAM_FLOAT_SPEED = "PiledUpSpeed";
 
@@ -22,10 +27,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         public void Initialize(NormalBottleController bottleController)
         {
-            var preLocalScale = transform.localScale;
+            // ボトル上に配置
             transform.parent = bottleController.transform;
             transform.localScale = new Vector2(1f, 1f);
             transform.localPosition = Vector3.zero;
+
             _bottleController = bottleController;
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
