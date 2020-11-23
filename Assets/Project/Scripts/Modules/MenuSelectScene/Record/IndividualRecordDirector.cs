@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Treevel.Common.Entities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +17,17 @@ namespace Treevel.Modules.MenuSelectScene.Record
         [SerializeField] private GameObject _clearStageNum;
 
         /// <summary>
+        /// [UI] 棒グラフの prefab
+        /// 現状，グラフの数は 10 で決めうち
+        /// </summary>
+        [SerializeField] private GameObject[] _graphBars = new GameObject[10];
+
+        /// <summary>
         /// [UI] "ステージ一覧へ"
         /// </summary>
         [SerializeField] private Button _toStageSelectSceneButton;
+
+        private StageStatus[] _stageStatuses;
 
         private void Awake()
         {
@@ -34,13 +43,33 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            var stageStatuses = GameDataManager.GetStages(ETreeId.Spring_1)
+            _stageStatuses = GameDataManager.GetStages(ETreeId.Spring_1)
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
-                .ToList();
+                .ToArray();
 
-            var clearStageNum = stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
-            var totalStageNum = stageStatuses.Count;
+            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
+            var totalStageNum = _stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumDirector>().Setup(clearStageNum, totalStageNum, Color.magenta);
+
+            SetupGraphBars();
+        }
+
+        private void SetupGraphBars()
+        {
+            var challengeNumMax = _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
+
+            _stageStatuses
+                .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
+                .ToList()
+                .ForEach(args =>
+                {
+                    var (graphBar, successNum, challengeNum) = args;
+
+                    graphBar.GetComponent<Image>().color = successNum > 0 ? Color.magenta : Color.gray;
+
+                    var anchorMaxY = 0.1f + 0.9f * challengeNum / challengeNumMax;
+                    graphBar.GetComponent<RectTransform>().anchorMax = new Vector2(1, anchorMaxY);
+                });
         }
     }
 }
