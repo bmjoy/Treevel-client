@@ -57,10 +57,10 @@ namespace Treevel.Modules.MenuSelectScene.Record
             var totalStageNum = _stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumDirector>().Setup(clearStageNum, totalStageNum, Color.magenta);
 
-            SetupGraphBars();
+            SetupBarGraph();
         }
 
-        private void SetupGraphBars()
+        private void SetupBarGraph()
         {
             var challengeNumMax = (float) _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
             var maxAxisLabelNum = challengeNumMax == 0 ? 30 : (float) Math.Ceiling(challengeNumMax / 30) * 30;
