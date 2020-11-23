@@ -63,11 +63,21 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void SetupBarGraph()
         {
             var challengeNumMax = (float) _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
-            var maxAxisLabelNum = challengeNumMax == 0 ? 30 : (float) Math.Ceiling(challengeNumMax / 30) * 30;
+            float maxAxisLabelNum;
+            var showPlus = false;
+
+            if (challengeNumMax == 0) {
+                maxAxisLabelNum = 30;
+            } else if (challengeNumMax > 990) {
+                maxAxisLabelNum = 990;
+                showPlus = true;
+            } else {
+                maxAxisLabelNum = (float) Math.Ceiling(challengeNumMax / 30) * 30;
+            }
 
             _graphAxisLabels[0].text = ((int) maxAxisLabelNum / 3).ToString();
             _graphAxisLabels[1].text = ((int) maxAxisLabelNum * 2 / 3).ToString();
-            _graphAxisLabels[2].text = ((int) maxAxisLabelNum).ToString();
+            _graphAxisLabels[2].text = showPlus ? ((int) maxAxisLabelNum).ToString() : (int) maxAxisLabelNum + "+";
 
             _stageStatuses
                 .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
