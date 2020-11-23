@@ -4,9 +4,9 @@
     /// 季節一覧
     /// </summary>
     public enum ESeasonId {
-        Spring = 0, // 春
-        Summer = 1, // 夏
-        Autumn = 2, // 秋
-        Winter = 3, // 冬
+        Spring, // 春
+        Summer, // 夏
+        Autumn, // 秋
+        Winter, // 冬
     }
 }
