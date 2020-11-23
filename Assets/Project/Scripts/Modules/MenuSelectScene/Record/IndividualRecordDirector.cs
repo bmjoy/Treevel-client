@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using Treevel.Common.Entities;
 using UnityEngine;
@@ -21,6 +21,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// 現状，グラフの数は 10 で決めうち
         /// </summary>
         [SerializeField] private GameObject[] _graphBars = new GameObject[10];
+
+        /// <summary>
+        /// [UI] 棒グラフの y 軸ラベルの text
+        /// 一番下のラベルは 0 で確定なので 3 つを考慮
+        /// </summary>
+        [SerializeField] private Text[] _graphAxisLabels = new Text[3];
 
         /// <summary>
         /// [UI] "ステージ一覧へ"
@@ -56,7 +62,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void SetupGraphBars()
         {
-            var challengeNumMax = _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
+            var challengeNumMax = (float) _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
+            var maxAxisLabelNum = challengeNumMax == 0 ? 30 : (float) Math.Ceiling(challengeNumMax / 30) * 30;
+
+            _graphAxisLabels[0].text = ((int) maxAxisLabelNum / 3).ToString();
+            _graphAxisLabels[1].text = ((int) maxAxisLabelNum * 2 / 3).ToString();
+            _graphAxisLabels[2].text = ((int) maxAxisLabelNum).ToString();
 
             _stageStatuses
                 .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
@@ -67,7 +78,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
                     graphBar.GetComponent<Image>().color = successNum > 0 ? Color.magenta : Color.gray;
 
-                    var anchorMaxY = 0.1f + 0.9f * challengeNum / challengeNumMax;
+                    var anchorMaxY = 0.1f + 0.9f * challengeNum / maxAxisLabelNum;
                     graphBar.GetComponent<RectTransform>().anchorMax = new Vector2(1, anchorMaxY);
                 });
         }

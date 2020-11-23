@@ -5656,6 +5656,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 725051919}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &725051921 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9178724915984365835, guid: bef1ce286d5014a08b1dda0760b28ee2,
+    type: 3}
+  m_PrefabInstance: {fileID: 725051919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &737591328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13335,6 +13347,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1618862463}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1618862465 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9178724915984365835, guid: bef1ce286d5014a08b1dda0760b28ee2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1618862463}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1637709450 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8585351667659277243, guid: 08bc31bccfd004d24846b057a089c860,
@@ -16469,6 +16493,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1804118147}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1804118149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9178724915984365835, guid: bef1ce286d5014a08b1dda0760b28ee2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1804118147}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1810550559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18677,6 +18713,10 @@ MonoBehaviour:
   - {fileID: 103152173}
   - {fileID: 40601243}
   - {fileID: 938341808}
+  _graphAxisLabels:
+  - {fileID: 1618862465}
+  - {fileID: 725051921}
+  - {fileID: 1804118149}
   _toStageSelectSceneButton: {fileID: 1673266326}
 --- !u!1001 &2065056793
 PrefabInstance:
