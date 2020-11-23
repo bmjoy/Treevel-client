@@ -129,9 +129,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
             for (var i = 0; i < bottles.Length; i++) {
                 var piledUpPowder = await AddressableAssetManager.Instantiate(address).Task;
-                var piledUpPoderController = piledUpPowder.GetComponent<PiledUpPowderController>();
-                _piledUpPowders[i] = piledUpPoderController;
-                piledUpPoderController.Initialize(bottles[i]);
+                var piledUpPowderController = piledUpPowder.GetComponent<PiledUpPowderController>();
+                _piledUpPowders[i] = piledUpPowderController;
+                piledUpPowderController.Initialize(bottles[i]);
             }
         }
 
