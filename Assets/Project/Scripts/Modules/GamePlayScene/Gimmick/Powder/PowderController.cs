@@ -15,6 +15,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// 背景上部分のParticleSystem
         /// </summary>
         private ParticleSystem _upperParticleSystem;
+
         /// <summary>
         /// 背景下部分のParticleSystem
         /// </summary>
