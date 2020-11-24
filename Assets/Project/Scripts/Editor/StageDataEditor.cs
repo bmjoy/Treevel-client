@@ -215,10 +215,9 @@ namespace Treevel.Editor
         private void DrawGimmickList()
         {
             // Powderギミックが存在するかどうか
-            var isExistPowder = false;
-            for (var i = 0; i < _gimmickDatasProp.arraySize; i++) {
-                isExistPowder = isExistPowder || ((EGimmickType)(_gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex) == EGimmickType.Powder);
-            }
+            var isExistPowder = Enumerable.Range(0, _gimmickDatasProp.arraySize)
+                .Select(index => _gimmickDatasProp.GetArrayElementAtIndex(index).FindPropertyRelative("type"))
+                .Any(gimmickTypeData => (EGimmickType)gimmickTypeData.enumValueIndex == EGimmickType.Powder);
 
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
                 gimmickDataProp.isExpanded = EditorGUILayout.Foldout(gimmickDataProp.isExpanded, $"Gimmick {index + 1}");
