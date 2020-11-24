@@ -19,7 +19,15 @@ namespace Treevel.Editor
         private SerializedProperty _bottleDatasProp;
         private SerializedProperty _gimmickDatasProp;
 
+        /// <summary>
+        /// 攻撃可能なボトルの数
+        /// </summary>
         private int _numOfAttackableBottles = 0;
+
+        /// <summary>
+        /// ギミックの数
+        /// </summary>
+        private int _numOfGimmicks = 0;
 
         private StageData _src;
         public void OnEnable()
@@ -29,8 +37,10 @@ namespace Treevel.Editor
             _gimmickDatasProp = serializedObject.FindProperty("gimmicks");
 
             _src = target as StageData;
-            if (_src != null)
+            if (_src != null) {
                 _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
+                _numOfGimmicks = _src.GimmickDatas?.Count() ?? 0;
+            }
         }
 
         public override void OnInspectorGUI()
@@ -60,6 +70,15 @@ namespace Treevel.Editor
 
             serializedObject.ApplyModifiedProperties();
             _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
+            // ギミックの個数が増えたとき、増えたギミックはデフォルト値(Tornado)に設定する
+            if ((_src.GimmickDatas?.Count() ?? 0) > _numOfGimmicks) {
+                var newGimmcikIndices = Enumerable.Range(0, _gimmickDatasProp.arraySize)
+                    .Where(index => index >= _numOfGimmicks);
+                foreach(var gimmickIndex in newGimmcikIndices) {
+                    _gimmickDatasProp.GetArrayElementAtIndex(gimmickIndex).FindPropertyRelative("type").enumValueIndex = (int)EGimmickType.Tornado;
+                }
+            }
+            _numOfGimmicks = _src.GimmickDatas?.Count() ?? 0;
             ValidateTiles();
         }
 
