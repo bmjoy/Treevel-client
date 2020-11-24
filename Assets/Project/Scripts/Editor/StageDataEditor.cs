@@ -74,7 +74,7 @@ namespace Treevel.Editor
             if ((_src.GimmickDatas?.Count() ?? 0) > _numOfGimmicks) {
                 var newGimmcikIndices = Enumerable.Range(0, _gimmickDatasProp.arraySize)
                     .Where(index => index >= _numOfGimmicks);
-                foreach(var gimmickIndex in newGimmcikIndices) {
+                foreach (var gimmickIndex in newGimmcikIndices) {
                     _gimmickDatasProp.GetArrayElementAtIndex(gimmickIndex).FindPropertyRelative("type").enumValueIndex = (int)EGimmickType.Tornado;
                 }
             }
