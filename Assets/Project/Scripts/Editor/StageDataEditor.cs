@@ -73,8 +73,8 @@ namespace Treevel.Editor
             // ギミックの個数が増えたとき、増えたギミックはデフォルト値(Tornado)に設定する
             if ((_src.GimmickDatas?.Count ?? 0) > _numOfGimmicks) {
                 Enumerable.Range(_numOfGimmicks, _gimmickDatasProp.arraySize - _numOfGimmicks)
-                    .ToList()
-                    .ForEach(i => _gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex = (int)EGimmickType.Tornado);
+                .ToList()
+                .ForEach(i => _gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex = (int)EGimmickType.Tornado);
             }
             _numOfGimmicks = _src.GimmickDatas?.Count ?? 0;
             ValidateTiles();
@@ -245,12 +245,12 @@ namespace Treevel.Editor
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
                 int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
-                    label: new GUIContent("Type"),
-                    selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
-                    // Poderギミックは１ステージに１つまで
-                    checkEnabled: (ETileType) => !isExistPowder || (EGimmickType)ETileType != EGimmickType.Powder,
-                    includeObsolete: false
-                );
+                        label: new GUIContent("Type"),
+                        selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
+                        // Poderギミックは１ステージに１つまで
+                        checkEnabled: (ETileType) => !isExistPowder || (EGimmickType)ETileType != EGimmickType.Powder,
+                        includeObsolete: false
+                    );
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != gimmickTypeProp.enumValueIndex) {
                     gimmickTypeProp.enumValueIndex = newEnumValueIndex;
