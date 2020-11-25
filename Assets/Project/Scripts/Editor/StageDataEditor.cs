@@ -248,7 +248,7 @@ namespace Treevel.Editor
                         label: new GUIContent("Type"),
                         selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
                         // Poderギミックは１ステージに１つまで
-                        checkEnabled: (ETileType) => !isExistPowder || (EGimmickType)ETileType != EGimmickType.Powder,
+                        checkEnabled: (eType) => !isExistPowder || (EGimmickType)eType != EGimmickType.Powder,
                         includeObsolete: false
                     );
                 // タイプが変わっていたらデータをリセット
