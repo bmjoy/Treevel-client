@@ -83,6 +83,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 830116bc543a14264b53f8cacf4324cf
+    m_Address: SandPiledUpPowderPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 864edba41a19b4040afa5d86f0b9857f
     m_Address: MeteoritePrefab
     m_ReadOnly: 0
@@ -97,6 +103,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 8be1f6b14d385471d9f6832b2b4d3e8b
     m_Address: AimingMeteoritePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 936e2c04f6f794ab58cfc0e303ef75c4
+    m_Address: SandBackground
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -161,8 +173,20 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: ccf73d1ef931d4256b7516d18a46d390
+    m_Address: SandParticle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: d16fddeae14184ddf8c14eba3f866b67
     m_Address: DynamicDummyBottlePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d2341912f46804d3393d29a107de86ed
+    m_Address: PowderPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

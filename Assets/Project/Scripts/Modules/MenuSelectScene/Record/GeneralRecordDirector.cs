@@ -101,6 +101,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
         [SerializeField] private Sprite _failureReasonSolarBeamIconSprite;
 
         /// <summary>
+        /// [UI] Powder のアイコン（Sprite）
+        /// </summary>
+        [SerializeField] private Sprite _failureReasonPowderIconSprite;
+
+        /// <summary>
         /// 全ステージの記録情報
         /// </summary>
         private List<StageStatus> _stageStatuses;
@@ -274,6 +279,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     break;
                 case EFailureReasonType.SolarBeam:
                     iconSprite = _failureReasonSolarBeamIconSprite;
+                    break;
+                case EFailureReasonType.Powder:
+                    iconSprite = _failureReasonPowderIconSprite;
                     break;
                 case EFailureReasonType.Others:
                     iconSprite = _failureReasonOthersIconSprite;

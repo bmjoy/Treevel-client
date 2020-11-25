@@ -137,22 +137,22 @@ MonoBehaviour:
     isSelfish: 0
     isDark: 0
   gimmicks:
-  - loop: 1
-    appearTime: 1
-    interval: 5
-    type: 0
-    targetDirections: ffffffff
-    targetLines: ffffffff
-    randomDirection: 64000000640000000000000000000000
-    randomRow: 6400000064000000640000006400000064000000
-    randomColumn: 000000000000000000000000
-    targetRow: 0
-    targetColumn: 0
+  - loop: 0
+    appearTime: 0
+    interval: 0
+    type: 7
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: -1
+    targetColumn: -1
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: 0
+    targetDirection: 1
     attackTimes: 0
     duration: 0
     width: 0

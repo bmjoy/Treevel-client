@@ -19969,6 +19969,8 @@ MonoBehaviour:
     type: 3}
   _failureReasonSolarBeamIconSprite: {fileID: 21300000, guid: e4f81375ecf5b43c18637ad183407e0e,
     type: 3}
+  _failureReasonPowderIconSprite: {fileID: 21300000, guid: 1c1ae88ffde7140b6a7a020ca788eb7d,
+    type: 3}
 --- !u!224 &4737506518726312918
 RectTransform:
   m_ObjectHideFlags: 0

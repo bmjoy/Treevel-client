@@ -163,6 +163,10 @@ namespace Treevel.Common.Utils
             public const string SOLAR_BEAM_PREFAB = "SolarBeamPrefab";
             public const string GUST_WIND_PREFAB = "GustWindPrefab";
             public const string FOG_PREFAB = "FogPrefab";
+            public const string POWDER_PREFAB = "PowderPrefab";
+            public const string SAND_PILED_UP_POWDER_PREFAB = "SandPiledUpPowderPrefab";
+            public const string SAND_POWDER_BACKGROUND_SPRITE = "SandBackground";
+            public const string SAND_POWDER_PARTICLE_MATERIAL = "SandParticle";
         }
 
         /// <summary>
@@ -195,6 +199,6 @@ namespace Treevel.Common.Utils
         /// <summary>
         /// 一季節が許容できる木の数
         /// </summary>
-        public static int MAX_TREE_NUM_IN_SEASON = 1000;
+        public const int MAX_TREE_NUM_IN_SEASON = 1000;
     }
 }
