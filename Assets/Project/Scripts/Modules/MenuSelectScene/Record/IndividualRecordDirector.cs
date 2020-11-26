@@ -43,7 +43,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// <summary>
         /// y 軸ラベルの最大値
         /// </summary>
-        private const int _MAX_AXIS_LABEL_NUM = 990;
+        private const int _MAX_AXIS_LABEL_NUM = 999;
 
         /// <summary>
         /// y 軸ラベルの更新幅
