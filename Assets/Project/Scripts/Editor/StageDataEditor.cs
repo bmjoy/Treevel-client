@@ -19,7 +19,15 @@ namespace Treevel.Editor
         private SerializedProperty _bottleDatasProp;
         private SerializedProperty _gimmickDatasProp;
 
+        /// <summary>
+        /// 攻撃可能なボトルの数
+        /// </summary>
         private int _numOfAttackableBottles = 0;
+
+        /// <summary>
+        /// ギミックの数
+        /// </summary>
+        private int _numOfGimmicks = 0;
 
         private StageData _src;
         public void OnEnable()
@@ -29,8 +37,10 @@ namespace Treevel.Editor
             _gimmickDatasProp = serializedObject.FindProperty("gimmicks");
 
             _src = target as StageData;
-            if (_src != null)
+            if (_src != null) {
                 _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
+                _numOfGimmicks = _src.GimmickDatas?.Count ?? 0;
+            }
         }
 
         public override void OnInspectorGUI()
@@ -60,6 +70,13 @@ namespace Treevel.Editor
 
             serializedObject.ApplyModifiedProperties();
             _numOfAttackableBottles = GetAttackableBottles()?.Count() ?? 0;
+            // ギミックの個数が増えたとき、増えたギミックはデフォルト値(Tornado)に設定する
+            if ((_src.GimmickDatas?.Count ?? 0) > _numOfGimmicks) {
+                Enumerable.Range(_numOfGimmicks, _gimmickDatasProp.arraySize - _numOfGimmicks)
+                .ToList()
+                .ForEach(i => _gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex = (int)EGimmickType.Tornado);
+            }
+            _numOfGimmicks = _src.GimmickDatas?.Count ?? 0;
             ValidateTiles();
         }
 
@@ -214,6 +231,11 @@ namespace Treevel.Editor
 
         private void DrawGimmickList()
         {
+            // Powderギミックが存在するかどうか
+            var isExistPowder = Enumerable.Range(0, _gimmickDatasProp.arraySize)
+                .Select(index => _gimmickDatasProp.GetArrayElementAtIndex(index).FindPropertyRelative("type"))
+                .Any(gimmickTypeData => (EGimmickType)gimmickTypeData.enumValueIndex == EGimmickType.Powder);
+
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
                 gimmickDataProp.isExpanded = EditorGUILayout.Foldout(gimmickDataProp.isExpanded, $"Gimmick {index + 1}");
 
@@ -221,24 +243,30 @@ namespace Treevel.Editor
 
                 EditorGUI.indentLevel++;
 
-                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
-                var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
-                EditorGUILayout.PropertyField(intervalProp);
-                var loopProp = gimmickDataProp.FindPropertyRelative("loop");
-                EditorGUILayout.PropertyField(loopProp);
-
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
-
                 int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                         label: new GUIContent("Type"),
-                        selected: (EGimmickType)gimmickTypeProp.enumValueIndex
+                        selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
+                        // Poderギミックは１ステージに１つまで
+                        checkEnabled: (eType) => !isExistPowder || (EGimmickType)eType != EGimmickType.Powder,
+                        includeObsolete: false
                     );
-
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != gimmickTypeProp.enumValueIndex) {
                     gimmickTypeProp.enumValueIndex = newEnumValueIndex;
                     ResetData(gimmickDataProp);
                 }
+
+                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
+                    EditorGUI.indentLevel--;
+                    return;
+                }
+
+                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
+                var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
+                EditorGUILayout.PropertyField(intervalProp);
+                var loopProp = gimmickDataProp.FindPropertyRelative("loop");
+                EditorGUILayout.PropertyField(loopProp);
 
                 switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {

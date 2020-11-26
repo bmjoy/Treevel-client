@@ -22,7 +22,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private Animator _animator;
         private Animator _bottleAnimator;
         private const string _ANIMATOR_PARAM_TRIGGER_ATTACKED = "LifeAttacked";
-        private const string _ANIMATOR_PARAM_TRIGGER_DEAD = "LifeDead";
+        public const string ANIMATOR_PARAM_TRIGGER_DEAD = "LifeDead";
         private const string _ANIMATOR_PARAM_FLOAT_SPPED = "LifeSpeed";
         private const string _ANIMATOR_PARAM_BOOL_ATTACKED_LOOP = "LifeAttackedLoop";
 
@@ -63,7 +63,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 Debug.LogError("_currentLife が負の値になっている");
             } else if (_life == 0) {
                 // 失敗演出
-                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_DEAD);
+                _bottleAnimator.SetTrigger(ANIMATOR_PARAM_TRIGGER_DEAD);
 
                 // ボトルを死んだ状態にする
                 _isDead = true;

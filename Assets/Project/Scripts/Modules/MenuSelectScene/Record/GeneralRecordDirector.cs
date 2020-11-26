@@ -86,6 +86,16 @@ namespace Treevel.Modules.MenuSelectScene.Record
         [SerializeField] private Sprite _failureReasonSolarBeamIconSprite;
 
         /// <summary>
+        /// [UI] Powder のアイコン（Sprite）
+        /// </summary>
+        [SerializeField] private Sprite _failureReasonPowderIconSprite;
+
+        /// <summary>
+        /// 全ステージの記録情報
+        /// </summary>
+        private List<StageStatus> _stageStatuses;
+
+        /// <summary>
         /// 失敗理由を表示する最低割合
         /// </summary>
         private const float _FAILURE_REASON_SHOW_PERCENTAGE = 0.1f;
@@ -190,6 +200,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     break;
                 case EFailureReasonType.SolarBeam:
                     iconSprite = _failureReasonSolarBeamIconSprite;
+                    break;
+                case EFailureReasonType.Powder:
+                    iconSprite = _failureReasonPowderIconSprite;
                     break;
                 case EFailureReasonType.Others:
                     iconSprite = _failureReasonOthersIconSprite;
