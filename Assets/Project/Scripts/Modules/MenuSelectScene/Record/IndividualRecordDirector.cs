@@ -35,6 +35,16 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private StageStatus[] _stageStatuses;
 
+        /// <summary>
+        /// y 軸ラベルの最小値
+        /// </summary>
+        private const int _MIN_AXIS_LABEL_NUM = 30;
+
+        /// <summary>
+        /// y 軸ラベルの最大値
+        /// </summary>
+        private const int _MAX_AXIS_LABEL_NUM = 990;
+
         private void Awake()
         {
             _toStageSelectSceneButton.onClick.AddListener(() =>
@@ -66,12 +76,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
             var showPlus = false;
 
             if (challengeNumMax == 0) {
-                maxAxisLabelNum = 30;
-            } else if (challengeNumMax > 990) {
-                maxAxisLabelNum = 990;
+                maxAxisLabelNum = _MIN_AXIS_LABEL_NUM;
+            } else if (challengeNumMax > _MAX_AXIS_LABEL_NUM) {
+                maxAxisLabelNum = _MAX_AXIS_LABEL_NUM;
                 showPlus = true;
             } else {
-                maxAxisLabelNum = (float) Math.Ceiling(challengeNumMax / 30) * 30;
+                maxAxisLabelNum = (float) Math.Ceiling(challengeNumMax / _MIN_AXIS_LABEL_NUM) * _MIN_AXIS_LABEL_NUM;
             }
 
             _graphAxisLabels[0].text = ((int) maxAxisLabelNum / 3).ToString();
