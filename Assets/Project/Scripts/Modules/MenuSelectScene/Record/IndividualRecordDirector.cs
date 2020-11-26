@@ -37,7 +37,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void Awake()
         {
-
             _toStageSelectSceneButton.onClick.AddListener(() =>
             {
                 // TODO: 季節，木を拡張したら，こちらも拡張する
