@@ -100,7 +100,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             var clearStageNum = stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
             var totalStageNum = stageStatuses.Count;
-            _clearStageNum.GetComponent<ClearStageNumController>().Setup(clearStageNum, totalStageNum, Color.blue);
+            _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
 
             _playNum.text = stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
             _playDays.text = RecordData.Instance.StartupDays.ToString();

@@ -55,7 +55,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
             var totalStageNum = _stageStatuses.Length;
-            _clearStageNum.GetComponent<ClearStageNumController>().Setup(clearStageNum, totalStageNum, Color.magenta);
+            _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.magenta);
 
             SetupBarGraph();
         }

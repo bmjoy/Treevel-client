@@ -25,7 +25,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         [SerializeField] private Image _clearStageGaugeIndicator;
 
-        public void Setup(int clearStageNum, int totalStageNum, Color mainColor)
+        public void SetUp(int clearStageNum, int totalStageNum, Color mainColor)
         {
             _clearStageNum.text = clearStageNum.ToString();
             _totalStageNum.text = totalStageNum.ToString();
