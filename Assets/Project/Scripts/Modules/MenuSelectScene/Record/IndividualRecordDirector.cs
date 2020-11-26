@@ -77,21 +77,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void SetupBarGraph()
         {
             var challengeNumMax = (float) _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
-            float maxAxisLabelNum;
-            var showPlus = false;
 
-            if (challengeNumMax == 0) {
-                maxAxisLabelNum = _MIN_AXIS_LABEL_NUM;
-            } else if (challengeNumMax > _MAX_AXIS_LABEL_NUM) {
-                maxAxisLabelNum = _MAX_AXIS_LABEL_NUM;
-                showPlus = true;
-            } else {
-                maxAxisLabelNum = (float) Math.Ceiling(challengeNumMax / _AXIS_LABEL_MARGIN) * _AXIS_LABEL_MARGIN;
-            }
+            // 1~30 は 30、31~60 は 60 にするために Ceiling を使用
+            var maxAxisLabelNum = Mathf.Clamp((int) Math.Ceiling(challengeNumMax / _AXIS_LABEL_MARGIN) * _AXIS_LABEL_MARGIN, _MIN_AXIS_LABEL_NUM,  _MAX_AXIS_LABEL_NUM);
 
-            _graphAxisLabels[0].text = ((int) maxAxisLabelNum / 3).ToString();
-            _graphAxisLabels[1].text = ((int) maxAxisLabelNum * 2 / 3).ToString();
-            _graphAxisLabels[2].text = showPlus ? ((int) maxAxisLabelNum).ToString() : (int) maxAxisLabelNum + "+";
+            _graphAxisLabels[0].text = (maxAxisLabelNum / 3).ToString();
+            _graphAxisLabels[1].text = (maxAxisLabelNum * 2 / 3).ToString();
+            _graphAxisLabels[2].text = maxAxisLabelNum != _MAX_AXIS_LABEL_NUM ? maxAxisLabelNum.ToString() : maxAxisLabelNum + "+";
 
             _stageStatuses
                 .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
