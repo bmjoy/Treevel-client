@@ -49,3 +49,5 @@ SpringShort,春,SPR
 SummerShort,夏,SMR
 AutumnShort,秋,AUT
 WinterShort,冬,WTR
+MessageDlgOkBtnText,確定,OK
+MessageDlgCancelBtnText,キャンセル,Cancel
