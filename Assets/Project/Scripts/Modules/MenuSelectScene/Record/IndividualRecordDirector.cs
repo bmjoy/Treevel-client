@@ -53,7 +53,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToArray();
 
-            var clearStageNum = _stageStatuses.Select(stageStatus => stageStatus.successNum > 0 ? 1 : 0).Sum();
+            var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
             var totalStageNum = _stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumController>().Setup(clearStageNum, totalStageNum, Color.magenta);
 
