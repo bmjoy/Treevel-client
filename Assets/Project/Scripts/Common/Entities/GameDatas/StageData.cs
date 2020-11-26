@@ -45,7 +45,7 @@ namespace Treevel.Common.Entities.GameDatas
         public static string[] EncodeStageIdKeys(ETreeId treeId)
         {
             return Enumerable.Range(1, TreeInfo.NUM[treeId])
-                .Select(stageId => $"{treeId.GetTreeIdAsKey()}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{stageId}")
+                .Select(stageNumber => EncodeStageIdKey(treeId, stageNumber))
                 .ToArray();
         }
 
