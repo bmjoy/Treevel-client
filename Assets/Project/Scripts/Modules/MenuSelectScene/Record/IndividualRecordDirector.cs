@@ -94,7 +94,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
                     graphBar.GetComponent<Image>().color = successNum > 0 ? Color.magenta : Color.gray;
 
-                    var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMax.y;
+                    var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
                     var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);
                     graphBar.GetComponent<RectTransform>().anchorMax = new Vector2(1, anchorMaxY);
                 });
