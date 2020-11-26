@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Treevel.Modules.MenuSelectScene.Record
 {
-    public class ClearStageNumDirector : MonoBehaviour
+    public class ClearStageNumController : MonoBehaviour
     {
         /// <summary>
         /// [UI] "ステージクリア数" テキスト
