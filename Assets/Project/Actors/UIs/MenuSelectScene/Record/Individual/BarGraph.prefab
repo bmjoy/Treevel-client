@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7555620190463511871}
   m_Layer: 5
-  m_Name: BarGraph1
+  m_Name: BarGraph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,6 @@ GameObject:
   - component: {fileID: 7851764554404753390}
   - component: {fileID: 7851764554404753296}
   - component: {fileID: 7851764554404753297}
-  - component: {fileID: 9139599757957469704}
   - component: {fileID: 494833610509790038}
   m_Layer: 5
   m_Name: Bar
@@ -175,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: ac31804b5c7074d81b27899dec1afb9d, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 0.8584906, g: 0.068841234, b: 0.6530848, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +192,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9139599757957469704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7851764554404753391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: ac31804b5c7074d81b27899dec1afb9d, type: 2}
-  radius: 80
 --- !u!114 &494833610509790038
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2196075646442256408}
   - component: {fileID: 2196075646442256409}
   m_Layer: 5
-  m_Name: ClearStageIndicator
+  m_Name: ClearStageGaugeIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 2196075647019294311}
   - component: {fileID: 2196075647019294309}
   - component: {fileID: 2196075647019294310}
+  - component: {fileID: 4140682516425766354}
   m_Layer: 5
   m_Name: ClearStageNum
   m_TagString: Untagged
@@ -396,6 +397,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4140682516425766354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196075647019294304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ec6e5804284dd797b5852fc54b259a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clearStageNum: {fileID: 2196075647056092904}
+  _totalStageNum: {fileID: 2196075647319101161}
+  _clearStageGauge: {fileID: 2196075645761499655}
+  _clearStageGaugeIndicator: {fileID: 2196075646442256409}
 --- !u!1 &2196075647056092906
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +582,7 @@ GameObject:
   - component: {fileID: 2196075647319101160}
   - component: {fileID: 2196075647319101161}
   m_Layer: 5
-  m_Name: StageNum
+  m_Name: TotalStageNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
