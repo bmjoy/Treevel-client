@@ -21,7 +21,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 竜巻の移動速度(ワールド座標単位/秒)
         /// </summary>
-        [SerializeField] private float _speed = 3.0f;
+        private const float _SPEED = 300f;
 
         /// <summary>
         /// 警告のプレハブ
@@ -116,7 +116,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 // 警告表示位置までまだ時間ある
                 if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0) {
                     // 表示するまでの所要時間
-                    var warningStartWaitTime = diffVec.magnitude / _speed;
+                    var warningStartWaitTime = diffVec.magnitude / _SPEED;
 
                     while ((warningStartWaitTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
                 }
@@ -324,16 +324,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             switch (direction) {
                 case EDirection.ToUp:
-                    _rigidBody.velocity = Vector2.up * _speed;
+                    _rigidBody.velocity = Vector2.up * _SPEED;
                     break;
                 case EDirection.ToLeft:
-                    _rigidBody.velocity = Vector2.left * _speed;
+                    _rigidBody.velocity = Vector2.left * _SPEED;
                     break;
                 case EDirection.ToRight:
-                    _rigidBody.velocity = Vector2.right * _speed;
+                    _rigidBody.velocity = Vector2.right * _SPEED;
                     break;
                 case EDirection.ToDown:
-                    _rigidBody.velocity = Vector2.down * _speed;
+                    _rigidBody.velocity = Vector2.down * _SPEED;
                     break;
                 default:
                     throw new NotImplementedException();
@@ -348,7 +348,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void SetInitialPosition(EDirection direction, int line)
         {
             float x = 0, y = 0;
-            var tornadoSize = GetComponent<SpriteRenderer>().size;
+            var tornadoSize = GetComponent<SpriteRenderer>().bounds.size;
             if (GimmickLibrary.IsHorizontal(direction)) {
                 // 目標列の一番右端のタイルのY座標を取得
                 var tileNum = (line + 1) * Constants.StageSize.COLUMN;

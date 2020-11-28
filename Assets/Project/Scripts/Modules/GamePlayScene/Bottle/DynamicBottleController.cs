@@ -58,7 +58,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// フリック 時のパネルの移動速度
         /// </summary>
-        private const float _SPEED = 0.3f;
+        private const float _SPEED = 30f;
 
         public int FlickNum
         {
