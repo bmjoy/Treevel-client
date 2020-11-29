@@ -1,3 +1,4 @@
+using System;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
@@ -26,6 +27,12 @@ namespace Treevel.Common.Managers
         private AssetReferenceGameObject _errorMessageBoxRef;
 
         /// <summary>
+        /// 汎用メッセージダイアログのプレハブ
+        /// </summary>
+        [SerializeField]
+        private AssetReferenceGameObject _messageDialogRef;
+
+        /// <summary>
         /// プログレスバーのインスタンス
         /// </summary>
         public ProgressBar ProgressBar
@@ -33,6 +40,8 @@ namespace Treevel.Common.Managers
             get;
             private set;
         }
+
+        private MessageDialog _messageDialog;
 
         /// <summary>
         /// 初期化済みかどうか
@@ -62,8 +71,19 @@ namespace Treevel.Common.Managers
             // キャンバスの下にプログレスバーの実体を生成
             _progressBar.InstantiateAsync(canvas).Completed += (obj) => {
                 ProgressBar = obj.Result.GetComponentInChildren<ProgressBar>();
-                Initialized = true;
             };
+
+            _messageDialogRef.InstantiateAsync(canvas).Completed += (obj) => {
+                _messageDialog = obj.Result.GetComponentInChildren<MessageDialog>();
+            };
+        }
+
+        private void Update()
+        {
+            // TODO:UniRx導入したら複数タスク待ちの実装でやる（タスク待ちはUniTask？）
+            if (!Initialized) {
+                Initialized = (ProgressBar != null) && (_messageDialog != null);
+            }
         }
 
         /// <summary>
@@ -79,6 +99,18 @@ namespace Treevel.Common.Managers
                 // テキスト、エラーコードを設定
                 messageBoxObj.GetComponent<ErrorMessageBox>().ErrorCode = errorCode;
             };
+        }
+
+        /// <summary>
+        /// 確認、キャンセルボタン付きメッセージダイアログを作成
+        /// </summary>
+        /// <param name="textIndex"> メッセージインデックス </param>
+        /// <param name="okTextIndex"> OKボタン用文字 </param>
+        /// <param name="okCallback"> OKボタン押した時のコールバック </param>
+        public void CreateOkCancelMessageDialog(ETextIndex textIndex, ETextIndex okTextIndex, Action okCallback)
+        {
+            _messageDialog.Initialize(textIndex, okTextIndex, okCallback);
+            _messageDialog.gameObject.SetActive(true);
         }
     }
 }

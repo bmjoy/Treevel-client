@@ -15,7 +15,6 @@ namespace Treevel.Common.Components.UIs
         [SerializeField] private Button _cancelButton;
         [SerializeField] private MultiLanguageText _cancelButtonText;
 
-
         public void Initialize(ETextIndex message, ETextIndex okText, Action okCallBack)
         {
             // メッセージ設定
@@ -26,8 +25,12 @@ namespace Treevel.Common.Components.UIs
 
             // コールバック設定
             _okButton.onClick.RemoveAllListeners();
-            _okButton.onClick.AddListener(() => okCallBack.Invoke());
+            _okButton.onClick.AddListener(() => {
+                // 設定したコールバックを実行
+                okCallBack?.Invoke();
+                // クリックした後閉じる
+                gameObject.SetActive(false);
+            });
         }
-
     }
 }
