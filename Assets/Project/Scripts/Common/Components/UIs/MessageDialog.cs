@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Treevel.Common.Entities;
@@ -25,6 +25,11 @@ namespace Treevel.Common.Components.UIs
         [SerializeField] private Button _cancelButton;
         [SerializeField] private MultiLanguageText _cancelButtonText;
 
+        /// <summary>
+        /// 外側タップする時に閉じるためのボタン
+        /// </summary>
+        [SerializeField] private Button _backgroundButton;
+
         public void Initialize(EDialogType dialogType, ETextIndex message, ETextIndex okText, Action okCallBack)
         {
             // メッセージ設定
@@ -49,6 +54,14 @@ namespace Treevel.Common.Components.UIs
                 _okButton.transform.SetParent(_OkTypeBtnPos);
                 _cancelButton.gameObject.SetActive(false);
             }
+        }
+
+        /// <summary>
+        /// 外側タップで閉じれるかどうかの設定
+        /// </summary>
+        public void SetBackgroundButtonActive(bool active)
+        {
+            _backgroundButton.enabled = active;
         }
     }
 }
