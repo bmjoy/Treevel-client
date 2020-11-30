@@ -20,8 +20,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
     {
         /// <summary>
         /// 竜巻の移動速度(ワールド座標単位/秒)
+        /// TODO: 異なる移動速度の竜巻を実装する
         /// </summary>
-        private const float _SPEED = 300f;
+        private float _speed = 300f;
 
         /// <summary>
         /// 警告のプレハブ
@@ -116,7 +117,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 // 警告表示位置までまだ時間ある
                 if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0) {
                     // 表示するまでの所要時間
-                    var warningStartWaitTime = diffVec.magnitude / _SPEED;
+                    var warningStartWaitTime = diffVec.magnitude / _speed;
 
                     while ((warningStartWaitTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
                 }
@@ -324,16 +325,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             switch (direction) {
                 case EDirection.ToUp:
-                    _rigidBody.velocity = Vector2.up * _SPEED;
+                    _rigidBody.velocity = Vector2.up * _speed;
                     break;
                 case EDirection.ToLeft:
-                    _rigidBody.velocity = Vector2.left * _SPEED;
+                    _rigidBody.velocity = Vector2.left * _speed;
                     break;
                 case EDirection.ToRight:
-                    _rigidBody.velocity = Vector2.right * _SPEED;
+                    _rigidBody.velocity = Vector2.right * _speed;
                     break;
                 case EDirection.ToDown:
-                    _rigidBody.velocity = Vector2.down * _SPEED;
+                    _rigidBody.velocity = Vector2.down * _speed;
                     break;
                 default:
                     throw new NotImplementedException();
