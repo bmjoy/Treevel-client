@@ -9,10 +9,9 @@ namespace Treevel.Common.Components.UIs
 {
     public class MessageDialog : MonoBehaviour
     {
-        public enum EDialogType
-        {
+        public enum EDialogType {
             Ok_Cancel, // 確定、キャンセルボタン付き
-            Ok,　// 確定ボタン付き
+            Ok, 　 // 確定ボタン付き
         }
 
         [SerializeField] private RectTransform _OkCancelTypeBtnPos;
@@ -43,8 +42,7 @@ namespace Treevel.Common.Components.UIs
             // OKボタンの位置設定
             if (dialogType == EDialogType.Ok_Cancel) {
                 _okButton.transform.SetParent(_OkCancelTypeBtnPos);
-            }
-            else if (dialogType == EDialogType.Ok) {
+            } else if (dialogType == EDialogType.Ok) {
                 _okButton.transform.SetParent(_OkTypeBtnPos);
                 _cancelButton.gameObject.SetActive(false);
             }
