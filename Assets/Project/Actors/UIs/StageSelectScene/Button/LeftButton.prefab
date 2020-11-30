@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4569299527894993293}
   - component: {fileID: 4569299527894993294}
   - component: {fileID: 4569299527894993295}
+  - component: {fileID: 7801696937235491036}
   m_Layer: 5
   m_Name: LeftButton
   m_TagString: Untagged
@@ -61,6 +62,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -121,6 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6411982766234825446, guid: 428684b2f4b364a5ea814fdb20486a80,
           type: 3}
+        m_TargetAssemblyTypeName: 
         m_MethodName: LeftButtonDown
         m_Mode: 1
         m_Arguments:
@@ -131,3 +134,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7801696937235491036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4569299527894993289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71ef911f0bf4e4fb4ab67ef03315326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 4569299527894993295}
+  _blockingTime: 1000

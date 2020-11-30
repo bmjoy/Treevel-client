@@ -160,6 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Invincible: 0
+  pressGesture: {fileID: 0}
+  releaseGesture: {fileID: 0}
   IsMovable: 1
 --- !u!114 &3175318899736448014
 MonoBehaviour:

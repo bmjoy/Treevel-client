@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1052226765}
   - component: {fileID: 1052226764}
   - component: {fileID: 1052226763}
+  - component: {fileID: 7403122574252304287}
   m_Layer: 5
   m_Name: OverviewPopupBackground
   m_TagString: Untagged
@@ -61,6 +62,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -119,6 +121,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3585425056827976462}
+        m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -129,6 +132,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7403122574252304287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052226761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71ef911f0bf4e4fb4ab67ef03315326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 1052226763}
+  _blockingTime: 1000
 --- !u!1 &553552984877971758
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +208,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -319,6 +337,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -346,6 +365,7 @@ GameObject:
   - component: {fileID: 3585425056029277162}
   - component: {fileID: 3585425056029277165}
   - component: {fileID: 8062034409897784282}
+  - component: {fileID: 4074577816313378112}
   m_Layer: 5
   m_Name: GoToGame
   m_TagString: Untagged
@@ -396,6 +416,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.88354397, g: 0.8898852, b: 0.8962264, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -454,6 +475,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
@@ -479,6 +501,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0.4245283, g: 0.42252582, b: 0.42252582, a: 0.50980395}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 0
+--- !u!114 &4074577816313378112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585425056029277167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71ef911f0bf4e4fb4ab67ef03315326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 3585425056029277165}
+  _blockingTime: 1000
 --- !u!1 &3585425056827976462
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6932f1a34c024666855c23fc1636104e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goToGame: {fileID: 3585425056029277167}
+  goToGameButton: {fileID: 0}
 --- !u!1 &3585425057051138709
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +639,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.7037116, g: 0.9811321, b: 0.6803133, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -781,6 +818,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -862,6 +900,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.86274517, g: 0.8745099, b: 0.882353, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -939,6 +978,7 @@ GameObject:
   - component: {fileID: 4157000529127981424}
   - component: {fileID: 2642266263177613646}
   - component: {fileID: 991359696590045206}
+  - component: {fileID: 1756193159773526996}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -989,6 +1029,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.88354397, g: 0.8898852, b: 0.8962264, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1047,6 +1088,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3585425056827976462}
+        m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -1072,6 +1114,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0.4245283, g: 0.42252582, b: 0.42252582, a: 0.50980395}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 0
+--- !u!114 &1756193159773526996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663447189691127578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71ef911f0bf4e4fb4ab67ef03315326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 2642266263177613646}
+  _blockingTime: 1000
 --- !u!1 &9043620249414165711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,6 +1188,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1571,7 +1628,7 @@ PrefabInstance:
     - target: {fileID: 8335351129932690981, guid: 08bc31bccfd004d24846b057a089c860,
         type: 3}
       propertyPath: m_Text
-      value: "\u524D\u30E6\u30FC\u30B6\u6210\u529F\u5272\u5408"
+      value: "\u5168\u30E6\u30FC\u30B6\u6210\u529F\u5272\u5408"
       objectReference: {fileID: 0}
     - target: {fileID: 8335351129932690981, guid: 08bc31bccfd004d24846b057a089c860,
         type: 3}
