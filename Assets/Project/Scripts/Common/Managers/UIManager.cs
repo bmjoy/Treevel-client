@@ -102,7 +102,7 @@ namespace Treevel.Common.Managers
         }
 
         /// <summary>
-        /// 確認、キャンセルボタン付きメッセージダイアログを作成
+        /// 確定、キャンセルボタン付きメッセージダイアログを作成
         /// </summary>
         /// <param name="textIndex"> メッセージインデックス </param>
         /// <param name="okTextIndex"> OKボタン用文字 </param>
