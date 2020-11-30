@@ -23,7 +23,8 @@ namespace Treevel.Editor
                 Resources.FindObjectsOfTypeAll(typeof(Button))
                     .Select(button => button as Button)
                     .Where(button => button != null)
-                    .Where(button => button.gameObject.GetComponent<ButtonClickBlocker>() != null)
+                    .Where(button => button.gameObject.GetComponent<ButtonClickBlocker>() == null)
+                    .Where(button => button.hideFlags != HideFlags.HideAndDontSave)
                     .ToList()
                     .ForEach(button => {
                         button.gameObject.AddComponent<ButtonClickBlocker>();
