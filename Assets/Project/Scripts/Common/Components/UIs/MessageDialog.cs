@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Treevel.Common.Entities;
@@ -9,6 +9,9 @@ namespace Treevel.Common.Components.UIs
 {
     public class MessageDialog : MonoBehaviour
     {
+        /// <summary>
+        /// ダイアログのタイプ
+        /// </summary>
         public enum EDialogType {
             Ok_Cancel, // 確定、キャンセルボタン付き
             Ok, 　 // 確定ボタン付き
