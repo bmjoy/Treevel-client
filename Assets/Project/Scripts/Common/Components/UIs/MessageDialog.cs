@@ -9,13 +9,21 @@ namespace Treevel.Common.Components.UIs
 {
     public class MessageDialog : MonoBehaviour
     {
+        public enum EDialogType
+        {
+            Ok_Cancel, // 確定、キャンセルボタン付き
+            Ok,　// 確定ボタン付き
+        }
+
+        [SerializeField] private RectTransform _OkCancelTypeBtnPos;
+        [SerializeField] private RectTransform _OkTypeBtnPos;
         [SerializeField] private MultiLanguageText _message;
         [SerializeField] private Button _okButton;
         [SerializeField] private MultiLanguageText _okButtonText;
         [SerializeField] private Button _cancelButton;
         [SerializeField] private MultiLanguageText _cancelButtonText;
 
-        public void Initialize(ETextIndex message, ETextIndex okText, Action okCallBack)
+        public void Initialize(EDialogType dialogType, ETextIndex message, ETextIndex okText, Action okCallBack)
         {
             // メッセージ設定
             _message.TextIndex = message;
@@ -31,6 +39,15 @@ namespace Treevel.Common.Components.UIs
                 // クリックした後閉じる
                 gameObject.SetActive(false);
             });
+
+            // OKボタンの位置設定
+            if (dialogType == EDialogType.Ok_Cancel) {
+                _okButton.transform.SetParent(_OkCancelTypeBtnPos);
+            }
+            else if (dialogType == EDialogType.Ok) {
+                _okButton.transform.SetParent(_OkTypeBtnPos);
+                _cancelButton.gameObject.SetActive(false);
+            }
         }
     }
 }
