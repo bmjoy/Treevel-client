@@ -50,20 +50,32 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         private const int _AXIS_LABEL_MARGIN = 30;
 
+        /// <summary>
+        /// 現在表示している季節
+        /// </summary>
+        private ESeasonId _currentSeason;
+
+        /// <summary>
+        /// 現在表示している木
+        /// </summary>
+        private ETreeId _currentTree;
+
         private void Awake()
         {
+            _currentSeason = ESeasonId.Spring;
+            _currentTree = _currentSeason.GetFirstTree();
+
             _toStageSelectSceneButton.onClick.AddListener(() =>
             {
-                // TODO: 季節，木を拡張したら，こちらも拡張する
-                StageSelectDirector.seasonId = ESeasonId.Spring;
-                StageSelectDirector.treeId = ETreeId.Spring_1;
-                AddressableAssetManager.LoadScene(Constants.SceneName.SPRING_STAGE_SELECT_SCENE);
+                StageSelectDirector.seasonId = _currentSeason;
+                StageSelectDirector.treeId = _currentTree;
+                AddressableAssetManager.LoadScene(_currentSeason.GetSceneName());
             });
         }
 
         private void OnEnable()
         {
-            _stageStatuses = GameDataManager.GetStages(ETreeId.Spring_1)
+            _stageStatuses = GameDataManager.GetStages(_currentTree)
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToArray();
 

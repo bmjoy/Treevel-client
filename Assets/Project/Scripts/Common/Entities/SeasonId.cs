@@ -46,5 +46,21 @@ namespace Treevel.Common.Entities
                     throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
             }
         }
+
+        public static ETreeId GetFirstTree(this ESeasonId seasonId)
+        {
+            switch (seasonId) {
+                case ESeasonId.Spring:
+                    return ETreeId.Spring_1;
+                case ESeasonId.Summer:
+                    return ETreeId.Summer_1;
+                case ESeasonId.Autumn:
+                    return ETreeId.Autumn_1;
+                case ESeasonId.Winter:
+                    return ETreeId.Winter_1;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
+            }
+        }
     }
 }
