@@ -107,7 +107,7 @@ namespace Treevel.Common.Managers
         /// <param name="textIndex"> メッセージインデックス </param>
         /// <param name="okTextIndex"> OKボタン用文字 </param>
         /// <param name="okCallback"> OKボタン押した時のコールバック </param>
-        public void CreateOkCancelMessageDialog(ETextIndex textIndex, ETextIndex okTextIndex, Action okCallback)
+        public void CreateOkCancelMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback)
         {
             _messageDialog.Initialize(textIndex, okTextIndex, okCallback);
             _messageDialog.gameObject.SetActive(true);
