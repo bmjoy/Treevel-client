@@ -194,7 +194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8380891467674743644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _OkCancelTypeBtnPos: {fileID: 3775914371761487600}
-  _OkTypeBtnPos: {fileID: 6626549989196565095}
+  _OkTypeBtnPos: {fileID: 3881174971465631862}
   _message: {fileID: 7660274956942017783}
   _okButton: {fileID: 449787053038026756}
   _okButtonText: {fileID: 3057597062910404159}

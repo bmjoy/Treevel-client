@@ -51,7 +51,7 @@ namespace Treevel.Common.Components.UIs
             if (dialogType == EDialogType.Ok_Cancel) {
                 _okButton.transform.SetParent(_OkCancelTypeBtnPos);
             } else if (dialogType == EDialogType.Ok) {
-                _okButton.transform.SetParent(_OkTypeBtnPos);
+                _okButton.transform.SetParent(_OkTypeBtnPos, false);
                 _cancelButton.gameObject.SetActive(false);
             }
         }
