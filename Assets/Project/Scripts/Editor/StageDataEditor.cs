@@ -210,14 +210,17 @@ namespace Treevel.Editor
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isDark"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                         }
                         break;
                     case EBottleType.Dynamic:
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                         break;
                     case EBottleType.AttackableDummy: {
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                         }
                         break;
                     case EBottleType.Static:

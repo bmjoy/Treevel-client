@@ -91,6 +91,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 var selfishEffect = await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).Task;
                 selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
             }
+            if (bottleData.isReverse) {
+                var reverseEffect = await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).Task;
+                reverseEffect.GetComponent<ReverseEffectController>().Initialize(this);
+            }
         }
 
         protected virtual void OnEnable()

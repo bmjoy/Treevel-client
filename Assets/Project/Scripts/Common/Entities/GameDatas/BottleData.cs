@@ -14,5 +14,6 @@ namespace Treevel.Common.Entities.GameDatas
         public short life;
         public bool isSelfish;
         public bool isDark;
+        public bool isReverse;
     }
 }
