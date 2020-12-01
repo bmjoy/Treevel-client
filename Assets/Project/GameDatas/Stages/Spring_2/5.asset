@@ -28,6 +28,7 @@ MonoBehaviour:
     life: 2
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   - type: 2
     initPos: 8
     targetPos: 5
@@ -40,6 +41,7 @@ MonoBehaviour:
     life: 2
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   - type: 2
     initPos: 9
     targetPos: 6
@@ -52,6 +54,7 @@ MonoBehaviour:
     life: 2
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   - type: 2
     initPos: 10
     targetPos: 7
@@ -64,6 +67,7 @@ MonoBehaviour:
     life: 2
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   - type: 2
     initPos: 11
     targetPos: 8
@@ -76,6 +80,7 @@ MonoBehaviour:
     life: 2
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   - type: 2
     initPos: 12
     targetPos: 9
@@ -88,6 +93,7 @@ MonoBehaviour:
     life: 1
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   - type: 2
     initPos: 13
     targetPos: 10
@@ -100,6 +106,7 @@ MonoBehaviour:
     life: 2
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   - type: 2
     initPos: 14
     targetPos: 11
@@ -112,6 +119,7 @@ MonoBehaviour:
     life: 2
     isSelfish: 0
     isDark: 0
+    isReverse: 0
   gimmicks:
   - loop: 1
     appearTime: 1
