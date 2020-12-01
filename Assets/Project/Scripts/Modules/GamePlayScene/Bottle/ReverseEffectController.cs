@@ -9,7 +9,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     {
         public void Initialize(DynamicBottleController bottleController)
         {
-            
+
         }
     }
 }

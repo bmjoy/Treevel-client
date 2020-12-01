@@ -215,7 +215,7 @@ namespace Treevel.Editor
                         break;
                     case EBottleType.Dynamic:
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                         break;
                     case EBottleType.AttackableDummy: {
                             EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
