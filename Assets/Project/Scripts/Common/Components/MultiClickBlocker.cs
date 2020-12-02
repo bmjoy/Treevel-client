@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Treevel.Common.Attributes;
 
 namespace Treevel.Common.Components
 {
@@ -20,7 +21,7 @@ namespace Treevel.Common.Components
         /// <summary>
         /// 特定のボタンタップ後、他のボタンをブロックする時間
         /// </summary>
-        [SerializeField] private int _blockingTime = 1000;
+        [SerializeField, NonEditable] private int _blockingTime = 1000;
 
         /// <summary>
         /// 予期しない状況かどうか
