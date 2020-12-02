@@ -49,7 +49,8 @@ namespace Treevel.Common.Components.UIs
 
             // OKボタンの位置設定
             if (dialogType == EDialogType.Ok_Cancel) {
-                _okButton.transform.SetParent(_OkCancelTypeBtnPos);
+                _okButton.transform.SetParent(_OkCancelTypeBtnPos, false);
+                _cancelButton.gameObject.SetActive(true);
             } else if (dialogType == EDialogType.Ok) {
                 _okButton.transform.SetParent(_OkTypeBtnPos, false);
                 _cancelButton.gameObject.SetActive(false);
