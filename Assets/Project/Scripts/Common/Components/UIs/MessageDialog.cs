@@ -30,6 +30,13 @@ namespace Treevel.Common.Components.UIs
         /// </summary>
         [SerializeField] private Button _backgroundButton;
 
+        private void Awake()
+        {
+            _cancelButton.onClick.AddListener(() => {
+                gameObject.SetActive(false);
+            });
+        }
+
         public void Initialize(EDialogType dialogType, ETextIndex message, ETextIndex okText, Action okCallBack)
         {
             // メッセージ設定

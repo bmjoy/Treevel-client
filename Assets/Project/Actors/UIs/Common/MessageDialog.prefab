@@ -119,19 +119,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4206942583267461092}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1689859668980507649}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &818412248412765062
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772ee620a848f43c080aafb3d5ae3b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _OkCancelTypeBtnPos: {fileID: 3775914371761487600}
+  _OkCancelTypeOkBtnPos: {fileID: 0}
   _OkTypeBtnPos: {fileID: 3881174971465631862}
   _message: {fileID: 7660274956942017783}
   _okButton: {fileID: 449787053038026756}
