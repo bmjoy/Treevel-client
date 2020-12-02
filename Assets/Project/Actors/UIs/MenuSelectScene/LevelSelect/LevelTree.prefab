@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeId: 0
   _levelName: 0
-  _material: {fileID: 2100000, guid: b68163006459944d0b6a85fe0bd5592c, type: 2}
+  _material: {fileID: 2100000, guid: 9d74c72ba7f3b48f484c5c3de3672ecb, type: 2}
   _button: {fileID: 5891168163236371066}
 --- !u!114 &5891168163236371066
 MonoBehaviour:

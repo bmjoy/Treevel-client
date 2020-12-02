@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeId: 0
   _treeImage: {fileID: 0}
-  _material: {fileID: 2100000, guid: b68163006459944d0b6a85fe0bd5592c, type: 2}
+  _material: {fileID: 2100000, guid: 698b210f0b06b40bfab7884cc5fa92c9, type: 2}
   _mask: {fileID: 7727750962487400535}
   _constraintTrees: 
 --- !u!1 &7727750962487400535
