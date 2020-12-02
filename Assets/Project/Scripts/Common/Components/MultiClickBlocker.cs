@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Treevel.Common.Components
 {
-    public class ButtonClickBlocker : MonoBehaviour
+    public class MultiClickBlocker : MonoBehaviour
     {
         /// <summary>
         /// button.enabled が変化する際に発火する static な event
