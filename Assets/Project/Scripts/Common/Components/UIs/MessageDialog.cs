@@ -17,7 +17,7 @@ namespace Treevel.Common.Components.UIs
             Ok, 　 // 確定ボタン付き
         }
 
-        [SerializeField] private RectTransform _OkCancelTypeBtnPos;
+        [SerializeField] private RectTransform _OkCancelTypeOkBtnPos;
         [SerializeField] private RectTransform _OkTypeBtnPos;
         [SerializeField] private MultiLanguageText _message;
         [SerializeField] private Button _okButton;
@@ -49,7 +49,7 @@ namespace Treevel.Common.Components.UIs
 
             // OKボタンの位置設定
             if (dialogType == EDialogType.Ok_Cancel) {
-                _okButton.transform.SetParent(_OkCancelTypeBtnPos, false);
+                _okButton.transform.SetParent(_OkCancelTypeOkBtnPos, false);
                 _cancelButton.gameObject.SetActive(true);
             } else if (dialogType == EDialogType.Ok) {
                 _okButton.transform.SetParent(_OkTypeBtnPos, false);
