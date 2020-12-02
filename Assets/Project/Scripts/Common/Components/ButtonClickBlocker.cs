@@ -25,7 +25,7 @@ namespace Treevel.Common.Components
         /// <summary>
         /// 予期しない状況かどうか
         /// </summary>
-        private bool _isUnexpected = false;
+        private bool _canChangeButtonEnabled = true;
 
         private void Awake()
         {
@@ -49,13 +49,13 @@ namespace Treevel.Common.Components
         private void HandleButtonEnabledChanged(bool isEnabled)
         {
             if (isEnabled) {
-                if (_isUnexpected) {
-                    _isUnexpected = false;
+                if (_canChangeButtonEnabled == false) {
+                    _canChangeButtonEnabled = true;
                     return;
                 }
             } else {
                 if (_button.enabled == false) {
-                    _isUnexpected = true;
+                    _canChangeButtonEnabled = false;
                     return;
                 }
             }
