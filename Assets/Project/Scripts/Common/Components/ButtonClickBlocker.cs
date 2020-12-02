@@ -30,7 +30,10 @@ namespace Treevel.Common.Components
         private void Awake()
         {
             _buttonEnabledChanged += HandleButtonEnabledChanged;
-            _button.onClick.AddListener(HandleOnClick);
+
+            if (_button != null) {
+                _button.onClick.AddListener(HandleOnClick);
+            }
         }
 
         private void OnDestroy()
