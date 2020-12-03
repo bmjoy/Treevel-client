@@ -26,6 +26,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public bool IsMovable = true;
 
         /// <summary>
+        /// フリックが反転するかどうか
+        /// </summary>
+        private bool _isReverse = false;
+
+        /// <summary>
         /// 移動開始時の処理
         /// </summary>
         public event Action StartMove
@@ -94,6 +99,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (bottleData.isReverse) {
                 var reverseEffect = await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).Task;
                 reverseEffect.GetComponent<ReverseEffectController>().Initialize(this);
+                _isReverse = true;
             }
         }
 
@@ -124,6 +130,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
             var directionInt = Vector2Int.RoundToInt(gesture.ScreenFlickVector.NormalizeDirection());
+            if (_isReverse) directionInt *= (-1);
 
             // ボトルのフリック情報を伝える
             if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
