@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
-using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
@@ -24,10 +23,6 @@ namespace Treevel.Modules.StartUpScene
 
             // UIManager Initialize
             yield return new WaitWhile(() => !UIManager.Instance.Initialized);
-
-            UIManager.Instance.CreateOkCancelMessageDialog(ETextIndex.StageSelectOverviewCloseWindow, ETextIndex.MessageDlgOkBtnText, () => {
-                Debug.Log("OK button clicked");
-            });
 
             // AppManager Initialize
             AppManager.OnApplicationStart();
