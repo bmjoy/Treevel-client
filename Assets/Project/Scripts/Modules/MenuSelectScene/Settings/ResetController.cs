@@ -1,4 +1,5 @@
 ﻿using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 using Treevel.Modules.StageSelectScene;
@@ -23,7 +24,17 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// <summary>
         /// ステージリセットボタンを押した場合の処理
         /// </summary>
-        private static void ResetButtonDown()
+        private void ResetButtonDown()
+        {
+            // 確認用のメッセージダイアログを表示
+            UIManager.Instance.CreateOkCancelMessageDialog(
+                ETextIndex.RecordResetConfirmDialogMessage,
+                ETextIndex.MessageDlgOkBtnText,
+                Reset_Impl
+            );
+        }
+
+        private void Reset_Impl()
         {
             // 全ステージをリセット
             StageStatus.Reset();
