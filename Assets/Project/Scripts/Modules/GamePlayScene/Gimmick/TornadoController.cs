@@ -153,7 +153,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var line = _targetLines[i];
                 if (gimmickData.isRandom) {
                     if (i == 0) { // 最初の方向は制限ないのでそのまま乱数生成
-                        direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(gimmickData.randomDirection.ToArray()) + 1);
+                        direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(gimmickData.randomDirection.ToArray()));
                     } else { // それ以降は前回の結果に依存する
                         var previousLine = _targetLines[i - 1];
                         var previousDirection = _targetDirections[i - 1];
@@ -165,8 +165,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                                 direction = EDirection.ToDown;
                             } else {
                                 var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 左右を除いた乱数配列
-                                tempRandomDirections[(int)EDirection.ToLeft - 1] = tempRandomDirections[(int)EDirection.ToRight - 1] = 0;
-                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                tempRandomDirections[(int)EDirection.ToLeft] = tempRandomDirections[(int)EDirection.ToRight] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections));
                             }
                         } else if (GimmickLibrary.IsVertical(previousDirection)) { // 上下を移動している場合
                             if (previousLine == (int)EColumn.Left) { // 最左列
@@ -175,8 +175,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                                 direction = EDirection.ToLeft;
                             } else {
                                 var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 上下を除いた乱数配列
-                                tempRandomDirections[(int)EDirection.ToUp - 1] = tempRandomDirections[(int)EDirection.ToDown - 1] = 0;
-                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections) + 1);
+                                tempRandomDirections[(int)EDirection.ToUp] = tempRandomDirections[(int)EDirection.ToDown] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections));
                             }
                         }
                     }

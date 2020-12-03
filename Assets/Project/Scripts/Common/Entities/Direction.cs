@@ -6,7 +6,7 @@ namespace Treevel.Common.Entities
     /// ギミックの移動方向
     /// </summary>
     public enum EDirection {
-        ToLeft = 1,
+        ToLeft,
         ToRight,
         ToUp,
         ToDown,
