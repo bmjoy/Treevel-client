@@ -61,6 +61,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // 移動していないフレーム数を数え始める
             _countCalmFrames = true;
+
+            // 描画順序の設定
+            GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Selfish.GetOrderInLayer();
         }
 
         private void OnDestroy()
