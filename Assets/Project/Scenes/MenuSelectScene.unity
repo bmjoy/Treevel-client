@@ -21772,14 +21772,6 @@ MonoBehaviour:
   _shareButton: {fileID: 4737506519485630046}
   _toIndividualButton: {fileID: 4737506518596028257}
   _toGeneralButton: {fileID: 921726174}
-  _graphPrefab: {fileID: 1622654635503194, guid: b144f6c938d114f16b8dc352d74a5d5a,
-    type: 3}
-  _stageNumPrefab: {fileID: 1007557908341198652, guid: bef1ce286d5014a08b1dda0760b28ee2,
-    type: 3}
-  _successLinePrefab: {fileID: 1781992108246784, guid: 923a9a5e14eb54aa082f3884cb658373,
-    type: 3}
-  _successGraphColor: {r: 0, g: 1, b: 1, a: 1}
-  _notSuccessGraphColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &4737506520044020163
 PrefabInstance:
   m_ObjectHideFlags: 0
