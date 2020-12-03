@@ -1,11 +1,10 @@
 namespace Treevel.Common.Entities
 {
-    public enum EBottleEffectType
-    {
+    public enum EBottleEffectType {
         Dark,
         Reverse,
         Selfish,
-        Life,   
+        Life,
     }
 
     public static class BottleEffectTypeExtension

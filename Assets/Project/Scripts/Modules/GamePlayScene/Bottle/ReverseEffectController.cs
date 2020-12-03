@@ -11,7 +11,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private Animator _animator;
         private const string _ANIMATOR_PARAM_FLOAT_SPEED = "ReverseSpeed";
 
-        private void Awake() {
+        private void Awake()
+        {
             _animator = GetComponent<Animator>();
         }
 
