@@ -128,7 +128,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: -1
+    targetDirection: 0
     attackTimes: 0
     duration: 1000
     width: 1
@@ -148,7 +148,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: -1
+    targetDirection: 0
     attackTimes: 0
     duration: 1000
     width: 2
@@ -168,7 +168,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: -1
+    targetDirection: 0
     attackTimes: 0
     duration: 0
     width: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: -1
+    targetDirection: 0
     attackTimes: 0
     duration: 1000
     width: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 1
     targets: []
-    targetDirection: -1
+    targetDirection: 0
     attackTimes: 0
     duration: 1
     width: 2

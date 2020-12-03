@@ -144,7 +144,7 @@ MonoBehaviour:
     appearTime: 1
     interval: 5
     type: 4
-    targetDirections: 01000000
+    targetDirections: 00000000
     targetLines: 00000000
     randomDirection: 
     randomRow: 
@@ -158,7 +158,7 @@ MonoBehaviour:
     - {x: 1, y: 1}
     - {x: 2, y: 3}
     - {x: 3, y: 3}
-    targetDirection: 1
+    targetDirection: 0
     attackTimes: 2
     duration: 0
     width: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
     appearTime: 3
     interval: 5
     type: 0
-    targetDirections: 01000000
+    targetDirections: 00000000
     targetLines: 03000000
     randomDirection: 
     randomRow: 
@@ -179,7 +179,7 @@ MonoBehaviour:
     isRandom: 0
     targets:
     - {x: 1, y: 1}
-    targetDirection: 1
+    targetDirection: 0
     attackTimes: 1
     duration: 0
     width: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
     appearTime: 3
     interval: 5
     type: 0
-    targetDirections: 03000000
+    targetDirections: 02000000
     targetLines: 00000000
     randomDirection: 
     randomRow: 
@@ -200,7 +200,7 @@ MonoBehaviour:
     isRandom: 0
     targets:
     - {x: 1, y: 1}
-    targetDirection: 1
+    targetDirection: 0
     attackTimes: 1
     duration: 0
     width: 0

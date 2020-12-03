@@ -152,7 +152,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: 1
+    targetDirection: 0
     attackTimes: 0
     duration: 0
     width: 0
