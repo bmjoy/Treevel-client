@@ -141,7 +141,7 @@ MonoBehaviour:
     appearTime: 1
     interval: 5
     type: 5
-    targetDirections: 01000000
+    targetDirections: 00000000
     targetLines: 00000000
     randomDirection: 
     randomRow: 
@@ -152,7 +152,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: 3
+    targetDirection: 2
     attackTimes: 0
     duration: 0
     width: 0
