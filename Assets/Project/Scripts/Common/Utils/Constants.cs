@@ -174,8 +174,8 @@ namespace Treevel.Common.Utils
         /// </summary>
         public static class WindowSize
         {
-            public const float WIDTH = 9;
-            public const float HEIGHT = 16;
+            public const float WIDTH = 900;
+            public const float HEIGHT = 1600;
         }
 
         /// <summary>

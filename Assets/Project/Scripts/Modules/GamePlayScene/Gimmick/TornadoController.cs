@@ -20,8 +20,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
     {
         /// <summary>
         /// 竜巻の移動速度(ワールド座標単位/秒)
+        /// TODO: 異なる移動速度の竜巻を実装する
         /// </summary>
-        [SerializeField] private float _speed = 3.0f;
+        private float _speed = 300f;
 
         /// <summary>
         /// 警告のプレハブ
@@ -348,7 +349,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void SetInitialPosition(EDirection direction, int line)
         {
             float x = 0, y = 0;
-            var tornadoSize = GetComponent<SpriteRenderer>().size;
+            var tornadoSize = GetComponent<SpriteRenderer>().bounds.size;
             if (GimmickLibrary.IsHorizontal(direction)) {
                 // 目標列の一番右端のタイルのY座標を取得
                 var tileNum = (line + 1) * Constants.StageSize.COLUMN;
