@@ -9,9 +9,9 @@ namespace Treevel.Common.Components
     public class MultiClickBlocker : MonoBehaviour
     {
         /// <summary>
-        /// button.enabled が変化する際に発火する static な event
+        /// button.interactable が変化する際に発火する static な event
         /// </summary>
-        private static event Action<bool> _buttonEnabledChanged;
+        private static event Action<bool> _buttonInteractableChanged;
 
         /// <summary>
         /// 個々の button
@@ -26,11 +26,11 @@ namespace Treevel.Common.Components
         /// <summary>
         /// 予期しない状況かどうか
         /// </summary>
-        private bool _canChangeButtonEnabled = true;
+        private bool _canChangeButtonInteractable = true;
 
         private void Awake()
         {
-            _buttonEnabledChanged += HandleButtonEnabledChanged;
+            _buttonInteractableChanged += HandleButtonInteractableChanged;
 
             if (_button != null) {
                 _button.onClick.AddListener(HandleOnClick);
@@ -39,7 +39,7 @@ namespace Treevel.Common.Components
 
         private void OnDestroy()
         {
-            _buttonEnabledChanged -= HandleButtonEnabledChanged;
+            _buttonInteractableChanged -= HandleButtonInteractableChanged;
         }
 
         private void Reset()
@@ -47,33 +47,33 @@ namespace Treevel.Common.Components
             _button = GetComponent<Button>();
         }
 
-        private void HandleButtonEnabledChanged(bool isEnabled)
+        private void HandleButtonInteractableChanged(bool interactable)
         {
-            if (isEnabled) {
-                if (_canChangeButtonEnabled == false) {
-                    _canChangeButtonEnabled = true;
+            if (interactable) {
+                if (_canChangeButtonInteractable == false) {
+                    _canChangeButtonInteractable = true;
                     return;
                 }
             } else {
-                if (_button.enabled == false) {
-                    _canChangeButtonEnabled = false;
+                if (_button.interactable == false) {
+                    _canChangeButtonInteractable = false;
                     return;
                 }
             }
 
-            _button.enabled = isEnabled;
+            _button.interactable = interactable;
         }
 
         private async void HandleOnClick()
         {
             // 同一フレームに 2 回のイベントが発生した場合
-            if (_button.enabled == false) return;
+            if (_button.interactable == false) return;
 
-            _buttonEnabledChanged?.Invoke(false);
+            _buttonInteractableChanged?.Invoke(false);
 
             await Task.Delay(_blockingTime);
 
-            _buttonEnabledChanged?.Invoke(true);
+            _buttonInteractableChanged?.Invoke(true);
         }
     }
 }
