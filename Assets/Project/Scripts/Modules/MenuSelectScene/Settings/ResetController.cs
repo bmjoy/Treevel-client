@@ -24,7 +24,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// <summary>
         /// ステージリセットボタンを押した場合の処理
         /// </summary>
-        private void ResetButtonDown()
+        private static void ResetButtonDown()
         {
             // 確認用のメッセージダイアログを表示
             UIManager.Instance.CreateOkCancelMessageDialog(
@@ -34,7 +34,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             );
         }
 
-        private void Reset_Impl()
+        private static void Reset_Impl()
         {
             // 全ステージをリセット
             StageStatus.Reset();
