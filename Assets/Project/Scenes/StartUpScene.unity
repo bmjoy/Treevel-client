@@ -692,6 +692,9 @@ MonoBehaviour:
   _errorMessageBoxRef:
     m_AssetGUID: 891ff3f27a82b4ee1bdc3c86e8605fb6
     m_SubObjectName: 
+  _messageDialogRef:
+    m_AssetGUID: 41a230da5ace4418e9330e52fd7cad7e
+    m_SubObjectName: 
 --- !u!4 &1681661810
 Transform:
   m_ObjectHideFlags: 0
@@ -903,7 +906,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 200
   m_TargetDisplay: 0
 --- !u!1 &1857380283
 GameObject:

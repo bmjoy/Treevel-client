@@ -1,3 +1,4 @@
+using System;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
@@ -26,6 +27,12 @@ namespace Treevel.Common.Managers
         private AssetReferenceGameObject _errorMessageBoxRef;
 
         /// <summary>
+        /// 汎用メッセージダイアログのプレハブ
+        /// </summary>
+        [SerializeField]
+        private AssetReferenceGameObject _messageDialogRef;
+
+        /// <summary>
         /// プログレスバーのインスタンス
         /// </summary>
         public ProgressBar ProgressBar
@@ -33,6 +40,8 @@ namespace Treevel.Common.Managers
             get;
             private set;
         }
+
+        private MessageDialog _messageDialog;
 
         /// <summary>
         /// 初期化済みかどうか
@@ -62,8 +71,19 @@ namespace Treevel.Common.Managers
             // キャンバスの下にプログレスバーの実体を生成
             _progressBar.InstantiateAsync(canvas).Completed += (obj) => {
                 ProgressBar = obj.Result.GetComponentInChildren<ProgressBar>();
-                Initialized = true;
             };
+
+            _messageDialogRef.InstantiateAsync(canvas).Completed += (obj) => {
+                _messageDialog = obj.Result.GetComponentInChildren<MessageDialog>();
+            };
+        }
+
+        private void Update()
+        {
+            // TODO:UniRx導入したら複数タスク待ちの実装でやる（タスク待ちはUniTask？）
+            if (!Initialized) {
+                Initialized = (ProgressBar != null) && (_messageDialog != null);
+            }
         }
 
         /// <summary>
@@ -79,6 +99,32 @@ namespace Treevel.Common.Managers
                 // テキスト、エラーコードを設定
                 messageBoxObj.GetComponent<ErrorMessageBox>().ErrorCode = errorCode;
             };
+        }
+
+        /// <summary>
+        /// 確定、キャンセルボタン付きメッセージダイアログを作成
+        /// </summary>
+        /// <param name="message"> メッセージインデックス </param>
+        /// <param name="okText"> OKボタン用文字 </param>
+        /// <param name="okCallback"> OKボタン押した時のコールバック </param>
+        public void CreateOkCancelMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback, bool backgroundBtnActive = true)
+        {
+            _messageDialog.Initialize(MessageDialog.EDialogType.Ok_Cancel, message, okText, okCallback);
+            _messageDialog.SetBackgroundButtonActive(backgroundBtnActive);
+            _messageDialog.gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// 確定ボタンのみのメッセージダイアログを作成
+        /// </summary>
+        /// <param name="message"> メッセージインデックス </param>
+        /// <param name="okText"> OKボタン用文字 </param>
+        /// <param name="okCallback"> OKボタン押した時のコールバック </param>
+        public void CreateOkMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback = null, bool backgroundBtnActive = true)
+        {
+            _messageDialog.Initialize(MessageDialog.EDialogType.Ok, message, okText, okCallback);
+            _messageDialog.SetBackgroundButtonActive(backgroundBtnActive);
+            _messageDialog.gameObject.SetActive(true);
         }
     }
 }

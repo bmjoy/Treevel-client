@@ -53,7 +53,8 @@ namespace Treevel.Common.Entities
         SummerShort,    // 夏の略記
         AutumnShort,    // 秋の略記
         WinterShort,    // 冬の略記
-
+        MessageDlgOkBtnText, // メッセージダイアログーOKボタン
+        MessageDlgCancelBtnText, // メッセージダイアログーCancelボタン
         ErrorTextStart = 10000, // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart, // 不明なエラー
         ErrorLoadDataFailed, // データの読み込みが失敗しました
