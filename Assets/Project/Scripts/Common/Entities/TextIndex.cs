@@ -49,11 +49,13 @@ namespace Treevel.Common.Entities
         RecordPlayDays,    // 起動日数
         RecordFlickNum,    // フリック回数
         RecordFailureNum,    // 失敗回数
+        RecordResetConfirmDialogMessage, // リセット確認メッセージダイアログ
         SpringShort,    // 春の略記
         SummerShort,    // 夏の略記
         AutumnShort,    // 秋の略記
         WinterShort,    // 冬の略記
-
+        MessageDlgOkBtnText, // メッセージダイアログーOKボタン
+        MessageDlgCancelBtnText, // メッセージダイアログーCancelボタン
         ErrorTextStart = 10000, // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart, // 不明なエラー
         ErrorLoadDataFailed, // データの読み込みが失敗しました

@@ -141,7 +141,7 @@ MonoBehaviour:
     appearTime: 1
     interval: 5
     type: 0
-    targetDirections: 0100000004000000020000000300000001000000
+    targetDirections: 0000000003000000010000000200000000000000
     targetLines: 0000000000000000010000000200000000000000
     randomDirection: 
     randomRow: 

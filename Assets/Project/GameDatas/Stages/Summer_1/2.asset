@@ -151,52 +151,12 @@ MonoBehaviour:
     appearTime: 2
     interval: 6
     type: 5
-    targetDirections: 01000000
+    targetDirections: 00000000
     targetLines: 00000000
     randomDirection: 
     randomRow: 
     randomColumn: 
     targetRow: 0
-    targetColumn: 0
-    targetBottle: 0
-    randomAttackableBottles: 
-    isRandom: 0
-    targets: []
-    targetDirection: 2
-    attackTimes: 1
-    duration: 0
-    width: 0
-    height: 0
-  - loop: 1
-    appearTime: 3
-    interval: 6
-    type: 5
-    targetDirections: 01000000
-    targetLines: 00000000
-    randomDirection: 
-    randomRow: 
-    randomColumn: 
-    targetRow: 2
-    targetColumn: 2
-    targetBottle: 0
-    randomAttackableBottles: 
-    isRandom: 0
-    targets: []
-    targetDirection: 4
-    attackTimes: 1
-    duration: 0
-    width: 0
-    height: 0
-  - loop: 1
-    appearTime: 4
-    interval: 6
-    type: 5
-    targetDirections: 01000000
-    targetLines: 00000000
-    randomDirection: 
-    randomRow: 
-    randomColumn: 
-    targetRow: 4
     targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
@@ -208,10 +168,50 @@ MonoBehaviour:
     width: 0
     height: 0
   - loop: 1
+    appearTime: 3
+    interval: 6
+    type: 5
+    targetDirections: 00000000
+    targetLines: 00000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 2
+    targetColumn: 2
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 3
+    attackTimes: 1
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 1
+    appearTime: 4
+    interval: 6
+    type: 5
+    targetDirections: 00000000
+    targetLines: 00000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 4
+    targetColumn: 0
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 1
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 1
     appearTime: 5
     interval: 6
     type: 5
-    targetDirections: 01000000
+    targetDirections: 00000000
     targetLines: 00000000
     randomDirection: 
     randomRow: 
@@ -222,7 +222,7 @@ MonoBehaviour:
     randomAttackableBottles: 
     isRandom: 0
     targets: []
-    targetDirection: 3
+    targetDirection: 2
     attackTimes: 1
     duration: 0
     width: 0

@@ -125,7 +125,7 @@ MonoBehaviour:
     appearTime: 1
     interval: 10
     type: 2
-    targetDirections: 01000000
+    targetDirections: 00000000
     targetLines: 00000000
     randomDirection: 
     randomRow: 
@@ -145,7 +145,7 @@ MonoBehaviour:
     appearTime: 6
     interval: 10
     type: 2
-    targetDirections: 01000000
+    targetDirections: 00000000
     targetLines: 00000000
     randomDirection: 
     randomRow: 

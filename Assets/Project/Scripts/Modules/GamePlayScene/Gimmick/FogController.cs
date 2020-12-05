@@ -52,7 +52,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 倍率
             var shapeModule = _particleSystem.shape;
             var scale = shapeModule.scale;
-            shapeModule.scale *= new Vector2(scale.x * width, scale.y * height);
+            shapeModule.scale *= new Vector2(width, height);
         }
 
         public override IEnumerator Trigger()

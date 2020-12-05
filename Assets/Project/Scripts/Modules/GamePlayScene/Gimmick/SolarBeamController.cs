@@ -47,6 +47,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _attackTimes = gimmickData.attackTimes;
             var direction = gimmickData.targetDirection;
+            var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
             // TODO: ランダム方向の実装
             switch (direction) {
                 case EDirection.ToLeft:
@@ -58,13 +59,12 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         transform.position = initialPos;
 
                         // 太陽とビームの位置を調整する
-                        var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
                         var sign = direction == EDirection.ToLeft ? 1 : -1;
                         // 中央から1.5タイルサイズ＋1.5太陽の幅分ずらす
                         var offsetTileCount = Constants.StageSize.COLUMN / 2.0f;
                         // 0.5個分太陽の幅をずらす
-                        var offsetSunCount = 0.5f * _sunObject.transform.localScale.x;
-                        var offset = new Vector2(GameWindowController.Instance.GetTileWidth() * offsetTileCount + sunRenderer.size.x * offsetSunCount, 0);
+                        var offsetSunCount = 0.5f * sunRenderer.bounds.size.x;
+                        var offset = new Vector2(GameWindowController.Instance.GetTileWidth() * offsetTileCount + offsetSunCount, 0);
                         _sunObject.transform.position = initialPos + sign * offset;
                         // ToRightの場合はx反転
                         _sunObject.transform.localScale = Vector3.Scale(_sunObject.transform.localScale, new Vector3(sign, 1, 1));
@@ -81,14 +81,13 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         transform.position = initialPos;
 
                         // 太陽とビームの位置を調整する
-                        var sunRenderer = _sunObject.GetComponent<SpriteRenderer>();
                         var sign = direction == EDirection.ToDown ? 1 : -1;
 
                         // 中央からタイル2.5個分ずらす
                         var offsetTileCount = Constants.StageSize.ROW / 2.0f;
                         // 0.5個分太陽の高さをずらす
-                        var offsetSunCount = 0.5f * _sunObject.transform.localScale.y;
-                        var offset = new Vector2(0, GameWindowController.Instance.GetTileHeight() * offsetTileCount + sunRenderer.size.y * offsetSunCount);
+                        var offsetSunCount = 0.5f * sunRenderer.bounds.size.y;
+                        var offset = new Vector2(0, GameWindowController.Instance.GetTileHeight() * offsetTileCount + offsetSunCount);
                         _sunObject.transform.position = initialPos + sign * offset;
                         sunRenderer.enabled = true;
 

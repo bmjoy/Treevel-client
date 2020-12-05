@@ -290,17 +290,13 @@ namespace Treevel.Editor
                                 var lineElem = linesProp.GetArrayElementAtIndex(i);
 
                                 if (useRandomProp.boolValue) {
-                                    // 方向と行列をランダムに設定
-                                    directionElem.intValue = -1;
+                                    // 行列をランダムに設定
                                     lineElem.intValue = -1;
                                 } else {
                                     EditorGUILayout.BeginVertical(GUI.skin.box);
                                     EditorGUILayout.LabelField($"Target {i + 1}");
                                     EditorGUI.indentLevel++;
                                     EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
-
-                                    if (directionElem.intValue < 1 || 4 < directionElem.intValue)
-                                        directionElem.intValue = 1;
 
                                     switch ((EDirection)directionElem.intValue) {
                                         case EDirection.ToDown:

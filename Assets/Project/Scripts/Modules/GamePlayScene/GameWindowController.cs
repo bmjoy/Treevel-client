@@ -47,7 +47,7 @@ namespace Treevel.Modules.GamePlayScene
             if (Mathf.Abs(currentRatio - targetRatio) <= aspectRatioError) return;
 
             // ゲーム盤面以外を埋める背景画像を表示する
-            var backgroundSize = _background.GetComponent<SpriteRenderer>().size;
+            var backgroundSize = _background.GetComponent<SpriteRenderer>().bounds.size;
             var originalWidth = backgroundSize.x;
             var originalHeight = backgroundSize.y;
             var camera = Camera.main;
