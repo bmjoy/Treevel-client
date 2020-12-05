@@ -167,6 +167,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: c2157d88eb9004ec9954bf2cceab6a58
+    m_Address: ReverseEffectPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: c992eb222563c460d84bff90f23a0b42
     m_Address: Assets/Project/Prefabs/ProgressBar.prefab
     m_ReadOnly: 0

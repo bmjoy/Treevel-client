@@ -43,6 +43,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.GetDamaged += HandleGetDamaged;
             _bottleController.EndGame += HandleEndGame;
 
+            // 描画順序の設定
+            GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Life.GetOrderInLayer();
+
             _life = life;
         }
 

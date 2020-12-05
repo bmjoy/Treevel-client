@@ -1,4 +1,5 @@
 ﻿using System;
+using Treevel.Common.Entities;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
@@ -34,6 +35,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
             _bottleController.EndGame += HandleEndGame;
+
+            // 描画順序の設定
+            GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Dark.GetOrderInLayer();
 
             // 初期状態の登録
             _isSuccess = _bottleController.IsSuccess();
