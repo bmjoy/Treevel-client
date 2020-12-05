@@ -19,6 +19,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public void Initialize(DynamicBottleController bottleController)
         {
             transform.parent = bottleController.transform;
+            // y座標を中心から上に調整する
             transform.localPosition = new Vector3(0, 0.75f);
             _bottleController = bottleController;
 
