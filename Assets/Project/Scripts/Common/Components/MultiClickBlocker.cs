@@ -15,7 +15,7 @@ namespace Treevel.Common.Components
         /// <summary>
         /// 個々の button
         /// </summary>
-        [SerializeField] private Button _button;
+        private Button _button;
 
         /// <summary>
         /// 特定のボタンタップ後、他のボタンをブロックする時間
@@ -30,6 +30,7 @@ namespace Treevel.Common.Components
         private void Awake()
         {
             _buttonInteractableChanged += HandleButtonInteractableChanged;
+            _button = GetComponent<Button>();
 
             if (_button != null) {
                 _button.onClick.AddListener(HandleOnClick);
@@ -39,11 +40,6 @@ namespace Treevel.Common.Components
         private void OnDestroy()
         {
             _buttonInteractableChanged -= HandleButtonInteractableChanged;
-        }
-
-        private void Reset()
-        {
-            _button = GetComponent<Button>();
         }
 
         private void HandleButtonInteractableChanged(bool interactable)
