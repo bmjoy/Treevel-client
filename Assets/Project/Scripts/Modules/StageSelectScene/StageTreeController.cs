@@ -36,7 +36,7 @@ namespace Treevel.Modules.StageSelectScene
         public override void Awake()
         {
             base.Awake();
-            _constraintTreeClearHandlers = _constraintTrees.Select(id => TreeInfo.CLEAR_HANDLER[id]).ToList<IClearTreeHandler>();
+            _constraintTreeClearHandlers = _constraintTrees.Select(id => id.GetClearTreeHandler()).ToList();
         }
 
         public override void UpdateState()
@@ -68,7 +68,7 @@ namespace Treevel.Modules.StageSelectScene
                     }
                 case ETreeState.Cleared: {
                         // 全クリアかどうかをチェックする
-                        var stageNum = TreeInfo.NUM[treeId];
+                        var stageNum = treeId.GetStageNum();
                         var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
                         state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                         break;

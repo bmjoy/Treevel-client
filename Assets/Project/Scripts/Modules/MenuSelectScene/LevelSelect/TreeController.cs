@@ -24,7 +24,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         public virtual void Awake()
         {
             // クリア条件を実装するクラスを指定する
-            clearHandler = TreeInfo.CLEAR_HANDLER[treeId];
+            clearHandler = treeId.GetClearTreeHandler();
         }
 
         /// <summary>

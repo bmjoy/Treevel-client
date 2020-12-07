@@ -87,7 +87,7 @@ namespace Treevel.Common.Entities
         public static void Reset()
         {
             foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
-                var stageNum = TreeInfo.NUM[treeId];
+                var stageNum = treeId.GetStageNum();
 
                 Enumerable.Range(1, stageNum).ToList().ForEach(stageId => PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageId)));
             }

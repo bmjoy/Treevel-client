@@ -36,7 +36,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                     break;
                 case ETreeState.Cleared:
                     // 全クリアかどうかをチェックする
-                    var stageNum = TreeInfo.NUM[treeId];
+                    var stageNum = treeId.GetStageNum();
                     var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
                     state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                     break;
