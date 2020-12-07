@@ -29,7 +29,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         {
             // ボトル上に配置
             transform.parent = bottleController.transform;
-            transform.localScale = new Vector2(1f, 1f);
+            // TODO: ボトルの容器部分に砂が積もるように調整する
+            transform.localScale = new Vector2(1.2f, 1.32f);
             transform.localPosition = Vector3.zero;
 
             _bottleController = bottleController;
