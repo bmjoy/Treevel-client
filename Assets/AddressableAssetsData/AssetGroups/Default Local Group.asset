@@ -235,8 +235,10 @@ MonoBehaviour:
     m_Address: LifeEffectPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1556909149041080, guid: f0542fe9a231b470284b4115732abe89,
+      type: 3}
+    m_TargetAsset: {fileID: 1556909149041080, guid: f0542fe9a231b470284b4115732abe89,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
