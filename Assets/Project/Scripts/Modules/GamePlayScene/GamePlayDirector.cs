@@ -69,9 +69,9 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
-        /// 木のレベル
+        /// 木の季節
         /// </summary>
-        public static ELevelName levelName;
+        public static ESeasonId seasonId;
 
         /// <summary>
         /// 木のId
@@ -317,7 +317,7 @@ namespace Treevel.Modules.GamePlayScene
                 // TODO: ステージTextを適切に配置する
                 // ステージID表示
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
-                _stageNumberText.text = levelName.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
+                _stageNumberText.text = seasonId.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
             }
 
             public override void OnEnter(State from = null)
@@ -484,7 +484,7 @@ namespace Treevel.Modules.GamePlayScene
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
                     // StageSelectSceneに戻る
-                    LevelInfo.LoadStageSelectScene(levelName);
+                    AddressableAssetManager.LoadScene(seasonId.GetSceneName());
                 } else {
                     // 失敗SE
                     SoundManager.Instance.PlaySE(ESEKey.SE_Failure);
