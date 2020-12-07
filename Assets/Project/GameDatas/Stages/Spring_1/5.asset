@@ -20,8 +20,8 @@ MonoBehaviour:
     initPos: 4
     targetPos: 4
     bottleSprite:
-      m_AssetGUID: 6a6b75adbaa3d4155bac201a3b28e45d
-      m_SubObjectName: normalBottle1
+      m_AssetGUID: c7e771d42b34e444cb9570cbace8f66b
+      m_SubObjectName: normal_1
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
@@ -33,8 +33,8 @@ MonoBehaviour:
     initPos: 5
     targetPos: 5
     bottleSprite:
-      m_AssetGUID: 6f35d8b0a82b148c6adaa20ea5d85678
-      m_SubObjectName: normalBottle2
+      m_AssetGUID: 77afffe8c8ad8478fac611078bf02cdd
+      m_SubObjectName: normal_2
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
@@ -46,8 +46,8 @@ MonoBehaviour:
     initPos: 6
     targetPos: 6
     bottleSprite:
-      m_AssetGUID: 91e0d3f7067e1499c805ce6026b32bd6
-      m_SubObjectName: normalBottle3
+      m_AssetGUID: dc8347884678a4c3eab9a812d91f796f
+      m_SubObjectName: normal_3
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
@@ -59,8 +59,8 @@ MonoBehaviour:
     initPos: 7
     targetPos: 7
     bottleSprite:
-      m_AssetGUID: b249dc30ba03c4849bd8ca5e860f2bf7
-      m_SubObjectName: normalBottle4
+      m_AssetGUID: bc5b41ad84210436b8d054663a3f2754
+      m_SubObjectName: normal_4
     targetTileSprite:
       m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
       m_SubObjectName: numberTile4
@@ -72,8 +72,8 @@ MonoBehaviour:
     initPos: 8
     targetPos: 8
     bottleSprite:
-      m_AssetGUID: cb970f58b70014a28bc61d79fca7b317
-      m_SubObjectName: normalBottle5
+      m_AssetGUID: fad0ddda9821b4c0eae4822e28fe654b
+      m_SubObjectName: normal_5
     targetTileSprite:
       m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
       m_SubObjectName: numberTile5
@@ -85,8 +85,8 @@ MonoBehaviour:
     initPos: 9
     targetPos: 9
     bottleSprite:
-      m_AssetGUID: bb9357ee64c4d44cd94c66f5fb8210d0
-      m_SubObjectName: normalBottle6
+      m_AssetGUID: 141dfdffa4c9e4962ab05c138b69881c
+      m_SubObjectName: normal_6
     targetTileSprite:
       m_AssetGUID: 002d879f7321744279709540f5b88837
       m_SubObjectName: numberTile6
@@ -98,8 +98,8 @@ MonoBehaviour:
     initPos: 10
     targetPos: 10
     bottleSprite:
-      m_AssetGUID: 84aa424be823f4562b197179ef326c71
-      m_SubObjectName: normalBottle7
+      m_AssetGUID: 2a7e69dea5902413a99deaf07342f7dc
+      m_SubObjectName: normal_7
     targetTileSprite:
       m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
       m_SubObjectName: numberTile7
@@ -111,8 +111,8 @@ MonoBehaviour:
     initPos: 14
     targetPos: 12
     bottleSprite:
-      m_AssetGUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-      m_SubObjectName: normalBottle8
+      m_AssetGUID: fa2dda00e054449238d90541adcf68b8
+      m_SubObjectName: normal_8
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8
