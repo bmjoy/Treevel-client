@@ -1,5 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
@@ -14,7 +15,7 @@ namespace Treevel.Modules.StartUpScene
     {
         [SerializeField] private GameObject _startButton;
 
-        private IEnumerator Start()
+        private async void Start()
         {
             // Don't destroy EventSystem
             var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
@@ -22,7 +23,7 @@ namespace Treevel.Modules.StartUpScene
                 DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize
-            yield return new WaitWhile(() => !UIManager.Instance.Initialized);
+            await UniTask.WaitUntil(() => UIManager.Instance.Initialized);
 
             // AppManager Initialize
             AppManager.OnApplicationStart();
