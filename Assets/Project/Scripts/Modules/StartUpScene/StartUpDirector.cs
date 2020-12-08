@@ -37,8 +37,8 @@ namespace Treevel.Modules.StartUpScene
                 .ToObservable()
                 .Subscribe(_ => {
                     AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive)
-                    .ToObservable()
-                    .Subscribe(__ => _startButton.SetActive(true));
+                        .ToObservable()
+                        .Subscribe(__ => _startButton.SetActive(true));
                 });
 
             // Database Initialize
