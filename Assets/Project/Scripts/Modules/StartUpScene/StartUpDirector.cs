@@ -34,12 +34,12 @@ namespace Treevel.Modules.StartUpScene
             // => MenuSelectSceneを読み込み
             // => 開始ボタンをアクティブにする
             AddressableAssetManager.Initialize()
-            .ToObservable()
-            .Subscribe(_ => {
-                AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive)
                 .ToObservable()
-                .Subscribe(__ => _startButton.SetActive(true));
-            });
+                .Subscribe(_ => {
+                    AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive)
+                    .ToObservable()
+                    .Subscribe(__ => _startButton.SetActive(true));
+                });
 
             // Database Initialize
             GameDataManager.Initialize();
