@@ -24,6 +24,13 @@ MonoBehaviour:
     - Tile
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 07e443d3f6d294a17a18de0cc2799195
+    m_Address: normalTile_9
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 07e443d3f6d294a17a18de0cc2799195, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 07e443d3f6d294a17a18de0cc2799195, type: 3}
   - m_GUID: 10615e735d661461a88777d89755bf0e
     m_Address: NormalTilePrefab
     m_ReadOnly: 0
@@ -36,10 +43,29 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_MainAsset: {fileID: 5612440846642675437, guid: 31793e365380e4285b274b30c991eef5,
-      type: 3}
-    m_TargetAsset: {fileID: 5612440846642675437, guid: 31793e365380e4285b274b30c991eef5,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 353351082f72147da8017017e8d6d8bb
+    m_Address: normalTile_11
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 353351082f72147da8017017e8d6d8bb, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 353351082f72147da8017017e8d6d8bb, type: 3}
+  - m_GUID: 496f422ec07e8488cbc4b8555ae8ff02
+    m_Address: normalTile_4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 496f422ec07e8488cbc4b8555ae8ff02, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 496f422ec07e8488cbc4b8555ae8ff02, type: 3}
+  - m_GUID: 51b39f4d7523d4df3a7e291ceb9fc25e
+    m_Address: normalTile_10
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 51b39f4d7523d4df3a7e291ceb9fc25e, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 51b39f4d7523d4df3a7e291ceb9fc25e, type: 3}
   - m_GUID: 57e95fd6c6d8e4876858772d8b00c4cf
     m_Address: IceTilePrefab
     m_ReadOnly: 0
@@ -68,6 +94,20 @@ MonoBehaviour:
     - Tile
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 6cf2e60e46bfa4964b97af696aab6d8a
+    m_Address: normalTile_8
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 6cf2e60e46bfa4964b97af696aab6d8a, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 6cf2e60e46bfa4964b97af696aab6d8a, type: 3}
+  - m_GUID: 6e504f819843b4e19b691bb6f41ae21c
+    m_Address: normalTile_12
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 6e504f819843b4e19b691bb6f41ae21c, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 6e504f819843b4e19b691bb6f41ae21c, type: 3}
   - m_GUID: 7049c28bb2d914c02abfad034c3d08ca
     m_Address: numberTile7
     m_ReadOnly: 0
@@ -82,6 +122,20 @@ MonoBehaviour:
     - Tile
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 8723518ab12fa4ff9a973c664acbdc08
+    m_Address: normalTile_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 8723518ab12fa4ff9a973c664acbdc08, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 8723518ab12fa4ff9a973c664acbdc08, type: 3}
+  - m_GUID: 8a0d5bd6528c44ce0a41c1950bd14250
+    m_Address: normalTile_13
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 8a0d5bd6528c44ce0a41c1950bd14250, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 8a0d5bd6528c44ce0a41c1950bd14250, type: 3}
   - m_GUID: 8bd35c0dfc09c48479577e2b43dcac03
     m_Address: WarpTilePrefab
     m_ReadOnly: 0
@@ -89,6 +143,20 @@ MonoBehaviour:
     - Tile
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 9ea691163f5654eb78be7c92e8a030d6
+    m_Address: normalTile_14
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: 9ea691163f5654eb78be7c92e8a030d6, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 9ea691163f5654eb78be7c92e8a030d6, type: 3}
+  - m_GUID: ac32591f4371d4d449612b92a4b54fcb
+    m_Address: normalTile_7
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: ac32591f4371d4d449612b92a4b54fcb, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: ac32591f4371d4d449612b92a4b54fcb, type: 3}
   - m_GUID: b8f7dbec862e143b98cf342ad4b46952
     m_Address: numberTile8
     m_ReadOnly: 0
@@ -96,6 +164,13 @@ MonoBehaviour:
     - Tile
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: b9d906ecbf1694e63aa7160b78a3e0bf
+    m_Address: normalTile_15
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: b9d906ecbf1694e63aa7160b78a3e0bf, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: b9d906ecbf1694e63aa7160b78a3e0bf, type: 3}
   - m_GUID: c9a3fc44eeb594f8dacee529949d6a51
     m_Address: numberTile2
     m_ReadOnly: 0
@@ -103,6 +178,20 @@ MonoBehaviour:
     - Tile
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: cdd3b2ecd95fd43a494aefcbe1cb66e6
+    m_Address: normalTile_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: cdd3b2ecd95fd43a494aefcbe1cb66e6, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: cdd3b2ecd95fd43a494aefcbe1cb66e6, type: 3}
+  - m_GUID: e104cc7fc139d423fa1bf074ecfcb842
+    m_Address: normalTile_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: e104cc7fc139d423fa1bf074ecfcb842, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: e104cc7fc139d423fa1bf074ecfcb842, type: 3}
   - m_GUID: f3cb79b18e6fa4e548c931f68d35a3e8
     m_Address: numberTile3
     m_ReadOnly: 0
@@ -110,13 +199,20 @@ MonoBehaviour:
     - Tile
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: ffe46475264d046fc9f9d1a8e8546ccf
-    m_Address: normalTile
+  - m_GUID: f9de4f74096404b6f8f21c34a2d39bdd
+    m_Address: normalTile_6
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tile
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2800000, guid: f9de4f74096404b6f8f21c34a2d39bdd, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: f9de4f74096404b6f8f21c34a2d39bdd, type: 3}
+  - m_GUID: fcb0abb225f41426bac72da393f6a241
+    m_Address: normalTile_5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tile
+    m_MainAsset: {fileID: 2800000, guid: fcb0abb225f41426bac72da393f6a241, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: fcb0abb225f41426bac72da393f6a241, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
