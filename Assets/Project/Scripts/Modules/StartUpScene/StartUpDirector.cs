@@ -33,12 +33,6 @@ namespace Treevel.Modules.StartUpScene
             Debug.Log("PROD");
             #endif
 
-            // Network Initialization
-            // TODO : ユーザー情報の初期化（IDの取得OR発行など）
-            NetworkService.Execute(new HelloWorldRequest(), (data) => {
-                Debug.Log(data as string);
-            });
-
             // AAS Initialize
             AddressableAssetManager.Initialize().Completed += OnAASInitializeCompleted;
 
