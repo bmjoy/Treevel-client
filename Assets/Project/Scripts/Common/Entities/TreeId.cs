@@ -59,27 +59,26 @@ namespace Treevel.Common.Entities
             }
         }
 
+        private static readonly Dictionary<ETreeId, IClearTreeHandler> _CLEAR_TREE_HANDLER = new Dictionary<ETreeId, IClearTreeHandler>
+        {
+            {ETreeId.Dummy, null},
+            {ETreeId.Spring_1, new NumClearTreeHandler(ETreeId.Spring_1, 1)},
+            {ETreeId.Spring_2, new NumClearTreeHandler(ETreeId.Spring_2, 1)},
+            {ETreeId.Spring_3, new NumClearTreeHandler(ETreeId.Spring_3, 1)},
+            {ETreeId.Summer_1, new NumClearTreeHandler(ETreeId.Summer_1, 1)},
+            {ETreeId.Summer_2, new NumClearTreeHandler(ETreeId.Summer_3, 1)},
+            {ETreeId.Summer_3, new NumClearTreeHandler(ETreeId.Summer_3, 1)},
+            {ETreeId.Autumn_1, new NumClearTreeHandler(ETreeId.Autumn_1, 1)},
+            {ETreeId.Autumn_2, new NumClearTreeHandler(ETreeId.Autumn_2, 1)},
+            {ETreeId.Autumn_3, new NumClearTreeHandler(ETreeId.Autumn_3, 1)},
+            {ETreeId.Winter_1, new NumClearTreeHandler(ETreeId.Winter_1, 1)},
+            {ETreeId.Winter_2, new NumClearTreeHandler(ETreeId.Winter_2, 1)},
+            {ETreeId.Winter_3, new NumClearTreeHandler(ETreeId.Winter_3, 1)},
+        };
+
         public static IClearTreeHandler GetClearTreeHandler(this ETreeId treeId)
         {
-            switch (treeId) {
-                case ETreeId.Dummy:
-                    return null;
-                case ETreeId.Spring_1:
-                case ETreeId.Spring_2:
-                case ETreeId.Spring_3:
-                case ETreeId.Summer_1:
-                case ETreeId.Summer_2:
-                case ETreeId.Summer_3:
-                case ETreeId.Autumn_1:
-                case ETreeId.Autumn_2:
-                case ETreeId.Autumn_3:
-                case ETreeId.Winter_1:
-                case ETreeId.Winter_2:
-                case ETreeId.Winter_3:
-                    return new NumClearTreeHandler(treeId, 1);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(treeId), treeId, null);
-            }
+            return _CLEAR_TREE_HANDLER[treeId];
         }
     }
 }
