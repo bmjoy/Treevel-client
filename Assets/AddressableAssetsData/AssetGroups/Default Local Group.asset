@@ -21,18 +21,14 @@ MonoBehaviour:
     m_Address: SolarBeamPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 470725230576813243, guid: 0593c4ede4e4f4e91b2c9b27d92b2019,
-      type: 3}
-    m_TargetAsset: {fileID: 470725230576813243, guid: 0593c4ede4e4f4e91b2c9b27d92b2019,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 0ed45840e88a448cfa0eb64fd45d7ad6
     m_Address: MeteoriteWarningPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1368177469308104, guid: 0ed45840e88a448cfa0eb64fd45d7ad6,
-      type: 3}
-    m_TargetAsset: {fileID: 1368177469308104, guid: 0ed45840e88a448cfa0eb64fd45d7ad6,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 187750991088a47b09988c392fc0009e
     m_Address: TornadoWarningPrefab
     m_ReadOnly: 0
@@ -115,8 +111,10 @@ MonoBehaviour:
     m_Address: AimingMeteoritePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
+      type: 3}
+    m_TargetAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
+      type: 3}
   - m_GUID: 936e2c04f6f794ab58cfc0e303ef75c4
     m_Address: SandBackground
     m_ReadOnly: 0
@@ -217,8 +215,8 @@ MonoBehaviour:
     m_Address: Tutorials/1_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 2800000, guid: e6bd58f298b5d4f4491f43a49b5f2f22, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: e6bd58f298b5d4f4491f43a49b5f2f22, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e752028e379ec4cd6bfb97db9e9e3553
     m_Address: DarkEffectPrefab
     m_ReadOnly: 0
@@ -235,10 +233,8 @@ MonoBehaviour:
     m_Address: LifeEffectPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1556909149041080, guid: f0542fe9a231b470284b4115732abe89,
-      type: 3}
-    m_TargetAsset: {fileID: 1556909149041080, guid: f0542fe9a231b470284b4115732abe89,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
