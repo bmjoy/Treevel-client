@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.StageSelectScene;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木のレベル
         /// </summary>
-        [SerializeField] private ELevelName _levelName;
+        [SerializeField] private ESeasonId _seasonId;
 
         [SerializeField] private Material _material;
 
@@ -35,7 +36,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                     break;
                 case ETreeState.Cleared:
                     // 全クリアかどうかをチェックする
-                    var stageNum = TreeInfo.NUM[treeId];
+                    var stageNum = treeId.GetStageNum();
                     var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
                     state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                     break;
@@ -88,9 +89,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public void TreeButtonDown()
         {
-            StageSelectDirector.levelName = _levelName;
+            StageSelectDirector.seasonId = _seasonId;
             StageSelectDirector.treeId = treeId;
-            LevelInfo.LoadStageSelectScene(_levelName);
+            AddressableAssetManager.LoadScene(_seasonId.GetSceneName());
         }
 
         /// <summary>

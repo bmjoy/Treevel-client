@@ -55,7 +55,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _toStageSelectSceneButton.onClick.AddListener(() =>
             {
                 // TODO: 季節，木を拡張したら，こちらも拡張する
-                StageSelectDirector.levelName = ELevelName.Easy;
+                StageSelectDirector.seasonId = ESeasonId.Spring;
                 StageSelectDirector.treeId = ETreeId.Spring_1;
                 AddressableAssetManager.LoadScene(Constants.SceneName.SPRING_STAGE_SELECT_SCENE);
             });

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 
@@ -23,46 +24,42 @@ namespace Treevel.Common.Entities
         Winter_3 = ESeasonId.Winter * Constants.MAX_TREE_NUM_IN_SEASON + 3,
     }
 
-    public static class ETreeIdExtension
+    public static class TreeIdExtension
     {
         public static ESeasonId GetSeasonId(this ETreeId treeId)
         {
             return (ESeasonId)((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON);
         }
-    }
 
-    public static class TreeIdExtension
-    {
         public static string GetTreeIdAsKey(this ETreeId treeId)
         {
             return treeId.ToString().Replace("_", "-");
         }
-    }
 
-    public static class TreeInfo
-    {
-        /// <summary>
-        /// ステージ数
-        /// </summary>
-        /// TODO: 実際にある木のステージ数で決める
-        public static readonly Dictionary<ETreeId, int> NUM = new Dictionary<ETreeId, int>()
+        public static int GetStageNum(this ETreeId treeId)
         {
-            {ETreeId.Dummy, 0},
-            {ETreeId.Spring_1, 10},
-            {ETreeId.Spring_2, 10},
-            {ETreeId.Spring_3, 10},
-            {ETreeId.Summer_1, 10},
-            {ETreeId.Summer_2, 10},
-            {ETreeId.Summer_3, 10},
-            {ETreeId.Autumn_1, 10},
-            {ETreeId.Autumn_2, 10},
-            {ETreeId.Autumn_3, 10},
-            {ETreeId.Winter_1, 10},
-            {ETreeId.Winter_2, 10},
-            {ETreeId.Winter_3, 10},
-        };
+            switch (treeId) {
+                case ETreeId.Dummy:
+                    return 0;
+                case ETreeId.Spring_1:
+                case ETreeId.Spring_2:
+                case ETreeId.Spring_3:
+                case ETreeId.Summer_1:
+                case ETreeId.Summer_2:
+                case ETreeId.Summer_3:
+                case ETreeId.Autumn_1:
+                case ETreeId.Autumn_2:
+                case ETreeId.Autumn_3:
+                case ETreeId.Winter_1:
+                case ETreeId.Winter_2:
+                case ETreeId.Winter_3:
+                    return 10;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(treeId), treeId, null);
+            }
+        }
 
-        public static readonly Dictionary<ETreeId, IClearTreeHandler> CLEAR_HANDLER = new Dictionary<ETreeId, IClearTreeHandler>()
+        private static readonly Dictionary<ETreeId, IClearTreeHandler> _CLEAR_TREE_HANDLER = new Dictionary<ETreeId, IClearTreeHandler>
         {
             {ETreeId.Dummy, null},
             {ETreeId.Spring_1, new NumClearTreeHandler(ETreeId.Spring_1, 1)},
@@ -78,5 +75,10 @@ namespace Treevel.Common.Entities
             {ETreeId.Winter_2, new NumClearTreeHandler(ETreeId.Winter_2, 1)},
             {ETreeId.Winter_3, new NumClearTreeHandler(ETreeId.Winter_3, 1)},
         };
+
+        public static IClearTreeHandler GetClearTreeHandler(this ETreeId treeId)
+        {
+            return _CLEAR_TREE_HANDLER[treeId];
+        }
     }
 }

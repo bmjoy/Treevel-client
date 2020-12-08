@@ -1,4 +1,5 @@
 ﻿using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -12,7 +13,7 @@ namespace Treevel.Modules.GamePlayScene
         public void NextButtonDown()
         {
             // StageSelectSceneに戻る
-            LevelInfo.LoadStageSelectScene(GamePlayDirector.levelName);
+            AddressableAssetManager.LoadScene(GamePlayDirector.seasonId.GetSceneName());
         }
 
         /// <summary>

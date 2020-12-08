@@ -33,7 +33,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _treeId = treeId;
             _clearNumThreshold = clearThreshold;
-            _stageNum = TreeInfo.NUM[_treeId];
+            _stageNum = _treeId.GetStageNum();
             if (clearThreshold < 1) {
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be less than 1");
             }

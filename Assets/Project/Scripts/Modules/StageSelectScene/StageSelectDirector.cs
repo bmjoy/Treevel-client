@@ -36,7 +36,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 木のレベル
         /// </summary>
-        public static ELevelName levelName;
+        public static ESeasonId seasonId;
 
         /// <summary>
         /// 木のID
@@ -77,7 +77,7 @@ namespace Treevel.Modules.StageSelectScene
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
             // ページの最大値を設定
-            _snapScrollView.MaxPage = LevelInfo.TREE_NUM[levelName] - 1;
+            _snapScrollView.MaxPage = seasonId.GetTreeNum() - 1;
             // ページの横幅の設定
             _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
             // ページ遷移時のイベント登録
@@ -156,7 +156,7 @@ namespace Treevel.Modules.StageSelectScene
             var ss = StageStatus.Get(treeId, stageNumber);
             ss.IncChallengeNum(treeId, stageNumber);
             // ステージ情報を渡す
-            GamePlayDirector.levelName = levelName;
+            GamePlayDirector.seasonId = seasonId;
             GamePlayDirector.treeId = treeId;
             GamePlayDirector.stageNumber = stageNumber;
             // ポップアップを非表示にする
