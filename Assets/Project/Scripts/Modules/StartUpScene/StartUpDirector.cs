@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 namespace Treevel.Modules.StartUpScene
@@ -34,26 +30,19 @@ namespace Treevel.Modules.StartUpScene
             Debug.Log("PROD");
             #endif
 
-            // AAS Initialize
-            AddressableAssetManager.Initialize().Completed += OnAASInitializeCompleted;
+            // AASを初期化
+            // => MenuSelectSceneを読み込み
+            // => 開始ボタンをアクティブにする
+            AddressableAssetManager.Initialize()
+            .ToObservable()
+            .Subscribe(_ => {
+                AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive)
+                .ToObservable()
+                .Subscribe(__ => _startButton.SetActive(true));
+            });
 
             // Database Initialize
             GameDataManager.Initialize();
-        }
-
-        /// <summary>
-        /// AASが初期化された直後に行うべきこと。
-        /// 1. MenuSelectSceneを読み込む
-        /// 2. MenuSelectSceneを読み込んだ直後にStartUpSceneをアンロード
-        /// </summary>
-        private void OnAASInitializeCompleted(AsyncOperationHandle handle)
-        {
-            var menuSelectSceneHandler = AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive);
-            menuSelectSceneHandler.Completed += async(handle2) => {
-                // TODO remove before merged
-                await Task.Delay(1000);
-                _startButton.SetActive(true);
-            };
         }
 
         public void OnStartButtonClicked()
