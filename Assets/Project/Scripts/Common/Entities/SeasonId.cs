@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Treevel.Common.Utils;
 
 namespace Treevel.Common.Entities
@@ -58,6 +59,22 @@ namespace Treevel.Common.Entities
                     return ETreeId.Autumn_1;
                 case ESeasonId.Winter:
                     return ETreeId.Winter_1;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
+            }
+        }
+
+        public static List<ETreeId> GetTrees(this ESeasonId seasonId)
+        {
+            switch (seasonId) {
+                case ESeasonId.Spring:
+                    return new List<ETreeId> {ETreeId.Spring_1, ETreeId.Spring_2, ETreeId.Spring_3};
+                case ESeasonId.Summer:
+                    return new List<ETreeId> {ETreeId.Summer_1, ETreeId.Summer_2, ETreeId.Summer_3};
+                case ESeasonId.Autumn:
+                    return new List<ETreeId> {ETreeId.Autumn_1, ETreeId.Autumn_2, ETreeId.Autumn_3};
+                case ESeasonId.Winter:
+                    return new List<ETreeId> {ETreeId.Winter_1, ETreeId.Winter_2, ETreeId.Winter_3};
                 default:
                     throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
             }

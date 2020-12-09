@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,6 +51,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         private const int _AXIS_LABEL_MARGIN = 30;
 
+        [SerializeField] private Dropdown _dropdown;
+
         /// <summary>
         /// 現在表示している季節
         /// </summary>
@@ -71,6 +74,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 StageSelectDirector.treeId = _currentTree;
                 AddressableAssetManager.LoadScene(_currentSeason.GetSceneName());
             });
+
+            _dropdown.options = _currentSeason.GetTrees()
+                .Select(tree => new Dropdown.OptionData { text = Enum.GetName(typeof(ETreeId), tree) })
+                .ToList();
+            _dropdown.RefreshShownValue();
         }
 
         private void OnEnable()
