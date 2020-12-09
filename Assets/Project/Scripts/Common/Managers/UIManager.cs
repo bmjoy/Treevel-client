@@ -70,8 +70,8 @@ namespace Treevel.Common.Managers
             var canvas = GetComponentInChildren<Canvas>().transform;
 
             // キャンバスの下にプログレスバーの実体を生成
-            var task1 = _progressBar.InstantiateAsync(canvas).ToUniTask<GameObject>();
-            var task2 = _messageDialogRef.InstantiateAsync(canvas).ToUniTask<GameObject>();
+            var task1 = _progressBar.InstantiateAsync(canvas).ToUniTask();
+            var task2 = _messageDialogRef.InstantiateAsync(canvas).ToUniTask();
 
             var (progressBarGo, messageDialogGo) = await UniTask.WhenAll(task1, task2);
 
