@@ -8129,7 +8129,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 900518364}
   m_Template: {fileID: 23306618}
-  m_CaptionText: {fileID: 0}
+  m_CaptionText: {fileID: 1900637696}
   m_CaptionImage: {fileID: 0}
   m_ItemText: {fileID: 194937612}
   m_ItemImage: {fileID: 0}
@@ -16035,7 +16035,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1, y: -0.5}
   m_AnchorMax: {x: 2, y: 1.5}
-  m_AnchoredPosition: {x: 312.2583, y: 966.8638}
+  m_AnchoredPosition: {x: 679.65625, y: 907.1603}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1755488822
@@ -18069,6 +18069,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1900637694}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1900637696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9178724915984365835, guid: bef1ce286d5014a08b1dda0760b28ee2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1900637694}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1918865381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18773,6 +18785,7 @@ MonoBehaviour:
   - {fileID: 725051921}
   - {fileID: 1804118149}
   _toStageSelectSceneButton: {fileID: 1673266326}
+  _dropdown: {fileID: 0}
 --- !u!1001 &2065056793
 PrefabInstance:
   m_ObjectHideFlags: 0
