@@ -41,7 +41,7 @@ namespace Treevel.Modules.StartUpScene
 
             // 全部完了したら開始ボタンを表示
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask)
-                .WithCancellation(this.GetCancellationTokenOnDestroy());
+                .WithCancellation(cancelToken);
 
             _startButton.SetActive(true);
         }
