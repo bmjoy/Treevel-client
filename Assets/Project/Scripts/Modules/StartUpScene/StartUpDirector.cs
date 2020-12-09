@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UniRx;
@@ -32,18 +32,18 @@ namespace Treevel.Modules.StartUpScene
             #endif
 
             // AASを初期化
-            // => MenuSelectSceneを読み込み
-            // => 開始ボタンをアクティブにする
-            AddressableAssetManager.Initialize()
-                .ToObservable()
-                .Subscribe(_ => {
-                    AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive)
-                        .ToObservable()
-                        .Subscribe(__ => _startButton.SetActive(true));
-                });
+            await AddressableAssetManager.Initialize();
 
-            // Database Initialize
-            GameDataManager.Initialize();
+            // MenuSelectSceneを読み込み
+            var loadSceneTask = AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
+            // GameDataManager初期化
+            var dataManagerInitTask = GameDataManager.Initialize();
+
+            // 全部完了したら開始ボタンを表示
+            await UniTask.WhenAll(loadSceneTask, dataManagerInitTask)
+                .WithCancellation(this.GetCancellationTokenOnDestroy());
+
+            _startButton.SetActive(true);
         }
 
         public void OnStartButtonClicked()

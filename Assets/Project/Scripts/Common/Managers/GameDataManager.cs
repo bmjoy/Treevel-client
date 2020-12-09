@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Treevel.Common.Managers
 {
@@ -11,33 +12,16 @@ namespace Treevel.Common.Managers
     {
         private static Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
 
-        private static bool _isinitialized = false;
-
-        public static void Initialize()
+        public static async UniTask Initialize()
         {
-            if (_isinitialized)
-                return;
-
-            Debug.Log("Start Loading Game Data.");
-
             // Stageラベルがついてる全てのアセットのアドレスを取得
-            Addressables.LoadResourceLocationsAsync("Stage").Completed += (op => {
-                var locations = op.Result;
+            var locations = await Addressables.LoadResourceLocationsAsync("Stage")
+                .ToUniTask<IList<IResourceLocation>>();
 
-                // アドレス毎に読み込み、マップに追加
-                foreach (var location in locations) {
-                    Addressables.LoadAssetAsync<StageData>(location).Completed += (op1) => {
-                        var stage = op1.Result;
-                        lock (_stageDataMap) {
-                            _stageDataMap.Add(StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
-                        }
-                    };
-                }
-            });
-
-            Debug.Log("Loading Game Data Finished.");
-
-            _isinitialized = true;
+            var stageDatas = await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<StageData>(loc).ToUniTask()));
+            foreach (var stage in stageDatas) {
+                _stageDataMap.Add(StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
+            }
         }
 
         public static StageData GetStage(ETreeId treeId, int stageNumber)
