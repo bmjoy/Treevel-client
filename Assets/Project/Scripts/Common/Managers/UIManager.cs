@@ -44,16 +44,7 @@ namespace Treevel.Common.Managers
 
         private MessageDialog _messageDialog;
 
-        /// <summary>
-        /// 初期化済みかどうか
-        /// </summary>
-        public bool Initialized
-        {
-            get;
-            private set;
-        }
-
-        private async void Awake()
+        public async UniTask Initialize()
         {
             DontDestroyOnLoad(gameObject);
 
@@ -77,7 +68,6 @@ namespace Treevel.Common.Managers
 
             ProgressBar = progressBarGo.GetComponentInChildren<ProgressBar>();
             _messageDialog = messageDialogGo.GetComponentInChildren<MessageDialog>();
-            Initialized = true;
         }
 
         /// <summary>

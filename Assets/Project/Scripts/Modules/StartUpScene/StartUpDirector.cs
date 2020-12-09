@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UniRx;
@@ -13,13 +13,14 @@ namespace Treevel.Modules.StartUpScene
 
         private async void Start()
         {
+            var cancelToken = this.GetCancellationTokenOnDestroy();
             // Don't destroy EventSystem
             var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
             if (eventSystem != null)
                 DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize
-            await UniTask.WaitUntil(() => UIManager.Instance.Initialized);
+            await UIManager.Instance.Initialize().WithCancellation(cancelToken);
 
             // AppManager Initialize
             AppManager.OnApplicationStart();
