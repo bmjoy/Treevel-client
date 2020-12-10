@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 namespace Treevel.Modules.StartUpScene
@@ -14,7 +12,7 @@ namespace Treevel.Modules.StartUpScene
     {
         [SerializeField] private GameObject _startButton;
 
-        private IEnumerator Start()
+        private async void Start()
         {
             // Don't destroy EventSystem
             var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
@@ -22,7 +20,7 @@ namespace Treevel.Modules.StartUpScene
                 DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize
-            yield return new WaitWhile(() => !UIManager.Instance.Initialized);
+            await UIManager.Instance.AwakeAsync();
 
             // AppManager Initialize
             AppManager.OnApplicationStart();
@@ -33,32 +31,18 @@ namespace Treevel.Modules.StartUpScene
             Debug.Log("PROD");
             #endif
 
-            // Network Initialization
-            // TODO : ユーザー情報の初期化（IDの取得OR発行など）
-            NetworkService.Execute(new HelloWorldRequest(), (data) => {
-                Debug.Log(data as string);
-            });
+            // AASを初期化
+            await AddressableAssetManager.Initialize();
 
-            // AAS Initialize
-            AddressableAssetManager.Initialize().Completed += OnAASInitializeCompleted;
+            // MenuSelectSceneを読み込み
+            var loadSceneTask = AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
+            // GameDataManager初期化
+            var dataManagerInitTask = GameDataManager.Initialize();
 
-            // Database Initialize
-            GameDataManager.Initialize();
-        }
+            // 全部完了したら開始ボタンを表示
+            await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
 
-        /// <summary>
-        /// AASが初期化された直後に行うべきこと。
-        /// 1. MenuSelectSceneを読み込む
-        /// 2. MenuSelectSceneを読み込んだ直後にStartUpSceneをアンロード
-        /// </summary>
-        private void OnAASInitializeCompleted(AsyncOperationHandle handle)
-        {
-            var menuSelectSceneHandler = AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive);
-            menuSelectSceneHandler.Completed += async(handle2) => {
-                // TODO remove before merged
-                await Task.Delay(1000);
-                _startButton.SetActive(true);
-            };
+            _startButton.SetActive(true);
         }
 
         public void OnStartButtonClicked()

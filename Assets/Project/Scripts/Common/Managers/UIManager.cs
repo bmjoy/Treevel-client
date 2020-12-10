@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
@@ -43,16 +44,7 @@ namespace Treevel.Common.Managers
 
         private MessageDialog _messageDialog;
 
-        /// <summary>
-        /// 初期化済みかどうか
-        /// </summary>
-        public bool Initialized
-        {
-            get;
-            private set;
-        }
-
-        private void Awake()
+        public async void Awake()
         {
             DontDestroyOnLoad(gameObject);
 
@@ -69,21 +61,13 @@ namespace Treevel.Common.Managers
             var canvas = GetComponentInChildren<Canvas>().transform;
 
             // キャンバスの下にプログレスバーの実体を生成
-            _progressBar.InstantiateAsync(canvas).Completed += (obj) => {
-                ProgressBar = obj.Result.GetComponentInChildren<ProgressBar>();
-            };
+            var task1 = _progressBar.InstantiateAsync(canvas).ToUniTask();
+            var task2 = _messageDialogRef.InstantiateAsync(canvas).ToUniTask();
 
-            _messageDialogRef.InstantiateAsync(canvas).Completed += (obj) => {
-                _messageDialog = obj.Result.GetComponentInChildren<MessageDialog>();
-            };
-        }
+            var (progressBarGo, messageDialogGo) = await UniTask.WhenAll(task1, task2);
 
-        private void Update()
-        {
-            // TODO:UniRx導入したら複数タスク待ちの実装でやる（タスク待ちはUniTask？）
-            if (!Initialized) {
-                Initialized = (ProgressBar != null) && (_messageDialog != null);
-            }
+            ProgressBar = progressBarGo.GetComponentInChildren<ProgressBar>();
+            _messageDialog = messageDialogGo.GetComponentInChildren<MessageDialog>();
         }
 
         /// <summary>
