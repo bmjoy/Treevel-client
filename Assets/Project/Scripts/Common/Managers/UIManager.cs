@@ -44,7 +44,7 @@ namespace Treevel.Common.Managers
 
         private MessageDialog _messageDialog;
 
-        public async UniTask Initialize()
+        public async void Awake()
         {
             DontDestroyOnLoad(gameObject);
 
