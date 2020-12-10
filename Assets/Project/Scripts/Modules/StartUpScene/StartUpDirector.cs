@@ -14,7 +14,6 @@ namespace Treevel.Modules.StartUpScene
 
         private async void Start()
         {
-            var cancelToken = this.GetCancellationTokenOnDestroy();
             // Don't destroy EventSystem
             var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
             if (eventSystem != null)
@@ -41,8 +40,7 @@ namespace Treevel.Modules.StartUpScene
             var dataManagerInitTask = GameDataManager.Initialize();
 
             // 全部完了したら開始ボタンを表示
-            await UniTask.WhenAll(loadSceneTask, dataManagerInitTask)
-                .WithCancellation(cancelToken);
+            await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
 
             _startButton.SetActive(true);
         }
