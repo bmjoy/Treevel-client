@@ -120,6 +120,19 @@ MonoBehaviour:
     isSelfish: 0
     isDark: 0
     isReverse: 0
+  - type: 3
+    initPos: 3
+    targetPos: 0
+    bottleSprite:
+      m_AssetGUID: dced690fd94db4ea6990cf6eb1e723b6
+      m_SubObjectName: attackableDummy
+    targetTileSprite:
+      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
+      m_SubObjectName: numberTile8
+    life: 1
+    isSelfish: 0
+    isDark: 0
+    isReverse: 0
   gimmicks:
   - loop: 1
     appearTime: 1
