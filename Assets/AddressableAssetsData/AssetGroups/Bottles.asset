@@ -22,71 +22,78 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: 141dfdffa4c9e4962ab05c138b69881c, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 141dfdffa4c9e4962ab05c138b69881c, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 2a7e69dea5902413a99deaf07342f7dc
     m_Address: normalBottle_7
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: 2a7e69dea5902413a99deaf07342f7dc, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 2a7e69dea5902413a99deaf07342f7dc, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 77afffe8c8ad8478fac611078bf02cdd
     m_Address: normalBottle_2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: 77afffe8c8ad8478fac611078bf02cdd, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 77afffe8c8ad8478fac611078bf02cdd, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: bc5b41ad84210436b8d054663a3f2754
     m_Address: normalBottle_4
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: bc5b41ad84210436b8d054663a3f2754, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: bc5b41ad84210436b8d054663a3f2754, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: c348e85a0f3c642d6969c8eb3225b893
     m_Address: staticDummyBottle
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: c348e85a0f3c642d6969c8eb3225b893, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: c348e85a0f3c642d6969c8eb3225b893, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: c7e771d42b34e444cb9570cbace8f66b
     m_Address: normalBottle_1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: c7e771d42b34e444cb9570cbace8f66b, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: c7e771d42b34e444cb9570cbace8f66b, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: dc8347884678a4c3eab9a812d91f796f
     m_Address: normalBottle_3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: dc8347884678a4c3eab9a812d91f796f, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: dc8347884678a4c3eab9a812d91f796f, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: dced690fd94db4ea6990cf6eb1e723b6
+    m_Address: attackbleDummyBottle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bottles
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: fa2dda00e054449238d90541adcf68b8
     m_Address: normalBottle_8
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: fa2dda00e054449238d90541adcf68b8, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: fa2dda00e054449238d90541adcf68b8, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: fad0ddda9821b4c0eae4822e28fe654b
     m_Address: normalBottle_5
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: fad0ddda9821b4c0eae4822e28fe654b, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: fad0ddda9821b4c0eae4822e28fe654b, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: fd1c05083854b4e4f8cf9ab179f4c6b7
     m_Address: dynamicDummyBottle
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bottles
-    m_MainAsset: {fileID: 2800000, guid: fd1c05083854b4e4f8cf9ab179f4c6b7, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: fd1c05083854b4e4f8cf9ab179f4c6b7, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:

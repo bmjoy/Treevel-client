@@ -111,10 +111,8 @@ MonoBehaviour:
     m_Address: AimingMeteoritePrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
-      type: 3}
-    m_TargetAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 936e2c04f6f794ab58cfc0e303ef75c4
     m_Address: SandBackground
     m_ReadOnly: 0
@@ -176,7 +174,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: c992eb222563c460d84bff90f23a0b42
-    m_Address: Assets/Project/Prefabs/ProgressBar.prefab
+    m_Address: ProgressBar
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
