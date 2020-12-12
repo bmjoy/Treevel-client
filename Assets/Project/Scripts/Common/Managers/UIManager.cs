@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
@@ -44,7 +45,7 @@ namespace Treevel.Common.Managers
 
         private MessageDialog _messageDialog;
 
-        public async void Awake()
+        public async UniTask Initialize()
         {
             DontDestroyOnLoad(gameObject);
 
