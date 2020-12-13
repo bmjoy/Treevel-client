@@ -1,12 +1,11 @@
-using System;
+﻿using System;
 using System.Linq;
-using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 using Treevel.Common.Managers;
-using Treevel.Common.Utils;
 using Treevel.Modules.StageSelectScene;
+using UniRx;
 
 namespace Treevel.Modules.MenuSelectScene.Record
 {
@@ -88,6 +87,22 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
+            SetStageStatuses();
+
+            // ドロップダウンイベント登録
+            _dropdown.OnValueChangedAsObservable()
+                .Subscribe(selected =>
+                {
+                    _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+                    SetStageStatuses();
+                    SetupBarGraph();
+                }).AddTo(this);
+
+            SetupBarGraph();
+        }
+
+        private void SetStageStatuses()
+        {
             _stageStatuses = GameDataManager.GetStages(_currentTree)
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToArray();
@@ -95,8 +110,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
             var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
             var totalStageNum = _stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.magenta);
-
-            SetupBarGraph();
         }
 
         private void SetupBarGraph()
