@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
@@ -20,7 +20,7 @@ namespace Treevel.Modules.StartUpScene
                 DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize
-            await UIManager.Instance.AwakeAsync();
+            await UIManager.Instance.Initialize();
 
             // AppManager Initialize
             AppManager.OnApplicationStart();
