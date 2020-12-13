@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
@@ -75,7 +75,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 AddressableAssetManager.LoadScene(_currentSeason.GetSceneName());
             });
 
-            _dropdown.options = _currentSeason.GetTrees()
+            SetDropdownOptions(_currentSeason);
+        }
+
+        private void SetDropdownOptions(ESeasonId seasonId)
+        {
+            _dropdown.options = seasonId.GetTrees()
                 .Select(tree => new Dropdown.OptionData { text = Enum.GetName(typeof(ETreeId), tree) })
                 .ToList();
             _dropdown.RefreshShownValue();
