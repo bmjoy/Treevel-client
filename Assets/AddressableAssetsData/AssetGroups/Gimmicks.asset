@@ -17,34 +17,155 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 3e48c97493dc844d6a85d52003b3c119
   m_SerializeEntries:
+  - m_GUID: 0593c4ede4e4f4e91b2c9b27d92b2019
+    m_Address: SolarBeamPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 470725230576813243, guid: 0593c4ede4e4f4e91b2c9b27d92b2019,
+      type: 3}
+    m_TargetAsset: {fileID: 470725230576813243, guid: 0593c4ede4e4f4e91b2c9b27d92b2019,
+      type: 3}
+  - m_GUID: 0ed45840e88a448cfa0eb64fd45d7ad6
+    m_Address: MeteoriteWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 1368177469308104, guid: 0ed45840e88a448cfa0eb64fd45d7ad6,
+      type: 3}
+    m_TargetAsset: {fileID: 1368177469308104, guid: 0ed45840e88a448cfa0eb64fd45d7ad6,
+      type: 3}
+  - m_GUID: 187750991088a47b09988c392fc0009e
+    m_Address: TornadoWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 1368177469308104, guid: 187750991088a47b09988c392fc0009e,
+      type: 3}
+    m_TargetAsset: {fileID: 1368177469308104, guid: 187750991088a47b09988c392fc0009e,
+      type: 3}
   - m_GUID: 2b3fba1172beb421ca58c3f3e8f627cc
     m_Address: turnLeft
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Gimmick
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 2c3511c8a711d4f648ec477b2fe01aca
+    m_Address: TornadoPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 1336118223516990, guid: 2c3511c8a711d4f648ec477b2fe01aca,
+      type: 3}
+    m_TargetAsset: {fileID: 1336118223516990, guid: 2c3511c8a711d4f648ec477b2fe01aca,
+      type: 3}
+  - m_GUID: 358175ea13e4e4b71ad0826173ab32a8
+    m_Address: AimingMeteoriteWarningPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 1368177469308104, guid: 358175ea13e4e4b71ad0826173ab32a8,
+      type: 3}
+    m_TargetAsset: {fileID: 1368177469308104, guid: 358175ea13e4e4b71ad0826173ab32a8,
+      type: 3}
   - m_GUID: 3a6ee4cb038734117a9d7c29fc3aa2b1
     m_Address: TornadoWarning
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5dcf4b8cd16234d1ba989b504e6f823a
+    m_Address: FogPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 69a0bfe9ed7044c91a3b8119ad8ea2ee
     m_Address: turnUp
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 2800000, guid: 69a0bfe9ed7044c91a3b8119ad8ea2ee, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 69a0bfe9ed7044c91a3b8119ad8ea2ee, type: 3}
+  - m_GUID: 830116bc543a14264b53f8cacf4324cf
+    m_Address: SandPiledUpPowderPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 5946720881465410174, guid: 830116bc543a14264b53f8cacf4324cf,
+      type: 3}
+    m_TargetAsset: {fileID: 5946720881465410174, guid: 830116bc543a14264b53f8cacf4324cf,
+      type: 3}
+  - m_GUID: 864edba41a19b4040afa5d86f0b9857f
+    m_Address: MeteoritePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 1336118223516990, guid: 864edba41a19b4040afa5d86f0b9857f,
+      type: 3}
+    m_TargetAsset: {fileID: 1336118223516990, guid: 864edba41a19b4040afa5d86f0b9857f,
+      type: 3}
+  - m_GUID: 8be1f6b14d385471d9f6832b2b4d3e8b
+    m_Address: AimingMeteoritePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
+      type: 3}
+    m_TargetAsset: {fileID: 1336118223516990, guid: 8be1f6b14d385471d9f6832b2b4d3e8b,
+      type: 3}
+  - m_GUID: 936e2c04f6f794ab58cfc0e303ef75c4
+    m_Address: SandBackground
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 2800000, guid: 936e2c04f6f794ab58cfc0e303ef75c4, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 936e2c04f6f794ab58cfc0e303ef75c4, type: 3}
+  - m_GUID: a3d9fd1fd212b4ec6a2d5e4f6dc4e187
+    m_Address: ThunderPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 8954458054731302087, guid: a3d9fd1fd212b4ec6a2d5e4f6dc4e187,
+      type: 3}
+    m_TargetAsset: {fileID: 8954458054731302087, guid: a3d9fd1fd212b4ec6a2d5e4f6dc4e187,
+      type: 3}
   - m_GUID: b0081e359adba4495b37de176597ae07
     m_Address: turnRight
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 2800000, guid: b0081e359adba4495b37de176597ae07, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: b0081e359adba4495b37de176597ae07, type: 3}
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: bd437beea7ec54cb882658bd390a3e28
+    m_Address: GustWindPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: c95788da93b8a427293683b877aa83e5
     m_Address: turnBottom
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ccf73d1ef931d4256b7516d18a46d390
+    m_Address: SandParticle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d2341912f46804d3393d29a107de86ed
+    m_Address: PowderPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gimmick
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
