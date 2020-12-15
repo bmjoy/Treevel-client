@@ -2,6 +2,7 @@
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -16,6 +17,8 @@ namespace Treevel.Common.Managers
         /// 初期化フラグ
         /// </summary>
         private static bool _initialized = false;
+
+        public static readonly Subject<AsyncOperationHandle> OnAssetStartLoad = new Subject<AsyncOperationHandle>();
 
         /// <summary>
         /// アンロードのためにハンドルを一時保存
@@ -57,7 +60,7 @@ namespace Treevel.Common.Managers
 
             _loadedAssets.Add(key, op);
 
-            UIManager.Instance.ProgressBar.Load(op);
+            OnAssetStartLoad.OnNext(op);
 
             return op;
         }
@@ -106,8 +109,7 @@ namespace Treevel.Common.Managers
             //_loadedAssets.Add(sceneName, ret);
 
             // プログレスバーを表示
-            Debug.Log(UIManager.Instance.ProgressBar);
-            UIManager.Instance.ProgressBar.Load(ret);
+            OnAssetStartLoad.OnNext(ret);
 
             return ret;
         }

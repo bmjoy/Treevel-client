@@ -1,6 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Treevel.Common.Managers;
+using UniRx;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
@@ -35,6 +37,11 @@ namespace Treevel.Common.Components.UIs
         /// </summary>
         private List<AsyncOperationHandle> _loadingOps = new List<AsyncOperationHandle>();
 
+        /// <summary>
+        /// 購読解除用
+        /// </summary>
+        private IDisposable _onAssetLoadDisposable;
+
         public float Progress
         {
             get => _progress;
@@ -51,56 +58,36 @@ namespace Treevel.Common.Components.UIs
         public void Load(AsyncOperationHandle op)
         {
             _loadingOps.Add(op);
-            op.Completed += (op1 => {
-                _loadingOps.Remove(op1);
-            });
+            op.Completed += (op1 => _loadingOps.Remove(op1));
 
             if (!gameObject.activeSelf) {
                 gameObject.SetActive(true);
             }
         }
 
-        public void Load(ICollection<AsyncOperationHandle> ops)
+        private void OnDestroy()
         {
-            foreach (var op in ops) {
-                Load(op);
-            }
+            _onAssetLoadDisposable.Dispose();
         }
 
         private void Awake()
         {
             // イメージ、テキストを初期化
             Progress = 0;
+
+            // アセットロードするイベントを購読
+            _onAssetLoadDisposable = AddressableAssetManager.OnAssetStartLoad.Subscribe(Load);
         }
 
-        private void OnEnable()
+        private void Update()
         {
-            StartCoroutine(ShowProgress_Impl());
-        }
-
-        private void OnDisable()
-        {
-            _loadingOps.Clear();
-        }
-
-        private IEnumerator ShowProgress_Impl()
-        {
-            while (true) {
-                // 進捗の計算
-                var percent = _loadingOps.Select(op => op.PercentComplete).Sum() / _loadingOps.Count;
-
-                // Set Progress
-                Progress = percent;
-
-                // 全部終わったら終了
-                if (_loadingOps.All(op => op.IsDone)) {
-                    break;
-                }
-
-                yield return null;
+            if (_loadingOps.Count > 0) {
+                Progress = _loadingOps.Select(op => op.PercentComplete).Sum() / _loadingOps.Count;
             }
-
-            gameObject.SetActive(false);
+            else if (gameObject.activeSelf)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
