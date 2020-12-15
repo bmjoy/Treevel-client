@@ -22,8 +22,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 000f70e99e9e744fc85197b904552947, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 000f70e99e9e744fc85197b904552947, type: 2}
   - m_GUID: 01f93f152261349ae881c2ca6a33b25e
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Autumn_2/6.asset
     m_ReadOnly: 0
@@ -43,8 +43,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 037fdc96989f249339fc86425cee7575, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 037fdc96989f249339fc86425cee7575, type: 2}
   - m_GUID: 0803662de3aa547e18c189c71cf1bfb4
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Spring_3/4.asset
     m_ReadOnly: 0
@@ -71,8 +71,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 0d4ae34c0c5f94dd18575192c4afb966, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 0d4ae34c0c5f94dd18575192c4afb966, type: 2}
   - m_GUID: 0de39bb1cabf246aab07596b1072bf21
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_3/1.asset
     m_ReadOnly: 0
@@ -197,15 +197,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 2f545b4136ab948c4afda14881b0af7a, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 2f545b4136ab948c4afda14881b0af7a, type: 2}
   - m_GUID: 3579b68e982814daaa1098677b713ef9
     m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1/6.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 3579b68e982814daaa1098677b713ef9, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 3579b68e982814daaa1098677b713ef9, type: 2}
   - m_GUID: 37514a6ee75ca4331bdd27786759857c
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_2/8.asset
     m_ReadOnly: 0
@@ -253,15 +253,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 40c99fbdab68644d1a2d673f6b8b6ff3, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 40c99fbdab68644d1a2d673f6b8b6ff3, type: 2}
   - m_GUID: 41508d46f250849c5b82ab30f2e925b9
     m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_2/2.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 41508d46f250849c5b82ab30f2e925b9, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 41508d46f250849c5b82ab30f2e925b9, type: 2}
   - m_GUID: 42be2fc124fca48bc92f392791afd6b6
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_2/7.asset
     m_ReadOnly: 0
@@ -316,8 +316,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 4e0e93b0cd7a24564a088dea7f86125e, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 4e0e93b0cd7a24564a088dea7f86125e, type: 2}
   - m_GUID: 519a9319c35b74864b1760b7faabc2eb
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_3/5.asset
     m_ReadOnly: 0
@@ -470,15 +470,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 80f965afa4a944ee99d79343061962bc, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 80f965afa4a944ee99d79343061962bc, type: 2}
   - m_GUID: 83d546bb709d74d2884c0489f2b21fb3
     m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1/1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 83d546bb709d74d2884c0489f2b21fb3, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 83d546bb709d74d2884c0489f2b21fb3, type: 2}
   - m_GUID: 846fed9e6cebf49db83b42158bda1051
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_2/10.asset
     m_ReadOnly: 0
@@ -659,8 +659,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: b6d22d1ea2625477291111bc178a1657, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: b6d22d1ea2625477291111bc178a1657, type: 2}
   - m_GUID: bf003bc8360714572bbdab850fcad22e
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_2/4.asset
     m_ReadOnly: 0
@@ -764,8 +764,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: e7adfa3f7376c4acba0e84d33dbff57c, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: e7adfa3f7376c4acba0e84d33dbff57c, type: 2}
   - m_GUID: e82174cd0ea9a44d09a9ee3bdcc3bd6d
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_1/10.asset
     m_ReadOnly: 0
@@ -778,15 +778,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: e9e66da04ddfa4b8ab048dbb6ec0a7f9, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: e9e66da04ddfa4b8ab048dbb6ec0a7f9, type: 2}
   - m_GUID: ea87323e3cc994fe49fa3a80582a3696
     m_Address: Assets/Project/Resources_moved/GameDatas/Stages/Spring_1/7.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: ea87323e3cc994fe49fa3a80582a3696, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: ea87323e3cc994fe49fa3a80582a3696, type: 2}
   - m_GUID: eac00d282222242b68e4a7cdfde4465d
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Winter_1/9.asset
     m_ReadOnly: 0
@@ -820,8 +820,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Stage
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: f1f274f7d95914fb3837ed486594f6dd, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: f1f274f7d95914fb3837ed486594f6dd, type: 2}
   - m_GUID: f34525bb49daa4dbe8120f5c7c7bb4fe
     m_Address: Assets/Project/AddressableResources/GameDatas/Stages/Spring_2/7.asset
     m_ReadOnly: 0

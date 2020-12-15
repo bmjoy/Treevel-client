@@ -21,7 +21,7 @@ MonoBehaviour:
     targetPos: 4
     bottleSprite:
       m_AssetGUID: c7e771d42b34e444cb9570cbace8f66b
-      m_SubObjectName: normal_1
+      m_SubObjectName: normalBottle_1
     targetTileSprite:
       m_AssetGUID: 621ad890756e54e6d93e52c8911cfcc3
       m_SubObjectName: numberTile1
@@ -34,7 +34,7 @@ MonoBehaviour:
     targetPos: 5
     bottleSprite:
       m_AssetGUID: 77afffe8c8ad8478fac611078bf02cdd
-      m_SubObjectName: normal_2
+      m_SubObjectName: normalBottle_2
     targetTileSprite:
       m_AssetGUID: c9a3fc44eeb594f8dacee529949d6a51
       m_SubObjectName: numberTile2
@@ -47,7 +47,7 @@ MonoBehaviour:
     targetPos: 6
     bottleSprite:
       m_AssetGUID: dc8347884678a4c3eab9a812d91f796f
-      m_SubObjectName: normal_3
+      m_SubObjectName: normalBottle_3
     targetTileSprite:
       m_AssetGUID: f3cb79b18e6fa4e548c931f68d35a3e8
       m_SubObjectName: numberTile3
@@ -60,7 +60,7 @@ MonoBehaviour:
     targetPos: 7
     bottleSprite:
       m_AssetGUID: bc5b41ad84210436b8d054663a3f2754
-      m_SubObjectName: normal_4
+      m_SubObjectName: normalBottle_4
     targetTileSprite:
       m_AssetGUID: 75c32df0ab0684c329e34ac831a5c9b3
       m_SubObjectName: numberTile4
@@ -73,7 +73,7 @@ MonoBehaviour:
     targetPos: 8
     bottleSprite:
       m_AssetGUID: fad0ddda9821b4c0eae4822e28fe654b
-      m_SubObjectName: normal_5
+      m_SubObjectName: normalBottle_5
     targetTileSprite:
       m_AssetGUID: 6b27d5e8cb48e4d3b8e9df348aa185c6
       m_SubObjectName: numberTile5
@@ -86,7 +86,7 @@ MonoBehaviour:
     targetPos: 9
     bottleSprite:
       m_AssetGUID: 141dfdffa4c9e4962ab05c138b69881c
-      m_SubObjectName: normal_6
+      m_SubObjectName: normalBottle_6
     targetTileSprite:
       m_AssetGUID: 002d879f7321744279709540f5b88837
       m_SubObjectName: numberTile6
@@ -99,7 +99,7 @@ MonoBehaviour:
     targetPos: 10
     bottleSprite:
       m_AssetGUID: 2a7e69dea5902413a99deaf07342f7dc
-      m_SubObjectName: normal_7
+      m_SubObjectName: normalBottle_7
     targetTileSprite:
       m_AssetGUID: 7049c28bb2d914c02abfad034c3d08ca
       m_SubObjectName: numberTile7
@@ -112,7 +112,20 @@ MonoBehaviour:
     targetPos: 11
     bottleSprite:
       m_AssetGUID: fa2dda00e054449238d90541adcf68b8
-      m_SubObjectName: normal_8
+      m_SubObjectName: normalBottle_8
+    targetTileSprite:
+      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
+      m_SubObjectName: numberTile8
+    life: 1
+    isSelfish: 0
+    isDark: 0
+    isReverse: 0
+  - type: 3
+    initPos: 3
+    targetPos: 0
+    bottleSprite:
+      m_AssetGUID: dced690fd94db4ea6990cf6eb1e723b6
+      m_SubObjectName: attackableDummy
     targetTileSprite:
       m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
       m_SubObjectName: numberTile8

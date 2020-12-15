@@ -106,6 +106,7 @@ namespace Treevel.Common.Managers
             //_loadedAssets.Add(sceneName, ret);
 
             // プログレスバーを表示
+            Debug.Log(UIManager.Instance.ProgressBar);
             UIManager.Instance.ProgressBar.Load(ret);
 
             return ret;
