@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
@@ -159,50 +160,51 @@ namespace Treevel.Common.Managers
         /// </summary>
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
-        internal static void LoadStageDependencies(ETreeId treeId, int stageNumber)
+        internal static async UniTask LoadStageDependencies(ETreeId treeId, int stageNumber)
         {
             StageData stage = GameDataManager.GetStage(treeId, stageNumber);
 
+            var tasks = new List<UniTask>();
             stage.BottleDatas.ForEach((bottleData) => {
                 switch (bottleData.type) {
                     case EBottleType.Dynamic:
-                        LoadAsset<GameObject>(Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(Constants.Address.DYNAMIC_DUMMY_BOTTLE_SPRITE);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB).ToUniTask());
+                        tasks.Add(LoadAsset<Sprite>(Constants.Address.DYNAMIC_DUMMY_BOTTLE_SPRITE).ToUniTask());
                         break;
                     case EBottleType.Static:
-                        LoadAsset<GameObject>(Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(Constants.Address.STATIC_DUMMY_BOTTLE_SPRITE);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB).ToUniTask());
+                        tasks.Add(LoadAsset<Sprite>(Constants.Address.STATIC_DUMMY_BOTTLE_SPRITE).ToUniTask());
                         break;
                     case EBottleType.Normal:
-                        LoadAsset<GameObject>(Constants.Address.NORMAL_BOTTLE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.NORMAL_BOTTLE_PREFAB).ToUniTask());
                         break;
                     case EBottleType.AttackableDummy:
-                        LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB).ToUniTask());
                         break;
                     default:
                         throw new System.NotImplementedException();
                 }
-                if (bottleData.bottleSprite.RuntimeKeyIsValid()) LoadAsset<Sprite>(bottleData.bottleSprite);
+                if (bottleData.bottleSprite.RuntimeKeyIsValid()) tasks.Add(LoadAsset<Sprite>(bottleData.bottleSprite).ToUniTask());
                 // 対応するTileのSpriteを先に読み込む
-                if (bottleData.targetTileSprite.RuntimeKeyIsValid()) LoadAsset<Sprite>(bottleData.targetTileSprite);
+                if (bottleData.targetTileSprite.RuntimeKeyIsValid()) tasks.Add(LoadAsset<Sprite>(bottleData.targetTileSprite).ToUniTask());
             });
 
             stage.TileDatas.ForEach(tileData => {
                 switch (tileData.type) {
                     case ETileType.Normal:
-                        LoadAsset<GameObject>(Constants.Address.NORMAL_TILE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.NORMAL_TILE_PREFAB).ToUniTask());
                         break;
                     case ETileType.Warp:
-                        LoadAsset<GameObject>(Constants.Address.WARP_TILE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.WARP_TILE_PREFAB).ToUniTask());
                         break;
                     case ETileType.Holy:
-                        LoadAsset<GameObject>(Constants.Address.HOLY_TILE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.HOLY_TILE_PREFAB).ToUniTask());
                         break;
                     case ETileType.Spiderweb:
-                        LoadAsset<GameObject>(Constants.Address.SPIDERWEB_TILE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.SPIDERWEB_TILE_PREFAB).ToUniTask());
                         break;
                     case ETileType.Ice:
-                        LoadAsset<GameObject>(Constants.Address.ICE_TILE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.ICE_TILE_PREFAB).ToUniTask());
                         break;
                     default:
                         throw new System.NotImplementedException();
@@ -212,30 +214,30 @@ namespace Treevel.Common.Managers
             stage.GimmickDatas.ForEach(gimmick => {
                 switch (gimmick.type) {
                     case EGimmickType.Tornado:
-                        LoadAsset<GameObject>(Constants.Address.TORNADO_PREFAB);
-                        LoadAsset<Sprite>(Constants.Address.TORNADO_WARNING_SPRITE);
-                        LoadAsset<Sprite>(Constants.Address.TURN_WARNING_LEFT_SPRITE);
-                        LoadAsset<Sprite>(Constants.Address.TURN_WARNING_RIGHT_SPRITE);
-                        LoadAsset<Sprite>(Constants.Address.TURN_WARNING_UP_SPRITE);
-                        LoadAsset<Sprite>(Constants.Address.TURN_WARNING_BOTTOM_SPRITE);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.TORNADO_PREFAB).ToUniTask());
+                        tasks.Add(LoadAsset<Sprite>(Constants.Address.TORNADO_WARNING_SPRITE).ToUniTask());
+                        tasks.Add(LoadAsset<Sprite>(Constants.Address.TURN_WARNING_LEFT_SPRITE).ToUniTask());
+                        tasks.Add(LoadAsset<Sprite>(Constants.Address.TURN_WARNING_RIGHT_SPRITE).ToUniTask());
+                        tasks.Add(LoadAsset<Sprite>(Constants.Address.TURN_WARNING_UP_SPRITE).ToUniTask());
+                        tasks.Add(LoadAsset<Sprite>(Constants.Address.TURN_WARNING_BOTTOM_SPRITE).ToUniTask());
                         break;
                     case EGimmickType.Meteorite:
-                        LoadAsset<GameObject>(Constants.Address.METEORITE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.METEORITE_PREFAB).ToUniTask());
                         break;
                     case EGimmickType.AimingMeteorite:
-                        LoadAsset<GameObject>(Constants.Address.AIMING_METEORITE_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.AIMING_METEORITE_PREFAB).ToUniTask());
                         break;
                     case EGimmickType.Thunder:
-                        LoadAsset<GameObject>(Constants.Address.THUNDER_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.THUNDER_PREFAB).ToUniTask());
                         break;
                     case EGimmickType.SolarBeam:
-                        LoadAsset<GameObject>(Constants.Address.SOLAR_BEAM_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.SOLAR_BEAM_PREFAB).ToUniTask());
                         break;
                     case EGimmickType.GustWind:
-                        LoadAsset<GameObject>(Constants.Address.GUST_WIND_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.GUST_WIND_PREFAB).ToUniTask());
                         break;
                     case EGimmickType.Fog:
-                        LoadAsset<GameObject>(Constants.Address.FOG_PREFAB);
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.FOG_PREFAB).ToUniTask());
                         break;
                     case EGimmickType.Powder:
                         switch (treeId.GetSeasonId()) {
@@ -244,10 +246,10 @@ namespace Treevel.Common.Managers
                             case ESeasonId.Autumn:
                             case ESeasonId.Winter:
                                 // TODO: 季節ごとにアセットを変更する
-                                LoadAsset<Sprite>(Constants.Address.SAND_POWDER_BACKGROUND_SPRITE);
-                                LoadAsset<Material>(Constants.Address.SAND_POWDER_PARTICLE_MATERIAL);
-                                LoadAsset<GameObject>(Constants.Address.POWDER_PREFAB);
-                                LoadAsset<GameObject>(Constants.Address.SAND_PILED_UP_POWDER_PREFAB);
+                                tasks.Add(LoadAsset<Sprite>(Constants.Address.SAND_POWDER_BACKGROUND_SPRITE).ToUniTask());
+                                tasks.Add(LoadAsset<Material>(Constants.Address.SAND_POWDER_PARTICLE_MATERIAL).ToUniTask());
+                                tasks.Add(LoadAsset<GameObject>(Constants.Address.POWDER_PREFAB).ToUniTask());
+                                tasks.Add(LoadAsset<GameObject>(Constants.Address.SAND_PILED_UP_POWDER_PREFAB).ToUniTask());
                                 break;
                             default:
                                 throw new System.ArgumentOutOfRangeException();
@@ -257,6 +259,8 @@ namespace Treevel.Common.Managers
                         throw new System.ArgumentOutOfRangeException();
                 }
             });
+
+            await UniTask.WhenAll(tasks);
         }
     }
 }

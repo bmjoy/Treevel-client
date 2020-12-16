@@ -150,7 +150,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// ステージ選択画面からゲーム選択画面へ移動する
         /// </summary>
-        public void GoToGame(ETreeId treeId, int stageNumber)
+        public async void GoToGame(ETreeId treeId, int stageNumber)
         {
             // 挑戦回数をインクリメント
             var ss = StageStatus.Get(treeId, stageNumber);
@@ -166,7 +166,7 @@ namespace Treevel.Modules.StageSelectScene
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
 
-            AddressableAssetManager.LoadStageDependencies(treeId, stageNumber);
+            await AddressableAssetManager.LoadStageDependencies(treeId, stageNumber);
 
             // シーン遷移
             AddressableAssetManager.LoadScene(Constants.SceneName.GAME_PLAY_SCENE);
