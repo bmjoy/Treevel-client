@@ -23,7 +23,10 @@ namespace Treevel.Common.Networks.Requests
 
         protected override object GetData_Local()
         {
-            throw new System.NotImplementedException();
+            // デバッグ用
+            var stageStats = new StageStats(clearRate: 20f, minClearTime: 1f, stageID: "1-1");
+
+            return stageStats;
         }
     }
 }
