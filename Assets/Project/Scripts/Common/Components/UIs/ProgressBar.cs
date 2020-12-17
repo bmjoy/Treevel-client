@@ -37,11 +37,6 @@ namespace Treevel.Common.Components.UIs
         /// </summary>
         private List<AsyncOperationHandle> _loadingOps = new List<AsyncOperationHandle>();
 
-        /// <summary>
-        /// 購読解除用
-        /// </summary>
-        private IDisposable _onAssetLoadDisposable;
-
         public float Progress
         {
             get => _progress;
@@ -55,28 +50,21 @@ namespace Treevel.Common.Components.UIs
             }
         }
 
-        public void Load(AsyncOperationHandle op)
-        {
-            _loadingOps.Add(op);
-            op.Completed += (op1 => _loadingOps.Remove(op1));
-
-            if (!gameObject.activeSelf) {
-                gameObject.SetActive(true);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            _onAssetLoadDisposable.Dispose();
-        }
-
         private void Awake()
         {
             // イメージ、テキストを初期化
             Progress = 0;
 
             // アセットロードするイベントを購読
-            _onAssetLoadDisposable = AddressableAssetManager.OnAssetStartLoad.Subscribe(Load);
+            AddressableAssetManager.OnAssetStartLoad.Subscribe(op =>
+            {
+                _loadingOps.Add(op);
+                op.Completed += (op1 => _loadingOps.Remove(op1));
+
+                if (!gameObject.activeSelf) {
+                    gameObject.SetActive(true);
+                }
+            }).AddTo(this);
         }
 
         private void Update()

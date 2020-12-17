@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -19,7 +20,8 @@ namespace Treevel.Common.Managers
         /// </summary>
         private static bool _initialized = false;
 
-        public static readonly Subject<AsyncOperationHandle> OnAssetStartLoad = new Subject<AsyncOperationHandle>();
+        private static readonly Subject<AsyncOperationHandle> _onAssetStartLoadSubject = new Subject<AsyncOperationHandle>();
+        public static readonly IObservable<AsyncOperationHandle> OnAssetStartLoad = _onAssetStartLoadSubject.AsObservable();
 
         /// <summary>
         /// アンロードのためにハンドルを一時保存
@@ -61,7 +63,7 @@ namespace Treevel.Common.Managers
 
             _loadedAssets.Add(key, op);
 
-            OnAssetStartLoad.OnNext(op);
+            _onAssetStartLoadSubject.OnNext(op);
 
             return op;
         }
@@ -110,7 +112,7 @@ namespace Treevel.Common.Managers
             //_loadedAssets.Add(sceneName, ret);
 
             // プログレスバーを表示
-            OnAssetStartLoad.OnNext(ret);
+            _onAssetStartLoadSubject.OnNext(ret);
 
             return ret;
         }
