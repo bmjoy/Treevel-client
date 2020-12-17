@@ -36,11 +36,11 @@ namespace Treevel.Modules.StageSelectScene
 
             // クリア割合
             var clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Data").GetComponent<Text>();
-            clearPercentageText.text = $"{stats.clearRate * 100f:n2}%";
+            clearPercentageText.text = $"{stats.ClearRate * 100f:n2}%";
 
             // 最速クリアタイム
             var minClearTimeText = transform.Find("PanelBackground/StatusPanel/ShortestClearTime/Data").GetComponent<Text>();
-            var time = TimeSpan.FromSeconds(stats.minClearTime);
+            var time = TimeSpan.FromSeconds(stats.MinClearTime);
             minClearTimeText.text = $"{time.Minutes}:{time.Seconds}'{time.Milliseconds}";
 
             // 登場ギミック
