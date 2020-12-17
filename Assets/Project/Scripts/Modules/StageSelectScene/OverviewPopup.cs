@@ -2,6 +2,7 @@
 using Treevel.Common.Managers;
 using Treevel.Common.Networks.Objects;
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,12 +58,9 @@ namespace Treevel.Modules.StageSelectScene
 
             // ゲームを開始するボタン
             goToGameButton = transform.Find("PanelBackground/GoToGame").GetComponent<Button>();
-            goToGameButton.onClick.AddListener(() => StageSelectDirector.Instance.GoToGame(treeId, stageNumber));
-        }
-
-        private void OnDisable()
-        {
-            goToGameButton.onClick.RemoveAllListeners();
+            goToGameButton.OnClickAsObservable()
+                .Subscribe(_ => StageSelectDirector.Instance.GoToGame(treeId, stageNumber))
+                .AddTo(this);
         }
     }
 }
