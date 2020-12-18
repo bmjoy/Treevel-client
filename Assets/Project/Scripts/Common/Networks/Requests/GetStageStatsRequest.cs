@@ -24,7 +24,7 @@ namespace Treevel.Common.Networks.Requests
         protected override object GetData_Local()
         {
             // デバッグ用
-            var stageStats = new StageStats(clearRate: 20f, minClearTime: 1f, stageID: "1-1");
+            var stageStats = new StageStats(clearRate: 0.2f, minClearTime: 1f, stageID: "1-1");
 
             return stageStats;
         }
