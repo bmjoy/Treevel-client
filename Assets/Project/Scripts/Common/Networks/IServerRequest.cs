@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -34,7 +35,7 @@ namespace Treevel.Common.Networks
         /// </summary>
         public abstract void SetCache();
 
-        public async Task<object> GetData()
+        public async UniTask<object> GetData()
         {
             Debug.Assert(ServerRequest != null, "ServerRequest not implemented.");
 

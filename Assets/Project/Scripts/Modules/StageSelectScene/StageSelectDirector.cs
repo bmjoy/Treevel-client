@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using SnapScroll;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -10,6 +11,7 @@ using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.StageSelectScene
@@ -139,12 +141,15 @@ namespace Treevel.Modules.StageSelectScene
 
         public void ShowOverPopup(ETreeId treeId, int stageNumber)
         {
-            NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)), (data) => {
-                // ポップアップを初期化する
-                _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
-                // ポップアップを表示する
-                _overviewPopup.gameObject.SetActive(true);
-            });
+            NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)))
+                .ToObservable()
+                .Subscribe(data => {
+                    // ポップアップを初期化する
+                    _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats) data);
+                    // ポップアップを表示する
+                    _overviewPopup.gameObject.SetActive(true);
+                })
+                .AddTo(this);
         }
 
         /// <summary>
