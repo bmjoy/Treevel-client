@@ -74,6 +74,16 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 AddressableAssetManager.LoadScene(_currentSeason.GetSceneName());
             });
 
+            // ドロップダウンイベント登録
+            _dropdown.OnValueChangedAsObservable()
+                .Skip(1)
+                .Subscribe(selected =>
+                {
+                    _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+                    SetStageStatuses();
+                    SetupBarGraph();
+                }).AddTo(this);
+
             SetDropdownOptions(_currentSeason);
         }
 
@@ -88,16 +98,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void OnEnable()
         {
             SetStageStatuses();
-
-            // ドロップダウンイベント登録
-            _dropdown.OnValueChangedAsObservable()
-                .Subscribe(selected =>
-                {
-                    _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
-                    SetStageStatuses();
-                    SetupBarGraph();
-                }).AddTo(this);
-
             SetupBarGraph();
         }
 
