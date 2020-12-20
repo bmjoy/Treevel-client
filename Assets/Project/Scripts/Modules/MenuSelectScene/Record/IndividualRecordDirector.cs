@@ -67,8 +67,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _currentSeason = ESeasonId.Spring;
             _currentTree = _currentSeason.GetFirstTree();
 
-            _toStageSelectSceneButton.onClick.AddListener(() =>
-            {
+            _toStageSelectSceneButton.onClick.AddListener(() => {
                 StageSelectDirector.seasonId = _currentSeason;
                 StageSelectDirector.treeId = _currentTree;
                 AddressableAssetManager.LoadScene(_currentSeason.GetSceneName());
@@ -76,13 +75,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             // ドロップダウンイベント登録
             _dropdown.OnValueChangedAsObservable()
-                .Skip(1)
-                .Subscribe(selected =>
-                {
-                    _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
-                    SetStageStatuses();
-                    SetupBarGraph();
-                }).AddTo(this);
+            .Skip(1)
+            .Subscribe(selected => {
+                _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+                SetStageStatuses();
+                SetupBarGraph();
+            }).AddTo(this);
 
             var seasonToggles = FindObjectsOfType<SeasonSelectButton>();
             foreach (var seasonToggle in seasonToggles) {
@@ -105,8 +103,10 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void SetDropdownOptions(ESeasonId seasonId)
         {
             _dropdown.options = seasonId.GetTrees()
-                .Select(tree => new Dropdown.OptionData { text = Enum.GetName(typeof(ETreeId), tree) })
-                .ToList();
+            .Select(tree => new Dropdown.OptionData {
+                text = Enum.GetName(typeof(ETreeId), tree)
+            })
+            .ToList();
             _dropdown.RefreshShownValue();
         }
 
@@ -139,18 +139,17 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _graphAxisLabels[2].text = maxAxisLabelNum != _MAX_AXIS_LABEL_NUM ? maxAxisLabelNum.ToString() : maxAxisLabelNum + "+";
 
             _stageStatuses
-                .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
-                .ToList()
-                .ForEach(args =>
-                {
-                    var (graphBar, successNum, challengeNum) = args;
+            .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
+            .ToList()
+            .ForEach(args => {
+                var(graphBar, successNum, challengeNum) = args;
 
-                    graphBar.GetComponent<Image>().color = successNum > 0 ? Color.magenta : Color.gray;
+                graphBar.GetComponent<Image>().color = successNum > 0 ? Color.magenta : Color.gray;
 
-                    var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
-                    var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);
-                    graphBar.GetComponent<RectTransform>().anchorMax = new Vector2(1, anchorMaxY);
-                });
+                var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
+                var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);
+                graphBar.GetComponent<RectTransform>().anchorMax = new Vector2(1, anchorMaxY);
+            });
         }
     }
 }

@@ -20,8 +20,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void Awake()
         {
             _toggle = GetComponent<Toggle>();
-            _toggle.OnValueChangedAsObservable().Subscribe(selected =>
-            {
+            _toggle.OnValueChangedAsObservable().Subscribe(selected => {
                 var image = _toggle.targetGraphic.GetComponent<Image>();
                 if (selected)
                     image.color = _selectedColor;
