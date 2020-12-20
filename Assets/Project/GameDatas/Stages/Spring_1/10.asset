@@ -122,26 +122,26 @@ MonoBehaviour:
     isReverse: 0
   - type: 0
     initPos: 3
-    targetPos: 11
+    targetPos: 0
     bottleSprite:
-      m_AssetGUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-      m_SubObjectName: normalBottle8
+      m_AssetGUID: 
+      m_SubObjectName: 
     targetTileSprite:
-      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
-      m_SubObjectName: numberTile8
+      m_AssetGUID: 
+      m_SubObjectName: 
     life: 0
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 1
     initPos: 15
-    targetPos: 11
+    targetPos: 0
     bottleSprite:
-      m_AssetGUID: 96d23fdd7f95f4c40bc0ca4786de5beb
-      m_SubObjectName: normalBottle8
+      m_AssetGUID: 
+      m_SubObjectName: 
     targetTileSprite:
-      m_AssetGUID: b8f7dbec862e143b98cf342ad4b46952
-      m_SubObjectName: numberTile8
+      m_AssetGUID: 
+      m_SubObjectName: 
     life: 0
     isSelfish: 0
     isDark: 0

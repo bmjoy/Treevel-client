@@ -635,8 +635,16 @@ namespace Treevel.Editor
                     case SerializedPropertyType.Enum:
                         child.enumValueIndex = child.intValue = default;
                         break;
-                    case SerializedPropertyType.ObjectReference:
-                        child.objectReferenceValue = null;
+                    case SerializedPropertyType.Generic:
+                        var childCopy = child.Copy();
+                        var end = child.GetEndProperty(true);
+                        if (childCopy.Next(true)) {
+                            while (!SerializedProperty.EqualContents(childCopy, end)) {
+                                ResetData(childCopy);
+                                if (!childCopy.Next(false))
+                                    break;
+                            }
+                        }
                         break;
                 }
             }
