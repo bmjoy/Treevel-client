@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
     public class SeasonSelectButton : MonoBehaviour
     {
         [SerializeField] private Color _selectedColor;
+
+        /// <summary>
+        /// トグルに紐付ける季節
+        /// </summary>
+        public ESeasonId SeasonId => _seasonId;
+        [SerializeField] private ESeasonId _seasonId;
 
         private Toggle _toggle;
 

@@ -84,6 +84,21 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     SetupBarGraph();
                 }).AddTo(this);
 
+            var seasonToggles = FindObjectsOfType<SeasonSelectButton>();
+            foreach (var seasonToggle in seasonToggles) {
+                var toggle = seasonToggle.GetComponent<Toggle>();
+                toggle.OnValueChangedAsObservable()
+                .Subscribe(isOn => {
+                    if (!isOn) return;
+
+                    _currentSeason = seasonToggle.SeasonId;
+                    _currentTree = _currentSeason.GetFirstTree();
+                    SetDropdownOptions(_currentSeason);
+                    SetStageStatuses();
+                    SetupBarGraph();
+                }).AddTo(this);
+            }
+
             SetDropdownOptions(_currentSeason);
         }
 
