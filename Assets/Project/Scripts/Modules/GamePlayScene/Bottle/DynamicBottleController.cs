@@ -110,7 +110,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             GamePlayDirector.GameFailed += HandleGameFailed;
         }
 
-        protected virtual void OnDisable()
+        protected void OnDisable()
         {
             _flickGesture.Flicked -= HandleFlicked;
             GamePlayDirector.GameSucceeded -= HandleGameSucceeded;

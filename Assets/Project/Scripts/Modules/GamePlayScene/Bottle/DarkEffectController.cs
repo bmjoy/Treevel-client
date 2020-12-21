@@ -1,11 +1,12 @@
 ﻿using System;
 using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class DarkEffectController : MonoBehaviour
+    public class DarkEffectController : AbstractBottleEffectController
     {
         private NormalBottleController _bottleController;
 
@@ -30,8 +31,19 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            _bottleController.EnterTile += HandleEnterTile;
-            _bottleController.ExitTile += HandleExitTile;
+            _bottleController.EnterTile.Subscribe(targetTile => 
+            {
+                // タイルから移動した時の挙動
+                _isSuccess = _bottleController.IsSuccess();
+                _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
+            }).AddTo(eventDisposable, this);
+            
+            _bottleController.ExitTile.Subscribe(targetTile =>
+            {
+                // タイルから出る時の挙動
+                _isSuccess = _bottleController.IsSuccess();
+                _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
+            }).AddTo(eventDisposable, this);
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
             _bottleController.EndGame += HandleEndGame;
@@ -46,31 +58,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private void OnDestroy()
         {
-            _bottleController.EnterTile -= HandleEnterTile;
-            _bottleController.ExitTile -= HandleExitTile;
             _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
             _bottleController.releaseGesture.Released -= HandleReleased;
             _bottleController.EndGame -= HandleEndGame;
-        }
-
-        /// <summary>
-        /// タイルから移動した時の挙動
-        /// </summary>
-        /// <param name="targetTile"></param>
-        private void HandleEnterTile(GameObject targetTile)
-        {
-            _isSuccess = _bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-        }
-
-        /// <summary>
-        /// タイルから出る時の挙動
-        /// </summary>
-        /// <param name="targetTile"></param>
-        private void HandleExitTile(GameObject targetTile)
-        {
-            _isSuccess = _bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
         }
 
         /// <summary>
@@ -96,8 +86,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
 
-            _bottleController.EnterTile -= HandleEnterTile;
-            _bottleController.ExitTile -= HandleExitTile;
+            DisposeEvent();
+
             _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
             _bottleController.releaseGesture.Released -= HandleReleased;
             _bottleController.EndGame -= HandleEndGame;

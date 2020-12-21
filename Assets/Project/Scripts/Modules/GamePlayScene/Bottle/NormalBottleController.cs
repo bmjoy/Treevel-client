@@ -6,6 +6,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Tile;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -28,6 +29,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private SpriteGlowEffect _spriteGlowEffect;
 
+        private CompositeDisposable eventDisposable = new CompositeDisposable();
+
         protected override void Awake()
         {
             base.Awake();
@@ -38,15 +41,16 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void OnEnable()
         {
             base.OnEnable();
-            EnterTile += HandleEnterTile;
-            ExitTile += HandleExitTile;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            EnterTile -= HandleEnterTile;
-            ExitTile -= HandleExitTile;
+            EnterTile.Subscribe(_ => 
+            {
+                if (IsSuccess()) {
+                    DoWhenSuccess();
+                }
+            }).AddTo(eventDisposable, this);
+            ExitTile.Subscribe(_ =>
+            {
+                _spriteGlowEffect.enabled = false;
+            }).AddTo(eventDisposable, this);
         }
 
         /// <summary>
@@ -83,18 +87,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             finalTile.GetComponent<SpriteRendererUnifier>().Unify();
         }
 
-        private void HandleEnterTile(GameObject targetTile)
-        {
-            if (IsSuccess()) {
-                DoWhenSuccess();
-            }
-        }
-
-        private void HandleExitTile(GameObject targetTile)
-        {
-            _spriteGlowEffect.enabled = false;
-        }
-
         /// <summary>
         /// 目標タイルにいる時の処理
         /// </summary>
@@ -118,8 +110,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void EndProcess()
         {
             base.EndProcess();
-            EnterTile -= HandleEnterTile;
-            ExitTile -= HandleExitTile;
+            eventDisposable.Dispose();
         }
     }
 }
