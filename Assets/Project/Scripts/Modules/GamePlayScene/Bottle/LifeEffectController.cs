@@ -41,8 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.GetDamaged.Subscribe(gimmick => 
-            {
+            _bottleController.GetDamaged.Subscribe(gimmick => {
                 // ギミックに攻撃された時の処理
                 _life--;
                 if (_life < 0) {

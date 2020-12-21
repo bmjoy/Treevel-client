@@ -31,15 +31,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            _bottleController.EnterTile.Subscribe(targetTile => 
-            {
+            _bottleController.EnterTile.Subscribe(targetTile => {
                 // タイルから移動した時の挙動
                 _isSuccess = _bottleController.IsSuccess();
                 _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
             }).AddTo(eventDisposable, this);
-            
-            _bottleController.ExitTile.Subscribe(targetTile =>
-            {
+
+            _bottleController.ExitTile.Subscribe(targetTile => {
                 // タイルから出る時の挙動
                 _isSuccess = _bottleController.IsSuccess();
                 _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);

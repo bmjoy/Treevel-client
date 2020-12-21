@@ -8,7 +8,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     {
         protected CompositeDisposable eventDisposable = new CompositeDisposable();
 
-        protected void DisposeEvent() {
+        protected void DisposeEvent()
+        {
             eventDisposable.Dispose();
         }
     }
