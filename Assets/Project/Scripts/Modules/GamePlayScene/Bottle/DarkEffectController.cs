@@ -31,20 +31,22 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            _bottleController.EnterTile.Subscribe(targetTile => {
-                // タイルから移動した時の挙動
+            _bottleController.EnterTile.Subscribe(_ => {
                 _isSuccess = _bottleController.IsSuccess();
                 _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
             }).AddTo(eventDisposable, this);
-
-            _bottleController.ExitTile.Subscribe(targetTile => {
-                // タイルから出る時の挙動
+            _bottleController.ExitTile.Subscribe(_ => {
                 _isSuccess = _bottleController.IsSuccess();
                 _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
             }).AddTo(eventDisposable, this);
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.EndGame += HandleEndGame;
+            _bottleController.EndGame.Subscribe(_ => {
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                DisposeEvent();
+                _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
+                _bottleController.releaseGesture.Released -= HandleReleased;
+            }).AddTo(eventDisposable, this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Dark.GetOrderInLayer();
@@ -58,7 +60,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
             _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
         }
 
         /// <summary>
@@ -75,20 +76,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void HandleReleased(object sender, EventArgs e)
         {
             _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-        }
-
-        /// <summary>
-        /// ゲーム終了時の挙動
-        /// </summary>
-        private void HandleEndGame()
-        {
-            _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-
-            DisposeEvent();
-
-            _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
         }
     }
 }

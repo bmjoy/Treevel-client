@@ -5,6 +5,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Extensions;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,32 +34,20 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 移動開始時の処理
         /// </summary>
-        public event Action StartMove
-        {
-            add => _startMoveInvoker += value;
-            remove => _startMoveInvoker -= value;
-        }
-        private event Action _startMoveInvoker;
+        public IObservable<Unit> StartMove => _startMoveSubject;
+        private Subject<Unit> _startMoveSubject = new Subject<Unit>();
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
-        public event Action EndMove
-        {
-            add => _endMoveInvoker += value;
-            remove => _endMoveInvoker -= value;
-        }
-        private event Action _endMoveInvoker;
+        public IObservable<Unit> EndMove => _endMoveSubject;
+        private Subject<Unit> _endMoveSubject = new Subject<Unit>();
 
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        public event Action EndGame
-        {
-            add => _endGameInvoker += value;
-            remove => _endGameInvoker -= value;
-        }
-        private event Action _endGameInvoker;
+        public IObservable<Unit> EndGame => _endGameSubject;
+        private Subject<Unit> _endGameSubject = new Subject<Unit>();
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -150,14 +139,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
         {
             SetGesturesEnabled(false);
-            _startMoveInvoker?.Invoke();
+            _startMoveSubject.OnNext(Unit.Default);
 
             while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
 
-            _endMoveInvoker?.Invoke();
+            _endMoveSubject.OnNext(Unit.Default);
             SetGesturesEnabled(true);
 
             callback();
@@ -184,7 +173,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         protected virtual void EndProcess()
         {
-            _endGameInvoker?.Invoke();
+            _endGameSubject.OnNext(Unit.Default);
             _flickGesture.Flicked -= HandleFlicked;
             GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
             GamePlayDirector.GameFailed -= HandleGameFailed;

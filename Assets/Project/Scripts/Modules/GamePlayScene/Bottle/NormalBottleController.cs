@@ -29,7 +29,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private SpriteGlowEffect _spriteGlowEffect;
 
-        private CompositeDisposable eventDisposable = new CompositeDisposable();
+        /// <summary>
+        /// 購読解除クラス
+        /// </summary>
+        private CompositeDisposable _eventDisposable = new CompositeDisposable();
 
         protected override void Awake()
         {
@@ -45,10 +48,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 if (IsSuccess()) {
                     DoWhenSuccess();
                 }
-            }).AddTo(eventDisposable, this);
+            }).AddTo(_eventDisposable, this);
             ExitTile.Subscribe(_ => {
                 _spriteGlowEffect.enabled = false;
-            }).AddTo(eventDisposable, this);
+            }).AddTo(_eventDisposable, this);
         }
 
         /// <summary>
@@ -108,7 +111,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void EndProcess()
         {
             base.EndProcess();
-            eventDisposable.Dispose();
+            _eventDisposable.Dispose();
         }
     }
 }

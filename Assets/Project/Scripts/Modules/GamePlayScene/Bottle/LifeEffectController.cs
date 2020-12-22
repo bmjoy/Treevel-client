@@ -42,7 +42,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // イベントに処理を登録する
             _bottleController.GetDamaged.Subscribe(gimmick => {
-                // ギミックに攻撃された時の処理
                 _life--;
                 if (_life < 0) {
                     Debug.LogError("_currentLife が負の値になっている");
@@ -64,39 +63,26 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     // 失敗状態に移行する
                     GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
                 } else if (_life == 1) {
-                    // ループさせて危機感っぽい
+                    // 演出をループさせる
                     _bottleAnimator.SetBool(_ANIMATOR_PARAM_BOOL_ATTACKED_LOOP, true);
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
                 } else {
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
                 }
             }).AddTo(eventDisposable, this);
-            _bottleController.EndGame += HandleEndGame;
+            _bottleController.EndGame.Subscribe(_ => {
+                // 自身が破壊されていない場合はアニメーションを止める
+                if (!_isDead) {
+                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
+                    _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
+                }
+                DisposeEvent();
+            }).AddTo(eventDisposable, this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Life.GetOrderInLayer();
 
             _life = life;
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.EndGame -= HandleEndGame;
-        }
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        private void HandleEndGame()
-        {
-            // 自身が破壊されていない場合はアニメーションを止める
-            if (!_isDead) {
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-            }
-
-            DisposeEvent();
-            _bottleController.EndGame -= HandleEndGame;
         }
     }
 }
