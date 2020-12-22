@@ -6,11 +6,18 @@ using UnityEngine.UI;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.StageSelectScene;
+using UniRx;
+using UniRx.Triggers;
 
 namespace Treevel.Modules.MenuSelectScene.Record
 {
     public class IndividualRecordDirector : MonoBehaviour
     {
+        /// <summary>
+        /// [UI] グラフのポップアップ
+        /// </summary>
+        [SerializeField] private GameObject _graphPopup;
+
         /// <summary>
         /// [UI] "ステージクリア数" の prefab
         /// </summary>
@@ -59,6 +66,20 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 StageSelectDirector.treeId = ETreeId.Spring_1;
                 AddressableAssetManager.LoadScene(Constants.SceneName.SPRING_STAGE_SELECT_SCENE);
             });
+
+            _graphBars
+                // index の抽出
+                .Select((graphBar, index) => (graphBar, index)).ToList()
+                .ForEach(args => {
+                    var (graphBar, index) = args;
+
+                    graphBar.AddComponent<ObservableEventTrigger>()
+                        .OnPointerDownAsObservable()
+                        .Subscribe(_ => {
+                            _graphPopup.SetActive(!_graphPopup.activeSelf);
+                        })
+                        .AddTo(this);
+                });
         }
 
         private void OnEnable()
