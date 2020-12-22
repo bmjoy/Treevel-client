@@ -7,6 +7,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 {
     public class SeasonSelectButton : MonoBehaviour
     {
+        public Color SeasonColor => _selectedColor;
         [SerializeField] private Color _selectedColor;
 
         /// <summary>

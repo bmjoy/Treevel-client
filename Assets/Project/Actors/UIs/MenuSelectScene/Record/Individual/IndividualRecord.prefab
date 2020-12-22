@@ -266,6 +266,7 @@ MonoBehaviour:
   - {fileID: 8887103201162424024}
   _toStageSelectSceneButton: {fileID: 302925248661502918}
   _dropdown: {fileID: 302925249365143179}
+  _dropdownTemplate: {fileID: 302925250225020457}
 --- !u!1 &302925248395591758
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

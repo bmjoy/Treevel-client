@@ -52,6 +52,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         [SerializeField] private Dropdown _dropdown;
 
+        [SerializeField] private GameObject _dropdownTemplate;
+
         /// <summary>
         /// 現在表示している季節
         /// </summary>
@@ -91,6 +93,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
                     _currentSeason = seasonToggle.SeasonId;
                     _currentTree = _currentSeason.GetFirstTree();
+                    _dropdown.image.color = seasonToggle.SeasonColor;
+                    _dropdownTemplate.GetComponent<Image>().color = seasonToggle.SeasonColor;
+
                     SetDropdownOptions(_currentSeason);
                     SetStageStatuses();
                     SetupBarGraph();
