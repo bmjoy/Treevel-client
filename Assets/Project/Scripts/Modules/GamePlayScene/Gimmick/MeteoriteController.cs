@@ -154,7 +154,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
             if (_warningObj != null) {
                 _warningPrefab.ReleaseInstance(_warningObj);

@@ -135,7 +135,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             }
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
             Destroy(gameObject);
         }

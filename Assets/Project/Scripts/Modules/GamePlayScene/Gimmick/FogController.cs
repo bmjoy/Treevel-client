@@ -61,7 +61,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             yield return null;
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
             Destroy(gameObject);
         }

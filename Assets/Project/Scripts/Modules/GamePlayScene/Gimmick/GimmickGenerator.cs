@@ -6,6 +6,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -86,14 +87,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            GamePlayDirector.GameSucceeded += OnGameEnd;
-            GamePlayDirector.GameFailed += OnGameEnd;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= OnGameEnd;
-            GamePlayDirector.GameFailed -= OnGameEnd;
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ =>
+            {
+                OnGameEnd();
+            }).AddTo(this);
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ =>
+            {
+                OnGameEnd();
+            }).AddTo(this);
         }
 
         private void OnGameEnd()

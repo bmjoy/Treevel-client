@@ -53,9 +53,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _animator = GetComponent<Animator>();
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
-            base.OnEndGame();
+            base.OnGameEnd();
             _animator.speed = 0;
         }
 

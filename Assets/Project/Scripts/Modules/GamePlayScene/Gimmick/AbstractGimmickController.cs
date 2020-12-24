@@ -62,7 +62,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             OnEndGame();
         }
 
-        protected virtual void OnEndGame()
+        protected virtual void OnGameEnd()
         {
         }
     }

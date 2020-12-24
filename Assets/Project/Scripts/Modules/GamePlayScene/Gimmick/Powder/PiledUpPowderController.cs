@@ -79,7 +79,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             Destroy(gameObject);
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
             _eventDisposable.Dispose();
             // 自身が失敗原因でない場合はアニメーションを止める

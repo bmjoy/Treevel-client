@@ -386,7 +386,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
             _rigidBody.velocity = Vector2.zero;
 

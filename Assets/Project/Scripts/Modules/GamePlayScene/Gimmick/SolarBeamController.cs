@@ -133,7 +133,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             Destroy(gameObject);
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
             _animator.speed = 0;
         }

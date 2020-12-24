@@ -113,7 +113,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             SoundManager.Instance.PlaySE(ESEKey.SE_ThunderAttack);
         }
 
-        protected override void OnEndGame()
+        protected override void OnGameEnd()
         {
             // 動きを止める
             _rigidBody.velocity = Vector2.zero;
