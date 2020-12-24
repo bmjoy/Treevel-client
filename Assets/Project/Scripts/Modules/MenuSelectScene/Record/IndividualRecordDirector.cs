@@ -69,9 +69,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             _graphBars
                 // index の抽出
-                .Select((graphBar, index) => (graphBar, index)).ToList()
+                .Select((graphBar, index) => (graphBar, index + 1)).ToList()
                 .ForEach(args => {
-                    var (graphBar, index) = args;
+                    var (graphBar, stageNumber) = args;
 
                     graphBar.AddComponent<ObservableEventTrigger>()
                         .OnPointerDownAsObservable()
@@ -80,7 +80,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                                 _graphPopup.SetActive(false);
                             } else {
                                 _graphPopup.SetActive(true);
-                                _graphPopup.GetComponent<GraphPopupController>().Initialize(ETreeId.Spring_1, index + 1);
+                                _graphPopup.GetComponent<GraphPopupController>().Initialize(ETreeId.Spring_1, stageNumber);
                             }
                         })
                         .AddTo(this);
