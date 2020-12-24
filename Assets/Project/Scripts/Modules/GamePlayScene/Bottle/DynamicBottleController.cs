@@ -100,13 +100,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void OnEnable()
         {
             _flickGesture.Flicked += HandleFlicked;
-            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ =>
-            {
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => {
                 _endGameSubject.OnNext(Unit.Default);
                 EndProcess();
             }).AddTo(eventDisposable, this);
-            GamePlayDirector.Instance.GameFailed.Subscribe(_ =>
-            {
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ => {
                 _endGameSubject.OnNext(Unit.Default);
                 EndProcess();
             }).AddTo(eventDisposable, this);
@@ -152,8 +150,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             SetGesturesEnabled(false);
             _startMoveSubject.OnNext(Unit.Default);
 
-            while (transform.position != targetPosition)
-            {
+            while (transform.position != targetPosition) {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }

@@ -57,12 +57,10 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         private void OnEnable()
         {
-            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ =>
-            {
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => {
                 EndProcess();
             }).AddTo(this);
-            GamePlayDirector.Instance.GameFailed.Subscribe(_ =>
-            {
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ => {
                 EndProcess();
             }).AddTo(this);
         }
