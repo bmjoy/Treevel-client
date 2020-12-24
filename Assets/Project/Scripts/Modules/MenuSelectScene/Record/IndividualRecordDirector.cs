@@ -76,7 +76,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     graphBar.AddComponent<ObservableEventTrigger>()
                         .OnPointerDownAsObservable()
                         .Subscribe(_ => {
-                            _graphPopup.SetActive(!_graphPopup.activeSelf);
+                            if (_graphPopup.activeSelf) {
+                                _graphPopup.SetActive(false);
+                            } else {
+                                _graphPopup.SetActive(true);
+                                _graphPopup.GetComponent<GraphPopupController>().Initialize(ETreeId.Spring_1, index + 1);
+                            }
                         })
                         .AddTo(this);
                 });
