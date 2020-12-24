@@ -3,6 +3,7 @@ using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
@@ -30,6 +31,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => {
+                Destroy(gameObject);
+            }).AddTo(this);
         }
 
         public void Initialize(NormalBottleController bottleController)
@@ -71,12 +80,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             GamePlayDirector.Instance.failureReason = EGimmickType.Powder.GetFailureReason();
             // 失敗状態に移行する
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
-        }
-
-        protected override void HandleGameSucceeded()
-        {
-            base.HandleGameSucceeded();
-            Destroy(gameObject);
         }
 
         protected override void OnGameEnd()

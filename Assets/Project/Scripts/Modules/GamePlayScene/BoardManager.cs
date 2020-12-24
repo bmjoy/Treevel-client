@@ -6,6 +6,7 @@ using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Tile;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
@@ -39,24 +40,14 @@ namespace Treevel.Modules.GamePlayScene
 
         private void OnEnable()
         {
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
-        }
-
-        private void HandleGameSucceeded()
-        {
-            EndProcess();
-        }
-
-        private void HandleGameFailed()
-        {
-            EndProcess();
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ =>
+            {
+                EndProcess();
+            }).AddTo(this);
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ =>
+            {
+                EndProcess();
+            }).AddTo(this);
         }
 
         private void EndProcess()

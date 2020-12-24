@@ -87,12 +87,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ =>
-            {
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => {
                 OnGameEnd();
             }).AddTo(this);
-            GamePlayDirector.Instance.GameFailed.Subscribe(_ =>
-            {
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ => {
                 OnGameEnd();
             }).AddTo(this);
         }

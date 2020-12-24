@@ -33,19 +33,19 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// ギミックに攻撃されたときの挙動
         /// </summary>
         public IObservable<GameObject> GetDamaged => _getDamagedSubject;
-        private Subject<GameObject> _getDamagedSubject = new Subject<GameObject>();
+        private readonly Subject<GameObject> _getDamagedSubject = new Subject<GameObject>();
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
         public IObservable<GameObject> EnterTile => _enterTileSubject;
-        private Subject<GameObject> _enterTileSubject = new Subject<GameObject>();
+        private readonly Subject<GameObject> _enterTileSubject = new Subject<GameObject>();
 
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
         public IObservable<GameObject> ExitTile => _exitTileSubject;
-        private Subject<GameObject> _exitTileSubject = new Subject<GameObject>();
+        private readonly Subject<GameObject> _exitTileSubject = new Subject<GameObject>();
 
         /// <summary>
         /// 攻撃対象かどうか

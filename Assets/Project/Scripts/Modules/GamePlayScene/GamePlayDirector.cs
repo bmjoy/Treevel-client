@@ -13,6 +13,8 @@ using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using Treevel.Modules.GamePlayScene.Tile;
+using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -40,22 +42,14 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 成功時のイベント
         /// </summary>
-        public static event Action GameSucceeded
-        {
-            add => _gameSucceededInvoker += value;
-            remove => _gameSucceededInvoker -= value;
-        }
-        private static event Action _gameSucceededInvoker;
+        public IObservable<Unit> GameSucceeded => _gameSucceededSubject;
+        private readonly Subject<Unit> _gameSucceededSubject = new Subject<Unit>();
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
-        public static event Action GameFailed
-        {
-            add => _gameFailedInvoker += value;
-            remove => _gameFailedInvoker -= value;
-        }
-        private static event Action _gameFailedInvoker;
+        public IObservable<Unit> GameFailed => _gameFailedSubject;
+        private readonly Subject<Unit> _gameFailedSubject = new Subject<Unit>();
 
         /// <summary>
         /// ゲームの状態一覧
@@ -444,7 +438,7 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(true);
 
                 // 成功イベント
-                _gameSucceededInvoker?.Invoke();
+                Instance._gameSucceededSubject.OnNext(Unit.Default);
             }
 
             public override void OnExit(State to)
@@ -493,7 +487,7 @@ namespace Treevel.Modules.GamePlayScene
                     _failurePopup.SetActive(true);
 
                     // 失敗イベント
-                    _gameFailedInvoker?.Invoke();
+                    Instance._gameFailedSubject.OnNext(Unit.Default);
                 }
             }
 

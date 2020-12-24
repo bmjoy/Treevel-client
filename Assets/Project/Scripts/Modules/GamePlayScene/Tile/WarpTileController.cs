@@ -3,6 +3,7 @@ using TouchScript.Gestures;
 using Treevel.Common.Attributes;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
@@ -56,24 +57,14 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         private void OnEnable()
         {
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
-        }
-
-        private void HandleGameSucceeded()
-        {
-            EndProcess();
-        }
-
-        private void HandleGameFailed()
-        {
-            EndProcess();
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ =>
+            {
+                EndProcess();
+            }).AddTo(this);
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ =>
+            {
+                EndProcess();
+            }).AddTo(this);
         }
 
         private void EndProcess()

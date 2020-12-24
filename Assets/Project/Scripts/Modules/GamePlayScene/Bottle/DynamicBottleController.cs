@@ -35,19 +35,24 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// 移動開始時の処理
         /// </summary>
         public IObservable<Unit> StartMove => _startMoveSubject;
-        private Subject<Unit> _startMoveSubject = new Subject<Unit>();
+        private readonly Subject<Unit> _startMoveSubject = new Subject<Unit>();
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
         public IObservable<Unit> EndMove => _endMoveSubject;
-        private Subject<Unit> _endMoveSubject = new Subject<Unit>();
+        private readonly Subject<Unit> _endMoveSubject = new Subject<Unit>();
 
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
         public IObservable<Unit> EndGame => _endGameSubject;
-        private Subject<Unit> _endGameSubject = new Subject<Unit>();
+        private readonly Subject<Unit> _endGameSubject = new Subject<Unit>();
+
+        /// <summary>
+        /// 購読解除クラス
+        /// </summary>
+        protected readonly CompositeDisposable eventDisposable = new CompositeDisposable();
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -95,15 +100,21 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void OnEnable()
         {
             _flickGesture.Flicked += HandleFlicked;
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ =>
+            {
+                _endGameSubject.OnNext(Unit.Default);
+                EndProcess();
+            }).AddTo(eventDisposable, this);
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ =>
+            {
+                _endGameSubject.OnNext(Unit.Default);
+                EndProcess();
+            }).AddTo(eventDisposable, this);
         }
 
         protected void OnDisable()
         {
             _flickGesture.Flicked -= HandleFlicked;
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
         }
 
         /// <summary>
@@ -141,7 +152,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             SetGesturesEnabled(false);
             _startMoveSubject.OnNext(Unit.Default);
 
-            while (transform.position != targetPosition) {
+            while (transform.position != targetPosition)
+            {
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                 yield return new WaitForFixedUpdate();
             }
@@ -153,30 +165,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// ゲーム成功時の処理
-        /// </summary>
-        protected virtual void HandleGameSucceeded()
-        {
-            EndProcess();
-        }
-
-        /// <summary>
-        /// ゲーム失敗時の処理
-        /// </summary>
-        protected virtual void HandleGameFailed()
-        {
-            EndProcess();
-        }
-
-        /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        protected virtual void EndProcess()
+        private void EndProcess()
         {
             _endGameSubject.OnNext(Unit.Default);
             _flickGesture.Flicked -= HandleFlicked;
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
+            eventDisposable.Dispose();
         }
     }
 }

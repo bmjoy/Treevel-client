@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
+using UniRx;
+using UnityEditor.AddressableAssets.Build.BuildPipelineTasks;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -40,26 +42,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         public abstract IEnumerator Trigger();
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
-        }
-
-        protected virtual void HandleGameSucceeded()
-        {
-            OnEndGame();
-        }
-
-        protected virtual void HandleGameFailed()
-        {
-            OnEndGame();
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => {
+                OnGameEnd();
+            }).AddTo(this);
+            GamePlayDirector.Instance.GameFailed.Subscribe(_ => {
+                OnGameEnd();
+            }).AddTo(this);
         }
 
         protected virtual void OnGameEnd()
