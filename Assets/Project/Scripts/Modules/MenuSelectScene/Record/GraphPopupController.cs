@@ -20,6 +20,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         [SerializeField] private Text _clearRateText;
 
+        /// <summary>
+        /// 現在表示しているポップアップのステージ番号
+        /// </summary>
+        public int currentStageNumber;
+
         public async void Initialize(ETreeId treeId, int stageNumber)
         {
             // TODO: 季節が拡張されたら、季節に応じた色に設定する
@@ -31,6 +36,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
             var data = await NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)));
             var stageStats = (StageStats) data;
             _clearRateText.text = $"{stageStats.ClearRate * 100f:n2}";
+
+            currentStageNumber = stageNumber;
         }
     }
 }

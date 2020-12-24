@@ -76,11 +76,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     graphBar.AddComponent<ObservableEventTrigger>()
                         .OnPointerDownAsObservable()
                         .Subscribe(_ => {
-                            if (_graphPopup.activeSelf) {
+                            var graphPopupController = _graphPopup.GetComponent<GraphPopupController>();
+                            if (_graphPopup.activeSelf && graphPopupController.currentStageNumber == stageNumber) {
+                                // 再度同じステージ番号のグラフがタップされたら、ポップアップを閉じる
                                 _graphPopup.SetActive(false);
                             } else {
                                 _graphPopup.SetActive(true);
-                                _graphPopup.GetComponent<GraphPopupController>().Initialize(ETreeId.Spring_1, stageNumber);
+                                graphPopupController.Initialize(ETreeId.Spring_1, stageNumber);
                             }
                         })
                         .AddTo(this);
