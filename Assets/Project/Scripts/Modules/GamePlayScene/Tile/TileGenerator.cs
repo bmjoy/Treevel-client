@@ -53,8 +53,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                     case ETileType.Spiderweb:
                     case ETileType.Ice:
                         var task = AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask();
-                        task.ContinueWith(tileObj =>
-                        {
+                        task.ContinueWith(tileObj => {
                             tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
                             BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
                             tileObj.GetComponent<SpriteRenderer>().enabled = true;
@@ -78,11 +77,9 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             var firstTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask();
 
-            firstTask.ContinueWith(firstTile =>
-            {
+            firstTask.ContinueWith(firstTile => {
                 var secondTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask();
-                secondTask.ContinueWith(secondTile =>
-                {
+                secondTask.ContinueWith(secondTile => {
                     firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
                     secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
                     BoardManager.Instance.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);

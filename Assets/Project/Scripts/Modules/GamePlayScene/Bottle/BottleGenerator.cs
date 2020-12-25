@@ -25,8 +25,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     return;
 
                 var task = AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).ToUniTask();
-                task.ContinueWith(bottle =>
-                {
+                task.ContinueWith(bottle => {
                     bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
                 });
                 tasks.Add(task);
