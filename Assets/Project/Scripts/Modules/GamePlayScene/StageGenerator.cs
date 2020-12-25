@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using Treevel.Modules.GamePlayScene.Tile;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
@@ -25,18 +27,20 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
-        public static void CreateStages(ETreeId treeId, int stageNumber)
+        public static async void CreateStages(ETreeId treeId, int stageNumber)
         {
             CreatedFinished = false;
+            var tasks = new List<UniTask>();
 
             // ステージデータ読み込む
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
             if (stageData != null) {
-                // タイル生成
-                TileGenerator.Instance.CreateTiles(stageData.TileDatas);
-
-                // ボトル生成
-                BottleGenerator.CreateBottles(stageData.BottleDatas);
+                // タイル生成タスク
+                tasks.AddRange(TileGenerator.Instance.CreateTiles(stageData.TileDatas));
+                // ボトル生成タスク
+                tasks.AddRange(BottleGenerator.CreateBottles(stageData.BottleDatas));
+                // タスク実行
+                await UniTask.WhenAll(tasks);
 
                 // ギミック生成
                 GimmickGenerator.Instance.Initialize(stageData.GimmickDatas);

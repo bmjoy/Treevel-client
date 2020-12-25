@@ -5,6 +5,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
@@ -20,7 +21,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             {ETileType.Spiderweb, Constants.Address.SPIDERWEB_TILE_PREFAB},
         };
 
-        public async void CreateTiles(ICollection<TileData> tileDatas)
+        public List<UniTask> CreateTiles(ICollection<TileData> tileDatas)
         {
             // シーンに配置したノーマルタイルを初期化
             for (var tileNum = 1; tileNum <= Constants.StageSize.ROW * Constants.StageSize.COLUMN; ++tileNum) {
@@ -40,25 +41,32 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 currTile.GetComponent<SpriteRenderer>().enabled = true;
             }
 
+            var tasks = new List<UniTask>();
             foreach (var tileData in tileDatas) {
                 switch (tileData.type) {
                     case ETileType.Normal:
                         break;
                     case ETileType.Warp:
-                        CreateWarpTiles(tileData.number, tileData.pairNumber);
+                        tasks.Add(CreateWarpTiles(tileData.number, tileData.pairNumber));
                         break;
                     case ETileType.Holy:
                     case ETileType.Spiderweb:
                     case ETileType.Ice:
-                        var tileObj = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).Task;
-                        tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
-                        BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
-                        tileObj.GetComponent<SpriteRenderer>().enabled = true;
+                        var task = AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask();
+                        task.ContinueWith(tileObj =>
+                        {
+                            tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
+                            BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
+                            tileObj.GetComponent<SpriteRenderer>().enabled = true;
+                        });
+                        tasks.Add(task);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
+
+            return tasks;
         }
 
         /// <summary>
@@ -66,19 +74,26 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        private static async void CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private static UniTask<GameObject> CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
-            var firstTile = await AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).Task;
-            var secondTile = await AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).Task;
+            var firstTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask();
 
-            firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
-            secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
+            firstTask.ContinueWith(firstTile =>
+            {
+                var secondTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask();
+                secondTask.ContinueWith(secondTile =>
+                {
+                    firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
+                    secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
+                    BoardManager.Instance.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);
+                    BoardManager.Instance.SetTile(secondTile.GetComponent<AbstractTileController>(), secondTileNum);
 
-            BoardManager.Instance.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);
-            BoardManager.Instance.SetTile(secondTile.GetComponent<AbstractTileController>(), secondTileNum);
+                    firstTile.GetComponent<SpriteRenderer>().enabled = true;
+                    secondTile.GetComponent<SpriteRenderer>().enabled = true;
+                });
+            });
 
-            firstTile.GetComponent<SpriteRenderer>().enabled = true;
-            secondTile.GetComponent<SpriteRenderer>().enabled = true;
+            return firstTask;
         }
     }
 }
