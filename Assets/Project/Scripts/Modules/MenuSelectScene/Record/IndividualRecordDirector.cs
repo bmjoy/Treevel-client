@@ -153,7 +153,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             .ForEach(args => {
                 var(graphBar, successNum, challengeNum) = args;
 
-                graphBar.GetComponent<Image>().color = successNum > 0 ? Color.magenta : Color.gray;
+                graphBar.GetComponent<Image>().color = successNum > 0 ? _currentSeason.Value.GetColor() : Color.gray;
 
                 var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
                 var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);
