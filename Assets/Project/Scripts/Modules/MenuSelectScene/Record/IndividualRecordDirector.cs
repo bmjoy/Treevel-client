@@ -76,13 +76,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
             });
 
             // ドロップダウンイベント登録
-            _dropdown.OnValueChangedAsObservable()
-            .Skip(1)
-            .Subscribe(selected => {
-                _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
-                SetStageStatuses();
-                SetupBarGraph();
-            }).AddTo(this);
+            _dropdown.onValueChanged.AsObservable()
+                .Subscribe(selected => {
+                    _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+                    SetStageStatuses();
+                    SetupBarGraph();
+                }).AddTo(this);
 
             var seasonToggles = FindObjectsOfType<SeasonSelectButton>();
             foreach (var seasonToggle in seasonToggles) {
