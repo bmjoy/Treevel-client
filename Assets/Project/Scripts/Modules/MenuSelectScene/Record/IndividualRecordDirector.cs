@@ -97,11 +97,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     }).AddTo(this);
             }
 
-            _toStageSelectSceneButton.onClick.AddListener(() => {
-                StageSelectDirector.seasonId = _currentSeason.Value;
-                StageSelectDirector.treeId = _currentTree.Value;
-                AddressableAssetManager.LoadScene(_currentSeason.Value.GetSceneName());
-            });
+            _toStageSelectSceneButton.onClick.AsObservable()
+                .Subscribe(_ => {
+                    StageSelectDirector.seasonId = _currentSeason.Value;
+                    StageSelectDirector.treeId = _currentTree.Value;
+                    AddressableAssetManager.LoadScene(_currentSeason.Value.GetSceneName());
+                });
         }
 
         private void SetDropdownOptions(ESeasonId seasonId)
