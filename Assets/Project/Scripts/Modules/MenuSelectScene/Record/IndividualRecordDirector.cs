@@ -57,48 +57,51 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// <summary>
         /// 現在表示している季節
         /// </summary>
-        private ESeasonId _currentSeason;
+        private readonly ReactiveProperty<ESeasonId> _currentSeason = new ReactiveProperty<ESeasonId>(ESeasonId.Spring);
 
         /// <summary>
         /// 現在表示している木
         /// </summary>
-        private ETreeId _currentTree;
+        private readonly ReactiveProperty<ETreeId> _currentTree = new ReactiveProperty<ETreeId>();
 
         private void Awake()
         {
-            _currentSeason = ESeasonId.Spring;
-            _currentTree = _currentSeason.GetFirstTree();
+            _currentTree.Value = _currentSeason.Value.GetFirstTree();
 
-            _toStageSelectSceneButton.onClick.AddListener(() => {
-                StageSelectDirector.seasonId = _currentSeason;
-                StageSelectDirector.treeId = _currentTree;
-                AddressableAssetManager.LoadScene(_currentSeason.GetSceneName());
-            });
+            // 季節変更時の処理
+            _currentSeason.Subscribe(season => {
+                SetDropdownOptions(season);
+                _currentTree.Value = season.GetFirstTree();
+            }).AddTo(this);
 
-            // ドロップダウンイベント登録
+            // 木変更時の処理
+            _currentTree.Subscribe(tree => {
+                SetStageStatuses();
+                SetupBarGraph();
+            }).AddTo(this);
+
+            // 木UI制御
             _dropdown.onValueChanged.AsObservable()
                 .Subscribe(selected => {
-                    _currentTree = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
-                    SetStageStatuses();
-                    SetupBarGraph();
+                    _currentTree.Value = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
                 }).AddTo(this);
 
+            // 季節制御
             var seasonToggles = FindObjectsOfType<SeasonSelectButton>();
             foreach (var seasonToggle in seasonToggles) {
                 var toggle = seasonToggle.GetComponent<Toggle>();
                 toggle.OnValueChangedAsObservable()
                     .Where(isOn => isOn)
                     .Subscribe(isOn => {
-                        _currentSeason = seasonToggle.SeasonId;
-                        _currentTree = _currentSeason.GetFirstTree();
-
-                        SetDropdownOptions(_currentSeason);
-                        SetStageStatuses();
-                        SetupBarGraph();
+                        _currentSeason.Value = seasonToggle.SeasonId;
                     }).AddTo(this);
             }
 
-            SetDropdownOptions(_currentSeason);
+            _toStageSelectSceneButton.onClick.AddListener(() => {
+                StageSelectDirector.seasonId = _currentSeason.Value;
+                StageSelectDirector.treeId = _currentTree.Value;
+                AddressableAssetManager.LoadScene(_currentSeason.Value.GetSceneName());
+            });
         }
 
         private void SetDropdownOptions(ESeasonId seasonId)
@@ -109,6 +112,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 })
                 .ToList();
 
+            _dropdown.value = 0;
             _dropdownTemplate.GetComponent<Image>().color = seasonId.GetColor();
             _dropdown.image.color = seasonId.GetColor();
             _dropdown.RefreshShownValue();
@@ -122,7 +126,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void SetStageStatuses()
         {
-            _stageStatuses = GameDataManager.GetStages(_currentTree)
+            _stageStatuses = GameDataManager.GetStages(_currentTree.Value)
                 .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
                 .ToArray();
 
