@@ -87,18 +87,17 @@ namespace Treevel.Modules.MenuSelectScene.Record
             foreach (var seasonToggle in seasonToggles) {
                 var toggle = seasonToggle.GetComponent<Toggle>();
                 toggle.OnValueChangedAsObservable()
-                .Subscribe(isOn => {
-                    if (!isOn) return;
+                    .Where(isOn => isOn)
+                    .Subscribe(isOn => {
+                        _currentSeason = seasonToggle.SeasonId;
+                        _currentTree = _currentSeason.GetFirstTree();
+                        _dropdown.image.color = seasonToggle.SeasonColor;
+                        _dropdownTemplate.GetComponent<Image>().color = seasonToggle.SeasonColor;
 
-                    _currentSeason = seasonToggle.SeasonId;
-                    _currentTree = _currentSeason.GetFirstTree();
-                    _dropdown.image.color = seasonToggle.SeasonColor;
-                    _dropdownTemplate.GetComponent<Image>().color = seasonToggle.SeasonColor;
-
-                    SetDropdownOptions(_currentSeason);
-                    SetStageStatuses();
-                    SetupBarGraph();
-                }).AddTo(this);
+                        SetDropdownOptions(_currentSeason);
+                        SetStageStatuses();
+                        SetupBarGraph();
+                    }).AddTo(this);
             }
 
             SetDropdownOptions(_currentSeason);
