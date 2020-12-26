@@ -7,9 +7,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
 {
     public class SeasonSelectButton : MonoBehaviour
     {
-        public Color SeasonColor => _selectedColor;
-        [SerializeField] private Color _selectedColor;
-
         /// <summary>
         /// トグルに紐付ける季節
         /// </summary>
@@ -20,13 +17,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void Awake()
         {
+            var selectedColor = _seasonId.GetColor();
+
             _toggle = GetComponent<Toggle>();
-            _toggle.OnValueChangedAsObservable().Subscribe(selected => {
+            _toggle.OnValueChangedAsObservable().Subscribe(selected =>
+            {
                 var image = _toggle.targetGraphic.GetComponent<Image>();
-                if (selected)
-                    image.color = _selectedColor;
-                else
-                    image.color = Color.clear;
+                image.color = selected ? selectedColor : Color.clear;
             }).AddTo(this);
         }
     }

@@ -91,8 +91,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     .Subscribe(isOn => {
                         _currentSeason = seasonToggle.SeasonId;
                         _currentTree = _currentSeason.GetFirstTree();
-                        _dropdown.image.color = seasonToggle.SeasonColor;
-                        _dropdownTemplate.GetComponent<Image>().color = seasonToggle.SeasonColor;
 
                         SetDropdownOptions(_currentSeason);
                         SetStageStatuses();
@@ -106,10 +104,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void SetDropdownOptions(ESeasonId seasonId)
         {
             _dropdown.options = seasonId.GetTrees()
-            .Select(tree => new Dropdown.OptionData {
-                text = Enum.GetName(typeof(ETreeId), tree)
-            })
-            .ToList();
+                .Select(tree => new Dropdown.OptionData {
+                    text = Enum.GetName(typeof(ETreeId), tree)
+                })
+                .ToList();
+
+            _dropdownTemplate.GetComponent<Image>().color = seasonId.GetColor();
+            _dropdown.image.color = seasonId.GetColor();
             _dropdown.RefreshShownValue();
         }
 

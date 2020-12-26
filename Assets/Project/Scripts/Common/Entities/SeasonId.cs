@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Treevel.Common.Utils;
+using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
@@ -75,6 +76,23 @@ namespace Treevel.Common.Entities
         public static List<ETreeId> GetTrees(this ESeasonId seasonId)
         {
             return _TREES[seasonId];
+        }
+
+        public static Color GetColor(this ESeasonId seasonId)
+        {
+            switch (seasonId)
+            {
+                case ESeasonId.Spring:
+                    return new Color(219/255.0f, 19/255.0f,167/255.0f);
+                case ESeasonId.Summer:
+                    return new Color(162/255.0f, 255/255.0f,171/255.0f);
+                case ESeasonId.Autumn:
+                    return new Color(209/255.0f, 121/255.0f,74/255.0f);
+                case ESeasonId.Winter:
+                    return new Color(121/255.0f, 250/255.0f,255/255.0f);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
+            }
         }
     }
 }
