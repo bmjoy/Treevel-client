@@ -64,20 +64,17 @@ namespace Treevel.Common.Entities
             }
         }
 
+        private static readonly Dictionary<ESeasonId, List<ETreeId>> _TREES = new Dictionary<ESeasonId, List<ETreeId>>()
+        {
+            {ESeasonId.Spring, new List<ETreeId> {ETreeId.Spring_1, ETreeId.Spring_2, ETreeId.Spring_3}},
+            {ESeasonId.Summer, new List<ETreeId> {ETreeId.Summer_1, ETreeId.Summer_2, ETreeId.Summer_3}},
+            {ESeasonId.Autumn, new List<ETreeId> {ETreeId.Autumn_1, ETreeId.Autumn_2, ETreeId.Autumn_3}},
+            {ESeasonId.Winter, new List<ETreeId> {ETreeId.Winter_1, ETreeId.Winter_2, ETreeId.Winter_3}},
+        };
+
         public static List<ETreeId> GetTrees(this ESeasonId seasonId)
         {
-            switch (seasonId) {
-                case ESeasonId.Spring:
-                    return new List<ETreeId> {ETreeId.Spring_1, ETreeId.Spring_2, ETreeId.Spring_3};
-                case ESeasonId.Summer:
-                    return new List<ETreeId> {ETreeId.Summer_1, ETreeId.Summer_2, ETreeId.Summer_3};
-                case ESeasonId.Autumn:
-                    return new List<ETreeId> {ETreeId.Autumn_1, ETreeId.Autumn_2, ETreeId.Autumn_3};
-                case ESeasonId.Winter:
-                    return new List<ETreeId> {ETreeId.Winter_1, ETreeId.Winter_2, ETreeId.Winter_3};
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
-            }
+            return _TREES[seasonId];
         }
     }
 }
