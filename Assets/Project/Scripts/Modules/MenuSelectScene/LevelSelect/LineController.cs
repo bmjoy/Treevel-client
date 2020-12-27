@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -42,6 +43,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         [SerializeField] [Range(0, 0.2f)] protected float width;
 
         /// <summary>
+        /// 拡大率
+        /// </summary>
+        public ReactiveProperty<float> Scale = new ReactiveProperty<float>(1f);
+
+        /// <summary>
         /// 道の長さ
         /// </summary>
         protected float lineLength = 0f;
@@ -61,6 +67,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected virtual void Awake()
         {
             SetSaveKey();
+            Scale.Subscribe(_ => {
+                lineRenderer.startWidth = lineRenderer.endWidth = (float) Screen.width * width * Scale.Value;
+            }).AddTo(this);
         }
 
         protected virtual void Start()
@@ -85,7 +94,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             if (lineRenderer == null) return;
             lineRenderer.positionCount = _middlePointNum + 2;
-            lineRenderer.startWidth = lineRenderer.endWidth = (float)Screen.width * width;
+            lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * Scale.Value;
 
             var startPointLocalPosition = startObject.transform.localPosition;
             var endPointLocalPosition = endObject.transform.localPosition;

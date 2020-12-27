@@ -57,7 +57,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <param name="scale"> 拡大率 </param>
         public void ScaleRoad(float scale)
         {
-            _roads.ForEach(road => road.ScaleWidth(scale));
+            _roads.ForEach(road => road.Scale.Value = scale);
         }
     }
 }
