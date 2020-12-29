@@ -148,17 +148,17 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _graphAxisLabels[2].text = maxAxisLabelNum != _MAX_AXIS_LABEL_NUM ? maxAxisLabelNum.ToString() : maxAxisLabelNum + "+";
 
             _stageStatuses
-            .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
-            .ToList()
-            .ForEach(args => {
-                var(graphBar, successNum, challengeNum) = args;
+                .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
+                .ToList()
+                .ForEach(args => {
+                    var(graphBar, successNum, challengeNum) = args;
 
-                graphBar.GetComponent<Image>().color = successNum > 0 ? _currentSeason.Value.GetColor() : Color.gray;
+                    graphBar.GetComponent<Image>().color = successNum > 0 ? _currentSeason.Value.GetColor() : Color.gray;
 
-                var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
-                var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);
-                graphBar.GetComponent<RectTransform>().anchorMax = new Vector2(1, anchorMaxY);
-            });
+                    var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
+                    var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);
+                    graphBar.GetComponent<RectTransform>().anchorMax = new Vector2(1, anchorMaxY);
+                });
         }
     }
 }
