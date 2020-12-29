@@ -1,4 +1,5 @@
 ﻿using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,16 +19,8 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             _BGMSlider.onValueChanged.AddListener(delegate {
                 ValueChangeCheck();
             });
-        }
 
-        private void OnEnable()
-        {
-            ToDefaultController.OnUpdate += OnUpdate;
-        }
-
-        private void OnDisable()
-        {
-            ToDefaultController.OnUpdate -= OnUpdate;
+            ToDefaultController.OnToDefaultClicked.Subscribe(_ => OnUpdate()).AddTo(this);
         }
 
         /// <summary>

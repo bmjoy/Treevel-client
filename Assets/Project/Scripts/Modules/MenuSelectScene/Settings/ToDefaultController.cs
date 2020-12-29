@@ -1,4 +1,6 @@
-﻿using Treevel.Common.Entities;
+﻿using System;
+using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.Settings
@@ -10,7 +12,8 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// <summary>
         /// デフォルトボタンが押された際のイベント
         /// </summary>
-        public static event ChangeAction OnUpdate;
+        private static readonly Subject<Unit> _onToDefaultClickedSubject = new Subject<Unit>();
+        public static readonly IObservable<Unit> OnToDefaultClicked = _onToDefaultClickedSubject.AsObservable();
 
         /// <summary>
         /// デフォルトに戻すボタンを押した場合の処理
@@ -21,7 +24,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             UserSettings.ToDefault();
 
             // Canvasの更新
-            OnUpdate?.Invoke();
+            _onToDefaultClickedSubject.OnNext(Unit.Default);
         }
     }
 }
