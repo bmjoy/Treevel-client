@@ -1,6 +1,7 @@
 ﻿using SnapScroll;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,32 +35,23 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // ページの横幅の設定
             _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
 
-            _shareButton.onClick.AddListener(ShareRecord);
-            _toIndividualButton.onClick.AddListener(MoveToRight);
-            _toGeneralButton.onClick.AddListener(MoveToLeft);
+            _shareButton.onClick.AsObservable().Subscribe(_ => ShareRecord()).AddTo(this);
+            _toIndividualButton.onClick.AsObservable().Subscribe(_ => MoveToRight()).AddTo(this);
+            _toGeneralButton.onClick.AsObservable().Subscribe(_ => MoveToLeft()).AddTo(this);
+
+            // スクロール時のイベント
+            Observable.FromEvent(
+                h => _snapScrollView.OnPageChanged += HandleOnPageChanged,
+                h => _snapScrollView.OnPageChanged -= HandleOnPageChanged
+            ).Subscribe().AddTo(this);
 
             _toGeneralButton.gameObject.SetActive(false);
         }
 
-        private void OnEnable()
-        {
-            _snapScrollView.OnPageChanged += HandleOnPageChanged;
-        }
-
-        private void OnDisable()
-        {
-            _snapScrollView.OnPageChanged -= HandleOnPageChanged;
-        }
-
         private void HandleOnPageChanged()
         {
-            if (_snapScrollView.Page == 0) {
-                _toIndividualButton.gameObject.SetActive(true);
-                _toGeneralButton.gameObject.SetActive(false);
-            } else {
-                _toIndividualButton.gameObject.SetActive(false);
-                _toGeneralButton.gameObject.SetActive(true);
-            }
+            _toIndividualButton.gameObject.SetActive(_snapScrollView.Page == 0);
+            _toGeneralButton.gameObject.SetActive(_snapScrollView.Page != 0);
         }
 
         private static void ShareRecord()
