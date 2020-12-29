@@ -17,13 +17,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void Awake()
         {
-            var selectedColor = _seasonId.GetColor();
-
             _toggle = GetComponent<Toggle>();
             _toggle.OnValueChangedAsObservable().Subscribe(selected =>
             {
                 var image = _toggle.targetGraphic.GetComponent<Image>();
-                image.color = selected ? selectedColor : Color.clear;
+                image.color = selected ? _seasonId.GetColor() : Color.clear;
             }).AddTo(this);
         }
     }
