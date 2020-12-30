@@ -51,17 +51,6 @@ namespace Treevel.Common.Entities
             _SEVolume.Value = volume;
             SoundManager.Instance.ResetVolume();
         }
-        // private static float _SEVolume = PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME);
-        //
-        // public static float SEVolume
-        // {
-        //     get => _SEVolume;
-        //     set {
-        //         _SEVolume = value;
-        //         PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, _SEVolume);
-        //         SoundManager.Instance.ResetVolume();
-        //     }
-        // }
 
         private static int _stageDetails = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, Default.STAGE_DETAILS);
 
