@@ -8,18 +8,16 @@ namespace Treevel.Common.Entities
 {
     public static class UserSettings
     {
-        private static ELanguage _currentLanguage;
+        public static IReadOnlyReactiveProperty<ELanguage> CurrentLanguage => _currentLanguage;
+        private static readonly ReactiveProperty<ELanguage> _currentLanguage;
 
-        public static ELanguage CurrentLanguage
+        public static void SetLanguage(ELanguage language)
         {
-            get => _currentLanguage;
-            set {
-                _currentLanguage = value;
-                LanguageUtility.OnLanguageChange?.Invoke();
+            if (language == _currentLanguage.Value)
+                return;
 
-                // PlayerPrefsに保存
-                PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, _currentLanguage);
-            }
+            _currentLanguage.Value = language;
+            PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, _currentLanguage.Value);
         }
 
         public static IReadOnlyReactiveProperty<float> BGMVolume => _BGMVolume;
@@ -88,12 +86,14 @@ namespace Treevel.Common.Entities
         static UserSettings()
         {
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LANGUAGE)) {
-                _currentLanguage = PlayerPrefsUtility.GetObject<ELanguage>(Constants.PlayerPrefsKeys.LANGUAGE);
+                _currentLanguage = new ReactiveProperty<ELanguage>(
+                    PlayerPrefsUtility.GetObject<ELanguage>(Constants.PlayerPrefsKeys.LANGUAGE));
             } else {
                 var systemLanguage = Application.systemLanguage.ToString();
-                if (!Enum.TryParse(systemLanguage, out _currentLanguage)) {
-                    _currentLanguage = Default.LANGUAGE;
+                if (!Enum.TryParse(systemLanguage, out ELanguage initLanguage)) {
+                    initLanguage = Default.LANGUAGE;
                 }
+                _currentLanguage = new ReactiveProperty<ELanguage>(initLanguage);
             }
 
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION)) {

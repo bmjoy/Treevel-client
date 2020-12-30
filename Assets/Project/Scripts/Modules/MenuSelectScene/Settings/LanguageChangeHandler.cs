@@ -13,7 +13,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         [SerializeField] private ELanguage language;
         public void OnPointerClick(PointerEventData eventData)
         {
-            UserSettings.CurrentLanguage = language;
+            UserSettings.SetLanguage(language);
         }
     }
 }

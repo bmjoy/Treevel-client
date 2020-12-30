@@ -57,7 +57,7 @@ namespace Treevel.Common.Utils
         }
         public static string GetText(ETextIndex index)
         {
-            var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.CurrentLanguage, index);
+            var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.CurrentLanguage.Value, index);
             if (_stringTable.ContainsKey(key)) {
                 return _stringTable[key];
             } else {

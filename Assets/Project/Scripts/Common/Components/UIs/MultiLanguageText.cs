@@ -1,5 +1,6 @@
 ﻿using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,14 +46,8 @@ namespace Treevel.Common.Components.UIs
             base.Awake();
 
             // 言語変更するイベントを登録する
-            LanguageUtility.OnLanguageChange += OnLanguageChanged;
+            UserSettings.CurrentLanguage.Subscribe(_ => OnLanguageChanged()).AddTo(this);
             text = LanguageUtility.GetText(TextIndex);
-        }
-
-        protected override void OnDestroy()
-        {
-            LanguageUtility.OnLanguageChange -= OnLanguageChanged;
-            base.OnDestroy();
         }
     }
 }
