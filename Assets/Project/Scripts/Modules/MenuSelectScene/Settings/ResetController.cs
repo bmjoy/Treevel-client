@@ -30,11 +30,11 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             UIManager.Instance.CreateOkCancelMessageDialog(
                 ETextIndex.RecordResetConfirmDialogMessage,
                 ETextIndex.MessageDlgOkBtnText,
-                Reset_Impl
+                ResetData
             );
         }
 
-        private static void Reset_Impl()
+        private static void ResetData()
         {
             // 全ステージをリセット
             StageStatus.Reset();
