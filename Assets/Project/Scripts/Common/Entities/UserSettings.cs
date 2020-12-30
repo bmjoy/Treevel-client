@@ -1,6 +1,7 @@
 ﻿using System;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Common.Entities
@@ -21,29 +22,46 @@ namespace Treevel.Common.Entities
             }
         }
 
-        private static float _BGMVolume = PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME);
+        public static IReadOnlyReactiveProperty<float> BGMVolume => _BGMVolume;
 
-        public static float BGMVolume
+        private static readonly FloatReactiveProperty _BGMVolume =
+            new FloatReactiveProperty(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME));
+
+        public static void SetBGMVolume(float volume)
         {
-            get => _BGMVolume;
-            set {
-                _BGMVolume = value;
-                PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, _BGMVolume);
-                SoundManager.Instance.ResetVolume();
-            }
+            volume = Mathf.Clamp(volume, 0.0f, 1.0f);
+            if (volume.Equals(_BGMVolume.Value))
+                return;
+
+            _BGMVolume.Value = volume;
+            SoundManager.Instance.ResetVolume();
         }
 
-        private static float _SEVolume = PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME);
+        public static IReadOnlyReactiveProperty<float> SEVolume => _SEVolume;
 
-        public static float SEVolume
+        private static readonly FloatReactiveProperty _SEVolume =
+            new FloatReactiveProperty(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME));
+
+        public static void SetSEVolume(float volume)
         {
-            get => _SEVolume;
-            set {
-                _SEVolume = value;
-                PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, _SEVolume);
-                SoundManager.Instance.ResetVolume();
-            }
+            volume = Mathf.Clamp(volume, 0.0f, 1.0f);
+            if (volume.Equals(_BGMVolume.Value))
+                return;
+
+            _SEVolume.Value = volume;
+            SoundManager.Instance.ResetVolume();
         }
+        // private static float _SEVolume = PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME);
+        //
+        // public static float SEVolume
+        // {
+        //     get => _SEVolume;
+        //     set {
+        //         _SEVolume = value;
+        //         PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, _SEVolume);
+        //         SoundManager.Instance.ResetVolume();
+        //     }
+        // }
 
         private static int _stageDetails = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, Default.STAGE_DETAILS);
 
@@ -102,8 +120,8 @@ namespace Treevel.Common.Entities
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.SE_VOLUME);
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STAGE_DETAILS);
 
-            BGMVolume = Default.BGM_VOLUME;
-            SEVolume = Default.SE_VOLUME;
+            SetBGMVolume(Default.BGM_VOLUME);
+            SetSEVolume(Default.SE_VOLUME);
             StageDetails = Default.STAGE_DETAILS;
         }
     }
