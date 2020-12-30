@@ -67,8 +67,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected virtual void Awake()
         {
             SetSaveKey();
-            Scale.Subscribe(_ => {
-                lineRenderer.startWidth = lineRenderer.endWidth = (float) Screen.width * width * Scale.Value;
+            Scale.Subscribe(scale => {
+                lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * scale;
             }).AddTo(this);
         }
 
