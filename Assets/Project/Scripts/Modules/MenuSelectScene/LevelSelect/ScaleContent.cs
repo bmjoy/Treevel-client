@@ -2,6 +2,7 @@
 using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,6 +52,15 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _contentRect = GetComponent<ScrollRect>().content;
             _transformGesture = GetComponent<TransformGesture>();
             _scaledCanvas = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA;
+
+            Observable.Merge(
+                Observable.FromEvent(
+                    _ => _transformGesture.TransformStarted += OnTransformStarted,
+                    _ => _transformGesture.TransformStarted -= OnTransformStarted),
+                Observable.FromEvent(
+                    _ => _transformGesture.Transformed += OnTransformed,
+                    _ => _transformGesture.Transformed -= OnTransformed)
+            ).Subscribe().AddTo(this);
         }
 
         private void OnEnable()
@@ -59,17 +69,10 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _contentRect.localScale = new Vector2(_preScale, _preScale);
             // 道の拡大縮小
             LevelSelectDirector.Instance.ScaleRoad(_preScale);
-            // 2点のタッチ開始時
-            _transformGesture.TransformStarted += OnTransformStarted;
-            // 2点のタッチ中
-            _transformGesture.Transformed += OnTransformed;
         }
 
         private void OnDisable()
         {
-            _transformGesture.TransformStarted -= OnTransformStarted;
-            _transformGesture.Transformed -= OnTransformed;
-
             UserSettings.LevelSelectCanvasScale = _preScale;
         }
 
