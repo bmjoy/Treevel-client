@@ -76,12 +76,14 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             // 季節変更時の処理
             _currentSeason.Subscribe(season => {
+                _graphPopup.SetActive(false);
                 SetDropdownOptions(season);
                 _currentTree.Value = season.GetFirstTree();
             }).AddTo(this);
 
             // 木変更時の処理
             _currentTree.Subscribe(tree => {
+                _graphPopup.SetActive(false);
                 SetStageStatuses();
                 SetupBarGraph();
             }).AddTo(this);
@@ -126,7 +128,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                             } else {
                                 var positionX = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position.x;
                                 _graphPopup.SetActive(true);
-                                graphPopupController.Initialize(ETreeId.Spring_1, stageNumber, positionX);
+                                graphPopupController.Initialize(_currentSeason.Value, _currentTree.Value, stageNumber, positionX);
                             }
                         })
                         .AddTo(this);

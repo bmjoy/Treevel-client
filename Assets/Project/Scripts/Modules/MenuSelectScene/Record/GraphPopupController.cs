@@ -25,10 +25,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         public int currentStageNumber;
 
-        public async void Initialize(ETreeId treeId, int stageNumber, float positionX)
+        public async void Initialize(ESeasonId seasonId, ETreeId treeId, int stageNumber, float positionX)
         {
-            // TODO: 季節が拡張されたら、季節に応じた色に設定する
-            gameObject.GetComponent<Image>().color = Color.magenta;
+            gameObject.GetComponent<Image>().color = seasonId.GetColor();
 
             var challengeNum = StageStatus.Get(treeId, stageNumber).challengeNum;
             _challengeNumText.text = challengeNum.ToString();
