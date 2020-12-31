@@ -81,8 +81,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
                                 // 再度同じステージ番号のグラフがタップされたら、ポップアップを閉じる
                                 _graphPopup.SetActive(false);
                             } else {
+                                var positionX = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position.x;
                                 _graphPopup.SetActive(true);
-                                graphPopupController.Initialize(ETreeId.Spring_1, stageNumber);
+                                graphPopupController.Initialize(ETreeId.Spring_1, stageNumber, positionX);
                             }
                         })
                         .AddTo(this);
