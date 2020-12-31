@@ -107,14 +107,5 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
         }
-
-        /// <summary>
-        /// 線の幅の変更
-        /// </summary>
-        /// <param name="scale"> 拡大率 </param>
-        public void ScaleWidth(float scale)
-        {
-            lineRenderer.startWidth = lineRenderer.endWidth = (float)Screen.width * width * scale;
-        }
     }
 }

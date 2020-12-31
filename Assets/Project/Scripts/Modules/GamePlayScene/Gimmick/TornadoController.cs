@@ -389,6 +389,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         protected override void OnEndGame()
         {
             _rigidBody.velocity = Vector2.zero;
+            StopAllCoroutines();
 
             if (_warningObj != null) {
                 _warningPrefab.ReleaseInstance(_warningObj);
