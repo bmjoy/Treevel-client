@@ -1,6 +1,7 @@
 ﻿using System;
 using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,13 +31,20 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _RIGHT_OFFSET = content.anchorMax.x - content.pivot.x;
             _TOP_OFFSET = content.anchorMax.y - content.pivot.y;
             _BOTTOM_OFFSET = Mathf.Abs(content.anchorMin.y - content.pivot.y);
+
+            Observable.Merge(
+                Observable.FromEvent(
+                    _ => _transformGesture.TransformStarted += OnTransformStarted,
+                    _ => _transformGesture.TransformStarted -= OnTransformStarted),
+                Observable.FromEvent(
+                    _ => _transformGesture.TransformCompleted += OnTransformCompleted,
+                    _ => _transformGesture.TransformCompleted -= OnTransformCompleted)
+            ).Subscribe().AddTo(this);
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            _transformGesture.TransformStarted += OnTransformStarted;
-            _transformGesture.TransformCompleted += OnTransformCompleted;
             // 初期位置の調整
             content.transform.localPosition = UserSettings.LevelSelectScrollPosition;
         }
