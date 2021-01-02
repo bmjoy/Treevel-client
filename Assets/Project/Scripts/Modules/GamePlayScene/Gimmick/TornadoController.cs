@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -69,6 +69,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
+        }
+
+        protected virtual void OnEnable()
+        {
+            base.OnEnable();
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
+                _rigidBody.velocity = Vector2.zero;
+                if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
+            }).AddTo(this);
         }
 
         /// <summary>
@@ -384,15 +394,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             // 衝突したオブジェクトは赤色に変える
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-        }
-
-        protected override void OnGameEnd()
-        {
-            _rigidBody.velocity = Vector2.zero;
-
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
         }
     }
 }

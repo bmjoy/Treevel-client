@@ -5,6 +5,7 @@ using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -53,10 +54,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _animator = GetComponent<Animator>();
         }
 
-        protected override void OnGameEnd()
+        protected override void OnEnable()
         {
-            base.OnGameEnd();
-            _animator.speed = 0;
+            base.OnEnable();
+
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
+               _animator.speed = 0;
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)

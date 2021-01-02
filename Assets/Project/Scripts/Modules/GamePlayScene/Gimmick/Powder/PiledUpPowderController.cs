@@ -23,11 +23,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         private const string _ANIMATOR_PARAM_BOOL_TRIGGER = "PiledUpTrigger";
         private const string _ANIMATOR_PARAM_FLOAT_SPEED = "PiledUpSpeed";
 
-        /// <summary>
-        /// 購読解除クラス
-        /// </summary>
-        private CompositeDisposable _compositeDisposable = new CompositeDisposable();
-
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -38,6 +33,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             base.OnEnable();
             GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => {
                 Destroy(gameObject);
+            }).AddTo(this);
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Where(_ => !_isPiledUp)
+            .Subscribe(_ => {
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
             }).AddTo(this);
         }
 
@@ -55,10 +55,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // イベントに処理を登録する
             _bottleController.StartMove.Subscribe(_ => {
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, false);
-            }).AddTo(_compositeDisposable, this);
+            }).AddTo(compositeDisposable, this);
             _bottleController.EndMove.Subscribe(_ => {
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
-            }).AddTo(_compositeDisposable, this);
+            }).AddTo(compositeDisposable, this);
         }
 
         public override IEnumerator Trigger()
@@ -80,15 +80,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             GamePlayDirector.Instance.failureReason = EGimmickType.Powder.GetFailureReason();
             // 失敗状態に移行する
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
-        }
-
-        protected override void OnGameEnd()
-        {
-            _compositeDisposable.Dispose();
-            // 自身が失敗原因でない場合はアニメーションを止める
-            if (!_isPiledUp) {
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            }
         }
     }
 }

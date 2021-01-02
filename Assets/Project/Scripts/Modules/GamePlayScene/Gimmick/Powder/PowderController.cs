@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
@@ -25,6 +25,15 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// 各NumberBottle上の堆積Powderギミック
         /// </summary>
         private PiledUpPowderController[] _piledUpPowders;
+
+        protected virtual void OnEnable()
+        {
+            base.OnEnable();
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
+                Destroy(gameObject);
+            }).AddTo(this);
+        }
 
         public override void Initialize(GimmickData gimmickData)
         {
@@ -133,11 +142,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                 _piledUpPowders[i] = piledUpPowderController;
                 piledUpPowderController.Initialize(bottles[i]);
             }
-        }
-
-        protected override void OnGameEnd()
-        {
-            Destroy(gameObject);
         }
     }
 }

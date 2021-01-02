@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class SelfishEffectController : AbstractBottleEffectController
+    public class SelfishEffectController : AbstractGameObjectController
     {
         private DynamicBottleController _bottleController;
 
@@ -62,12 +62,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }).AddTo(compositeDisposable, this);
             _bottleController.pressGesture.Pressed += HandlePressed;
             _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.EndGame.Subscribe(_ => {
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
                 _countCalmFrames = false;
                 _calmFrames = 0;
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                DisposeEvent();
                 _bottleController.pressGesture.Pressed -= HandlePressed;
                 _bottleController.releaseGesture.Released -= HandleReleased;
             }).AddTo(this);

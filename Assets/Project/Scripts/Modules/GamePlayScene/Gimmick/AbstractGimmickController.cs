@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using UniRx;
-using UnityEditor.AddressableAssets.Build.BuildPipelineTasks;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
-    public abstract class AbstractGimmickController : MonoBehaviour
+    public abstract class AbstractGimmickController : AbstractGameObjectController
     {
         /// <summary>
         /// 警告の表示秒数
@@ -41,17 +41,5 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// ギミック発動（初期化の後に呼ぶ）
         /// </summary>
         public abstract IEnumerator Trigger();
-
-        protected virtual void OnEnable()
-        {
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                OnGameEnd();
-            }).AddTo(this);
-        }
-
-        protected virtual void OnGameEnd()
-        {
-        }
     }
 }

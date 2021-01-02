@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class DarkEffectController : AbstractBottleEffectController
+    public class DarkEffectController : AbstractGameObjectController
     {
         private NormalBottleController _bottleController;
 
@@ -38,9 +38,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }).AddTo(compositeDisposable, this);
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.EndGame.Subscribe(_ => {
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                DisposeEvent();
                 _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
                 _bottleController.releaseGesture.Released -= HandleReleased;
             }).AddTo(this);

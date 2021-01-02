@@ -2,6 +2,7 @@
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -39,6 +40,15 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+        }
+
+        protected virtual void OnEnable()
+        {
+            base.OnEnable();
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
+                _animator.speed = 0;
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -128,14 +138,12 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
         }
 
+        /// <summary>
+        /// 破棄する（アニメーションイベントから呼び出す）
+        /// </summary>
         public void Destroy()
         {
             Destroy(gameObject);
-        }
-
-        protected override void OnGameEnd()
-        {
-            _animator.speed = 0;
         }
     }
 }

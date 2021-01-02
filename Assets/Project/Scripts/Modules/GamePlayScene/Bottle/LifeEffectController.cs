@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class LifeEffectController : AbstractBottleEffectController
+    public class LifeEffectController : AbstractGameObjectController
     {
         private DynamicBottleController _bottleController;
 
@@ -70,13 +70,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
                 }
             }).AddTo(compositeDisposable, this);
-            _bottleController.EndGame.Subscribe(_ => {
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Where(_ => !_isDead)
+            .Subscribe(_ => {
                 // 自身が破壊されていない場合はアニメーションを止める
-                if (!_isDead) {
-                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-                    _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-                }
-                DisposeEvent();
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
             }).AddTo(this);
 
             // 描画順序の設定

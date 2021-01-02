@@ -4,7 +4,7 @@ using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
-using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -49,6 +49,19 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             // 雲をタイルの少し上に移動する
             _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(), 0);
+        }
+
+        protected virtual void OnEnable()
+        {
+            base.OnEnable();
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
+                // 動きを止める
+                _rigidBody.velocity = Vector2.zero;
+                // アニメーション、SEを止める
+                _animator.speed = 0;
+                SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -111,15 +124,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Attack()
         {
             SoundManager.Instance.PlaySE(ESEKey.SE_ThunderAttack);
-        }
-
-        protected override void OnGameEnd()
-        {
-            // 動きを止める
-            _rigidBody.velocity = Vector2.zero;
-            // アニメーション、SEを止める
-            _animator.speed = 0;
-            SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
         }
     }
 }

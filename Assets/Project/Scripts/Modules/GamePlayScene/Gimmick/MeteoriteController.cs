@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Linq;
-using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -50,6 +50,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
+        }
+
+        protected virtual void OnEnable()
+        {
+            base.OnEnable();
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Where(_ => _warningObj != null)
+            .Subscribe(_ => {
+                _warningPrefab.ReleaseInstance(_warningObj);
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -151,13 +161,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                 // 隕石を衝突したボトルに追従させる
                 gameObject.transform.SetParent(other.transform);
-            }
-        }
-
-        protected override void OnGameEnd()
-        {
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
             }
         }
 

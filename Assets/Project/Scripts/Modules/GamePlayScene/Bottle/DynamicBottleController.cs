@@ -44,17 +44,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private readonly Subject<Unit> _endMoveSubject = new Subject<Unit>();
 
         /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        public IObservable<Unit> EndGame => _endGameSubject;
-        private readonly Subject<Unit> _endGameSubject = new Subject<Unit>();
-
-        /// <summary>
-        /// 購読解除クラス
-        /// </summary>
-        protected readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
-
-        /// <summary>
         /// フリック 時のパネルの移動速度
         /// </summary>
         private const float _SPEED = 30f;
@@ -102,8 +91,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture.Flicked += HandleFlicked;
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
             .Subscribe(_ => {
-                EndProcess();
-            }).AddTo(compositeDisposable, this);
+                _flickGesture.Flicked -= HandleFlicked;
+            }).AddTo(this);
         }
 
         protected void OnDisable()
@@ -155,16 +144,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             SetGesturesEnabled(true);
 
             callback();
-        }
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        private void EndProcess()
-        {
-            _endGameSubject.OnNext(Unit.Default);
-            _flickGesture.Flicked -= HandleFlicked;
-            compositeDisposable.Dispose();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(GameSpriteRendererUnifier))]
-    public abstract class AbstractBottleController : MonoBehaviour
+    public abstract class AbstractBottleController : AbstractGameObjectController
     {
         /// <summary>
         /// ボトルのId (初期位置を擬似的に利用)

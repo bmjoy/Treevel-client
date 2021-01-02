@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class ReverseEffectController : AbstractBottleEffectController
+    public class ReverseEffectController : AbstractGameObjectController
     {
         private DynamicBottleController _bottleController;
 
@@ -25,9 +25,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            _bottleController.EndGame.Subscribe(_ => {
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+            .Subscribe(_ => {
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                DisposeEvent();
             }).AddTo(this);
 
             // 描画順序の設定
