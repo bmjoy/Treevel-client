@@ -23,10 +23,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             var tasks = bottleDatas
                 .Where(bottleData => _prefabAddressableKeys.ContainsKey(bottleData.type))
                 .Select(bottleData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).ToUniTask()
-                        .ContinueWith(bottle => {
-                            bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
-                          })
-            );
+            .ContinueWith(bottle => {
+                bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
+            })
+                );
 
             return UniTask.WhenAll(tasks);
         }
