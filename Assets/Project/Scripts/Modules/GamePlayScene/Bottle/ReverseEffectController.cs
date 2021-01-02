@@ -28,7 +28,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.EndGame.Subscribe(_ => {
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                 DisposeEvent();
-            }).AddTo(eventDisposable, this);
+            }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Reverse.GetOrderInLayer();

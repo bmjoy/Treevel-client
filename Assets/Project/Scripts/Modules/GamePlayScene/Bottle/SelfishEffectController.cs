@@ -70,7 +70,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 DisposeEvent();
                 _bottleController.pressGesture.Pressed -= HandlePressed;
                 _bottleController.releaseGesture.Released -= HandleReleased;
-            }).AddTo(eventDisposable, this);
+            }).AddTo(this);
 
             // 移動していないフレーム数を数え始める
             _countCalmFrames = true;

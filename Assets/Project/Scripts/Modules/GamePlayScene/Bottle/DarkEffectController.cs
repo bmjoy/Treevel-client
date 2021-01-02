@@ -43,7 +43,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 DisposeEvent();
                 _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
                 _bottleController.releaseGesture.Released -= HandleReleased;
-            }).AddTo(eventDisposable, this);
+            }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Dark.GetOrderInLayer();
