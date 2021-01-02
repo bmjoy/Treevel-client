@@ -9,11 +9,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 購読解除クラス
         /// </summary>
-        protected CompositeDisposable eventDisposable = new CompositeDisposable();
+        protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
         protected void DisposeEvent()
         {
-            eventDisposable.Dispose();
+            compositeDisposable.Dispose();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// <summary>
         /// 購読解除クラス
         /// </summary>
-        private CompositeDisposable _eventDisposable = new CompositeDisposable();
+        private CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
         private void Awake()
         {
@@ -55,10 +55,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // イベントに処理を登録する
             _bottleController.StartMove.Subscribe(_ => {
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, false);
-            }).AddTo(_eventDisposable, this);
+            }).AddTo(_compositeDisposable, this);
             _bottleController.EndMove.Subscribe(_ => {
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
-            }).AddTo(_eventDisposable, this);
+            }).AddTo(_compositeDisposable, this);
         }
 
         public override IEnumerator Trigger()
@@ -84,7 +84,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         protected override void OnGameEnd()
         {
-            _eventDisposable.Dispose();
+            _compositeDisposable.Dispose();
             // 自身が失敗原因でない場合はアニメーションを止める
             if (!_isPiledUp) {
                 _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);

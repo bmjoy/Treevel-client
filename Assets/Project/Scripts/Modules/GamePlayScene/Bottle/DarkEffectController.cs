@@ -35,7 +35,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             .Subscribe(_ => {
                 _isSuccess = _bottleController.IsSuccess();
                 _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-            }).AddTo(eventDisposable, this);
+            }).AddTo(compositeDisposable, this);
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
             _bottleController.EndGame.Subscribe(_ => {

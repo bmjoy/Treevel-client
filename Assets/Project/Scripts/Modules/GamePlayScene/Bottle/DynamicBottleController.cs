@@ -52,7 +52,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 購読解除クラス
         /// </summary>
-        protected readonly CompositeDisposable eventDisposable = new CompositeDisposable();
+        protected readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
 
         /// <summary>
         /// フリック 時のパネルの移動速度
@@ -103,7 +103,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
             .Subscribe(_ => {
                 EndProcess();
-            }).AddTo(eventDisposable, this);
+            }).AddTo(compositeDisposable, this);
         }
 
         protected void OnDisable()
@@ -164,7 +164,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _endGameSubject.OnNext(Unit.Default);
             _flickGesture.Flicked -= HandleFlicked;
-            eventDisposable.Dispose();
+            compositeDisposable.Dispose();
         }
     }
 }

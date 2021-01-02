@@ -41,10 +41,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             base.OnEnable();
             EnterTile.Where(_ => IsSuccess()).Subscribe(_ => {
                 DoWhenSuccess();
-            }).AddTo(eventDisposable, this);
+            }).AddTo(compositeDisposable, this);
             ExitTile.Subscribe(_ => {
                 _spriteGlowEffect.enabled = false;
-            }).AddTo(eventDisposable, this);
+            }).AddTo(compositeDisposable, this);
         }
 
         /// <summary>

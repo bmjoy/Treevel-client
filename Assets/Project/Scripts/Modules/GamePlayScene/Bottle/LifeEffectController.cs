@@ -69,7 +69,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 } else {
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
                 }
-            }).AddTo(eventDisposable, this);
+            }).AddTo(compositeDisposable, this);
             _bottleController.EndGame.Subscribe(_ => {
                 // 自身が破壊されていない場合はアニメーションを止める
                 if (!_isDead) {

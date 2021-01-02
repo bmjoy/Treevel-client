@@ -56,10 +56,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // イベントに処理を登録する
             _bottleController.StartMove.Subscribe(_ => {
                 SetIsStopping(false);
-            }).AddTo(eventDisposable, this);
+            }).AddTo(compositeDisposable, this);
             _bottleController.EndMove.Subscribe(_ => {
                 SetIsStopping(true);
-            }).AddTo(eventDisposable, this);
+            }).AddTo(compositeDisposable, this);
             _bottleController.pressGesture.Pressed += HandlePressed;
             _bottleController.releaseGesture.Released += HandleReleased;
             _bottleController.EndGame.Subscribe(_ => {
