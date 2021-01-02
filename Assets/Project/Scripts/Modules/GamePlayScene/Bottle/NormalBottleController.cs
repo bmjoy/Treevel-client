@@ -39,10 +39,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void OnEnable()
         {
             base.OnEnable();
-            EnterTile.Subscribe(_ => {
-                if (IsSuccess()) {
-                    DoWhenSuccess();
-                }
+            EnterTile.Where(_ => IsSuccess()).Subscribe(_ => {
+                DoWhenSuccess();
             }).AddTo(eventDisposable, this);
             ExitTile.Subscribe(_ => {
                 _spriteGlowEffect.enabled = false;
