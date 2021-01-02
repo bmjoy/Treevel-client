@@ -101,10 +101,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _flickGesture.Flicked += HandleFlicked;
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                      .Subscribe(_ =>
-                       {
-                           EndProcess();
-                       }).AddTo(eventDisposable, this);
+            .Subscribe(_ => {
+                EndProcess();
+            }).AddTo(eventDisposable, this);
         }
 
         protected void OnDisable()
