@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -17,20 +18,17 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             {EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
         };
 
-        public static List<UniTask> CreateBottles(List<BottleData> bottleDatas)
+        public static UniTask CreateBottles(List<BottleData> bottleDatas)
         {
-            var tasks = new List<UniTask>();
-            bottleDatas.ForEach(bottleData => {
-                if (!_prefabAddressableKeys.ContainsKey(bottleData.type))
-                    return;
+            var tasks = bottleDatas
+                .Where(bottleData => _prefabAddressableKeys.ContainsKey(bottleData.type))
+                .Select(bottleData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).ToUniTask()
+                        .ContinueWith(bottle => {
+                            bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
+                          })
+            );
 
-                var task = AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).ToUniTask();
-                task.ContinueWith(bottle => {
-                    bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
-                });
-                tasks.Add(task);
-            });
-            return tasks;
+            return UniTask.WhenAll(tasks);
         }
     }
 }

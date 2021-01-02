@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -21,7 +22,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             {ETileType.Spiderweb, Constants.Address.SPIDERWEB_TILE_PREFAB},
         };
 
-        public List<UniTask> CreateTiles(ICollection<TileData> tileDatas)
+        public UniTask CreateTiles(ICollection<TileData> tileDatas)
         {
             // シーンに配置したノーマルタイルを初期化
             for (var tileNum = 1; tileNum <= Constants.StageSize.ROW * Constants.StageSize.COLUMN; ++tileNum) {
@@ -41,31 +42,21 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 currTile.GetComponent<SpriteRenderer>().enabled = true;
             }
 
-            var tasks = new List<UniTask>();
-            foreach (var tileData in tileDatas) {
-                switch (tileData.type) {
-                    case ETileType.Normal:
-                        break;
-                    case ETileType.Warp:
-                        tasks.Add(CreateWarpTiles(tileData.number, tileData.pairNumber));
-                        break;
-                    case ETileType.Holy:
-                    case ETileType.Spiderweb:
-                    case ETileType.Ice:
-                        var task = AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask();
-                        task.ContinueWith(tileObj => {
-                            tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
-                            BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
-                            tileObj.GetComponent<SpriteRenderer>().enabled = true;
-                        });
-                        tasks.Add(task);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+            var tasks = tileDatas
+                       .Where(tileData => tileData.type == ETileType.Warp)
+                       .Select(tileData => CreateWarpTiles(tileData.number, tileData.pairNumber))
+                       .Concat(
+                            tileDatas
+                            .Where(tileData => tileData.type == ETileType.Holy || tileData.type == ETileType.Spiderweb || tileData.type == ETileType.Ice)
+                            .Select(tileData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask()
+                            .ContinueWith(tileObj => {
+                                tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
+                                BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
+                                tileObj.GetComponent<SpriteRenderer>().enabled = true;
+                            }))
+                        );
 
-            return tasks;
+            return UniTask.WhenAll(tasks);
         }
 
         /// <summary>
@@ -73,7 +64,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
-        private static UniTask<GameObject> CreateWarpTiles(int firstTileNum, int secondTileNum)
+        private static UniTask CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
             var firstTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask();
 

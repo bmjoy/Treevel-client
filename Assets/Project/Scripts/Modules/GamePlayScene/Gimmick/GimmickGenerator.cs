@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -33,9 +34,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             {EGimmickType.Powder, Constants.Address.POWDER_PREFAB},
         };
 
-        public void Initialize(List<GimmickData> gimmicks)
+        public UniTask Initialize(List<GimmickData> gimmicks)
         {
             _coroutines = gimmicks.Select(CreateGimmickCoroutine).ToList();
+            return UniTask.CompletedTask;
         }
 
         /// <summary>

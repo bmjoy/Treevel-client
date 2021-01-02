@@ -35,15 +35,11 @@ namespace Treevel.Modules.GamePlayScene
             // ステージデータ読み込む
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
             if (stageData != null) {
-                // タイル生成タスク
-                tasks.AddRange(TileGenerator.Instance.CreateTiles(stageData.TileDatas));
-                // ボトル生成タスク
-                tasks.AddRange(BottleGenerator.CreateBottles(stageData.BottleDatas));
-                // タスク実行
-                await UniTask.WhenAll(tasks);
-
-                // ギミック生成
-                GimmickGenerator.Instance.Initialize(stageData.GimmickDatas);
+                await UniTask.WhenAll(
+                    TileGenerator.Instance.CreateTiles(stageData.TileDatas),
+                    BottleGenerator.CreateBottles(stageData.BottleDatas),
+                    GimmickGenerator.Instance.Initialize(stageData.GimmickDatas)
+                );
             } else {
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageNumber.ToString() + ".");
