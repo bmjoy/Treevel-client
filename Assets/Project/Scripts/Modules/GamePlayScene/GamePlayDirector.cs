@@ -56,6 +56,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public enum EGameState {
             Tutorial,
+            Opening,
             Playing,
             Success,
             Failure,
@@ -109,7 +110,7 @@ namespace Treevel.Modules.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            var startState = ShouldShowTutorial() ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Playing];
+            var startState = ShouldShowTutorial() ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
             _stateMachine = new StateMachine(startState, _stateList.Values.ToArray());
 
@@ -150,7 +151,10 @@ namespace Treevel.Modules.GamePlayScene
         {
             switch (state) {
                 case EGameState.Tutorial:
-                    _stateMachine.AddTransition(_stateList[EGameState.Tutorial], _stateList[EGameState.Playing]); // tutorial -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Tutorial], _stateList[EGameState.Opening]); // tutorial -> opening
+                    break;
+                case EGameState.Opening:
+                    _stateMachine.AddTransition(_stateList[EGameState.Opening], _stateList[EGameState.Playing]); // opening -> playing
                     break;
                 case EGameState.Playing:
                     _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Pausing]); // playing -> pausing
@@ -162,7 +166,7 @@ namespace Treevel.Modules.GamePlayScene
                     _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Failure]); // pausing -> faliure
                     break;
                 case EGameState.Failure:
-                    _stateMachine.AddTransition(_stateList[EGameState.Failure], _stateList[EGameState.Playing]); // failure -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Failure], _stateList[EGameState.Opening]); // failure -> opening
                     break;
                 case EGameState.Success:
                     break;
@@ -284,6 +288,43 @@ namespace Treevel.Modules.GamePlayScene
             return !stageStatus.tutorialChecked;
         }
 
+        private class OpeningState: State
+        {
+            /// <summary>
+            /// ステージID表示用テキスト
+            /// </summary>
+            private readonly Text _stageNumberText;
+
+            public OpeningState(GamePlayDirector caller)
+            {
+                // TODO: ステージTextを適切に配置する
+                // ステージID表示
+                _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
+                _stageNumberText.text = seasonId.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
+            }
+
+            public override void OnEnter(State @from = null)
+            {
+                // TODO: ステージ準備中のアニメーションを用意する
+                CleanObject();
+                StageInitialize();
+            }
+
+            public override void OnExit(State to)
+            {
+                // TODO: ステージ準備中のアニメーションを停止する
+            }
+
+            /// <summary>
+            /// ゲーム始まる前の前処理
+            /// </summary>
+            private void StageInitialize()
+            {
+                // 番号に合わせたステージの作成
+                StageGenerator.CreateStages(treeId, stageNumber);
+            }
+        }
+
         private class PlayingState: State
         {
             /// <summary>
@@ -296,32 +337,23 @@ namespace Treevel.Modules.GamePlayScene
             /// </summary>
             private readonly Text _timerText;
 
-            /// <summary>
-            /// ステージID表示用テキスト
-            /// </summary>
-            private readonly Text _stageNumberText;
-
             public PlayingState(GamePlayDirector caller)
             {
                 // タイマー設定
                 _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
                 _customTimer = caller.gameObject.AddComponent<CustomTimer>();
                 _customTimer.Initialize(_timerText);
-
-                // TODO: ステージTextを適切に配置する
-                // ステージID表示
-                _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
-                _stageNumberText.text = seasonId.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
             }
 
             public override void OnEnter(State from = null)
             {
-                // 一時停止から戻る時はステージ再作成しない
-                if (!(from is PausingState)) {
-                    CleanObject();
-                    StageInitialize();
-                }
+                // 時間の計測
+                _customTimer.StartTimer();
 
+                // ギミックの発火
+                GimmickGenerator.Instance.FireGimmick();
+
+                // BGMの再生
                 SoundManager.Instance.PlayBGM(EBGMKey.BGM_Gameplay, 2.0f);
             }
 
@@ -333,21 +365,6 @@ namespace Treevel.Modules.GamePlayScene
 
                 // その他の状態に遷移する時ゲーム終了
                 EndProcess();
-            }
-
-            /// <summary>
-            /// ゲーム始まる前の前処理
-            /// </summary>
-            private void StageInitialize()
-            {
-                // 番号に合わせたステージの作成
-                StageGenerator.CreateStages(treeId, stageNumber);
-
-                // 時間の計測
-                _customTimer.StartTimer();
-
-                // ギミックの生成
-                GimmickGenerator.Instance.FireGimmick();
             }
 
             /// <summary>

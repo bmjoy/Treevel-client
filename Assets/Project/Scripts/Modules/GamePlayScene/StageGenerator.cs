@@ -46,6 +46,7 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             CreatedFinished = true;
+            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Playing);
         }
     }
 }
