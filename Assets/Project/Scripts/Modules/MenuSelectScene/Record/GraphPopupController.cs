@@ -27,10 +27,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         public async void Initialize(ESeasonId seasonId, ETreeId treeId, int stageNumber, float positionX)
         {
-            gameObject.GetComponent<Image>().color = seasonId.GetColor();
+            var stageStatus = StageStatus.Get(treeId, stageNumber);
 
-            var challengeNum = StageStatus.Get(treeId, stageNumber).challengeNum;
+            var challengeNum = stageStatus.challengeNum;
             _challengeNumText.text = challengeNum.ToString();
+
+            var isClear = stageStatus.successNum > 0;
+            gameObject.GetComponent<Image>().color = isClear ? seasonId.GetColor() : Color.gray;
 
             // ポップアップが表示される位置を、該当する棒グラフの位置に合わせて変える
             var rectTransform = GetComponent<RectTransform>();
