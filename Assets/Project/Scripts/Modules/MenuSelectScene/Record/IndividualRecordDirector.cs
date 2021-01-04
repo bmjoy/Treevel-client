@@ -126,9 +126,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
                                 // 再度同じステージ番号のグラフがタップされたら、ポップアップを閉じる
                                 _graphPopup.SetActive(false);
                             } else {
-                                var positionX = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position.x;
+                                var graphPosition = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position;
                                 _graphPopup.SetActive(true);
-                                graphPopupController.Initialize(_currentSeason.Value, _currentTree.Value, stageNumber, positionX);
+                                graphPopupController.Initialize(_currentSeason.Value, _currentTree.Value, stageNumber, graphPosition);
                             }
                         })
                         .AddTo(this);
