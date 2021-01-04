@@ -49,11 +49,12 @@ namespace Treevel.Modules.GamePlayScene.Tile
                     tileDatas
                     .Where(tileData => tileData.type == ETileType.Holy || tileData.type == ETileType.Spiderweb || tileData.type == ETileType.Ice)
                     .Select(tileData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask()
-            .ContinueWith(tileObj => {
-                tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
-                BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
-                tileObj.GetComponent<SpriteRenderer>().enabled = true;
-            }))
+                    .ContinueWith(tileObj => {
+                    tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
+                    BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
+                    tileObj.GetComponent<SpriteRenderer>().enabled = true;
+                    })
+                    )
                 );
 
             return UniTask.WhenAll(tasks);
