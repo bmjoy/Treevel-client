@@ -1,4 +1,5 @@
-﻿using Treevel.Common.Entities;
+﻿using System;
+using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
@@ -16,6 +17,9 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// </summary>
         private Button _resetButton;
 
+        public IObservable<Unit> OnResetData => _onResetDataSubject.AsObservable();
+        private readonly Subject<Unit> _onResetDataSubject = new Subject<Unit>();
+
         private void Awake()
         {
             _resetButton = GetComponent<Button>();
@@ -26,20 +30,21 @@ namespace Treevel.Modules.MenuSelectScene.Settings
                     ResetData
                 );
             }).AddTo(this);
+
+            _onResetDataSubject.AddTo(this);
         }
 
-        private static void ResetData()
+        private void ResetData()
         {
+            if (_onResetDataSubject.HasObservers) {
+                _onResetDataSubject.OnNext(Unit.Default);
+            }
+
             // 全ステージをリセット
             StageStatus.Reset();
 
             // 記録情報をリセット
             RecordData.Instance.Reset();
-
-            // 道の解放条件をリセット
-            LevelSelectDirector.Reset();
-            // 枝の解放条件をリセット(同一シーンに存在しないため、シーン開始時にリセットする)
-            BranchController.Reset();
 
             // キャンバスの設定をリセット
             UserSettings.LevelSelectCanvasScale = Default.LEVEL_SELECT_CANVAS_SCALE;

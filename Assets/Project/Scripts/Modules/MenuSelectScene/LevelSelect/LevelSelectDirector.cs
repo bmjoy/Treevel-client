@@ -2,6 +2,8 @@
 using System.Linq;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using Treevel.Modules.MenuSelectScene.Settings;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -11,17 +13,18 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木
         /// </summary>
-        private static List<LevelTreeController> _trees;
+        private List<LevelTreeController> _trees;
 
         /// <summary>
         /// 道
         /// </summary>
-        private static List<RoadController> _roads;
+        private List<RoadController> _roads;
 
         private void Awake()
         {
-            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList<LevelTreeController>();
-            _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
+            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList();
+            _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList();
+            FindObjectOfType<ResetController>().OnResetData.Subscribe(_ => Reset()).AddTo(this);
         }
 
         /// <summary>
@@ -45,7 +48,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木と道の状態のリセット
         /// </summary>
-        public static void Reset()
+        private void Reset()
         {
             _trees.ForEach(tree => tree.Reset());
             _roads.ForEach(road => road.Reset());
