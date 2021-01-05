@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -52,31 +53,35 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の状態の更新
         /// </summary>
-        public override IEnumerator UpdateState()
+        public override void UpdateState()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.ROAD_RELEASED) == 1;
 
-            if (!released) {
-                if (constraintObjects.Length == 0) {
-                    // 初期状態で解放されている道
+            switch (released) {
+                // 解放済み
+                case true:
+                    lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
+                    return;
+
+                // 初期状態で解放されている道
+                case false when constraintObjects.Length == 0:
                     released = true;
                     // 終点の木の状態の更新
                     _endObjectController.state = ETreeState.Released;
                     _endObjectController.ReflectTreeState();
-                } else {
-                    released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
-                    if (released) {
-                        // 道が非解放状態から解放状態に変わった時
-                        yield return StartCoroutine(ReleaseEndObject());
+                    break;
+                case false: {
+                        released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
+                        if (released) {
+                            // 道が非解放状態から解放状態に変わった時
+                            ReleaseEndObject().ToObservable()
+                            .Subscribe(_ => lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR)
+                            .AddTo(this);
+                        } else {
+                            lineRenderer.startColor = lineRenderer.endColor = _ROAD_UNRELEASED_COLOR;
+                        }
+                        break;
                     }
-                }
-            }
-
-            if (!released) {
-                // 非解放時
-                lineRenderer.startColor = lineRenderer.endColor = _ROAD_UNRELEASED_COLOR;
-            } else {
-                lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
             }
         }
 
