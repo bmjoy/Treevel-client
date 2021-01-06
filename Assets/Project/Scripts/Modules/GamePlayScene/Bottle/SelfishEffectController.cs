@@ -71,9 +71,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _bottleController.pressGesture.Pressed -= HandlePressed;
                 _bottleController.releaseGesture.Released -= HandleReleased;
             }).AddTo(this);
-
-            // 移動していないフレーム数を数え始める
-            _countCalmFrames = true;
+            GamePlayDirector.Instance.GameStart.Subscribe(_ =>
+            {
+                // 移動していないフレーム数を数え始める
+                _countCalmFrames = true;
+            }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Selfish.GetOrderInLayer();

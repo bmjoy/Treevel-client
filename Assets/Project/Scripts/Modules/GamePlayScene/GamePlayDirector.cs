@@ -39,6 +39,12 @@ namespace Treevel.Modules.GamePlayScene
         [SerializeField] private GameObject _tutorialWindow;
 
         /// <summary>
+        /// ゲーム開始時のイベント
+        /// </summary>
+        public IObservable<Unit> GameStart => _gameStartSubject;
+        private readonly Subject<Unit> _gameStartSubject = new Subject<Unit>();
+
+        /// <summary>
         /// 成功時のイベント
         /// </summary>
         public IObservable<Unit> GameSucceeded => _gameSucceededSubject;
@@ -350,6 +356,9 @@ namespace Treevel.Modules.GamePlayScene
             {
                 // 時間の計測
                 _customTimer.StartTimer();
+
+                // ゲーム開始時のイベント
+                Instance._gameStartSubject.OnNext(Unit.Default);
 
                 // ギミックの発火
                 GimmickGenerator.Instance.FireGimmick();
