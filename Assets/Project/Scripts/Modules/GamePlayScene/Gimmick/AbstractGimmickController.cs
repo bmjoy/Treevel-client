@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Threading;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
-using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -40,6 +39,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// ギミック発動（初期化の後に呼ぶ）
         /// </summary>
-        public abstract IEnumerator Trigger();
+        public abstract UniTask Trigger(CancellationToken token);
     }
 }

@@ -13,7 +13,6 @@ using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using Treevel.Modules.GamePlayScene.Tile;
-using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -320,6 +319,8 @@ namespace Treevel.Modules.GamePlayScene
             /// </summary>
             private void StageInitialize()
             {
+                // BoardManagerの初期化
+                BoardManager.Instance.Initialize();
                 // 番号に合わせたステージの作成
                 StageGenerator.CreateStages(treeId, stageNumber);
             }

@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
+using System.Threading;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -9,13 +10,14 @@ using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using UniRx;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     public class GimmickGenerator : SingletonObject<GimmickGenerator>
     {
-        private List<IEnumerator> _coroutines = new List<IEnumerator>();
+        private List<GimmickData> _gimmicks;
+
+        private CancellationTokenSource _tokenSource;
 
         /// <summary>
         /// FireGimmickが呼ばれた時刻
@@ -36,7 +38,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         public UniTask Initialize(List<GimmickData> gimmicks)
         {
-            _coroutines = gimmicks.Select(CreateGimmickCoroutine).ToList();
+            _tokenSource = new CancellationTokenSource();
+            _gimmicks = gimmicks;
             return UniTask.CompletedTask;
         }
 
@@ -46,44 +49,46 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         public void FireGimmick()
         {
             _startTime = Time.time;
-            _coroutines.ForEach(cr => StartCoroutine(cr));
+
+            _gimmicks.Select(data => CreateGimmickCoroutine(_tokenSource.Token, data)).ToList().ForEach(task => task.Forget());
         }
 
         /// <summary>
         /// ギミックの実体を生成するコルチーン
         /// </summary>
         /// <param name="data">生成するギミックのデータ</param>
-        private IEnumerator CreateGimmickCoroutine(GimmickData data)
+        private async UniTask CreateGimmickCoroutine(CancellationToken token, GimmickData data)
         {
             // 出現時間経つまで待つ
-            yield return new WaitForSeconds(data.appearTime - (Time.time - _startTime));
+            await UniTask.DelayFrame(Math.Max(1, (int)(GamePlayDirector.FRAME_RATE * (data.appearTime - (Time.time - _startTime)))));
 
-            do {
+            do
+            {
+                if (token.IsCancellationRequested) return;
+
                 var instantiateTime = Time.time;
                 // ギミックインスタンス作成
-                AsyncOperationHandle<GameObject> gimmickObjectOp;
-                yield return gimmickObjectOp = AddressableAssetManager.Instantiate(_prefabAddressableKeys[data.type]);
-                var gimmickObject = gimmickObjectOp.Result;
+                var gimmickObject = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[data.type]).ToUniTask();
 
                 if (gimmickObject == null) {
                     Debug.LogError($"ギミックの生成が失敗しました。");
-                    yield break;
+                    return;
                 }
 
                 var gimmick = gimmickObject.GetComponent<AbstractGimmickController>();
                 if (gimmick == null) {
                     Debug.LogError($"ギミックコントローラが{gimmickObject.name}にアタッチされていません。");
-                    yield break;
+                    return;
                 }
 
                 // 初期化
                 gimmick.Initialize(data);
 
                 // ギミック発動
-                StartCoroutine(gimmick.Trigger());
+                gimmick.Trigger(token);
 
                 // ギミック発動間隔
-                yield return new WaitForSeconds(data.interval - (Time.time - instantiateTime));
+                await UniTask.DelayFrame(Math.Max(1, (int)(GamePlayDirector.FRAME_RATE * (data.interval - (Time.time - instantiateTime)))));
             } while (data.loop);
         }
 
@@ -98,7 +103,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void OnGameEnd()
         {
             // 全てのGimmickを停止させる
-            StopAllCoroutines();
+            _tokenSource.Cancel();
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -105,52 +107,60 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         }
 
         /// <inheritdoc></inheritdoc>
-        public override IEnumerator Trigger()
+        public override async UniTask Trigger(CancellationToken token)
         {
-            var currentDirection = _targetDirections[_currentTargetIndex];
-            yield return ShowWarning(_warningPosList[0], null, _warningDisplayTime);
+            var tokenSource = new CancellationTokenSource();
+            try
+            {
+                var currentDirection = _targetDirections[_currentTargetIndex];
+                await ShowWarning(tokenSource.Token, _warningPosList[0], null, _warningDisplayTime);
+                if (token.IsCancellationRequested) return;
 
-            // 発射
-            SetDirection(currentDirection);
-
-            Coroutine displayWarningCoroutine = null;
-            while (++_currentTargetIndex < _targetDirections.Length) {
-                currentDirection = _targetDirections[_currentTargetIndex];
-
-                // 警告位置
-                var warningPos = _warningPosList[_currentTargetIndex];
-
-                // 警告表示時ギミックがいる位置＝警告表示位置＋（警告消した後からタイル位置に着くまでの時間＋警告表示時間）x速度x(-移動方向のベクトル)
-                var warningStartDisplayPos = warningPos - _rigidBody.velocity * (_warningDisplayTime + _moveTimeAfterWarning);
-
-                var diffVec = warningStartDisplayPos - (Vector2)transform.position;
-                // 警告表示位置までまだ時間ある
-                if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0) {
-                    // 表示するまでの所要時間
-                    var warningStartWaitTime = diffVec.magnitude / _speed;
-
-                    while ((warningStartWaitTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
-                }
-
-                // 警告を表示する
-                if (displayWarningCoroutine != null) { // 前回のコルチーンがまだ終わってないまま次実行すると警告の破壊が複数回発生してしまう
-                    StopCoroutine(displayWarningCoroutine);
-                }
-                displayWarningCoroutine = StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
-
-                // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
-                while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) {
-                    yield return new WaitForFixedUpdate();
-                }
-
+                // 発射
                 SetDirection(currentDirection);
+
+                while (++_currentTargetIndex < _targetDirections.Length)
+                {
+                    currentDirection = _targetDirections[_currentTargetIndex];
+
+                    // 警告位置
+                    var warningPos = _warningPosList[_currentTargetIndex];
+
+                    // 警告表示時ギミックがいる位置＝警告表示位置＋（警告消した後からタイル位置に着くまでの時間＋警告表示時間）x速度x(-移動方向のベクトル)
+                    var warningStartDisplayPos =
+                        warningPos - _rigidBody.velocity * (_warningDisplayTime + _moveTimeAfterWarning);
+
+                    var diffVec = warningStartDisplayPos - (Vector2) transform.position;
+                    // 警告表示位置までまだ時間ある
+                    if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0)
+                    {
+                        // 表示するまでの所要時間
+                        var warningStartWaitTime = diffVec.magnitude / _speed;
+
+                        while ((warningStartWaitTime -= Time.fixedDeltaTime) >= 0) await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+                    }
+
+                    // 警告を表示する
+                    tokenSource.Cancel();
+                    await ShowWarning(tokenSource.Token, warningPos, currentDirection, _warningDisplayTime);
+                    if (token.IsCancellationRequested) return;
+
+                    // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
+                    while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2) transform.position) > 0) await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+
+                    SetDirection(currentDirection);
+                }
+
+                // 範囲外になったらオブジェクトを消す
+                while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameSpaceWidth() &&
+                       Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT) await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+
+                Destroy(gameObject);
             }
-
-            // 範囲外になったらオブジェクトを消す
-            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameSpaceWidth() && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
-                yield return new WaitForFixedUpdate();
-
-            Destroy(gameObject);
+            catch (OperationCanceledException)
+            {
+                tokenSource.Cancel();
+            }
         }
 
         /// <summary>
@@ -220,51 +230,66 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <param name="direction">竜巻の次の移動方向</param>
         /// <param name="displayTime">表示時間</param>
         /// <returns></returns>
-        private IEnumerator ShowWarning(Vector2 warningPos, EDirection? direction, float displayTime)
+        private async UniTask ShowWarning(CancellationToken token, Vector2 warningPos, EDirection? direction, float displayTime)
         {
-            // 一個前の警告まだ消えていない
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
+            try
+            {
+                // 一個前の警告まだ消えていない
+                if (_warningObj != null)
+                {
+                    _warningPrefab.ReleaseInstance(_warningObj);
+                }
+
+                string addressKey;
+                switch (direction)
+                {
+                    case EDirection.ToLeft:
+                        addressKey = Constants.Address.TURN_WARNING_LEFT_SPRITE;
+                        break;
+                    case EDirection.ToRight:
+                        addressKey = Constants.Address.TURN_WARNING_RIGHT_SPRITE;
+                        break;
+                    case EDirection.ToUp:
+                        addressKey = Constants.Address.TURN_WARNING_UP_SPRITE;
+                        break;
+                    case EDirection.ToDown:
+                        addressKey = Constants.Address.TURN_WARNING_BOTTOM_SPRITE;
+                        break;
+                    default:
+                        addressKey = Constants.Address.TORNADO_WARNING_SPRITE;
+                        break;
+                }
+
+                var sprite = AddressableAssetManager.GetAsset<Sprite>(addressKey);
+
+                _warningObj = await _warningPrefab.InstantiateAsync(warningPos, Quaternion.identity).ToUniTask();
+
+                _warningObj.GetComponent<SpriteRenderer>().sprite = sprite;
+                _warningObj.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
+
+                _warningObj.GetComponent<SpriteRendererUnifier>().Unify();
+
+                // 画像の切り替えでチラつくので切り替えの後に表示する
+                _warningObj.GetComponent<SpriteRenderer>().enabled = true;
+
+                // 警告終わるまで待つ
+                while ((displayTime -= Time.fixedDeltaTime) >= 0)
+                {
+                    if (token.IsCancellationRequested) return;
+                    await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+                }
+
+                if (_warningObj != null)
+                {
+                    _warningPrefab.ReleaseInstance(_warningObj);
+                }
             }
-
-            string addressKey;
-            switch (direction) {
-                case EDirection.ToLeft:
-                    addressKey = Constants.Address.TURN_WARNING_LEFT_SPRITE;
-                    break;
-                case EDirection.ToRight:
-                    addressKey = Constants.Address.TURN_WARNING_RIGHT_SPRITE;
-                    break;
-                case EDirection.ToUp:
-                    addressKey = Constants.Address.TURN_WARNING_UP_SPRITE;
-                    break;
-                case EDirection.ToDown:
-                    addressKey = Constants.Address.TURN_WARNING_BOTTOM_SPRITE;
-                    break;
-                default:
-                    addressKey = Constants.Address.TORNADO_WARNING_SPRITE;
-                    break;
-            }
-
-            var sprite = AddressableAssetManager.GetAsset<Sprite>(addressKey);
-
-            AsyncOperationHandle<GameObject> warningOp;
-            yield return warningOp = _warningPrefab.InstantiateAsync(warningPos, Quaternion.identity);
-
-            _warningObj = warningOp.Result;
-            _warningObj.GetComponent<SpriteRenderer>().sprite = sprite;
-            _warningObj.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
-
-            _warningObj.GetComponent<SpriteRendererUnifier>().Unify();
-
-            // 画像の切り替えでチラつくので切り替えの後に表示する
-            _warningObj.GetComponent<SpriteRenderer>().enabled = true;
-
-            // 警告終わるまで待つ
-            while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
-
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
+            catch (OperationCanceledException)
+            {
+                if (_warningObj != null)
+                {
+                    _warningPrefab.ReleaseInstance(_warningObj);
+                }
             }
         }
 

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Threading;
 using Treevel.Common.Entities;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
@@ -61,10 +60,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             }).AddTo(compositeDisposable, this);
         }
 
-        public override IEnumerator Trigger()
+        public override async UniTask Trigger(CancellationToken token)
         {
             _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
-            yield return null;
+            await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
         }
 
         /// <summary>

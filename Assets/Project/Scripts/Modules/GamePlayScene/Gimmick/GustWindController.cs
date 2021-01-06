@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Linq;
+using System.Threading;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
@@ -116,34 +117,51 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
         }
 
-        public override IEnumerator Trigger()
+        public override async UniTask Trigger(CancellationToken token)
         {
-            // 警告出す
-            _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
+            try
+            {
+                // 警告出す
+                _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
 
-            // Attackまで待つ
-            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _ATTACK_STATE_NAME_HASH);
+                // Attackまで待つ
+                await UniTask.WaitUntil(() =>
+                    _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _ATTACK_STATE_NAME_HASH, cancellationToken: token);
 
-            transform.position = _attackStartPos;
-            yield return MoveDuringAttack();
+                transform.position = _attackStartPos;
+                await MoveDuringAttack(token);
+                if (token.IsCancellationRequested) return;
 
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
+            catch (OperationCanceledException)
+            {
+            }
         }
 
         /// <summary>
         /// 攻撃アニメーション中の移動計算
         /// </summary>
-        private IEnumerator MoveDuringAttack()
+        private async UniTask MoveDuringAttack(CancellationToken token)
         {
-            // 攻撃のクリップの長さ、スタート位置、終了位置からスピードを算出
-            var attackAnimClip = _animator.runtimeAnimatorController.animationClips.Single(c => c.name == _ATTACK_ANIMATION_CLIP_NAME);
-            var attackAnimationTime = attackAnimClip.length;
-            var speed = _attackMoveDistance / attackAnimationTime;
+            try
+            {
+                // 攻撃のクリップの長さ、スタート位置、終了位置からスピードを算出
+                var attackAnimClip =
+                    _animator.runtimeAnimatorController.animationClips.Single(
+                        c => c.name == _ATTACK_ANIMATION_CLIP_NAME);
+                var attackAnimationTime = attackAnimClip.length;
+                var speed = _attackMoveDistance / attackAnimationTime;
 
-            var direction = (Vector3)(Vector3Int)_targetDirection.GetVectorInt();
-            while ((_attackEndPos - transform.position).normalized == direction) {
-                transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
-                yield return new WaitForFixedUpdate();
+                var direction = (Vector3) (Vector3Int) _targetDirection.GetVectorInt();
+                while ((_attackEndPos - transform.position).normalized == direction)
+                {
+                    transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
+                    await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
 

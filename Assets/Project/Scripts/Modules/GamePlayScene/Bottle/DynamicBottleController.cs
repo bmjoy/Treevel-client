@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
 using TouchScript.Gestures;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Extensions;
@@ -103,7 +104,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// フリックイベントを処理する
         /// </summary>
-        private void HandleFlicked(object sender, EventArgs e)
+        private async void HandleFlicked(object sender, EventArgs e)
         {
             if (!IsMovable) return;
 
@@ -116,7 +117,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (_isReverse) directionInt *= -1;
 
             // ボトルのフリック情報を伝える
-            if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
+            if (await BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
         }
 
         /// <summary>
@@ -130,20 +131,25 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             releaseGesture.enabled = isEnable;
         }
 
-        public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
+        public async UniTask Move(Vector3 targetPosition, CancellationToken token)
         {
-            SetGesturesEnabled(false);
-            _startMoveSubject.OnNext(Unit.Default);
+            try
+            {
+                SetGesturesEnabled(false);
+                _startMoveSubject.OnNext(Unit.Default);
 
-            while (transform.position != targetPosition) {
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
-                yield return new WaitForFixedUpdate();
+                while (transform.position != targetPosition)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
+                    await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+                }
+
+                _endMoveSubject.OnNext(Unit.Default);
+                SetGesturesEnabled(true);
             }
-
-            _endMoveSubject.OnNext(Unit.Default);
-            SetGesturesEnabled(true);
-
-            callback();
+            catch (OperationCanceledException)
+            {
+            }
         }
     }
 }
