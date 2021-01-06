@@ -119,8 +119,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         public override async UniTask Trigger(CancellationToken token)
         {
-            try
-            {
+            try {
                 // 警告出す
                 _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
 
@@ -133,9 +132,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 if (token.IsCancellationRequested) return;
 
                 Destroy(gameObject);
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
             }
         }
 
@@ -144,8 +141,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private async UniTask MoveDuringAttack(CancellationToken token)
         {
-            try
-            {
+            try {
                 // 攻撃のクリップの長さ、スタート位置、終了位置からスピードを算出
                 var attackAnimClip =
                     _animator.runtimeAnimatorController.animationClips.Single(
@@ -153,15 +149,12 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var attackAnimationTime = attackAnimClip.length;
                 var speed = _attackMoveDistance / attackAnimationTime;
 
-                var direction = (Vector3) (Vector3Int) _targetDirection.GetVectorInt();
-                while ((_attackEndPos - transform.position).normalized == direction)
-                {
+                var direction = (Vector3)(Vector3Int) _targetDirection.GetVectorInt();
+                while ((_attackEndPos - transform.position).normalized == direction) {
                     transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
                     await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken: token);
                 }
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
             }
         }
 

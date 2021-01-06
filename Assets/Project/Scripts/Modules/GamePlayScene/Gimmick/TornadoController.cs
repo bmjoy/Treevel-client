@@ -110,8 +110,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         public override async UniTask Trigger(CancellationToken token)
         {
             var tokenSource = new CancellationTokenSource();
-            try
-            {
+            try {
                 var currentDirection = _targetDirections[_currentTargetIndex];
                 await ShowWarning(tokenSource.Token, _warningPosList[0], null, _warningDisplayTime);
                 if (token.IsCancellationRequested) return;
@@ -119,8 +118,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 // 発射
                 SetDirection(currentDirection);
 
-                while (++_currentTargetIndex < _targetDirections.Length)
-                {
+                while (++_currentTargetIndex < _targetDirections.Length) {
                     currentDirection = _targetDirections[_currentTargetIndex];
 
                     // 警告位置
@@ -132,8 +130,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                     var diffVec = warningStartDisplayPos - (Vector2) transform.position;
                     // 警告表示位置までまだ時間ある
-                    if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0)
-                    {
+                    if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0) {
                         // 表示するまでの所要時間
                         var warningStartWaitTime = diffVec.magnitude / _speed;
 
@@ -153,12 +150,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                 // 範囲外になったらオブジェクトを消す
                 while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameSpaceWidth() &&
-                       Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT) await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+                    Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT) await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
 
                 Destroy(gameObject);
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
                 tokenSource.Cancel();
             }
         }
@@ -232,17 +227,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <returns></returns>
         private async UniTask ShowWarning(CancellationToken token, Vector2 warningPos, EDirection? direction, float displayTime)
         {
-            try
-            {
+            try {
                 // 一個前の警告まだ消えていない
-                if (_warningObj != null)
-                {
+                if (_warningObj != null) {
                     _warningPrefab.ReleaseInstance(_warningObj);
                 }
 
                 string addressKey;
-                switch (direction)
-                {
+                switch (direction) {
                     case EDirection.ToLeft:
                         addressKey = Constants.Address.TURN_WARNING_LEFT_SPRITE;
                         break;
@@ -273,21 +265,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
                 // 警告終わるまで待つ
-                while ((displayTime -= Time.fixedDeltaTime) >= 0)
-                {
+                while ((displayTime -= Time.fixedDeltaTime) >= 0) {
                     if (token.IsCancellationRequested) return;
                     await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
                 }
 
-                if (_warningObj != null)
-                {
+                if (_warningObj != null) {
                     _warningPrefab.ReleaseInstance(_warningObj);
                 }
-            }
-            catch (OperationCanceledException)
-            {
-                if (_warningObj != null)
-                {
+            } catch (OperationCanceledException) {
+                if (_warningObj != null) {
                     _warningPrefab.ReleaseInstance(_warningObj);
                 }
             }

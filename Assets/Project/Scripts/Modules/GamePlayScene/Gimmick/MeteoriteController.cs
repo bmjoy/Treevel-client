@@ -112,8 +112,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         public override async UniTask Trigger(CancellationToken token)
         {
-            try
-            {
+            try {
                 await ShowWarning(token, _targetPos, _warningDisplayTime);
                 if (token.IsCancellationRequested) return;
 
@@ -121,9 +120,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 GetComponent<Collider2D>().enabled = true;
                 GetComponent<SpriteRenderer>().enabled = true;
                 _isMoving = true;
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
             }
         }
 
@@ -134,10 +131,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <param name="displayTime">表示時間</param>
         private async UniTask ShowWarning(CancellationToken token, Vector2 warningPos, float displayTime)
         {
-            try
-            {
-                if (_warningObj != null)
-                {
+            try {
+                if (_warningObj != null) {
                     _warningPrefab.ReleaseInstance(_warningObj);
                 }
 
@@ -149,13 +144,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 // 警告終わるまで待つ
                 while ((displayTime -= Time.fixedDeltaTime) >= 0) await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
 
-                if (_warningObj != null)
-                {
+                if (_warningObj != null) {
                     _warningPrefab.ReleaseInstance(_warningObj);
                 }
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
             }
         }
 

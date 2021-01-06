@@ -62,8 +62,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 出現時間経つまで待つ
             await UniTask.DelayFrame(Math.Max(1, (int)(GamePlayDirector.FRAME_RATE * (data.appearTime - (Time.time - _startTime)))));
 
-            do
-            {
+            do {
                 if (token.IsCancellationRequested) return;
 
                 var instantiateTime = Time.time;

@@ -118,19 +118,17 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         public override async UniTask Trigger(CancellationToken token)
         {
-            try
-            {
+            try {
                 // 入場アニメーション再生完了まで待つ
                 await UniTask.WaitUntil(() =>
                     _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH, cancellationToken: token);
 
-                while (_attackTimes-- > 0)
-                {
+                while (_attackTimes-- > 0) {
                     if (_attackTimes == 0)
                         _animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_ATTACK, true);
 
                     // 待機時間待つ
-                    await UniTask.DelayFrame((int) (GamePlayDirector.FRAME_RATE * _idleTime), cancellationToken: token);
+                    await UniTask.DelayFrame((int)(GamePlayDirector.FRAME_RATE * _idleTime), cancellationToken: token);
 
                     // 警告→攻撃→退場
                     _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
@@ -144,9 +142,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         await UniTask.WaitUntil(() =>
                             _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH, cancellationToken: token);
                 }
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
             }
         }
 

@@ -133,22 +133,18 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         public async UniTask Move(Vector3 targetPosition, CancellationToken token)
         {
-            try
-            {
+            try {
                 SetGesturesEnabled(false);
                 _startMoveSubject.OnNext(Unit.Default);
 
-                while (transform.position != targetPosition)
-                {
+                while (transform.position != targetPosition) {
                     transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                     await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
                 }
 
                 _endMoveSubject.OnNext(Unit.Default);
                 SetGesturesEnabled(true);
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
             }
         }
     }

@@ -88,19 +88,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         public override async UniTask Trigger(CancellationToken token)
         {
-            try
-            {
+            try {
                 // 表示ON
-                foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
-                {
+                foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>()) {
                     spriteRenderer.enabled = true;
                 }
 
                 var targetEnumerator = _targets.GetEnumerator();
-                while (targetEnumerator.MoveNext())
-                {
+                while (targetEnumerator.MoveNext()) {
                     var targetPos = BoardManager.Instance.GetTilePos(targetEnumerator.Current.row,
-                        targetEnumerator.Current.column);
+                            targetEnumerator.Current.column);
 
                     // 移動ベクトル設定
                     _rigidBody.velocity = (targetPos - (Vector2) transform.position).normalized * _moveSpeed;
@@ -127,9 +124,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                 // TODO:退場演出
                 Destroy(gameObject);
-            }
-            catch (OperationCanceledException)
-            {
+            } catch (OperationCanceledException) {
             }
         }
 
