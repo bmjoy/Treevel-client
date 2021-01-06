@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using Treevel.Common.Components;
@@ -77,7 +78,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _getDamagedSubject.OnNext(other.gameObject);
         }
 
-        private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
+        private async UniTask InitializeSprite(AssetReferenceSprite spriteAsset)
         {
             // 無限ループを防ぐためにタイムアウトを設ける
             const float timeOut = 2f;
@@ -92,7 +93,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 elapsedTime += Time.deltaTime;
                 var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(spriteAsset);
                 if (bottleSprite == null)
-                    yield return new WaitForEndOfFrame();
+                    await UniTask.Yield();
                 else {
                     GetComponent<SpriteRenderer>().sprite = bottleSprite;
                     break;
@@ -108,7 +109,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// 初期化
         /// </summary>
         /// <param name="bottleData"> ボトルのデータ </param>
-        public virtual void Initialize(BottleData bottleData)
+        public virtual async UniTask Initialize(BottleData bottleData)
         {
             Id = bottleData.initPos;
             bottleType = bottleData.type;
@@ -118,7 +119,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // sprite が設定されている場合読み込む
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
-                StartCoroutine(InitializeSprite(bottleData.bottleSprite));
+                await InitializeSprite(bottleData.bottleSprite);
             } else {
                 GetComponent<SpriteRendererUnifier>().Unify();
                 GetComponent<SpriteRenderer>().enabled = true;

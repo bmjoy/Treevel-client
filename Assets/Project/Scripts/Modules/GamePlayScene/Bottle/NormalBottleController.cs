@@ -1,5 +1,5 @@
-﻿using SpriteGlow;
-using System;
+﻿using Cysharp.Threading.Tasks;
+using SpriteGlow;
 using TouchScript.Gestures;
 using Treevel.Common.Components;
 using Treevel.Common.Entities.GameDatas;
@@ -51,7 +51,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
-        public override async void Initialize(BottleData bottleData)
+        public override async UniTask Initialize(BottleData bottleData)
         {
             _spriteGlowEffect = GetComponent<SpriteGlowEffect>();
             _spriteGlowEffect.enabled = false;
@@ -61,13 +61,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _targetPos = finalPos;
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
 
-            base.Initialize(bottleData);
+            await base.Initialize(bottleData);
 
             // set handler
-            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).Task;
+            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).ToUniTask();
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
             if (bottleData.isDark) {
-                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB).Task;
+                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB).ToUniTask();
                 darkEffect.GetComponent<DarkEffectController>().Initialize(this);
             }
 

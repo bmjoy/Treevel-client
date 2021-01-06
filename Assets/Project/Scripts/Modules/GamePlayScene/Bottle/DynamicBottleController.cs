@@ -71,17 +71,17 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             releaseGesture = GetComponent<ReleaseGesture>();
         }
 
-        public override async void Initialize(BottleData bottleData)
+        public override async UniTask Initialize(BottleData bottleData)
         {
-            base.Initialize(bottleData);
+            await base.Initialize(bottleData);
 
             // set handlers
             if (bottleData.isSelfish) {
-                var selfishEffect = await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).Task;
+                var selfishEffect = await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).ToUniTask();
                 selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
             }
             if (bottleData.isReverse) {
-                var reverseEffect = await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).Task;
+                var reverseEffect = await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).ToUniTask();
                 reverseEffect.GetComponent<ReverseEffectController>().Initialize(this);
                 _isReverse = true;
             }
