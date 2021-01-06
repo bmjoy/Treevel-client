@@ -71,8 +71,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _bottleController.pressGesture.Pressed -= HandlePressed;
                 _bottleController.releaseGesture.Released -= HandleReleased;
             }).AddTo(this);
-            GamePlayDirector.Instance.GameStart.Subscribe(_ =>
-            {
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
                 // 移動していないフレーム数を数え始める
                 _countCalmFrames = true;
             }).AddTo(this);
