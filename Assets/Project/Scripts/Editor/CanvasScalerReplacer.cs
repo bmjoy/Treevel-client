@@ -66,7 +66,7 @@ namespace Treevel.Editor
                 var guid = sceneGuids[i];
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 // プログレスバーを表示
-                EditorUtility.DisplayProgressBar("", path, (float)i / (float)sceneGuids.Length);
+                EditorUtility.DisplayProgressBar("", path, (float) i / (float) sceneGuids.Length);
                 // シーンを開く
                 EditorSceneManager.OpenScene(path);
                 Debug.Log(AssetDatabase.LoadMainAssetAtPath(path));
@@ -75,6 +75,7 @@ namespace Treevel.Editor
                     // 変更があれば保存
                     EditorSceneManager.SaveScene(EditorSceneManager.GetSceneByPath(path));
             }
+
             // プログレスバーの終了
             EditorUtility.ClearProgressBar();
             if (!string.IsNullOrEmpty(currentScene))
@@ -96,6 +97,7 @@ namespace Treevel.Editor
                 if (canvas.GetComponentInChildren<CanvasScaler>() == null) {
                     canvas.gameObject.AddComponent<CanvasScaler>();
                 }
+
                 var canvasScaler = canvas.GetComponent<CanvasScaler>();
                 // 設定の変更
                 canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -103,6 +105,7 @@ namespace Treevel.Editor
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = _matchWidthOrHeightProp.floatValue;
             }
+
             return true;
         }
     }

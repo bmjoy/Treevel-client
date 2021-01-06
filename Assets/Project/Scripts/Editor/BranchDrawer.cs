@@ -13,7 +13,7 @@ namespace Treevel.Editor
 
         public void OnEnable()
         {
-            _branch = (BranchController)target;
+            _branch = (BranchController) target;
         }
 
         public override void OnInspectorGUI()

@@ -16,8 +16,7 @@ namespace Treevel.Modules.StartUpScene
         {
             // Don't destroy EventSystem
             var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
-            if (eventSystem != null)
-                DontDestroyOnLoad(eventSystem.gameObject);
+            if (eventSystem != null) DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize
             await UIManager.Instance.Initialize();
@@ -35,7 +34,8 @@ namespace Treevel.Modules.StartUpScene
             await AddressableAssetManager.Initialize();
 
             // MenuSelectSceneを読み込み
-            var loadSceneTask = AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
+            var loadSceneTask = AddressableAssetManager
+                .LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
             // GameDataManager初期化
             var dataManagerInitTask = GameDataManager.Initialize();
 

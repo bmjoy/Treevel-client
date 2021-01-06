@@ -5,9 +5,10 @@
     /// エラーメッセージは<see cref="ETextIndex.ErrorTextStart">からエラーコードと同じ順序で追加する。
     /// Enumのインデックスを3桁の数字としてErrorCode=000のようにエラーメッセージの後ろに付けてユーザに提示する
     /// </summary>
-    public enum EErrorCode {
+    public enum EErrorCode
+    {
         UnknownError,
-        LoadDataError,     // データの読み込みに失敗
-        InvalidBottleID,    // ボトルIDが不正
+        LoadDataError,   // データの読み込みに失敗
+        InvalidBottleID, // ボトルIDが不正
     }
 }

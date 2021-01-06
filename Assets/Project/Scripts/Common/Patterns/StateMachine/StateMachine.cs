@@ -8,11 +8,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// <summary>
         /// 現在の状態
         /// </summary>
-        public State CurrentState
-        {
-            get;
-            private set;
-        }
+        public State CurrentState { get; private set; }
 
         /// <summary>
         /// このステートマシンで制御できるステートの集合
@@ -70,8 +66,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// <returns>遷移成功かどうか</returns>
         public bool SetState(State to)
         {
-            if (!IsValidState(to))
-                return false;
+            if (!IsValidState(to)) return false;
 
             if (!IsTransitionValid(to)) {
                 Debug.LogWarning($"Invalid state transition [{CurrentState.GetType()}] => [{to.GetType()}]");

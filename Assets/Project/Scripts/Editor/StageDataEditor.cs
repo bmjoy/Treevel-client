@@ -30,6 +30,7 @@ namespace Treevel.Editor
         private int _numOfGimmicks = 0;
 
         private StageData _src;
+
         public void OnEnable()
         {
             _tileDatasProp = serializedObject.FindProperty("tiles");
@@ -73,9 +74,11 @@ namespace Treevel.Editor
             // ギミックの個数が増えたとき、増えたギミックはデフォルト値(Tornado)に設定する
             if ((_src.GimmickDatas?.Count ?? 0) > _numOfGimmicks) {
                 Enumerable.Range(_numOfGimmicks, _gimmickDatasProp.arraySize - _numOfGimmicks)
-                .ToList()
-                .ForEach(i => _gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type").enumValueIndex = (int)EGimmickType.Tornado);
+                    .ToList()
+                    .ForEach(i => _gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type")
+                                 .enumValueIndex = (int) EGimmickType.Tornado);
             }
+
             _numOfGimmicks = _src.GimmickDatas?.Count ?? 0;
             ValidateTiles();
         }
@@ -112,12 +115,13 @@ namespace Treevel.Editor
 
             // check is expanded
             tutorialProp.isExpanded = EditorGUILayout.Foldout(tutorialProp.isExpanded, new GUIContent("Tutorial Data"));
-            if (!tutorialProp.isExpanded)
-                return;
+            if (!tutorialProp.isExpanded) return;
 
             var tutorialType = tutorialProp.FindPropertyRelative("type");
-            tutorialType.enumValueIndex = (int)(ETutorialType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETutorialType)tutorialType.enumValueIndex);
-            switch ((ETutorialType)tutorialType.enumValueIndex) {
+            tutorialType.enumValueIndex =
+                (int) (ETutorialType) EditorGUILayout.EnumPopup(new GUIContent("Type"),
+                                                                (ETutorialType) tutorialType.enumValueIndex);
+            switch ((ETutorialType) tutorialType.enumValueIndex) {
                 case ETutorialType.Image:
                     EditorGUILayout.PropertyField(tutorialProp.FindPropertyRelative("image"));
                     break;
@@ -148,7 +152,9 @@ namespace Treevel.Editor
 
                 var tileTypeProp = tileDataProp.FindPropertyRelative("type");
 
-                var newEnumValueIndex = (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (ETileType)tileTypeProp.enumValueIndex);
+                var newEnumValueIndex =
+                    (int) (ETileType) EditorGUILayout.EnumPopup(new GUIContent("Type"),
+                                                                (ETileType) tileTypeProp.enumValueIndex);
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != tileTypeProp.enumValueIndex) {
@@ -156,12 +162,12 @@ namespace Treevel.Editor
                     ResetData(tileDataProp);
                 }
 
-                switch ((ETileType)tileTypeProp.enumValueIndex) {
+                switch ((ETileType) tileTypeProp.enumValueIndex) {
                     case ETileType.Normal:
                         break;
                     case ETileType.Warp: {
-                            EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
-                        }
+                        EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
+                    }
                         break;
                     case ETileType.Holy:
                         break;
@@ -172,6 +178,7 @@ namespace Treevel.Editor
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
                 EditorGUI.indentLevel--;
             });
         }
@@ -187,7 +194,9 @@ namespace Treevel.Editor
 
                 var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
 
-                var newEnumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"), (EBottleType)bottleTypeProp.enumValueIndex);
+                var newEnumValueIndex =
+                    (int) (EBottleType) EditorGUILayout.EnumPopup(new GUIContent("Type"),
+                                                                  (EBottleType) bottleTypeProp.enumValueIndex);
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != bottleTypeProp.enumValueIndex) {
@@ -197,37 +206,38 @@ namespace Treevel.Editor
 
                 EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
-                if (((EBottleType)bottleTypeProp.enumValueIndex).IsAttackable()) {
+                if (((EBottleType) bottleTypeProp.enumValueIndex).IsAttackable()) {
                     var lifeProp = bottleDataProp.FindPropertyRelative("life");
                     lifeProp.intValue = Mathf.Max(1, lifeProp.intValue);
                     EditorGUILayout.PropertyField(lifeProp);
                 }
 
-                switch ((EBottleType)bottleTypeProp.enumValueIndex) {
+                switch ((EBottleType) bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isDark"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
-                        }
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isDark"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
+                    }
                         break;
                     case EBottleType.Dynamic:
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                         break;
                     case EBottleType.AttackableDummy: {
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
-                            EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
-                        }
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
+                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
+                    }
                         break;
                     case EBottleType.Static:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
                 EditorGUI.indentLevel--;
             });
         }
@@ -237,30 +247,31 @@ namespace Treevel.Editor
             // Powderギミックが存在するかどうか
             var isExistPowder = Enumerable.Range(0, _gimmickDatasProp.arraySize)
                 .Select(index => _gimmickDatasProp.GetArrayElementAtIndex(index).FindPropertyRelative("type"))
-                .Any(gimmickTypeData => (EGimmickType)gimmickTypeData.enumValueIndex == EGimmickType.Powder);
+                .Any(gimmickTypeData => (EGimmickType) gimmickTypeData.enumValueIndex == EGimmickType.Powder);
 
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
-                gimmickDataProp.isExpanded = EditorGUILayout.Foldout(gimmickDataProp.isExpanded, $"Gimmick {index + 1}");
+                gimmickDataProp.isExpanded =
+                    EditorGUILayout.Foldout(gimmickDataProp.isExpanded, $"Gimmick {index + 1}");
 
                 if (!gimmickDataProp.isExpanded) return;
 
                 EditorGUI.indentLevel++;
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
-                int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
-                        label: new GUIContent("Type"),
-                        selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
-                        // Poderギミックは１ステージに１つまで
-                        checkEnabled: (eType) => !isExistPowder || (EGimmickType)eType != EGimmickType.Powder,
-                        includeObsolete: false
-                    );
+                int newEnumValueIndex = (int) (EGimmickType) EditorGUILayout.EnumPopup(
+                    label: new GUIContent("Type"),
+                    selected: (EGimmickType) gimmickTypeProp.enumValueIndex,
+                    // Poderギミックは１ステージに１つまで
+                    checkEnabled: (eType) => !isExistPowder || (EGimmickType) eType != EGimmickType.Powder,
+                    includeObsolete: false
+                );
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != gimmickTypeProp.enumValueIndex) {
                     gimmickTypeProp.enumValueIndex = newEnumValueIndex;
                     ResetData(gimmickDataProp);
                 }
 
-                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
+                if ((EGimmickType) gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
                     EditorGUI.indentLevel--;
                     return;
                 }
@@ -271,314 +282,345 @@ namespace Treevel.Editor
                 var loopProp = gimmickDataProp.FindPropertyRelative("loop");
                 EditorGUILayout.PropertyField(loopProp);
 
-                switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
+                switch ((EGimmickType) gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
-                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
-                            var directionsProp = gimmickDataProp.FindPropertyRelative("targetDirections");
-                            var linesProp = gimmickDataProp.FindPropertyRelative("targetLines");
+                        var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
+                        var directionsProp = gimmickDataProp.FindPropertyRelative("targetDirections");
+                        var linesProp = gimmickDataProp.FindPropertyRelative("targetLines");
 
-                            EditorGUILayout.PropertyField(useRandomProp);
+                        EditorGUILayout.PropertyField(useRandomProp);
 
-                            // ターゲット数は少なくても1
-                            directionsProp.arraySize = Math.Max(directionsProp.arraySize, 1);
-                            EditorGUILayout.PropertyField(directionsProp.FindPropertyRelative("Array.size"), new GUIContent("Number Of Target"));
+                        // ターゲット数は少なくても1
+                        directionsProp.arraySize = Math.Max(directionsProp.arraySize, 1);
+                        EditorGUILayout.PropertyField(directionsProp.FindPropertyRelative("Array.size"),
+                                                      new GUIContent("Number Of Target"));
 
-                            var targetNum = linesProp.arraySize = directionsProp.arraySize;
-                            var showRandomFiledsFlag = useRandomProp.boolValue;
-                            for (var i = 0 ; i < targetNum ; i++) {
-                                var directionElem = directionsProp.GetArrayElementAtIndex(i);
-                                var lineElem = linesProp.GetArrayElementAtIndex(i);
+                        var targetNum = linesProp.arraySize = directionsProp.arraySize;
+                        var showRandomFiledsFlag = useRandomProp.boolValue;
+                        for (var i = 0; i < targetNum; i++) {
+                            var directionElem = directionsProp.GetArrayElementAtIndex(i);
+                            var lineElem = linesProp.GetArrayElementAtIndex(i);
 
-                                if (useRandomProp.boolValue) {
-                                    // 行列をランダムに設定
-                                    lineElem.intValue = -1;
-                                } else {
-                                    EditorGUILayout.BeginVertical(GUI.skin.box);
-                                    EditorGUILayout.LabelField($"Target {i + 1}");
-                                    EditorGUI.indentLevel++;
-                                    EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
+                            if (useRandomProp.boolValue) {
+                                // 行列をランダムに設定
+                                lineElem.intValue = -1;
+                            } else {
+                                EditorGUILayout.BeginVertical(GUI.skin.box);
+                                EditorGUILayout.LabelField($"Target {i + 1}");
+                                EditorGUI.indentLevel++;
+                                EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                    switch ((EDirection)directionElem.intValue) {
-                                        case EDirection.ToDown:
-                                        case EDirection.ToUp: {
-                                                // デフォルト値設定
-                                                lineElem.intValue = Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.COLUMN - 1);
+                                switch ((EDirection) directionElem.intValue) {
+                                    case EDirection.ToDown:
+                                    case EDirection.ToUp: {
+                                        // デフォルト値設定
+                                        lineElem.intValue =
+                                            Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.COLUMN - 1);
 
-                                                lineElem.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                                        label: new GUIContent("Target Column"),
-                                                        selected: (EColumn)lineElem.intValue,
-                                                        //ランダムは選択不能にする
-                                                        checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
-                                                        includeObsolete: false
-                                                    );
-                                                break;
-                                            }
-                                        case EDirection.ToRight:
-                                        case EDirection.ToLeft: {
-                                                // デフォルト値設定
-                                                lineElem.intValue = Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.ROW - 1);
-
-                                                lineElem.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                                        label: new GUIContent("Target Row"),
-                                                        selected: (ERow)lineElem.intValue,
-                                                        //ランダムは選択不能にする
-                                                        checkEnabled: (eType) => (ERow)eType != ERow.Random,
-                                                        includeObsolete: false
-                                                    );
-                                                break;
-                                            }
-                                        default:
-                                            throw new ArgumentOutOfRangeException();
+                                        lineElem.intValue = (int) (EColumn) EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Target Column"),
+                                            selected: (EColumn) lineElem.intValue,
+                                            //ランダムは選択不能にする
+                                            checkEnabled: (eType) => (EColumn) eType != EColumn.Random,
+                                            includeObsolete: false
+                                        );
+                                        break;
                                     }
-                                    EditorGUI.indentLevel--;
-                                    EditorGUILayout.EndVertical();
+                                    case EDirection.ToRight:
+                                    case EDirection.ToLeft: {
+                                        // デフォルト値設定
+                                        lineElem.intValue =
+                                            Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.ROW - 1);
+
+                                        lineElem.intValue = (int) (ERow) EditorGUILayout.EnumPopup(
+                                            label: new GUIContent("Target Row"),
+                                            selected: (ERow) lineElem.intValue,
+                                            //ランダムは選択不能にする
+                                            checkEnabled: (eType) => (ERow) eType != ERow.Random,
+                                            includeObsolete: false
+                                        );
+                                        break;
+                                    }
+                                    default:
+                                        throw new ArgumentOutOfRangeException();
                                 }
+
+                                EditorGUI.indentLevel--;
+                                EditorGUILayout.EndVertical();
                             }
-                            if (showRandomFiledsFlag) {
-                                {
-                                    var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
-                                    randomDirectionProp.arraySize = 4;
-                                    var subLabels = (new string[] {"L", "R", "U", "D"}).Select(s => new GUIContent(s)).ToArray();
-                                    var rect = EditorGUILayout.GetControlRect();
-                                    EditorGUI.MultiPropertyField(rect, subLabels, randomDirectionProp.GetArrayElementAtIndex(0), new GUIContent("Random Direction"));
-                                }
-                                {
-                                    var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                    randomRowProp.arraySize = Constants.StageSize.ROW;
-                                    var subLabels = Enumerable.Range(1, Constants.StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
-                                    var rect = EditorGUILayout.GetControlRect();
-                                    EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
-                                }
-                                {
-                                    var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN;
-                                    var subLabels = Enumerable.Range(1, Constants.StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
-                                    var rect = EditorGUILayout.GetControlRect();
-                                    EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
-                                }
-                            }
-                            break;
                         }
-                    case EGimmickType.Meteorite: {
-                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
-                            var rowProp = gimmickDataProp.FindPropertyRelative("targetRow");
-                            var colProp = gimmickDataProp.FindPropertyRelative("targetColumn");
 
-                            EditorGUILayout.PropertyField(useRandomProp);
-
-                            if (useRandomProp.boolValue) {
-                                // 行、列をランダムに
-                                rowProp.intValue = colProp.intValue = -1;
-
-                                {
-                                    var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                    randomRowProp.arraySize = Constants.StageSize.ROW;
-                                    var subLabels = Enumerable.Range(1, Constants.StageSize.ROW).Select(n => new GUIContent(n.ToString())).ToArray();
-                                    var rect = EditorGUILayout.GetControlRect();
-                                    EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
-                                }
-                                {
-                                    var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN;
-                                    var subLabels = Enumerable.Range(1, Constants.StageSize.COLUMN).Select(n => new GUIContent(n.ToString())).ToArray();
-                                    var rect = EditorGUILayout.GetControlRect();
-                                    EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
-                                }
-                            } else {
-                                if (rowProp.intValue < 1 || rowProp.intValue > Constants.StageSize.ROW)
-                                    rowProp.intValue = 1;
-
-                                rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("Row"),
-                                        selected: (ERow)rowProp.intValue,
-                                        //ランダムは選択不能にする
-                                        checkEnabled: (eType) => (ERow)eType != ERow.Random,
-                                        includeObsolete: false
-                                    );
-
-                                if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN)
-                                    colProp.intValue = 1;
-                                colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("EColumn"),
-                                        selected: (EColumn)colProp.intValue,
-                                        //ランダムは選択不能にする
-                                        checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
-                                        includeObsolete: false
-                                    );
-                            }
-                            break;
-                        }
-                    case EGimmickType.AimingMeteorite: {
-                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
-                            var targetBottleProp = gimmickDataProp.FindPropertyRelative("targetBottle");
-
-                            EditorGUILayout.PropertyField(useRandomProp);
-
-                            if (useRandomProp.boolValue) {
-                                this.DrawFixedSizeArrayProperty(gimmickDataProp.FindPropertyRelative("randomAttackableBottles"), _numOfAttackableBottles, RenderRandomAttackableBottlesElement);
-                            } else {
-                                // 現在あるボトルのIDから選択するように
-                                var bottleIds = GetAttackableBottles().Select(bottle => bottle.initPos).ToList();
-
-                                var selectedIdx = bottleIds.Contains(targetBottleProp.intValue) ?
-                                bottleIds.Select((id, idx) => new {
-                                    id, idx
-                                }).First(t => t.id == targetBottleProp.intValue).idx :
-                                0;
-
-                                selectedIdx = EditorGUILayout.Popup(
-                                        new GUIContent("Target Bottle"),
-                                        selectedIdx,
-                                        bottleIds.Select(id => id.ToString()).ToArray()
-                                    );
-
-                                targetBottleProp.intValue = bottleIds[selectedIdx];
-                            }
-                            break;
-                        }
-                    case EGimmickType.Thunder: {
-                            var targetsProp = gimmickDataProp.FindPropertyRelative("targets");
-                            this.DrawArrayProperty(targetsProp, (vecProp, idx) => {
-                                var xProp = vecProp.FindPropertyRelative("x");
-                                var yProp = vecProp.FindPropertyRelative("y");
-
-                                // Draw Prefix Label
+                        if (showRandomFiledsFlag) {
+                            {
+                                var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
+                                randomDirectionProp.arraySize = 4;
+                                var subLabels = (new string[] { "L", "R", "U", "D" }).Select(s => new GUIContent(s))
+                                    .ToArray();
                                 var rect = EditorGUILayout.GetControlRect();
-                                rect = EditorGUI.PrefixLabel(rect, new GUIContent($"Target {idx + 1}"));
-
-                                // Render input fields for row and column
-                                var subLabels = new GUIContent[] {
-                                    new GUIContent("Row"),
-                                    new GUIContent("Column")
-                                };
-                                var buffer = new int[] {xProp.intValue, yProp.intValue};
-                                EditorGUI.MultiIntField(rect, subLabels, buffer);
-
-                                xProp.intValue = Mathf.Clamp(buffer[0], 1, Constants.StageSize.ROW);
-                                yProp.intValue = Mathf.Clamp(buffer[1], 1, Constants.StageSize.COLUMN);
-                            });
-                            break;
+                                EditorGUI.MultiPropertyField(rect, subLabels,
+                                                             randomDirectionProp.GetArrayElementAtIndex(0),
+                                                             new GUIContent("Random Direction"));
+                            }
+                            {
+                                var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
+                                randomRowProp.arraySize = Constants.StageSize.ROW;
+                                var subLabels = Enumerable.Range(1, Constants.StageSize.ROW)
+                                    .Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0),
+                                                             new GUIContent("Random Row"));
+                            }
+                            {
+                                var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
+                                randomColumnProp.arraySize = Constants.StageSize.COLUMN;
+                                var subLabels = Enumerable.Range(1, Constants.StageSize.COLUMN)
+                                    .Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels,
+                                                             randomColumnProp.GetArrayElementAtIndex(0),
+                                                             new GUIContent("Random Column"));
+                            }
                         }
+
+                        break;
+                    }
+                    case EGimmickType.Meteorite: {
+                        var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
+                        var rowProp = gimmickDataProp.FindPropertyRelative("targetRow");
+                        var colProp = gimmickDataProp.FindPropertyRelative("targetColumn");
+
+                        EditorGUILayout.PropertyField(useRandomProp);
+
+                        if (useRandomProp.boolValue) {
+                            // 行、列をランダムに
+                            rowProp.intValue = colProp.intValue = -1;
+
+                            {
+                                var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
+                                randomRowProp.arraySize = Constants.StageSize.ROW;
+                                var subLabels = Enumerable.Range(1, Constants.StageSize.ROW)
+                                    .Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0),
+                                                             new GUIContent("Random Row"));
+                            }
+                            {
+                                var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
+                                randomColumnProp.arraySize = Constants.StageSize.COLUMN;
+                                var subLabels = Enumerable.Range(1, Constants.StageSize.COLUMN)
+                                    .Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels,
+                                                             randomColumnProp.GetArrayElementAtIndex(0),
+                                                             new GUIContent("Random Column"));
+                            }
+                        } else {
+                            if (rowProp.intValue < 1 || rowProp.intValue > Constants.StageSize.ROW) rowProp.intValue = 1;
+
+                            rowProp.intValue = (int) (ERow) EditorGUILayout.EnumPopup(
+                                label: new GUIContent("Row"),
+                                selected: (ERow) rowProp.intValue,
+                                //ランダムは選択不能にする
+                                checkEnabled: (eType) => (ERow) eType != ERow.Random,
+                                includeObsolete: false
+                            );
+
+                            if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN) colProp.intValue = 1;
+                            colProp.intValue = (int) (EColumn) EditorGUILayout.EnumPopup(
+                                label: new GUIContent("EColumn"),
+                                selected: (EColumn) colProp.intValue,
+                                //ランダムは選択不能にする
+                                checkEnabled: (eType) => (EColumn) eType != EColumn.Random,
+                                includeObsolete: false
+                            );
+                        }
+
+                        break;
+                    }
+                    case EGimmickType.AimingMeteorite: {
+                        var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
+                        var targetBottleProp = gimmickDataProp.FindPropertyRelative("targetBottle");
+
+                        EditorGUILayout.PropertyField(useRandomProp);
+
+                        if (useRandomProp.boolValue) {
+                            this.DrawFixedSizeArrayProperty(
+                                gimmickDataProp.FindPropertyRelative("randomAttackableBottles"),
+                                _numOfAttackableBottles, RenderRandomAttackableBottlesElement);
+                        } else {
+                            // 現在あるボトルのIDから選択するように
+                            var bottleIds = GetAttackableBottles().Select(bottle => bottle.initPos).ToList();
+
+                            var selectedIdx = bottleIds.Contains(targetBottleProp.intValue)
+                                ? bottleIds.Select((id, idx) => new {
+                                    id, idx
+                                }).First(t => t.id == targetBottleProp.intValue).idx
+                                : 0;
+
+                            selectedIdx = EditorGUILayout.Popup(
+                                new GUIContent("Target Bottle"),
+                                selectedIdx,
+                                bottleIds.Select(id => id.ToString()).ToArray()
+                            );
+
+                            targetBottleProp.intValue = bottleIds[selectedIdx];
+                        }
+
+                        break;
+                    }
+                    case EGimmickType.Thunder: {
+                        var targetsProp = gimmickDataProp.FindPropertyRelative("targets");
+                        this.DrawArrayProperty(targetsProp, (vecProp, idx) => {
+                            var xProp = vecProp.FindPropertyRelative("x");
+                            var yProp = vecProp.FindPropertyRelative("y");
+
+                            // Draw Prefix Label
+                            var rect = EditorGUILayout.GetControlRect();
+                            rect = EditorGUI.PrefixLabel(rect, new GUIContent($"Target {idx + 1}"));
+
+                            // Render input fields for row and column
+                            var subLabels = new GUIContent[] {
+                                new GUIContent("Row"),
+                                new GUIContent("Column")
+                            };
+                            var buffer = new int[] { xProp.intValue, yProp.intValue };
+                            EditorGUI.MultiIntField(rect, subLabels, buffer);
+
+                            xProp.intValue = Mathf.Clamp(buffer[0], 1, Constants.StageSize.ROW);
+                            yProp.intValue = Mathf.Clamp(buffer[1], 1, Constants.StageSize.COLUMN);
+                        });
+                        break;
+                    }
                     case EGimmickType.SolarBeam: {
-                            // 攻撃回数
-                            var attackTimesProp = gimmickDataProp.FindPropertyRelative("attackTimes");
-                            // 1以上の値を入れる
-                            attackTimesProp.intValue = Math.Max(1, attackTimesProp.intValue);
-                            EditorGUILayout.PropertyField(attackTimesProp);
+                        // 攻撃回数
+                        var attackTimesProp = gimmickDataProp.FindPropertyRelative("attackTimes");
+                        // 1以上の値を入れる
+                        attackTimesProp.intValue = Math.Max(1, attackTimesProp.intValue);
+                        EditorGUILayout.PropertyField(attackTimesProp);
 
-                            // 攻撃方向
-                            var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
-                            EditorGUILayout.PropertyField(directionProp);
-                            switch ((EDirection)directionProp.intValue) {
-                                case EDirection.ToRight:
-                                case EDirection.ToLeft:
-                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
-                                    break;
-                                case EDirection.ToUp:
-                                case EDirection.ToDown:
-                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
-                                    break;
-                                default:
-                                    // 描画を止めないように適当な値を設定する
-                                    Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
-                                    directionProp.intValue = (int)EDirection.ToLeft;
-                                    break;
-                            }
-                            break;
+                        // 攻撃方向
+                        var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
+                        EditorGUILayout.PropertyField(directionProp);
+                        switch ((EDirection) directionProp.intValue) {
+                            case EDirection.ToRight:
+                            case EDirection.ToLeft:
+                                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
+                                break;
+                            case EDirection.ToUp:
+                            case EDirection.ToDown:
+                                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
+                                break;
+                            default:
+                                // 描画を止めないように適当な値を設定する
+                                Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
+                                directionProp.intValue = (int) EDirection.ToLeft;
+                                break;
                         }
+
+                        break;
+                    }
                     case EGimmickType.GustWind: {
-                            // 攻撃方向
-                            var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
-                            EditorGUILayout.PropertyField(directionProp);
-                            switch ((EDirection)directionProp.intValue) {
-                                case EDirection.ToRight:
-                                case EDirection.ToLeft:
-                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
-                                    break;
-                                case EDirection.ToUp:
-                                case EDirection.ToDown:
-                                    EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
-                                    break;
-                                default:
-                                    // 描画を止めないように適当な値を設定する
-                                    Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
-                                    directionProp.intValue = (int)EDirection.ToLeft;
-                                    break;
-                            }
-                            break;
+                        // 攻撃方向
+                        var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
+                        EditorGUILayout.PropertyField(directionProp);
+                        switch ((EDirection) directionProp.intValue) {
+                            case EDirection.ToRight:
+                            case EDirection.ToLeft:
+                                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
+                                break;
+                            case EDirection.ToUp:
+                            case EDirection.ToDown:
+                                EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetColumn"));
+                                break;
+                            default:
+                                // 描画を止めないように適当な値を設定する
+                                Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
+                                directionProp.intValue = (int) EDirection.ToLeft;
+                                break;
                         }
+
+                        break;
+                    }
                     case EGimmickType.Fog: {
-                            var durationProp = gimmickDataProp.FindPropertyRelative("duration");
-                            // 持続時間は登場間隔より短くする
-                            if (loopProp.boolValue && durationProp.floatValue > intervalProp.floatValue)
-                                durationProp.floatValue = intervalProp.floatValue;
-                            EditorGUILayout.PropertyField(durationProp);
-                            var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
-                            var rowProp = gimmickDataProp.FindPropertyRelative("targetRow");
-                            var colProp = gimmickDataProp.FindPropertyRelative("targetColumn");
+                        var durationProp = gimmickDataProp.FindPropertyRelative("duration");
+                        // 持続時間は登場間隔より短くする
+                        if (loopProp.boolValue && durationProp.floatValue > intervalProp.floatValue) durationProp.floatValue = intervalProp.floatValue;
+                        EditorGUILayout.PropertyField(durationProp);
+                        var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
+                        var rowProp = gimmickDataProp.FindPropertyRelative("targetRow");
+                        var colProp = gimmickDataProp.FindPropertyRelative("targetColumn");
 
-                            EditorGUILayout.PropertyField(useRandomProp);
+                        EditorGUILayout.PropertyField(useRandomProp);
 
-                            if (useRandomProp.boolValue) {
-                                // 行、列をランダムに
-                                rowProp.intValue = colProp.intValue = -1;
+                        if (useRandomProp.boolValue) {
+                            // 行、列をランダムに
+                            rowProp.intValue = colProp.intValue = -1;
 
-                                var widthProp = gimmickDataProp.FindPropertyRelative("width");
-                                widthProp.intValue = Mathf.Clamp(widthProp.intValue, 1, FogController.WIDTH_MAX);
+                            var widthProp = gimmickDataProp.FindPropertyRelative("width");
+                            widthProp.intValue = Mathf.Clamp(widthProp.intValue, 1, FogController.WIDTH_MAX);
 
-                                EditorGUILayout.PropertyField(widthProp);
-                                var heightProp = gimmickDataProp.FindPropertyRelative("height");
-                                heightProp.intValue = Mathf.Clamp(heightProp.intValue, 1, FogController.HEIGHT_MAX);
+                            EditorGUILayout.PropertyField(widthProp);
+                            var heightProp = gimmickDataProp.FindPropertyRelative("height");
+                            heightProp.intValue = Mathf.Clamp(heightProp.intValue, 1, FogController.HEIGHT_MAX);
 
-                                EditorGUILayout.PropertyField(heightProp);
-                                {
-                                    var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
-                                    randomRowProp.arraySize = Constants.StageSize.ROW + 1 - heightProp.intValue;
-                                    var subLabels = Enumerable.Range(1, randomRowProp.arraySize).Select(n => new GUIContent(n.ToString())).ToArray();
-                                    var rect = EditorGUILayout.GetControlRect();
-                                    EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0), new GUIContent("Random Row"));
-                                }
-                                {
-                                    var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
-                                    randomColumnProp.arraySize = Constants.StageSize.COLUMN + 1 - widthProp.intValue;
-                                    var subLabels = Enumerable.Range(1, randomColumnProp.arraySize).Select(n => new GUIContent(n.ToString())).ToArray();
-                                    var rect = EditorGUILayout.GetControlRect();
-                                    EditorGUI.MultiPropertyField(rect, subLabels, randomColumnProp.GetArrayElementAtIndex(0), new GUIContent("Random Column"));
-                                }
-                            } else {
-                                rowProp.intValue = Mathf.Clamp(rowProp.intValue, 0, Constants.StageSize.ROW - 1);
-                                rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("Row"),
-                                        selected: (ERow)rowProp.intValue,
-                                        //ランダムは選択不能にする
-                                        checkEnabled: (eType) => (ERow)eType != ERow.Random,
-                                        includeObsolete: false
-                                    );
-
-                                colProp.intValue = Mathf.Clamp(colProp.intValue, 0, Constants.StageSize.COLUMN - 1);
-                                colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                        label: new GUIContent("EColumn"),
-                                        selected: (EColumn)colProp.intValue,
-                                        //ランダムは選択不能にする
-                                        checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
-                                        includeObsolete: false
-                                    );
-
-                                // 横幅、縦幅の設定
-                                var widthProp = gimmickDataProp.FindPropertyRelative("width");
-                                if (widthProp.intValue < 1 || widthProp.intValue > Mathf.Min(FogController.WIDTH_MAX, Constants.StageSize.COLUMN + 1 - colProp.intValue))
-                                    widthProp.intValue = 1;
-                                EditorGUILayout.PropertyField(widthProp);
-                                var heightProp = gimmickDataProp.FindPropertyRelative("height");
-                                if (heightProp.intValue < 1 || heightProp.intValue > Mathf.Min(FogController.HEIGHT_MAX, Constants.StageSize.ROW + 1 - rowProp.intValue))
-                                    heightProp.intValue = 1;
-                                EditorGUILayout.PropertyField(heightProp);
+                            EditorGUILayout.PropertyField(heightProp);
+                            {
+                                var randomRowProp = gimmickDataProp.FindPropertyRelative("randomRow");
+                                randomRowProp.arraySize = Constants.StageSize.ROW + 1 - heightProp.intValue;
+                                var subLabels = Enumerable.Range(1, randomRowProp.arraySize)
+                                    .Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels, randomRowProp.GetArrayElementAtIndex(0),
+                                                             new GUIContent("Random Row"));
                             }
-                            break;
+                            {
+                                var randomColumnProp = gimmickDataProp.FindPropertyRelative("randomColumn");
+                                randomColumnProp.arraySize = Constants.StageSize.COLUMN + 1 - widthProp.intValue;
+                                var subLabels = Enumerable.Range(1, randomColumnProp.arraySize)
+                                    .Select(n => new GUIContent(n.ToString())).ToArray();
+                                var rect = EditorGUILayout.GetControlRect();
+                                EditorGUI.MultiPropertyField(rect, subLabels,
+                                                             randomColumnProp.GetArrayElementAtIndex(0),
+                                                             new GUIContent("Random Column"));
+                            }
+                        } else {
+                            rowProp.intValue = Mathf.Clamp(rowProp.intValue, 0, Constants.StageSize.ROW - 1);
+                            rowProp.intValue = (int) (ERow) EditorGUILayout.EnumPopup(
+                                label: new GUIContent("Row"),
+                                selected: (ERow) rowProp.intValue,
+                                //ランダムは選択不能にする
+                                checkEnabled: (eType) => (ERow) eType != ERow.Random,
+                                includeObsolete: false
+                            );
+
+                            colProp.intValue = Mathf.Clamp(colProp.intValue, 0, Constants.StageSize.COLUMN - 1);
+                            colProp.intValue = (int) (EColumn) EditorGUILayout.EnumPopup(
+                                label: new GUIContent("EColumn"),
+                                selected: (EColumn) colProp.intValue,
+                                //ランダムは選択不能にする
+                                checkEnabled: (eType) => (EColumn) eType != EColumn.Random,
+                                includeObsolete: false
+                            );
+
+                            // 横幅、縦幅の設定
+                            var widthProp = gimmickDataProp.FindPropertyRelative("width");
+                            if (widthProp.intValue < 1 || widthProp.intValue >
+                                Mathf.Min(FogController.WIDTH_MAX, Constants.StageSize.COLUMN + 1 - colProp.intValue))
+                                widthProp.intValue = 1;
+                            EditorGUILayout.PropertyField(widthProp);
+                            var heightProp = gimmickDataProp.FindPropertyRelative("height");
+                            if (heightProp.intValue < 1 || heightProp.intValue >
+                                Mathf.Min(FogController.HEIGHT_MAX, Constants.StageSize.ROW + 1 - rowProp.intValue))
+                                heightProp.intValue = 1;
+                            EditorGUILayout.PropertyField(heightProp);
                         }
+
+                        break;
+                    }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
                 EditorGUI.indentLevel--;
             });
         }
@@ -612,8 +654,7 @@ namespace Treevel.Editor
         {
             foreach (var child in prop.GetChildren()) {
                 // タイプをリセットしたら意味ない
-                if (child.name == "type")
-                    continue;
+                if (child.name == "type") continue;
 
                 if (child.isArray) {
                     child.ClearArray();
@@ -641,10 +682,10 @@ namespace Treevel.Editor
                         if (childCopy.Next(true)) {
                             while (!SerializedProperty.EqualContents(childCopy, end)) {
                                 ResetData(childCopy);
-                                if (!childCopy.Next(false))
-                                    break;
+                                if (!childCopy.Next(false)) break;
                             }
                         }
+
                         break;
                 }
             }

@@ -25,7 +25,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         public override void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
-            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
+            state = (ETreeState) Enum.ToObject(typeof(ETreeState),
+                                               PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(),
+                                                                  Default.TREE_STATE));
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased:
@@ -37,7 +39,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 case ETreeState.Cleared:
                     // 全クリアかどうかをチェックする
                     var stageNum = treeId.GetStageNum();
-                    var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
+                    var clearStageNum = Enumerable.Range(1, stageNum)
+                        .Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
                     state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                     break;
                 case ETreeState.AllCleared:

@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
-    public enum EFailureReasonType {
+    public enum EFailureReasonType
+    {
         Others,
         Tornado,
         Meteorite,

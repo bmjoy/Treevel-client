@@ -83,7 +83,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // 木UI制御
             _dropdown.onValueChanged.AsObservable()
                 .Subscribe(selected => {
-                    _currentTree.Value = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+                    _currentTree.Value = (ETreeId) Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
                 }).AddTo(this);
 
             // 季節制御
@@ -133,7 +133,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
             var totalStageNum = _stageStatuses.Length;
-            _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, _currentSeason.Value.GetColor());
+            _clearStageNum.GetComponent<ClearStageNumController>()
+                .SetUp(clearStageNum, totalStageNum, _currentSeason.Value.GetColor());
         }
 
         private void SetupBarGraph()
@@ -141,19 +142,24 @@ namespace Treevel.Modules.MenuSelectScene.Record
             var challengeNumMax = (float) _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
 
             // 1~30 は 30、31~60 は 60 にするために Ceiling を使用
-            var maxAxisLabelNum = Mathf.Clamp((int) Math.Ceiling(challengeNumMax / _AXIS_LABEL_MARGIN) * _AXIS_LABEL_MARGIN, _MIN_AXIS_LABEL_NUM,  _MAX_AXIS_LABEL_NUM);
+            var maxAxisLabelNum =
+                Mathf.Clamp((int) Math.Ceiling(challengeNumMax / _AXIS_LABEL_MARGIN) * _AXIS_LABEL_MARGIN,
+                            _MIN_AXIS_LABEL_NUM, _MAX_AXIS_LABEL_NUM);
 
             _graphAxisLabels[0].text = (maxAxisLabelNum / 3).ToString();
             _graphAxisLabels[1].text = (maxAxisLabelNum * 2 / 3).ToString();
-            _graphAxisLabels[2].text = maxAxisLabelNum != _MAX_AXIS_LABEL_NUM ? maxAxisLabelNum.ToString() : maxAxisLabelNum + "+";
+            _graphAxisLabels[2].text = maxAxisLabelNum != _MAX_AXIS_LABEL_NUM
+                ? maxAxisLabelNum.ToString()
+                : maxAxisLabelNum + "+";
 
             _stageStatuses
                 .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
                 .ToList()
                 .ForEach(args => {
-                    var(graphBar, successNum, challengeNum) = args;
+                    var (graphBar, successNum, challengeNum) = args;
 
-                    graphBar.GetComponent<Image>().color = successNum > 0 ? _currentSeason.Value.GetColor() : Color.gray;
+                    graphBar.GetComponent<Image>().color =
+                        successNum > 0 ? _currentSeason.Value.GetColor() : Color.gray;
 
                     var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
                     var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);

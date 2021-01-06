@@ -13,8 +13,7 @@ namespace Treevel.Common.Patterns.Singleton
 
         private static object _lock = new object();
 
-        public static T Instance
-        {
+        public static T Instance {
             get {
                 // instance を作成途中に他のスレッドも作っちゃうとSingletonにならないのでロックする
                 lock (_lock) {
@@ -27,8 +26,8 @@ namespace Treevel.Common.Patterns.Singleton
                     // クラスTを持つオブジェクトが二つ以上あったらおかしいのでエラーを出す
                     if (FindObjectsOfType(typeof(T)).Length > 1) {
                         Debug.LogError("[Singleton] Something went really wrong " +
-                            " - there should never be more than 1 singleton!" +
-                            " Reopenning the scene might fix it.");
+                                       " - there should never be more than 1 singleton!" +
+                                       " Reopenning the scene might fix it.");
                         return _instance;
                     }
 
@@ -41,8 +40,8 @@ namespace Treevel.Common.Patterns.Singleton
                         DontDestroyOnLoad(singleton);
 
                         Debug.Log("[Singleton] An instance of " + typeof(T) +
-                            " is needed in the scene, so '" + singleton +
-                            "' was created with DontDestroyOnLoad.");
+                                  " is needed in the scene, so '" + singleton +
+                                  "' was created with DontDestroyOnLoad.");
                     } else {
                         // Debug.Log("[Singleton] Using instance already created: " + _instance.gameObject.name);
                     }

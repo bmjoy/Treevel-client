@@ -16,6 +16,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// タッチした2点
         /// </summary>
         private Vector2 _prePoint1;
+
         private Vector2 _prePoint2;
 
         /// <summary>
@@ -32,10 +33,12 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// 拡大率
         /// </summary>
         private float _preScale;
+
         /// <summary>
         /// 拡大率の上限
         /// </summary>
         private const float _SCALE_MAX = 1.50f;
+
         /// <summary>
         /// 拡大率の下限
         /// </summary>
@@ -90,7 +93,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var _newPoint1 = _transformGesture.ActivePointers[0].Position;
             var _newPoint2 = _transformGesture.ActivePointers[1].Position;
             var _newScreenDist = Vector2.Distance(_newPoint1, _newPoint2);
-            var _newMeanPoint = (Vector3)((_newPoint1 + _newPoint2) / 2);
+            var _newMeanPoint = (Vector3) ((_newPoint1 + _newPoint2) / 2);
 
             // 2点のタッチ開始時の距離と現在の距離の比から拡大率を求める
             var _newScale = _preScale * _newScreenDist / _preScreenDist;
@@ -126,7 +129,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <returns> Content空間の座標 </returns>
         private Vector3 ConvertFromScreenToContent(Vector3 screenCoordinate, float scale)
         {
-            return ((-1) * _contentRect.transform.localPosition + (screenCoordinate - new Vector3(_scaledCanvas.x / 2, _scaledCanvas.y / 2))) / scale;
+            return ((-1) * _contentRect.transform.localPosition +
+                    (screenCoordinate - new Vector3(_scaledCanvas.x / 2, _scaledCanvas.y / 2))) / scale;
         }
 
         /// <summary>
@@ -145,16 +149,19 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             if (_preLocalPosition.x + moveAmount.x >= leftLimit) {
                 moveAmount.x = leftLimit - _preLocalPosition.x;
             }
+
             // Contentの右端のチェック
             var rightLimit = (-1) * ((SavableScrollRect._RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
             if (_preLocalPosition.x + moveAmount.x <= rightLimit) {
                 moveAmount.x = rightLimit - _preLocalPosition.x;
             }
+
             // Contentの上端のチェック
             var topLimit = (-1) * ((SavableScrollRect._TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
             if (_preLocalPosition.y + moveAmount.y <= topLimit) {
                 moveAmount.y = topLimit - _preLocalPosition.y;
             }
+
             // Contentの下端のチェック
             var bottomLimit = (SavableScrollRect._BOTTOM_OFFSET * scale - 0.5f) * _scaledCanvas.y;
             if (_preLocalPosition.y + moveAmount.y >= bottomLimit) {

@@ -23,14 +23,15 @@ namespace Treevel.Common.Managers
         /// <typeparam name="string">アッセとのアドレス（キー）</typeparam>
         /// <typeparam name="AsyncOperationHandle">ロードに用いたハンドル</typeparam>
         /// <returns></returns>
-        private static readonly Dictionary<object, AsyncOperationHandle> _loadedAssets = new Dictionary<object, AsyncOperationHandle>();
+        private static readonly Dictionary<object, AsyncOperationHandle> _loadedAssets =
+            new Dictionary<object, AsyncOperationHandle>();
 
         /// <summary>
         /// AASを初期化
         /// </summary>
         public static AsyncOperationHandle Initialize()
         {
-            var handle =  Addressables.InitializeAsync();
+            var handle = Addressables.InitializeAsync();
             handle.Completed += (obj) => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     _initialized = true;
@@ -47,7 +48,7 @@ namespace Treevel.Common.Managers
         /// <typeparam name="TObject">ロードするアセットの型</typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static AsyncOperationHandle<TObject> LoadAsset<TObject> (object key)
+        public static AsyncOperationHandle<TObject> LoadAsset<TObject>(object key)
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>();
@@ -68,7 +69,7 @@ namespace Treevel.Common.Managers
         /// <typeparam name="TObject"></typeparam>
         /// <param name="key">アドレス</param>
         /// <returns></returns>
-        public static TObject GetAsset<TObject> (object key)
+        public static TObject GetAsset<TObject>(object key)
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>().Result;
@@ -78,14 +79,14 @@ namespace Treevel.Common.Managers
             }
         }
 
-
         /// <summary>
         /// シーンをロードする
         /// </summary>
         /// <param name="sceneName">ロードするシーンのaddress</param>
         /// <param name="loadSceneMode">ロードモード（Single/Additive)を指定</param>
         /// <returns>呼び出し先もイベントを登録できるよう、ハンドルを返す</returns>
-        public static AsyncOperationHandle<SceneInstance> LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static AsyncOperationHandle<SceneInstance> LoadScene(string sceneName,
+                                                                    LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             //// 辞書にシーンのインスタンスが入ってる場合
             //if (loadSceneMode != LoadSceneMode.Single && _loadedAssets.ContainsKey(sceneName)) {
@@ -120,8 +121,7 @@ namespace Treevel.Common.Managers
         public static AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
         {
             // シーンがロードしていなければ終了
-            if (!_loadedAssets.ContainsKey(sceneName))
-                return default;
+            if (!_loadedAssets.ContainsKey(sceneName)) return default;
 
             var handle = _loadedAssets[sceneName];
             var ret = Addressables.UnloadSceneAsync(handle);
@@ -144,13 +144,13 @@ namespace Treevel.Common.Managers
         /// <param name="parent">親オブジェクト</param>
         /// <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
         /// <returns></returns>
-        public static AsyncOperationHandle<GameObject> Instantiate(object key, Transform parent = null, bool instantiateInWorldSpace = false)
+        public static AsyncOperationHandle<GameObject> Instantiate(object key, Transform parent = null,
+                                                                   bool instantiateInWorldSpace = false)
         {
             var op = Addressables.InstantiateAsync(key, parent, instantiateInWorldSpace);
 
             return op;
         }
-
 
         /// <summary>
         /// ステージに必要なアセットをロード
@@ -180,6 +180,7 @@ namespace Treevel.Common.Managers
                     default:
                         throw new System.NotImplementedException();
                 }
+
                 if (bottleData.bottleSprite.RuntimeKeyIsValid()) LoadAsset<Sprite>(bottleData.bottleSprite);
                 // 対応するTileのSpriteを先に読み込む
                 if (bottleData.targetTileSprite.RuntimeKeyIsValid()) LoadAsset<Sprite>(bottleData.targetTileSprite);
@@ -250,6 +251,7 @@ namespace Treevel.Common.Managers
                             default:
                                 throw new System.ArgumentOutOfRangeException();
                         }
+
                         break;
                     default:
                         throw new System.ArgumentOutOfRangeException();

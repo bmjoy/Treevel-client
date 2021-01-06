@@ -50,11 +50,10 @@ namespace Treevel.Common.Utils
         /// デフォルトのスクロール位置
         /// </summary>
         /// <returns></returns>
-        public static Vector2 LEVEL_SELECT_SCROLL_POSITION
-        {
+        public static Vector2 LEVEL_SELECT_SCROLL_POSITION {
             get {
-                var(anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
-                return new Vector2(0,  RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
+                var (anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
+                return new Vector2(0, RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
             }
         }
     }

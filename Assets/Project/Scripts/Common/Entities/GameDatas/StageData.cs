@@ -54,7 +54,7 @@ namespace Treevel.Common.Entities.GameDatas
         /// </summary>
         /// <param name="stageId"></param>
         /// <returns> (treeId, stageNumber) </returns>
-        public static(ETreeId, int) DecodeStageIdKey(string stageId)
+        public static (ETreeId, int) DecodeStageIdKey(string stageId)
         {
             var retValues = stageId.Split(Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR);
             if (retValues.Length != 2) throw new Exception("Wrong key format");

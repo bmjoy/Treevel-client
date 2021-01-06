@@ -20,11 +20,8 @@ namespace Treevel.Common.Networks
             asyncOp.completed += OnRequestCompleted;
         }
 
-        public bool IsCompleted
-        {
-            get {
-                return _asyncOp.isDone;
-            }
+        public bool IsCompleted {
+            get { return _asyncOp.isDone; }
         }
 
         public void GetResult() { }

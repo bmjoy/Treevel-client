@@ -41,7 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private void Awake()
         {
-            _framesToMove = (int)(GamePlayDirector.FRAME_RATE * _SECONDS_TO_MOVE);
+            _framesToMove = (int) (GamePlayDirector.FRAME_RATE * _SECONDS_TO_MOVE);
             _animator = GetComponent<Animator>();
         }
 
@@ -88,6 +88,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
                 _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
             }
+
             _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
             _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
         }
@@ -148,22 +149,23 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             // ボトルの位置を取得する
             var tileNum = BoardManager.Instance.GetBottlePos(_bottleController);
-            var(x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
+            var (x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
 
             var canMoveDirections = new int[Enum.GetNames(typeof(EDirection)).Length];
             // 空いている方向を確認する
             // 左
-            if (BoardManager.Instance.IsEmptyTile(x - 1, y)) canMoveDirections[(int)EDirection.ToLeft] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x - 1, y)) canMoveDirections[(int) EDirection.ToLeft] = 1;
             // 右
-            if (BoardManager.Instance.IsEmptyTile(x + 1, y)) canMoveDirections[(int)EDirection.ToRight] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x + 1, y)) canMoveDirections[(int) EDirection.ToRight] = 1;
             // 上
-            if (BoardManager.Instance.IsEmptyTile(x, y - 1)) canMoveDirections[(int)EDirection.ToUp] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x, y - 1)) canMoveDirections[(int) EDirection.ToUp] = 1;
             // 下
-            if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int)EDirection.ToDown] = 1;
+            if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int) EDirection.ToDown] = 1;
 
             // 空いている方向からランダムに1方向を選択する
             if (canMoveDirections.Sum() == 0) return;
-            var direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
+            var direction =
+                (EDirection) Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
             switch (direction) {
                 case EDirection.ToLeft:
                     BoardManager.Instance.Move(_bottleController, tileNum - 1, Vector2Int.left);
@@ -175,7 +177,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     BoardManager.Instance.Move(_bottleController, tileNum - Constants.StageSize.COLUMN, Vector2Int.up);
                     break;
                 case EDirection.ToDown:
-                    BoardManager.Instance.Move(_bottleController, tileNum + Constants.StageSize.COLUMN, Vector2Int.down);
+                    BoardManager.Instance.Move(_bottleController, tileNum + Constants.StageSize.COLUMN,
+                                               Vector2Int.down);
                     break;
                 default:
                     throw new IndexOutOfRangeException();

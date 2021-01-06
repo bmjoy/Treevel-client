@@ -48,7 +48,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _rigidBody = GetComponent<Rigidbody2D>();
 
             // 雲をタイルの少し上に移動する
-            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(), 0);
+            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(),
+                                       0);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -57,9 +58,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _targets = gimmickData.targets
                 // 無効な値を除外する
-                .SkipWhile((vec) => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x || vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
+                .SkipWhile((vec) => vec.x < (int) ERow.First || (int) ERow.Fifth < vec.x ||
+                                    vec.y < (int) EColumn.Left || (int) EColumn.Right < vec.y)
                 // List<(ERow, EColumn)>に変換する
-                .Select((vec) => ((ERow)vec.x, (EColumn)vec.y)).ToList();
+                .Select((vec) => ((ERow) vec.x, (EColumn) vec.y)).ToList();
 
             Debug.Assert(_targets.Count > 0, "Invalid Gimmick Data");
 
@@ -80,13 +82,15 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             var targetEnumerator = _targets.GetEnumerator();
             while (targetEnumerator.MoveNext()) {
-                var targetPos = BoardManager.Instance.GetTilePos(targetEnumerator.Current.row, targetEnumerator.Current.column);
+                var targetPos =
+                    BoardManager.Instance.GetTilePos(targetEnumerator.Current.row, targetEnumerator.Current.column);
 
                 // 移動ベクトル設定
-                _rigidBody.velocity = (targetPos - (Vector2)transform.position).normalized * _moveSpeed;
+                _rigidBody.velocity = (targetPos - (Vector2) transform.position).normalized * _moveSpeed;
 
                 // 目標地まで移動する
-                yield return new WaitUntil(() => Vector2.Dot(targetPos - (Vector2)transform.position, _rigidBody.velocity) <= 0);
+                yield return new WaitUntil(
+                    () => Vector2.Dot(targetPos - (Vector2) transform.position, _rigidBody.velocity) <= 0);
 
                 // 移動停止
                 _rigidBody.velocity = Vector2.zero;
@@ -95,10 +99,13 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 _animator.SetTrigger("Warning");
 
                 // すぐには遷移してくれないそうなので、次のステート（警告）に遷移するまでちょっと待つ
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash !=
+                                                 _IDLE_STATE_NAME_HASH);
 
                 // 攻撃アニメーション終わるまで待つ
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack));
+                yield return new WaitUntil(
+                    () => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH &&
+                          !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack));
             }
 
             // TODO:退場演出

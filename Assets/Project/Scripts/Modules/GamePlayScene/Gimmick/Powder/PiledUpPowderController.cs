@@ -68,8 +68,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// </summary>
         private void SetBottleFailed()
         {
-            if (GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing)
-                return;
+            if (GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing) return;
             _isPiledUp = true;
             _bottleAnimator.SetTrigger(LifeEffectController.ANIMATOR_PARAM_TRIGGER_DEAD);
             // 失敗原因を保持する

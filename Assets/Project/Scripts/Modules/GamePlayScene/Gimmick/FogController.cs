@@ -25,7 +25,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _particleSystem = GetComponent<ParticleSystem>();
             // サイズ
-            var width = (int)gimmickData.width;
+            var width = (int) gimmickData.width;
             var height = (int) gimmickData.height;
             // 中心位置
             int row;
@@ -34,9 +34,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 row = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray());
                 column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
             } else {
-                row = (int)gimmickData.targetRow;
-                column = (int)gimmickData.targetColumn;
+                row = (int) gimmickData.targetRow;
+                column = (int) gimmickData.targetColumn;
             }
+
             var leftTopPos = BoardManager.Instance.GetTilePos(column, row);
             var rightBottomPos = BoardManager.Instance.GetTilePos(column + width - 1, row + height - 1);
             transform.position = (leftTopPos + rightBottomPos) / 2;
