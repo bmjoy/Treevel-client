@@ -3,8 +3,6 @@ using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
-using Treevel.Modules.MenuSelectScene.Settings;
-using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.StageSelectScene
@@ -24,17 +22,11 @@ namespace Treevel.Modules.StageSelectScene
         {
             base.Awake();
             _endObjectController = endObject.GetComponent<StageController>();
-            FindObjectOfType<ResetController>().OnResetData.Subscribe(_ => Reset()).AddTo(this);
         }
 
         protected override void SetSaveKey()
         {
             saveKey = $"{_treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
-        }
-
-        private void Reset()
-        {
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);
         }
 
         /// <summary>

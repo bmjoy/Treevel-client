@@ -44,6 +44,9 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             // 記録情報をリセット
             RecordData.Instance.Reset();
 
+            // ステージ選択画面のブランチをリセット
+            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);
+
             // キャンバスの設定をリセット
             UserSettings.LevelSelectCanvasScale = Default.LEVEL_SELECT_CANVAS_SCALE;
             UserSettings.LevelSelectScrollPosition = Default.LEVEL_SELECT_SCROLL_POSITION;
