@@ -10,35 +10,11 @@ namespace Treevel.Common.Entities
     {
         public static readonly ReactiveProperty<ELanguage> CurrentLanguage;
 
-        public static IReadOnlyReactiveProperty<float> BGMVolume => _BGMVolume;
-
-        private static readonly ReactiveProperty<float> _BGMVolume =
+        public static readonly ReactiveProperty<float> BGMVolume =
             new ReactiveProperty<float>(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME));
 
-        public static void SetBGMVolume(float volume)
-        {
-            volume = Mathf.Clamp(volume, 0.0f, 1.0f);
-            if (volume.Equals(_BGMVolume.Value))
-                return;
-
-            _BGMVolume.Value = volume;
-            SoundManager.Instance.ResetVolume();
-        }
-
-        public static IReadOnlyReactiveProperty<float> SEVolume => _SEVolume;
-
-        private static readonly ReactiveProperty<float> _SEVolume =
+        public static readonly ReactiveProperty<float> SEVolume =
             new ReactiveProperty<float>(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME));
-
-        public static void SetSEVolume(float volume)
-        {
-            volume = Mathf.Clamp(volume, 0.0f, 1.0f);
-            if (volume.Equals(_BGMVolume.Value))
-                return;
-
-            _SEVolume.Value = volume;
-            SoundManager.Instance.ResetVolume();
-        }
 
         private static int _stageDetails = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, Default.STAGE_DETAILS);
 
@@ -85,7 +61,10 @@ namespace Treevel.Common.Entities
                 }
                 CurrentLanguage = new ReactiveProperty<ELanguage>(initLanguage);
             }
+
             CurrentLanguage.Subscribe(language => PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, language));
+            BGMVolume.Merge(SEVolume)
+                .Subscribe(_ => SoundManager.Instance.ResetVolume());
 
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION)) {
                 _levelSelectScrollPosition = PlayerPrefsUtility.GetObject<Vector2>(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION);
@@ -100,8 +79,8 @@ namespace Treevel.Common.Entities
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.SE_VOLUME);
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STAGE_DETAILS);
 
-            SetBGMVolume(Default.BGM_VOLUME);
-            SetSEVolume(Default.SE_VOLUME);
+            SEVolume.Value = Default.SE_VOLUME;
+            BGMVolume.Value = Default.BGM_VOLUME;
             StageDetails = Default.STAGE_DETAILS;
         }
     }

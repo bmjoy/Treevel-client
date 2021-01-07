@@ -15,7 +15,10 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             UserSettings.BGMVolume.Subscribe(volume => slider.value = volume).AddTo(this);
 
             // BGMスライダーが変化した場合の処理
-            slider.onValueChanged.AsObservable().Subscribe(UserSettings.SetBGMVolume).AddTo(this);
+            slider.onValueChanged.AsObservable()
+                .Where(v => 0.0f <= v && v <= 1.0f)
+                .Subscribe(v => UserSettings.BGMVolume.Value = v)
+                .AddTo(this);
         }
     }
 }
