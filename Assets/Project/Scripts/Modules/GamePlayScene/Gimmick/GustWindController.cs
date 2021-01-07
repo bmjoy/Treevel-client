@@ -7,6 +7,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -53,6 +54,13 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            this.OnTriggerEnter2DAsObservable()
+                .Where(_ => !_isBottleMoved)
+                .Subscribe(_ =>
+                 {
+                     _isBottleMoved = true;
+                     MoveBottles();
+                 }).AddTo(this);
         }
 
         protected override void OnEnable()
@@ -155,14 +163,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken: token);
                 }
             } catch (OperationCanceledException) {
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!_isBottleMoved) {
-                _isBottleMoved = true;
-                MoveBottles();
             }
         }
 

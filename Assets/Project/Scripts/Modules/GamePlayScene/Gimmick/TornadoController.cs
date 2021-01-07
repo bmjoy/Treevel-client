@@ -10,6 +10,7 @@ using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -71,6 +72,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
+            this.OnTriggerEnter2DAsObservable()
+                .Select(other => other.GetComponent<AbstractBottleController>())
+                .Where(bottle => bottle != null)
+                .Where(bottle => bottle.IsAttackable)
+                .Where(bottle => !bottle.Invincible)
+                .Subscribe(_ =>
+                 {
+                     // 衝突したオブジェクトは赤色に変える
+                     gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                 }).AddTo(this);
         }
 
         protected virtual void OnEnable()
@@ -396,16 +407,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 throw new NotImplementedException();
             }
             transform.position = new Vector2(x, y);
-        }
-
-        protected void OnTriggerEnter2D(Collider2D other)
-        {
-            // 数字ボトルとの衝突以外は考えない
-            var bottle = other.GetComponent<AbstractBottleController>();
-            if (bottle == null || !bottle.IsAttackable || bottle.Invincible) return;
-
-            // 衝突したオブジェクトは赤色に変える
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 }

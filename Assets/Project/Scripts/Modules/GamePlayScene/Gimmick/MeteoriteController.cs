@@ -7,6 +7,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -51,6 +52,22 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            this.OnTriggerEnter2DAsObservable()
+                .Where(_ => transform.position.z >= 0)
+                .Subscribe(other =>
+                 {
+                     var bottle = other.GetComponent<AbstractBottleController>();
+                     if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
+                         // 数字ボトルとの衝突
+                         // 衝突したオブジェクトは赤色に変える
+                         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+
+                         gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
+
+                         // 隕石を衝突したボトルに追従させる
+                         gameObject.transform.SetParent(other.transform);
+                     }
+                 }).AddTo(this);
         }
 
         protected virtual void OnEnable()
@@ -148,25 +165,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     _warningPrefab.ReleaseInstance(_warningObj);
                 }
             } catch (OperationCanceledException) {
-            }
-        }
-
-        protected void OnTriggerEnter2D(Collider2D other)
-        {
-            // 隕石が出現したフレーム以外では衝突を考えない
-            if (transform.position.z < 0) return;
-
-            // ボトルとの衝突
-            var bottle = other.GetComponent<AbstractBottleController>();
-            if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
-                // 数字ボトルとの衝突
-                // 衝突したオブジェクトは赤色に変える
-                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-
-                gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
-
-                // 隕石を衝突したボトルに追従させる
-                gameObject.transform.SetParent(other.transform);
             }
         }
 

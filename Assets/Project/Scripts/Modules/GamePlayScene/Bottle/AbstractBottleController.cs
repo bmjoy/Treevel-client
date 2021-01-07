@@ -7,6 +7,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -61,21 +62,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void Awake()
         {
             Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE, $"Sorting Layer Name should be {Constants.SortingLayerName.BOTTLE}");
-        }
-
-        /// <summary>
-        /// 衝突イベントを処理する
-        /// </summary>
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
-            if (!other.gameObject.CompareTag(Constants.TagName.GIMMICK)) return;
-            // 銃痕(hole)が出現したフレーム以外では衝突を考えない
-            if (other.gameObject.transform.position.z < 0) return;
-            // 無敵状態なら，衝突を考えない
-            if (Invincible) return;
-
-            _getDamagedSubject.OnNext(other.gameObject);
+            // 衝突イベントを処理する
+            this.OnTriggerEnter2DAsObservable()
+                .Where(other => other.gameObject.CompareTag(Constants.TagName.GIMMICK))
+                .Where(other => other.gameObject.transform.position.z >= 0)
+                .Where(_ => !Invincible)
+                .Subscribe(other =>
+                 {
+                     _getDamagedSubject.OnNext(other.gameObject);
+                 }).AddTo(this);
         }
 
         private async UniTask InitializeSprite(AssetReferenceSprite spriteAsset)
