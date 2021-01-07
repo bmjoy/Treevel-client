@@ -34,9 +34,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
 
         private void ResetData()
         {
-            if (_onResetDataSubject.HasObservers) {
-                _onResetDataSubject.OnNext(Unit.Default);
-            }
+            _onResetDataSubject.OnNext(Unit.Default);
 
             // 全ステージをリセット
             StageStatus.Reset();
