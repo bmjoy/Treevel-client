@@ -22,8 +22,8 @@ namespace Treevel.Common.Entities
 
         public static IReadOnlyReactiveProperty<float> BGMVolume => _BGMVolume;
 
-        private static readonly FloatReactiveProperty _BGMVolume =
-            new FloatReactiveProperty(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME));
+        private static readonly ReactiveProperty<float> _BGMVolume =
+            new ReactiveProperty<float>(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME));
 
         public static void SetBGMVolume(float volume)
         {
@@ -37,8 +37,8 @@ namespace Treevel.Common.Entities
 
         public static IReadOnlyReactiveProperty<float> SEVolume => _SEVolume;
 
-        private static readonly FloatReactiveProperty _SEVolume =
-            new FloatReactiveProperty(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME));
+        private static readonly ReactiveProperty<float> _SEVolume =
+            new ReactiveProperty<float>(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME));
 
         public static void SetSEVolume(float volume)
         {
