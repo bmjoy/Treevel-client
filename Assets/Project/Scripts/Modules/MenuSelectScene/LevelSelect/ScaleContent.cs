@@ -1,4 +1,5 @@
 ﻿using System;
+using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
@@ -53,14 +54,10 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _transformGesture = GetComponent<TransformGesture>();
             _scaledCanvas = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA;
 
-            Observable.Merge(
-                Observable.FromEvent(
-                    _ => _transformGesture.TransformStarted += OnTransformStarted,
-                    _ => _transformGesture.TransformStarted -= OnTransformStarted),
-                Observable.FromEvent(
-                    _ => _transformGesture.Transformed += OnTransformed,
-                    _ => _transformGesture.Transformed -= OnTransformed)
-            ).Subscribe().AddTo(this);
+            // 明示的にUnityEvent使用することを宣言
+            _transformGesture.UseUnityEvents = true;
+            _transformGesture.OnTransformStart.AsObservable().Subscribe(OnTransformStarted).AddTo(this);
+            _transformGesture.OnTransform.AsObservable().Subscribe(OnTransformed).AddTo(this);
         }
 
         private void OnEnable()
@@ -76,7 +73,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             UserSettings.LevelSelectCanvasScale = _preScale;
         }
 
-        private void OnTransformStarted(object sender, EventArgs e)
+        private void OnTransformStarted(Gesture gesture)
         {
             // タッチ位置を取得
             _prePoint1 = _transformGesture.ActivePointers[0].Position;
@@ -87,7 +84,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _preMeanPoint = (_prePoint1 + _prePoint2) / 2;
         }
 
-        private void OnTransformed(object sender, EventArgs e)
+        private void OnTransformed(Gesture gesture)
         {
             // タッチ位置等の計算
             var newPoint1 = _transformGesture.ActivePointers[0].Position;

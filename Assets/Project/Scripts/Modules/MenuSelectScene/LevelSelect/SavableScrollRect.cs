@@ -1,4 +1,5 @@
 ﻿using System;
+using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
 using UniRx;
@@ -32,14 +33,10 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _TOP_OFFSET = content.anchorMax.y - content.pivot.y;
             _BOTTOM_OFFSET = Mathf.Abs(content.anchorMin.y - content.pivot.y);
 
-            Observable.Merge(
-                Observable.FromEvent(
-                    _ => _transformGesture.TransformStarted += OnTransformStarted,
-                    _ => _transformGesture.TransformStarted -= OnTransformStarted),
-                Observable.FromEvent(
-                    _ => _transformGesture.TransformCompleted += OnTransformCompleted,
-                    _ => _transformGesture.TransformCompleted -= OnTransformCompleted)
-            ).Subscribe().AddTo(this);
+            // 明示的にUnityEvent使用することを宣言
+            _transformGesture.UseUnityEvents = true;
+            _transformGesture.OnTransformStart.AsObservable().Subscribe(OnTransformStarted).AddTo(this);
+            _transformGesture.OnTransformComplete.AsObservable().Subscribe(OnTransformCompleted).AddTo(this);
         }
 
         protected override void OnEnable()
@@ -55,14 +52,14 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             UserSettings.LevelSelectScrollPosition = content.transform.localPosition;
         }
 
-        private void OnTransformStarted(object sender, EventArgs e)
+        private void OnTransformStarted(Gesture gesture)
         {
             // 2点タッチしている時はスクロールしない
             horizontal = false;
             vertical = false;
         }
 
-        private void OnTransformCompleted(object sender, EventArgs e)
+        private void OnTransformCompleted(Gesture gesture)
         {
             // スクロール制限を解除する
             horizontal = true;
