@@ -15,8 +15,8 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// </summary>
         private Button _resetButton;
 
-        public IObservable<Unit> OnResetData => _onResetDataSubject.AsObservable();
-        private readonly Subject<Unit> _onResetDataSubject = new Subject<Unit>();
+        public IObservable<Unit> OnDataReset => _onDataResetSubject.AsObservable();
+        private readonly Subject<Unit> _onDataResetSubject = new Subject<Unit>();
 
         private void Awake()
         {
@@ -29,12 +29,12 @@ namespace Treevel.Modules.MenuSelectScene.Settings
                 );
             }).AddTo(this);
 
-            _onResetDataSubject.AddTo(this);
+            _onDataResetSubject.AddTo(this);
         }
 
         private void ResetData()
         {
-            _onResetDataSubject.OnNext(Unit.Default);
+            _onDataResetSubject.OnNext(Unit.Default);
 
             // 全ステージをリセット
             StageStatus.Reset();
