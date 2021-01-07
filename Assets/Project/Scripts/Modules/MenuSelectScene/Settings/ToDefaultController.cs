@@ -1,6 +1,4 @@
-﻿using System;
-using Treevel.Common.Entities;
-using UniRx;
+﻿using Treevel.Common.Entities;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.Settings
