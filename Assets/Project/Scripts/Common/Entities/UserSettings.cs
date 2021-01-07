@@ -8,17 +8,7 @@ namespace Treevel.Common.Entities
 {
     public static class UserSettings
     {
-        public static IReadOnlyReactiveProperty<ELanguage> CurrentLanguage => _currentLanguage;
-        private static readonly ReactiveProperty<ELanguage> _currentLanguage;
-
-        public static void SetLanguage(ELanguage language)
-        {
-            if (language == _currentLanguage.Value)
-                return;
-
-            _currentLanguage.Value = language;
-            PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, _currentLanguage.Value);
-        }
+        public static readonly ReactiveProperty<ELanguage> CurrentLanguage;
 
         public static IReadOnlyReactiveProperty<float> BGMVolume => _BGMVolume;
 
@@ -86,15 +76,16 @@ namespace Treevel.Common.Entities
         static UserSettings()
         {
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LANGUAGE)) {
-                _currentLanguage = new ReactiveProperty<ELanguage>(
+                CurrentLanguage = new ReactiveProperty<ELanguage>(
                     PlayerPrefsUtility.GetObject<ELanguage>(Constants.PlayerPrefsKeys.LANGUAGE));
             } else {
                 var systemLanguage = Application.systemLanguage.ToString();
                 if (!Enum.TryParse(systemLanguage, out ELanguage initLanguage)) {
                     initLanguage = Default.LANGUAGE;
                 }
-                _currentLanguage = new ReactiveProperty<ELanguage>(initLanguage);
+                CurrentLanguage = new ReactiveProperty<ELanguage>(initLanguage);
             }
+            CurrentLanguage.Subscribe(language => PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, language));
 
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION)) {
                 _levelSelectScrollPosition = PlayerPrefsUtility.GetObject<Vector2>(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION);
