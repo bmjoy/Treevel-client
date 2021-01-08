@@ -75,7 +75,7 @@ namespace Treevel.Common.Components.UIs
 
         private void OnEnable()
         {
-            StartCoroutine(ShowProgress_Impl());
+            StartCoroutine(ShowProgressBar());
         }
 
         private void OnDisable()
@@ -83,7 +83,7 @@ namespace Treevel.Common.Components.UIs
             _loadingOps.Clear();
         }
 
-        private IEnumerator ShowProgress_Impl()
+        private IEnumerator ShowProgressBar()
         {
             while (true) {
                 // 進捗の計算
