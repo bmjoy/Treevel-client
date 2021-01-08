@@ -300,12 +300,28 @@ namespace Treevel.Modules.GamePlayScene
             /// </summary>
             private readonly Text _stageNumberText;
 
+            /// <summary>
+            /// ゲーム時間を計測するタイマー
+            /// </summary>
+            private readonly CustomTimer _customTimer;
+
+            /// <summary>
+            /// タイマー用テキスト
+            /// </summary>
+            private readonly Text _timerText;
+
             public OpeningState(GamePlayDirector caller)
             {
                 // TODO: ステージTextを適切に配置する
                 // ステージID表示
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
                 _stageNumberText.text = seasonId.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
+
+                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
+                _customTimer.Initialize(_timerText);
+                // タイマー設定
+                _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
+
             }
 
             public override void OnEnter(State @from = null)
@@ -318,6 +334,17 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnExit(State to)
             {
                 // TODO: ステージ準備中のアニメーションを停止する
+                // 時間の計測
+                _customTimer.StartTimer();
+
+                // ゲーム開始時のイベント
+                Instance._gameStartSubject.OnNext(Unit.Default);
+
+                // ギミックの発火
+                GimmickGenerator.Instance.FireGimmick();
+
+                // BGMの再生
+                SoundManager.Instance.PlayBGM(EBGMKey.BGM_Gameplay, 2.0f);
             }
 
             /// <summary>
@@ -339,32 +366,13 @@ namespace Treevel.Modules.GamePlayScene
             /// </summary>
             private readonly CustomTimer _customTimer;
 
-            /// <summary>
-            /// タイマー用テキスト
-            /// </summary>
-            private readonly Text _timerText;
-
             public PlayingState(GamePlayDirector caller)
             {
-                // タイマー設定
-                _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
                 _customTimer = caller.gameObject.AddComponent<CustomTimer>();
-                _customTimer.Initialize(_timerText);
             }
 
             public override void OnEnter(State from = null)
             {
-                // 時間の計測
-                _customTimer.StartTimer();
-
-                // ゲーム開始時のイベント
-                Instance._gameStartSubject.OnNext(Unit.Default);
-
-                // ギミックの発火
-                GimmickGenerator.Instance.FireGimmick();
-
-                // BGMの再生
-                SoundManager.Instance.PlayBGM(EBGMKey.BGM_Gameplay, 2.0f);
             }
 
             public override void OnExit(State to)
