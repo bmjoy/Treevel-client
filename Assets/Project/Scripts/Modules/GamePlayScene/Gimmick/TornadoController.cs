@@ -130,6 +130,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 SetDirection(currentDirection);
 
                 while (++_currentTargetIndex < _targetDirections.Length) {
+                    tokenSource = new CancellationTokenSource();
                     currentDirection = _targetDirections[_currentTargetIndex];
 
                     // 警告位置
@@ -149,8 +150,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     }
 
                     // 警告を表示する
-                    tokenSource.Cancel();
-                    await ShowWarning(tokenSource.Token, warningPos, currentDirection, _warningDisplayTime);
+                    ShowWarning(tokenSource.Token, warningPos, currentDirection, _warningDisplayTime).Forget();
                     if (token.IsCancellationRequested) return;
 
                     // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
@@ -276,8 +276,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
                 // 警告終わるまで待つ
-                while ((displayTime -= Time.fixedDeltaTime) >= 0) {
-                    if (token.IsCancellationRequested) return;
+                while ((displayTime -= Time.fixedDeltaTime) >= 0)
+                {
                     await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
                 }
 
