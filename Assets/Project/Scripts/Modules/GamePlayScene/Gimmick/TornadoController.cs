@@ -276,8 +276,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
                 // 警告終わるまで待つ
-                while ((displayTime -= Time.fixedDeltaTime) >= 0)
-                {
+                while ((displayTime -= Time.fixedDeltaTime) >= 0) {
                     await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
                 }
 
