@@ -48,7 +48,7 @@ namespace Treevel.Common.Utils
                 if (ETextIndex.TryParse(line[0], out index)) {
                     foreach (ELanguage language in Enum.GetValues(typeof(ELanguage))) {
                         var key = new KeyValuePair<ELanguage, ETextIndex>(language, index);
-                        var newText = line[(int) language + 1];
+                        var newText = line[(int)language + 1];
                         _stringTable.Add(key, newText);
                     }
                 } else {

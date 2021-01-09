@@ -88,7 +88,7 @@ namespace Treevel.Modules.StageSelectScene
             // ページ遷移時のイベント登録
             _snapScrollView.OnPageChanged += () => {
                 // 木IDを更新
-                treeId = (ETreeId) ((_snapScrollView.Page + 1) + ((int) treeId / Constants.MAX_TREE_NUM_IN_SEASON));
+                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON));
 
                 // ボタン表示/非表示
                 _leftButton.SetActive(_snapScrollView.Page != 0);
@@ -96,7 +96,7 @@ namespace Treevel.Modules.StageSelectScene
             };
 
             // ページの設定
-            _snapScrollView.Page = (int) treeId % Constants.MAX_TREE_NUM_IN_SEASON - 1;
+            _snapScrollView.Page = (int)treeId % Constants.MAX_TREE_NUM_IN_SEASON - 1;
             _snapScrollView.RefreshPage(false);
 
             // TODO: 表示している木の名前を描画する
@@ -148,7 +148,7 @@ namespace Treevel.Modules.StageSelectScene
                 .ToObservable()
                 .Subscribe(data => {
                     // ポップアップを初期化する
-                    _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats) data);
+                    _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
                     // ポップアップを表示する
                     _overviewPopup.gameObject.SetActive(true);
                 })

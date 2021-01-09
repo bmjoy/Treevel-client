@@ -262,7 +262,7 @@ namespace Treevel.Common.Managers
                 EditorGUILayout.LabelField("BGM List", EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(GUI.skin.box);
                 foreach (var eBgm in Enum.GetValues(typeof(EBGMKey)) as EBGMKey[]) {
-                    var soundDataProp = _bgmListProp.GetArrayElementAtIndex((int) eBgm);
+                    var soundDataProp = _bgmListProp.GetArrayElementAtIndex((int)eBgm);
                     // BGMのキーを保存
                     var keyProp = soundDataProp.FindPropertyRelative("key");
                     keyProp.stringValue = eBgm.ToString();
@@ -276,7 +276,7 @@ namespace Treevel.Common.Managers
                 EditorGUILayout.LabelField("SE List", EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(GUI.skin.box);
                 foreach (var eSe in Enum.GetValues(typeof(ESEKey)) as ESEKey[]) {
-                    var soundDataProp = _seListProp.GetArrayElementAtIndex((int) eSe);
+                    var soundDataProp = _seListProp.GetArrayElementAtIndex((int)eSe);
                     var keyProp = soundDataProp.FindPropertyRelative("key");
                     keyProp.stringValue = eSe.ToString();
 

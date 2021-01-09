@@ -71,7 +71,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             switch (_targetDirection) {
                 case EDirection.ToLeft:
                 case EDirection.ToRight: {
-                    _targetLine = (int) gimmickData.targetRow;
+                    _targetLine = (int)gimmickData.targetRow;
 
                     var sign = _targetDirection == EDirection.ToLeft ? 1 : -1;
                     var centerTilePos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center);
@@ -92,7 +92,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 }
                 case EDirection.ToDown:
                 case EDirection.ToUp: {
-                    _targetLine = (int) gimmickData.targetColumn;
+                    _targetLine = (int)gimmickData.targetColumn;
 
                     var sign = _targetDirection == EDirection.ToUp ? 1 : -1;
                     var centerTilePos = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn);
@@ -138,7 +138,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             var attackAnimationTime = attackAnimClip.length;
             var speed = _attackMoveDistance / attackAnimationTime;
 
-            var direction = (Vector3) (Vector3Int) _targetDirection.GetVectorInt();
+            var direction = (Vector3)(Vector3Int)_targetDirection.GetVectorInt();
             while ((_attackEndPos - transform.position).normalized == direction) {
                 transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
                 yield return new WaitForFixedUpdate();
@@ -223,8 +223,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private DynamicBottleController[] GetTargetBottles()
         {
             var bottleObjsOnTargetLine = GimmickLibrary.IsHorizontal(_targetDirection)
-                ? BoardManager.Instance.GetBottlesOnRow((ERow) _targetLine)
-                : BoardManager.Instance.GetBottlesOnColumn((EColumn) _targetLine);
+                ? BoardManager.Instance.GetBottlesOnRow((ERow)_targetLine)
+                : BoardManager.Instance.GetBottlesOnColumn((EColumn)_targetLine);
 
             var targetBottles = bottleObjsOnTargetLine
                 .Where(go => go.GetComponent<DynamicBottleController>() != null)

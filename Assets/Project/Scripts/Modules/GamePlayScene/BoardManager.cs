@@ -105,7 +105,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             List<GameObject> ret = new List<GameObject>();
 
-            var r = (int) row;
+            var r = (int)row;
             for (var c = 0; c < Constants.StageSize.COLUMN; c++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
@@ -122,7 +122,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             List<GameObject> ret = new List<GameObject>();
 
-            var c = (int) column;
+            var c = (int)column;
             for (var r = 0; r < Constants.StageSize.ROW; r++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
@@ -366,7 +366,7 @@ namespace Treevel.Modules.GamePlayScene
 
         public Vector2 GetTilePos(ERow row, EColumn column)
         {
-            return GetTilePos((int) column, (int) row);
+            return GetTilePos((int)column, (int)row);
         }
 
         public Vector2 GetTilePos(int x, int y)

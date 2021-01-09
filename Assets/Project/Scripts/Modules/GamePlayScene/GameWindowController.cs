@@ -40,7 +40,7 @@ namespace Treevel.Modules.GamePlayScene
             // 想定するデバイスのアスペクト比
             const float targetRatio = Constants.WindowSize.WIDTH / Constants.WindowSize.HEIGHT;
             // 実際のデバイスのアスペクト比
-            var currentRatio = (float) Screen.width / Screen.height;
+            var currentRatio = (float)Screen.width / Screen.height;
             // 許容するアスペクト比の誤差
             const float aspectRatioError = 0.001f;
 

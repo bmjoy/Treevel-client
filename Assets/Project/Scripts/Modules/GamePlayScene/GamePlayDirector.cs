@@ -24,7 +24,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// FPS
         /// </summary>
-        public static readonly int FRAME_RATE = (int) Mathf.Round(1.0f / Time.fixedDeltaTime);
+        public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime);
 
         private const float _BGM_VOLUME_RATIO_ON_PAUSE = 0.5f;
 
@@ -110,7 +110,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             // ステートマシン初期化
             foreach (var state in Enum.GetValues(typeof(EGameState))) {
-                AddState((EGameState) state);
+                AddState((EGameState)state);
             }
 
             var startState = ShouldShowTutorial() ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Playing];
@@ -119,7 +119,7 @@ namespace Treevel.Modules.GamePlayScene
 
             // 可能の状態遷移を設定
             foreach (var state in Enum.GetValues(typeof(EGameState))) {
-                AddTransition((EGameState) state);
+                AddTransition((EGameState)state);
             }
         }
 
@@ -141,7 +141,7 @@ namespace Treevel.Modules.GamePlayScene
             var stateType = parentType.GetNestedType($"{state.ToString()}State", BindingFlags.NonPublic);
 
             // ステートのインスタンス生成
-            var stateInstance = (State) Activator.CreateInstance(stateType, new object[] { this });
+            var stateInstance = (State)Activator.CreateInstance(stateType, new object[] { this });
 
             _stateList.Add(state, stateInstance);
         }
@@ -239,7 +239,7 @@ namespace Treevel.Modules.GamePlayScene
         [EnumAction(typeof(EGameState))]
         public void Dispatch(int nextState)
         {
-            Dispatch((EGameState) nextState);
+            Dispatch((EGameState)nextState);
         }
 
         /// <summary>

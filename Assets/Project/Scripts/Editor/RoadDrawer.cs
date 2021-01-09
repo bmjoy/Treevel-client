@@ -13,7 +13,7 @@ namespace Treevel.Editor
 
         public void OnEnable()
         {
-            road = (RoadController) target;
+            road = (RoadController)target;
         }
 
         public override void OnInspectorGUI()

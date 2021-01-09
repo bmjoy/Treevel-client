@@ -76,7 +76,7 @@ namespace Treevel.Editor
                 Enumerable.Range(_numOfGimmicks, _gimmickDatasProp.arraySize - _numOfGimmicks)
                     .ToList()
                     .ForEach(i => _gimmickDatasProp.GetArrayElementAtIndex(i).FindPropertyRelative("type")
-                                 .enumValueIndex = (int) EGimmickType.Tornado);
+                                 .enumValueIndex = (int)EGimmickType.Tornado);
             }
 
             _numOfGimmicks = _src.GimmickDatas?.Count ?? 0;
@@ -119,9 +119,9 @@ namespace Treevel.Editor
 
             var tutorialType = tutorialProp.FindPropertyRelative("type");
             tutorialType.enumValueIndex =
-                (int) (ETutorialType) EditorGUILayout.EnumPopup(new GUIContent("Type"),
-                                                                (ETutorialType) tutorialType.enumValueIndex);
-            switch ((ETutorialType) tutorialType.enumValueIndex) {
+                (int)(ETutorialType)EditorGUILayout.EnumPopup(new GUIContent("Type"),
+                                                              (ETutorialType)tutorialType.enumValueIndex);
+            switch ((ETutorialType)tutorialType.enumValueIndex) {
                 case ETutorialType.Image:
                     EditorGUILayout.PropertyField(tutorialProp.FindPropertyRelative("image"));
                     break;
@@ -153,8 +153,8 @@ namespace Treevel.Editor
                 var tileTypeProp = tileDataProp.FindPropertyRelative("type");
 
                 var newEnumValueIndex =
-                    (int) (ETileType) EditorGUILayout.EnumPopup(new GUIContent("Type"),
-                                                                (ETileType) tileTypeProp.enumValueIndex);
+                    (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"),
+                                                              (ETileType)tileTypeProp.enumValueIndex);
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != tileTypeProp.enumValueIndex) {
@@ -162,7 +162,7 @@ namespace Treevel.Editor
                     ResetData(tileDataProp);
                 }
 
-                switch ((ETileType) tileTypeProp.enumValueIndex) {
+                switch ((ETileType)tileTypeProp.enumValueIndex) {
                     case ETileType.Normal:
                         break;
                     case ETileType.Warp: {
@@ -195,8 +195,8 @@ namespace Treevel.Editor
                 var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
 
                 var newEnumValueIndex =
-                    (int) (EBottleType) EditorGUILayout.EnumPopup(new GUIContent("Type"),
-                                                                  (EBottleType) bottleTypeProp.enumValueIndex);
+                    (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"),
+                                                                (EBottleType)bottleTypeProp.enumValueIndex);
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != bottleTypeProp.enumValueIndex) {
@@ -206,13 +206,13 @@ namespace Treevel.Editor
 
                 EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
-                if (((EBottleType) bottleTypeProp.enumValueIndex).IsAttackable()) {
+                if (((EBottleType)bottleTypeProp.enumValueIndex).IsAttackable()) {
                     var lifeProp = bottleDataProp.FindPropertyRelative("life");
                     lifeProp.intValue = Mathf.Max(1, lifeProp.intValue);
                     EditorGUILayout.PropertyField(lifeProp);
                 }
 
-                switch ((EBottleType) bottleTypeProp.enumValueIndex) {
+                switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
@@ -247,7 +247,7 @@ namespace Treevel.Editor
             // Powderギミックが存在するかどうか
             var isExistPowder = Enumerable.Range(0, _gimmickDatasProp.arraySize)
                 .Select(index => _gimmickDatasProp.GetArrayElementAtIndex(index).FindPropertyRelative("type"))
-                .Any(gimmickTypeData => (EGimmickType) gimmickTypeData.enumValueIndex == EGimmickType.Powder);
+                .Any(gimmickTypeData => (EGimmickType)gimmickTypeData.enumValueIndex == EGimmickType.Powder);
 
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
                 gimmickDataProp.isExpanded =
@@ -258,11 +258,11 @@ namespace Treevel.Editor
                 EditorGUI.indentLevel++;
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
-                int newEnumValueIndex = (int) (EGimmickType) EditorGUILayout.EnumPopup(
+                int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                     label: new GUIContent("Type"),
-                    selected: (EGimmickType) gimmickTypeProp.enumValueIndex,
+                    selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
                     // Poderギミックは１ステージに１つまで
-                    checkEnabled: (eType) => !isExistPowder || (EGimmickType) eType != EGimmickType.Powder,
+                    checkEnabled: (eType) => !isExistPowder || (EGimmickType)eType != EGimmickType.Powder,
                     includeObsolete: false
                 );
                 // タイプが変わっていたらデータをリセット
@@ -271,7 +271,7 @@ namespace Treevel.Editor
                     ResetData(gimmickDataProp);
                 }
 
-                if ((EGimmickType) gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
+                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
                     EditorGUI.indentLevel--;
                     return;
                 }
@@ -282,7 +282,7 @@ namespace Treevel.Editor
                 var loopProp = gimmickDataProp.FindPropertyRelative("loop");
                 EditorGUILayout.PropertyField(loopProp);
 
-                switch ((EGimmickType) gimmickTypeProp.enumValueIndex) {
+                switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
                         var useRandomProp = gimmickDataProp.FindPropertyRelative("isRandom");
                         var directionsProp = gimmickDataProp.FindPropertyRelative("targetDirections");
@@ -310,18 +310,18 @@ namespace Treevel.Editor
                                 EditorGUI.indentLevel++;
                                 EditorGUILayout.PropertyField(directionElem, new GUIContent("Direction"));
 
-                                switch ((EDirection) directionElem.intValue) {
+                                switch ((EDirection)directionElem.intValue) {
                                     case EDirection.ToDown:
                                     case EDirection.ToUp: {
                                         // デフォルト値設定
                                         lineElem.intValue =
                                             Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.COLUMN - 1);
 
-                                        lineElem.intValue = (int) (EColumn) EditorGUILayout.EnumPopup(
+                                        lineElem.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Target Column"),
-                                            selected: (EColumn) lineElem.intValue,
+                                            selected: (EColumn)lineElem.intValue,
                                             //ランダムは選択不能にする
-                                            checkEnabled: (eType) => (EColumn) eType != EColumn.Random,
+                                            checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
                                             includeObsolete: false
                                         );
                                         break;
@@ -332,11 +332,11 @@ namespace Treevel.Editor
                                         lineElem.intValue =
                                             Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.ROW - 1);
 
-                                        lineElem.intValue = (int) (ERow) EditorGUILayout.EnumPopup(
+                                        lineElem.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Target Row"),
-                                            selected: (ERow) lineElem.intValue,
+                                            selected: (ERow)lineElem.intValue,
                                             //ランダムは選択不能にする
-                                            checkEnabled: (eType) => (ERow) eType != ERow.Random,
+                                            checkEnabled: (eType) => (ERow)eType != ERow.Random,
                                             includeObsolete: false
                                         );
                                         break;
@@ -417,20 +417,20 @@ namespace Treevel.Editor
                         } else {
                             if (rowProp.intValue < 1 || rowProp.intValue > Constants.StageSize.ROW) rowProp.intValue = 1;
 
-                            rowProp.intValue = (int) (ERow) EditorGUILayout.EnumPopup(
+                            rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("Row"),
-                                selected: (ERow) rowProp.intValue,
+                                selected: (ERow)rowProp.intValue,
                                 //ランダムは選択不能にする
-                                checkEnabled: (eType) => (ERow) eType != ERow.Random,
+                                checkEnabled: (eType) => (ERow)eType != ERow.Random,
                                 includeObsolete: false
                             );
 
                             if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN) colProp.intValue = 1;
-                            colProp.intValue = (int) (EColumn) EditorGUILayout.EnumPopup(
+                            colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("EColumn"),
-                                selected: (EColumn) colProp.intValue,
+                                selected: (EColumn)colProp.intValue,
                                 //ランダムは選択不能にする
-                                checkEnabled: (eType) => (EColumn) eType != EColumn.Random,
+                                checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
                                 includeObsolete: false
                             );
                         }
@@ -501,7 +501,7 @@ namespace Treevel.Editor
                         // 攻撃方向
                         var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
                         EditorGUILayout.PropertyField(directionProp);
-                        switch ((EDirection) directionProp.intValue) {
+                        switch ((EDirection)directionProp.intValue) {
                             case EDirection.ToRight:
                             case EDirection.ToLeft:
                                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
@@ -513,7 +513,7 @@ namespace Treevel.Editor
                             default:
                                 // 描画を止めないように適当な値を設定する
                                 Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
-                                directionProp.intValue = (int) EDirection.ToLeft;
+                                directionProp.intValue = (int)EDirection.ToLeft;
                                 break;
                         }
 
@@ -523,7 +523,7 @@ namespace Treevel.Editor
                         // 攻撃方向
                         var directionProp = gimmickDataProp.FindPropertyRelative("targetDirection");
                         EditorGUILayout.PropertyField(directionProp);
-                        switch ((EDirection) directionProp.intValue) {
+                        switch ((EDirection)directionProp.intValue) {
                             case EDirection.ToRight:
                             case EDirection.ToLeft:
                                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("targetRow"));
@@ -535,7 +535,7 @@ namespace Treevel.Editor
                             default:
                                 // 描画を止めないように適当な値を設定する
                                 Debug.LogWarning($"Invalid Enum Value: {directionProp.intValue}");
-                                directionProp.intValue = (int) EDirection.ToLeft;
+                                directionProp.intValue = (int)EDirection.ToLeft;
                                 break;
                         }
 
@@ -585,20 +585,20 @@ namespace Treevel.Editor
                             }
                         } else {
                             rowProp.intValue = Mathf.Clamp(rowProp.intValue, 0, Constants.StageSize.ROW - 1);
-                            rowProp.intValue = (int) (ERow) EditorGUILayout.EnumPopup(
+                            rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("Row"),
-                                selected: (ERow) rowProp.intValue,
+                                selected: (ERow)rowProp.intValue,
                                 //ランダムは選択不能にする
-                                checkEnabled: (eType) => (ERow) eType != ERow.Random,
+                                checkEnabled: (eType) => (ERow)eType != ERow.Random,
                                 includeObsolete: false
                             );
 
                             colProp.intValue = Mathf.Clamp(colProp.intValue, 0, Constants.StageSize.COLUMN - 1);
-                            colProp.intValue = (int) (EColumn) EditorGUILayout.EnumPopup(
+                            colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("EColumn"),
-                                selected: (EColumn) colProp.intValue,
+                                selected: (EColumn)colProp.intValue,
                                 //ランダムは選択不能にする
-                                checkEnabled: (eType) => (EColumn) eType != EColumn.Random,
+                                checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
                                 includeObsolete: false
                             );
 

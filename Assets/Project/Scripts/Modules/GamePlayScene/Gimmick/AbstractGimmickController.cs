@@ -25,7 +25,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
 
             try {
-                _gimmickId = checked((short) (_gimmickId + 1));
+                _gimmickId = checked((short)(_gimmickId + 1));
             } catch (System.OverflowException) {
                 _gimmickId = short.MinValue;
             }

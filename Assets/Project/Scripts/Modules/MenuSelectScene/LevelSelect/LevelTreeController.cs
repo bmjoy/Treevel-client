@@ -25,9 +25,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         public override void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
-            state = (ETreeState) Enum.ToObject(typeof(ETreeState),
-                                               PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(),
-                                                                  Default.TREE_STATE));
+            state = (ETreeState)Enum.ToObject(typeof(ETreeState),
+                                              PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(),
+                                                                 Default.TREE_STATE));
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased:

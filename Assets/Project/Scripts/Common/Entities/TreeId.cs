@@ -29,7 +29,7 @@ namespace Treevel.Common.Entities
     {
         public static ESeasonId GetSeasonId(this ETreeId treeId)
         {
-            return (ESeasonId) ((int) treeId / Constants.MAX_TREE_NUM_IN_SEASON);
+            return (ESeasonId)((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON);
         }
 
         public static string GetTreeIdAsKey(this ETreeId treeId)

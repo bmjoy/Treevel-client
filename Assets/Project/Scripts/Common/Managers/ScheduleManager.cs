@@ -7,7 +7,7 @@ namespace Treevel.Common.Managers
     {
         public static void AddEvent(MonoBehaviour actor, string methodName, DateTime dateTime)
         {
-            var seconds = (float) (dateTime - DateTime.Now).TotalSeconds;
+            var seconds = (float)(dateTime - DateTime.Now).TotalSeconds;
 
             if (seconds <= 0) return;
 

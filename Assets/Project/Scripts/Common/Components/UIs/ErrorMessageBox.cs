@@ -31,9 +31,9 @@ namespace Treevel.Common.Components.UIs
             set {
                 _errorCode = value;
                 // エラーコードから対応するエラーメッセージを取得
-                _text.TextIndex = (ETextIndex) ((int) ETextIndex.ErrorTextStart + (int) _errorCode);
+                _text.TextIndex = (ETextIndex)((int)ETextIndex.ErrorTextStart + (int)_errorCode);
                 // _errorCodeが1なら001と出力
-                _text.text += $"(ErrorCode:{((int) _errorCode):D3})";
+                _text.text += $"(ErrorCode:{((int)_errorCode):D3})";
             }
         }
 

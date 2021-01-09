@@ -23,7 +23,7 @@ namespace Treevel.Common.Components.UIs
         public ETextIndex TextIndex {
             get =>
                 _textIndex.CompareTo(ETextIndex.Error) == 0
-                    ? (ETextIndex) System.Enum.Parse(typeof(ETextIndex), _indexStr)
+                    ? (ETextIndex)System.Enum.Parse(typeof(ETextIndex), _indexStr)
                     : _textIndex;
             set {
                 if (_textIndex == value) return;

@@ -9,7 +9,7 @@ namespace Treevel.Common.Utils
         // <summary>
         /// デフォルトの木の解放状態
         /// </summary>
-        public const int TREE_STATE = (int) ETreeState.Unreleased;
+        public const int TREE_STATE = (int)ETreeState.Unreleased;
 
         /// <summary>
         /// デフォルトの道の解放状態

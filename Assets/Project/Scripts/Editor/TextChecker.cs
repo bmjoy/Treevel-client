@@ -33,7 +33,7 @@ namespace Treevel.Editor
                 var guid = sceneGuids[i];
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 // プログレスバーを表示
-                EditorUtility.DisplayProgressBar("", path, (float) i / (float) sceneGuids.Length);
+                EditorUtility.DisplayProgressBar("", path, (float)i / (float)sceneGuids.Length);
                 // シーンを開く
                 EditorSceneManager.OpenScene(path);
                 Debug.Log(AssetDatabase.LoadMainAssetAtPath(path));

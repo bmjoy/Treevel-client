@@ -64,8 +64,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         _targetPos = BoardManager.Instance.GetTilePos(column, row);
                     } else {
                         _targetPos =
-                            BoardManager.Instance.GetTilePos((int) gimmickData.targetColumn,
-                                                             (int) gimmickData.targetRow);
+                            BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn,
+                                                             (int)gimmickData.targetRow);
                     }
 
                     break;

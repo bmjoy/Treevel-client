@@ -21,7 +21,7 @@ namespace Treevel.Common.Patterns.Singleton
                     // instance すでに値を持ってる場合そのまま返す。
                     if (_instance != null) return _instance;
 
-                    _instance = (T) FindObjectOfType(typeof(T));
+                    _instance = (T)FindObjectOfType(typeof(T));
 
                     // クラスTを持つオブジェクトが二つ以上あったらおかしいのでエラーを出す
                     if (FindObjectsOfType(typeof(T)).Length > 1) {

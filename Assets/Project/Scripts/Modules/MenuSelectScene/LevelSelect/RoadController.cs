@@ -95,7 +95,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             for (var i = 0; i < _CLEAR_ANIMATION_FRAMES; i++) {
                 // 非解放状態から解放状態まで線形補間
                 lineRenderer.startColor = lineRenderer.endColor =
-                    Color.Lerp(_ROAD_UNRELEASED_COLOR, _ROAD_RELEASED_COLOR, (float) i / _CLEAR_ANIMATION_FRAMES);
+                    Color.Lerp(_ROAD_UNRELEASED_COLOR, _ROAD_RELEASED_COLOR, (float)i / _CLEAR_ANIMATION_FRAMES);
                 yield return null;
             }
 

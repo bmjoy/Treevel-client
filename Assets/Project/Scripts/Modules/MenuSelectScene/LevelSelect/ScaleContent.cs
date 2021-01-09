@@ -93,7 +93,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var _newPoint1 = _transformGesture.ActivePointers[0].Position;
             var _newPoint2 = _transformGesture.ActivePointers[1].Position;
             var _newScreenDist = Vector2.Distance(_newPoint1, _newPoint2);
-            var _newMeanPoint = (Vector3) ((_newPoint1 + _newPoint2) / 2);
+            var _newMeanPoint = (Vector3)((_newPoint1 + _newPoint2) / 2);
 
             // 2点のタッチ開始時の距離と現在の距離の比から拡大率を求める
             var _newScale = _preScale * _newScreenDist / _preScreenDist;

@@ -16,7 +16,7 @@ namespace Treevel.Common.Entities
         /// </summary>
         public static int GetOrderInLayer(this EBottleEffectType type)
         {
-            return (int) type + 1;
+            return (int)type + 1;
         }
     }
 }

@@ -116,7 +116,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var warningStartDisplayPos =
                     warningPos - _rigidBody.velocity * (_warningDisplayTime + _moveTimeAfterWarning);
 
-                var diffVec = warningStartDisplayPos - (Vector2) transform.position;
+                var diffVec = warningStartDisplayPos - (Vector2)transform.position;
                 // 警告表示位置までまだ時間ある
                 if (Vector2.Dot(diffVec, _rigidBody.velocity) > 0) {
                     // 表示するまでの所要時間
@@ -135,7 +135,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
 
                 // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
-                while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2) transform.position) > 0) {
+                while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) {
                     yield return new WaitForFixedUpdate();
                 }
 
@@ -162,9 +162,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 if (gimmickData.isRandom) {
                     if (i == 0) {
                         // 最初の方向は制限ないのでそのまま乱数生成
-                        direction = (EDirection) Enum.ToObject(typeof(EDirection),
-                                                               GimmickLibrary.SamplingArrayIndex(
-                                                                   gimmickData.randomDirection.ToArray()));
+                        direction = (EDirection)Enum.ToObject(typeof(EDirection),
+                                                              GimmickLibrary.SamplingArrayIndex(
+                                                                  gimmickData.randomDirection.ToArray()));
                     } else {
                         // それ以降は前回の結果に依存する
                         var previousLine = _targetLines[i - 1];
@@ -172,35 +172,35 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                         if (GimmickLibrary.IsHorizontal(previousDirection)) {
                             // 左右を移動している場合
-                            if (previousLine == (int) ERow.Fifth) {
+                            if (previousLine == (int)ERow.Fifth) {
                                 // 最下行
                                 direction = EDirection.ToUp;
-                            } else if (previousLine == (int) ERow.First) {
+                            } else if (previousLine == (int)ERow.First) {
                                 // 最上行
                                 direction = EDirection.ToDown;
                             } else {
                                 var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 左右を除いた乱数配列
-                                tempRandomDirections[(int) EDirection.ToLeft] =
-                                    tempRandomDirections[(int) EDirection.ToRight] = 0;
-                                direction = (EDirection) Enum.ToObject(typeof(EDirection),
-                                                                       GimmickLibrary.SamplingArrayIndex(
-                                                                           tempRandomDirections));
+                                tempRandomDirections[(int)EDirection.ToLeft] =
+                                    tempRandomDirections[(int)EDirection.ToRight] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection),
+                                                                      GimmickLibrary.SamplingArrayIndex(
+                                                                          tempRandomDirections));
                             }
                         } else if (GimmickLibrary.IsVertical(previousDirection)) {
                             // 上下を移動している場合
-                            if (previousLine == (int) EColumn.Left) {
+                            if (previousLine == (int)EColumn.Left) {
                                 // 最左列
                                 direction = EDirection.ToRight;
-                            } else if (previousLine == (int) EColumn.Right) {
+                            } else if (previousLine == (int)EColumn.Right) {
                                 // 最右列
                                 direction = EDirection.ToLeft;
                             } else {
                                 var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 上下を除いた乱数配列
-                                tempRandomDirections[(int) EDirection.ToUp] =
-                                    tempRandomDirections[(int) EDirection.ToDown] = 0;
-                                direction = (EDirection) Enum.ToObject(typeof(EDirection),
-                                                                       GimmickLibrary.SamplingArrayIndex(
-                                                                           tempRandomDirections));
+                                tempRandomDirections[(int)EDirection.ToUp] =
+                                    tempRandomDirections[(int)EDirection.ToDown] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection),
+                                                                      GimmickLibrary.SamplingArrayIndex(
+                                                                          tempRandomDirections));
                             }
                         }
                     }

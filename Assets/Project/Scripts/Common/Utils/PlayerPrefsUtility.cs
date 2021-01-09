@@ -125,7 +125,7 @@ namespace Treevel.Common.Utils
         {
             var binaryFormatter = new BinaryFormatter();
             var memoryStream = new MemoryStream(Convert.FromBase64String(str));
-            return (T) binaryFormatter.Deserialize(memoryStream);
+            return (T)binaryFormatter.Deserialize(memoryStream);
         }
     }
 }

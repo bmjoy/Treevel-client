@@ -18,7 +18,7 @@ namespace Treevel.Editor
 
         public override void OnInspectorGUI()
         {
-            var uiText = (MultiLanguageText) target;
+            var uiText = (MultiLanguageText)target;
 
             base.OnInspectorGUI();
 
@@ -29,7 +29,7 @@ namespace Treevel.Editor
                 currentTextIndex = ETextIndex.Error;
             }
 
-            uiText.TextIndex = (ETextIndex) EditorGUILayout.EnumPopup(_TEXT_INDEX, currentTextIndex);
+            uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(_TEXT_INDEX, currentTextIndex);
 
 
             if (!EditorGUI.EndChangeCheck()) return;

@@ -83,7 +83,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // 木UI制御
             _dropdown.onValueChanged.AsObservable()
                 .Subscribe(selected => {
-                    _currentTree.Value = (ETreeId) Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+                    _currentTree.Value = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
                 }).AddTo(this);
 
             // 季節制御
@@ -139,11 +139,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void SetupBarGraph()
         {
-            var challengeNumMax = (float) _stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
+            var challengeNumMax = (float)_stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
 
             // 1~30 は 30、31~60 は 60 にするために Ceiling を使用
             var maxAxisLabelNum =
-                Mathf.Clamp((int) Math.Ceiling(challengeNumMax / _AXIS_LABEL_MARGIN) * _AXIS_LABEL_MARGIN,
+                Mathf.Clamp((int)Math.Ceiling(challengeNumMax / _AXIS_LABEL_MARGIN) * _AXIS_LABEL_MARGIN,
                             _MIN_AXIS_LABEL_NUM, _MAX_AXIS_LABEL_NUM);
 
             _graphAxisLabels[0].text = (maxAxisLabelNum / 3).ToString();

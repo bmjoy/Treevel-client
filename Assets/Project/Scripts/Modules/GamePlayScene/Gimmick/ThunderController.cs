@@ -58,10 +58,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _targets = gimmickData.targets
                 // 無効な値を除外する
-                .SkipWhile((vec) => vec.x < (int) ERow.First || (int) ERow.Fifth < vec.x ||
-                                    vec.y < (int) EColumn.Left || (int) EColumn.Right < vec.y)
+                .SkipWhile((vec) => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x ||
+                                    vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
                 // List<(ERow, EColumn)>に変換する
-                .Select((vec) => ((ERow) vec.x, (EColumn) vec.y)).ToList();
+                .Select((vec) => ((ERow)vec.x, (EColumn)vec.y)).ToList();
 
             Debug.Assert(_targets.Count > 0, "Invalid Gimmick Data");
 
@@ -86,11 +86,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     BoardManager.Instance.GetTilePos(targetEnumerator.Current.row, targetEnumerator.Current.column);
 
                 // 移動ベクトル設定
-                _rigidBody.velocity = (targetPos - (Vector2) transform.position).normalized * _moveSpeed;
+                _rigidBody.velocity = (targetPos - (Vector2)transform.position).normalized * _moveSpeed;
 
                 // 目標地まで移動する
                 yield return new WaitUntil(
-                    () => Vector2.Dot(targetPos - (Vector2) transform.position, _rigidBody.velocity) <= 0);
+                    () => Vector2.Dot(targetPos - (Vector2)transform.position, _rigidBody.velocity) <= 0);
 
                 // 移動停止
                 _rigidBody.velocity = Vector2.zero;
