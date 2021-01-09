@@ -14,6 +14,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// Contentの余白(Screen何個分の余白があるか)
         /// </summary>
         public static float _LEFT_OFFSET;
+
         public static float _RIGHT_OFFSET;
         public static float _TOP_OFFSET;
         public static float _BOTTOM_OFFSET;

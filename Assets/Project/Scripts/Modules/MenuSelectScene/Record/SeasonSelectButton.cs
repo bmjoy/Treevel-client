@@ -11,6 +11,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// トグルに紐付ける季節
         /// </summary>
         public ESeasonId SeasonId => _seasonId;
+
         [SerializeField] private ESeasonId _seasonId;
 
         private Toggle _toggle;
@@ -18,12 +19,10 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void Awake()
         {
             _toggle = GetComponent<Toggle>();
-            _toggle.OnValueChangedAsObservable().Subscribe(selected =>
-            {
+            _toggle.OnValueChangedAsObservable().Subscribe(selected => {
                 var image = _toggle.targetGraphic.GetComponent<Image>();
                 image.color = selected ? _seasonId.GetColor() : Color.clear;
             }).AddTo(this);
         }
     }
 }
-

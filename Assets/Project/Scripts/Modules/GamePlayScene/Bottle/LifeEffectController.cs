@@ -73,8 +73,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
                 // 失敗原因を保持する
                 var controller = gimmick.GetComponent<AbstractGimmickController>();
-                if (controller == null)
-                    controller = gimmick.GetComponentInParent<AbstractGimmickController>();
+                if (controller == null) controller = gimmick.GetComponentInParent<AbstractGimmickController>();
 
                 var gimmickType = controller.GimmickType;
                 GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();

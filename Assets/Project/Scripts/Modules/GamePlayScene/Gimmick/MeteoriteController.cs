@@ -63,19 +63,24 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
                         _targetPos = BoardManager.Instance.GetTilePos(column, row);
                     } else {
-                        _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn, (int)gimmickData.targetRow);
+                        _targetPos =
+                            BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn,
+                                                             (int)gimmickData.targetRow);
                     }
+
                     break;
                 case EGimmickType.AimingMeteorite:
                     if (gimmickData.isRandom) {
                         // 乱数インデックスを重みに基づいて取得
-                        var randomIndex = GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
+                        var randomIndex =
+                            GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
                         // 乱数インデックスをボトルIDに変換
                         var targetId = CalcBottleIdByRandomArrayIndex(randomIndex);
                         _targetPos = BoardManager.Instance.GetBottlePosById(targetId);
                     } else {
                         _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
                     }
+
                     break;
                 default:
                     throw new System.NotImplementedException("不正なギミックタイプです");
@@ -84,8 +89,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void FixedUpdate()
         {
-            if (!_isMoving || GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing)
-                return;
+            if (!_isMoving || GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing) return;
 
             // 奥方向に移動させる（見た目変化ない）
             transform.Translate(Vector3.back * _speed, Space.World);

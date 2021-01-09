@@ -12,8 +12,7 @@ namespace Treevel.Common.Components.UIs
         /// <summary>
         /// プログレス
         /// </summary>
-        [Range(0f, 100f)]
-        private float _progress;
+        [Range(0f, 100f)] private float _progress;
 
         /// <summary>
         /// 更新頻度を抑えるための閾値
@@ -35,12 +34,10 @@ namespace Treevel.Common.Components.UIs
         /// </summary>
         private List<AsyncOperationHandle> _loadingOps = new List<AsyncOperationHandle>();
 
-        public float Progress
-        {
+        public float Progress {
             get => _progress;
             set {
-                if (Mathf.Abs(_progress - value) < THRESHOLD)
-                    return;
+                if (Mathf.Abs(_progress - value) < THRESHOLD) return;
 
                 _progress = Mathf.Clamp(value, 0, 100);
                 _progressImage.fillAmount = _progress / 100f;

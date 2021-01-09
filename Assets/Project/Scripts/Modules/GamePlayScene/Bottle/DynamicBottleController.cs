@@ -33,31 +33,31 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 移動開始時の処理
         /// </summary>
-        public event Action StartMove
-        {
+        public event Action StartMove {
             add => _startMoveInvoker += value;
             remove => _startMoveInvoker -= value;
         }
+
         private event Action _startMoveInvoker;
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
-        public event Action EndMove
-        {
+        public event Action EndMove {
             add => _endMoveInvoker += value;
             remove => _endMoveInvoker -= value;
         }
+
         private event Action _endMoveInvoker;
 
         /// <summary>
         /// ゲーム終了時の処理
         /// </summary>
-        public event Action EndGame
-        {
+        public event Action EndGame {
             add => _endGameInvoker += value;
             remove => _endGameInvoker -= value;
         }
+
         private event Action _endGameInvoker;
 
         /// <summary>
@@ -65,11 +65,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private const float _SPEED = 30f;
 
-        public int FlickNum
-        {
-            get;
-            private set;
-        } = 0;
+        public int FlickNum { get; private set; } = 0;
 
         protected override void Awake()
         {
@@ -93,11 +89,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // set handlers
             if (bottleData.isSelfish) {
-                var selfishEffect = await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).Task;
+                var selfishEffect =
+                    await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).Task;
                 selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
             }
+
             if (bottleData.isReverse) {
-                var reverseEffect = await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).Task;
+                var reverseEffect =
+                    await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).Task;
                 reverseEffect.GetComponent<ReverseEffectController>().Initialize(this);
                 _isReverse = true;
             }

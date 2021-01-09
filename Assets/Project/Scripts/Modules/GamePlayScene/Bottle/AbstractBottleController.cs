@@ -17,11 +17,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ボトルのId (初期位置を擬似的に利用)
         /// </summary>
-        public int Id
-        {
-            get;
-            private set;
-        }
+        public int Id { get; private set; }
 
         /// <summary>
         /// ボトルタイプ
@@ -31,31 +27,31 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        public event Action<GameObject> GetDamaged
-        {
+        public event Action<GameObject> GetDamaged {
             add => _getDamagedInvoker += value;
             remove => _getDamagedInvoker -= value;
         }
+
         private event Action<GameObject> _getDamagedInvoker;
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        public event Action<GameObject> EnterTile
-        {
+        public event Action<GameObject> EnterTile {
             add => _enterTileInvoker += value;
             remove => _enterTileInvoker -= value;
         }
+
         private event Action<GameObject> _enterTileInvoker;
 
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
-        public event Action<GameObject> ExitTile
-        {
+        public event Action<GameObject> ExitTile {
             add => _exitTileInvoker += value;
             remove => _exitTileInvoker -= value;
         }
+
         private event Action<GameObject> _exitTileInvoker;
 
         /// <summary>
@@ -70,7 +66,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         protected virtual void Awake()
         {
-            Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE, $"Sorting Layer Name should be {Constants.SortingLayerName.BOTTLE}");
+            Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE,
+                         $"Sorting Layer Name should be {Constants.SortingLayerName.BOTTLE}");
         }
 
         /// <summary>

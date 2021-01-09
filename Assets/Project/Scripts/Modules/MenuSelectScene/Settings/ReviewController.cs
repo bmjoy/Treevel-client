@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.iOS;
+
 #if UNITY_IOS
 
 #endif
@@ -15,7 +16,6 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         // TODO: 適切な Android の ID を設定
         private const string _ANDROID_ID = "hoge";
         #endif
-
 
         /// <summary>
         /// レビューボタンを押した場合の処理

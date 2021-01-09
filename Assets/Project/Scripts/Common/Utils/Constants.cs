@@ -126,7 +126,7 @@ namespace Treevel.Common.Utils
         {
             // ボトル関連
             public const string NORMAL_BOTTLE_PREFAB = "NormalBottlePrefab";
-            public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
+            public const string DYNAMIC_DUMMY_BOTTLE_PREFAB = "DynamicDummyBottlePrefab";
             public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
             public const string ATTACKABLE_DUMMY_BOTTLE_PREFAB = "AttackableDummyBottlePrefab";
             public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";

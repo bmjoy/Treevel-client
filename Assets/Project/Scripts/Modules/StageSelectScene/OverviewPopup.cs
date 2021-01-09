@@ -35,18 +35,20 @@ namespace Treevel.Modules.StageSelectScene
             stageNumberText.text = stageNumber.ToString();
 
             // クリア割合
-            var clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Data").GetComponent<Text>();
+            var clearPercentageText = transform.Find("PanelBackground/StatusPanel/SuccessPercentage/Data")
+                .GetComponent<Text>();
             clearPercentageText.text = $"{stats.ClearRate * 100f:n2}%";
 
             // 最速クリアタイム
-            var minClearTimeText = transform.Find("PanelBackground/StatusPanel/ShortestClearTime/Data").GetComponent<Text>();
+            var minClearTimeText = transform.Find("PanelBackground/StatusPanel/ShortestClearTime/Data")
+                .GetComponent<Text>();
             var time = TimeSpan.FromSeconds(stats.MinClearTime);
             minClearTimeText.text = $"{time.Minutes}:{time.Seconds}'{time.Milliseconds}";
 
             // 登場ギミック
             var overviewGimmicks = stageData.OverviewGimmicks;
             var appearingGimmicks = transform.Find("PanelBackground/AppearingGimmicks").gameObject;
-            for (var i = 1 ; i <= 3 ; ++i) {
+            for (var i = 1; i <= 3; ++i) {
                 var newFeatureOverview = appearingGimmicks.transform.Find($"GimmickOverview{i}");
                 if (overviewGimmicks.Count >= i) {
                     newFeatureOverview.GetComponentInChildren<Text>().text = overviewGimmicks[i - 1].ToString();

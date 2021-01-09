@@ -3,7 +3,8 @@
     /// <summary>
     /// 盤面の行番号
     /// </summary>
-    public enum ERow {
+    public enum ERow
+    {
         First,
         Second,
         Third,
@@ -15,7 +16,8 @@
     /// <summary>
     /// 盤面の列番号
     /// </summary>
-    public enum EColumn {
+    public enum EColumn
+    {
         Left,
         Center,
         Right,

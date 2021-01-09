@@ -8,7 +8,8 @@ namespace Treevel.Common.Entities
     /// <summary>
     /// 季節一覧
     /// </summary>
-    public enum ESeasonId {
+    public enum ESeasonId
+    {
         Spring, // 春
         Summer, // 夏
         Autumn, // 秋
@@ -65,12 +66,11 @@ namespace Treevel.Common.Entities
             }
         }
 
-        private static readonly Dictionary<ESeasonId, List<ETreeId>> _TREES = new Dictionary<ESeasonId, List<ETreeId>>()
-        {
-            {ESeasonId.Spring, new List<ETreeId> {ETreeId.Spring_1, ETreeId.Spring_2, ETreeId.Spring_3}},
-            {ESeasonId.Summer, new List<ETreeId> {ETreeId.Summer_1, ETreeId.Summer_2, ETreeId.Summer_3}},
-            {ESeasonId.Autumn, new List<ETreeId> {ETreeId.Autumn_1, ETreeId.Autumn_2, ETreeId.Autumn_3}},
-            {ESeasonId.Winter, new List<ETreeId> {ETreeId.Winter_1, ETreeId.Winter_2, ETreeId.Winter_3}},
+        private static readonly Dictionary<ESeasonId, List<ETreeId>> _TREES = new Dictionary<ESeasonId, List<ETreeId>>() {
+            { ESeasonId.Spring, new List<ETreeId> { ETreeId.Spring_1, ETreeId.Spring_2, ETreeId.Spring_3 } },
+            { ESeasonId.Summer, new List<ETreeId> { ETreeId.Summer_1, ETreeId.Summer_2, ETreeId.Summer_3 } },
+            { ESeasonId.Autumn, new List<ETreeId> { ETreeId.Autumn_1, ETreeId.Autumn_2, ETreeId.Autumn_3 } },
+            { ESeasonId.Winter, new List<ETreeId> { ETreeId.Winter_1, ETreeId.Winter_2, ETreeId.Winter_3 } },
         };
 
         public static List<ETreeId> GetTrees(this ESeasonId seasonId)
@@ -80,16 +80,15 @@ namespace Treevel.Common.Entities
 
         public static Color GetColor(this ESeasonId seasonId)
         {
-            switch (seasonId)
-            {
+            switch (seasonId) {
                 case ESeasonId.Spring:
-                    return new Color(219/255.0f, 19/255.0f,167/255.0f);
+                    return new Color(219 / 255.0f, 19 / 255.0f, 167 / 255.0f);
                 case ESeasonId.Summer:
-                    return new Color(162/255.0f, 255/255.0f,171/255.0f);
+                    return new Color(162 / 255.0f, 255 / 255.0f, 171 / 255.0f);
                 case ESeasonId.Autumn:
-                    return new Color(209/255.0f, 121/255.0f,74/255.0f);
+                    return new Color(209 / 255.0f, 121 / 255.0f, 74 / 255.0f);
                 case ESeasonId.Winter:
-                    return new Color(121/255.0f, 250/255.0f,255/255.0f);
+                    return new Color(121 / 255.0f, 250 / 255.0f, 255 / 255.0f);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
             }

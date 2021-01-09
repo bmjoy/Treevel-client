@@ -12,9 +12,10 @@ namespace Treevel.Common.Components.UIs
         /// <summary>
         /// ダイアログのタイプ
         /// </summary>
-        public enum EDialogType {
+        public enum EDialogType
+        {
             Ok_Cancel, // 確定、キャンセルボタン付き
-            Ok, 　 // 確定ボタン付き
+            Ok,        // 確定ボタン付き
         }
 
         [SerializeField] private RectTransform _OkCancelTypeOkBtnPos;

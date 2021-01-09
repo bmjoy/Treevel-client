@@ -9,7 +9,7 @@ namespace Treevel.Common.Utils
         // <summary>
         /// デフォルトの木の解放状態
         /// </summary>
-        public const int TREE_STATE = (int) ETreeState.Unreleased;
+        public const int TREE_STATE = (int)ETreeState.Unreleased;
 
         /// <summary>
         /// デフォルトの道の解放状態
@@ -50,11 +50,10 @@ namespace Treevel.Common.Utils
         /// デフォルトのスクロール位置
         /// </summary>
         /// <returns></returns>
-        public static Vector2 LEVEL_SELECT_SCROLL_POSITION
-        {
+        public static Vector2 LEVEL_SELECT_SCROLL_POSITION {
             get {
-                var(anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
-                return new Vector2(0,  RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
+                var (anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
+                return new Vector2(0, RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
             }
         }
     }

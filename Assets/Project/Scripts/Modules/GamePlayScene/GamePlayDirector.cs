@@ -40,27 +40,28 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 成功時のイベント
         /// </summary>
-        public static event Action GameSucceeded
-        {
+        public static event Action GameSucceeded {
             add => _gameSucceededInvoker += value;
             remove => _gameSucceededInvoker -= value;
         }
+
         private static event Action _gameSucceededInvoker;
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
-        public static event Action GameFailed
-        {
+        public static event Action GameFailed {
             add => _gameFailedInvoker += value;
             remove => _gameFailedInvoker -= value;
         }
+
         private static event Action _gameFailedInvoker;
 
         /// <summary>
         /// ゲームの状態一覧
         /// </summary>
-        public enum EGameState {
+        public enum EGameState
+        {
             Tutorial,
             Playing,
             Success,
@@ -96,11 +97,8 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// ゲームの現状態
         /// </summary>
-        public EGameState State
-        {
-            get {
-                return _stateList.SingleOrDefault(pair => pair.Value == _stateMachine.CurrentState).Key;
-            }
+        public EGameState State {
+            get { return _stateList.SingleOrDefault(pair => pair.Value == _stateMachine.CurrentState).Key; }
         }
 
         /// <summary>
@@ -143,7 +141,7 @@ namespace Treevel.Modules.GamePlayScene
             var stateType = parentType.GetNestedType($"{state.ToString()}State", BindingFlags.NonPublic);
 
             // ステートのインスタンス生成
-            var stateInstance = (State)Activator.CreateInstance(stateType, new object[] {this});
+            var stateInstance = (State)Activator.CreateInstance(stateType, new object[] { this });
 
             _stateList.Add(state, stateInstance);
         }
@@ -156,19 +154,26 @@ namespace Treevel.Modules.GamePlayScene
         {
             switch (state) {
                 case EGameState.Tutorial:
-                    _stateMachine.AddTransition(_stateList[EGameState.Tutorial], _stateList[EGameState.Playing]); // tutorial -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Tutorial],
+                                                _stateList[EGameState.Playing]); // tutorial -> playing
                     break;
                 case EGameState.Playing:
-                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Pausing]); // playing -> pausing
-                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Failure]); // playing -> faliure
-                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Success]); // playing -> success
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing],
+                                                _stateList[EGameState.Pausing]); // playing -> pausing
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing],
+                                                _stateList[EGameState.Failure]); // playing -> faliure
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing],
+                                                _stateList[EGameState.Success]); // playing -> success
                     break;
                 case EGameState.Pausing:
-                    _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Playing]); // pausing -> playing
-                    _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Failure]); // pausing -> faliure
+                    _stateMachine.AddTransition(_stateList[EGameState.Pausing],
+                                                _stateList[EGameState.Playing]); // pausing -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Pausing],
+                                                _stateList[EGameState.Failure]); // pausing -> faliure
                     break;
                 case EGameState.Failure:
-                    _stateMachine.AddTransition(_stateList[EGameState.Failure], _stateList[EGameState.Playing]); // failure -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Failure],
+                                                _stateList[EGameState.Playing]); // failure -> playing
                     break;
                 case EGameState.Success:
                     break;
@@ -206,8 +211,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public void CheckClear()
         {
-            if (!StageGenerator.CreatedFinished)
-                return;
+            if (!StageGenerator.CreatedFinished) return;
 
             var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
             if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
@@ -283,14 +287,13 @@ namespace Treevel.Modules.GamePlayScene
         private bool ShouldShowTutorial()
         {
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
-            if (stageData.Tutorial.type == ETutorialType.None)
-                return false;
+            if (stageData.Tutorial.type == ETutorialType.None) return false;
 
             var stageStatus = StageStatus.Get(treeId, stageNumber);
             return !stageStatus.tutorialChecked;
         }
 
-        private class PlayingState: State
+        private class PlayingState : State
         {
             /// <summary>
             /// ゲーム時間を計測するタイマー
@@ -334,8 +337,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnExit(State to)
             {
                 // 一時停止だったらそのまま処理終わる
-                if (to is PausingState)
-                    return;
+                if (to is PausingState) return;
 
                 // その他の状態に遷移する時ゲーム終了
                 EndProcess();
@@ -374,7 +376,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class PausingState: State
+        private class PausingState : State
         {
             /// <summary>
             /// 一時停止ウィンドウ
@@ -419,7 +421,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class SuccessState: State
+        private class SuccessState : State
         {
             /// <summary>
             /// 成功ポップアップ
@@ -453,7 +455,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class FailureState: State
+        private class FailureState : State
         {
             /// <summary>
             /// 失敗ポップアップ
@@ -479,6 +481,7 @@ namespace Treevel.Modules.GamePlayScene
                 } else {
                     dic[Instance.failureReason] = 1;
                 }
+
                 RecordData.Instance.FailureReasonCount = dic;
 
                 // Pausingから来たらステージ選択画面へ
@@ -516,8 +519,7 @@ namespace Treevel.Modules.GamePlayScene
             {
                 var stageData = GameDataManager.GetStage(treeId, stageNumber);
                 var tutorialData = stageData.Tutorial;
-                if (tutorialData.type == ETutorialType.None)
-                    return;
+                if (tutorialData.type == ETutorialType.None) return;
 
                 var content = _tutorialWindow.transform.Find("Content");
                 if (tutorialData.type == ETutorialType.Image) {
