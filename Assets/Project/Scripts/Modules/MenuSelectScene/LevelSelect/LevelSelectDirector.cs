@@ -24,7 +24,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList();
             _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList();
-            FindObjectOfType<ResetController>(true).OnDataReset.Subscribe(_ => Reset()).AddTo(this);
+            FindObjectOfType<ResetController>(true).OnDataReset.Subscribe(_ => {
+                // 木と道の状態のリセット
+                _trees.ForEach(tree => tree.Reset());
+                _roads.ForEach(road => road.Reset());
+            }).AddTo(this);
         }
 
         /// <summary>
@@ -43,15 +47,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _trees.ForEach(tree => tree.SaveState());
             _roads.ForEach(road => road.SaveState());
-        }
-
-        /// <summary>
-        /// 木と道の状態のリセット
-        /// </summary>
-        private void Reset()
-        {
-            _trees.ForEach(tree => tree.Reset());
-            _roads.ForEach(road => road.Reset());
         }
 
         /// <summary>
