@@ -59,6 +59,7 @@ namespace Treevel.Common.Entities
                 if (!Enum.TryParse(systemLanguage, out ELanguage initLanguage)) {
                     initLanguage = Default.LANGUAGE;
                 }
+
                 CurrentLanguage = new ReactiveProperty<ELanguage>(initLanguage);
             }
 

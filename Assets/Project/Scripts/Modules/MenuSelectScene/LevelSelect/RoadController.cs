@@ -72,17 +72,18 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                     _endObjectController.ReflectTreeState();
                     break;
                 case false: {
-                        released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
-                        if (released) {
-                            // 道が非解放状態から解放状態に変わった時
-                            ReleaseEndObject().ToObservable()
+                    released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
+                    if (released) {
+                        // 道が非解放状態から解放状態に変わった時
+                        ReleaseEndObject().ToObservable()
                             .Subscribe(_ => lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR)
                             .AddTo(this);
-                        } else {
-                            lineRenderer.startColor = lineRenderer.endColor = _ROAD_UNRELEASED_COLOR;
-                        }
-                        break;
+                    } else {
+                        lineRenderer.startColor = lineRenderer.endColor = _ROAD_UNRELEASED_COLOR;
                     }
+
+                    break;
+                }
             }
         }
 
