@@ -24,7 +24,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList();
             _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList();
-            FindObjectOfType<ResetController>(true).OnDataReset.Subscribe(_ => {
+            FindObjectOfType<ResetController>(true).DataReset.Subscribe(_ => {
                 // 木と道の状態のリセット
                 _trees.ForEach(tree => tree.Reset());
                 _roads.ForEach(road => road.Reset());
