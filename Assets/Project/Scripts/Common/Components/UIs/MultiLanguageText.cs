@@ -43,7 +43,6 @@ namespace Treevel.Common.Components.UIs
             UserSettings.CurrentLanguage.Subscribe(_ => {
                 text = LanguageUtility.GetText(TextIndex);
             }).AddTo(this);
-            text = LanguageUtility.GetText(TextIndex);
         }
     }
 }
