@@ -1,7 +1,9 @@
 ﻿using System;
+using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,6 +56,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _contentRect = GetComponent<ScrollRect>().content;
             _transformGesture = GetComponent<TransformGesture>();
             _scaledCanvas = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA;
+
+            // 明示的にUnityEvent使用することを宣言
+            _transformGesture.UseUnityEvents = true;
+            _transformGesture.OnTransformStart.AsObservable().Subscribe(OnTransformStarted).AddTo(this);
+            _transformGesture.OnTransform.AsObservable().Subscribe(OnTransformed).AddTo(this);
         }
 
         private void OnEnable()
@@ -62,21 +69,14 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _contentRect.localScale = new Vector2(_preScale, _preScale);
             // 道の拡大縮小
             LevelSelectDirector.Instance.ScaleRoad(_preScale);
-            // 2点のタッチ開始時
-            _transformGesture.TransformStarted += OnTransformStarted;
-            // 2点のタッチ中
-            _transformGesture.Transformed += OnTransformed;
         }
 
         private void OnDisable()
         {
-            _transformGesture.TransformStarted -= OnTransformStarted;
-            _transformGesture.Transformed -= OnTransformed;
-
             UserSettings.LevelSelectCanvasScale = _preScale;
         }
 
-        private void OnTransformStarted(object sender, EventArgs e)
+        private void OnTransformStarted(Gesture gesture)
         {
             // タッチ位置を取得
             _prePoint1 = _transformGesture.ActivePointers[0].Position;
@@ -87,38 +87,38 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _preMeanPoint = (_prePoint1 + _prePoint2) / 2;
         }
 
-        private void OnTransformed(object sender, EventArgs e)
+        private void OnTransformed(Gesture gesture)
         {
             // タッチ位置等の計算
-            var _newPoint1 = _transformGesture.ActivePointers[0].Position;
-            var _newPoint2 = _transformGesture.ActivePointers[1].Position;
-            var _newScreenDist = Vector2.Distance(_newPoint1, _newPoint2);
-            var _newMeanPoint = (Vector3)((_newPoint1 + _newPoint2) / 2);
+            var newPoint1 = _transformGesture.ActivePointers[0].Position;
+            var newPoint2 = _transformGesture.ActivePointers[1].Position;
+            var newScreenDist = Vector2.Distance(newPoint1, newPoint2);
+            var newMeanPoint = (Vector3)((newPoint1 + newPoint2) / 2);
 
             // 2点のタッチ開始時の距離と現在の距離の比から拡大率を求める
-            var _newScale = _preScale * _newScreenDist / _preScreenDist;
+            var newScale = _preScale * newScreenDist / _preScreenDist;
             // 拡大率を閾値内に抑える
-            _newScale = Mathf.Clamp(_newScale, _SCALE_MIN, _SCALE_MAX);
+            newScale = Mathf.Clamp(newScale, _SCALE_MIN, _SCALE_MAX);
             // Contentの拡大縮小
-            _contentRect.localScale = new Vector2(_newScale, _newScale);
+            _contentRect.localScale = new Vector2(newScale, newScale);
             // 道の拡大縮小
-            LevelSelectDirector.Instance.ScaleRoad(_newScale);
+            LevelSelectDirector.Instance.ScaleRoad(newScale);
 
             // 拡大縮小前の中点を拡大縮小後の中点に合わせるようにContentの平行移動量を求める
-            var _preContentPoint = ConvertFromScreenToContent(_preMeanPoint, _preScale);
-            var _newContentPoint = ConvertFromScreenToContent(_newMeanPoint, _preScale);
+            var preContentPoint = ConvertFromScreenToContent(_preMeanPoint, _preScale);
+            var newContentPoint = ConvertFromScreenToContent(newMeanPoint, _preScale);
             // Content空間での2点の差分
-            var moveAmount = _newContentPoint - _preContentPoint * _newScale / _preScale;
-            moveAmount = KeepInContent(moveAmount, _newScale);
+            var moveAmount = newContentPoint - preContentPoint * newScale / _preScale;
+            moveAmount = KeepInContent(moveAmount, newScale);
             // Contentの平行移動
             _contentRect.transform.localPosition += new Vector3(moveAmount.x, moveAmount.y, 0);
 
             // 値の更新
-            _prePoint1 = _newPoint1;
-            _prePoint2 = _newPoint2;
-            _preScreenDist = _newScreenDist;
-            _preMeanPoint = _newMeanPoint;
-            _preScale = _newScale;
+            _prePoint1 = newPoint1;
+            _prePoint2 = newPoint2;
+            _preScreenDist = newScreenDist;
+            _preMeanPoint = newMeanPoint;
+            _preScale = newScale;
         }
 
         /// <summary>

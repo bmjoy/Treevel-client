@@ -83,7 +83,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected abstract void SetSaveKey();
 
-        public abstract IEnumerator UpdateState();
+        public abstract void UpdateState();
 
         public abstract void SaveState();
 
