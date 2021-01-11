@@ -30,6 +30,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         public int currentStageNumber;
 
+        /// <summary>
+        /// 左右に必要なマージン
+        /// </summary>
+        private const int _MARGIN = 50;
+
         public async void Initialize(ESeasonId seasonId, ETreeId treeId, int stageNumber, Vector3 graphPosition)
         {
             var stageStatus = StageStatus.Get(treeId, stageNumber);
@@ -42,8 +47,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             // ポップアップが表示される位置を、該当する棒グラフの位置に合わせて変える
             var rectTransform = GetComponent<RectTransform>();
-            // 左右に必要なマージン。pivot が 0.5 なので、ポップアップの横幅も考慮する
-            var margin = 50 + rectTransform.rect.width / 2;
+            // pivot が 0.5 なので、ポップアップの横幅も考慮する
+            var margin = _MARGIN + rectTransform.rect.width / 2;
             var position = rectTransform.position;
             position.x = Mathf.Clamp(graphPosition.x, margin, Screen.width - margin);
             rectTransform.position = position;
