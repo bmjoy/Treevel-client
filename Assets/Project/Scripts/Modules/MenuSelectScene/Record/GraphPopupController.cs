@@ -45,16 +45,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // 左右に必要なマージン。pivot が 0.5 なので、ポップアップの横幅も考慮する
             var margin = 50 + rectTransform.rect.width / 2;
             var position = rectTransform.position;
-            if (graphPosition.x < margin) {
-                // 左限界
-                position.x = margin;
-            } else if (Screen.width - margin < graphPosition.x) {
-                // 右限界
-                position.x = Screen.width - margin;
-            } else {
-                position.x = graphPosition.x;
-            }
-
+            position.x = Mathf.Clamp(graphPosition.x, margin, Screen.width - margin);
             rectTransform.position = position;
 
             // 補助線を適切な位置に配置する
