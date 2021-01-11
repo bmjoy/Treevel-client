@@ -12,10 +12,10 @@ namespace Treevel.Editor
         /// </summary>
         /// <param name="property">描画する対象、配列である必要がある</param>
         /// <param name="action">配列に格納する要素に対する描画処理、nullの場合はEditorGUI.PropertyFieldを使う</param>
-        public static void DrawArrayProperty(this UnityEditor.Editor editor, SerializedProperty property, Action<SerializedProperty, int> action = null)
+        public static void DrawArrayProperty(this UnityEditor.Editor editor, SerializedProperty property,
+                                             Action<SerializedProperty, int> action = null)
         {
-            if (!property.isArray)
-                return;
+            if (!property.isArray) return;
 
             property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, property.displayName);
             EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
@@ -29,10 +29,10 @@ namespace Treevel.Editor
         /// <param name="property"></param>
         /// <param name="size"></param>
         /// <param name="action"></param>
-        public static void DrawFixedSizeArrayProperty(this UnityEditor.Editor editor, SerializedProperty property, int size, Action<SerializedProperty, int> action = null)
+        public static void DrawFixedSizeArrayProperty(this UnityEditor.Editor editor, SerializedProperty property,
+                                                      int size, Action<SerializedProperty, int> action = null)
         {
-            if (!property.isArray)
-                return;
+            if (!property.isArray) return;
 
             property.arraySize = size;
             property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, property.displayName);
@@ -42,17 +42,19 @@ namespace Treevel.Editor
             DrawArrayPropertyImpl(property, action);
         }
 
-        private static void DrawArrayPropertyImpl(SerializedProperty property, Action<SerializedProperty, int> action = null)
+        private static void DrawArrayPropertyImpl(SerializedProperty property,
+                                                  Action<SerializedProperty, int> action = null)
         {
             if (!property.isExpanded) return;
 
-            for (var i = 0 ; i < property.arraySize ; ++i) {
+            for (var i = 0; i < property.arraySize; ++i) {
                 var arrayElementProperty = property.GetArrayElementAtIndex(i);
 
                 if (action != null) {
                     action.Invoke(arrayElementProperty, i);
                 } else {
-                    EditorGUILayout.PropertyField(arrayElementProperty, new GUIContent(arrayElementProperty.displayName));
+                    EditorGUILayout.PropertyField(arrayElementProperty,
+                                                  new GUIContent(arrayElementProperty.displayName));
                 }
             }
         }
@@ -69,8 +71,7 @@ namespace Treevel.Editor
 
             if (currentProperty.Next(true)) {
                 do {
-                    if (SerializedProperty.EqualContents(currentProperty, nextSiblingProperty))
-                        break;
+                    if (SerializedProperty.EqualContents(currentProperty, nextSiblingProperty)) break;
 
                     yield return currentProperty;
                 } while (currentProperty.Next(false));

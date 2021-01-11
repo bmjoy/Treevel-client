@@ -10,9 +10,10 @@ namespace Treevel.Common.Utils
     /// 列挙の値は<see cref="SystemLanguage"/>で定義する列挙値に合わせること
     /// 又、順序はResources/GameDatas/translation.csvに合わせること
     /// </summary>
-    public enum ELanguage {
+    public enum ELanguage
+    {
         Japanese, // 日本語
-        English, // 英語
+        English,  // 英語
     }
 
     public static class LanguageUtility
@@ -55,6 +56,7 @@ namespace Treevel.Common.Utils
                 }
             }
         }
+
         public static string GetText(ETextIndex index)
         {
             var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.CurrentLanguage.Value, index);

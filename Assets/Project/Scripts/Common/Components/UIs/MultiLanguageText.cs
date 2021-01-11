@@ -21,9 +21,11 @@ namespace Treevel.Common.Components.UIs
         /// TextIndex が設定される同時にテキストを取得して設定する
         /// </summary>
         /// <value></value>
-        public ETextIndex TextIndex
-        {
-            get => _textIndex.CompareTo(ETextIndex.Error) == 0 ? (ETextIndex)System.Enum.Parse(typeof(ETextIndex), _indexStr) : _textIndex;
+        public ETextIndex TextIndex {
+            get =>
+                _textIndex.CompareTo(ETextIndex.Error) == 0
+                    ? (ETextIndex)System.Enum.Parse(typeof(ETextIndex), _indexStr)
+                    : _textIndex;
             set {
                 if (_textIndex == value) return;
 

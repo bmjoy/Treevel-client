@@ -1,6 +1,7 @@
 ﻿namespace Treevel.Common.Entities
 {
-    public enum EBottleType {
+    public enum EBottleType
+    {
         Dynamic,
         Static,
         Normal,

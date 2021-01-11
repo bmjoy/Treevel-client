@@ -149,7 +149,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 // 0 の場合は無視する
                 if (pair.Value == 0) continue;
 
-                var fillAmount = (float) pair.Value / sum;
+                var fillAmount = (float)pair.Value / sum;
 
                 // 10 % 未満なら Others に含める
                 if (fillAmount < _FAILURE_REASON_SHOW_PERCENTAGE) {
@@ -217,7 +217,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _shouldDestroyPrefabsOnDisable.Add(elementIcon);
             elementIcon.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
 
-            var fillAmountInt = (int) fillAmount;
+            var fillAmountInt = (int)fillAmount;
             if (fillAmountInt == 1) {
                 elementIcon.transform.localPosition = Vector3.zero;
                 return;

@@ -3,8 +3,8 @@
 namespace Treevel.Common.Networks.Objects
 {
     [System.Serializable]
-    public struct StageStats {
-
+    public struct StageStats
+    {
         [SerializeField] private float clear_rate;
         public float ClearRate => clear_rate;
 

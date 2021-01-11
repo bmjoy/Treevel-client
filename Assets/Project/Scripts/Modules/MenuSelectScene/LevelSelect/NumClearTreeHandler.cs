@@ -37,6 +37,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             if (clearThreshold < 1) {
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be less than 1");
             }
+
             if (clearThreshold > _stageNum) {
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be larger than the number of stages");
             }
@@ -48,7 +49,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <returns> 木の状態 </returns>
         public ETreeState GetTreeState()
         {
-            var clearStageNum = Enumerable.Range(1, _stageNum).Count(s => StageStatus.Get(_treeId, s).state == EStageState.Cleared);
+            var clearStageNum = Enumerable.Range(1, _stageNum)
+                .Count(s => StageStatus.Get(_treeId, s).state == EStageState.Cleared);
 
             // クリア数に応じた木の状態を返す
             if (clearStageNum == _stageNum) {

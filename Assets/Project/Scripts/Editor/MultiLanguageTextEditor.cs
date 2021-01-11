@@ -11,7 +11,9 @@ namespace Treevel.Editor
     public class MultiLanguageTextEditor : UnityEditor.UI.TextEditor
     {
         #region GUI_STRINGS
+
         private static readonly GUIContent _TEXT_INDEX = new GUIContent("Text Index", "Text Index");
+
         #endregion
 
         public override void OnInspectorGUI()
@@ -26,6 +28,7 @@ namespace Treevel.Editor
             if (!System.Enum.TryParse<ETextIndex>(uiText.IndexStr, out currentTextIndex)) {
                 currentTextIndex = ETextIndex.Error;
             }
+
             uiText.TextIndex = (ETextIndex)EditorGUILayout.EnumPopup(_TEXT_INDEX, currentTextIndex);
 
 
@@ -53,7 +56,7 @@ namespace Treevel.Editor
                 if (canvas != null) {
                     GameObjectUtility.SetParentAndAlign(obj, canvas.gameObject);
                 } else {
-                    　// シーンにCanvasがない場合
+                    // シーンにCanvasがない場合
                     // キャンバス作成
                     parent = CreateAndInitializeCanvas();
                     // レイヤーをUIに設定する
@@ -62,7 +65,7 @@ namespace Treevel.Editor
                     GameObjectUtility.SetParentAndAlign(obj, parent);
                 }
             } else {
-                　// 何かを選択している場合
+                // 何かを選択している場合
                 if (selection.GetComponentInParent<Canvas>()) {
                     // 選択したオブジェクトはキャンバスの子オブジェクトだったらそのまま選択したオブジェクトの下に置く
                     GameObjectUtility.SetParentAndAlign(obj, selection);
@@ -83,8 +86,8 @@ namespace Treevel.Editor
             // EventSystem がなければ作成
             if (FindObjectOfType<EventSystem>() == null) {
                 var eventSystem = new GameObject("Event System",
-                    typeof(EventSystem),
-                    typeof(StandaloneInputModule)
+                                                 typeof(EventSystem),
+                                                 typeof(StandaloneInputModule)
                 );
                 Undo.RegisterCreatedObjectUndo(eventSystem, "Create Event System");
             }

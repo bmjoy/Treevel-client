@@ -42,7 +42,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected override void SetSaveKey()
         {
-            saveKey = $"{startObject.GetComponent<LevelTreeController>().treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
+            saveKey =
+                $"{startObject.GetComponent<LevelTreeController>().treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
         }
 
         public void Reset()
@@ -97,7 +98,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             // 道の更新アニメーション
             for (var i = 0; i < _CLEAR_ANIMATION_FRAMES; i++) {
                 // 非解放状態から解放状態まで線形補間
-                lineRenderer.startColor = lineRenderer.endColor = Color.Lerp(_ROAD_UNRELEASED_COLOR, _ROAD_RELEASED_COLOR, (float) i / _CLEAR_ANIMATION_FRAMES);
+                lineRenderer.startColor = lineRenderer.endColor =
+                    Color.Lerp(_ROAD_UNRELEASED_COLOR, _ROAD_RELEASED_COLOR, (float)i / _CLEAR_ANIMATION_FRAMES);
                 yield return null;
             }
 

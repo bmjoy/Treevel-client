@@ -16,8 +16,7 @@ namespace Treevel.Common.Networks.Requests
 
         protected override object DeserializeResponse()
         {
-            if (!IsRemoteDataValid())
-                return GetData_Local();
+            if (!IsRemoteDataValid()) return GetData_Local();
 
             return ServerRequest.downloadHandler.text;
         }

@@ -17,7 +17,8 @@ namespace Treevel.Common.Managers
             // Stageラベルがついてる全てのアセットのアドレスを取得
             var locations = await Addressables.LoadResourceLocationsAsync("Stage").ToUniTask();
 
-            var stageDatas = await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<StageData>(loc).ToUniTask()));
+            var stageDatas =
+                await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<StageData>(loc).ToUniTask()));
             foreach (var stage in stageDatas) {
                 _stageDataMap.Add(StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
             }

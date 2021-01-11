@@ -18,8 +18,7 @@ namespace Treevel.Common.Entities
 
         private static int _stageDetails = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, Default.STAGE_DETAILS);
 
-        public static int StageDetails
-        {
+        public static int StageDetails {
             get => _stageDetails;
             set {
                 _stageDetails = value;
@@ -27,10 +26,11 @@ namespace Treevel.Common.Entities
             }
         }
 
-        private static float _levelSelectCanvasScale = PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.LEVEL_SELECT_CANVAS_SCALE, Default.LEVEL_SELECT_CANVAS_SCALE);
+        private static float _levelSelectCanvasScale =
+            PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.LEVEL_SELECT_CANVAS_SCALE,
+                                 Default.LEVEL_SELECT_CANVAS_SCALE);
 
-        public static float LevelSelectCanvasScale
-        {
+        public static float LevelSelectCanvasScale {
             get => _levelSelectCanvasScale;
             set {
                 _levelSelectCanvasScale = value;
@@ -40,12 +40,12 @@ namespace Treevel.Common.Entities
 
         private static Vector2 _levelSelectScrollPosition;
 
-        public static Vector2 LevelSelectScrollPosition
-        {
+        public static Vector2 LevelSelectScrollPosition {
             get => _levelSelectScrollPosition;
             set {
                 _levelSelectScrollPosition = value;
-                PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION, _levelSelectScrollPosition);
+                PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION,
+                                             _levelSelectScrollPosition);
             }
         }
 
@@ -67,7 +67,8 @@ namespace Treevel.Common.Entities
                 .Subscribe(_ => SoundManager.Instance.ResetVolume());
 
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION)) {
-                _levelSelectScrollPosition = PlayerPrefsUtility.GetObject<Vector2>(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION);
+                _levelSelectScrollPosition =
+                    PlayerPrefsUtility.GetObject<Vector2>(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION);
             } else {
                 _levelSelectScrollPosition = Default.LEVEL_SELECT_SCROLL_POSITION;
             }

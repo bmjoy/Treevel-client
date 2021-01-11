@@ -8,11 +8,13 @@ using UnityEngine;
 
 namespace Treevel.Common.Managers
 {
-    public enum EBGMKey {
+    public enum EBGMKey
+    {
         BGM_Gameplay
     }
 
-    public enum ESEKey {
+    public enum ESEKey
+    {
         SE_Success,
         SE_Failure,
         SE_ThunderAttack,
@@ -48,16 +50,12 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// 初期BGMボリューム
         /// </summary>
-        [SerializeField]
-        [Range(0, 1)]
-        private float _INITIAL_BGM_VOLUME = 0.25f;
+        [SerializeField] [Range(0, 1)] private float _INITIAL_BGM_VOLUME = 0.25f;
 
         /// <summary>
         /// 初期SEボリューム
         /// </summary>
-        [SerializeField]
-        [Range(0, 1)]
-        private float _INITIAL_SE_VOLUME = 1.0f;
+        [SerializeField] [Range(0, 1)] private float _INITIAL_SE_VOLUME = 1.0f;
 
         private void Awake()
         {
@@ -90,8 +88,7 @@ namespace Treevel.Common.Managers
         public void PlaySE(ESEKey key)
         {
             var clip = GetSEClip(key);
-            if (clip == null)
-                return;
+            if (clip == null) return;
 
             if (_sePlayers.Any(src => !src.isPlaying)) {
                 // 再生していないAudioSourceを探す
@@ -110,8 +107,7 @@ namespace Treevel.Common.Managers
         public void StopSE(ESEKey key)
         {
             var clip = GetSEClip(key);
-            if (clip == null)
-                return;
+            if (clip == null) return;
 
             var player = _sePlayers
                 .Where(src => src.clip != null)
@@ -127,8 +123,7 @@ namespace Treevel.Common.Managers
         public bool IsPlayingSE(ESEKey key)
         {
             var clip = GetSEClip(key);
-            if (clip == null)
-                return false;
+            if (clip == null) return false;
 
             var player = _sePlayers
                 .Where(src => src.clip != null)
@@ -144,12 +139,10 @@ namespace Treevel.Common.Managers
         public void PlayBGM(EBGMKey key, float playback = 0f)
         {
             var clip = GetBGMClip(key);
-            if (clip == null)
-                return;
+            if (clip == null) return;
 
             // BGM再生中であれば停止しておく
-            if (_bgmPlayer.isPlaying)
-                _bgmPlayer.Stop();
+            if (_bgmPlayer.isPlaying) _bgmPlayer.Stop();
 
             _bgmPlayer.clip = clip;
             _bgmPlayer.time = playback;
@@ -261,8 +254,10 @@ namespace Treevel.Common.Managers
             {
                 EditorGUI.BeginChangeCheck();
 
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"), new GUIContent("Initial BGM Volume"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"), new GUIContent("Initial SE Volume"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"),
+                                              new GUIContent("Initial BGM Volume"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_SE_VOLUME"),
+                                              new GUIContent("Initial SE Volume"));
 
                 EditorGUILayout.LabelField("BGM List", EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -272,8 +267,10 @@ namespace Treevel.Common.Managers
                     var keyProp = soundDataProp.FindPropertyRelative("key");
                     keyProp.stringValue = eBgm.ToString();
 
-                    EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eBgm.ToString()));
+                    EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"),
+                                                  new GUIContent(eBgm.ToString()));
                 }
+
                 EditorGUILayout.EndVertical();
 
                 EditorGUILayout.LabelField("SE List", EditorStyles.boldLabel);
@@ -283,8 +280,10 @@ namespace Treevel.Common.Managers
                     var keyProp = soundDataProp.FindPropertyRelative("key");
                     keyProp.stringValue = eSe.ToString();
 
-                    EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"), new GUIContent(eSe.ToString()));
+                    EditorGUILayout.PropertyField(soundDataProp.FindPropertyRelative("clip"),
+                                                  new GUIContent(eSe.ToString()));
                 }
+
                 EditorGUILayout.EndVertical();
 
                 if (!EditorGUI.EndChangeCheck()) return;

@@ -20,17 +20,17 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private float _startTime;
 
-        private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys = new Dictionary<EGimmickType, string>()
-        {
-            {EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB},
-            {EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB},
-            {EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB},
-            {EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB},
-            {EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB},
-            {EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB},
-            {EGimmickType.Fog, Constants.Address.FOG_PREFAB},
-            {EGimmickType.Powder, Constants.Address.POWDER_PREFAB},
-        };
+        private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys =
+            new Dictionary<EGimmickType, string>() {
+                { EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB },
+                { EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB },
+                { EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB },
+                { EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB },
+                { EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB },
+                { EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB },
+                { EGimmickType.Fog, Constants.Address.FOG_PREFAB },
+                { EGimmickType.Powder, Constants.Address.POWDER_PREFAB },
+            };
 
         public void Initialize(List<GimmickData> gimmicks)
         {

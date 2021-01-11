@@ -32,9 +32,7 @@ namespace Treevel.Common.Components
         /// <summary>
         /// 初期化 (表示 UI なし)
         /// </summary>
-        public void Initialize()
-        {
-        }
+        public void Initialize() { }
 
         /// <summary>
         /// タイマーを動作
