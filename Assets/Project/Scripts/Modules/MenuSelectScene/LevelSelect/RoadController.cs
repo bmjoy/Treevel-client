@@ -104,8 +104,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
             // 道の更新アニメーション
             for (var i = 0; i < _CLEAR_ANIMATION_FRAMES; i++) {
-                if (cancelToken.IsCancellationRequested)
-                    break;
+                if (cancelToken.IsCancellationRequested) break;
 
                 // 非解放状態から解放状態まで線形補間
                 lineRenderer.startColor = lineRenderer.endColor =
