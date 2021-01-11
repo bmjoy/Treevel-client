@@ -35,20 +35,14 @@ namespace Treevel.Common.Components.UIs
             }
         }
 
-        /// <summary>
-        /// 言語が変更されたときに発火するイベント
-        /// </summary>
-        private void OnLanguageChanged()
-        {
-            text = LanguageUtility.GetText(TextIndex);
-        }
-
         protected override void Awake()
         {
             base.Awake();
 
-            // 言語変更するイベントを登録する
-            UserSettings.CurrentLanguage.Subscribe(_ => OnLanguageChanged()).AddTo(this);
+            // 言語変更する時にテキスト変更するイベントを登録する
+            UserSettings.CurrentLanguage.Subscribe(_ => {
+                text = LanguageUtility.GetText(TextIndex);
+            }).AddTo(this);
             text = LanguageUtility.GetText(TextIndex);
         }
     }
