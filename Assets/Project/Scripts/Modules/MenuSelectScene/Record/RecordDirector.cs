@@ -35,9 +35,17 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // ページの横幅の設定
             _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
 
-            _shareButton.onClick.AsObservable().Subscribe(_ => ShareRecord()).AddTo(this);
-            _toIndividualButton.onClick.AsObservable().Subscribe(_ => MoveToRight()).AddTo(this);
-            _toGeneralButton.onClick.AsObservable().Subscribe(_ => MoveToLeft()).AddTo(this);
+            _shareButton.onClick.AsObservable().Subscribe(_ => {
+                Application.OpenURL("https://twitter.com/intent/tweet?hashtags=Treevel");
+            }).AddTo(this);
+            _toIndividualButton.onClick.AsObservable().Subscribe(_ => {
+                _snapScrollView.Page = 1;
+                _snapScrollView.RefreshPage();
+            }).AddTo(this);
+            _toGeneralButton.onClick.AsObservable().Subscribe(_ => {
+                _snapScrollView.Page = 0;
+                _snapScrollView.RefreshPage();
+            }).AddTo(this);
 
             // スクロール時のイベント
             Observable.FromEvent(
@@ -52,23 +60,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             _toIndividualButton.gameObject.SetActive(_snapScrollView.Page == 0);
             _toGeneralButton.gameObject.SetActive(_snapScrollView.Page != 0);
-        }
-
-        private static void ShareRecord()
-        {
-            Application.OpenURL("https://twitter.com/intent/tweet?hashtags=Treevel");
-        }
-
-        private void MoveToRight()
-        {
-            _snapScrollView.Page = 1;
-            _snapScrollView.RefreshPage();
-        }
-
-        private void MoveToLeft()
-        {
-            _snapScrollView.Page = 0;
-            _snapScrollView.RefreshPage();
         }
     }
 }
