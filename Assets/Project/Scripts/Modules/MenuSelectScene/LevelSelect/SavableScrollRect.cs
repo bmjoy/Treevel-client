@@ -36,8 +36,16 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
             // 明示的にUnityEvent使用することを宣言
             _transformGesture.UseUnityEvents = true;
-            _transformGesture.OnTransformStart.AsObservable().Subscribe(OnTransformStarted).AddTo(this);
-            _transformGesture.OnTransformComplete.AsObservable().Subscribe(OnTransformCompleted).AddTo(this);
+            _transformGesture.OnTransformStart.AsObservable().Subscribe(_ => {
+                // 2点タッチしている時はスクロールしない
+                horizontal = false;
+                vertical = false;
+            }).AddTo(this);
+            _transformGesture.OnTransformComplete.AsObservable().Subscribe(_ => {
+                // スクロール制限を解除する
+                horizontal = true;
+                vertical = true;
+            }).AddTo(this);
         }
 
         protected override void OnEnable()
@@ -51,20 +59,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             base.OnDisable();
             UserSettings.LevelSelectScrollPosition = content.transform.localPosition;
-        }
-
-        private void OnTransformStarted(Gesture gesture)
-        {
-            // 2点タッチしている時はスクロールしない
-            horizontal = false;
-            vertical = false;
-        }
-
-        private void OnTransformCompleted(Gesture gesture)
-        {
-            // スクロール制限を解除する
-            horizontal = true;
-            vertical = true;
         }
     }
 }
