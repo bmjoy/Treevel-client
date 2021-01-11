@@ -35,13 +35,18 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // ページの横幅の設定
             _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
 
+            // 共有ボタン
             _shareButton.onClick.AsObservable().Subscribe(_ => {
                 Application.OpenURL("https://twitter.com/intent/tweet?hashtags=Treevel");
             }).AddTo(this);
+
+            // 「→」ボタン
             _toIndividualButton.onClick.AsObservable().Subscribe(_ => {
                 _snapScrollView.Page = 1;
                 _snapScrollView.RefreshPage();
             }).AddTo(this);
+
+            // 「←」ボタン
             _toGeneralButton.onClick.AsObservable().Subscribe(_ => {
                 _snapScrollView.Page = 0;
                 _snapScrollView.RefreshPage();
