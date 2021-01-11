@@ -29,9 +29,9 @@ namespace Treevel.Common.Utils
         /// <typeparam name="Key"> 辞書型オブジェクトのキーの型 </typeparam>
         /// <typeparam name="Value"> 辞書型オブジェクトの値の型 </typeparam>
         /// <returns></returns>
-        public  static void SetDictionary<Key, Value>(string key, Dictionary<Key, Value> dictionary)
+        public static void SetDictionary<Key, Value>(string key, Dictionary<Key, Value> dictionary)
         {
-            var serizlizedDict = Serialize<Dictionary<Key, Value>> (dictionary);
+            var serizlizedDict = Serialize<Dictionary<Key, Value>>(dictionary);
             PlayerPrefs.SetString(key, serizlizedDict);
         }
 
@@ -55,7 +55,7 @@ namespace Treevel.Common.Utils
         /// <param name="key"> キー </param>
         /// <typeparam name="T"> オブジェクトの型 </typeparam>
         /// <returns> 読み込みたいオブジェクト </returns>
-        public static T GetObject<T>(string key) where T : new ()
+        public static T GetObject<T>(string key) where T : new()
         {
             var json = PlayerPrefs.GetString(key);
             if (json == "") return new T();
@@ -71,14 +71,15 @@ namespace Treevel.Common.Utils
         /// <typeparam name="TKey"> 辞書型オブジェクトのキーの型</typeparam>
         /// <typeparam name="TValue"> 辞書型オブジェクトの値の型 </typeparam>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue> (string key, Dictionary<TKey, TValue> defaultDic = null)
+        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(
+            string key, Dictionary<TKey, TValue> defaultDic = null)
         {
             if (!PlayerPrefs.HasKey(key)) {
-                return defaultDic ?? new Dictionary<TKey, TValue> ();
+                return defaultDic ?? new Dictionary<TKey, TValue>();
             }
 
             var serizlizedDictionary = PlayerPrefs.GetString(key);
-            return Deserialize<Dictionary<TKey, TValue>> (serizlizedDictionary);
+            return Deserialize<Dictionary<TKey, TValue>>(serizlizedDictionary);
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace Treevel.Common.Utils
         /// <param name="obj"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private static string Serialize<T> (T obj)
+        private static string Serialize<T>(T obj)
         {
             var binaryFormatter = new BinaryFormatter();
             var memoryStream = new MemoryStream();
@@ -120,7 +121,7 @@ namespace Treevel.Common.Utils
         /// <param name="str"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private static T Deserialize<T> (string str)
+        private static T Deserialize<T>(string str)
         {
             var binaryFormatter = new BinaryFormatter();
             var memoryStream = new MemoryStream(Convert.FromBase64String(str));

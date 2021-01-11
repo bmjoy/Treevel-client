@@ -108,10 +108,12 @@ namespace Treevel.Modules.GamePlayScene.Tile
             _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEIN);
             // アニメーションの終了を待つ
             yield return new WaitForEndOfFrame();
-            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEIN);
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash !=
+                                             _ANIMATOR_NAME_HASH_BOTTLEIN);
 
             // ボトルを移動する
-            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber, null);
+            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber,
+                                       null);
 
             // 相方のWarpTargetの子オブジェクトに
             var pairTileWarpObject = _pairTile.transform.Find("WarpTarget");
@@ -123,7 +125,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             // アニメーションの終了を待つ
             yield return new WaitForEndOfFrame();
-            yield return new WaitUntil(() => pairAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEOUT);
+            yield return new WaitUntil(() => pairAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash !=
+                                             _ANIMATOR_NAME_HASH_BOTTLEOUT);
 
             // ボトルの親オブジェクトを戻す
             bottle.transform.SetParent(bottleOriginalParent);
@@ -137,7 +140,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         private bool CanWarp()
         {
-            return _warpEnabled && BoardManager.Instance.GetBottle(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
+            return _warpEnabled &&
+                   BoardManager.Instance.GetBottle(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
         }
 
         private void StartWarp(GameObject bottle)

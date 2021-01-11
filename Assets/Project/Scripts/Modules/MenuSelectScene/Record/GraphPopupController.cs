@@ -54,6 +54,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             } else {
                 position.x = graphPosition.x;
             }
+
             rectTransform.position = position;
 
             // 補助線を適切な位置に配置する
@@ -64,7 +65,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _indicatorLine.GetComponent<RectTransform>().position = linePosition;
 
             var data = await NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)));
-            var stageStats = (StageStats) data;
+            var stageStats = (StageStats)data;
             _clearRateText.text = $"{stageStats.ClearRate * 100f:n2}";
 
             currentStageNumber = stageNumber;

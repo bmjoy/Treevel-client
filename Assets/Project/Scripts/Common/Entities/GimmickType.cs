@@ -5,7 +5,8 @@ namespace Treevel.Common.Entities
     /// <summary>
     /// ギミックの種類
     /// </summary>
-    public enum EGimmickType {
+    public enum EGimmickType
+    {
         Tornado,
         Meteorite,
         AimingMeteorite,

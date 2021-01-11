@@ -12,11 +12,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         [SerializeField] protected float _warningDisplayTime = 1.0f;
 
-        public EGimmickType GimmickType
-        {
-            get;
-            private set;
-        }
+        public EGimmickType GimmickType { get; private set; }
 
         private static short _gimmickId = short.MinValue;
 
@@ -62,8 +58,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             OnEndGame();
         }
 
-        protected virtual void OnEndGame()
-        {
-        }
+        protected virtual void OnEndGame() { }
     }
 }

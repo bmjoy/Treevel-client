@@ -34,7 +34,7 @@ namespace Treevel.Common.Extensions
         public static Vector2 Rotate(this Vector2 v, float angle)
         {
             return new Vector2((float)(Math.Cos(angle) * v.x - Math.Sin(angle) * v.y),
-                    (float)(Math.Sin(angle) * v.x + Math.Cos(angle) * v.y));
+                               (float)(Math.Sin(angle) * v.x + Math.Cos(angle) * v.y));
         }
 
         /// <summary>

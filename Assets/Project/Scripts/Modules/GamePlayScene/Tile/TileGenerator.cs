@@ -11,13 +11,12 @@ namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string>()
-        {
-            {ETileType.Normal, Constants.Address.NORMAL_TILE_PREFAB},
-            {ETileType.Warp, Constants.Address.WARP_TILE_PREFAB},
-            {ETileType.Ice, Constants.Address.ICE_TILE_PREFAB},
-            {ETileType.Holy, Constants.Address.HOLY_TILE_PREFAB},
-            {ETileType.Spiderweb, Constants.Address.SPIDERWEB_TILE_PREFAB},
+        private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string>() {
+            { ETileType.Normal, Constants.Address.NORMAL_TILE_PREFAB },
+            { ETileType.Warp, Constants.Address.WARP_TILE_PREFAB },
+            { ETileType.Ice, Constants.Address.ICE_TILE_PREFAB },
+            { ETileType.Holy, Constants.Address.HOLY_TILE_PREFAB },
+            { ETileType.Spiderweb, Constants.Address.SPIDERWEB_TILE_PREFAB },
         };
 
         public async void CreateTiles(ICollection<TileData> tileDatas)
@@ -25,12 +24,10 @@ namespace Treevel.Modules.GamePlayScene.Tile
             // シーンに配置したノーマルタイルを初期化
             for (var tileNum = 1; tileNum <= Constants.StageSize.ROW * Constants.StageSize.COLUMN; ++tileNum) {
                 var currTileObj = transform.Find($"NormalTile{tileNum}");
-                if (currTileObj == null)
-                    continue;
+                if (currTileObj == null) continue;
 
                 var currTile = currTileObj.GetComponent<NormalTileController>();
-                if (currTile == null)
-                    continue;
+                if (currTile == null) continue;
 
                 // initialize tile
                 BoardManager.Instance.SetTile(currTile, tileNum);
@@ -50,7 +47,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
                     case ETileType.Holy:
                     case ETileType.Spiderweb:
                     case ETileType.Ice:
-                        var tileObj = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).Task;
+                        var tileObj = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type])
+                            .Task;
                         tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
                         BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
                         tileObj.GetComponent<SpriteRenderer>().enabled = true;

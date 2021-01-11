@@ -19,19 +19,15 @@ namespace Treevel.Common.Components.UIs
         /// <summary>
         /// ユーザに提示するメッセージ
         /// </summary>
-        [SerializeField]
-        public MultiLanguageText _text;
+        [SerializeField] public MultiLanguageText _text;
 
         /// <summary>
         /// 該当エラーのコード
         /// </summary>
         private EErrorCode _errorCode;
 
-        public EErrorCode ErrorCode
-        {
-            get {
-                return _errorCode;
-            }
+        public EErrorCode ErrorCode {
+            get { return _errorCode; }
             set {
                 _errorCode = value;
                 // エラーコードから対応するエラーメッセージを取得

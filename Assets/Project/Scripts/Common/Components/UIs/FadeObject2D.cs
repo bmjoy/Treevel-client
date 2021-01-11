@@ -6,7 +6,8 @@ namespace Treevel.Common.Components.UIs
 {
     public class FadeObject2D : MonoBehaviour
     {
-        [SerializeField, Tooltip("fade duration in second")] private float _duration = 0.8f;
+        [SerializeField, Tooltip("fade duration in second")]
+        private float _duration = 0.8f;
 
         private readonly List<CanvasRenderer> _renderers = new List<CanvasRenderer>();
 
@@ -20,8 +21,7 @@ namespace Treevel.Common.Components.UIs
 
         private void OnEnable()
         {
-            if (_renderers == null || _renderers.Count == 0)
-                return;
+            if (_renderers == null || _renderers.Count == 0) return;
 
             StartCoroutine(FadeIn());
         }

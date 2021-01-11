@@ -19,14 +19,15 @@ namespace Treevel.Common.Utils
         }
 
         private static AbstractBottleController[] _orderedBottles = null;
-        public static AbstractBottleController[] OrderedAttackableBottles
-        {
+
+        public static AbstractBottleController[] OrderedAttackableBottles {
             get {
                 if (_orderedBottles == null) {
                     _orderedBottles = GameObject.FindObjectsOfType<AbstractBottleController>()
                         .Where(bottle => bottle.IsAttackable)
                         .OrderBy(bottle => bottle.Id).ToArray();
                 }
+
                 return _orderedBottles;
             }
         }

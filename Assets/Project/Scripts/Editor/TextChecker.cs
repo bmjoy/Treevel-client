@@ -15,8 +15,8 @@ namespace Treevel.Editor
         /// 全てのTextが参照すべきprefabのId
         /// </summary>
         private static readonly List<long> _FILE_ID = new List<long> {
-            9178724915984365835,    // BaseText
-            8335351129932690981,    // BaseMultiLanguage
+            9178724915984365835, // BaseText
+            8335351129932690981, // BaseMultiLanguage
         };
 
         /// <summary>
@@ -40,6 +40,7 @@ namespace Treevel.Editor
                 // 開いているシーンのTextの検証
                 CheckTextInScene();
             }
+
             // プログレスバーの終了
             EditorUtility.ClearProgressBar();
             if (!string.IsNullOrEmpty(currentScene))
@@ -55,7 +56,8 @@ namespace Treevel.Editor
         {
             // scene内の全てのTextオブジェクトを取得
             var textObjs = Resources.FindObjectsOfTypeAll(typeof(Text)).Select(t => t as Text)
-                .Where(t => t != null && t.hideFlags != HideFlags.NotEditable && t.hideFlags != HideFlags.HideAndDontSave && t.hideFlags != HideFlags.HideInHierarchy);
+                .Where(t => t != null && t.hideFlags != HideFlags.NotEditable &&
+                            t.hideFlags != HideFlags.HideAndDontSave && t.hideFlags != HideFlags.HideInHierarchy);
 
             foreach (var textObj in textObjs) {
                 if (PrefabUtility.GetCorrespondingObjectFromOriginalSource(textObj) == null) {
@@ -66,12 +68,14 @@ namespace Treevel.Editor
 
                 // 基になったprefabのfileIdを取得する
                 var parentPrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(textObj);
-                var inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
+                var inspectorModeInfo =
+                    typeof(SerializedObject).GetProperty("inspectorMode",
+                                                         BindingFlags.NonPublic | BindingFlags.Instance);
 
                 var serializedObject = new SerializedObject(parentPrefab);
                 if (inspectorModeInfo != null) inspectorModeInfo.SetValue(serializedObject, InspectorMode.Debug, null);
 
-                var localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
+                var localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile"); //note the misspelling!
 
                 var localId = localIdProp.longValue;
 
@@ -89,7 +93,9 @@ namespace Treevel.Editor
                     // 数字ではない
                     Debug.LogWarning("\"" + targetText + "\" should be fixed to MultiLanguageText.");
                 }
-                if (targetText.EndsWith(" ") || targetText.EndsWith("\n") || targetText.EndsWith("\r") || targetText.EndsWith("\r\n")) {
+
+                if (targetText.EndsWith(" ") || targetText.EndsWith("\n") || targetText.EndsWith("\r") ||
+                    targetText.EndsWith("\r\n")) {
                     // 空白もしくは改行が末尾にある
                     Debug.Log("<color=gray>\"" + targetText + "\" ends with a space or \\n</color>");
                 }

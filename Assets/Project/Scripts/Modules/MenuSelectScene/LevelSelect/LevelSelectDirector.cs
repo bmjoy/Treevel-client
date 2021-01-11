@@ -20,8 +20,10 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         private void Awake()
         {
-            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList<LevelTreeController>();
-            _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
+            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE)
+                .Select(tree => tree.GetComponent<LevelTreeController>()).ToList<LevelTreeController>();
+            _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD)
+                .Select(road => road.GetComponent<RoadController>()).ToList<RoadController>();
         }
 
         /// <summary>

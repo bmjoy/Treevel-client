@@ -76,7 +76,7 @@ namespace Treevel.Modules.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return null;
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
 
             return _squares[x, y].tile != null ? _squares[x, y].tile.gameObject : null;
         }
@@ -93,7 +93,7 @@ namespace Treevel.Modules.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return null;
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
 
             return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
         }
@@ -106,7 +106,7 @@ namespace Treevel.Modules.GamePlayScene
             List<GameObject> ret = new List<GameObject>();
 
             var r = (int)row;
-            for (var c = 0 ; c < Constants.StageSize.COLUMN ; c++) {
+            for (var c = 0; c < Constants.StageSize.COLUMN; c++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
                 }
@@ -123,7 +123,7 @@ namespace Treevel.Modules.GamePlayScene
             List<GameObject> ret = new List<GameObject>();
 
             var c = (int)column;
-            for (var r = 0 ; r < Constants.StageSize.ROW ; r++) {
+            for (var r = 0; r < Constants.StageSize.ROW; r++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
                 }
@@ -177,7 +177,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="tileNum"> タイル番号 </param>
         /// <returns> (行, 列) </returns>
-        public(int, int)? TileNumToXY(int tileNum)
+        public (int, int)? TileNumToXY(int tileNum)
         {
             if (tileNum < 1 || 15 < tileNum) return null;
 
@@ -241,7 +241,7 @@ namespace Treevel.Modules.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return false;
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
 
             var targetSquare = _squares[x, y];
 
@@ -294,7 +294,7 @@ namespace Treevel.Modules.GamePlayScene
                 // 範囲外のタイル番号が指定された場合には何もしない
                 if (xy == null) return;
 
-                var(x, y) = xy.Value;
+                var (x, y) = xy.Value;
                 var targetSquare = _squares[x, y];
 
                 // 既にタイルが置いてあった場合、disabledにする(ノーマルタイルは重複利用されるため、消したくない)
@@ -324,7 +324,7 @@ namespace Treevel.Modules.GamePlayScene
                 if (xy == null) return;
 
                 // 目標の格子を取得
-                var(targetX, targetY) = xy.Value;
+                var (targetX, targetY) = xy.Value;
                 var targetSquare = _squares[targetX, targetY];
 
                 // 格子に設定
@@ -360,7 +360,7 @@ namespace Treevel.Modules.GamePlayScene
                 throw new System.InvalidOperationException($"Invalid Tile Num {tileNum}");
             }
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
             return _squares[x, y].worldPosition;
         }
 
@@ -398,7 +398,6 @@ namespace Treevel.Modules.GamePlayScene
             /// 格子のワールド座標
             /// </summary>
             public readonly Vector2 worldPosition;
-
 
             public Square(float x, float y)
             {
