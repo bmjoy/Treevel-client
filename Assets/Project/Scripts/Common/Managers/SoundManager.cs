@@ -199,9 +199,9 @@ namespace Treevel.Common.Managers
 
         public void ResetVolume()
         {
-            _bgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume;
+            _bgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume.Value;
             foreach (var sePlayer in _sePlayers) {
-                sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume;
+                sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume.Value;
             }
         }
 

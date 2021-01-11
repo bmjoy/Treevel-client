@@ -21,8 +21,6 @@ namespace Treevel.Common.Utils
         private static Dictionary<KeyValuePair<ELanguage, ETextIndex>, string> _stringTable;
         private const string _DATA_PATH = "GameDatas/translation";
 
-        public static Action OnLanguageChange;
-
         static LanguageUtility()
         {
             LoadTranslationData();
@@ -59,7 +57,7 @@ namespace Treevel.Common.Utils
 
         public static string GetText(ETextIndex index)
         {
-            var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.CurrentLanguage, index);
+            var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.CurrentLanguage.Value, index);
             if (_stringTable.ContainsKey(key)) {
                 return _stringTable[key];
             } else {

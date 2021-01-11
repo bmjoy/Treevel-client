@@ -1,4 +1,5 @@
 ﻿using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,44 +7,18 @@ namespace Treevel.Modules.MenuSelectScene.Settings
 {
     public class SEController : MonoBehaviour
     {
-        /// <summary>
-        /// SEスライダー
-        /// </summary>
-        private Slider _SESlider;
-
         private void Awake()
         {
-            _SESlider = GetComponent<Slider>();
-            _SESlider.value = UserSettings.SEVolume;
-            _SESlider.onValueChanged.AddListener(delegate {
-                ValueChangeCheck();
-            });
-        }
+            var slider = GetComponent<Slider>();
 
-        private void OnEnable()
-        {
-            ToDefaultController.OnUpdate += OnUpdate;
-        }
+            // ユーザ設定が別のところで変えられた場合スライダーに反映
+            UserSettings.BGMVolume.Subscribe(volume => slider.value = volume).AddTo(this);
 
-        private void OnDisable()
-        {
-            ToDefaultController.OnUpdate -= OnUpdate;
-        }
-
-        /// <summary>
-        /// SEスライダーが変化した場合の処理
-        /// </summary>
-        private void ValueChangeCheck()
-        {
-            UserSettings.SEVolume = _SESlider.value;
-        }
-
-        /// <summary>
-        /// デフォルト設定に戻された時に呼ばれる
-        /// </summary>
-        private void OnUpdate()
-        {
-            _SESlider.value = UserSettings.SEVolume;
+            // SEスライダーが変化した場合の処理
+            slider.onValueChanged.AsObservable()
+                .Where(v => 0.0f <= v && v <= 1.0f)
+                .Subscribe(v => UserSettings.SEVolume.Value = v)
+                .AddTo(this);
         }
     }
 }

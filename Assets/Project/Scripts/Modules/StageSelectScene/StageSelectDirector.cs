@@ -110,7 +110,7 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         private void OnEnable()
         {
-            _branches.ForEach(branch => StartCoroutine(branch.UpdateState()));
+            _branches.ForEach(branch => branch.UpdateState());
             _trees.ForEach(tree => tree.UpdateState());
         }
 

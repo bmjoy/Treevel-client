@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
@@ -31,15 +30,10 @@ namespace Treevel.Modules.StageSelectScene
                 $"{_treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
-        public static void Reset()
-        {
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);
-        }
-
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override IEnumerator UpdateState()
+        public override void UpdateState()
         {
             if (branchStates.ContainsKey(saveKey))
                 released = branchStates[saveKey];
@@ -59,7 +53,6 @@ namespace Treevel.Modules.StageSelectScene
                     // 終点のステージの状態の更新
                     _endObjectController.ReleaseStage();
                     _endObjectController.ReflectTreeState();
-                    yield return null;
                 }
             }
 
