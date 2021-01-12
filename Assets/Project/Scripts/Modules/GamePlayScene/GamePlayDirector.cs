@@ -324,10 +324,10 @@ namespace Treevel.Modules.GamePlayScene
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
                 _stageNumberText.text = seasonId.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
 
-                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
-                _customTimer.Initialize(_timerText);
                 // タイマー設定
                 _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
+                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
+                _customTimer.Initialize(_timerText);
             }
 
             public override void OnEnter(State @from = null)
@@ -374,7 +374,7 @@ namespace Treevel.Modules.GamePlayScene
 
             public PlayingState(GamePlayDirector caller)
             {
-                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
+                _customTimer = caller.gameObject.GetComponent<CustomTimer>();
             }
 
             public override void OnEnter(State from = null) { }
