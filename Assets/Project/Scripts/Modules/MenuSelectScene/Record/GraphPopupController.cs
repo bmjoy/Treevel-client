@@ -35,15 +35,15 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         private const int _MARGIN = 50;
 
-        public async void Initialize(ESeasonId seasonId, ETreeId treeId, int stageNumber, Vector3 graphPosition)
+        public async void Initialize(Color seasonColor, ETreeId treeId, int stageNumber, Vector3 graphPosition)
         {
             var stageStatus = StageStatus.Get(treeId, stageNumber);
 
             var challengeNum = stageStatus.challengeNum;
-            _challengeNumText.text = challengeNum.ToString();
+            _challengeNumText.text = challengeNum + " 回プレイ";
 
             var isClear = stageStatus.successNum > 0;
-            gameObject.GetComponent<Image>().color = isClear ? seasonId.GetColor() : Color.gray;
+            gameObject.GetComponent<Image>().color = isClear ? seasonColor : Color.gray;
 
             // ポップアップが表示される位置を、該当する棒グラフの位置に合わせて変える
             var rectTransform = GetComponent<RectTransform>();
@@ -58,10 +58,10 @@ namespace Treevel.Modules.MenuSelectScene.Record
             var linePosition = lineRectTransform.position;
             linePosition.x = graphPosition.x;
             lineRectTransform.sizeDelta = new Vector2(lineRectTransform.rect.width, linePosition.y - graphPosition.y);
-            _indicatorLine.GetComponent<RectTransform>().position = linePosition;
+            lineRectTransform.position = linePosition;
 
-            var data = await NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)));
-            var stageStats = (StageStats)data;
+            var stageStats = (StageStats)await NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)));
+
             _clearRateText.text = $"{stageStats.ClearRate * 100f:n2}";
 
             currentStageNumber = stageNumber;

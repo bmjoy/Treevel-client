@@ -128,7 +128,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                             } else {
                                 var graphPosition = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position;
                                 _graphPopup.SetActive(true);
-                                graphPopupController.Initialize(_currentSeason.Value, _currentTree.Value, stageNumber, graphPosition);
+                                graphPopupController.Initialize(_currentSeason.Value.GetColor(), _currentTree.Value, stageNumber, graphPosition);
                             }
                         })
                         .AddTo(this);
