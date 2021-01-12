@@ -38,6 +38,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }).AddTo(compositeDisposable, this);
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
+
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
                     _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);

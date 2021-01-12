@@ -62,6 +62,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }).AddTo(compositeDisposable, this);
             _bottleController.pressGesture.Pressed += HandlePressed;
             _bottleController.releaseGesture.Released += HandleReleased;
+
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
                     _countCalmFrames = false;
