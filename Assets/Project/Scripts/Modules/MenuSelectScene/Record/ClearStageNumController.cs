@@ -30,7 +30,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _clearStageNum.text = clearStageNum.ToString();
             _totalStageNum.text = totalStageNum.ToString();
 
-            var clearStagePercentage = (float) clearStageNum / totalStageNum;
+            var clearStagePercentage = (float)clearStageNum / totalStageNum;
             _clearStageGauge.fillAmount = clearStagePercentage;
 
             var gaugeRadius = _clearStageGauge.GetComponent<RectTransform>().rect.width / 2;

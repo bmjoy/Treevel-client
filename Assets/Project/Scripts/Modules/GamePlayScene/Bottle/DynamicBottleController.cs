@@ -36,12 +36,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// 移動開始時の処理
         /// </summary>
         public IObservable<Unit> StartMove => _startMoveSubject;
+
         private readonly Subject<Unit> _startMoveSubject = new Subject<Unit>();
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
         public IObservable<Unit> EndMove => _endMoveSubject;
+
         private readonly Subject<Unit> _endMoveSubject = new Subject<Unit>();
 
         /// <summary>
@@ -49,11 +51,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private const float _SPEED = 30f;
 
-        public int FlickNum
-        {
-            get;
-            private set;
-        } = 0;
+        public int FlickNum { get; private set; } = 0;
 
         protected override void Awake()
         {
@@ -77,11 +75,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // set handlers
             if (bottleData.isSelfish) {
-                var selfishEffect = await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).ToUniTask();
+                var selfishEffect =
+                    await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).ToUniTask();
+
                 selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
             }
+
             if (bottleData.isReverse) {
-                var reverseEffect = await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).ToUniTask();
+                var reverseEffect =
+                    await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).ToUniTask();
                 reverseEffect.GetComponent<ReverseEffectController>().Initialize(this);
                 _isReverse = true;
             }
@@ -91,9 +93,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _flickGesture.Flicked += HandleFlicked;
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                _flickGesture.Flicked -= HandleFlicked;
-            }).AddTo(this);
+                .Subscribe(_ => {
+                    _flickGesture.Flicked -= HandleFlicked;
+                }).AddTo(this);
         }
 
         protected void OnDisable()
@@ -144,8 +146,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
                 _endMoveSubject.OnNext(Unit.Default);
                 SetGesturesEnabled(true);
-            } catch (OperationCanceledException) {
-            }
+            } catch (OperationCanceledException) { }
         }
     }
 }

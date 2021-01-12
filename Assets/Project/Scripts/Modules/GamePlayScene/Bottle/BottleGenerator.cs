@@ -10,12 +10,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 {
     public static class BottleGenerator
     {
-        private static Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>()
-        {
-            {EBottleType.Dynamic, Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB},
-            {EBottleType.Static, Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB},
-            {EBottleType.Normal, Constants.Address.NORMAL_BOTTLE_PREFAB},
-            {EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB},
+        private static Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>() {
+            { EBottleType.Dynamic, Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB },
+            { EBottleType.Static, Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB },
+            { EBottleType.Normal, Constants.Address.NORMAL_BOTTLE_PREFAB },
+            { EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB },
         };
 
         public static UniTask CreateBottles(List<BottleData> bottleDatas)
@@ -23,9 +22,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             var tasks = bottleDatas
                 .Where(bottleData => _prefabAddressableKeys.ContainsKey(bottleData.type))
                 .Select(bottleData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).ToUniTask()
-                .ContinueWith(async bottle => {
-                    await bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
-                })
+                            .ContinueWith(async bottle => {
+                                await bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
+                            })
                 );
 
             return UniTask.WhenAll(tasks);

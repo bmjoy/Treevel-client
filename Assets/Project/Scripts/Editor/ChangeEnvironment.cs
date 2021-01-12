@@ -55,7 +55,8 @@ namespace Treevel.Editor
         // 設定されているシンボル定義を取得する
         private static List<string> GetSymbols()
         {
-            return PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup).Split(';').ToList();
+            return PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup)
+                .Split(';').ToList();
         }
 
         // シンボル定義をセットする
@@ -63,7 +64,8 @@ namespace Treevel.Editor
         {
             var symbolStr = string.Empty;
             symbols.ForEach(s => symbolStr += s + ";");
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, symbolStr);
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup,
+                                                             symbolStr);
         }
     }
 }

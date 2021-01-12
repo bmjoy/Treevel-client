@@ -16,9 +16,9 @@ namespace Treevel.Modules.GamePlayScene
         protected virtual void OnEnable()
         {
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                compositeDisposable.Dispose();
-            }).AddTo(this);
+                .Subscribe(_ => {
+                    compositeDisposable.Dispose();
+                }).AddTo(this);
         }
     }
 }

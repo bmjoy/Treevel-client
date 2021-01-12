@@ -26,9 +26,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // イベントに処理を登録する
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            }).AddTo(this);
+                .Subscribe(_ => {
+                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Reverse.GetOrderInLayer();

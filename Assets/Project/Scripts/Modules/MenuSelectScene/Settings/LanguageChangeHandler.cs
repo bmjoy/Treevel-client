@@ -11,9 +11,10 @@ namespace Treevel.Modules.MenuSelectScene.Settings
     public class LanguageChangeHandler : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private ELanguage language;
+
         public void OnPointerClick(PointerEventData eventData)
         {
-            UserSettings.CurrentLanguage = language;
+            UserSettings.CurrentLanguage.Value = language;
         }
     }
 }

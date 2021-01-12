@@ -42,24 +42,28 @@ namespace Treevel.Modules.GamePlayScene
         /// ゲーム開始時のイベント
         /// </summary>
         public IObservable<Unit> GameStart => _gameStartSubject;
+
         private readonly Subject<Unit> _gameStartSubject = new Subject<Unit>();
 
         /// <summary>
         /// 成功時のイベント
         /// </summary>
         public IObservable<Unit> GameSucceeded => _gameSucceededSubject;
+
         private readonly Subject<Unit> _gameSucceededSubject = new Subject<Unit>();
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
         public IObservable<Unit> GameFailed => _gameFailedSubject;
+
         private readonly Subject<Unit> _gameFailedSubject = new Subject<Unit>();
 
         /// <summary>
         /// ゲームの状態一覧
         /// </summary>
-        public enum EGameState {
+        public enum EGameState
+        {
             Tutorial,
             Opening,
             Playing,
@@ -96,11 +100,8 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// ゲームの現状態
         /// </summary>
-        public EGameState State
-        {
-            get {
-                return _stateList.SingleOrDefault(pair => pair.Value == _stateMachine.CurrentState).Key;
-            }
+        public EGameState State {
+            get { return _stateList.SingleOrDefault(pair => pair.Value == _stateMachine.CurrentState).Key; }
         }
 
         /// <summary>
@@ -143,7 +144,7 @@ namespace Treevel.Modules.GamePlayScene
             var stateType = parentType.GetNestedType($"{state.ToString()}State", BindingFlags.NonPublic);
 
             // ステートのインスタンス生成
-            var stateInstance = (State)Activator.CreateInstance(stateType, new object[] {this});
+            var stateInstance = (State)Activator.CreateInstance(stateType, new object[] { this });
 
             _stateList.Add(state, stateInstance);
         }
@@ -156,22 +157,30 @@ namespace Treevel.Modules.GamePlayScene
         {
             switch (state) {
                 case EGameState.Tutorial:
-                    _stateMachine.AddTransition(_stateList[EGameState.Tutorial], _stateList[EGameState.Opening]); // tutorial -> opening
+                    _stateMachine.AddTransition(_stateList[EGameState.Tutorial],
+                                                _stateList[EGameState.Opening]); // tutorial -> opening
                     break;
                 case EGameState.Opening:
-                    _stateMachine.AddTransition(_stateList[EGameState.Opening], _stateList[EGameState.Playing]); // opening -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
+                                                _stateList[EGameState.Playing]); // opening -> playing
                     break;
                 case EGameState.Playing:
-                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Pausing]); // playing -> pausing
-                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Failure]); // playing -> faliure
-                    _stateMachine.AddTransition(_stateList[EGameState.Playing], _stateList[EGameState.Success]); // playing -> success
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing],
+                                                _stateList[EGameState.Pausing]); // playing -> pausing
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing],
+                                                _stateList[EGameState.Failure]); // playing -> faliure
+                    _stateMachine.AddTransition(_stateList[EGameState.Playing],
+                                                _stateList[EGameState.Success]); // playing -> success
                     break;
                 case EGameState.Pausing:
-                    _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Playing]); // pausing -> playing
-                    _stateMachine.AddTransition(_stateList[EGameState.Pausing], _stateList[EGameState.Failure]); // pausing -> faliure
+                    _stateMachine.AddTransition(_stateList[EGameState.Pausing],
+                                                _stateList[EGameState.Playing]); // pausing -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Pausing],
+                                                _stateList[EGameState.Failure]); // pausing -> faliure
                     break;
                 case EGameState.Failure:
-                    _stateMachine.AddTransition(_stateList[EGameState.Failure], _stateList[EGameState.Opening]); // failure -> opening
+                    _stateMachine.AddTransition(_stateList[EGameState.Failure],
+                                                _stateList[EGameState.Opening]); // failure -> opening
                     break;
                 case EGameState.Success:
                     break;
@@ -209,8 +218,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public void CheckClear()
         {
-            if (!StageGenerator.CreatedFinished)
-                return;
+            if (!StageGenerator.CreatedFinished) return;
 
             var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
             if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
@@ -286,14 +294,13 @@ namespace Treevel.Modules.GamePlayScene
         private bool ShouldShowTutorial()
         {
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
-            if (stageData.Tutorial.type == ETutorialType.None)
-                return false;
+            if (stageData.Tutorial.type == ETutorialType.None) return false;
 
             var stageStatus = StageStatus.Get(treeId, stageNumber);
             return !stageStatus.tutorialChecked;
         }
 
-        private class OpeningState: State
+        private class OpeningState : State
         {
             /// <summary>
             /// ステージID表示用テキスト
@@ -321,7 +328,6 @@ namespace Treevel.Modules.GamePlayScene
                 _customTimer.Initialize(_timerText);
                 // タイマー設定
                 _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
-
             }
 
             public override void OnEnter(State @from = null)
@@ -359,7 +365,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class PlayingState: State
+        private class PlayingState : State
         {
             /// <summary>
             /// ゲーム時間を計測するタイマー
@@ -371,15 +377,12 @@ namespace Treevel.Modules.GamePlayScene
                 _customTimer = caller.gameObject.AddComponent<CustomTimer>();
             }
 
-            public override void OnEnter(State from = null)
-            {
-            }
+            public override void OnEnter(State from = null) { }
 
             public override void OnExit(State to)
             {
                 // 一時停止だったらそのまま処理終わる
-                if (to is PausingState)
-                    return;
+                if (to is PausingState) return;
 
                 // その他の状態に遷移する時ゲーム終了
                 EndProcess();
@@ -403,7 +406,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class PausingState: State
+        private class PausingState : State
         {
             /// <summary>
             /// 一時停止ウィンドウ
@@ -448,7 +451,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class SuccessState: State
+        private class SuccessState : State
         {
             /// <summary>
             /// 成功ポップアップ
@@ -482,7 +485,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class FailureState: State
+        private class FailureState : State
         {
             /// <summary>
             /// 失敗ポップアップ
@@ -508,6 +511,7 @@ namespace Treevel.Modules.GamePlayScene
                 } else {
                     dic[Instance.failureReason] = 1;
                 }
+
                 RecordData.Instance.FailureReasonCount = dic;
 
                 // Pausingから来たらステージ選択画面へ
@@ -545,8 +549,7 @@ namespace Treevel.Modules.GamePlayScene
             {
                 var stageData = GameDataManager.GetStage(treeId, stageNumber);
                 var tutorialData = stageData.Tutorial;
-                if (tutorialData.type == ETutorialType.None)
-                    return;
+                if (tutorialData.type == ETutorialType.None) return;
 
                 var content = _tutorialWindow.transform.Find("Content");
                 if (tutorialData.type == ETutorialType.Image) {

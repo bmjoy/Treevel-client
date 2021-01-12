@@ -54,8 +54,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
                     // 失敗原因を保持する
                     var controller = gimmick.GetComponent<AbstractGimmickController>();
-                    if (controller == null)
-                        controller = gimmick.GetComponentInParent<AbstractGimmickController>();
+                    if (controller == null) controller = gimmick.GetComponentInParent<AbstractGimmickController>();
 
                     var gimmickType = controller.GimmickType;
                     GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
@@ -71,12 +70,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }
             }).AddTo(compositeDisposable, this);
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Where(_ => !_isDead)
-            .Subscribe(_ => {
-                // 自身が破壊されていない場合はアニメーションを止める
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-            }).AddTo(this);
+                .Where(_ => !_isDead)
+                .Subscribe(_ => {
+                    // 自身が破壊されていない場合はアニメーションを止める
+                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
+                    _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
+                }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Life.GetOrderInLayer();

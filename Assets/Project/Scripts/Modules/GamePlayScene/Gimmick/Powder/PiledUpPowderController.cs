@@ -34,10 +34,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                 Destroy(gameObject);
             }).AddTo(this);
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Where(_ => !_isPiledUp)
-            .Subscribe(_ => {
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            }).AddTo(this);
+                .Where(_ => !_isPiledUp)
+                .Subscribe(_ => {
+                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                }).AddTo(this);
         }
 
         public void Initialize(NormalBottleController bottleController)
@@ -71,8 +71,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// </summary>
         private void SetBottleFailed()
         {
-            if (GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing)
-                return;
+            if (GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing) return;
             _isPiledUp = true;
             _bottleAnimator.SetTrigger(LifeEffectController.ANIMATOR_PARAM_TRIGGER_DEAD);
             // 失敗原因を保持する

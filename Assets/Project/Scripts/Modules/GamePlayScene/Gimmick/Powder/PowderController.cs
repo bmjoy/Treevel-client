@@ -31,9 +31,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         {
             base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                Destroy(gameObject);
-            }).AddTo(this);
+                .Subscribe(_ => {
+                    Destroy(gameObject);
+                }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -66,12 +66,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                 default:
                     throw new System.ArgumentOutOfRangeException();
             }
+
             var backgroundSprite = AddressableAssetManager.GetAsset<Sprite>(backgroundAddressKey);
             var background = transform.Find("background").GetComponent<SpriteRenderer>();
             background.sprite = backgroundSprite;
             var originalWidth = backgroundSprite.bounds.size.x;
             var originalHeight = backgroundSprite.bounds.size.y;
-            transform.localScale = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / originalWidth, Constants.WindowSize.HEIGHT / originalHeight);
+            transform.localScale = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / originalWidth,
+                                               Constants.WindowSize.HEIGHT / originalHeight);
 
             // 子オブジェクト
             var upperParticle = transform.Find("UpperParticle").gameObject;
@@ -86,8 +88,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // particleの画像
             upperParticleSystemRenderer.material = lowerParticleSystemRenderer.material = particleMaterial;
             // particleの位置
-            upperParticle.transform.position = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / 2f, Constants.WindowSize.HEIGHT / 2f);
-            lowerParticle.transform.position = new Vector3(-GameWindowController.Instance.GetGameSpaceWidth() / 2f, -Constants.WindowSize.HEIGHT / 2f);
+            upperParticle.transform.position = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / 2f,
+                                                           Constants.WindowSize.HEIGHT / 2f);
+            lowerParticle.transform.position = new Vector3(-GameWindowController.Instance.GetGameSpaceWidth() / 2f,
+                                                           -Constants.WindowSize.HEIGHT / 2f);
             // particleの射出角度
             var upperShape = upperParticle.GetComponent<ParticleSystem>().shape;
             var lowerShape = lowerParticle.GetComponent<ParticleSystem>().shape;
@@ -96,7 +100,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             upperShape.rotation = new Vector3(0, 0, 90 + emissionRadian * 180f / Mathf.PI);
             lowerShape.rotation = new Vector3(0, 0, 270 + emissionRadian * 180f / Mathf.PI);
             // particleの移動距離
-            var length = GameWindowController.Instance.GetGameSpaceWidth() * Mathf.Cos(emissionRadian) + scaleX * 2f * Mathf.Tan(emissionRadian);
+            var length = GameWindowController.Instance.GetGameSpaceWidth() * Mathf.Cos(emissionRadian) +
+                         scaleX * 2f * Mathf.Tan(emissionRadian);
             // particleの寿命 : 最も遅い粒子でも画面端まで持続するようにする
             var upperMain = upperParticle.GetComponent<ParticleSystem>().main;
             var lowerMain = lowerParticle.GetComponent<ParticleSystem>().main;

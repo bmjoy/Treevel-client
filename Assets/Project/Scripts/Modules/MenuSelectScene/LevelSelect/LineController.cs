@@ -83,7 +83,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected abstract void SetSaveKey();
 
-        public abstract IEnumerator UpdateState();
+        public abstract void UpdateState();
 
         public abstract void SaveState();
 
@@ -103,7 +103,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var preTargetPosition = lineRenderer.GetPosition(0);
             for (int i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                var targetPosition = CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint, secondControlPoint, endPointLocalPosition, ratio);
+                var targetPosition = CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint,
+                                                                  secondControlPoint, endPointLocalPosition, ratio);
                 lineRenderer.SetPosition(i, targetPosition);
                 lineLength += Vector2.Distance(targetPosition, preTargetPosition);
                 preTargetPosition = targetPosition;
@@ -123,9 +124,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             var oneMinusRatio = 1f - ratio;
             return oneMinusRatio * oneMinusRatio * oneMinusRatio * p0
-                + 3f * oneMinusRatio * oneMinusRatio * ratio * p1
-                + 3f * oneMinusRatio * ratio * ratio * p2
-                + ratio * ratio * ratio * p3;
+                   + 3f * oneMinusRatio * oneMinusRatio * ratio * p1
+                   + 3f * oneMinusRatio * ratio * ratio * p2
+                   + ratio * ratio * ratio * p3;
         }
     }
 }

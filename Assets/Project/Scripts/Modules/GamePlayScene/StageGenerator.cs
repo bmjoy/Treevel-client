@@ -15,11 +15,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// ステージ作成が完了したかどうかのフラグ
         /// </summary>
-        public static bool CreatedFinished
-        {
-            get;
-            private set;
-        }
+        public static bool CreatedFinished { get; private set; }
 
         /// <summary>
         /// ステージを作成する

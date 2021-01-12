@@ -32,18 +32,18 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // イベントに処理を登録する
             Observable.Merge(_bottleController.EnterTile, _bottleController.ExitTile)
-            .Subscribe(_ => {
-                _isSuccess = _bottleController.IsSuccess();
-                _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-            }).AddTo(compositeDisposable, this);
+                .Subscribe(_ => {
+                    _isSuccess = _bottleController.IsSuccess();
+                    _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
+                }).AddTo(compositeDisposable, this);
             _bottleController.longPressGesture.LongPressed += HandleLongPressed;
             _bottleController.releaseGesture.Released += HandleReleased;
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
-                _bottleController.releaseGesture.Released -= HandleReleased;
-            }).AddTo(this);
+                .Subscribe(_ => {
+                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                    _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
+                    _bottleController.releaseGesture.Released -= HandleReleased;
+                }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Dark.GetOrderInLayer();

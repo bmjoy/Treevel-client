@@ -72,9 +72,12 @@ namespace Treevel.Modules.StageSelectScene
 
         private void Awake()
         {
-            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
-            BranchController.branchStates = PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
-            _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE)
+                .Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
+            BranchController.branchStates =
+                PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
+            _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH)
+                .Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
@@ -107,7 +110,7 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         private void OnEnable()
         {
-            _branches.ForEach(branch => StartCoroutine(branch.UpdateState()));
+            _branches.ForEach(branch => branch.UpdateState());
             _trees.ForEach(tree => tree.UpdateState());
         }
 
@@ -145,7 +148,7 @@ namespace Treevel.Modules.StageSelectScene
                 .ToObservable()
                 .Subscribe(data => {
                     // ポップアップを初期化する
-                    _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats) data);
+                    _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
                     // ポップアップを表示する
                     _overviewPopup.gameObject.SetActive(true);
                 })

@@ -24,17 +24,17 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private float _startTime;
 
-        private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys = new Dictionary<EGimmickType, string>()
-        {
-            {EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB},
-            {EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB},
-            {EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB},
-            {EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB},
-            {EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB},
-            {EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB},
-            {EGimmickType.Fog, Constants.Address.FOG_PREFAB},
-            {EGimmickType.Powder, Constants.Address.POWDER_PREFAB},
-        };
+        private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys =
+            new Dictionary<EGimmickType, string>() {
+                { EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB },
+                { EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB },
+                { EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB },
+                { EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB },
+                { EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB },
+                { EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB },
+                { EGimmickType.Fog, Constants.Address.FOG_PREFAB },
+                { EGimmickType.Powder, Constants.Address.POWDER_PREFAB },
+            };
 
         public UniTask Initialize(List<GimmickData> gimmicks)
         {
@@ -94,9 +94,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void OnEnable()
         {
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                OnGameEnd();
-            }).AddTo(this);
+                .Subscribe(_ => {
+                    OnGameEnd();
+                }).AddTo(this);
         }
 
         private void OnGameEnd()

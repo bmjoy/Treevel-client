@@ -54,30 +54,29 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _renderer = GetComponent<SpriteRenderer>();
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => transform.position.z >= 0)
-                .Subscribe(other =>
-                 {
-                     var bottle = other.GetComponent<AbstractBottleController>();
-                     if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
-                         // 数字ボトルとの衝突
-                         // 衝突したオブジェクトは赤色に変える
-                         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                .Subscribe(other => {
+                    var bottle = other.GetComponent<AbstractBottleController>();
+                    if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
+                        // 数字ボトルとの衝突
+                        // 衝突したオブジェクトは赤色に変える
+                        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
-                         gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
+                        gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
 
-                         // 隕石を衝突したボトルに追従させる
-                         gameObject.transform.SetParent(other.transform);
-                     }
-                 }).AddTo(this);
+                        // 隕石を衝突したボトルに追従させる
+                        gameObject.transform.SetParent(other.transform);
+                    }
+                }).AddTo(this);
         }
 
         protected virtual void OnEnable()
         {
             base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Where(_ => _warningObj != null)
-            .Subscribe(_ => {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }).AddTo(this);
+                .Where(_ => _warningObj != null)
+                .Subscribe(_ => {
+                    _warningPrefab.ReleaseInstance(_warningObj);
+                }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -91,19 +90,24 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         var column = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
                         _targetPos = BoardManager.Instance.GetTilePos(column, row);
                     } else {
-                        _targetPos = BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn, (int)gimmickData.targetRow);
+                        _targetPos =
+                            BoardManager.Instance.GetTilePos((int)gimmickData.targetColumn,
+                                                             (int)gimmickData.targetRow);
                     }
+
                     break;
                 case EGimmickType.AimingMeteorite:
                     if (gimmickData.isRandom) {
                         // 乱数インデックスを重みに基づいて取得
-                        var randomIndex = GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
+                        var randomIndex =
+                            GimmickLibrary.SamplingArrayIndex(gimmickData.randomAttackableBottles.ToArray());
                         // 乱数インデックスをボトルIDに変換
                         var targetId = CalcBottleIdByRandomArrayIndex(randomIndex);
                         _targetPos = BoardManager.Instance.GetBottlePosById(targetId);
                     } else {
                         _targetPos = BoardManager.Instance.GetBottlePosById(gimmickData.targetBottle);
                     }
+
                     break;
                 default:
                     throw new System.NotImplementedException("不正なギミックタイプです");
@@ -112,8 +116,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void FixedUpdate()
         {
-            if (!_isMoving || GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing)
-                return;
+            if (!_isMoving || GamePlayDirector.Instance.State != GamePlayDirector.EGameState.Playing) return;
 
             // 奥方向に移動させる（見た目変化ない）
             transform.Translate(Vector3.back * _speed, Space.World);
@@ -137,8 +140,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 GetComponent<Collider2D>().enabled = true;
                 GetComponent<SpriteRenderer>().enabled = true;
                 _isMoving = true;
-            } catch (OperationCanceledException) {
-            }
+            } catch (OperationCanceledException) { }
         }
 
         /// <summary>
@@ -164,8 +166,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 if (_warningObj != null) {
                     _warningPrefab.ReleaseInstance(_warningObj);
                 }
-            } catch (OperationCanceledException) {
-            }
+            } catch (OperationCanceledException) { }
         }
 
         /// <summary>

@@ -7,9 +7,7 @@ namespace Treevel.Common.Networks
 {
     public interface IServerRequest
     {
-        UnityWebRequest ServerRequest {
-            get;
-        }
+        UnityWebRequest ServerRequest { get; }
 
         void SetCache();
     }
@@ -19,11 +17,7 @@ namespace Treevel.Common.Networks
     /// </summary>
     public abstract class GetServerRequest : IServerRequest
     {
-        public UnityWebRequest ServerRequest
-        {
-            get;
-            protected set;
-        }
+        public UnityWebRequest ServerRequest { get; protected set; }
 
         ~GetServerRequest()
         {
@@ -69,11 +63,7 @@ namespace Treevel.Common.Networks
     /// </summary>
     public abstract class UpdateServerRequest : IServerRequest
     {
-        public UnityWebRequest ServerRequest
-        {
-            get;
-            protected set;
-        }
+        public UnityWebRequest ServerRequest { get; protected set; }
 
         ~UpdateServerRequest()
         {
@@ -93,19 +83,16 @@ namespace Treevel.Common.Networks
 
         protected abstract bool Update_Local();
 
-
         protected async Task<bool> Update_Remote()
         {
-            if (ServerRequest == null)
-                return false;
+            if (ServerRequest == null) return false;
 
             await ServerRequest.SendWebRequest();
 
             // TODO: protocol for update commands to parse the success state
             var successFlag = ServerRequest.downloadHandler.text.Equals("success");
 
-            if (!successFlag)
-                return false;
+            if (!successFlag) return false;
 
             SetCache();
             return true;

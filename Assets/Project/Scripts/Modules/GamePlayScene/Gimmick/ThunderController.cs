@@ -50,20 +50,21 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _rigidBody = GetComponent<Rigidbody2D>();
 
             // 雲をタイルの少し上に移動する
-            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(), 0);
+            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(),
+                                       0);
         }
 
         protected virtual void OnEnable()
         {
             base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-            .Subscribe(_ => {
-                // 動きを止める
-                _rigidBody.velocity = Vector2.zero;
-                // アニメーション、SEを止める
-                _animator.speed = 0;
-                SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
-            }).AddTo(this);
+                .Subscribe(_ => {
+                    // 動きを止める
+                    _rigidBody.velocity = Vector2.zero;
+                    // アニメーション、SEを止める
+                    _animator.speed = 0;
+                    SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
+                }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -72,7 +73,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _targets = gimmickData.targets
                 // 無効な値を除外する
-                .SkipWhile((vec) => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x || vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
+                .SkipWhile((vec) => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x ||
+                                    vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
                 // List<(ERow, EColumn)>に変換する
                 .Select((vec) => ((ERow)vec.x, (EColumn)vec.y)).ToList();
 
@@ -97,14 +99,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var targetEnumerator = _targets.GetEnumerator();
                 while (targetEnumerator.MoveNext()) {
                     var targetPos = BoardManager.Instance.GetTilePos(targetEnumerator.Current.row,
-                            targetEnumerator.Current.column);
+                                                                     targetEnumerator.Current.column);
 
                     // 移動ベクトル設定
-                    _rigidBody.velocity = (targetPos - (Vector2) transform.position).normalized * _moveSpeed;
+                    _rigidBody.velocity = (targetPos - (Vector2)transform.position).normalized * _moveSpeed;
 
                     // 目標地まで移動する
                     await UniTask.WaitUntil(() =>
-                        Vector2.Dot(targetPos - (Vector2) transform.position, _rigidBody.velocity) <= 0, cancellationToken: token);
+                                                Vector2.Dot(targetPos - (Vector2)transform.position, _rigidBody.velocity) <= 0, cancellationToken: token);
 
                     // 移動停止
                     _rigidBody.velocity = Vector2.zero;
@@ -114,18 +116,17 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                     // すぐには遷移してくれないそうなので、次のステート（警告）に遷移するまでちょっと待つ
                     await UniTask.WaitUntil(() =>
-                        _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH, cancellationToken: token);
+                                                _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH, cancellationToken: token);
 
                     // 攻撃アニメーション終わるまで待つ
                     await UniTask.WaitUntil(() =>
-                        _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH &&
-                        !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack), cancellationToken: token);
+                                                _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH &&
+                                                !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack), cancellationToken: token);
                 }
 
                 // TODO:退場演出
                 Destroy(gameObject);
-            } catch (OperationCanceledException) {
-            }
+            } catch (OperationCanceledException) { }
         }
 
         /// <summary>
