@@ -35,12 +35,21 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         private const int _MARGIN = 50;
 
+        /// <summary>
+        /// 表示される最大挑戦回数
+        /// </summary>
+        private const int _MAX_CHALLENGE_NUM_DISPLAYED = 9999;
+
         public async void Initialize(Color seasonColor, ETreeId treeId, int stageNumber, Vector3 graphPosition)
         {
             var stageStatus = StageStatus.Get(treeId, stageNumber);
 
             var challengeNum = stageStatus.challengeNum;
-            _challengeNumText.text = challengeNum + " 回プレイ";
+            if (challengeNum <= _MAX_CHALLENGE_NUM_DISPLAYED) {
+                _challengeNumText.text = challengeNum + " 回プレイ";
+            } else {
+                _challengeNumText.text = $"{_MAX_CHALLENGE_NUM_DISPLAYED}+ 回プレイ";
+            }
 
             var isClear = stageStatus.successNum > 0;
             gameObject.GetComponent<Image>().color = isClear ? seasonColor : Color.gray;
