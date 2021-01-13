@@ -1,6 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Threading;
+﻿using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
@@ -123,32 +121,26 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
         }
 
-        public override async UniTask Trigger(CancellationToken token)
+        public override IEnumerator Trigger()
         {
-            try {
-                // 入場アニメーション再生完了まで待つ
-                await UniTask.WaitUntil(() =>
-                                            _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH, cancellationToken: token);
+            // 入場アニメーション再生完了まで待つ
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH);
 
-                while (_attackTimes-- > 0) {
-                    if (_attackTimes == 0) _animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_ATTACK, true);
+            while (_attackTimes-- > 0) {
+                if (_attackTimes == 0) _animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_ATTACK, true);
 
-                    // 待機時間待つ
-                    await UniTask.DelayFrame((int)(GamePlayDirector.FRAME_RATE * _idleTime), cancellationToken: token);
+                // 待機時間待つ
+                yield return new WaitForSeconds(_idleTime);
 
-                    // 警告→攻撃→退場
-                    _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
+                // 警告→攻撃→退場
+                _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
 
-                    // idle -> warning のTransition待ち
-                    await UniTask.WaitUntil(() =>
-                                                _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH, cancellationToken: token);
+                // idle -> warning のTransition待ち
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
 
-                    // 最終回以外はIDLEに戻るまで待つ
-                    if (_attackTimes > 0)
-                        await UniTask.WaitUntil(() =>
-                                                    _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH, cancellationToken: token);
-                }
-            } catch (OperationCanceledException) { }
+                // 最終回以外はIDLEに戻るまで待つ
+                if (_attackTimes > 0) yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH);
+            }
         }
 
         /// <summary>

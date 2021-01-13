@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using System.Threading;
+﻿using System.Collections;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using UniRx;
@@ -67,10 +66,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             shapeModule.scale *= new Vector2(width, height);
         }
 
-        public override async UniTask Trigger(CancellationToken token)
+        public override IEnumerator Trigger()
         {
             _particleSystem.Play();
-            await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+            yield return null;
         }
     }
 }

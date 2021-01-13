@@ -1,7 +1,5 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using System.Collections;
 using System.Linq;
-using System.Threading;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
@@ -10,6 +8,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
@@ -130,17 +129,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
         }
 
-        public override async UniTask Trigger(CancellationToken token)
+        public override IEnumerator Trigger()
         {
-            try {
-                await ShowWarning(token, _targetPos, _warningDisplayTime);
-                if (token.IsCancellationRequested) return;
+            yield return ShowWarning(_targetPos, _warningDisplayTime);
 
-                transform.position = new Vector3(_targetPos.x, _targetPos.y, _speed);
-                GetComponent<Collider2D>().enabled = true;
-                GetComponent<SpriteRenderer>().enabled = true;
-                _isMoving = true;
-            } catch (OperationCanceledException) { }
+            transform.position = new Vector3(_targetPos.x, _targetPos.y, _speed);
+            GetComponent<Collider2D>().enabled = true;
+            GetComponent<SpriteRenderer>().enabled = true;
+            _isMoving = true;
         }
 
         /// <summary>
@@ -148,25 +144,23 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         /// <param name="warningPos">表示する座標</param>
         /// <param name="displayTime">表示時間</param>
-        private async UniTask ShowWarning(CancellationToken token, Vector2 warningPos, float displayTime)
+        private IEnumerator ShowWarning(Vector2 warningPos, float displayTime)
         {
-            try {
-                if (_warningObj != null) {
-                    _warningPrefab.ReleaseInstance(_warningObj);
-                }
+            if (_warningObj != null) {
+                _warningPrefab.ReleaseInstance(_warningObj);
+            }
 
-                _warningObj = await _warningPrefab.InstantiateAsync(warningPos, Quaternion.identity).ToUniTask();
+            AsyncOperationHandle<GameObject> warningOp;
+            yield return warningOp = _warningPrefab.InstantiateAsync(warningPos, Quaternion.identity);
 
-                _warningObj.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
-                _warningObj.GetComponent<SpriteRenderer>().enabled = true;
+            _warningObj = warningOp.Result;
+            _warningObj.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
+            _warningObj.GetComponent<SpriteRenderer>().enabled = true;
 
-                // 警告終わるまで待つ
-                while ((displayTime -= Time.fixedDeltaTime) >= 0) await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+            // 警告終わるまで待つ
+            while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
-                if (_warningObj != null) {
-                    _warningPrefab.ReleaseInstance(_warningObj);
-                }
-            } catch (OperationCanceledException) { }
+            if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
         }
 
         /// <summary>

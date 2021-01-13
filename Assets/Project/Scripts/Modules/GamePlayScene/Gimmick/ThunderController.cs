@@ -1,8 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -88,45 +86,39 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _cloud.GetComponent<Renderer>().sortingOrder++;
         }
 
-        public override async UniTask Trigger(CancellationToken token)
+        public override IEnumerator Trigger()
         {
-            try {
-                // 表示ON
-                foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>()) {
-                    spriteRenderer.enabled = true;
-                }
+            // 表示ON
+            foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>()) {
+                spriteRenderer.enabled = true;
+            }
 
-                var targetEnumerator = _targets.GetEnumerator();
-                while (targetEnumerator.MoveNext()) {
-                    var targetPos = BoardManager.Instance.GetTilePos(targetEnumerator.Current.row,
-                                                                     targetEnumerator.Current.column);
+            var targetEnumerator = _targets.GetEnumerator();
+            while (targetEnumerator.MoveNext()) {
+                var targetPos = BoardManager.Instance.GetTilePos(targetEnumerator.Current.row, targetEnumerator.Current.column);
 
-                    // 移動ベクトル設定
-                    _rigidBody.velocity = (targetPos - (Vector2)transform.position).normalized * _moveSpeed;
+                // 移動ベクトル設定
+                _rigidBody.velocity = (targetPos - (Vector2)transform.position).normalized * _moveSpeed;
 
-                    // 目標地まで移動する
-                    await UniTask.WaitUntil(() =>
-                                                Vector2.Dot(targetPos - (Vector2)transform.position, _rigidBody.velocity) <= 0, cancellationToken: token);
+                // 目標地まで移動する
+                yield return new WaitUntil(() => Vector2.Dot(targetPos - (Vector2)transform.position, _rigidBody.velocity) <= 0);
 
-                    // 移動停止
-                    _rigidBody.velocity = Vector2.zero;
+                // 移動停止
+                _rigidBody.velocity = Vector2.zero;
 
-                    // 警告 -> 攻撃
-                    _animator.SetTrigger("Warning");
+                // 警告 -> 攻撃
+                _animator.SetTrigger("Warning");
 
-                    // すぐには遷移してくれないそうなので、次のステート（警告）に遷移するまでちょっと待つ
-                    await UniTask.WaitUntil(() =>
-                                                _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH, cancellationToken: token);
+                // すぐには遷移してくれないそうなので、次のステート（警告）に遷移するまでちょっと待つ
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
 
-                    // 攻撃アニメーション終わるまで待つ
-                    await UniTask.WaitUntil(() =>
-                                                _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH &&
-                                                !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack), cancellationToken: token);
-                }
+                // 攻撃アニメーション終わるまで待つ
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack));
 
                 // TODO:退場演出
-                Destroy(gameObject);
-            } catch (OperationCanceledException) { }
+            }
+
+            Destroy(gameObject);
         }
 
         /// <summary>

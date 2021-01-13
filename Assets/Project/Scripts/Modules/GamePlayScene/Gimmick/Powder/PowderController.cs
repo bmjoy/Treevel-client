@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using System.Threading;
+﻿using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -109,17 +108,17 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             lowerMain.startLifetime = length / lowerMain.startSpeed.constantMin;
         }
 
-        public override async UniTask Trigger(CancellationToken token)
+        public override IEnumerator Trigger()
         {
             // 粒子を発生させる
             _upperParticleSystem.Play();
             _lowerParticleSystem.Play();
             // 堆積Powderギミックを開始する
             foreach (var piledUpPowder in _piledUpPowders) {
-                await piledUpPowder.Trigger(token);
+                StartCoroutine(piledUpPowder.Trigger());
             }
 
-            await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+            yield return null;
         }
 
         /// <summary>
