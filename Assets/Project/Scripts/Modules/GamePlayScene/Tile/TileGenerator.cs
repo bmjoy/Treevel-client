@@ -64,9 +64,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <param name="secondTileNum"> ワープタイル2 </param>
         private static UniTask CreateWarpTiles(int firstTileNum, int secondTileNum)
         {
-            var firstTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask();
-
-            firstTask.ContinueWith(firstTile => {
+            var firstTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask().ContinueWith(firstTile => {
                 var secondTask = AddressableAssetManager.Instantiate(Constants.Address.WARP_TILE_PREFAB).ToUniTask();
                 secondTask.ContinueWith(secondTile => {
                     firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
