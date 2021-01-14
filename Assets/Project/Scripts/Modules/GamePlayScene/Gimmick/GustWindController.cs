@@ -59,12 +59,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     _isBottleMoved = true;
                     MoveBottles();
                 }).AddTo(this);
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
                     _animator.speed = 0;

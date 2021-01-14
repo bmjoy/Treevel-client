@@ -34,11 +34,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             base.Awake();
             longPressGesture = GetComponent<LongPressGesture>();
             longPressGesture.TimeToPress = 0.15f;
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
             EnterTile.Where(_ => IsSuccess()).Subscribe(_ => {
                 DoWhenSuccess();
             }).AddTo(compositeDisposable, this);

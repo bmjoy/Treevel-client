@@ -26,9 +26,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// </summary>
         private PiledUpPowderController[] _piledUpPowders;
 
-        protected virtual void OnEnable()
+        private void Awake()
         {
-            base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
                     Destroy(gameObject);

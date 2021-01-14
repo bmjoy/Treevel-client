@@ -24,11 +24,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
             GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => {
                 Destroy(gameObject);
             }).AddTo(this);

@@ -67,6 +67,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             pressGesture = GetComponent<PressGesture>();
             // ReleaseGesture の設定
             releaseGesture = GetComponent<ReleaseGesture>();
+            // ゲーム終了時の処理
+            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
+                .Subscribe(_ => {
+                    _flickGesture.Flicked -= HandleFlicked;
+                }).AddTo(this);
         }
 
         public override async UniTask Initialize(BottleData bottleData)
@@ -92,10 +97,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected virtual void OnEnable()
         {
             _flickGesture.Flicked += HandleFlicked;
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
-                    _flickGesture.Flicked -= HandleFlicked;
-                }).AddTo(this);
         }
 
         protected void OnDisable()

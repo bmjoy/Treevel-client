@@ -66,11 +66,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         gameObject.transform.SetParent(other.transform);
                     }
                 }).AddTo(this);
-        }
-
-        protected virtual void OnEnable()
-        {
-            base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Where(_ => _warningObj != null)
                 .Subscribe(_ => {

@@ -50,11 +50,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 雲をタイルの少し上に移動する
             _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(),
                                        0);
-        }
 
-        protected virtual void OnEnable()
-        {
-            base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
                     // 動きを止める

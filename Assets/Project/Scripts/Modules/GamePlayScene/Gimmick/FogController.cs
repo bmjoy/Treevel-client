@@ -17,9 +17,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private ParticleSystem _particleSystem;
 
-        protected virtual void OnEnable()
+        private void Awake()
         {
-            base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
                     Destroy(gameObject);

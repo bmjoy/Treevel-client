@@ -41,11 +41,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-        }
-
-        protected virtual void OnEnable()
-        {
-            base.OnEnable();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
                     _animator.speed = 0;
