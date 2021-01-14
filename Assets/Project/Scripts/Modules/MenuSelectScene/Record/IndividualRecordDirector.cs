@@ -118,7 +118,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .ForEach(args => {
                     var (graphBar, stageNumber) = args;
 
-                    graphBar.AddComponent<ObservableEventTrigger>()
+                    graphBar.transform.parent.gameObject.AddComponent<ObservableEventTrigger>()
                         .OnPointerDownAsObservable()
                         .Subscribe(_ => {
                             var graphPopupController = _graphPopup.GetComponent<GraphPopupController>();
