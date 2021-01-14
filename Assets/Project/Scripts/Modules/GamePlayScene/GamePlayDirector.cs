@@ -398,7 +398,7 @@ namespace Treevel.Modules.GamePlayScene
 
                 // フリック回数の取得
                 var bottles = FindObjectsOfType<DynamicBottleController>();
-                var flickNum = bottles.Select(bottle => bottle.FlickNum).Sum();
+                var flickNum = bottles.Select(bottle => bottle.flickNum).Sum();
 
                 // フリック回数の保存
                 var stageStatus = StageStatus.Get(treeId, stageNumber);

@@ -201,8 +201,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="directionInt"> フリックする方向 </param>
-        /// <returns> フリックした結果，ボトルが移動したかどうか </returns>
-        public async UniTask<bool> HandleFlickedBottle(DynamicBottleController bottle, Vector2Int directionInt)
+        public async UniTask FlickBottle(DynamicBottleController bottle, Vector2Int directionInt)
         {
             // tileNum は原点が左上だが，方向ベクトルは原点が左下なので，加工する
             directionInt.y = -directionInt.y;
@@ -214,9 +213,10 @@ namespace Treevel.Modules.GamePlayScene
             // 移動先の位置をタイル番号に変換
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            if (targetTileNum == null) return false;
+            if (targetTileNum == null) return;
 
-            return await Move(bottle, targetTileNum.Value, directionInt);
+            bottle.flickNum++;
+            await Move(bottle, targetTileNum.Value, directionInt);
         }
 
         /// <summary>

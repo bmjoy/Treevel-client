@@ -51,7 +51,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private const float _SPEED = 30f;
 
-        public int FlickNum { get; private set; } = 0;
+        public int flickNum;
 
         protected override void Awake()
         {
@@ -119,7 +119,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (_isReverse) directionInt *= -1;
 
             // ボトルのフリック情報を伝える
-            if (await BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
+            await BoardManager.Instance.FlickBottle(this, directionInt);
         }
 
         /// <summary>
