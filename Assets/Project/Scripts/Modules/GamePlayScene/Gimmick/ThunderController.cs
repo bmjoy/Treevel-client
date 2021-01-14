@@ -110,10 +110,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
                 // 攻撃アニメーション終わるまで待つ
                 yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack));
-
-                // TODO:退場演出
             }
 
+            // TODO:退場演出
             Destroy(gameObject);
         }
 
