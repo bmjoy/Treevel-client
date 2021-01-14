@@ -85,6 +85,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 .Subscribe(_ => {
                     _rigidBody.velocity = Vector2.zero;
                     if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
+                    StopAllCoroutines();
                 }).AddTo(this);
         }
 
