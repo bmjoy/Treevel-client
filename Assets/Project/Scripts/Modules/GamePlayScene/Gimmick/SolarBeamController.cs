@@ -42,9 +42,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             _animator = GetComponent<Animator>();
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
-                    _animator.speed = 0;
-                }).AddTo(this);
+                .Subscribe(_ => _animator.speed = 0).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)

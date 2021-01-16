@@ -54,12 +54,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.StartMove.Subscribe(_ => {
-                SetIsStopping(false);
-            }).AddTo(compositeDisposable, this);
-            _bottleController.EndMove.Subscribe(_ => {
-                SetIsStopping(true);
-            }).AddTo(compositeDisposable, this);
+            _bottleController.StartMove.Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposable, this);
+            _bottleController.EndMove.Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposable, this);
             _bottleController.pressGesture.Pressed += HandlePressed;
             _bottleController.releaseGesture.Released += HandleReleased;
 

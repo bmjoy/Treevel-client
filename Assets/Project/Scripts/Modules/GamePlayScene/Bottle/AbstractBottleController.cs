@@ -65,9 +65,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 .Where(other => other.gameObject.CompareTag(Constants.TagName.GIMMICK))
                 .Where(other => other.gameObject.transform.position.z >= 0)
                 .Where(_ => !Invincible)
-                .Subscribe(other => {
-                    _getDamagedSubject.OnNext(other.gameObject);
-                }).AddTo(this);
+                .Subscribe(other => _getDamagedSubject.OnNext(other.gameObject)).AddTo(this);
         }
 
         private async UniTask InitializeSprite(AssetReferenceSprite spriteAsset)

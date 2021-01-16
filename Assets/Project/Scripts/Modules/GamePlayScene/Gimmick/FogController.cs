@@ -20,9 +20,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
-                    Destroy(gameObject);
-                }).AddTo(this);
+                .Subscribe(_ => Destroy(gameObject)).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
