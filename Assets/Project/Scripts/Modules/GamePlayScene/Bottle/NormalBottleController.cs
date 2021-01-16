@@ -59,10 +59,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             await base.Initialize(bottleData);
 
             // set handler
-            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).ToUniTask();
+            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
             if (bottleData.isDark) {
-                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB).ToUniTask();
+                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB);
                 darkEffect.GetComponent<DarkEffectController>().Initialize(this);
             }
 
