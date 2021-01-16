@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using SpriteGlow;
 using TouchScript.Gestures;
 using Treevel.Common.Components;
@@ -17,7 +18,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(LongPressGesture))]
     public class NormalBottleController : DynamicBottleController
     {
-        public LongPressGesture longPressGesture;
+        private LongPressGesture _longPressGesture;
+        public IObservable<Tuple<object, EventArgs>> longPressGestureObservable;
 
         /// <summary>
         /// 目標位置
@@ -32,8 +34,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
-            longPressGesture = GetComponent<LongPressGesture>();
-            longPressGesture.TimeToPress = 0.15f;
+            _longPressGesture = GetComponent<LongPressGesture>();
+            _longPressGesture.TimeToPress = 0.15f;
+            longPressGestureObservable = Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _longPressGesture.LongPressed += x, x => _longPressGesture.LongPressed -= x);
             EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(compositeDisposable, this);
             ExitTile.Subscribe(_ => {
                 _spriteGlowEffect.enabled = false;

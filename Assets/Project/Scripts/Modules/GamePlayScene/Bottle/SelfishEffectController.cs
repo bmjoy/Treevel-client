@@ -56,8 +56,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // イベントに処理を登録する
             _bottleController.StartMove.Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposable, this);
             _bottleController.EndMove.Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposable, this);
-            _bottleController.pressGesture.Pressed += HandlePressed;
-            _bottleController.releaseGesture.Released += HandleReleased;
+            _bottleController.pressGestureObservable.Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposable, this);
+            _bottleController.releaseGestureObservable.Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposable, this);
 
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Subscribe(_ => {
@@ -65,8 +65,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     _calmFrames = 0;
                     _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                     _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                    _bottleController.pressGesture.Pressed -= HandlePressed;
-                    _bottleController.releaseGesture.Released -= HandleReleased;
                 }).AddTo(this);
             GamePlayDirector.Instance.GameStart.Subscribe(_ => {
                 // 移動していないフレーム数を数え始める
@@ -75,12 +73,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Selfish.GetOrderInLayer();
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.pressGesture.Pressed -= HandlePressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
         }
 
         private void FixedUpdate()
@@ -99,22 +91,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
             _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
-        }
-
-        /// <summary>
-        /// ホールド開始時の処理
-        /// </summary>
-        private void HandlePressed(object sender, EventArgs e)
-        {
-            SetIsStopping(false);
-        }
-
-        /// <summary>
-        /// ホールド終了時の処理
-        /// </summary>
-        private void HandleReleased(object sender, EventArgs e)
-        {
-            SetIsStopping(true);
         }
 
         /// <summary>

@@ -19,8 +19,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     public class DynamicBottleController : AbstractBottleController
     {
         private FlickGesture _flickGesture;
-        public PressGesture pressGesture;
-        public ReleaseGesture releaseGesture;
+        private IObservable<Tuple<object, EventArgs>> _flickGestureObservable;
+        private PressGesture _pressGesture;
+        public IObservable<Tuple<object, EventArgs>> pressGestureObservable;
+        private ReleaseGesture _releaseGesture;
+        public IObservable<Tuple<object, EventArgs>> releaseGestureObservable;
 
         /// <summary>
         /// 動くことができる状態か
@@ -63,15 +66,28 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture = GetComponent<FlickGesture>();
             _flickGesture.MinDistance = 0.2f;
             _flickGesture.FlickTime = 0.2f;
+            Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _flickGesture.Flicked += x, x => _flickGesture.Flicked -= x)
+                .Subscribe(async x => {
+                    if (!IsMovable) return;
+
+                    var gesture = x.Item1 as FlickGesture;
+
+                    if (gesture.State != FlickGesture.GestureState.Recognized) return;
+
+                    // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
+                    var directionInt = Vector2Int.RoundToInt(gesture.ScreenFlickVector.NormalizeDirection());
+                    if (_isReverse) directionInt *= -1;
+
+                    // ボトルのフリック情報を伝える
+                    await BoardManager.Instance.FlickBottle(this, directionInt);
+                }).AddTo(compositeDisposable, this);
+
             // PressGesture の設定
-            pressGesture = GetComponent<PressGesture>();
+            _pressGesture = GetComponent<PressGesture>();
+            pressGestureObservable = Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _pressGesture.Pressed += x, x => _pressGesture.Pressed -= x);
             // ReleaseGesture の設定
-            releaseGesture = GetComponent<ReleaseGesture>();
-            // ゲーム終了時の処理
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
-                    _flickGesture.Flicked -= HandleFlicked;
-                }).AddTo(this);
+            _releaseGesture = GetComponent<ReleaseGesture>();
+            releaseGestureObservable = Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _releaseGesture.Released += x, x => _releaseGesture.Released -= x);
         }
 
         public override async UniTask Initialize(BottleData bottleData)
@@ -94,35 +110,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }
         }
 
-        protected virtual void OnEnable()
-        {
-            _flickGesture.Flicked += HandleFlicked;
-        }
-
-        protected void OnDisable()
-        {
-            _flickGesture.Flicked -= HandleFlicked;
-        }
-
-        /// <summary>
-        /// フリックイベントを処理する
-        /// </summary>
-        private async void HandleFlicked(object sender, EventArgs e)
-        {
-            if (!IsMovable) return;
-
-            var gesture = sender as FlickGesture;
-
-            if (gesture.State != FlickGesture.GestureState.Recognized) return;
-
-            // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
-            var directionInt = Vector2Int.RoundToInt(gesture.ScreenFlickVector.NormalizeDirection());
-            if (_isReverse) directionInt *= -1;
-
-            // ボトルのフリック情報を伝える
-            await BoardManager.Instance.FlickBottle(this, directionInt);
-        }
-
         /// <summary>
         /// アタッチされているTouchScriptイベントの状態を変更する
         /// </summary>
@@ -130,8 +117,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void SetGesturesEnabled(bool isEnable)
         {
             _flickGesture.enabled = isEnable;
-            pressGesture.enabled = isEnable;
-            releaseGesture.enabled = isEnable;
+            _pressGesture.enabled = isEnable;
+            _releaseGesture.enabled = isEnable;
         }
 
         public async UniTask Move(Vector3 targetPosition, CancellationToken token)

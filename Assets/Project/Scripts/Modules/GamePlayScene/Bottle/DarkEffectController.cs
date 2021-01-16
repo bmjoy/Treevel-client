@@ -36,43 +36,17 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     _isSuccess = _bottleController.IsSuccess();
                     _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
                 }).AddTo(compositeDisposable, this);
-            _bottleController.longPressGesture.LongPressed += HandleLongPressed;
-            _bottleController.releaseGesture.Released += HandleReleased;
+            _bottleController.longPressGestureObservable.Subscribe(_ => _animator.SetBool(_ANIMATOR_IS_DARK, false)).AddTo(compositeDisposable, this);
+            _bottleController.releaseGestureObservable.Subscribe(_ => _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess)).AddTo(compositeDisposable, this);
 
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
-                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                    _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
-                    _bottleController.releaseGesture.Released -= HandleReleased;
-                }).AddTo(this);
+                .Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Dark.GetOrderInLayer();
 
             // 初期状態の登録
             _isSuccess = _bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-        }
-
-        /// <summary>
-        /// ホールド開始時の処理
-        /// </summary>
-        private void HandleLongPressed(object sender, EventArgs e)
-        {
-            _animator.SetBool(_ANIMATOR_IS_DARK, false);
-        }
-
-        /// <summary>
-        /// ホールド終了時の処理
-        /// </summary>
-        private void HandleReleased(object sender, EventArgs e)
-        {
             _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
         }
     }
