@@ -16,7 +16,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     public abstract class AbstractBottleController : AbstractGameObjectController
     {
         /// <summary>
-        ///     無敵状態かどうか
+        /// 無敵状態かどうか
         /// </summary>
         public bool Invincible;
 
@@ -27,32 +27,32 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private readonly Subject<GameObject> _getDamagedSubject = new Subject<GameObject>();
 
         /// <summary>
-        ///     ボトルタイプ
+        /// ボトルタイプ
         /// </summary>
         private EBottleType bottleType;
 
         /// <summary>
-        ///     ボトルのId (初期位置を擬似的に利用)
+        /// ボトルのId (初期位置を擬似的に利用)
         /// </summary>
         public int Id { get; private set; }
 
         /// <summary>
-        ///     ギミックに攻撃されたときの挙動
+        /// ギミックに攻撃されたときの挙動
         /// </summary>
         public IObservable<GameObject> GetDamaged => _getDamagedSubject;
 
         /// <summary>
-        ///     タイルに移動した時の挙動
+        /// タイルに移動した時の挙動
         /// </summary>
         public IObservable<GameObject> EnterTile => _enterTileSubject;
 
         /// <summary>
-        ///     タイルから出る時の挙動
+        /// タイルから出る時の挙動
         /// </summary>
         public IObservable<GameObject> ExitTile => _exitTileSubject;
 
         /// <summary>
-        ///     攻撃対象かどうか
+        /// 攻撃対象かどうか
         /// </summary>
         public bool IsAttackable => bottleType.IsAttackable();
 
@@ -98,7 +98,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        ///     初期化
+        /// 初期化
         /// </summary>
         /// <param name="bottleData"> ボトルのデータ </param>
         public virtual async UniTask Initialize(BottleData bottleData)
@@ -119,7 +119,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        ///     タイルに移動した時のイベント発火
+        /// タイルに移動した時のイベント発火
         /// </summary>
         /// <param name="targetTile">目標の出たタイル</param>
         public void OnEnterTile(GameObject targetTile)
@@ -128,7 +128,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        ///     タイルから出た時のイベント発火
+        /// タイルから出た時のイベント発火
         /// </summary>
         /// <param name="targetTile">出たタイル</param>
         public void OnExitTile(GameObject targetTile)

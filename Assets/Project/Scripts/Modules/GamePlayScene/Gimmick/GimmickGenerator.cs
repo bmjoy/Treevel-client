@@ -56,9 +56,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <param name="data">生成するギミックのデータ</param>
         private IEnumerator CreateGimmickCoroutine(GimmickData data)
         {
-            // 出現時間経つまで待
+            // 出現時間経つまで待つ
             yield return new WaitForSeconds(data.appearTime - (Time.time - _startTime));
-
 
             do {
                 var instantiateTime = Time.time;
