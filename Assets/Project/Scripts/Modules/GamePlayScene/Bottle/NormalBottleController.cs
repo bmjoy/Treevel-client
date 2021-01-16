@@ -37,10 +37,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _longPressGesture = GetComponent<LongPressGesture>();
             _longPressGesture.TimeToPress = 0.15f;
             longPressGestureObservable = Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _longPressGesture.LongPressed += x, x => _longPressGesture.LongPressed -= x);
-            EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(compositeDisposable, this);
-            ExitTile.Subscribe(_ => {
-                _spriteGlowEffect.enabled = false;
-            }).AddTo(compositeDisposable, this);
+            EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(this);
+            ExitTile.Subscribe(_ => _spriteGlowEffect.enabled = false).AddTo(this);
         }
 
         /// <summary>

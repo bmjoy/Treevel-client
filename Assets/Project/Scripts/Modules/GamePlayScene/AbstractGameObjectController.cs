@@ -9,7 +9,9 @@ namespace Treevel.Modules.GamePlayScene
     public class AbstractGameObjectController : MonoBehaviour
     {
         /// <summary>
-        /// 購読解除クラス
+        /// 以下を除き、ゲーム終了時に解除したい購読にAddする
+        /// - GamePlayDirector.Instance.GameSucceeded
+        /// - GamePlayDirector.Instance.GameFailed
         /// </summary>
         protected readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
 

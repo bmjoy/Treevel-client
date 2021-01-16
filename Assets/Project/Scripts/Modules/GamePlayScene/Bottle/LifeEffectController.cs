@@ -68,7 +68,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 } else {
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
                 }
-            }).AddTo(compositeDisposable, this);
+            }).AddTo(this);
             Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
                 .Where(_ => !_isDead)
                 .Subscribe(_ => {
