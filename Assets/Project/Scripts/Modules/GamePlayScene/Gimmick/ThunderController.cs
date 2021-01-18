@@ -52,12 +52,12 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                                        0);
 
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
-                    // 動きを止める
-                    _rigidBody.velocity = Vector2.zero;
-                    // アニメーション、SEを止める
-                    _animator.speed = 0;
-                    SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
-                }).AddTo(this);
+                // 動きを止める
+                _rigidBody.velocity = Vector2.zero;
+                // アニメーション、SEを止める
+                _animator.speed = 0;
+                SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)

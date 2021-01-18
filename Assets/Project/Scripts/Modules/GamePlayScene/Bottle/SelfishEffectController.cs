@@ -60,11 +60,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.releaseGestureObservable.Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposable, this);
 
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
-                    _countCalmFrames = false;
-                    _calmFrames = 0;
-                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                    _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                }).AddTo(this);
+                _countCalmFrames = false;
+                _calmFrames = 0;
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+            }).AddTo(this);
             GamePlayDirector.Instance.GameStart.Subscribe(_ => {
                 // 移動していないフレーム数を数え始める
                 _countCalmFrames = true;

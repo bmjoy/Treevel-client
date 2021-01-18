@@ -91,8 +91,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void OnEnable()
         {
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
-                    OnGameEnd();
-                }).AddTo(this);
+                OnGameEnd();
+            }).AddTo(this);
         }
 
         private void OnGameEnd()

@@ -82,10 +82,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 }).AddTo(this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
-                    _rigidBody.velocity = Vector2.zero;
-                    if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
-                    StopAllCoroutines();
-                }).AddTo(this);
+                _rigidBody.velocity = Vector2.zero;
+                if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
+                StopAllCoroutines();
+            }).AddTo(this);
         }
 
         /// <summary>
