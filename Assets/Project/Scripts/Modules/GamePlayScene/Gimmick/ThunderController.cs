@@ -51,8 +51,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(),
                                        0);
 
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                     // 動きを止める
                     _rigidBody.velocity = Vector2.zero;
                     // アニメーション、SEを止める

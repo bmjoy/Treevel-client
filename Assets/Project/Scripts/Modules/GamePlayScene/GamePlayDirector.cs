@@ -46,6 +46,11 @@ namespace Treevel.Modules.GamePlayScene
         private readonly Subject<Unit> _gameStartSubject = new Subject<Unit>();
 
         /// <summary>
+        /// ゲーム終了時のイベント
+        /// </summary>
+        public IObservable<Unit> GameEnd => _gameSucceededSubject.Merge(_gameFailedSubject);
+
+        /// <summary>
         /// 成功時のイベント
         /// </summary>
         public IObservable<Unit> GameSucceeded => _gameSucceededSubject;

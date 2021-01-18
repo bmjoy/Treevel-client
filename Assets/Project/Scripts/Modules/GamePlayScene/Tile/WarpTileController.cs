@@ -57,10 +57,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         private void OnEnable()
         {
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
-                    EndProcess();
-                }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => EndProcess()).AddTo(this);
         }
 
         private void EndProcess()

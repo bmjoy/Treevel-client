@@ -16,8 +16,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             _animator = GetComponent<Animator>();
             // イベントに処理を登録する
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
         }
 
         public void Initialize(DynamicBottleController bottleController)

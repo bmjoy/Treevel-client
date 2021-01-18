@@ -66,8 +66,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         gameObject.transform.SetParent(other.transform);
                     }
                 }).AddTo(this);
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Where(_ => _warningObj != null)
+            GamePlayDirector.Instance.GameEnd.Where(_ => _warningObj != null)
                 .Subscribe(_ => _warningPrefab.ReleaseInstance(_warningObj)).AddTo(this);
         }
 

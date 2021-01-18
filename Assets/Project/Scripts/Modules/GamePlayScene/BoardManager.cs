@@ -47,10 +47,7 @@ namespace Treevel.Modules.GamePlayScene
         public void Initialize()
         {
             _tokenSource = new CancellationTokenSource();
-            _disposable = Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
-                    EndProcess();
-                }).AddTo(this);
+            _disposable = GamePlayDirector.Instance.GameEnd.Subscribe(_ => EndProcess()).AddTo(this);
         }
 
         private void EndProcess()

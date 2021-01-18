@@ -25,8 +25,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         {
             _animator = GetComponent<Animator>();
             GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => Destroy(gameObject)).AddTo(this);
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Where(_ => !_isPiledUp)
+            GamePlayDirector.Instance.GameEnd.Where(_ => !_isPiledUp)
                 .Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
         }
 

@@ -69,8 +69,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
                 }
             }).AddTo(this);
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Where(_ => !_isDead)
+            GamePlayDirector.Instance.GameEnd.Where(_ => !_isDead)
                 .Subscribe(_ => {
                     // 自身が破壊されていない場合はアニメーションを止める
                     _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);

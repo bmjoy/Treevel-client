@@ -90,8 +90,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                     OnGameEnd();
                 }).AddTo(this);
         }

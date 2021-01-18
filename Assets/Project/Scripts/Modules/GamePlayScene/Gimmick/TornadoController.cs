@@ -81,8 +81,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     // 衝突したオブジェクトは赤色に変える
                     gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 }).AddTo(this);
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                     _rigidBody.velocity = Vector2.zero;
                     if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
                     StopAllCoroutines();

@@ -59,8 +59,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.pressGestureObservable.Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposable, this);
             _bottleController.releaseGestureObservable.Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposable, this);
 
-            Observable.Merge(GamePlayDirector.Instance.GameSucceeded, GamePlayDirector.Instance.GameFailed)
-                .Subscribe(_ => {
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                     _countCalmFrames = false;
                     _calmFrames = 0;
                     _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
