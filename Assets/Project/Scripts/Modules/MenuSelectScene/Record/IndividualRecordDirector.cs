@@ -6,11 +6,17 @@ using UnityEngine.UI;
 using Treevel.Common.Managers;
 using Treevel.Modules.StageSelectScene;
 using UniRx;
+using UniRx.Triggers;
 
 namespace Treevel.Modules.MenuSelectScene.Record
 {
     public class IndividualRecordDirector : MonoBehaviour
     {
+        /// <summary>
+        /// [UI] グラフのポップアップ
+        /// </summary>
+        [SerializeField] private GameObject _graphPopup;
+
         /// <summary>
         /// [UI] "ステージクリア数" の prefab
         /// </summary>
@@ -70,12 +76,14 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             // 季節変更時の処理
             _currentSeason.Subscribe(season => {
+                _graphPopup.SetActive(false);
                 SetDropdownOptions(season);
                 _currentTree.Value = season.GetFirstTree();
             }).AddTo(this);
 
             // 木変更時の処理
             _currentTree.Subscribe(tree => {
+                _graphPopup.SetActive(false);
                 SetStageStatuses();
                 SetupBarGraph();
             }).AddTo(this);
@@ -102,6 +110,28 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     StageSelectDirector.seasonId = _currentSeason.Value;
                     StageSelectDirector.treeId = _currentTree.Value;
                     AddressableAssetManager.LoadScene(_currentSeason.Value.GetSceneName());
+                }).AddTo(this);
+
+            _graphBars
+                // index の抽出
+                .Select((graphBar, index) => (graphBar, index + 1)).ToList()
+                .ForEach(args => {
+                    var (graphBar, stageNumber) = args;
+
+                    graphBar.transform.parent.gameObject.AddComponent<ObservableEventTrigger>()
+                        .OnPointerDownAsObservable()
+                        .Subscribe(_ => {
+                            var graphPopupController = _graphPopup.GetComponent<GraphPopupController>();
+                            if (_graphPopup.activeSelf && graphPopupController.currentStageNumber == stageNumber) {
+                                // 再度同じステージ番号のグラフがタップされたら、ポップアップを閉じる
+                                _graphPopup.SetActive(false);
+                            } else {
+                                var graphPosition = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position;
+                                _graphPopup.SetActive(true);
+                                graphPopupController.Initialize(_currentSeason.Value.GetColor(), _currentTree.Value, stageNumber, graphPosition);
+                            }
+                        })
+                        .AddTo(this);
                 });
         }
 

@@ -37,6 +37,9 @@ namespace Treevel.Common.Networks
             await ServerRequest.SendWebRequest();
 
             if (!IsRemoteDataValid()) {
+                // 通信していることを擬似的に再現する
+                await UniTask.Delay(500);
+
                 return GetData_Local();
             }
             // TODO check need to update cache
