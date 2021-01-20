@@ -63,7 +63,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture = GetComponent<FlickGesture>();
             _flickGesture.MinDistance = 0.2f;
             _flickGesture.FlickTime = 0.2f;
-            Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _flickGesture.Flicked += x, x => _flickGesture.Flicked -= x)
+            Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create(x, y)), x => _flickGesture.Flicked += x, x => _flickGesture.Flicked -= x)
                 .Subscribe(async x => {
                     if (!IsMovable) return;
 
