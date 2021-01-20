@@ -18,7 +18,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(ReleaseGesture))]
     public class DynamicBottleController : AbstractBottleController
     {
-        public FlickGesture _flickGesture;
+        private FlickGesture _flickGesture;
         public PressGesture pressGesture;
         public ReleaseGesture releaseGesture;
 
