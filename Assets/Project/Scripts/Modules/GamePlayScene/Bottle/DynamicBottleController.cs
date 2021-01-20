@@ -18,12 +18,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(ReleaseGesture))]
     public class DynamicBottleController : AbstractBottleController
     {
-        private FlickGesture _flickGesture;
-        private IObservable<Tuple<object, EventArgs>> _flickGestureObservable;
-        private PressGesture _pressGesture;
-        public IObservable<Tuple<object, EventArgs>> pressGestureObservable;
-        private ReleaseGesture _releaseGesture;
-        public IObservable<Tuple<object, EventArgs>> releaseGestureObservable;
+        public FlickGesture _flickGesture;
+        public PressGesture pressGesture;
+        public ReleaseGesture releaseGesture;
 
         /// <summary>
         /// 動くことができる状態か
@@ -83,11 +80,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }).AddTo(compositeDisposable, this);
 
             // PressGesture の設定
-            _pressGesture = GetComponent<PressGesture>();
-            pressGestureObservable = Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _pressGesture.Pressed += x, x => _pressGesture.Pressed -= x);
+            pressGesture = GetComponent<PressGesture>();
+            pressGesture.UseUnityEvents = true;
             // ReleaseGesture の設定
-            _releaseGesture = GetComponent<ReleaseGesture>();
-            releaseGestureObservable = Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _releaseGesture.Released += x, x => _releaseGesture.Released -= x);
+            releaseGesture = GetComponent<ReleaseGesture>();
+            releaseGesture.UseUnityEvents = true;
         }
 
         public override async UniTask Initialize(BottleData bottleData)
@@ -117,8 +114,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void SetGesturesEnabled(bool isEnable)
         {
             _flickGesture.enabled = isEnable;
-            _pressGesture.enabled = isEnable;
-            _releaseGesture.enabled = isEnable;
+            pressGesture.enabled = isEnable;
+            releaseGesture.enabled = isEnable;
         }
 
         public async UniTask Move(Vector3 targetPosition, CancellationToken token)

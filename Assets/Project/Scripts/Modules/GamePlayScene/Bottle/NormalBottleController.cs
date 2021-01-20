@@ -18,8 +18,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(LongPressGesture))]
     public class NormalBottleController : DynamicBottleController
     {
-        private LongPressGesture _longPressGesture;
-        public IObservable<Tuple<object, EventArgs>> longPressGestureObservable;
+        public LongPressGesture longPressGesture;
 
         /// <summary>
         /// 目標位置
@@ -34,9 +33,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
-            _longPressGesture = GetComponent<LongPressGesture>();
-            _longPressGesture.TimeToPress = 0.15f;
-            longPressGestureObservable = Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create<object, EventArgs>(x, y)), x => _longPressGesture.LongPressed += x, x => _longPressGesture.LongPressed -= x);
+            longPressGesture = GetComponent<LongPressGesture>();
+            longPressGesture.UseUnityEvents = true;
+            longPressGesture.TimeToPress = 0.15f;
             EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(this);
             ExitTile.Subscribe(_ => _spriteGlowEffect.enabled = false).AddTo(this);
         }
