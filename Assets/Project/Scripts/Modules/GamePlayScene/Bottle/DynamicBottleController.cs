@@ -64,13 +64,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture.MinDistance = 0.2f;
             _flickGesture.FlickTime = 0.2f;
             Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create(x, y)), x => _flickGesture.Flicked += x, x => _flickGesture.Flicked -= x)
-                .Subscribe(async x => {
-                    if (!IsMovable) return;
-
-                    var gesture = x.Item1 as FlickGesture;
-
-                    if (gesture.State != FlickGesture.GestureState.Recognized) return;
-
+                .Select(x => x.Item1 as FlickGesture)
+                .Where(_ => IsMovable)
+                .Where(gesture => gesture != null && gesture.State == FlickGesture.GestureState.Recognized)
+                .Subscribe(async gesture => {
                     // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
                     var directionInt = Vector2Int.RoundToInt(gesture.ScreenFlickVector.NormalizeDirection());
                     if (_isReverse) directionInt *= -1;
