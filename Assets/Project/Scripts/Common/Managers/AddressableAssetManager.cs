@@ -173,6 +173,7 @@ namespace Treevel.Common.Managers
                         break;
                     case EBottleType.Normal:
                         LoadAsset<GameObject>(Constants.Address.NORMAL_BOTTLE_PREFAB);
+                        LoadAsset<GameObject>(Constants.Address.LIFE_EFFECT_PREFAB);
                         break;
                     case EBottleType.AttackableDummy:
                         LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
@@ -180,6 +181,10 @@ namespace Treevel.Common.Managers
                     default:
                         throw new System.NotImplementedException();
                 }
+
+                if (bottleData.isSelfish) LoadAsset<GameObject>(Constants.Address.SELFISH_EFFECT_PREFAB);
+                if (bottleData.isDark) LoadAsset<GameObject>(Constants.Address.DARK_EFFECT_PREFAB);
+                if (bottleData.isReverse) LoadAsset<GameObject>(Constants.Address.REVERSE_EFFECT_PREFAB);
 
                 if (bottleData.bottleSprite.RuntimeKeyIsValid()) LoadAsset<Sprite>(bottleData.bottleSprite);
                 // 対応するTileのSpriteを先に読み込む

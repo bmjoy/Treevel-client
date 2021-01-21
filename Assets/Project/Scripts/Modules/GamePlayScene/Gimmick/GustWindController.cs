@@ -5,6 +5,8 @@ using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -51,12 +53,13 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-        }
-
-        protected override void OnEndGame()
-        {
-            base.OnEndGame();
-            _animator.speed = 0;
+            this.OnTriggerEnter2DAsObservable()
+                .Where(_ => !_isBottleMoved)
+                .Subscribe(_ => {
+                    _isBottleMoved = true;
+                    MoveBottles();
+                }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.speed = 0).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -118,8 +121,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
 
             // Attackまで待つ
-            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                                             _ATTACK_STATE_NAME_HASH);
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _ATTACK_STATE_NAME_HASH);
 
             transform.position = _attackStartPos;
             yield return MoveDuringAttack();
@@ -133,8 +135,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private IEnumerator MoveDuringAttack()
         {
             // 攻撃のクリップの長さ、スタート位置、終了位置からスピードを算出
-            var attackAnimClip =
-                _animator.runtimeAnimatorController.animationClips.Single(c => c.name == _ATTACK_ANIMATION_CLIP_NAME);
+            var attackAnimClip = _animator.runtimeAnimatorController.animationClips.Single(c => c.name == _ATTACK_ANIMATION_CLIP_NAME);
             var attackAnimationTime = attackAnimClip.length;
             var speed = _attackMoveDistance / attackAnimationTime;
 
@@ -142,14 +143,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             while ((_attackEndPos - transform.position).normalized == direction) {
                 transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
                 yield return new WaitForFixedUpdate();
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!_isBottleMoved) {
-                _isBottleMoved = true;
-                MoveBottles();
             }
         }
 

@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -69,6 +72,20 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
+            this.OnTriggerEnter2DAsObservable()
+                .Select(other => other.GetComponent<AbstractBottleController>())
+                .Where(bottle => bottle != null)
+                .Where(bottle => bottle.IsAttackable)
+                .Where(bottle => !bottle.Invincible)
+                .Subscribe(_ => {
+                    // 衝突したオブジェクトは赤色に変える
+                    gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                _rigidBody.velocity = Vector2.zero;
+                if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
+                StopAllCoroutines();
+            }).AddTo(this);
         }
 
         /// <summary>
@@ -113,8 +130,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var warningPos = _warningPosList[_currentTargetIndex];
 
                 // 警告表示時ギミックがいる位置＝警告表示位置＋（警告消した後からタイル位置に着くまでの時間＋警告表示時間）x速度x(-移動方向のベクトル)
-                var warningStartDisplayPos =
-                    warningPos - _rigidBody.velocity * (_warningDisplayTime + _moveTimeAfterWarning);
+                var warningStartDisplayPos = warningPos - _rigidBody.velocity * (_warningDisplayTime + _moveTimeAfterWarning);
 
                 var diffVec = warningStartDisplayPos - (Vector2)transform.position;
                 // 警告表示位置までまだ時間ある
@@ -131,21 +147,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     StopCoroutine(displayWarningCoroutine);
                 }
 
-                displayWarningCoroutine =
-                    StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
+                displayWarningCoroutine = StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
 
                 // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
-                while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) {
-                    yield return new WaitForFixedUpdate();
-                }
+                while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) yield return new WaitForFixedUpdate();
 
                 SetDirection(currentDirection);
             }
 
             // 範囲外になったらオブジェクトを消す
-            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameSpaceWidth() &&
-                   Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
-                yield return new WaitForFixedUpdate();
+            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameSpaceWidth() && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT) yield return new WaitForFixedUpdate();
 
             Destroy(gameObject);
         }
@@ -239,9 +250,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private IEnumerator ShowWarning(Vector2 warningPos, EDirection? direction, float displayTime)
         {
             // 一個前の警告まだ消えていない
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
+            if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
 
             string addressKey;
             switch (direction) {
@@ -279,9 +288,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 警告終わるまで待つ
             while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
+            if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
         }
 
         /// <summary>
@@ -400,26 +407,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
 
             transform.position = new Vector2(x, y);
-        }
-
-        protected void OnTriggerEnter2D(Collider2D other)
-        {
-            // 数字ボトルとの衝突以外は考えない
-            var bottle = other.GetComponent<AbstractBottleController>();
-            if (bottle == null || !bottle.IsAttackable || bottle.Invincible) return;
-
-            // 衝突したオブジェクトは赤色に変える
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-        }
-
-        protected override void OnEndGame()
-        {
-            _rigidBody.velocity = Vector2.zero;
-            StopAllCoroutines();
-
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
         }
     }
 }

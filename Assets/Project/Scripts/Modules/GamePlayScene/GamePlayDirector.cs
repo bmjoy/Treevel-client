@@ -13,6 +13,7 @@ using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using Treevel.Modules.GamePlayScene.Tile;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -38,24 +39,30 @@ namespace Treevel.Modules.GamePlayScene
         [SerializeField] private GameObject _tutorialWindow;
 
         /// <summary>
+        /// ゲーム開始時のイベント
+        /// </summary>
+        public IObservable<Unit> GameStart => _gameStartSubject;
+
+        private readonly Subject<Unit> _gameStartSubject = new Subject<Unit>();
+
+        /// <summary>
+        /// ゲーム終了時のイベント
+        /// </summary>
+        public IObservable<Unit> GameEnd => _gameSucceededSubject.Merge(_gameFailedSubject);
+
+        /// <summary>
         /// 成功時のイベント
         /// </summary>
-        public static event Action GameSucceeded {
-            add => _gameSucceededInvoker += value;
-            remove => _gameSucceededInvoker -= value;
-        }
+        public IObservable<Unit> GameSucceeded => _gameSucceededSubject;
 
-        private static event Action _gameSucceededInvoker;
+        private readonly Subject<Unit> _gameSucceededSubject = new Subject<Unit>();
 
         /// <summary>
         /// 失敗時のイベント
         /// </summary>
-        public static event Action GameFailed {
-            add => _gameFailedInvoker += value;
-            remove => _gameFailedInvoker -= value;
-        }
+        public IObservable<Unit> GameFailed => _gameFailedSubject;
 
-        private static event Action _gameFailedInvoker;
+        private readonly Subject<Unit> _gameFailedSubject = new Subject<Unit>();
 
         /// <summary>
         /// ゲームの状態一覧
@@ -63,6 +70,7 @@ namespace Treevel.Modules.GamePlayScene
         public enum EGameState
         {
             Tutorial,
+            Opening,
             Playing,
             Success,
             Failure,
@@ -113,7 +121,7 @@ namespace Treevel.Modules.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            var startState = ShouldShowTutorial() ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Playing];
+            var startState = ShouldShowTutorial() ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
             _stateMachine = new StateMachine(startState, _stateList.Values.ToArray());
 
@@ -155,7 +163,11 @@ namespace Treevel.Modules.GamePlayScene
             switch (state) {
                 case EGameState.Tutorial:
                     _stateMachine.AddTransition(_stateList[EGameState.Tutorial],
-                                                _stateList[EGameState.Playing]); // tutorial -> playing
+                                                _stateList[EGameState.Opening]); // tutorial -> opening
+                    break;
+                case EGameState.Opening:
+                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
+                                                _stateList[EGameState.Playing]); // opening -> playing
                     break;
                 case EGameState.Playing:
                     _stateMachine.AddTransition(_stateList[EGameState.Playing],
@@ -173,7 +185,7 @@ namespace Treevel.Modules.GamePlayScene
                     break;
                 case EGameState.Failure:
                     _stateMachine.AddTransition(_stateList[EGameState.Failure],
-                                                _stateList[EGameState.Playing]); // failure -> playing
+                                                _stateList[EGameState.Opening]); // failure -> opening
                     break;
                 case EGameState.Success:
                     break;
@@ -293,8 +305,13 @@ namespace Treevel.Modules.GamePlayScene
             return !stageStatus.tutorialChecked;
         }
 
-        private class PlayingState : State
+        private class OpeningState : State
         {
+            /// <summary>
+            /// ステージID表示用テキスト
+            /// </summary>
+            private readonly Text _stageNumberText;
+
             /// <summary>
             /// ゲーム時間を計測するタイマー
             /// </summary>
@@ -305,34 +322,67 @@ namespace Treevel.Modules.GamePlayScene
             /// </summary>
             private readonly Text _timerText;
 
-            /// <summary>
-            /// ステージID表示用テキスト
-            /// </summary>
-            private readonly Text _stageNumberText;
-
-            public PlayingState(GamePlayDirector caller)
+            public OpeningState(GamePlayDirector caller)
             {
-                // タイマー設定
-                _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
-                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
-                _customTimer.Initialize(_timerText);
-
                 // TODO: ステージTextを適切に配置する
                 // ステージID表示
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
                 _stageNumberText.text = seasonId.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
+
+                // タイマー設定
+                _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
+                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
+                _customTimer.Initialize(_timerText);
             }
 
-            public override void OnEnter(State from = null)
+            public override void OnEnter(State @from = null)
             {
-                // 一時停止から戻る時はステージ再作成しない
-                if (!(from is PausingState)) {
-                    CleanObject();
-                    StageInitialize();
-                }
+                // TODO: ステージ準備中のアニメーションを用意する
+                CleanObject();
+                StageInitialize();
+            }
 
+            public override void OnExit(State to)
+            {
+                // TODO: ステージ準備中のアニメーションを停止する
+                // 時間の計測
+                _customTimer.StartTimer();
+
+                // ゲーム開始時のイベント
+                Instance._gameStartSubject.OnNext(Unit.Default);
+
+                // ギミックの発火
+                GimmickGenerator.Instance.FireGimmick();
+
+                // BGMの再生
                 SoundManager.Instance.PlayBGM(EBGMKey.BGM_Gameplay, 2.0f);
             }
+
+            /// <summary>
+            /// ゲーム始まる前の前処理
+            /// </summary>
+            private void StageInitialize()
+            {
+                // BoardManagerの初期化
+                BoardManager.Instance.Initialize();
+                // 番号に合わせたステージの作成
+                StageGenerator.CreateStages(treeId, stageNumber);
+            }
+        }
+
+        private class PlayingState : State
+        {
+            /// <summary>
+            /// ゲーム時間を計測するタイマー
+            /// </summary>
+            private readonly CustomTimer _customTimer;
+
+            public PlayingState(GamePlayDirector caller)
+            {
+                _customTimer = caller.gameObject.GetComponent<CustomTimer>();
+            }
+
+            public override void OnEnter(State from = null) { }
 
             public override void OnExit(State to)
             {
@@ -341,21 +391,6 @@ namespace Treevel.Modules.GamePlayScene
 
                 // その他の状態に遷移する時ゲーム終了
                 EndProcess();
-            }
-
-            /// <summary>
-            /// ゲーム始まる前の前処理
-            /// </summary>
-            private void StageInitialize()
-            {
-                // 番号に合わせたステージの作成
-                StageGenerator.CreateStages(treeId, stageNumber);
-
-                // 時間の計測
-                _customTimer.StartTimer();
-
-                // ギミックの生成
-                GimmickGenerator.Instance.FireGimmick();
             }
 
             /// <summary>
@@ -368,7 +403,7 @@ namespace Treevel.Modules.GamePlayScene
 
                 // フリック回数の取得
                 var bottles = FindObjectsOfType<DynamicBottleController>();
-                var flickNum = bottles.Select(bottle => bottle.FlickNum).Sum();
+                var flickNum = bottles.Select(bottle => bottle.flickNum).Sum();
 
                 // フリック回数の保存
                 var stageStatus = StageStatus.Get(treeId, stageNumber);
@@ -446,7 +481,7 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(true);
 
                 // 成功イベント
-                _gameSucceededInvoker?.Invoke();
+                Instance._gameSucceededSubject.OnNext(Unit.Default);
             }
 
             public override void OnExit(State to)
@@ -496,7 +531,7 @@ namespace Treevel.Modules.GamePlayScene
                     _failurePopup.SetActive(true);
 
                     // 失敗イベント
-                    _gameFailedInvoker?.Invoke();
+                    Instance._gameFailedSubject.OnNext(Unit.Default);
                 }
             }
 

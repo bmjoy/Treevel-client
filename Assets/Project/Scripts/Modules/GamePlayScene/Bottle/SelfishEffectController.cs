@@ -2,12 +2,13 @@
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class SelfishEffectController : MonoBehaviour
+    public class SelfishEffectController : AbstractGameObjectController
     {
         private DynamicBottleController _bottleController;
 
@@ -53,26 +54,24 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.StartMove += HandleStartMove;
-            _bottleController.EndMove += HandleEndMove;
-            _bottleController.pressGesture.Pressed += HandlePressed;
-            _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.EndGame += HandleEndGame;
+            _bottleController.StartMove.Subscribe(_ => SetIsStopping(false)).AddTo(this);
+            _bottleController.EndMove.Subscribe(_ => SetIsStopping(true)).AddTo(this);
+            _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposable, this);
+            _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposable, this);
 
-            // 移動していないフレーム数を数え始める
-            _countCalmFrames = true;
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                _countCalmFrames = false;
+                _calmFrames = 0;
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+            }).AddTo(this);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+                // 移動していないフレーム数を数え始める
+                _countCalmFrames = true;
+            }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Selfish.GetOrderInLayer();
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.StartMove -= HandleStartMove;
-            _bottleController.EndMove -= HandleEndMove;
-            _bottleController.pressGesture.Pressed -= HandlePressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
         }
 
         private void FixedUpdate()
@@ -91,55 +90,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
             _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
-        }
-
-        /// <summary>
-        /// 移動開始時の処理
-        /// </summary>
-        private void HandleStartMove()
-        {
-            SetIsStopping(false);
-        }
-
-        /// <summary>
-        /// 移動終了時の処理
-        /// </summary>
-        private void HandleEndMove()
-        {
-            SetIsStopping(true);
-        }
-
-        /// <summary>
-        /// ホールド開始時の処理
-        /// </summary>
-        private void HandlePressed(object sender, EventArgs e)
-        {
-            SetIsStopping(false);
-        }
-
-        /// <summary>
-        /// ホールド終了時の処理
-        /// </summary>
-        private void HandleReleased(object sender, EventArgs e)
-        {
-            SetIsStopping(true);
-        }
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        private void HandleEndGame()
-        {
-            _countCalmFrames = false;
-            _calmFrames = 0;
-            _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-
-            _bottleController.StartMove -= HandleStartMove;
-            _bottleController.EndMove -= HandleEndMove;
-            _bottleController.pressGesture.Pressed -= HandlePressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
         }
 
         /// <summary>

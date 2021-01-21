@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
@@ -6,6 +7,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -13,6 +15,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     public class GimmickGenerator : SingletonObject<GimmickGenerator>
     {
+        // ゲーム中の一時停止を用意に実装するためにCoroutineを採用する
         private List<IEnumerator> _coroutines = new List<IEnumerator>();
 
         /// <summary>
@@ -32,9 +35,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 { EGimmickType.Powder, Constants.Address.POWDER_PREFAB },
             };
 
-        public void Initialize(List<GimmickData> gimmicks)
+        public UniTask Initialize(List<GimmickData> gimmicks)
         {
             _coroutines = gimmicks.Select(CreateGimmickCoroutine).ToList();
+            return UniTask.CompletedTask;
         }
 
         /// <summary>
@@ -86,14 +90,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            GamePlayDirector.GameSucceeded += OnGameEnd;
-            GamePlayDirector.GameFailed += OnGameEnd;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= OnGameEnd;
-            GamePlayDirector.GameFailed -= OnGameEnd;
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                OnGameEnd();
+            }).AddTo(this);
         }
 
         private void OnGameEnd()

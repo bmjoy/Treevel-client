@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
@@ -23,6 +24,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            GamePlayDirector.Instance.GameSucceeded.Subscribe(_ => Destroy(gameObject)).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Where(_ => !_isPiledUp)
+                .Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
         }
 
         public void Initialize(NormalBottleController bottleController)
@@ -37,30 +41,18 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.StartMove += HandleStartMove;
-            _bottleController.EndMove += HandleEndMove;
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.StartMove -= HandleStartMove;
-            _bottleController.EndMove -= HandleEndMove;
+            _bottleController.StartMove.Subscribe(_ => {
+                _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, false);
+            }).AddTo(compositeDisposable, this);
+            _bottleController.EndMove.Subscribe(_ => {
+                _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
+            }).AddTo(compositeDisposable, this);
         }
 
         public override IEnumerator Trigger()
         {
             _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
             yield return null;
-        }
-
-        private void HandleStartMove()
-        {
-            _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, false);
-        }
-
-        private void HandleEndMove()
-        {
-            _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
         }
 
         /// <summary>
@@ -75,22 +67,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             GamePlayDirector.Instance.failureReason = EGimmickType.Powder.GetFailureReason();
             // 失敗状態に移行する
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
-        }
-
-        protected override void HandleGameSucceeded()
-        {
-            base.HandleGameSucceeded();
-            Destroy(gameObject);
-        }
-
-        protected override void OnEndGame()
-        {
-            _bottleController.StartMove -= HandleStartMove;
-            _bottleController.EndMove -= HandleEndMove;
-            // 自身が失敗原因でない場合はアニメーションを止める
-            if (!_isPiledUp) {
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            }
         }
     }
 }

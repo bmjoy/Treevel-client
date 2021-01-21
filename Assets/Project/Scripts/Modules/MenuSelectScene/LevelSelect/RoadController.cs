@@ -86,6 +86,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                         // 道が非解放状態から解放状態に変わった時
                         await ReleaseEndObject(cancelTokenSource.Token);
                     }
+
                     lineRenderer.startColor = lineRenderer.endColor = released ? _ROAD_RELEASED_COLOR : _ROAD_UNRELEASED_COLOR;
 
                     break;

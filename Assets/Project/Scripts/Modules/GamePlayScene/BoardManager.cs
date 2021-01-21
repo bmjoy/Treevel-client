@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System.Threading;
 using JetBrains.Annotations;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
@@ -6,6 +9,7 @@ using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Tile;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
@@ -23,6 +27,9 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         private readonly Dictionary<GameObject, Vector2Int> _bottlePositions = new Dictionary<GameObject, Vector2Int>();
 
+        private IDisposable _disposable;
+        private CancellationTokenSource _tokenSource;
+
         private void Awake()
         {
             // `squares` の初期化
@@ -37,31 +44,16 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private void OnEnable()
+        public void Initialize()
         {
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
-        }
-
-        private void HandleGameSucceeded()
-        {
-            EndProcess();
-        }
-
-        private void HandleGameFailed()
-        {
-            EndProcess();
+            _tokenSource = new CancellationTokenSource();
+            _disposable = GamePlayDirector.Instance.GameEnd.Subscribe(_ => EndProcess()).AddTo(this);
         }
 
         private void EndProcess()
         {
-            StopAllCoroutines();
+            _tokenSource.Cancel();
+            _disposable.Dispose();
         }
 
         /// <summary>
@@ -206,8 +198,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="directionInt"> フリックする方向 </param>
-        /// <returns> フリックした結果，ボトルが移動したかどうか </returns>
-        public bool HandleFlickedBottle(DynamicBottleController bottle, Vector2Int directionInt)
+        public async UniTask FlickBottle(DynamicBottleController bottle, Vector2Int directionInt)
         {
             // tileNum は原点が左上だが，方向ベクトルは原点が左下なので，加工する
             directionInt.y = -directionInt.y;
@@ -219,9 +210,10 @@ namespace Treevel.Modules.GamePlayScene
             // 移動先の位置をタイル番号に変換
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            if (targetTileNum == null) return false;
+            if (targetTileNum == null) return;
 
-            return Move(bottle, targetTileNum.Value, directionInt);
+            bottle.flickNum++;
+            await Move(bottle, targetTileNum.Value, directionInt);
         }
 
         /// <summary>
@@ -232,7 +224,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
         /// <param name="immediately"> 瞬間移動か </param>
         /// <returns> ボトルが移動したかどうか </returns>
-        public bool Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
+        public async UniTask<bool> Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
         {
             // 移動するボトルが null の場合は移動しない
             if (bottle == null) return false;
@@ -268,10 +260,11 @@ namespace Treevel.Modules.GamePlayScene
 
             if (direction != null) {
                 // ボトルを移動する
-                StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
-                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                    targetSquare.tile.OnBottleEnter(bottleObject, direction);
-                }));
+                await bottle.Move(targetSquare.worldPosition, _tokenSource.Token)
+                    .ContinueWith(() => {
+                        targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                        targetSquare.tile.OnBottleEnter(bottleObject, direction);
+                    });
             } else {
                 // ボトルを瞬間移動させる
                 bottle.transform.position = targetSquare.worldPosition;

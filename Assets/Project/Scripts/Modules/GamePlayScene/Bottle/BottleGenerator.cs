@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -15,14 +17,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             { EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB },
         };
 
-        public static void CreateBottles(List<BottleData> bottleDatas)
+        public static UniTask CreateBottles(List<BottleData> bottleDatas)
         {
-            bottleDatas.ForEach(async bottleData => {
-                if (!_prefabAddressableKeys.ContainsKey(bottleData.type)) return;
+            var tasks = bottleDatas
+                .Where(bottleData => _prefabAddressableKeys.ContainsKey(bottleData.type))
+                .Select(bottleData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).ToUniTask()
+                            .ContinueWith(async bottle => await bottle.GetComponent<AbstractBottleController>().Initialize(bottleData))
+                );
 
-                var bottle = await AddressableAssetManager.Instantiate(_prefabAddressableKeys[bottleData.type]).Task;
-                bottle.GetComponent<AbstractBottleController>().Initialize(bottleData);
-            });
+            return UniTask.WhenAll(tasks);
         }
     }
 }

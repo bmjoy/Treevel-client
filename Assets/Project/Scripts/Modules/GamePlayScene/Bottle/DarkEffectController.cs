@@ -1,11 +1,12 @@
 ﻿using System;
 using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class DarkEffectController : MonoBehaviour
+    public class DarkEffectController : AbstractGameObjectController
     {
         private NormalBottleController _bottleController;
 
@@ -30,11 +31,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            _bottleController.EnterTile += HandleEnterTile;
-            _bottleController.ExitTile += HandleExitTile;
-            _bottleController.longPressGesture.LongPressed += HandleLongPressed;
-            _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.EndGame += HandleEndGame;
+            Observable.Merge(_bottleController.EnterTile, _bottleController.ExitTile)
+                .Subscribe(_ => {
+                    _isSuccess = _bottleController.IsSuccess();
+                    _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
+                }).AddTo(this);
+            _bottleController.longPressGesture.OnLongPress.AsObservable().Subscribe(_ => _animator.SetBool(_ANIMATOR_IS_DARK, false)).AddTo(compositeDisposable, this);
+            _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess)).AddTo(compositeDisposable, this);
+
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Dark.GetOrderInLayer();
@@ -42,65 +47,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 初期状態の登録
             _isSuccess = _bottleController.IsSuccess();
             _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.EnterTile -= HandleEnterTile;
-            _bottleController.ExitTile -= HandleExitTile;
-            _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
-        }
-
-        /// <summary>
-        /// タイルから移動した時の挙動
-        /// </summary>
-        /// <param name="targetTile"></param>
-        private void HandleEnterTile(GameObject targetTile)
-        {
-            _isSuccess = _bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-        }
-
-        /// <summary>
-        /// タイルから出る時の挙動
-        /// </summary>
-        /// <param name="targetTile"></param>
-        private void HandleExitTile(GameObject targetTile)
-        {
-            _isSuccess = _bottleController.IsSuccess();
-            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-        }
-
-        /// <summary>
-        /// ホールド開始時の処理
-        /// </summary>
-        private void HandleLongPressed(object sender, EventArgs e)
-        {
-            _animator.SetBool(_ANIMATOR_IS_DARK, false);
-        }
-
-        /// <summary>
-        /// ホールド終了時の処理
-        /// </summary>
-        private void HandleReleased(object sender, EventArgs e)
-        {
-            _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-        }
-
-        /// <summary>
-        /// ゲーム終了時の挙動
-        /// </summary>
-        private void HandleEndGame()
-        {
-            _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-
-            _bottleController.EnterTile -= HandleEnterTile;
-            _bottleController.ExitTile -= HandleExitTile;
-            _bottleController.longPressGesture.LongPressed -= HandleLongPressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
         }
     }
 }

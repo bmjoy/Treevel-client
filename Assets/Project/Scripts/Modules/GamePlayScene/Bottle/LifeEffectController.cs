@@ -1,11 +1,12 @@
 ﻿using Treevel.Common.Entities;
 using Treevel.Modules.GamePlayScene.Gimmick;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class LifeEffectController : MonoBehaviour
+    public class LifeEffectController : AbstractGameObjectController
     {
         private DynamicBottleController _bottleController;
 
@@ -40,68 +41,45 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.GetDamaged += HandleGetDamaged;
-            _bottleController.EndGame += HandleEndGame;
+            _bottleController.GetDamaged.Subscribe(gimmick => {
+                _life--;
+                if (_life < 0) {
+                    Debug.LogError("_currentLife が負の値になっている");
+                } else if (_life == 0) {
+                    // 失敗演出
+                    _bottleAnimator.SetTrigger(ANIMATOR_PARAM_TRIGGER_DEAD);
+
+                    // ボトルを死んだ状態にする
+                    _isDead = true;
+
+                    // 失敗原因を保持する
+                    var controller = gimmick.GetComponent<AbstractGimmickController>();
+                    if (controller == null) controller = gimmick.GetComponentInParent<AbstractGimmickController>();
+
+                    var gimmickType = controller.GimmickType;
+                    GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
+
+                    // 失敗状態に移行する
+                    GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
+                } else if (_life == 1) {
+                    // 演出をループさせる
+                    _bottleAnimator.SetBool(_ANIMATOR_PARAM_BOOL_ATTACKED_LOOP, true);
+                    _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
+                } else {
+                    _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
+                }
+            }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Where(_ => !_isDead)
+                .Subscribe(_ => {
+                    // 自身が破壊されていない場合はアニメーションを止める
+                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
+                    _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
+                }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Life.GetOrderInLayer();
 
             _life = life;
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.GetDamaged -= HandleGetDamaged;
-            _bottleController.EndGame -= HandleEndGame;
-        }
-
-        /// <summary>
-        /// ギミックに攻撃されたときの処理
-        /// </summary>
-        /// <param name="gimmick"></param>
-        private void HandleGetDamaged(GameObject gimmick)
-        {
-            _life--;
-            if (_life < 0) {
-                Debug.LogError("_currentLife が負の値になっている");
-            } else if (_life == 0) {
-                // 失敗演出
-                _bottleAnimator.SetTrigger(ANIMATOR_PARAM_TRIGGER_DEAD);
-
-                // ボトルを死んだ状態にする
-                _isDead = true;
-
-                // 失敗原因を保持する
-                var controller = gimmick.GetComponent<AbstractGimmickController>();
-                if (controller == null) controller = gimmick.GetComponentInParent<AbstractGimmickController>();
-
-                var gimmickType = controller.GimmickType;
-                GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();
-
-                // 失敗状態に移行する
-                GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
-            } else if (_life == 1) {
-                // ループさせて危機感っぽい
-                _bottleAnimator.SetBool(_ANIMATOR_PARAM_BOOL_ATTACKED_LOOP, true);
-                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
-            } else {
-                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
-            }
-        }
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        private void HandleEndGame()
-        {
-            // 自身が破壊されていない場合はアニメーションを止める
-            if (!_isDead) {
-                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPPED, 0f);
-            }
-
-            _bottleController.GetDamaged -= HandleGetDamaged;
-            _bottleController.EndGame -= HandleEndGame;
         }
     }
 }

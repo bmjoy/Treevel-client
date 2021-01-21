@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
 using TouchScript.Gestures;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Extensions;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,39 +35,23 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 移動開始時の処理
         /// </summary>
-        public event Action StartMove {
-            add => _startMoveInvoker += value;
-            remove => _startMoveInvoker -= value;
-        }
+        public IObservable<Unit> StartMove => _startMoveSubject;
 
-        private event Action _startMoveInvoker;
+        private readonly Subject<Unit> _startMoveSubject = new Subject<Unit>();
 
         /// <summary>
         /// 移動終了時の処理
         /// </summary>
-        public event Action EndMove {
-            add => _endMoveInvoker += value;
-            remove => _endMoveInvoker -= value;
-        }
+        public IObservable<Unit> EndMove => _endMoveSubject;
 
-        private event Action _endMoveInvoker;
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        public event Action EndGame {
-            add => _endGameInvoker += value;
-            remove => _endGameInvoker -= value;
-        }
-
-        private event Action _endGameInvoker;
+        private readonly Subject<Unit> _endMoveSubject = new Subject<Unit>();
 
         /// <summary>
         /// フリック 時のパネルの移動速度
         /// </summary>
         private const float _SPEED = 30f;
 
-        public int FlickNum { get; private set; } = 0;
+        public int flickNum;
 
         protected override void Awake()
         {
@@ -77,62 +63,45 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _flickGesture = GetComponent<FlickGesture>();
             _flickGesture.MinDistance = 0.2f;
             _flickGesture.FlickTime = 0.2f;
+            Observable.FromEvent<EventHandler<EventArgs>, Tuple<object, EventArgs>>(h => (x, y) => h(Tuple.Create(x, y)), x => _flickGesture.Flicked += x, x => _flickGesture.Flicked -= x)
+                .Select(x => x.Item1 as FlickGesture)
+                .Where(_ => IsMovable)
+                .Where(gesture => gesture != null && gesture.State == FlickGesture.GestureState.Recognized)
+                .Subscribe(async gesture => {
+                    // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
+                    var directionInt = Vector2Int.RoundToInt(gesture.ScreenFlickVector.NormalizeDirection());
+                    if (_isReverse) directionInt *= -1;
+
+                    // ボトルのフリック情報を伝える
+                    await BoardManager.Instance.FlickBottle(this, directionInt);
+                }).AddTo(compositeDisposable, this);
+
             // PressGesture の設定
             pressGesture = GetComponent<PressGesture>();
+            pressGesture.UseUnityEvents = true;
             // ReleaseGesture の設定
             releaseGesture = GetComponent<ReleaseGesture>();
+            releaseGesture.UseUnityEvents = true;
         }
 
-        public override async void Initialize(BottleData bottleData)
+        public override async UniTask Initialize(BottleData bottleData)
         {
-            base.Initialize(bottleData);
+            await base.Initialize(bottleData);
 
             // set handlers
             if (bottleData.isSelfish) {
                 var selfishEffect =
-                    await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).Task;
+                    await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).ToUniTask();
+
                 selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
             }
 
             if (bottleData.isReverse) {
                 var reverseEffect =
-                    await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).Task;
+                    await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).ToUniTask();
                 reverseEffect.GetComponent<ReverseEffectController>().Initialize(this);
                 _isReverse = true;
             }
-        }
-
-        protected virtual void OnEnable()
-        {
-            _flickGesture.Flicked += HandleFlicked;
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
-        }
-
-        protected virtual void OnDisable()
-        {
-            _flickGesture.Flicked -= HandleFlicked;
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
-        }
-
-        /// <summary>
-        /// フリックイベントを処理する
-        /// </summary>
-        private void HandleFlicked(object sender, EventArgs e)
-        {
-            if (!IsMovable) return;
-
-            var gesture = sender as FlickGesture;
-
-            if (gesture.State != FlickGesture.GestureState.Recognized) return;
-
-            // 移動方向を単一方向の単位ベクトルに変換する ex) (0, 1)
-            var directionInt = Vector2Int.RoundToInt(gesture.ScreenFlickVector.NormalizeDirection());
-            if (_isReverse) directionInt *= -1;
-
-            // ボトルのフリック情報を伝える
-            if (BoardManager.Instance.HandleFlickedBottle(this, directionInt)) FlickNum++;
         }
 
         /// <summary>
@@ -146,47 +115,20 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             releaseGesture.enabled = isEnable;
         }
 
-        public IEnumerator Move(Vector3 targetPosition, UnityAction callback)
+        public async UniTask Move(Vector3 targetPosition, CancellationToken token)
         {
-            SetGesturesEnabled(false);
-            _startMoveInvoker?.Invoke();
+            try {
+                SetGesturesEnabled(false);
+                _startMoveSubject.OnNext(Unit.Default);
 
-            while (transform.position != targetPosition) {
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
-                yield return new WaitForFixedUpdate();
-            }
+                while (transform.position != targetPosition) {
+                    transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
+                    await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
+                }
 
-            _endMoveInvoker?.Invoke();
-            SetGesturesEnabled(true);
-
-            callback();
-        }
-
-        /// <summary>
-        /// ゲーム成功時の処理
-        /// </summary>
-        protected virtual void HandleGameSucceeded()
-        {
-            EndProcess();
-        }
-
-        /// <summary>
-        /// ゲーム失敗時の処理
-        /// </summary>
-        protected virtual void HandleGameFailed()
-        {
-            EndProcess();
-        }
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        protected virtual void EndProcess()
-        {
-            _endGameInvoker?.Invoke();
-            _flickGesture.Flicked -= HandleFlicked;
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
+                _endMoveSubject.OnNext(Unit.Default);
+                SetGesturesEnabled(true);
+            } catch (OperationCanceledException) { }
         }
     }
 }

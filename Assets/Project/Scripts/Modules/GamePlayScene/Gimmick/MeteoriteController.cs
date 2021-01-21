@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Linq;
-using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -50,6 +51,23 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            this.OnTriggerEnter2DAsObservable()
+                .Where(_ => transform.position.z >= 0)
+                .Subscribe(other => {
+                    var bottle = other.GetComponent<AbstractBottleController>();
+                    if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
+                        // 数字ボトルとの衝突
+                        // 衝突したオブジェクトは赤色に変える
+                        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+
+                        gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
+
+                        // 隕石を衝突したボトルに追従させる
+                        gameObject.transform.SetParent(other.transform);
+                    }
+                }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Where(_ => _warningObj != null)
+                .Subscribe(_ => _warningPrefab.ReleaseInstance(_warningObj)).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -134,35 +152,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 警告終わるまで待つ
             while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
-        }
-
-        protected void OnTriggerEnter2D(Collider2D other)
-        {
-            // 隕石が出現したフレーム以外では衝突を考えない
-            if (transform.position.z < 0) return;
-
-            // ボトルとの衝突
-            var bottle = other.GetComponent<AbstractBottleController>();
-            if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
-                // 数字ボトルとの衝突
-                // 衝突したオブジェクトは赤色に変える
-                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-
-                gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
-
-                // 隕石を衝突したボトルに追従させる
-                gameObject.transform.SetParent(other.transform);
-            }
-        }
-
-        protected override void OnEndGame()
-        {
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
+            if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
         }
 
         /// <summary>

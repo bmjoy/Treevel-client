@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
-    public abstract class AbstractGimmickController : MonoBehaviour
+    public abstract class AbstractGimmickController : AbstractGameObjectController
     {
         /// <summary>
         /// 警告の表示秒数
@@ -35,29 +35,5 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// ギミック発動（初期化の後に呼ぶ）
         /// </summary>
         public abstract IEnumerator Trigger();
-
-        private void OnEnable()
-        {
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
-        }
-
-        protected virtual void HandleGameSucceeded()
-        {
-            OnEndGame();
-        }
-
-        protected virtual void HandleGameFailed()
-        {
-            OnEndGame();
-        }
-
-        protected virtual void OnEndGame() { }
     }
 }

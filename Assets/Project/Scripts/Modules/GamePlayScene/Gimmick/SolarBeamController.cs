@@ -2,6 +2,7 @@
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -40,6 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.speed = 0).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -114,8 +116,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         public override IEnumerator Trigger()
         {
             // 入場アニメーション再生完了まで待つ
-            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                                             _IDLE_STATE_NAME_HASH);
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH);
 
             while (_attackTimes-- > 0) {
                 if (_attackTimes == 0) _animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_ATTACK, true);
@@ -127,24 +128,19 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_WARNING);
 
                 // idle -> warning のTransition待ち
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash !=
-                                                 _IDLE_STATE_NAME_HASH);
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
 
                 // 最終回以外はIDLEに戻るまで待つ
-                if (_attackTimes > 0)
-                    yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                                                     _IDLE_STATE_NAME_HASH);
+                if (_attackTimes > 0) yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH);
             }
         }
 
+        /// <summary>
+        /// 破棄する（アニメーションイベントから呼び出す）
+        /// </summary>
         public void Destroy()
         {
             Destroy(gameObject);
-        }
-
-        protected override void OnEndGame()
-        {
-            _animator.speed = 0;
         }
     }
 }

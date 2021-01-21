@@ -1,11 +1,13 @@
-﻿using SpriteGlow;
-using System;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using SpriteGlow;
 using TouchScript.Gestures;
 using Treevel.Common.Components;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Tile;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -32,28 +34,17 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             base.Awake();
             longPressGesture = GetComponent<LongPressGesture>();
+            longPressGesture.UseUnityEvents = true;
             longPressGesture.TimeToPress = 0.15f;
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            EnterTile += HandleEnterTile;
-            ExitTile += HandleExitTile;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            EnterTile -= HandleEnterTile;
-            ExitTile -= HandleExitTile;
+            EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(this);
+            ExitTile.Subscribe(_ => _spriteGlowEffect.enabled = false).AddTo(this);
         }
 
         /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
-        public override async void Initialize(BottleData bottleData)
+        public override async UniTask Initialize(BottleData bottleData)
         {
             _spriteGlowEffect = GetComponent<SpriteGlowEffect>();
             _spriteGlowEffect.enabled = false;
@@ -63,13 +54,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _targetPos = finalPos;
             var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
 
-            base.Initialize(bottleData);
+            await base.Initialize(bottleData);
 
             // set handler
-            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB).Task;
+            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
             if (bottleData.isDark) {
-                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB).Task;
+                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB);
                 darkEffect.GetComponent<DarkEffectController>().Initialize(this);
             }
 
@@ -81,18 +72,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             var finalTile = BoardManager.Instance.GetTile(finalPos);
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
             finalTile.GetComponent<SpriteRendererUnifier>().Unify();
-        }
-
-        private void HandleEnterTile(GameObject targetTile)
-        {
-            if (IsSuccess()) {
-                DoWhenSuccess();
-            }
-        }
-
-        private void HandleExitTile(GameObject targetTile)
-        {
-            _spriteGlowEffect.enabled = false;
         }
 
         /// <summary>
@@ -113,13 +92,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public bool IsSuccess()
         {
             return _targetPos != 0 && BoardManager.Instance.GetBottlePos(this) == _targetPos;
-        }
-
-        protected override void EndProcess()
-        {
-            base.EndProcess();
-            EnterTile -= HandleEnterTile;
-            ExitTile -= HandleExitTile;
         }
     }
 }

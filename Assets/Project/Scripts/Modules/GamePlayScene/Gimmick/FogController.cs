@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -15,6 +16,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// パーティクルシステム
         /// </summary>
         private ParticleSystem _particleSystem;
+
+        private void Awake()
+        {
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => Destroy(gameObject)).AddTo(this);
+        }
 
         public override void Initialize(GimmickData gimmickData)
         {
@@ -60,11 +66,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             _particleSystem.Play();
             yield return null;
-        }
-
-        protected override void OnEndGame()
-        {
-            Destroy(gameObject);
         }
     }
 }
