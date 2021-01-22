@@ -15,6 +15,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             { EBottleType.Static, Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB },
             { EBottleType.Normal, Constants.Address.NORMAL_BOTTLE_PREFAB },
             { EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB },
+            { EBottleType.Erasable, Constants.Address.ERASABLE_BOTTLE_PREFAB }
         };
 
         public static UniTask CreateBottles(List<BottleData> bottleDatas)

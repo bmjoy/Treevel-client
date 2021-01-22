@@ -6,6 +6,7 @@
         Static,
         Normal,
         AttackableDummy,
+        Erasable,
     }
 
     public static class BottleTypeExtension
@@ -15,6 +16,7 @@
             switch (type) {
                 case EBottleType.Dynamic:
                 case EBottleType.Static:
+                case EBottleType.Erasable:
                     return false;
                 case EBottleType.Normal:
                 case EBottleType.AttackableDummy:

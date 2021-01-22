@@ -234,6 +234,8 @@ namespace Treevel.Editor
                         break;
                     case EBottleType.Static:
                         break;
+                    case EBottleType.Erasable:
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
