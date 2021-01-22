@@ -64,7 +64,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.device-simulator": {
-      "version": "2.2.3-preview",
+      "version": "2.2.4-preview",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -78,7 +78,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "1.2.1",
+      "version": "3.0.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
