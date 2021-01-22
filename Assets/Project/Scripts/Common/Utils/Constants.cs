@@ -51,6 +51,7 @@ namespace Treevel.Common.Utils
             public const string STATIC_DUMMY_BOTTLE = "StaticDummyBottle";
             public const string NORMAL_BOTTLE = "NormalBottle";
             public const string ATTACKABLE_DUMMY_BOTTLE = "AttackableDummyBottle";
+            public const string ERASABLE_BOTTLE = "ErasableBottle";
         }
 
         /// <summary>
