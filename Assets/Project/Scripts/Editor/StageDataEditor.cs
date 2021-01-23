@@ -278,6 +278,11 @@ namespace Treevel.Editor
                     return;
                 }
 
+                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Erasable) {
+                    EditorGUI.indentLevel--;
+                    return;
+                }
+
                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
                 var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
                 EditorGUILayout.PropertyField(intervalProp);

@@ -262,6 +262,9 @@ namespace Treevel.Common.Managers
                         }
 
                         break;
+                    case EGimmickType.Erasable:
+                        LoadAsset<GameObject>(Constants.Address.ERASABLE_PREFAB);
+                        break;
                     default:
                         throw new System.ArgumentOutOfRangeException();
                 }
