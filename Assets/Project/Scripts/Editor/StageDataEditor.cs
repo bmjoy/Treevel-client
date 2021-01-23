@@ -194,9 +194,12 @@ namespace Treevel.Editor
 
                 var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
 
-                var newEnumValueIndex =
-                    (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"),
-                                                                (EBottleType)bottleTypeProp.enumValueIndex);
+                // ErasableBottle は ErasableGimmick のみから生成できるようにする
+                var newEnumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(
+                    label: new GUIContent("Type"),
+                    selected: (EBottleType)bottleTypeProp.enumValueIndex,
+                    checkEnabled: eType => (EBottleType)eType != EBottleType.Erasable,
+                    includeObsolete: false);
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != bottleTypeProp.enumValueIndex) {
