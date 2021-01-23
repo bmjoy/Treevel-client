@@ -145,9 +145,9 @@ namespace GFramework
 
             var v = new Vector4(
                     padding.x / spriteW,
-                    padding.y / spriteH,
+                    padding.y / (spriteH == 0 ? Mathf.Epsilon : spriteH),
                     (spriteW - padding.z) / spriteW,
-                    (spriteH - padding.w) / spriteH);
+                    (spriteH - padding.w) / (spriteH == 0 ? Mathf.Epsilon : spriteH));
 
             v = new Vector4(
                     r.x + r.width * v.x,
