@@ -42,6 +42,15 @@ namespace Treevel.Modules.GamePlayScene
                     _squares[col, row] = new Square(x, y);
                 }
             }
+
+            GamePlayDirector.Instance.GameStart
+                .Subscribe(_ => {
+                    foreach (var square in _squares) {
+                        if (square.bottle == null) return;
+                        square.bottle.OnEnterTile(square.tile.gameObject);
+                        if (square.tile.RunOnBottleEnterAtInit) square.tile.OnBottleEnter(square.bottle.gameObject, null);
+                    }
+                }).AddTo(this);
         }
 
         public void Initialize()
@@ -326,12 +335,6 @@ namespace Treevel.Modules.GamePlayScene
 
                 // 適切な場所に設置
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
-
-                // ボトルがタイルに配置された場合の処理を行う
-                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                if (targetSquare.tile.RunOnBottleEnterAtInit) {
-                    targetSquare.tile.OnBottleEnter(targetSquare.bottle.gameObject, null);
-                }
             }
         }
 
