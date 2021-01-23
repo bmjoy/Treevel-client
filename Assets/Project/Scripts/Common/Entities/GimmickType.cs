@@ -33,6 +33,10 @@ namespace Treevel.Common.Entities
                     return EFailureReasonType.Thunder;
                 case EGimmickType.SolarBeam:
                     return EFailureReasonType.SolarBeam;
+                case EGimmickType.GustWind:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, "このギミックで失敗することはない");
+                case EGimmickType.Fog:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, "このギミックで失敗することはない");
                 case EGimmickType.Powder:
                     return EFailureReasonType.Powder;
                 case EGimmickType.Erasable:
