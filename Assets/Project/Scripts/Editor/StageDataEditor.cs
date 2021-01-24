@@ -283,12 +283,8 @@ namespace Treevel.Editor
                     ResetData(gimmickDataProp);
                 }
 
-                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
-                    EditorGUI.indentLevel--;
-                    return;
-                }
-
-                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Erasable) {
+                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder ||
+                    (EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Erasable) {
                     EditorGUI.indentLevel--;
                     return;
                 }
