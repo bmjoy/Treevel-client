@@ -202,6 +202,9 @@ namespace Treevel.Modules.GamePlayScene
             return _squares[x, y].bottle == null;
         }
 
+        /// <summary>
+        /// x行y列のタイルが NormalTile かどうか
+        /// </summary>
         public bool IsNormalTile(int x, int y)
         {
             if (x < 0 || Constants.StageSize.COLUMN - 1 < x || y < 0 || Constants.StageSize.ROW - 1 < y) return false;
@@ -345,6 +348,12 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
+        /// <summary>
+        /// [ゲーム中用] ボトルを指定位置に設置する
+        /// </summary>
+        /// <param name="bottle"> 設置するボトル </param>
+        /// <param name="column"> 列 </param>
+        /// <param name="row"> 行 </param>
         public void PutBottle(AbstractBottleController bottle, int column, int row)
         {
             // 盤面外を指定した場合、何もしない
