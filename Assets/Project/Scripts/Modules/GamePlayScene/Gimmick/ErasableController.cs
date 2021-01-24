@@ -36,9 +36,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private static async void InstantiateErasableBottle()
         {
-            var erasableBottle = await AddressableAssetManager.Instantiate(Constants.Address.ERASABLE_BOTTLE_PREFAB);
-            var erasableBottleController = erasableBottle.GetComponent<ErasableBottleController>();
-
             var puttableTilePosition = new List<(int, int)>();
 
             for (var col = 0; col < Constants.StageSize.COLUMN; ++col) {
@@ -52,6 +49,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             // 候補がない場合には生成しない
             if (puttableTilePosition.Count > 0) {
+                var erasableBottle = await AddressableAssetManager.Instantiate(Constants.Address.ERASABLE_BOTTLE_PREFAB);
+                var erasableBottleController = erasableBottle.GetComponent<ErasableBottleController>();
+
                 // 完全にランダムで ErasableBottle を置く場所を決める
                 var (column, row) = puttableTilePosition[Random.Range(0, puttableTilePosition.Count)];
                 BoardManager.Instance.PutBottle(erasableBottleController, column, row);
