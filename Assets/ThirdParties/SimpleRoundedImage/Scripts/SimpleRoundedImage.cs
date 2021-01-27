@@ -144,10 +144,11 @@ namespace GFramework
             }
 
             var v = new Vector4(
-                    padding.x / spriteW,
+                    padding.x / (spriteW == 0 ? Mathf.Epsilon : spriteW),
                     padding.y / (spriteH == 0 ? Mathf.Epsilon : spriteH),
-                    (spriteW - padding.z) / spriteW,
-                    (spriteH - padding.w) / (spriteH == 0 ? Mathf.Epsilon : spriteH));
+                    (spriteW - padding.z) / (spriteW == 0 ? Mathf.Epsilon : spriteW),
+                    (spriteH - padding.w) / (spriteH == 0 ? Mathf.Epsilon : spriteH)
+                    );
 
             v = new Vector4(
                     r.x + r.width * v.x,
