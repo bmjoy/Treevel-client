@@ -16,7 +16,7 @@ namespace Treevel.Editor
         /// </summary>
         private static readonly List<long> _FILE_ID = new List<long> {
             9178724915984365835, // BaseText
-            8335351129932690981, // BaseMultiLanguage
+            8335351129932690981  // BaseMultiLanguage
         };
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Treevel.Editor
                 var guid = sceneGuids[i];
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 // プログレスバーを表示
-                EditorUtility.DisplayProgressBar("", path, (float)i / (float)sceneGuids.Length);
+                EditorUtility.DisplayProgressBar("", path, i / (float)sceneGuids.Length);
                 // シーンを開く
                 EditorSceneManager.OpenScene(path);
                 Debug.Log(AssetDatabase.LoadMainAssetAtPath(path));

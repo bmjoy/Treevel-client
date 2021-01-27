@@ -6,6 +6,6 @@
         Warp,
         Holy,
         Spiderweb,
-        Ice,
+        Ice
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine.Networking;
+﻿using System;
+using UnityEngine.Networking;
 
 namespace Treevel.Common.Networks.Requests
 {
@@ -11,7 +12,7 @@ namespace Treevel.Common.Networks.Requests
 
         public override void SetCache()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         protected override object DeserializeResponse()

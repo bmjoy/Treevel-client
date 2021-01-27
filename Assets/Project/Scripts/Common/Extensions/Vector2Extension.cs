@@ -47,10 +47,10 @@ namespace Treevel.Common.Extensions
             if (Math.Abs(v.x) > Math.Abs(v.y)) {
                 // x方向が強い
                 return v.x >= 0 ? Vector2.right : Vector2.left;
-            } else {
-                // y方向が強い
-                return v.y >= 0 ? Vector2.up : Vector2.down;
             }
+
+            // y方向が強い
+            return v.y >= 0 ? Vector2.up : Vector2.down;
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Treevel.Common.Entities.GameDatas
 {
-    [System.Serializable]
+    [Serializable]
     public class TileData
     {
         public ETileType type;

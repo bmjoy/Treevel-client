@@ -17,7 +17,7 @@ namespace Treevel.Common.Managers
     {
         SE_Success,
         SE_Failure,
-        SE_ThunderAttack,
+        SE_ThunderAttack
     }
 
     public class SoundManager : SingletonObject<SoundManager>
@@ -178,7 +178,7 @@ namespace Treevel.Common.Managers
                 Debug.LogError($"Cannot Find SE clip with key: {key}");
                 return null;
             } catch (ArgumentNullException) {
-                Debug.LogError($"SE Clip list is empty");
+                Debug.LogError("SE Clip list is empty");
                 return null;
             }
         }
@@ -192,7 +192,7 @@ namespace Treevel.Common.Managers
                 Debug.LogError($"Cannot Find BGM clip with key: {key}");
                 return null;
             } catch (ArgumentNullException) {
-                Debug.LogError($"BGM Clip list is empty");
+                Debug.LogError("BGM Clip list is empty");
                 return null;
             }
         }
@@ -208,7 +208,7 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// プレハブにクリップリストを保存できるようにデータ化するためのクラス
         /// </summary>
-        [System.Serializable]
+        [Serializable]
         private class SoundData
         {
             [SerializeField] public string key;

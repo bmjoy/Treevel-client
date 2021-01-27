@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using Treevel.Modules.GamePlayScene.Tile;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
@@ -38,7 +38,7 @@ namespace Treevel.Modules.GamePlayScene
                 );
             } else {
                 // 存在しないステージ
-                Debug.LogError("Unable to create a stage whose stageId is " + stageNumber.ToString() + ".");
+                Debug.LogError("Unable to create a stage whose stageId is " + stageNumber + ".");
             }
 
             CreatedFinished = true;

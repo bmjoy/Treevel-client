@@ -225,7 +225,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             if (!StageGenerator.CreatedFinished) return;
 
-            var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
+            var bottles = FindObjectsOfType<NormalBottleController>();
             if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
 
             // 全ての成功判定が付くボトルが成功の場合，成功状態に遷移
@@ -268,7 +268,7 @@ namespace Treevel.Modules.GamePlayScene
         private static void CleanObject()
         {
             // ボトルを破壊
-            var bottles = GameObject.FindObjectsOfType<AbstractBottleController>();
+            var bottles = FindObjectsOfType<AbstractBottleController>();
             foreach (var bottle in bottles) {
                 // ボトルの削除
                 DestroyImmediate(bottle.gameObject);
@@ -327,7 +327,7 @@ namespace Treevel.Modules.GamePlayScene
                 // TODO: ステージTextを適切に配置する
                 // ステージID表示
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
-                _stageNumberText.text = seasonId.ToString() + "_" + treeId.ToString() + "_" + stageNumber.ToString();
+                _stageNumberText.text = seasonId + "_" + treeId + "_" + stageNumber;
 
                 // タイマー設定
                 _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
@@ -335,7 +335,7 @@ namespace Treevel.Modules.GamePlayScene
                 _customTimer.Initialize(_timerText);
             }
 
-            public override void OnEnter(State @from = null)
+            public override void OnEnter(State from = null)
             {
                 // TODO: ステージ準備中のアニメーションを用意する
                 CleanObject();
@@ -559,14 +559,14 @@ namespace Treevel.Modules.GamePlayScene
                 var content = _tutorialWindow.transform.Find("Content");
                 if (tutorialData.type == ETutorialType.Image) {
                     var imageAssetReference = tutorialData.image;
-                    imageAssetReference.LoadAssetAsync<Texture2D>().Completed += (handle) => {
+                    imageAssetReference.LoadAssetAsync<Texture2D>().Completed += handle => {
                         var image = content.GetComponent<RawImage>();
                         image.texture = handle.Result;
                         _tutorialWindow.SetActive(true);
                     };
                 } else if (tutorialData.type == ETutorialType.Video) {
                     var videoAssetReference = tutorialData.video;
-                    videoAssetReference.LoadAssetAsync<VideoClip>().Completed += (handle) => {
+                    videoAssetReference.LoadAssetAsync<VideoClip>().Completed += handle => {
                         var videoPlayer = content.GetComponent<VideoPlayer>();
 
                         videoPlayer.clip = handle.Result;

@@ -102,7 +102,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public void SaveState()
         {
-            PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(), Convert.ToInt32(state));
+            PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.TREE + treeId, Convert.ToInt32(state));
         }
     }
 }

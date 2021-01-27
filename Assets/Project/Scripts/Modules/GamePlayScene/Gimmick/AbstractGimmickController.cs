@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             try {
                 _gimmickId = checked((short)(_gimmickId + 1));
-            } catch (System.OverflowException) {
+            } catch (OverflowException) {
                 _gimmickId = short.MinValue;
             }
         }

@@ -1,7 +1,7 @@
-﻿using Cysharp.Threading.Tasks;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -24,7 +24,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private float _startTime;
 
         private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys =
-            new Dictionary<EGimmickType, string>() {
+            new Dictionary<EGimmickType, string> {
                 { EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB },
                 { EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB },
                 { EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB },
@@ -32,7 +32,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 { EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB },
                 { EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB },
                 { EGimmickType.Fog, Constants.Address.FOG_PREFAB },
-                { EGimmickType.Powder, Constants.Address.POWDER_PREFAB },
+                { EGimmickType.Powder, Constants.Address.POWDER_PREFAB }
             };
 
         public UniTask Initialize(List<GimmickData> gimmicks)
@@ -67,7 +67,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var gimmickObject = gimmickObjectOp.Result;
 
                 if (gimmickObject == null) {
-                    Debug.LogError($"ギミックの生成が失敗しました。");
+                    Debug.LogError("ギミックの生成が失敗しました。");
                     yield break;
                 }
 

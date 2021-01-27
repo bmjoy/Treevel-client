@@ -1,6 +1,8 @@
-﻿using Treevel.Common.Networks.Objects;
+﻿using System;
+using Treevel.Common.Networks.Objects;
 using UnityEngine;
 using UnityEngine.Networking;
+using Random = UnityEngine.Random;
 
 namespace Treevel.Common.Networks.Requests
 {
@@ -13,7 +15,7 @@ namespace Treevel.Common.Networks.Requests
 
         public override void SetCache()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         protected override object DeserializeResponse()
@@ -24,7 +26,7 @@ namespace Treevel.Common.Networks.Requests
         protected override object GetData_Local()
         {
             // デバッグ用
-            var stageStats = new StageStats(clearRate: Random.Range(0.0f, 1.0f), minClearTime: 1f, stageID: "1-1");
+            var stageStats = new StageStats(Random.Range(0.0f, 1.0f), 1f, "1-1");
 
             return stageStats;
         }

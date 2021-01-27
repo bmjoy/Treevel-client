@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Treevel.Common.Networks.Objects
 {
-    [System.Serializable]
+    [Serializable]
     public struct StageStats
     {
         [SerializeField] private float clear_rate;

@@ -11,25 +11,23 @@ namespace Treevel.Common.Networks
     /// </summary>
     public class UnityWebRequestAwaiter : INotifyCompletion
     {
-        private UnityWebRequestAsyncOperation _asyncOp;
+        private readonly UnityWebRequestAsyncOperation _asyncOp;
         private Action _continuation;
 
         public UnityWebRequestAwaiter(UnityWebRequestAsyncOperation asyncOp)
         {
-            this._asyncOp = asyncOp;
+            _asyncOp = asyncOp;
             asyncOp.completed += OnRequestCompleted;
         }
 
-        public bool IsCompleted {
-            get { return _asyncOp.isDone; }
-        }
-
-        public void GetResult() { }
+        public bool IsCompleted => _asyncOp.isDone;
 
         public void OnCompleted(Action continuation)
         {
-            this._continuation = continuation;
+            _continuation = continuation;
         }
+
+        public void GetResult() { }
 
         private void OnRequestCompleted(AsyncOperation obj)
         {

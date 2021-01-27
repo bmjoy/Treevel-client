@@ -1,7 +1,7 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
@@ -104,7 +104,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public GameObject[] GetBottlesOnRow(ERow row)
         {
-            List<GameObject> ret = new List<GameObject>();
+            var ret = new List<GameObject>();
 
             var r = (int)row;
             for (var c = 0; c < Constants.StageSize.COLUMN; c++) {
@@ -121,7 +121,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public GameObject[] GetBottlesOnColumn(EColumn column)
         {
-            List<GameObject> ret = new List<GameObject>();
+            var ret = new List<GameObject>();
 
             var c = (int)column;
             for (var r = 0; r < Constants.StageSize.ROW; r++) {
@@ -353,7 +353,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             var xy = TileNumToXY(tileNum);
             if (xy == null) {
-                throw new System.InvalidOperationException($"Invalid Tile Num {tileNum}");
+                throw new InvalidOperationException($"Invalid Tile Num {tileNum}");
             }
 
             var (x, y) = xy.Value;
@@ -369,7 +369,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             var tileNum = XYToTileNum(x, y);
             if (tileNum == null) {
-                throw new System.InvalidOperationException($"invalid (x, y) = ({x}, {y})");
+                throw new InvalidOperationException($"invalid (x, y) = ({x}, {y})");
             }
 
             return GetTilePos(tileNum.Value);
@@ -383,7 +383,7 @@ namespace Treevel.Modules.GamePlayScene
             /// <summary>
             /// 格子にあるタイル
             /// </summary>
-            public AbstractTileController tile;
+            public readonly Vector2 worldPosition;
 
             /// <summary>
             /// 格子にあるボトル
@@ -393,7 +393,7 @@ namespace Treevel.Modules.GamePlayScene
             /// <summary>
             /// 格子のワールド座標
             /// </summary>
-            public readonly Vector2 worldPosition;
+            public AbstractTileController tile;
 
             public Square(float x, float y)
             {

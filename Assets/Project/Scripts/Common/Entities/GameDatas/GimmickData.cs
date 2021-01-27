@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Treevel.Common.Entities.GameDatas
 {
-    [System.Serializable]
+    [Serializable]
     public class GimmickData
     {
         /// <summary>

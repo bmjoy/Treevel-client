@@ -11,8 +11,7 @@ using UnityEngine;
 
 namespace Treevel.Editor
 {
-    [CustomEditor(typeof(StageData))]
-    [CanEditMultipleObjects]
+    [CustomEditor(typeof(StageData)), CanEditMultipleObjects]
     public class StageDataEditor : UnityEditor.Editor
     {
         private SerializedProperty _tileDatasProp;
@@ -91,7 +90,7 @@ namespace Treevel.Editor
             var tiles = _src.TileDatas;
 
             // 検証済みのタイル番号
-            HashSet<int> validatedTileNumbers = new HashSet<int>();
+            var validatedTileNumbers = new HashSet<int>();
 
             tiles.ForEach(tile => {
                 if (tile.number != 0 && validatedTileNumbers.Contains(tile.number)) {
@@ -258,7 +257,7 @@ namespace Treevel.Editor
                 EditorGUI.indentLevel++;
 
                 var gimmickTypeProp = gimmickDataProp.FindPropertyRelative("type");
-                int newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
+                var newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                     label: new GUIContent("Type"),
                     selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
                     // Poderギミックは１ステージに１つまで
@@ -354,7 +353,7 @@ namespace Treevel.Editor
                             {
                                 var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
                                 randomDirectionProp.arraySize = 4;
-                                var subLabels = (new string[] { "L", "R", "U", "D" }).Select(s => new GUIContent(s))
+                                var subLabels = new[] { "L", "R", "U", "D" }.Select(s => new GUIContent(s))
                                     .ToArray();
                                 var rect = EditorGUILayout.GetControlRect();
                                 EditorGUI.MultiPropertyField(rect, subLabels,

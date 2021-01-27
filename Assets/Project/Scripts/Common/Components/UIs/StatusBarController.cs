@@ -1,7 +1,7 @@
-﻿#if UNITY_IOS
+﻿using UnityEngine;
+#if UNITY_IOS
 using UnityEngine.iOS;
 #endif
-using UnityEngine;
 
 namespace Treevel.Common.Components.UIs
 {

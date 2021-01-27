@@ -1,6 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -10,11 +10,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 {
     public static class BottleGenerator
     {
-        private static Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string>() {
+        private static readonly Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string> {
             { EBottleType.Dynamic, Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB },
             { EBottleType.Static, Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB },
             { EBottleType.Normal, Constants.Address.NORMAL_BOTTLE_PREFAB },
-            { EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB },
+            { EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB }
         };
 
         public static UniTask CreateBottles(List<BottleData> bottleDatas)

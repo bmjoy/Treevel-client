@@ -48,9 +48,9 @@ namespace Treevel.Common.Components.UIs
         public void Load(AsyncOperationHandle op)
         {
             _loadingOps.Add(op);
-            op.Completed += (op1 => {
+            op.Completed += op1 => {
                 _loadingOps.Remove(op1);
-            });
+            };
 
             if (!gameObject.activeSelf) {
                 gameObject.SetActive(true);

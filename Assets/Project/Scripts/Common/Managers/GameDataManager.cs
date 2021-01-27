@@ -4,13 +4,12 @@ using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Treevel.Common.Managers
 {
     public static class GameDataManager
     {
-        private static Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
+        private static readonly Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
 
         public static async UniTask Initialize()
         {
@@ -27,10 +26,11 @@ namespace Treevel.Common.Managers
         public static StageData GetStage(ETreeId treeId, int stageNumber)
         {
             var stageKey = StageData.EncodeStageIdKey(treeId, stageNumber);
-            if (_stageDataMap.ContainsKey(stageKey))
+            if (_stageDataMap.ContainsKey(stageKey)) {
                 return _stageDataMap[stageKey];
-            else
-                return null;
+            }
+
+            return null;
         }
 
         public static StageData[] GetStages(ETreeId treeId)

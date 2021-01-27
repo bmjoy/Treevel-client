@@ -35,10 +35,11 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public override void UpdateState()
         {
-            if (branchStates.ContainsKey(saveKey))
+            if (branchStates.ContainsKey(saveKey)) {
                 released = branchStates[saveKey];
-            else
+            } else {
                 released = false;
+            }
 
             if (!released) {
                 if (constraintObjects.Length == 0) {

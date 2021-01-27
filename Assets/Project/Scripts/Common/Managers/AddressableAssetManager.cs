@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Treevel.Common.Entities;
-using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -32,11 +32,11 @@ namespace Treevel.Common.Managers
         public static AsyncOperationHandle Initialize()
         {
             var handle = Addressables.InitializeAsync();
-            handle.Completed += (obj) => {
+            handle.Completed += obj => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     _initialized = true;
                 } else {
-                    throw new System.Exception("Fail to initialize Addressable Asset System.");
+                    throw new Exception("Fail to initialize Addressable Asset System.");
                 }
             };
             return handle;
@@ -73,10 +73,10 @@ namespace Treevel.Common.Managers
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>().Result;
-            } else {
-                Debug.LogWarning($"Asset with key:{key} is not loaded.");
-                return default;
             }
+
+            Debug.LogWarning($"Asset with key:{key} is not loaded.");
+            return default;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Treevel.Common.Managers
 
             var handle = _loadedAssets[sceneName];
             var ret = Addressables.UnloadSceneAsync(handle);
-            ret.Completed += (obj) => {
+            ret.Completed += obj => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     // アンロード終了後、辞書から削除
                     _loadedAssets.Remove(sceneName);
@@ -159,9 +159,9 @@ namespace Treevel.Common.Managers
         /// <param name="stageNumber"> ステージ番号 </param>
         internal static void LoadStageDependencies(ETreeId treeId, int stageNumber)
         {
-            StageData stage = GameDataManager.GetStage(treeId, stageNumber);
+            var stage = GameDataManager.GetStage(treeId, stageNumber);
 
-            stage.BottleDatas.ForEach((bottleData) => {
+            stage.BottleDatas.ForEach(bottleData => {
                 switch (bottleData.type) {
                     case EBottleType.Dynamic:
                         LoadAsset<GameObject>(Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB);
@@ -179,7 +179,7 @@ namespace Treevel.Common.Managers
                         LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
                         break;
                     default:
-                        throw new System.NotImplementedException();
+                        throw new NotImplementedException();
                 }
 
                 if (bottleData.isSelfish) LoadAsset<GameObject>(Constants.Address.SELFISH_EFFECT_PREFAB);
@@ -209,7 +209,7 @@ namespace Treevel.Common.Managers
                         LoadAsset<GameObject>(Constants.Address.ICE_TILE_PREFAB);
                         break;
                     default:
-                        throw new System.NotImplementedException();
+                        throw new NotImplementedException();
                 }
             });
 
@@ -254,12 +254,12 @@ namespace Treevel.Common.Managers
                                 LoadAsset<GameObject>(Constants.Address.SAND_PILED_UP_POWDER_PREFAB);
                                 break;
                             default:
-                                throw new System.ArgumentOutOfRangeException();
+                                throw new ArgumentOutOfRangeException();
                         }
 
                         break;
                     default:
-                        throw new System.ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException();
                 }
             });
         }

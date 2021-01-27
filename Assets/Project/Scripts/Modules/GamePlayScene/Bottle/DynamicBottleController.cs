@@ -1,6 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
+﻿using System;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using TouchScript.Gestures;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Extensions;
@@ -8,7 +8,6 @@ using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {

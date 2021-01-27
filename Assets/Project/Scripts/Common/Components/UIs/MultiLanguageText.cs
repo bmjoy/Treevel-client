@@ -1,4 +1,5 @@
-﻿using Treevel.Common.Entities;
+﻿using System;
+using Treevel.Common.Entities;
 using Treevel.Common.Utils;
 using UniRx;
 using UnityEngine;
@@ -24,13 +25,13 @@ namespace Treevel.Common.Components.UIs
         public ETextIndex TextIndex {
             get =>
                 _textIndex.CompareTo(ETextIndex.Error) == 0
-                    ? (ETextIndex)System.Enum.Parse(typeof(ETextIndex), _indexStr)
+                    ? (ETextIndex)Enum.Parse(typeof(ETextIndex), _indexStr)
                     : _textIndex;
             set {
                 if (_textIndex == value) return;
 
                 _textIndex = value;
-                _indexStr = System.Enum.GetName(typeof(ETextIndex), _textIndex);
+                _indexStr = Enum.GetName(typeof(ETextIndex), _textIndex);
                 text = LanguageUtility.GetText(_textIndex);
             }
         }
