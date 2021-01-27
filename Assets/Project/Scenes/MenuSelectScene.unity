@@ -12754,7 +12754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1, y: -0.5}
   m_AnchorMax: {x: 2, y: 1.5}
-  m_AnchoredPosition: {x: 25.993164, y: 0}
+  m_AnchoredPosition: {x: 1025.0356, y: -11.813477}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1755488822
@@ -15941,11 +15941,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4737506519329319355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cc86b0e5022641e58d5d0efc05ca6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.05958529, g: 0.53333336, b: 0.9716981, a: 1}
+  m_Color: {r: 0.05882353, g: 0.53333336, b: 0.972549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15962,6 +15962,8 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  Radius: 55
+  TriangleNum: 20
 --- !u!222 &4737506519329319359
 CanvasRenderer:
   m_ObjectHideFlags: 0
