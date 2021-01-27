@@ -143,6 +143,16 @@ namespace GFramework
                 }
             }
 
+            /*
+                Copyright (c) 2021 takesi0627 and other contributors.
+                // Fix zero division.
+                var v = new Vector4(
+                    padding.x / spriteW,
+                    padding.y / spriteH,
+                    (spriteW - padding.z) / spriteW,
+                    (spriteH - padding.w) / spriteH);
+            */
+
             var v = new Vector4(
                     padding.x / (spriteW == 0 ? Mathf.Epsilon : spriteW),
                     padding.y / (spriteH == 0 ? Mathf.Epsilon : spriteH),
