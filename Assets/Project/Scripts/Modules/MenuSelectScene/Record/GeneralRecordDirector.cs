@@ -224,7 +224,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             }
 
             var radius = _failureReasonGraphBackground.GetComponent<RectTransform>().rect.width / 2;
-            var angle = fillAmount / 2 * 2 * Mathf.PI;
+            var angle = (fillAmount / 2) * 2 * Mathf.PI;
 
             var x = radius * Mathf.Sin(angle) * 0.5f;
             var y = radius * Mathf.Cos(angle) * 0.5f;

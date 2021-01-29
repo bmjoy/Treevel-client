@@ -27,6 +27,7 @@ namespace Treevel.Common.Components.UIs
         private EErrorCode _errorCode;
 
         public EErrorCode ErrorCode {
+            get => _errorCode;
             set {
                 _errorCode = value;
                 // エラーコードから対応するエラーメッセージを取得
