@@ -43,10 +43,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // イベントに処理を登録する
             _bottleController.StartMove.Subscribe(_ => {
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, false);
-            }).AddTo(compositeDisposable, this);
+            }).AddTo(compositeDisposableOnGameEnd, this);
             _bottleController.EndMove.Subscribe(_ => {
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
-            }).AddTo(compositeDisposable, this);
+            }).AddTo(compositeDisposableOnGameEnd, this);
         }
 
         public override IEnumerator Trigger()

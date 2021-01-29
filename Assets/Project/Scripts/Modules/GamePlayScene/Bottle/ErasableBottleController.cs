@@ -48,7 +48,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     // 退出させる
                     _animator.SetBool(_ANIMATOR_PARAM_OUT, true);
                 })
-                .AddTo(compositeDisposable, this);
+                .AddTo(compositeDisposableOnGameEnd, this);
 
             _animator.GetBehaviour<ObservableStateMachineTrigger>()
                 .OnStateExitAsObservable()
