@@ -10,7 +10,7 @@ namespace Treevel.Editor
     {
         [SerializeField] private Vector2 referenceResolution;
 
-        [SerializeField, Range(0, 1)]  private float matchWidthOrHeight;
+        [SerializeField, Range(0, 1)] private float matchWidthOrHeight;
 
         public Vector2 ReferenceResolution => referenceResolution;
 
