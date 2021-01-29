@@ -180,7 +180,6 @@ namespace Treevel.Common.Managers
                         break;
                     case EBottleType.Erasable:
                         LoadAsset<GameObject>(Constants.Address.ERASABLE_BOTTLE_PREFAB);
-                        LoadAsset<Sprite>(Constants.Address.ERASABLE_BOTTLE_SPRITE);
                         break;
                     default:
                         throw new System.NotImplementedException();
