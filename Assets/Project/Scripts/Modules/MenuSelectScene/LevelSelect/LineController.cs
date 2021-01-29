@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -101,7 +100,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
             // 点の位置と線の長さを求める
             var preTargetPosition = lineRenderer.GetPosition(0);
-            for (int i = 0; i <= _middlePointNum + 1; i++) {
+            for (var i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
                 var targetPosition = CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint,
                                                                   secondControlPoint, endPointLocalPosition, ratio);

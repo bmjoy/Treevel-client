@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
+using Object = UnityEngine.Object;
 
 namespace Treevel.Editor
 {
@@ -19,15 +20,15 @@ namespace Treevel.Editor
         private Dictionary<string, State> m_States = new Dictionary<string, State>();
 
         // Find internal methods with reflection
-        private static MethodInfo findMethod = typeof(UnityEventBase).GetMethod(
+        private static readonly MethodInfo findMethod = typeof(UnityEventBase).GetMethod(
             "FindMethod", BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.Standard,
-            new Type[] { typeof(string), typeof(Type), typeof(PersistentListenerMode), typeof(Type) }, null);
+            new[] { typeof(string), typeof(Type), typeof(PersistentListenerMode), typeof(Type) }, null);
 
-        private static MethodInfo temp = typeof(GUIContent).GetMethod(
+        private static readonly MethodInfo temp = typeof(GUIContent).GetMethod(
             "Temp", BindingFlags.NonPublic | BindingFlags.Static, null, CallingConventions.Standard,
-            new Type[] { typeof(string) }, null);
+            new[] { typeof(string) }, null);
 
-        private static PropertyInfo mixedValueContent =
+        private static readonly PropertyInfo mixedValueContent =
             typeof(EditorGUI).GetProperty("mixedValueContent", BindingFlags.NonPublic | BindingFlags.Static);
 
         private Styles m_Styles;
@@ -45,8 +46,8 @@ namespace Treevel.Editor
                     evt, new object[] { "Invoke", evt.GetType(), PersistentListenerMode.EventDefined, null });
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(" (");
-            var array = ((IEnumerable<ParameterInfo>)method.GetParameters()).Select(x => x.ParameterType).ToArray();
-            for (int index = 0; index < array.Length; ++index) {
+            var array = method.GetParameters().Select(x => x.ParameterType).ToArray();
+            for (var index = 0; index < array.Length; ++index) {
                 stringBuilder.Append(array[index].Name);
                 if (index < array.Length - 1) stringBuilder.Append(", ");
             }
@@ -57,7 +58,7 @@ namespace Treevel.Editor
 
         private State GetState(SerializedProperty prop)
         {
-            string propertyPath = prop.propertyPath;
+            var propertyPath = prop.propertyPath;
             State state;
             m_States.TryGetValue(propertyPath, out state);
             if (state == null) {
@@ -103,7 +104,7 @@ namespace Treevel.Editor
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             RestoreState(property);
-            float num = 0.0f;
+            var num = 0.0f;
             if (m_ReorderableList != null) num = m_ReorderableList.GetHeight();
             return num;
         }
@@ -115,7 +116,7 @@ namespace Treevel.Editor
             if (m_DummyEvent == null) return;
             if (m_Styles == null) m_Styles = new Styles();
             if (m_ReorderableList == null) return;
-            int indentLevel = EditorGUI.indentLevel;
+            var indentLevel = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
             m_ReorderableList.DoList(position);
             EditorGUI.indentLevel = indentLevel;
@@ -124,7 +125,7 @@ namespace Treevel.Editor
         protected virtual void DrawEventHeader(Rect headerRect)
         {
             headerRect.height = 16f;
-            string text = (!string.IsNullOrEmpty(m_Text) ? m_Text : "Event") + GetEventParams(m_DummyEvent);
+            var text = (!string.IsNullOrEmpty(m_Text) ? m_Text : "Event") + GetEventParams(m_DummyEvent);
             GUI.Label(headerRect, text);
         }
 
@@ -178,9 +179,9 @@ namespace Treevel.Editor
                     break;
             }
 
-            string stringValue = propertyRelative3.FindPropertyRelative("m_ObjectArgumentAssemblyTypeName").stringValue;
-            var type = typeof(UnityEngine.Object);
-            if (!string.IsNullOrEmpty(stringValue)) type = Type.GetType(stringValue, false) ?? typeof(UnityEngine.Object);
+            var stringValue = propertyRelative3.FindPropertyRelative("m_ObjectArgumentAssemblyTypeName").stringValue;
+            var type = typeof(Object);
+            if (!string.IsNullOrEmpty(stringValue)) type = Type.GetType(stringValue, false) ?? typeof(Object);
             if (persistentListenerMode == PersistentListenerMode.Object) {
                 EditorGUI.BeginChangeCheck();
                 var @object = EditorGUI.ObjectField(position3, GUIContent.none, propertyRelative6.objectReferenceValue,
@@ -198,8 +199,9 @@ namespace Treevel.Editor
                     var enumType = ((EnumActionAttribute)attributes[0]).enumType;
                     var value = (Enum)Enum.ToObject(enumType, propertyRelative6.intValue);
                     propertyRelative6.intValue = Convert.ToInt32(EditorGUI.EnumPopup(position3, value));
-                } else
+                } else {
                     EditorGUI.PropertyField(position3, propertyRelative6, GUIContent.none);
+                }
             }
 
             EditorGUI.BeginDisabledGroup(propertyRelative4.objectReferenceValue == null);
@@ -216,7 +218,7 @@ namespace Treevel.Editor
                                                     propertyRelative4.objectReferenceValue, GetMode(propertyRelative2),
                                                     type)) {
                     var str = "UnknownComponent";
-                    UnityEngine.Object objectReferenceValue = propertyRelative4.objectReferenceValue;
+                    var objectReferenceValue = propertyRelative4.objectReferenceValue;
                     if (objectReferenceValue != null) str = objectReferenceValue.GetType().Name;
                     stringBuilder.Append(string.Format("<Missing {0}.{1}>", str, propertyRelative5.stringValue));
                 } else {
@@ -233,9 +235,11 @@ namespace Treevel.Editor
                 content = (GUIContent)temp.Invoke(null, new object[] { stringBuilder.ToString() });
             }
 
-            if (GUI.Button(rect1, content, EditorStyles.popup))
+            if (GUI.Button(rect1, content, EditorStyles.popup)) {
                 BuildPopupList(propertyRelative4.objectReferenceValue, m_DummyEvent, arrayElementAtIndex)
                     .DropDown(rect1);
+            }
+
             EditorGUI.EndProperty();
             EditorGUI.EndDisabledGroup();
             GUI.backgroundColor = backgroundColor;
@@ -270,7 +274,7 @@ namespace Treevel.Editor
         private void AddEventListener(ReorderableList list)
         {
             if (m_ListenersArray.hasMultipleDifferentValues) {
-                foreach (UnityEngine.Object targetObject in m_ListenersArray.serializedObject.targetObjects) {
+                foreach (var targetObject in m_ListenersArray.serializedObject.targetObjects) {
                     var serializedObject = new SerializedObject(targetObject);
                     ++serializedObject.FindProperty(m_ListenersArray.propertyPath).arraySize;
                     serializedObject.ApplyModifiedProperties();
@@ -317,27 +321,27 @@ namespace Treevel.Editor
             return Activator.CreateInstance(type) as UnityEventBase;
         }
 
-        private static IEnumerable<ValidMethodMap> CalculateMethodMap(UnityEngine.Object target, Type[] t,
+        private static IEnumerable<ValidMethodMap> CalculateMethodMap(Object target, Type[] t,
                                                                       bool allowSubclasses)
         {
             var validMethodMapList = new List<ValidMethodMap>();
             if (target == null || t == null) return validMethodMapList;
             var type = target.GetType();
-            var list = ((IEnumerable<MethodInfo>)type.GetMethods()).Where(x => !x.IsSpecialName).ToList();
-            var source = ((IEnumerable<PropertyInfo>)type.GetProperties()).AsEnumerable().Where(x => {
+            var list = type.GetMethods().Where(x => !x.IsSpecialName).ToList();
+            var source = type.GetProperties().AsEnumerable().Where(x => {
                 if (x.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length == 0) return x.GetSetMethod() != null;
                 return false;
             });
             list.AddRange(source.Select(x => x.GetSetMethod()));
-            using (List<MethodInfo>.Enumerator enumerator = list.GetEnumerator()) {
+            using (var enumerator = list.GetEnumerator()) {
                 while (enumerator.MoveNext()) {
                     var current = enumerator.Current;
                     var parameters = current.GetParameters();
                     if (parameters.Length == t.Length &&
                         current.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length <= 0 &&
                         current.ReturnType == typeof(void)) {
-                        bool flag = true;
-                        for (int index = 0; index < t.Length; ++index) {
+                        var flag = true;
+                        for (var index = 0; index < t.Length; ++index) {
                             if (!parameters[index].ParameterType.IsAssignableFrom(t[index])) flag = false;
                             if (allowSubclasses && t[index].IsAssignableFrom(parameters[index].ParameterType)) flag = true;
                         }
@@ -345,7 +349,7 @@ namespace Treevel.Editor
                         if (flag)
                             validMethodMapList.Add(new ValidMethodMap() {
                                 target = target,
-                                methodInfo = current
+                                methodInfo = current,
                             });
                     }
                 }
@@ -355,21 +359,21 @@ namespace Treevel.Editor
         }
 
         public static bool IsPersistantListenerValid(UnityEventBase dummyEvent, string methodName,
-                                                     UnityEngine.Object uObject, PersistentListenerMode modeEnum,
+                                                     Object uObject, PersistentListenerMode modeEnum,
                                                      Type argumentType)
         {
             if (uObject == null || string.IsNullOrEmpty(methodName)) return false;
             return GetMethod(dummyEvent, methodName, uObject, modeEnum, argumentType) != null;
         }
 
-        private static MethodInfo GetMethod(UnityEventBase dummyEvent, string methodName, UnityEngine.Object uObject,
+        private static MethodInfo GetMethod(UnityEventBase dummyEvent, string methodName, Object uObject,
                                             PersistentListenerMode modeEnum, Type argumentType)
         {
             return (MethodInfo)findMethod.Invoke(
                 dummyEvent, new object[] { methodName, uObject.GetType(), modeEnum, argumentType });
         }
 
-        private static GenericMenu BuildPopupList(UnityEngine.Object target, UnityEventBase dummyEvent,
+        private static GenericMenu BuildPopupList(Object target, UnityEventBase dummyEvent,
                                                   SerializedProperty listener)
         {
             var target1 = target;
@@ -377,16 +381,16 @@ namespace Treevel.Editor
             var propertyRelative = listener.FindPropertyRelative("m_MethodName");
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent("No Function"), string.IsNullOrEmpty(propertyRelative.stringValue),
-                         new GenericMenu.MenuFunction2(ClearEventFunction),
+                         ClearEventFunction,
                          new UnityEventFunction(listener, null, null, PersistentListenerMode.EventDefined));
             if (target1 == null) return menu;
             menu.AddSeparator(string.Empty);
-            var array = ((IEnumerable<ParameterInfo>)dummyEvent.GetType().GetMethod("Invoke").GetParameters())
+            var array = dummyEvent.GetType().GetMethod("Invoke").GetParameters()
                 .Select(x => x.ParameterType).ToArray();
             GeneratePopUpForType(menu, target1, false, listener, array);
             if (target1 is GameObject) {
                 var components = (target1 as GameObject).GetComponents<Component>();
-                var list = ((IEnumerable<Component>)components).Where(c => c != null).Select(c => c.GetType().Name)
+                var list = components.Where(c => c != null).Select(c => c.GetType().Name)
                     .GroupBy(x => x).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
                 foreach (var component in components) {
                     if (!(component == null)) GeneratePopUpForType(menu, component, list.Contains(component.GetType().Name), listener, array);
@@ -396,12 +400,12 @@ namespace Treevel.Editor
             return menu;
         }
 
-        private static void GeneratePopUpForType(GenericMenu menu, UnityEngine.Object target, bool useFullTargetName,
+        private static void GeneratePopUpForType(GenericMenu menu, Object target, bool useFullTargetName,
                                                  SerializedProperty listener, Type[] delegateArgumentsTypes)
         {
             var methods = new List<ValidMethodMap>();
-            string targetName = !useFullTargetName ? target.GetType().Name : target.GetType().FullName;
-            bool flag = false;
+            var targetName = !useFullTargetName ? target.GetType().Name : target.GetType().FullName;
+            var flag = false;
             if (delegateArgumentsTypes.Length != 0) {
                 GetMethodsForTargetAndMode(target, delegateArgumentsTypes, methods,
                                            PersistentListenerMode.EventDefined);
@@ -409,8 +413,8 @@ namespace Treevel.Editor
                     menu.AddDisabledItem(new GUIContent(targetName + "/Dynamic " +
                                                         string.Join(
                                                             ", ",
-                                                            ((IEnumerable<Type>)delegateArgumentsTypes)
-                                                            .Select(e => GetTypeName(e)).ToArray())));
+                                                            delegateArgumentsTypes
+                                                                .Select(e => GetTypeName(e)).ToArray())));
                     AddMethodsToMenu(menu, listener, methods, targetName);
                     flag = true;
                 }
@@ -421,7 +425,7 @@ namespace Treevel.Editor
             GetMethodsForTargetAndMode(target, new Type[1] { typeof(int) }, methods, PersistentListenerMode.Int);
             GetMethodsForTargetAndMode(target, new Type[1] { typeof(string) }, methods, PersistentListenerMode.String);
             GetMethodsForTargetAndMode(target, new Type[1] { typeof(bool) }, methods, PersistentListenerMode.Bool);
-            GetMethodsForTargetAndMode(target, new Type[1] { typeof(UnityEngine.Object) }, methods,
+            GetMethodsForTargetAndMode(target, new Type[1] { typeof(Object) }, methods,
                                        PersistentListenerMode.Object, true);
             GetMethodsForTargetAndMode(target, new Type[0], methods, PersistentListenerMode.Void);
             if (methods.Count <= 0) return;
@@ -434,16 +438,17 @@ namespace Treevel.Editor
                                              List<ValidMethodMap> methods, string targetName)
         {
             foreach (var method in methods.OrderBy(e => e.methodInfo.Name.StartsWith("set_") ? 0 : 1)
-                .ThenBy(e => e.methodInfo.Name))
+                .ThenBy(e => e.methodInfo.Name)) {
                 AddFunctionsForScript(menu, listener, method, targetName);
+            }
         }
 
-        private static void GetMethodsForTargetAndMode(UnityEngine.Object target, Type[] delegateArgumentsTypes,
+        private static void GetMethodsForTargetAndMode(Object target, Type[] delegateArgumentsTypes,
                                                        List<ValidMethodMap> methods, PersistentListenerMode mode,
                                                        bool allowSubclasses = false)
         {
             var methodMaps = CalculateMethodMap(target, delegateArgumentsTypes, allowSubclasses).ToArray();
-            for (int i = 0; i < methodMaps.Length; i++) {
+            for (var i = 0; i < methodMaps.Length; i++) {
                 methodMaps[i].mode = mode;
                 methods.Add(methodMaps[i]);
             }
@@ -459,8 +464,8 @@ namespace Treevel.Editor
             var propertyRelative = listener.FindPropertyRelative("m_Arguments")
                 .FindPropertyRelative("m_ObjectArgumentAssemblyTypeName");
             var stringBuilder = new StringBuilder();
-            int length = method.methodInfo.GetParameters().Length;
-            for (int index = 0; index < length; ++index) {
+            var length = method.methodInfo.GetParameters().Length;
+            for (var index = 0; index < length; ++index) {
                 var parameter = method.methodInfo.GetParameters()[index];
                 stringBuilder.Append(string.Format("{0}", GetTypeName(parameter.ParameterType)));
                 if (index < length - 1) stringBuilder.Append(", ");
@@ -473,7 +478,7 @@ namespace Treevel.Editor
             var formattedMethodName = GetFormattedMethodName(targetName, method.methodInfo.Name,
                                                              stringBuilder.ToString(),
                                                              mode1 == PersistentListenerMode.EventDefined);
-            menu.AddItem(new GUIContent(formattedMethodName), on, new GenericMenu.MenuFunction2(SetEventFunction),
+            menu.AddItem(new GUIContent(formattedMethodName), on, SetEventFunction,
                          new UnityEventFunction(listener, method.target, method.methodInfo, mode1));
         }
 
@@ -522,7 +527,7 @@ namespace Treevel.Editor
 
         private struct ValidMethodMap
         {
-            public UnityEngine.Object target;
+            public Object target;
             public MethodInfo methodInfo;
             public PersistentListenerMode mode;
         }
@@ -530,11 +535,11 @@ namespace Treevel.Editor
         private struct UnityEventFunction
         {
             private readonly SerializedProperty m_Listener;
-            private readonly UnityEngine.Object m_Target;
+            private readonly Object m_Target;
             private readonly MethodInfo m_Method;
             private readonly PersistentListenerMode m_Mode;
 
-            public UnityEventFunction(SerializedProperty listener, UnityEngine.Object target, MethodInfo method,
+            public UnityEventFunction(SerializedProperty listener, Object target, MethodInfo method,
                                       PersistentListenerMode mode)
             {
                 m_Listener = listener;
@@ -557,8 +562,8 @@ namespace Treevel.Editor
                     var parameters = m_Method.GetParameters();
                     propertyRelative5.stringValue =
                         parameters.Length != 1 ||
-                        !typeof(UnityEngine.Object).IsAssignableFrom(parameters[0].ParameterType)
-                            ? typeof(UnityEngine.Object).AssemblyQualifiedName
+                        !typeof(Object).IsAssignableFrom(parameters[0].ParameterType)
+                            ? typeof(Object).AssemblyQualifiedName
                             : parameters[0].ParameterType.AssemblyQualifiedName;
                 }
 
@@ -572,14 +577,15 @@ namespace Treevel.Editor
                 var propertyRelative2 = arguments.FindPropertyRelative("m_ObjectArgument");
                 var objectReferenceValue = propertyRelative2.objectReferenceValue;
                 if (mode != PersistentListenerMode.Object) {
-                    propertyRelative1.stringValue = typeof(UnityEngine.Object).AssemblyQualifiedName;
                     propertyRelative2.objectReferenceValue = null;
                 } else {
                     if (objectReferenceValue == null) return;
                     var type = Type.GetType(propertyRelative1.stringValue, false);
-                    if (typeof(UnityEngine.Object).IsAssignableFrom(type) &&
-                        type.IsInstanceOfType(objectReferenceValue))
+                    if (typeof(Object).IsAssignableFrom(type) &&
+                        type.IsInstanceOfType(objectReferenceValue)) {
                         return;
+                    }
+
                     propertyRelative2.objectReferenceValue = null;
                 }
             }

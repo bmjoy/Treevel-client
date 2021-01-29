@@ -66,10 +66,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _targets = gimmickData.targets
                 // 無効な値を除外する
-                .SkipWhile((vec) => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x ||
-                                    vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
+                .SkipWhile(vec => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x ||
+                                  vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
                 // List<(ERow, EColumn)>に変換する
-                .Select((vec) => ((ERow)vec.x, (EColumn)vec.y)).ToList();
+                .Select(vec => ((ERow)vec.x, (EColumn)vec.y)).ToList();
 
             Debug.Assert(_targets.Count > 0, "Invalid Gimmick Data");
 

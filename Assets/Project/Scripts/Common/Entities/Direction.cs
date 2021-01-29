@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
@@ -30,7 +31,7 @@ namespace Treevel.Common.Entities
                 case EDirection.ToDown:
                     return Vector2Int.down;
                 default:
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
             }
         }
     }

@@ -31,8 +31,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _particleSystem = GetComponent<ParticleSystem>();
             // サイズ
-            var width = (int)gimmickData.width;
-            var height = (int)gimmickData.height;
+            var width = gimmickData.width;
+            var height = gimmickData.height;
             // 中心位置
             int row;
             int column;
@@ -52,10 +52,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 持続時間
             mainModule.duration = gimmickData.duration;
             // 最大粒子量
-            mainModule.maxParticles *= (width * height);
+            mainModule.maxParticles *= width * height;
             // 1秒あたりの放出粒子量
             var emissionModule = _particleSystem.emission;
-            emissionModule.rateOverTimeMultiplier *= (width * height);
+            emissionModule.rateOverTimeMultiplier *= width * height;
             // 倍率
             var shapeModule = _particleSystem.shape;
             var scale = shapeModule.scale;

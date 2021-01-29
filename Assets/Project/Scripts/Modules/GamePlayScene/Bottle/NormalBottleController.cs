@@ -1,5 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using SpriteGlow;
 using TouchScript.Gestures;
 using Treevel.Common.Components;
@@ -65,7 +64,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }
 
             #if UNITY_EDITOR
-            name = Constants.BottleName.NORMAL_BOTTLE + Id.ToString();
+            name = Constants.BottleName.NORMAL_BOTTLE + Id;
             #endif
 
             // 目標とするタイルのスプライトを設定

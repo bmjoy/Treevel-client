@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class TileGenerator : SingletonObject<TileGenerator>
     {
-        private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string>() {
+        private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string> {
             { ETileType.Normal, Constants.Address.NORMAL_TILE_PREFAB },
             { ETileType.Warp, Constants.Address.WARP_TILE_PREFAB },
             { ETileType.Ice, Constants.Address.ICE_TILE_PREFAB },

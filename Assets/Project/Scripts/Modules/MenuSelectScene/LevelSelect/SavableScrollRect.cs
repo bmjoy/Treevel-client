@@ -1,6 +1,4 @@
-﻿using System;
-using TouchScript.Gestures;
-using TouchScript.Gestures.TransformGestures;
+﻿using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
 using UniRx;
 using UnityEngine;

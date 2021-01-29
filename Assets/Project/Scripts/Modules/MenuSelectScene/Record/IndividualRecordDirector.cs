@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Treevel.Common.Entities;
-using UnityEngine;
-using UnityEngine.UI;
 using Treevel.Common.Managers;
 using Treevel.Modules.StageSelectScene;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Treevel.Modules.MenuSelectScene.Record
 {
@@ -139,7 +139,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             _dropdown.options = seasonId.GetTrees()
                 .Select(tree => new Dropdown.OptionData {
-                    text = Enum.GetName(typeof(ETreeId), tree)
+                    text = Enum.GetName(typeof(ETreeId), tree),
                 })
                 .ToList();
 

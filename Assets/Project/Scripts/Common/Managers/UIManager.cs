@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
@@ -71,7 +70,7 @@ namespace Treevel.Common.Managers
         public void ShowErrorMessage(EErrorCode errorCode)
         {
             var canvas = GetComponentInChildren<Canvas>().transform;
-            _errorMessageBoxRef.InstantiateAsync(canvas).Completed += (op) => {
+            _errorMessageBoxRef.InstantiateAsync(canvas).Completed += op => {
                 var messageBoxObj = op.Result;
 
                 // テキスト、エラーコードを設定

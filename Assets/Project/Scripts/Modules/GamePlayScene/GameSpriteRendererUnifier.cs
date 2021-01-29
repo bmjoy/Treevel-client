@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Treevel.Common.Components;
+﻿using Treevel.Common.Components;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene

@@ -1,5 +1,4 @@
-﻿using System;
-using Treevel.Common.Entities;
+﻿using Treevel.Common.Entities;
 using UniRx;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            Observable.Merge(_bottleController.EnterTile, _bottleController.ExitTile)
+            _bottleController.EnterTile.Merge(_bottleController.ExitTile)
                 .Subscribe(_ => {
                     _isSuccess = _bottleController.IsSuccess();
                     _animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);

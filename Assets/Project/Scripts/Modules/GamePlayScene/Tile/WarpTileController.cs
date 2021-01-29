@@ -96,8 +96,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                                              _ANIMATOR_NAME_HASH_BOTTLEIN);
 
             // ボトルを移動する
-            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber,
-                                       null);
+            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber);
 
             // 相方のWarpTargetの子オブジェクトに
             var pairTileWarpObject = _pairTile.transform.Find("WarpTarget");

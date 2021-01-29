@@ -1,5 +1,5 @@
-﻿using Treevel.Common.Utils;
-using Treevel.Common.Patterns.Singleton;
+﻿using Treevel.Common.Patterns.Singleton;
+using Treevel.Common.Utils;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene

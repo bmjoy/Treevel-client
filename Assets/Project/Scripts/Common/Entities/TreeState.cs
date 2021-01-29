@@ -23,6 +23,6 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 全ステージクリア状態( ⊆ クリア状態 ⊆ 解放状態)
         /// </summary>
-        AllCleared
+        AllCleared,
     }
 }

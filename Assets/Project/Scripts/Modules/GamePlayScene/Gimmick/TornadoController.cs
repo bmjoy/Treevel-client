@@ -1,8 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -218,11 +216,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 }
 
                 if (line == -1) {
-                    if ((i != 0 && GimmickLibrary.IsHorizontal(direction)) ||
-                        (i == 0 && GimmickLibrary.IsVertical(direction))) {
+                    if (i != 0 && GimmickLibrary.IsHorizontal(direction) ||
+                        i == 0 && GimmickLibrary.IsVertical(direction)) {
                         line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
-                    } else if ((i != 0 && GimmickLibrary.IsVertical(direction)) ||
-                               (i == 0 && GimmickLibrary.IsHorizontal(direction))) {
+                    } else if (i != 0 && GimmickLibrary.IsVertical(direction) ||
+                               i == 0 && GimmickLibrary.IsHorizontal(direction)) {
                         line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray());
                     }
                 }
@@ -336,7 +334,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var sign = direction == EDirection.ToUp ? -1 : 1;
                 // x座標は同じ列のタイルと同じ値、y座標は画面端
                 warningPosition = new Vector2(
-                    GameWindowController.Instance.GetTileWidth() * (line - (Constants.StageSize.COLUMN / 2)),
+                    GameWindowController.Instance.GetTileWidth() * (line - Constants.StageSize.COLUMN / 2),
                     sign * Constants.WindowSize.HEIGHT / 2);
                 motionVector = direction == EDirection.ToUp ? Vector2.up : Vector2.down;
             } else {

@@ -1,5 +1,4 @@
-﻿using System;
-using TouchScript.Gestures;
+﻿using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
@@ -151,13 +150,13 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             }
 
             // Contentの右端のチェック
-            var rightLimit = (-1) * ((SavableScrollRect._RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
+            var rightLimit = -1 * ((SavableScrollRect._RIGHT_OFFSET * scale - 0.5f) * _scaledCanvas.x);
             if (_preLocalPosition.x + moveAmount.x <= rightLimit) {
                 moveAmount.x = rightLimit - _preLocalPosition.x;
             }
 
             // Contentの上端のチェック
-            var topLimit = (-1) * ((SavableScrollRect._TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
+            var topLimit = -1 * ((SavableScrollRect._TOP_OFFSET * scale - 0.5f) * _scaledCanvas.y);
             if (_preLocalPosition.y + moveAmount.y <= topLimit) {
                 moveAmount.y = topLimit - _preLocalPosition.y;
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
@@ -109,7 +110,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     break;
                 }
                 default:
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
             }
         }
 

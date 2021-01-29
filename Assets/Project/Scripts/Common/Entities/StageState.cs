@@ -18,6 +18,6 @@
         /// <summary>
         /// クリア状態( ⊆ 解放状態)
         /// </summary>
-        Cleared
+        Cleared,
     }
 }

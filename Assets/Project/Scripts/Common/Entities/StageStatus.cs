@@ -191,7 +191,7 @@ namespace Treevel.Common.Entities
         public void SetTutorialChecked(bool isChecked)
         {
             tutorialChecked = isChecked;
-            Set(this._treeId, this._stageNumber);
+            Set(_treeId, _stageNumber);
         }
     }
 }

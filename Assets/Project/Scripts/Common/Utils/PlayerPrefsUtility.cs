@@ -31,7 +31,7 @@ namespace Treevel.Common.Utils
         /// <returns></returns>
         public static void SetDictionary<Key, Value>(string key, Dictionary<Key, Value> dictionary)
         {
-            var serizlizedDict = Serialize<Dictionary<Key, Value>>(dictionary);
+            var serizlizedDict = Serialize(dictionary);
             PlayerPrefs.SetString(key, serizlizedDict);
         }
 

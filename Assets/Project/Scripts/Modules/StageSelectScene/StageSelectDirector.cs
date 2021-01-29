@@ -73,11 +73,11 @@ namespace Treevel.Modules.StageSelectScene
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE)
-                .Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
+                .Select(tree => tree.GetComponent<StageTreeController>()).ToList();
             BranchController.branchStates =
                 PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
             _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH)
-                .Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+                .Select(branch => branch.GetComponent<BranchController>()).ToList();
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
@@ -88,7 +88,7 @@ namespace Treevel.Modules.StageSelectScene
             // ページ遷移時のイベント登録
             _snapScrollView.OnPageChanged += () => {
                 // 木IDを更新
-                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON));
+                treeId = (ETreeId)(_snapScrollView.Page + 1 + (int)treeId / Constants.MAX_TREE_NUM_IN_SEASON);
 
                 // ボタン表示/非表示
                 _leftButton.SetActive(_snapScrollView.Page != 0);

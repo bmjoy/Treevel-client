@@ -1,4 +1,6 @@
-﻿namespace Treevel.Common.Entities
+﻿using System;
+
+namespace Treevel.Common.Entities
 {
     public enum EBottleType
     {
@@ -20,7 +22,7 @@
                 case EBottleType.AttackableDummy:
                     return true;
                 default:
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
             }
         }
     }

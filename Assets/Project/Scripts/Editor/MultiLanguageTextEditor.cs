@@ -1,14 +1,16 @@
-﻿using Treevel.Common.Components.UIs;
+﻿using System;
+using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TextEditor = UnityEditor.UI.TextEditor;
 
 namespace Treevel.Editor
 {
     [CustomEditor(typeof(MultiLanguageText))]
-    public class MultiLanguageTextEditor : UnityEditor.UI.TextEditor
+    public class MultiLanguageTextEditor : TextEditor
     {
         #region GUI_STRINGS
 
@@ -25,7 +27,7 @@ namespace Treevel.Editor
             EditorGUI.BeginChangeCheck();
 
             ETextIndex currentTextIndex;
-            if (!System.Enum.TryParse<ETextIndex>(uiText.IndexStr, out currentTextIndex)) {
+            if (!Enum.TryParse(uiText.IndexStr, out currentTextIndex)) {
                 currentTextIndex = ETextIndex.Error;
             }
 

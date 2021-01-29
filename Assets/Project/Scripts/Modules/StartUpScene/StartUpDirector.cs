@@ -1,9 +1,8 @@
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
-using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace Treevel.Modules.StartUpScene
@@ -15,7 +14,7 @@ namespace Treevel.Modules.StartUpScene
         private async void Start()
         {
             // Don't destroy EventSystem
-            var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+            var eventSystem = FindObjectOfType<EventSystem>();
             if (eventSystem != null) DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize

@@ -18,7 +18,7 @@ namespace Treevel.Common.Utils
             return bottles.Single(bottle => bottle.Id == bottleId).gameObject;
         }
 
-        private static AbstractBottleController[] _orderedBottles = null;
+        private static AbstractBottleController[] _orderedBottles;
 
         public static AbstractBottleController[] OrderedAttackableBottles {
             get {

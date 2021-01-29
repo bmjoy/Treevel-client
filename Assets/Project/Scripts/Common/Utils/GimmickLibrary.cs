@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Treevel.Common.Entities;
-using UnityEngine;
 
 namespace Treevel.Common.Utils
 {
@@ -26,7 +26,7 @@ namespace Treevel.Common.Utils
         {
             var sumOfProbability = probabilityArray.Sum();
             // 1以上重みの総和以下の値をランダムに取得する
-            var randomValue = new System.Random().Next(sumOfProbability) + 1;
+            var randomValue = new Random().Next(sumOfProbability) + 1;
             var index = 0;
 
             // 重み配列の最初の要素から順に、ランダムな値から値を引く

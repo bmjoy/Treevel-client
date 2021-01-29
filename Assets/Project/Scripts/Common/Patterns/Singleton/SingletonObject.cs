@@ -5,13 +5,13 @@ namespace Treevel.Common.Patterns.Singleton
     /// <summary>
     /// Monobehaviourを継承したSingletonクラス
     /// </summary>
-    /// <see c-ref="http://wiki.unity3d.com/index.php/Singleton"/>
+    /// <see c-ref="http://wiki.unity3d.com/index.php/Singleton" />
     /// <typeparam name="T">継承するクラス名</typeparam>
     public abstract class SingletonObject<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
 
-        private static object _lock = new object();
+        private static readonly object _lock = new object();
 
         public static T Instance {
             get {
@@ -35,7 +35,7 @@ namespace Treevel.Common.Patterns.Singleton
                     if (_instance == null) {
                         var singleton = new GameObject();
                         _instance = singleton.AddComponent<T>();
-                        singleton.name = "_" + typeof(T).ToString();
+                        singleton.name = "_" + typeof(T);
 
                         DontDestroyOnLoad(singleton);
 

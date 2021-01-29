@@ -10,7 +10,7 @@ namespace Treevel.Common.Managers
 {
     public enum EBGMKey
     {
-        BGM_Gameplay
+        BGM_Gameplay,
     }
 
     public enum ESEKey
@@ -178,7 +178,7 @@ namespace Treevel.Common.Managers
                 Debug.LogError($"Cannot Find SE clip with key: {key}");
                 return null;
             } catch (ArgumentNullException) {
-                Debug.LogError($"SE Clip list is empty");
+                Debug.LogError("SE Clip list is empty");
                 return null;
             }
         }
@@ -192,7 +192,7 @@ namespace Treevel.Common.Managers
                 Debug.LogError($"Cannot Find BGM clip with key: {key}");
                 return null;
             } catch (ArgumentNullException) {
-                Debug.LogError($"BGM Clip list is empty");
+                Debug.LogError("BGM Clip list is empty");
                 return null;
             }
         }
@@ -208,7 +208,7 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// プレハブにクリップリストを保存できるようにデータ化するためのクラス
         /// </summary>
-        [System.Serializable]
+        [Serializable]
         private class SoundData
         {
             [SerializeField] public string key;

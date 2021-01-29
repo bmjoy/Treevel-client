@@ -13,7 +13,7 @@ namespace Treevel.Common.Components.UIs
 
         private void Awake()
         {
-            GetComponentsInChildren<CanvasRenderer>(true, _renderers);
+            GetComponentsInChildren(true, _renderers);
             if (!gameObject.activeSelf) {
                 _renderers.ForEach(r => r.SetAlpha(0));
             }
