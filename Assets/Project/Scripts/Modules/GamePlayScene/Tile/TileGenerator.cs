@@ -17,7 +17,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             { ETileType.Warp, Constants.Address.WARP_TILE_PREFAB },
             { ETileType.Ice, Constants.Address.ICE_TILE_PREFAB },
             { ETileType.Holy, Constants.Address.HOLY_TILE_PREFAB },
-            { ETileType.Spiderweb, Constants.Address.SPIDERWEB_TILE_PREFAB }
+            { ETileType.Spiderweb, Constants.Address.SPIDERWEB_TILE_PREFAB },
         };
 
         public UniTask CreateTiles(ICollection<TileData> tileDatas)

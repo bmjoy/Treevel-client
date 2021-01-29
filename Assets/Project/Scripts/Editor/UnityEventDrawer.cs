@@ -349,7 +349,7 @@ namespace Treevel.Editor
                         if (flag)
                             validMethodMapList.Add(new ValidMethodMap() {
                                 target = target,
-                                methodInfo = current
+                                methodInfo = current,
                             });
                     }
                 }

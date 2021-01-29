@@ -16,7 +16,7 @@ namespace Treevel.Editor
         /// </summary>
         private static readonly List<long> _FILE_ID = new List<long> {
             9178724915984365835, // BaseText
-            8335351129932690981  // BaseMultiLanguage
+            8335351129932690981, // BaseMultiLanguage
         };
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace Treevel.Common.Entities
         Spring, // 春
         Summer, // 夏
         Autumn, // 秋
-        Winter  // 冬
+        Winter, // 冬
     }
 
     public static class SeasonIdExtension

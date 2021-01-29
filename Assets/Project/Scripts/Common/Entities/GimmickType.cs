@@ -14,7 +14,7 @@ namespace Treevel.Common.Entities
         SolarBeam,
         GustWind,
         Fog,
-        Powder
+        Powder,
     }
 
     public static class GimmickTypeExtension

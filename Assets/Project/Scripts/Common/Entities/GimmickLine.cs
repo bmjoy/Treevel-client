@@ -10,7 +10,7 @@
         Third,
         Fourth,
         Fifth,
-        Random = -1
+        Random = -1,
     }
 
     /// <summary>
@@ -21,6 +21,6 @@
         Left,
         Center,
         Right,
-        Random = -1
+        Random = -1,
     }
 }

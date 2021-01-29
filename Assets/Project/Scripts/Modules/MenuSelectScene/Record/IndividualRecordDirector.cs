@@ -139,7 +139,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             _dropdown.options = seasonId.GetTrees()
                 .Select(tree => new Dropdown.OptionData {
-                    text = Enum.GetName(typeof(ETreeId), tree)
+                    text = Enum.GetName(typeof(ETreeId), tree),
                 })
                 .ToList();
 

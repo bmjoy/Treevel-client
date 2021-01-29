@@ -7,7 +7,7 @@ namespace Treevel.Common.Entities
         Dynamic,
         Static,
         Normal,
-        AttackableDummy
+        AttackableDummy,
     }
 
     public static class BottleTypeExtension

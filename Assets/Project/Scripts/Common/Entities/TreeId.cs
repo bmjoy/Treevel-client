@@ -22,7 +22,7 @@ namespace Treevel.Common.Entities
         Autumn_3 = ESeasonId.Autumn * Constants.MAX_TREE_NUM_IN_SEASON + 3,
         Winter_1 = ESeasonId.Winter * Constants.MAX_TREE_NUM_IN_SEASON + 1, // 冬の木
         Winter_2 = ESeasonId.Winter * Constants.MAX_TREE_NUM_IN_SEASON + 2,
-        Winter_3 = ESeasonId.Winter * Constants.MAX_TREE_NUM_IN_SEASON + 3
+        Winter_3 = ESeasonId.Winter * Constants.MAX_TREE_NUM_IN_SEASON + 3,
     }
 
     public static class TreeIdExtension

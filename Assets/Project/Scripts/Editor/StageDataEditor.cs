@@ -452,7 +452,7 @@ namespace Treevel.Editor
 
                             var selectedIdx = bottleIds.Contains(targetBottleProp.intValue)
                                 ? bottleIds.Select((id, idx) => new {
-                                    id, idx
+                                    id, idx,
                                 }).First(t => t.id == targetBottleProp.intValue).idx
                                 : 0;
 
@@ -480,7 +480,7 @@ namespace Treevel.Editor
                             // Render input fields for row and column
                             var subLabels = new GUIContent[] {
                                 new GUIContent("Row"),
-                                new GUIContent("Column")
+                                new GUIContent("Column"),
                             };
                             var buffer = new int[] { xProp.intValue, yProp.intValue };
                             EditorGUI.MultiIntField(rect, subLabels, buffer);

@@ -15,7 +15,7 @@ namespace Treevel.Common.Utils
     public enum ELanguage
     {
         Japanese, // 日本語
-        English   // 英語
+        English,  // 英語
     }
 
     public static class LanguageUtility

@@ -32,7 +32,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 { EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB },
                 { EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB },
                 { EGimmickType.Fog, Constants.Address.FOG_PREFAB },
-                { EGimmickType.Powder, Constants.Address.POWDER_PREFAB }
+                { EGimmickType.Powder, Constants.Address.POWDER_PREFAB },
             };
 
         public UniTask Initialize(List<GimmickData> gimmicks)

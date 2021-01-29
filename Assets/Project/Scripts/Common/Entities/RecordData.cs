@@ -96,7 +96,7 @@ namespace Treevel.Common.Entities
                                                                        { EFailureReasonType.Meteorite, 0 },
                                                                        { EFailureReasonType.AimingMeteorite, 0 },
                                                                        { EFailureReasonType.Thunder, 0 },
-                                                                       { EFailureReasonType.SolarBeam, 0 }
+                                                                       { EFailureReasonType.SolarBeam, 0 },
                                                                    });
             _startupDays = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, 1);
             _lastStartupDate = PlayerPrefsUtility.GetDateTime(Constants.PlayerPrefsKeys.LAST_STARTUP_DATE);

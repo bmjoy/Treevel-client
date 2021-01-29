@@ -8,7 +8,7 @@ namespace Treevel.Common.Entities.GameDatas
     {
         None,
         Image,
-        Video
+        Video,
     }
 
     [Serializable]

@@ -10,14 +10,14 @@ namespace Treevel.Common.Managers
 {
     public enum EBGMKey
     {
-        BGM_Gameplay
+        BGM_Gameplay,
     }
 
     public enum ESEKey
     {
         SE_Success,
         SE_Failure,
-        SE_ThunderAttack
+        SE_ThunderAttack,
     }
 
     public class SoundManager : SingletonObject<SoundManager>

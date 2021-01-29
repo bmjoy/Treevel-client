@@ -5,7 +5,7 @@ namespace Treevel.Common.Entities
         Dark,
         Reverse,
         Selfish,
-        Life
+        Life,
     }
 
     public static class BottleEffectTypeExtension

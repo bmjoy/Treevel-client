@@ -11,7 +11,7 @@ namespace Treevel.Common.Entities
         ToLeft,
         ToRight,
         ToUp,
-        ToDown
+        ToDown,
     }
 
     public static class DirectionExtension

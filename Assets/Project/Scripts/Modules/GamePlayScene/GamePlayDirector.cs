@@ -74,7 +74,7 @@ namespace Treevel.Modules.GamePlayScene
             Playing,
             Success,
             Failure,
-            Pausing
+            Pausing,
         }
 
         /// <summary>

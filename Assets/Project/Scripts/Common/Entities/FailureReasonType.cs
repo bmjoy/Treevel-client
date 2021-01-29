@@ -11,7 +11,7 @@ namespace Treevel.Common.Entities
         AimingMeteorite,
         Thunder,
         SolarBeam,
-        Powder
+        Powder,
     }
 
     public static class EFailureReasonTypeExtension
