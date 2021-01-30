@@ -58,6 +58,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     Destroy(gameObject);
                 })
                 .AddTo(this);
+
+            GamePlayDirector.Instance.GameEnd
+                .Subscribe(_ => _animator.enabled = false)
+                .AddTo(this);
         }
     }
 }
