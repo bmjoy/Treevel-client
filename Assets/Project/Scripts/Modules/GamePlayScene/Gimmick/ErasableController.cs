@@ -16,11 +16,23 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private const int _GENERATING_INTERVAL = 3;
 
+        /// <summary>
+        /// normalTile の位置リスト
+        /// </summary>
+        private List<(int, int)> _normalTilePositions = new List<(int, int)>();
+
         private void Awake()
         {
             GamePlayDirector.Instance.GameEnd
                 .Subscribe(_ => Destroy(gameObject))
                 .AddTo(this);
+
+            // 現状、normalTile の位置が後から変わることはないので、初めに取得しておく
+            for (var col = 0; col < Constants.StageSize.COLUMN; ++col) {
+                for (var row = 0; row < Constants.StageSize.ROW; ++row) {
+                    if (BoardManager.Instance.IsNormalTile(col, row)) _normalTilePositions.Add((col, row));
+                }
+            }
         }
 
         public override IEnumerator Trigger()
@@ -34,16 +46,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
         }
 
-        private static async void InstantiateErasableBottle()
+        private async void InstantiateErasableBottle()
         {
             var puttableTilePosition = new List<(int, int)>();
 
-            for (var col = 0; col < Constants.StageSize.COLUMN; ++col) {
-                for (var row = 0; row < Constants.StageSize.ROW; ++row) {
-                    if (BoardManager.Instance.IsNormalTile(col, row) && BoardManager.Instance.IsEmptyTile(col, row)) {
-                        // 空いている NormalTile を候補とする
-                        puttableTilePosition.Add((col, row));
-                    }
+            foreach (var normalTilePosition in _normalTilePositions) {
+                var (column, row) = normalTilePosition;
+
+                if (BoardManager.Instance.IsEmptyTile(column, row)) {
+                    // 空いている NormalTile を候補とする
+                    puttableTilePosition.Add((column, row));
                 }
             }
 
