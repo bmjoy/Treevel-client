@@ -1,27 +1,30 @@
 using System;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
-    [RequireComponent(typeof(BoxCollider2D))]
-    [RequireComponent(typeof(GameSpriteRendererUnifier))]
-    public abstract class AbstractBottleController : MonoBehaviour
+    [RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(GameSpriteRendererUnifier))]
+    public abstract class AbstractBottleController : AbstractGameObjectController
     {
         /// <summary>
-        /// ボトルのId (初期位置を擬似的に利用)
+        /// 無敵状態かどうか
         /// </summary>
-        public int Id
-        {
-            get;
-            private set;
-        }
+        public bool Invincible;
+
+        private readonly Subject<GameObject> _enterTileSubject = new Subject<GameObject>();
+
+        private readonly Subject<GameObject> _exitTileSubject = new Subject<GameObject>();
+
+        private readonly Subject<GameObject> _getDamagedSubject = new Subject<GameObject>();
 
         /// <summary>
         /// ボトルタイプ
@@ -29,66 +32,43 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private EBottleType bottleType;
 
         /// <summary>
+        /// ボトルのId (初期位置を擬似的に利用)
+        /// </summary>
+        public int Id { get; private set; }
+
+        /// <summary>
         /// ギミックに攻撃されたときの挙動
         /// </summary>
-        public event Action<GameObject> GetDamaged
-        {
-            add => _getDamagedInvoker += value;
-            remove => _getDamagedInvoker -= value;
-        }
-        private event Action<GameObject> _getDamagedInvoker;
+        public IObservable<GameObject> GetDamaged => _getDamagedSubject;
 
         /// <summary>
         /// タイルに移動した時の挙動
         /// </summary>
-        public event Action<GameObject> EnterTile
-        {
-            add => _enterTileInvoker += value;
-            remove => _enterTileInvoker -= value;
-        }
-        private event Action<GameObject> _enterTileInvoker;
+        public IObservable<GameObject> EnterTile => _enterTileSubject;
 
         /// <summary>
         /// タイルから出る時の挙動
         /// </summary>
-        public event Action<GameObject> ExitTile
-        {
-            add => _exitTileInvoker += value;
-            remove => _exitTileInvoker -= value;
-        }
-        private event Action<GameObject> _exitTileInvoker;
+        public IObservable<GameObject> ExitTile => _exitTileSubject;
 
         /// <summary>
         /// 攻撃対象かどうか
         /// </summary>
         public bool IsAttackable => bottleType.IsAttackable();
 
-        /// <summary>
-        /// 無敵状態かどうか
-        /// </summary>
-        public bool Invincible = false;
-
         protected virtual void Awake()
         {
-            Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE, $"Sorting Layer Name should be {Constants.SortingLayerName.BOTTLE}");
+            Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE,
+                         $"Sorting Layer Name should be {Constants.SortingLayerName.BOTTLE}");
+            // 衝突イベントを処理する
+            this.OnTriggerEnter2DAsObservable()
+                .Where(other => other.gameObject.CompareTag(Constants.TagName.GIMMICK))
+                .Where(other => other.gameObject.transform.position.z >= 0)
+                .Where(_ => !Invincible)
+                .Subscribe(other => _getDamagedSubject.OnNext(other.gameObject)).AddTo(this);
         }
 
-        /// <summary>
-        /// 衝突イベントを処理する
-        /// </summary>
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            // 銃弾との衝突以外は考えない（現状は，ボトル同士での衝突は起こりえない）
-            if (!other.gameObject.CompareTag(Constants.TagName.GIMMICK)) return;
-            // 銃痕(hole)が出現したフレーム以外では衝突を考えない
-            if (other.gameObject.transform.position.z < 0) return;
-            // 無敵状態なら，衝突を考えない
-            if (Invincible) return;
-
-            _getDamagedInvoker?.Invoke(other.gameObject);
-        }
-
-        private IEnumerator InitializeSprite(AssetReferenceSprite spriteAsset)
+        private async UniTask InitializeSprite(AssetReferenceSprite spriteAsset)
         {
             // 無限ループを防ぐためにタイムアウトを設ける
             const float timeOut = 2f;
@@ -96,15 +76,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             while (true) {
                 if (elapsedTime >= timeOut) {
                     UIManager.Instance.ShowErrorMessage(EErrorCode.LoadDataError);
-                    throw new System.ArgumentNullException("ボトル画像の読み込みが失敗しました");
+                    throw new ArgumentNullException("ボトル画像の読み込みが失敗しました");
                 }
 
                 // 経過時間計算
                 elapsedTime += Time.deltaTime;
                 var bottleSprite = AddressableAssetManager.GetAsset<Sprite>(spriteAsset);
-                if (bottleSprite == null)
-                    yield return new WaitForEndOfFrame();
-                else {
+                if (bottleSprite == null) {
+                    await UniTask.Yield();
+                } else {
                     GetComponent<SpriteRenderer>().sprite = bottleSprite;
                     break;
                 }
@@ -119,7 +99,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// 初期化
         /// </summary>
         /// <param name="bottleData"> ボトルのデータ </param>
-        public virtual void Initialize(BottleData bottleData)
+        public virtual async UniTask Initialize(BottleData bottleData)
         {
             Id = bottleData.initPos;
             bottleType = bottleData.type;
@@ -129,7 +109,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // sprite が設定されている場合読み込む
             if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
-                StartCoroutine(InitializeSprite(bottleData.bottleSprite));
+                await InitializeSprite(bottleData.bottleSprite);
             } else {
                 GetComponent<SpriteRendererUnifier>().Unify();
                 GetComponent<SpriteRenderer>().enabled = true;
@@ -142,7 +122,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile">目標の出たタイル</param>
         public void OnEnterTile(GameObject targetTile)
         {
-            _enterTileInvoker?.Invoke(targetTile);
+            _enterTileSubject.OnNext(targetTile);
         }
 
         /// <summary>
@@ -151,7 +131,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <param name="targetTile">出たタイル</param>
         public void OnExitTile(GameObject targetTile)
         {
-            _exitTileInvoker?.Invoke(targetTile);
+            _exitTileSubject.OnNext(targetTile);
         }
     }
 }

@@ -42,7 +42,9 @@ namespace Treevel.Modules.StageSelectScene
         public override void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
-            state = (ETreeState) Enum.ToObject(typeof(ETreeState), PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(), Default.TREE_STATE));
+            state = (ETreeState)Enum.ToObject(typeof(ETreeState),
+                                              PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId,
+                                                                 Default.TREE_STATE));
 
             // 非解放状態の時、自身を制約する木の解放状態に応じて自身の解放状態を更新する
             if (state == ETreeState.Unreleased) {
@@ -51,34 +53,37 @@ namespace Treevel.Modules.StageSelectScene
                     // 初期状態で解放されている道
                     released = true;
                 } else {
-                    released = _constraintTreeClearHandlers.All(handler => handler.GetTreeState() >= ETreeState.Cleared);
+                    released = _constraintTreeClearHandlers.All(
+                        handler => handler.GetTreeState() >= ETreeState.Cleared);
                 }
+
                 state = released ? ETreeState.Released : ETreeState.Unreleased;
             }
 
             // 状態の更新
             switch (state) {
                 case ETreeState.Unreleased: {
-                        break;
-                    }
+                    break;
+                }
                 case ETreeState.Released: {
-                        // Implementorに任せる
-                        state = clearHandler.GetTreeState();
-                        break;
-                    }
+                    // Implementorに任せる
+                    state = clearHandler.GetTreeState();
+                    break;
+                }
                 case ETreeState.Cleared: {
-                        // 全クリアかどうかをチェックする
-                        var stageNum = treeId.GetStageNum();
-                        var clearStageNum = Enumerable.Range(1, stageNum).Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
-                        state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
-                        break;
-                    }
+                    // 全クリアかどうかをチェックする
+                    var stageNum = treeId.GetStageNum();
+                    var clearStageNum = Enumerable.Range(1, stageNum)
+                        .Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
+                    state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
+                    break;
+                }
                 case ETreeState.AllCleared: {
-                        break;
-                    }
+                    break;
+                }
                 default: {
-                        throw new NotImplementedException();
-                    }
+                    throw new NotImplementedException();
+                }
             }
 
             // 状態の反映

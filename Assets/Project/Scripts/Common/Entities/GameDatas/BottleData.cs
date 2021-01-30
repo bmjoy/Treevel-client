@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Treevel.Common.Entities.GameDatas
 {
-    [System.Serializable]
+    [Serializable]
     public class BottleData
     {
         public EBottleType type;

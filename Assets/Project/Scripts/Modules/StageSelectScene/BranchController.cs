@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
@@ -27,36 +26,34 @@ namespace Treevel.Modules.StageSelectScene
 
         protected override void SetSaveKey()
         {
-            saveKey = $"{_treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
-        }
-
-        public static void Reset()
-        {
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);
+            saveKey =
+                $"{_treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override IEnumerator UpdateState()
+        public override void UpdateState()
         {
-            if (branchStates.ContainsKey(saveKey))
+            if (branchStates.ContainsKey(saveKey)) {
                 released = branchStates[saveKey];
-            else
+            } else {
                 released = false;
+            }
 
             if (!released) {
                 if (constraintObjects.Length == 0) {
                     // 初期状態で解放されている枝
                     released = true;
                 } else {
-                    released = constraintObjects.All(stage => stage.GetComponent<StageController>().state >= EStageState.Cleared);
+                    released = constraintObjects.All(stage => stage.GetComponent<StageController>().state >=
+                                                              EStageState.Cleared);
                 }
+
                 if (released) {
                     // 終点のステージの状態の更新
                     _endObjectController.ReleaseStage();
                     _endObjectController.ReflectTreeState();
-                    yield return null;
                 }
             }
 

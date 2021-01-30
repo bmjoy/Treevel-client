@@ -1,5 +1,7 @@
-﻿using Treevel.Common.Entities;
+﻿using System;
+using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,39 +22,28 @@ namespace Treevel.Common.Components.UIs
         /// TextIndex が設定される同時にテキストを取得して設定する
         /// </summary>
         /// <value></value>
-        public ETextIndex TextIndex
-        {
-            get => _textIndex.CompareTo(ETextIndex.Error) == 0 ? (ETextIndex)System.Enum.Parse(typeof(ETextIndex), _indexStr) : _textIndex;
+        public ETextIndex TextIndex {
+            get =>
+                _textIndex.CompareTo(ETextIndex.Error) == 0
+                    ? (ETextIndex)Enum.Parse(typeof(ETextIndex), _indexStr)
+                    : _textIndex;
             set {
                 if (_textIndex == value) return;
 
                 _textIndex = value;
-                _indexStr = System.Enum.GetName(typeof(ETextIndex), _textIndex);
+                _indexStr = Enum.GetName(typeof(ETextIndex), _textIndex);
                 text = LanguageUtility.GetText(_textIndex);
             }
-        }
-
-        /// <summary>
-        /// 言語が変更されたときに発火するイベント
-        /// </summary>
-        private void OnLanguageChanged()
-        {
-            text = LanguageUtility.GetText(TextIndex);
         }
 
         protected override void Awake()
         {
             base.Awake();
 
-            // 言語変更するイベントを登録する
-            LanguageUtility.OnLanguageChange += OnLanguageChanged;
-            text = LanguageUtility.GetText(TextIndex);
-        }
-
-        protected override void OnDestroy()
-        {
-            LanguageUtility.OnLanguageChange -= OnLanguageChanged;
-            base.OnDestroy();
+            // 言語変更する時にテキスト変更するイベントを登録する
+            UserSettings.CurrentLanguage.Subscribe(_ => {
+                text = LanguageUtility.GetText(TextIndex);
+            }).AddTo(this);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
-using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -48,7 +48,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _rigidBody = GetComponent<Rigidbody2D>();
 
             // 雲をタイルの少し上に移動する
-            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(), 0);
+            _cloud.transform.Translate(0, _CLOUD_OFFSET_BY_TILE_RATIO * GameWindowController.Instance.GetTileHeight(),
+                                       0);
+
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                // 動きを止める
+                _rigidBody.velocity = Vector2.zero;
+                // アニメーション、SEを止める
+                _animator.speed = 0;
+                SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -57,9 +66,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
             _targets = gimmickData.targets
                 // 無効な値を除外する
-                .SkipWhile((vec) => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x || vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
+                .SkipWhile(vec => vec.x < (int)ERow.First || (int)ERow.Fifth < vec.x ||
+                                  vec.y < (int)EColumn.Left || (int)EColumn.Right < vec.y)
                 // List<(ERow, EColumn)>に変換する
-                .Select((vec) => ((ERow)vec.x, (EColumn)vec.y)).ToList();
+                .Select(vec => ((ERow)vec.x, (EColumn)vec.y)).ToList();
 
             Debug.Assert(_targets.Count > 0, "Invalid Gimmick Data");
 
@@ -111,15 +121,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Attack()
         {
             SoundManager.Instance.PlaySE(ESEKey.SE_ThunderAttack);
-        }
-
-        protected override void OnEndGame()
-        {
-            // 動きを止める
-            _rigidBody.velocity = Vector2.zero;
-            // アニメーション、SEを止める
-            _animator.speed = 0;
-            SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
         }
     }
 }

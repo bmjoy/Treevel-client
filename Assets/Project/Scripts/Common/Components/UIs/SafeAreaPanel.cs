@@ -6,15 +6,15 @@ namespace Treevel.Common.Components.UIs
     {
         private RectTransform _panel;
 
-        void Awake()
+        private void Awake()
         {
             _panel = GetComponent<RectTransform>();
-            var(anchorMin, anchorMax) = GetSafeAreaAnchor();
+            var (anchorMin, anchorMax) = GetSafeAreaAnchor();
             _panel.anchorMin = anchorMin;
             _panel.anchorMax = anchorMax;
         }
 
-        public static(Vector2, Vector2) GetSafeAreaAnchor()
+        public static (Vector2, Vector2) GetSafeAreaAnchor()
         {
             var safeArea = Screen.safeArea;
             var anchorMin = safeArea.position;

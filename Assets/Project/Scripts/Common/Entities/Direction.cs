@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
     /// <summary>
     /// ギミックの移動方向
     /// </summary>
-    public enum EDirection {
+    public enum EDirection
+    {
         ToLeft,
         ToRight,
         ToUp,
@@ -29,7 +31,7 @@ namespace Treevel.Common.Entities
                 case EDirection.ToDown:
                     return Vector2Int.down;
                 default:
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
             }
         }
     }

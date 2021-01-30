@@ -51,6 +51,7 @@ namespace Treevel.Common.Utils
             public const string STATIC_DUMMY_BOTTLE = "StaticDummyBottle";
             public const string NORMAL_BOTTLE = "NormalBottle";
             public const string ATTACKABLE_DUMMY_BOTTLE = "AttackableDummyBottle";
+            public const string ERASABLE_BOTTLE = "ErasableBottle";
         }
 
         /// <summary>
@@ -126,8 +127,9 @@ namespace Treevel.Common.Utils
         {
             // ボトル関連
             public const string NORMAL_BOTTLE_PREFAB = "NormalBottlePrefab";
-            public const string DYNAMIC_DUMMY_BOTTLE_PREFAB  = "DynamicDummyBottlePrefab";
+            public const string DYNAMIC_DUMMY_BOTTLE_PREFAB = "DynamicDummyBottlePrefab";
             public const string STATIC_DUMMY_BOTTLE_PREFAB = "StaticDummyBottlePrefab";
+            public const string ERASABLE_BOTTLE_PREFAB = "ErasableBottlePrefab";
             public const string ATTACKABLE_DUMMY_BOTTLE_PREFAB = "AttackableDummyBottlePrefab";
             public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
             public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
@@ -168,6 +170,7 @@ namespace Treevel.Common.Utils
             public const string SAND_PILED_UP_POWDER_PREFAB = "SandPiledUpPowderPrefab";
             public const string SAND_POWDER_BACKGROUND_SPRITE = "SandBackground";
             public const string SAND_POWDER_PARTICLE_MATERIAL = "SandParticle";
+            public const string ERASABLE_PREFAB = "ErasablePrefab";
         }
 
         /// <summary>

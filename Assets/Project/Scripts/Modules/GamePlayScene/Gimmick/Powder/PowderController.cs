@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System;
+using System.Collections;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
@@ -25,6 +26,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// 各NumberBottle上の堆積Powderギミック
         /// </summary>
         private PiledUpPowderController[] _piledUpPowders;
+
+        private void Awake()
+        {
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => Destroy(gameObject)).AddTo(this);
+        }
 
         public override void Initialize(GimmickData gimmickData)
         {
@@ -54,14 +60,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                     backgroundAddressKey = Constants.Address.SAND_POWDER_BACKGROUND_SPRITE;
                     break;
                 default:
-                    throw new System.ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
             }
+
             var backgroundSprite = AddressableAssetManager.GetAsset<Sprite>(backgroundAddressKey);
             var background = transform.Find("background").GetComponent<SpriteRenderer>();
             background.sprite = backgroundSprite;
             var originalWidth = backgroundSprite.bounds.size.x;
             var originalHeight = backgroundSprite.bounds.size.y;
-            transform.localScale = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / originalWidth, Constants.WindowSize.HEIGHT / originalHeight);
+            transform.localScale = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / originalWidth,
+                                               Constants.WindowSize.HEIGHT / originalHeight);
 
             // 子オブジェクト
             var upperParticle = transform.Find("UpperParticle").gameObject;
@@ -76,8 +84,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // particleの画像
             upperParticleSystemRenderer.material = lowerParticleSystemRenderer.material = particleMaterial;
             // particleの位置
-            upperParticle.transform.position = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / 2f, Constants.WindowSize.HEIGHT / 2f);
-            lowerParticle.transform.position = new Vector3(-GameWindowController.Instance.GetGameSpaceWidth() / 2f, -Constants.WindowSize.HEIGHT / 2f);
+            upperParticle.transform.position = new Vector3(GameWindowController.Instance.GetGameSpaceWidth() / 2f,
+                                                           Constants.WindowSize.HEIGHT / 2f);
+            lowerParticle.transform.position = new Vector3(-GameWindowController.Instance.GetGameSpaceWidth() / 2f,
+                                                           -Constants.WindowSize.HEIGHT / 2f);
             // particleの射出角度
             var upperShape = upperParticle.GetComponent<ParticleSystem>().shape;
             var lowerShape = lowerParticle.GetComponent<ParticleSystem>().shape;
@@ -86,7 +96,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             upperShape.rotation = new Vector3(0, 0, 90 + emissionRadian * 180f / Mathf.PI);
             lowerShape.rotation = new Vector3(0, 0, 270 + emissionRadian * 180f / Mathf.PI);
             // particleの移動距離
-            var length = GameWindowController.Instance.GetGameSpaceWidth() * Mathf.Cos(emissionRadian) + scaleX * 2f * Mathf.Tan(emissionRadian);
+            var length = GameWindowController.Instance.GetGameSpaceWidth() * Mathf.Cos(emissionRadian) +
+                         scaleX * 2f * Mathf.Tan(emissionRadian);
             // particleの寿命 : 最も遅い粒子でも画面端まで持続するようにする
             var upperMain = upperParticle.GetComponent<ParticleSystem>().main;
             var lowerMain = lowerParticle.GetComponent<ParticleSystem>().main;
@@ -103,6 +114,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             foreach (var piledUpPowder in _piledUpPowders) {
                 StartCoroutine(piledUpPowder.Trigger());
             }
+
             yield return null;
         }
 
@@ -122,10 +134,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                     address = Constants.Address.SAND_PILED_UP_POWDER_PREFAB;
                     break;
                 default:
-                    throw new System.ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
             }
 
-            var bottles = GameObject.FindObjectsOfType<NormalBottleController>();
+            var bottles = FindObjectsOfType<NormalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
             for (var i = 0; i < bottles.Length; i++) {
                 var piledUpPowder = await AddressableAssetManager.Instantiate(address).Task;
@@ -133,11 +145,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                 _piledUpPowders[i] = piledUpPowderController;
                 piledUpPowderController.Initialize(bottles[i]);
             }
-        }
-
-        protected override void OnEndGame()
-        {
-            Destroy(gameObject);
         }
     }
 }

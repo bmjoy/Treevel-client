@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -6,9 +7,7 @@ namespace Treevel.Common.Networks
 {
     public interface IServerRequest
     {
-        UnityWebRequest ServerRequest {
-            get;
-        }
+        UnityWebRequest ServerRequest { get; }
 
         void SetCache();
     }
@@ -18,11 +17,7 @@ namespace Treevel.Common.Networks
     /// </summary>
     public abstract class GetServerRequest : IServerRequest
     {
-        public UnityWebRequest ServerRequest
-        {
-            get;
-            protected set;
-        }
+        public UnityWebRequest ServerRequest { get; protected set; }
 
         ~GetServerRequest()
         {
@@ -34,7 +29,7 @@ namespace Treevel.Common.Networks
         /// </summary>
         public abstract void SetCache();
 
-        public async Task<object> GetData()
+        public async UniTask<object> GetData()
         {
             Debug.Assert(ServerRequest != null, "ServerRequest not implemented.");
 
@@ -42,6 +37,9 @@ namespace Treevel.Common.Networks
             await ServerRequest.SendWebRequest();
 
             if (!IsRemoteDataValid()) {
+                // 通信していることを擬似的に再現する
+                await UniTask.Delay(500);
+
                 return GetData_Local();
             }
             // TODO check need to update cache
@@ -68,11 +66,7 @@ namespace Treevel.Common.Networks
     /// </summary>
     public abstract class UpdateServerRequest : IServerRequest
     {
-        public UnityWebRequest ServerRequest
-        {
-            get;
-            protected set;
-        }
+        public UnityWebRequest ServerRequest { get; protected set; }
 
         ~UpdateServerRequest()
         {
@@ -92,19 +86,16 @@ namespace Treevel.Common.Networks
 
         protected abstract bool Update_Local();
 
-
         protected async Task<bool> Update_Remote()
         {
-            if (ServerRequest == null)
-                return false;
+            if (ServerRequest == null) return false;
 
             await ServerRequest.SendWebRequest();
 
             // TODO: protocol for update commands to parse the success state
             var successFlag = ServerRequest.downloadHandler.text.Equals("success");
 
-            if (!successFlag)
-                return false;
+            if (!successFlag) return false;
 
             SetCache();
             return true;

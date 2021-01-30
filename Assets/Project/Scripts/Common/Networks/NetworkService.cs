@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 
 namespace Treevel.Common.Networks
 {
@@ -29,23 +29,19 @@ namespace Treevel.Common.Networks
         /// データ取得用のヘルパーメソッド
         /// </summary>
         /// <param name="command"> `GetServerCommandBasic`を継承したコマンド </param>
-        /// <param name="callback"> データ取得後実行するアクション </param>
-        public static async void Execute(GetServerRequest command, Action<object> callback = null)
+        public static async UniTask<object> Execute(GetServerRequest command)
         {
-            var data = await command.GetData();
-            callback?.Invoke(data);
+            return await command.GetData();
         }
 
         /// <summary>
         /// データ更新用ヘルパーメソッド
         /// </summary>
         /// <param name="command"> `UpdateServerCommand` </param>
-        /// <param name="callback"></param>
         /// <returns></returns>
-        public static async void Execute(UpdateServerRequest command, Action<bool> callback = null)
+        public static async UniTask<object> Execute(UpdateServerRequest command)
         {
-            var success = await command.Update();
-            callback?.Invoke(success);
+            return await command.Update();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Treevel.Common.Patterns.StateMachine
@@ -8,11 +9,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// <summary>
         /// 現在の状態
         /// </summary>
-        public State CurrentState
-        {
-            get;
-            private set;
-        }
+        public State CurrentState { get; private set; }
 
         /// <summary>
         /// このステートマシンで制御できるステートの集合
@@ -40,7 +37,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// </summary>
         public void Start()
         {
-            CurrentState.OnEnter(null);
+            CurrentState.OnEnter();
         }
 
         /// <summary>
@@ -51,7 +48,7 @@ namespace Treevel.Common.Patterns.StateMachine
         public void AddTransition(State from, State to)
         {
             if (!IsValidState(from) || !IsValidState(to)) {
-                throw new System.ArgumentException($"Invalid States: from {from.ToString()} to {to.ToString()}");
+                throw new ArgumentException($"Invalid States: from {from} to {to}");
             }
 
             // fromからの遷移がなければ新しいセットを作成
@@ -70,8 +67,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// <returns>遷移成功かどうか</returns>
         public bool SetState(State to)
         {
-            if (!IsValidState(to))
-                return false;
+            if (!IsValidState(to)) return false;
 
             if (!IsTransitionValid(to)) {
                 Debug.LogWarning($"Invalid state transition [{CurrentState.GetType()}] => [{to.GetType()}]");

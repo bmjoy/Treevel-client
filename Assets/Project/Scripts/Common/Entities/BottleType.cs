@@ -1,10 +1,14 @@
-﻿namespace Treevel.Common.Entities
+﻿using System;
+
+namespace Treevel.Common.Entities
 {
-    public enum EBottleType {
+    public enum EBottleType
+    {
         Dynamic,
         Static,
         Normal,
         AttackableDummy,
+        Erasable,
     }
 
     public static class BottleTypeExtension
@@ -14,12 +18,13 @@
             switch (type) {
                 case EBottleType.Dynamic:
                 case EBottleType.Static:
+                case EBottleType.Erasable:
                     return false;
                 case EBottleType.Normal:
                 case EBottleType.AttackableDummy:
                     return true;
                 default:
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
             }
         }
     }

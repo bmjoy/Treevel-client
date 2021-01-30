@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using SnapScroll;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -10,6 +11,7 @@ using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.StageSelectScene
@@ -70,9 +72,12 @@ namespace Treevel.Modules.StageSelectScene
 
         private void Awake()
         {
-            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<StageTreeController>()).ToList<StageTreeController>();
-            BranchController.branchStates = PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
-            _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH).Select(branch => branch.GetComponent<BranchController>()).ToList<BranchController>();
+            _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE)
+                .Select(tree => tree.GetComponent<StageTreeController>()).ToList();
+            BranchController.branchStates =
+                PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
+            _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH)
+                .Select(branch => branch.GetComponent<BranchController>()).ToList();
 
             // 取得
             _snapScrollView = FindObjectOfType<SnapScrollView>();
@@ -83,7 +88,7 @@ namespace Treevel.Modules.StageSelectScene
             // ページ遷移時のイベント登録
             _snapScrollView.OnPageChanged += () => {
                 // 木IDを更新
-                treeId = (ETreeId)((_snapScrollView.Page + 1) + ((int)treeId / Constants.MAX_TREE_NUM_IN_SEASON));
+                treeId = (ETreeId)(_snapScrollView.Page + 1 + (int)treeId / Constants.MAX_TREE_NUM_IN_SEASON);
 
                 // ボタン表示/非表示
                 _leftButton.SetActive(_snapScrollView.Page != 0);
@@ -105,7 +110,7 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         private void OnEnable()
         {
-            _branches.ForEach(branch => StartCoroutine(branch.UpdateState()));
+            _branches.ForEach(branch => branch.UpdateState());
             _trees.ForEach(tree => tree.UpdateState());
         }
 
@@ -139,12 +144,15 @@ namespace Treevel.Modules.StageSelectScene
 
         public void ShowOverPopup(ETreeId treeId, int stageNumber)
         {
-            NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)), (data) => {
-                // ポップアップを初期化する
-                _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
-                // ポップアップを表示する
-                _overviewPopup.gameObject.SetActive(true);
-            });
+            NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)))
+                .ToObservable()
+                .Subscribe(data => {
+                    // ポップアップを初期化する
+                    _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
+                    // ポップアップを表示する
+                    _overviewPopup.gameObject.SetActive(true);
+                })
+                .AddTo(this);
         }
 
         /// <summary>

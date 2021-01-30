@@ -5,6 +5,8 @@ using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -51,12 +53,13 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-        }
-
-        protected override void OnEndGame()
-        {
-            base.OnEndGame();
-            _animator.speed = 0;
+            this.OnTriggerEnter2DAsObservable()
+                .Where(_ => !_isBottleMoved)
+                .Subscribe(_ => {
+                    _isBottleMoved = true;
+                    MoveBottles();
+                }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.speed = 0).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -71,41 +74,42 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             switch (_targetDirection) {
                 case EDirection.ToLeft:
                 case EDirection.ToRight: {
-                        _targetLine = (int)gimmickData.targetRow;
+                    _targetLine = (int)gimmickData.targetRow;
 
-                        var sign = _targetDirection == EDirection.ToLeft ? 1 : -1;
-                        var centerTilePos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center);
-                        var yPos = centerTilePos.y;
-                        var startX = -sign * (Constants.WindowSize.WIDTH + coreSprite.size.y * transform.localScale.y) * 0.5f;
-                        var endX = startX + sign * _attackMoveDistance;
+                    var sign = _targetDirection == EDirection.ToLeft ? 1 : -1;
+                    var centerTilePos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center);
+                    var yPos = centerTilePos.y;
+                    var startX = -sign * (Constants.WindowSize.WIDTH + coreSprite.size.y * transform.localScale.y) *
+                                 0.5f;
+                    var endX = startX + sign * _attackMoveDistance;
 
-                        _attackStartPos = new Vector2(startX, yPos);
-                        _attackEndPos = new Vector2(endX, yPos);
+                    _attackStartPos = new Vector2(startX, yPos);
+                    _attackEndPos = new Vector2(endX, yPos);
 
 
-                        transform.position = centerTilePos;
-                        transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-sign, 1, 1));
-                        transform.Rotate(Quaternion.Euler(0, 0, sign * 90).eulerAngles);
+                    transform.position = centerTilePos;
+                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-sign, 1, 1));
+                    transform.Rotate(Quaternion.Euler(0, 0, sign * 90).eulerAngles);
 
-                        break;
-                    }
+                    break;
+                }
                 case EDirection.ToDown:
                 case EDirection.ToUp: {
-                        _targetLine = (int)gimmickData.targetColumn;
+                    _targetLine = (int)gimmickData.targetColumn;
 
-                        var sign = _targetDirection == EDirection.ToUp ? 1 : -1;
-                        var centerTilePos = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn);
-                        var xPos = centerTilePos.x;
-                        var startY = sign * _attackMoveDistance * 0.5f;
-                        var endY = -startY;
+                    var sign = _targetDirection == EDirection.ToUp ? 1 : -1;
+                    var centerTilePos = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn);
+                    var xPos = centerTilePos.x;
+                    var startY = sign * _attackMoveDistance * 0.5f;
+                    var endY = -startY;
 
-                        _attackStartPos = new Vector2(xPos, startY);
-                        _attackEndPos = new Vector2(xPos, endY);
+                    _attackStartPos = new Vector2(xPos, startY);
+                    _attackEndPos = new Vector2(xPos, endY);
 
-                        transform.position = centerTilePos;
-                        transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
-                        break;
-                    }
+                    transform.position = centerTilePos;
+                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
+                    break;
+                }
                 default:
                     throw new NotImplementedException();
             }
@@ -142,14 +146,6 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!_isBottleMoved) {
-                _isBottleMoved = true;
-                MoveBottles();
-            }
-        }
-
         /// <summary>
         /// 対象行・列上のボトルを一斉動かす
         /// </summary>
@@ -161,7 +157,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             var destinationTiles = GetDestinationTiles();
             foreach (var bottle in targetBottles) {
                 // ボトルが今いるタイルのインデックスを探す
-                var currTileIdx = Array.FindIndex(destinationTiles, n => n == BoardManager.Instance.GetBottlePos(bottle));
+                var currTileIdx =
+                    Array.FindIndex(destinationTiles, n => n == BoardManager.Instance.GetBottlePos(bottle));
                 while (currTileIdx + 1 < destinationTiles.Length) {
                     var bottleOnTargetTile = BoardManager.Instance.GetBottle(destinationTiles[currTileIdx + 1]);
                     // 次のタイルがStaticBottleの場合はループ終了、そうでない場合は次のタイルへ進む
@@ -185,27 +182,29 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             switch (_targetDirection) {
                 case EDirection.ToLeft: {
-                        var start = _targetLine * Constants.StageSize.COLUMN + 1;
-                        return Enumerable.Range(start, Constants.StageSize.COLUMN).Reverse().ToArray();
-                    }
+                    var start = _targetLine * Constants.StageSize.COLUMN + 1;
+                    return Enumerable.Range(start, Constants.StageSize.COLUMN).Reverse().ToArray();
+                }
                 case EDirection.ToRight: {
-                        var start = _targetLine * Constants.StageSize.COLUMN + 1;
-                        return Enumerable.Range(start, Constants.StageSize.COLUMN).ToArray();
-                    }
+                    var start = _targetLine * Constants.StageSize.COLUMN + 1;
+                    return Enumerable.Range(start, Constants.StageSize.COLUMN).ToArray();
+                }
                 case EDirection.ToUp: {
-                        var ret = new int[Constants.StageSize.ROW];
-                        for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
-                            ret[i] = _targetLine + 1 + Constants.StageSize.COLUMN * i;
-                        }
-                        return ret.Reverse().ToArray();
+                    var ret = new int[Constants.StageSize.ROW];
+                    for (var i = 0; i < Constants.StageSize.ROW; ++i) {
+                        ret[i] = _targetLine + 1 + Constants.StageSize.COLUMN * i;
                     }
+
+                    return ret.Reverse().ToArray();
+                }
                 case EDirection.ToDown: {
-                        var ret = new int[Constants.StageSize.ROW];
-                        for (var i = 0 ; i < Constants.StageSize.ROW ; ++i) {
-                            ret[i] = _targetLine + 1 + Constants.StageSize.COLUMN * i;
-                        }
-                        return ret;
+                    var ret = new int[Constants.StageSize.ROW];
+                    for (var i = 0; i < Constants.StageSize.ROW; ++i) {
+                        ret[i] = _targetLine + 1 + Constants.StageSize.COLUMN * i;
                     }
+
+                    return ret;
+                }
                 default:
                     throw new NotImplementedException();
             }
@@ -216,9 +215,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private DynamicBottleController[] GetTargetBottles()
         {
-            var bottleObjsOnTargetLine = GimmickLibrary.IsHorizontal(_targetDirection) ?
-                BoardManager.Instance.GetBottlesOnRow((ERow) _targetLine) :
-                BoardManager.Instance.GetBottlesOnColumn((EColumn) _targetLine);
+            var bottleObjsOnTargetLine = GimmickLibrary.IsHorizontal(_targetDirection)
+                ? BoardManager.Instance.GetBottlesOnRow((ERow)_targetLine)
+                : BoardManager.Instance.GetBottlesOnColumn((EColumn)_targetLine);
 
             var targetBottles = bottleObjsOnTargetLine
                 .Where(go => go.GetComponent<DynamicBottleController>() != null)
@@ -227,10 +226,15 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             switch (_targetDirection) {
                 case EDirection.ToLeft:
                 case EDirection.ToUp:
-                    return targetBottles.OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
+                    return targetBottles
+                        .OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()))
+                        .ToArray();
                 case EDirection.ToDown:
                 case EDirection.ToRight:
-                    return targetBottles.OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>())).ToArray();
+                    return targetBottles
+                        .OrderByDescending(
+                            go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()))
+                        .ToArray();
                 default:
                     throw new NotImplementedException();
             }

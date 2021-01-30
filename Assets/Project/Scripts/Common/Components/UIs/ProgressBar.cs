@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Managers;
@@ -35,14 +34,13 @@ namespace Treevel.Common.Components.UIs
         /// <summary>
         /// ロード中のプロセス
         /// </summary>
-        private List<AsyncOperationHandle> _loadingOps = new List<AsyncOperationHandle>();
+        private readonly List<AsyncOperationHandle> _loadingOps = new List<AsyncOperationHandle>();
 
         public float Progress
         {
             get => _progress;
             set {
-                if (Mathf.Abs(_progress - value) < THRESHOLD)
-                    return;
+                if (Mathf.Abs(_progress - value) < THRESHOLD) return;
 
                 _progress = Mathf.Clamp(value, 0, 100);
                 _progressImage.fillAmount = _progress / 100f;
@@ -56,10 +54,9 @@ namespace Treevel.Common.Components.UIs
             Progress = 0;
 
             // アセットロードするイベントを購読
-            AddressableAssetManager.OnAssetStartLoad.Subscribe(op =>
-            {
+            AddressableAssetManager.OnAssetStartLoad.Subscribe(op => {
                 _loadingOps.Add(op);
-                op.Completed += (op1 => _loadingOps.Remove(op1));
+                op.Completed += op1 => _loadingOps.Remove(op1);
 
                 if (!gameObject.activeSelf) {
                     gameObject.SetActive(true);
@@ -71,9 +68,7 @@ namespace Treevel.Common.Components.UIs
         {
             if (_loadingOps.Count > 0) {
                 Progress = _loadingOps.Select(op => op.PercentComplete).Sum() / _loadingOps.Count;
-            }
-            else if (gameObject.activeSelf)
-            {
+            } else if (gameObject.activeSelf) {
                 gameObject.SetActive(false);
             }
         }

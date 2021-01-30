@@ -1,9 +1,8 @@
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
-using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace Treevel.Modules.StartUpScene
@@ -15,9 +14,8 @@ namespace Treevel.Modules.StartUpScene
         private async void Start()
         {
             // Don't destroy EventSystem
-            var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
-            if (eventSystem != null)
-                DontDestroyOnLoad(eventSystem.gameObject);
+            var eventSystem = FindObjectOfType<EventSystem>();
+            if (eventSystem != null) DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize
             await UIManager.Instance.Initialize();
@@ -35,7 +33,8 @@ namespace Treevel.Modules.StartUpScene
             await AddressableAssetManager.Initialize();
 
             // MenuSelectSceneを読み込み
-            var loadSceneTask = AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
+            var loadSceneTask = AddressableAssetManager
+                .LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
             // GameDataManager初期化
             var dataManagerInitTask = GameDataManager.Initialize();
 

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -69,6 +70,20 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
+            this.OnTriggerEnter2DAsObservable()
+                .Select(other => other.GetComponent<AbstractBottleController>())
+                .Where(bottle => bottle != null)
+                .Where(bottle => bottle.IsAttackable)
+                .Where(bottle => !bottle.Invincible)
+                .Subscribe(_ => {
+                    // 衝突したオブジェクトは赤色に変える
+                    gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                _rigidBody.velocity = Vector2.zero;
+                if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
+                StopAllCoroutines();
+            }).AddTo(this);
         }
 
         /// <summary>
@@ -82,8 +97,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _targetDirections = gimmickData.targetDirections.ToArray();
             _targetLines = gimmickData.targetLines.ToArray();
 
-            if (_targetDirections.Length <= 0 || _targetLines.Length <= 0 || _targetDirections.Length != _targetLines.Length) {
-                throw new InvalidOperationException($"size of targetDirections = {_targetDirections.Length}, size of targetLines = {_targetLines.Length}");
+            if (_targetDirections.Length <= 0 || _targetLines.Length <= 0 ||
+                _targetDirections.Length != _targetLines.Length) {
+                throw new InvalidOperationException(
+                    $"size of targetDirections = {_targetDirections.Length}, size of targetLines = {_targetLines.Length}");
             }
 
             InitializeDirectionsAndLines(gimmickData);
@@ -123,22 +140,21 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 }
 
                 // 警告を表示する
-                if (displayWarningCoroutine != null) { // 前回のコルチーンがまだ終わってないまま次実行すると警告の破壊が複数回発生してしまう
+                if (displayWarningCoroutine != null) {
+                    // 前回のコルチーンがまだ終わってないまま次実行すると警告の破壊が複数回発生してしまう
                     StopCoroutine(displayWarningCoroutine);
                 }
+
                 displayWarningCoroutine = StartCoroutine(ShowWarning(warningPos, currentDirection, _warningDisplayTime));
 
                 // 目標位置についたら転向処理（竜巻だからそのままdirection変えればいいのか？）
-                while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) {
-                    yield return new WaitForFixedUpdate();
-                }
+                while (Vector2.Dot(_rigidBody.velocity, warningPos - (Vector2)transform.position) > 0) yield return new WaitForFixedUpdate();
 
                 SetDirection(currentDirection);
             }
 
             // 範囲外になったらオブジェクトを消す
-            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameSpaceWidth() && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT)
-                yield return new WaitForFixedUpdate();
+            while (Math.Abs(transform.position.x) < GameWindowController.Instance.GetGameSpaceWidth() && Math.Abs(transform.position.y) < Constants.WindowSize.HEIGHT) yield return new WaitForFixedUpdate();
 
             Destroy(gameObject);
         }
@@ -149,44 +165,62 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private void InitializeDirectionsAndLines(GimmickData gimmickData)
         {
             var targetNum = _targetDirections.Length;
-            for (var i = 0 ; i < targetNum ; i++) {
+            for (var i = 0; i < targetNum; i++) {
                 var direction = _targetDirections[i];
                 var line = _targetLines[i];
                 if (gimmickData.isRandom) {
-                    if (i == 0) { // 最初の方向は制限ないのでそのまま乱数生成
-                        direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(gimmickData.randomDirection.ToArray()));
-                    } else { // それ以降は前回の結果に依存する
+                    if (i == 0) {
+                        // 最初の方向は制限ないのでそのまま乱数生成
+                        direction = (EDirection)Enum.ToObject(typeof(EDirection),
+                                                              GimmickLibrary.SamplingArrayIndex(
+                                                                  gimmickData.randomDirection.ToArray()));
+                    } else {
+                        // それ以降は前回の結果に依存する
                         var previousLine = _targetLines[i - 1];
                         var previousDirection = _targetDirections[i - 1];
 
-                        if (GimmickLibrary.IsHorizontal(previousDirection)) { // 左右を移動している場合
-                            if (previousLine == (int)ERow.Fifth) { // 最下行
+                        if (GimmickLibrary.IsHorizontal(previousDirection)) {
+                            // 左右を移動している場合
+                            if (previousLine == (int)ERow.Fifth) {
+                                // 最下行
                                 direction = EDirection.ToUp;
-                            } else if (previousLine == (int)ERow.First) { // 最上行
+                            } else if (previousLine == (int)ERow.First) {
+                                // 最上行
                                 direction = EDirection.ToDown;
                             } else {
                                 var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 左右を除いた乱数配列
-                                tempRandomDirections[(int)EDirection.ToLeft] = tempRandomDirections[(int)EDirection.ToRight] = 0;
-                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections));
+                                tempRandomDirections[(int)EDirection.ToLeft] =
+                                    tempRandomDirections[(int)EDirection.ToRight] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection),
+                                                                      GimmickLibrary.SamplingArrayIndex(
+                                                                          tempRandomDirections));
                             }
-                        } else if (GimmickLibrary.IsVertical(previousDirection)) { // 上下を移動している場合
-                            if (previousLine == (int)EColumn.Left) { // 最左列
+                        } else if (GimmickLibrary.IsVertical(previousDirection)) {
+                            // 上下を移動している場合
+                            if (previousLine == (int)EColumn.Left) {
+                                // 最左列
                                 direction = EDirection.ToRight;
-                            } else if (previousLine == (int)EColumn.Right) { // 最右列
+                            } else if (previousLine == (int)EColumn.Right) {
+                                // 最右列
                                 direction = EDirection.ToLeft;
                             } else {
                                 var tempRandomDirections = gimmickData.randomDirection.ToArray(); // 上下を除いた乱数配列
-                                tempRandomDirections[(int)EDirection.ToUp] = tempRandomDirections[(int)EDirection.ToDown] = 0;
-                                direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(tempRandomDirections));
+                                tempRandomDirections[(int)EDirection.ToUp] =
+                                    tempRandomDirections[(int)EDirection.ToDown] = 0;
+                                direction = (EDirection)Enum.ToObject(typeof(EDirection),
+                                                                      GimmickLibrary.SamplingArrayIndex(
+                                                                          tempRandomDirections));
                             }
                         }
                     }
                 }
 
                 if (line == -1) {
-                    if ((i != 0 && GimmickLibrary.IsHorizontal(direction)) || (i == 0 && GimmickLibrary.IsVertical(direction))) {
+                    if (i != 0 && GimmickLibrary.IsHorizontal(direction) ||
+                        i == 0 && GimmickLibrary.IsVertical(direction)) {
                         line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomColumn.ToArray());
-                    } else if ((i != 0 && GimmickLibrary.IsVertical(direction)) || (i == 0 && GimmickLibrary.IsHorizontal(direction))) {
+                    } else if (i != 0 && GimmickLibrary.IsVertical(direction) ||
+                               i == 0 && GimmickLibrary.IsHorizontal(direction)) {
                         line = GimmickLibrary.SamplingArrayIndex(gimmickData.randomRow.ToArray());
                     }
                 }
@@ -198,7 +232,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 if (i == 0) {
                     _warningPosList.Add(CalculateFirstWarningPos(direction, line));
                 } else {
-                    _warningPosList.Add(CalculateOtherWarningPos(_targetDirections[i - 1], _targetLines[i - 1], _targetLines[i]));
+                    _warningPosList.Add(
+                        CalculateOtherWarningPos(_targetDirections[i - 1], _targetLines[i - 1], _targetLines[i]));
                 }
             }
         }
@@ -213,9 +248,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         private IEnumerator ShowWarning(Vector2 warningPos, EDirection? direction, float displayTime)
         {
             // 一個前の警告まだ消えていない
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
+            if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
 
             string addressKey;
             switch (direction) {
@@ -253,9 +286,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 警告終わるまで待つ
             while ((displayTime -= Time.fixedDeltaTime) >= 0) yield return new WaitForFixedUpdate();
 
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
+            if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
         }
 
         /// <summary>
@@ -296,21 +327,20 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var sign = direction == EDirection.ToRight ? -1 : 1;
                 // x座標は画面端、y座標は同じ行のタイルと同じ値
                 warningPosition = new Vector2(sign * GameWindowController.Instance.GetGameSpaceWidth() / 2,
-                    GameWindowController.Instance.GetTileHeight() * (Constants.StageSize.ROW / 2 - line));
-                motionVector = direction == EDirection.ToLeft ?
-                    Vector2.left :
-                    Vector2.right;
+                                              GameWindowController.Instance.GetTileHeight() *
+                                              (Constants.StageSize.ROW / 2 - line));
+                motionVector = direction == EDirection.ToLeft ? Vector2.left : Vector2.right;
             } else if (GimmickLibrary.IsVertical(direction)) {
                 var sign = direction == EDirection.ToUp ? -1 : 1;
                 // x座標は同じ列のタイルと同じ値、y座標は画面端
-                warningPosition = new Vector2(GameWindowController.Instance.GetTileWidth() * (line - (Constants.StageSize.COLUMN / 2)),
+                warningPosition = new Vector2(
+                    GameWindowController.Instance.GetTileWidth() * (line - Constants.StageSize.COLUMN / 2),
                     sign * Constants.WindowSize.HEIGHT / 2);
-                motionVector = direction == EDirection.ToUp ?
-                    Vector2.up :
-                    Vector2.down;
+                motionVector = direction == EDirection.ToUp ? Vector2.up : Vector2.down;
             } else {
                 throw new NotImplementedException();
             }
+
             // 画面端から、警告の幅(or高さ)/2の分だけ画面内に移動させた座標に警告を配置
             var warningOffset = GameWindowController.Instance.GetGameCoreSpaceWidth() * _WARNING_OFFSET_RATIO;
             warningPosition += Vector2.Scale(motionVector, new Vector2(warningOffset, warningOffset)) / 2;
@@ -373,26 +403,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             } else {
                 throw new NotImplementedException();
             }
+
             transform.position = new Vector2(x, y);
-        }
-
-        protected void OnTriggerEnter2D(Collider2D other)
-        {
-            // 数字ボトルとの衝突以外は考えない
-            var bottle = other.GetComponent<AbstractBottleController>();
-            if (bottle == null || !bottle.IsAttackable || bottle.Invincible) return;
-
-            // 衝突したオブジェクトは赤色に変える
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-        }
-
-        protected override void OnEndGame()
-        {
-            _rigidBody.velocity = Vector2.zero;
-
-            if (_warningObj != null) {
-                _warningPrefab.ReleaseInstance(_warningObj);
-            }
         }
     }
 }

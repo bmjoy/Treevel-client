@@ -2,12 +2,13 @@
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class SelfishEffectController : MonoBehaviour
+    public class SelfishEffectController : AbstractGameObjectController
     {
         private DynamicBottleController _bottleController;
 
@@ -53,26 +54,24 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.StartMove += HandleStartMove;
-            _bottleController.EndMove += HandleEndMove;
-            _bottleController.pressGesture.Pressed += HandlePressed;
-            _bottleController.releaseGesture.Released += HandleReleased;
-            _bottleController.EndGame += HandleEndGame;
+            _bottleController.StartMove.Subscribe(_ => SetIsStopping(false)).AddTo(this);
+            _bottleController.EndMove.Subscribe(_ => SetIsStopping(true)).AddTo(this);
+            _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposableOnGameEnd, this);
+            _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposableOnGameEnd, this);
 
-            // 移動していないフレーム数を数え始める
-            _countCalmFrames = true;
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                _countCalmFrames = false;
+                _calmFrames = 0;
+                _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+            }).AddTo(this);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+                // 移動していないフレーム数を数え始める
+                _countCalmFrames = true;
+            }).AddTo(this);
 
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Selfish.GetOrderInLayer();
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.StartMove -= HandleStartMove;
-            _bottleController.EndMove -= HandleEndMove;
-            _bottleController.pressGesture.Pressed -= HandlePressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
         }
 
         private void FixedUpdate()
@@ -88,57 +87,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
                 _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
             }
+
             _animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
             _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
-        }
-
-        /// <summary>
-        /// 移動開始時の処理
-        /// </summary>
-        private void HandleStartMove()
-        {
-            SetIsStopping(false);
-        }
-
-        /// <summary>
-        /// 移動終了時の処理
-        /// </summary>
-        private void HandleEndMove()
-        {
-            SetIsStopping(true);
-        }
-
-        /// <summary>
-        /// ホールド開始時の処理
-        /// </summary>
-        private void HandlePressed(object sender, EventArgs e)
-        {
-            SetIsStopping(false);
-        }
-
-        /// <summary>
-        /// ホールド終了時の処理
-        /// </summary>
-        private void HandleReleased(object sender, EventArgs e)
-        {
-            SetIsStopping(true);
-        }
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        private void HandleEndGame()
-        {
-            _countCalmFrames = false;
-            _calmFrames = 0;
-            _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-
-            _bottleController.StartMove -= HandleStartMove;
-            _bottleController.EndMove -= HandleEndMove;
-            _bottleController.pressGesture.Pressed -= HandlePressed;
-            _bottleController.releaseGesture.Released -= HandleReleased;
-            _bottleController.EndGame -= HandleEndGame;
         }
 
         /// <summary>
@@ -148,7 +99,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             // ボトルの位置を取得する
             var tileNum = BoardManager.Instance.GetBottlePos(_bottleController);
-            var(x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
+            var (x, y) = BoardManager.Instance.TileNumToXY(tileNum).Value;
 
             var canMoveDirections = new int[Enum.GetNames(typeof(EDirection)).Length];
             // 空いている方向を確認する
@@ -163,7 +114,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // 空いている方向からランダムに1方向を選択する
             if (canMoveDirections.Sum() == 0) return;
-            var direction = (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
+            var direction =
+                (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
             switch (direction) {
                 case EDirection.ToLeft:
                     BoardManager.Instance.Move(_bottleController, tileNum - 1, Vector2Int.left);
@@ -175,7 +127,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     BoardManager.Instance.Move(_bottleController, tileNum - Constants.StageSize.COLUMN, Vector2Int.up);
                     break;
                 case EDirection.ToDown:
-                    BoardManager.Instance.Move(_bottleController, tileNum + Constants.StageSize.COLUMN, Vector2Int.down);
+                    BoardManager.Instance.Move(_bottleController, tileNum + Constants.StageSize.COLUMN,
+                                               Vector2Int.down);
                     break;
                 default:
                     throw new IndexOutOfRangeException();

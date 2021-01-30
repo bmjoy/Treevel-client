@@ -1,10 +1,11 @@
 ﻿using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class ReverseEffectController : MonoBehaviour
+    public class ReverseEffectController : AbstractGameObjectController
     {
         private DynamicBottleController _bottleController;
 
@@ -14,6 +15,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            // イベントに処理を登録する
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
         }
 
         public void Initialize(DynamicBottleController bottleController)
@@ -23,25 +26,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             transform.localPosition = new Vector3(0, 75f);
             _bottleController = bottleController;
 
-            // イベントに処理を登録する
-            _bottleController.EndGame += HandleEndGame;
-
             // 描画順序の設定
             GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Reverse.GetOrderInLayer();
-        }
-
-        private void OnDestroy()
-        {
-            _bottleController.EndGame -= HandleEndGame;
-        }
-
-        /// <summary>
-        /// ゲーム終了時の処理
-        /// </summary>
-        private void HandleEndGame()
-        {
-            _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            _bottleController.EndGame -= HandleEndGame;
         }
     }
 }

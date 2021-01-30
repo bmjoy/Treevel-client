@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
@@ -6,6 +9,7 @@ using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Tile;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
@@ -23,6 +27,9 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         private readonly Dictionary<GameObject, Vector2Int> _bottlePositions = new Dictionary<GameObject, Vector2Int>();
 
+        private IDisposable _disposable;
+        private CancellationTokenSource _tokenSource;
+
         private void Awake()
         {
             // `squares` の初期化
@@ -35,33 +42,27 @@ namespace Treevel.Modules.GamePlayScene
                     _squares[col, row] = new Square(x, y);
                 }
             }
+
+            GamePlayDirector.Instance.GameStart
+                .Subscribe(_ => {
+                    foreach (var square in _squares) {
+                        if (square.bottle == null) return;
+                        square.bottle.OnEnterTile(square.tile.gameObject);
+                        if (square.tile.RunOnBottleEnterAtInit) square.tile.OnBottleEnter(square.bottle.gameObject, null);
+                    }
+                }).AddTo(this);
         }
 
-        private void OnEnable()
+        public void Initialize()
         {
-            GamePlayDirector.GameSucceeded += HandleGameSucceeded;
-            GamePlayDirector.GameFailed += HandleGameFailed;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= HandleGameSucceeded;
-            GamePlayDirector.GameFailed -= HandleGameFailed;
-        }
-
-        private void HandleGameSucceeded()
-        {
-            EndProcess();
-        }
-
-        private void HandleGameFailed()
-        {
-            EndProcess();
+            _tokenSource = new CancellationTokenSource();
+            _disposable = GamePlayDirector.Instance.GameEnd.Subscribe(_ => EndProcess()).AddTo(this);
         }
 
         private void EndProcess()
         {
-            StopAllCoroutines();
+            _tokenSource.Cancel();
+            _disposable.Dispose();
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace Treevel.Modules.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return null;
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
 
             return _squares[x, y].tile != null ? _squares[x, y].tile.gameObject : null;
         }
@@ -93,7 +94,7 @@ namespace Treevel.Modules.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return null;
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
 
             return _squares[x, y].bottle != null ? _squares[x, y].bottle.gameObject : null;
         }
@@ -103,10 +104,10 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public GameObject[] GetBottlesOnRow(ERow row)
         {
-            List<GameObject> ret = new List<GameObject>();
+            var ret = new List<GameObject>();
 
             var r = (int)row;
-            for (var c = 0 ; c < Constants.StageSize.COLUMN ; c++) {
+            for (var c = 0; c < Constants.StageSize.COLUMN; c++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
                 }
@@ -120,10 +121,10 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public GameObject[] GetBottlesOnColumn(EColumn column)
         {
-            List<GameObject> ret = new List<GameObject>();
+            var ret = new List<GameObject>();
 
             var c = (int)column;
-            for (var r = 0 ; r < Constants.StageSize.ROW ; r++) {
+            for (var r = 0; r < Constants.StageSize.ROW; r++) {
                 if (_squares[c, r].bottle) {
                     ret.Add(_squares[c, r].bottle.gameObject);
                 }
@@ -177,7 +178,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="tileNum"> タイル番号 </param>
         /// <returns> (行, 列) </returns>
-        public(int, int)? TileNumToXY(int tileNum)
+        public (int, int)? TileNumToXY(int tileNum)
         {
             if (tileNum < 1 || 15 < tileNum) return null;
 
@@ -202,12 +203,21 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
+        /// x行y列のタイルが NormalTile かどうか
+        /// </summary>
+        public bool IsNormalTile(int x, int y)
+        {
+            if (x < 0 || Constants.StageSize.COLUMN - 1 < x || y < 0 || Constants.StageSize.ROW - 1 < y) return false;
+
+            return _squares[x, y].tile is NormalTileController;
+        }
+
+        /// <summary>
         /// ボトルをフリックする方向に移動する
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="directionInt"> フリックする方向 </param>
-        /// <returns> フリックした結果，ボトルが移動したかどうか </returns>
-        public bool HandleFlickedBottle(DynamicBottleController bottle, Vector2Int directionInt)
+        public async UniTask FlickBottle(DynamicBottleController bottle, Vector2Int directionInt)
         {
             // tileNum は原点が左上だが，方向ベクトルは原点が左下なので，加工する
             directionInt.y = -directionInt.y;
@@ -219,9 +229,10 @@ namespace Treevel.Modules.GamePlayScene
             // 移動先の位置をタイル番号に変換
             var targetTileNum = XYToTileNum(targetPos.x, targetPos.y);
 
-            if (targetTileNum == null) return false;
+            if (targetTileNum == null) return;
 
-            return Move(bottle, targetTileNum.Value, directionInt);
+            bottle.flickNum++;
+            await Move(bottle, targetTileNum.Value, directionInt);
         }
 
         /// <summary>
@@ -232,7 +243,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
         /// <param name="immediately"> 瞬間移動か </param>
         /// <returns> ボトルが移動したかどうか </returns>
-        public bool Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
+        public async UniTask<bool> Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
         {
             // 移動するボトルが null の場合は移動しない
             if (bottle == null) return false;
@@ -241,7 +252,7 @@ namespace Treevel.Modules.GamePlayScene
             // 範囲外のタイル番号が指定された場合には何もしない
             if (xy == null) return false;
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
 
             var targetSquare = _squares[x, y];
 
@@ -268,10 +279,11 @@ namespace Treevel.Modules.GamePlayScene
 
             if (direction != null) {
                 // ボトルを移動する
-                StartCoroutine(bottle.Move(targetSquare.worldPosition, () => {
-                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                    targetSquare.tile.OnBottleEnter(bottleObject, direction);
-                }));
+                await bottle.Move(targetSquare.worldPosition, _tokenSource.Token)
+                    .ContinueWith(() => {
+                        targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                        targetSquare.tile.OnBottleEnter(bottleObject, direction);
+                    });
             } else {
                 // ボトルを瞬間移動させる
                 bottle.transform.position = targetSquare.worldPosition;
@@ -294,7 +306,7 @@ namespace Treevel.Modules.GamePlayScene
                 // 範囲外のタイル番号が指定された場合には何もしない
                 if (xy == null) return;
 
-                var(x, y) = xy.Value;
+                var (x, y) = xy.Value;
                 var targetSquare = _squares[x, y];
 
                 // 既にタイルが置いてあった場合、disabledにする(ノーマルタイルは重複利用されるため、消したくない)
@@ -324,7 +336,7 @@ namespace Treevel.Modules.GamePlayScene
                 if (xy == null) return;
 
                 // 目標の格子を取得
-                var(targetX, targetY) = xy.Value;
+                var (targetX, targetY) = xy.Value;
                 var targetSquare = _squares[targetX, targetY];
 
                 // 格子に設定
@@ -333,12 +345,32 @@ namespace Treevel.Modules.GamePlayScene
 
                 // 適切な場所に設置
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
+            }
+        }
 
-                // ボトルがタイルに配置された場合の処理を行う
-                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                if (targetSquare.tile.RunOnBottleEnterAtInit) {
-                    targetSquare.tile.OnBottleEnter(targetSquare.bottle.gameObject, null);
-                }
+        /// <summary>
+        /// [ゲーム中用] ボトルを指定位置に設置する
+        /// </summary>
+        /// <param name="bottle"> 設置するボトル </param>
+        /// <param name="column"> 列 </param>
+        /// <param name="row"> 行 </param>
+        public void PutBottle(AbstractBottleController bottle, int column, int row)
+        {
+            // 盤面外を指定した場合、何もしない
+            if (column < 0 || Constants.StageSize.COLUMN - 1 < column || row < 0 || Constants.StageSize.ROW - 1 < row) return;
+
+            lock (_squares) {
+                var targetSquare = _squares[column, row];
+
+                // 置こうとしている tile に既に bottle がある場合には何もしない
+                if (targetSquare.bottle != null) return;
+
+                // 格子に設定
+                _bottlePositions[bottle.gameObject] = new Vector2Int(column, row);
+                targetSquare.bottle = bottle;
+
+                // 適切な場所に設置
+                targetSquare.bottle.transform.position = targetSquare.worldPosition;
             }
         }
 
@@ -357,10 +389,10 @@ namespace Treevel.Modules.GamePlayScene
         {
             var xy = TileNumToXY(tileNum);
             if (xy == null) {
-                throw new System.InvalidOperationException($"Invalid Tile Num {tileNum}");
+                throw new InvalidOperationException($"Invalid Tile Num {tileNum}");
             }
 
-            var(x, y) = xy.Value;
+            var (x, y) = xy.Value;
             return _squares[x, y].worldPosition;
         }
 
@@ -373,7 +405,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             var tileNum = XYToTileNum(x, y);
             if (tileNum == null) {
-                throw new System.InvalidOperationException($"invalid (x, y) = ({x}, {y})");
+                throw new InvalidOperationException($"invalid (x, y) = ({x}, {y})");
             }
 
             return GetTilePos(tileNum.Value);
@@ -387,7 +419,7 @@ namespace Treevel.Modules.GamePlayScene
             /// <summary>
             /// 格子にあるタイル
             /// </summary>
-            public AbstractTileController tile;
+            public readonly Vector2 worldPosition;
 
             /// <summary>
             /// 格子にあるボトル
@@ -397,8 +429,7 @@ namespace Treevel.Modules.GamePlayScene
             /// <summary>
             /// 格子のワールド座標
             /// </summary>
-            public readonly Vector2 worldPosition;
-
+            public AbstractTileController tile;
 
             public Square(float x, float y)
             {

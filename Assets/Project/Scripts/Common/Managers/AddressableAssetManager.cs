@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
-using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using UniRx;
 using UnityEngine;
@@ -36,12 +35,12 @@ namespace Treevel.Common.Managers
         /// </summary>
         public static AsyncOperationHandle Initialize()
         {
-            var handle =  Addressables.InitializeAsync();
-            handle.Completed += (obj) => {
+            var handle = Addressables.InitializeAsync();
+            handle.Completed += obj => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     _initialized = true;
                 } else {
-                    throw new System.Exception("Fail to initialize Addressable Asset System.");
+                    throw new Exception("Fail to initialize Addressable Asset System.");
                 }
             };
             return handle;
@@ -53,7 +52,7 @@ namespace Treevel.Common.Managers
         /// <typeparam name="TObject">ロードするアセットの型</typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static UniTask<TObject> LoadAsset<TObject> (object key)
+        private static UniTask<TObject> LoadAsset<TObject>(object key)
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>().ToUniTask();
@@ -74,14 +73,14 @@ namespace Treevel.Common.Managers
         /// <typeparam name="TObject"></typeparam>
         /// <param name="key">アドレス</param>
         /// <returns></returns>
-        public static TObject GetAsset<TObject> (object key)
+        public static TObject GetAsset<TObject>(object key)
         {
             if (_loadedAssets.ContainsKey(key)) {
                 return _loadedAssets[key].Convert<TObject>().Result;
-            } else {
-                Debug.LogWarning($"Asset with key:{key} is not loaded.");
-                return default;
             }
+
+            Debug.LogWarning($"Asset with key:{key} is not loaded.");
+            return default;
         }
 
 
@@ -125,12 +124,11 @@ namespace Treevel.Common.Managers
         public static AsyncOperationHandle<SceneInstance> UnloadScene(string sceneName)
         {
             // シーンがロードしていなければ終了
-            if (!_loadedAssets.ContainsKey(sceneName))
-                return default;
+            if (!_loadedAssets.ContainsKey(sceneName)) return default;
 
             var handle = _loadedAssets[sceneName];
             var ret = Addressables.UnloadSceneAsync(handle);
-            ret.Completed += (obj) => {
+            ret.Completed += obj => {
                 if (obj.Status == AsyncOperationStatus.Succeeded) {
                     // アンロード終了後、辞書から削除
                     _loadedAssets.Remove(sceneName);
@@ -143,7 +141,7 @@ namespace Treevel.Common.Managers
         }
 
         /// <summary>
-        /// プレハブを実体化させる
+        /// プレハブを実体化させる
         /// </summary>
         /// <param name="key">キー（アドレス）</param>
         /// <param name="parent">親オブジェクト</param>
@@ -156,7 +154,6 @@ namespace Treevel.Common.Managers
             return op;
         }
 
-
         /// <summary>
         /// ステージに必要なアセットをロード
         /// </summary>
@@ -164,10 +161,10 @@ namespace Treevel.Common.Managers
         /// <param name="stageNumber"> ステージ番号 </param>
         internal static async UniTask LoadStageDependencies(ETreeId treeId, int stageNumber)
         {
-            StageData stage = GameDataManager.GetStage(treeId, stageNumber);
+            var stage = GameDataManager.GetStage(treeId, stageNumber);
 
             var tasks = new List<UniTask>();
-            stage.BottleDatas.ForEach((bottleData) => {
+            stage.BottleDatas.ForEach(bottleData => {
                 switch (bottleData.type) {
                     case EBottleType.Dynamic:
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB));
@@ -184,8 +181,9 @@ namespace Treevel.Common.Managers
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB));
                         break;
                     default:
-                        throw new System.NotImplementedException();
+                        throw new NotImplementedException();
                 }
+
                 if (bottleData.bottleSprite.RuntimeKeyIsValid()) tasks.Add(LoadAsset<Sprite>(bottleData.bottleSprite));
                 // 対応するTileのSpriteを先に読み込む
                 if (bottleData.targetTileSprite.RuntimeKeyIsValid()) tasks.Add(LoadAsset<Sprite>(bottleData.targetTileSprite));
@@ -209,7 +207,7 @@ namespace Treevel.Common.Managers
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.ICE_TILE_PREFAB));
                         break;
                     default:
-                        throw new System.NotImplementedException();
+                        throw new NotImplementedException();
                 }
             });
 
@@ -254,11 +252,12 @@ namespace Treevel.Common.Managers
                                 tasks.Add(LoadAsset<GameObject>(Constants.Address.SAND_PILED_UP_POWDER_PREFAB));
                                 break;
                             default:
-                                throw new System.ArgumentOutOfRangeException();
+                                throw new ArgumentOutOfRangeException();
                         }
+
                         break;
                     default:
-                        throw new System.ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException();
                 }
             });
 

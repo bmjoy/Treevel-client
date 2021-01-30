@@ -1,6 +1,6 @@
-﻿using System;
-using TouchScript.Gestures.TransformGestures;
+﻿using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +14,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// Contentの余白(Screen何個分の余白があるか)
         /// </summary>
         public static float _LEFT_OFFSET;
+
         public static float _RIGHT_OFFSET;
         public static float _TOP_OFFSET;
         public static float _BOTTOM_OFFSET;
@@ -30,13 +31,24 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _RIGHT_OFFSET = content.anchorMax.x - content.pivot.x;
             _TOP_OFFSET = content.anchorMax.y - content.pivot.y;
             _BOTTOM_OFFSET = Mathf.Abs(content.anchorMin.y - content.pivot.y);
+
+            // 明示的にUnityEvent使用することを宣言
+            _transformGesture.UseUnityEvents = true;
+            _transformGesture.OnTransformStart.AsObservable().Subscribe(_ => {
+                // 2点タッチしている時はスクロールしない
+                horizontal = false;
+                vertical = false;
+            }).AddTo(this);
+            _transformGesture.OnTransformComplete.AsObservable().Subscribe(_ => {
+                // スクロール制限を解除する
+                horizontal = true;
+                vertical = true;
+            }).AddTo(this);
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            _transformGesture.TransformStarted += OnTransformStarted;
-            _transformGesture.TransformCompleted += OnTransformCompleted;
             // 初期位置の調整
             content.transform.localPosition = UserSettings.LevelSelectScrollPosition;
         }
@@ -45,20 +57,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             base.OnDisable();
             UserSettings.LevelSelectScrollPosition = content.transform.localPosition;
-        }
-
-        private void OnTransformStarted(object sender, EventArgs e)
-        {
-            // 2点タッチしている時はスクロールしない
-            horizontal = false;
-            vertical = false;
-        }
-
-        private void OnTransformCompleted(object sender, EventArgs e)
-        {
-            // スクロール制限を解除する
-            horizontal = true;
-            vertical = true;
         }
     }
 }

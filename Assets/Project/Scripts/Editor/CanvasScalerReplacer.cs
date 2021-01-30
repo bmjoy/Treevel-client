@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Treevel.Editor
@@ -9,7 +10,7 @@ namespace Treevel.Editor
     {
         [SerializeField] private Vector2 referenceResolution;
 
-        [SerializeField] [Range(0, 1)] private float matchWidthOrHeight;
+        [SerializeField, Range(0, 1)] private float matchWidthOrHeight;
 
         public Vector2 ReferenceResolution => referenceResolution;
 
@@ -66,20 +67,17 @@ namespace Treevel.Editor
                 var guid = sceneGuids[i];
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 // プログレスバーを表示
-                EditorUtility.DisplayProgressBar("", path, (float)i / (float)sceneGuids.Length);
+                EditorUtility.DisplayProgressBar("", path, i / (float)sceneGuids.Length);
                 // シーンを開く
                 EditorSceneManager.OpenScene(path);
                 Debug.Log(AssetDatabase.LoadMainAssetAtPath(path));
                 // 開いているシーンのCanvasScalerの設定
-                if (ReplaceCanvasScalerInScene())
-                    // 変更があれば保存
-                    EditorSceneManager.SaveScene(EditorSceneManager.GetSceneByPath(path));
+                if (ReplaceCanvasScalerInScene()) EditorSceneManager.SaveScene(SceneManager.GetSceneByPath(path)); // 変更があれば保存
             }
+
             // プログレスバーの終了
             EditorUtility.ClearProgressBar();
-            if (!string.IsNullOrEmpty(currentScene))
-                // はじめのシーンを再度開く
-                EditorSceneManager.OpenScene(currentScene);
+            if (!string.IsNullOrEmpty(currentScene)) EditorSceneManager.OpenScene(currentScene); // はじめのシーンを再度開く
         }
 
         /// <summary>
@@ -96,6 +94,7 @@ namespace Treevel.Editor
                 if (canvas.GetComponentInChildren<CanvasScaler>() == null) {
                     canvas.gameObject.AddComponent<CanvasScaler>();
                 }
+
                 var canvasScaler = canvas.GetComponent<CanvasScaler>();
                 // 設定の変更
                 canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -103,6 +102,7 @@ namespace Treevel.Editor
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = _matchWidthOrHeightProp.floatValue;
             }
+
             return true;
         }
     }

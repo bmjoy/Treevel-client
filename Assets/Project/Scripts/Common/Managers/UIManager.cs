@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
@@ -18,30 +17,23 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// プログレスバーのプレハブ
         /// </summary>
-        [SerializeField]
-        private AssetReferenceGameObject _progressBar;
+        [SerializeField] private AssetReferenceGameObject _progressBar;
 
         /// <summary>
         /// エラーメッセージのポップアップ
         /// 普段使われない予想なので、使うときだけロード、実体化させる
         /// </summary>
-        [SerializeField]
-        private AssetReferenceGameObject _errorMessageBoxRef;
+        [SerializeField] private AssetReferenceGameObject _errorMessageBoxRef;
 
         /// <summary>
         /// 汎用メッセージダイアログのプレハブ
         /// </summary>
-        [SerializeField]
-        private AssetReferenceGameObject _messageDialogRef;
+        [SerializeField] private AssetReferenceGameObject _messageDialogRef;
 
         /// <summary>
         /// プログレスバーのインスタンス
         /// </summary>
-        public ProgressBar ProgressBar
-        {
-            get;
-            private set;
-        }
+        public ProgressBar ProgressBar { get; private set; }
 
         private MessageDialog _messageDialog;
 
@@ -78,7 +70,7 @@ namespace Treevel.Common.Managers
         public void ShowErrorMessage(EErrorCode errorCode)
         {
             var canvas = GetComponentInChildren<Canvas>().transform;
-            _errorMessageBoxRef.InstantiateAsync(canvas).Completed += (op) => {
+            _errorMessageBoxRef.InstantiateAsync(canvas).Completed += op => {
                 var messageBoxObj = op.Result;
 
                 // テキスト、エラーコードを設定
@@ -92,7 +84,8 @@ namespace Treevel.Common.Managers
         /// <param name="message"> メッセージインデックス </param>
         /// <param name="okText"> OKボタン用文字 </param>
         /// <param name="okCallback"> OKボタン押した時のコールバック </param>
-        public void CreateOkCancelMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback, bool backgroundBtnActive = true)
+        public void CreateOkCancelMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback,
+                                                bool backgroundBtnActive = true)
         {
             _messageDialog.Initialize(MessageDialog.EDialogType.Ok_Cancel, message, okText, okCallback);
             _messageDialog.SetBackgroundButtonActive(backgroundBtnActive);
@@ -105,7 +98,8 @@ namespace Treevel.Common.Managers
         /// <param name="message"> メッセージインデックス </param>
         /// <param name="okText"> OKボタン用文字 </param>
         /// <param name="okCallback"> OKボタン押した時のコールバック </param>
-        public void CreateOkMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback = null, bool backgroundBtnActive = true)
+        public void CreateOkMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback = null,
+                                          bool backgroundBtnActive = true)
         {
             _messageDialog.Initialize(MessageDialog.EDialogType.Ok, message, okText, okCallback);
             _messageDialog.SetBackgroundButtonActive(backgroundBtnActive);

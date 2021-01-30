@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -42,6 +42,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         [SerializeField] [Range(0, 0.2f)] protected float width;
 
         /// <summary>
+        /// 拡大率
+        /// </summary>
+        public ReactiveProperty<float> Scale = new ReactiveProperty<float>(1f);
+
+        /// <summary>
         /// 道の長さ
         /// </summary>
         protected float lineLength = 0f;
@@ -61,6 +66,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected virtual void Awake()
         {
             SetSaveKey();
+            Scale.Subscribe(scale => {
+                lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * scale;
+            }).AddTo(this);
         }
 
         protected virtual void Start()
@@ -74,7 +82,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected abstract void SetSaveKey();
 
-        public abstract IEnumerator UpdateState();
+        public abstract void UpdateState();
 
         public abstract void SaveState();
 
@@ -85,16 +93,17 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             if (lineRenderer == null) return;
             lineRenderer.positionCount = _middlePointNum + 2;
-            lineRenderer.startWidth = lineRenderer.endWidth = (float)Screen.width * width;
+            lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * Scale.Value;
 
             var startPointLocalPosition = startObject.transform.localPosition;
             var endPointLocalPosition = endObject.transform.localPosition;
 
             // 点の位置と線の長さを求める
             var preTargetPosition = lineRenderer.GetPosition(0);
-            for (int i = 0; i <= _middlePointNum + 1; i++) {
+            for (var i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                var targetPosition = CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint, secondControlPoint, endPointLocalPosition, ratio);
+                var targetPosition = CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint,
+                                                                  secondControlPoint, endPointLocalPosition, ratio);
                 lineRenderer.SetPosition(i, targetPosition);
                 lineLength += Vector2.Distance(targetPosition, preTargetPosition);
                 preTargetPosition = targetPosition;
@@ -114,9 +123,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             var oneMinusRatio = 1f - ratio;
             return oneMinusRatio * oneMinusRatio * oneMinusRatio * p0
-                + 3f * oneMinusRatio * oneMinusRatio * ratio * p1
-                + 3f * oneMinusRatio * ratio * ratio * p2
-                + ratio * ratio * ratio * p3;
+                   + 3f * oneMinusRatio * oneMinusRatio * ratio * p1
+                   + 3f * oneMinusRatio * ratio * ratio * p2
+                   + ratio * ratio * ratio * p3;
         }
     }
 }

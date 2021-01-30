@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -13,6 +15,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     public class GimmickGenerator : SingletonObject<GimmickGenerator>
     {
+        // ゲーム中の一時停止を用意に実装するためにCoroutineを採用する
         private List<IEnumerator> _coroutines = new List<IEnumerator>();
 
         /// <summary>
@@ -20,21 +23,23 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private float _startTime;
 
-        private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys = new Dictionary<EGimmickType, string>()
-        {
-            {EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB},
-            {EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB},
-            {EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB},
-            {EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB},
-            {EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB},
-            {EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB},
-            {EGimmickType.Fog, Constants.Address.FOG_PREFAB},
-            {EGimmickType.Powder, Constants.Address.POWDER_PREFAB},
-        };
+        private readonly Dictionary<EGimmickType, string> _prefabAddressableKeys =
+            new Dictionary<EGimmickType, string> {
+                { EGimmickType.Tornado, Constants.Address.TORNADO_PREFAB },
+                { EGimmickType.Meteorite, Constants.Address.METEORITE_PREFAB },
+                { EGimmickType.AimingMeteorite, Constants.Address.AIMING_METEORITE_PREFAB },
+                { EGimmickType.Thunder, Constants.Address.THUNDER_PREFAB },
+                { EGimmickType.SolarBeam, Constants.Address.SOLAR_BEAM_PREFAB },
+                { EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB },
+                { EGimmickType.Fog, Constants.Address.FOG_PREFAB },
+                { EGimmickType.Powder, Constants.Address.POWDER_PREFAB },
+                { EGimmickType.Erasable, Constants.Address.ERASABLE_PREFAB},
+            };
 
-        public void Initialize(List<GimmickData> gimmicks)
+        public UniTask Initialize(List<GimmickData> gimmicks)
         {
             _coroutines = gimmicks.Select(CreateGimmickCoroutine).ToList();
+            return UniTask.CompletedTask;
         }
 
         /// <summary>
@@ -63,7 +68,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 var gimmickObject = gimmickObjectOp.Result;
 
                 if (gimmickObject == null) {
-                    Debug.LogError($"ギミックの生成が失敗しました。");
+                    Debug.LogError("ギミックの生成が失敗しました。");
                     yield break;
                 }
 
@@ -86,14 +91,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void OnEnable()
         {
-            GamePlayDirector.GameSucceeded += OnGameEnd;
-            GamePlayDirector.GameFailed += OnGameEnd;
-        }
-
-        private void OnDisable()
-        {
-            GamePlayDirector.GameSucceeded -= OnGameEnd;
-            GamePlayDirector.GameFailed -= OnGameEnd;
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                OnGameEnd();
+            }).AddTo(this);
         }
 
         private void OnGameEnd()

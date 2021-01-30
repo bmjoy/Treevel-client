@@ -1,16 +1,17 @@
-﻿using UnityEngine.AddressableAssets;
+﻿using System;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Video;
 
 namespace Treevel.Common.Entities.GameDatas
 {
-
-    public enum ETutorialType {
+    public enum ETutorialType
+    {
         None,
         Image,
-        Video
+        Video,
     }
 
-    [System.Serializable]
+    [Serializable]
     public class TutorialData
     {
         public ETutorialType type;
@@ -19,9 +20,9 @@ namespace Treevel.Common.Entities.GameDatas
         public AssetReferenceVideoClip video;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class AssetReferenceVideoClip : AssetReferenceT<VideoClip>
     {
-        public AssetReferenceVideoClip(string guid) : base(guid) {}
+        public AssetReferenceVideoClip(string guid) : base(guid) { }
     }
 }

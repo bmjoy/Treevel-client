@@ -54,12 +54,12 @@ namespace Treevel.Common.Entities.GameDatas
         /// </summary>
         /// <param name="stageId"></param>
         /// <returns> (treeId, stageNumber) </returns>
-        public static(ETreeId, int) DecodeStageIdKey(string stageId)
+        public static (ETreeId, int) DecodeStageIdKey(string stageId)
         {
             var retValues = stageId.Split(Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR);
             if (retValues.Length != 2) throw new Exception("Wrong key format");
             try {
-                var treeId = (ETreeId) Enum.ToObject(typeof(ETreeId), retValues[0]);
+                var treeId = (ETreeId)Enum.ToObject(typeof(ETreeId), retValues[0]);
                 var stageNumber = int.Parse(retValues[1]);
                 return (treeId, stageNumber);
             } catch (Exception e) {

@@ -6,7 +6,6 @@ namespace Treevel.Common.Utils
 {
     public static class CSVReader
     {
-
         /// <summary>
         /// CSVファイルを読み込むメソッド
         /// 使い方:
@@ -31,5 +30,4 @@ namespace Treevel.Common.Utils
             return result;
         }
     }
-
 }

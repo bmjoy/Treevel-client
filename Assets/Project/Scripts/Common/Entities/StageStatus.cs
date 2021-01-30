@@ -89,7 +89,8 @@ namespace Treevel.Common.Entities
             foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
                 var stageNum = treeId.GetStageNum();
 
-                Enumerable.Range(1, stageNum).ToList().ForEach(stageId => PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageId)));
+                Enumerable.Range(1, stageNum).ToList()
+                    .ForEach(stageId => PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageId)));
             }
         }
 
@@ -115,6 +116,7 @@ namespace Treevel.Common.Entities
                 firstSuccessNum = challengeNum;
                 firstSuccessAt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             }
+
             state = EStageState.Cleared;
             Set(treeId, stageNumber);
         }
@@ -189,7 +191,7 @@ namespace Treevel.Common.Entities
         public void SetTutorialChecked(bool isChecked)
         {
             tutorialChecked = isChecked;
-            Set(this._treeId, this._stageNumber);
+            Set(_treeId, _stageNumber);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SnapScroll;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,49 +35,36 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // ページの横幅の設定
             _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
 
-            _shareButton.onClick.AddListener(ShareRecord);
-            _toIndividualButton.onClick.AddListener(MoveToRight);
-            _toGeneralButton.onClick.AddListener(MoveToLeft);
+            // 共有ボタン
+            _shareButton.onClick.AsObservable().Subscribe(_ => {
+                Application.OpenURL("https://twitter.com/intent/tweet?hashtags=Treevel");
+            }).AddTo(this);
+
+            // 「→」ボタン
+            _toIndividualButton.onClick.AsObservable().Subscribe(_ => {
+                _snapScrollView.Page = 1;
+                _snapScrollView.RefreshPage();
+            }).AddTo(this);
+
+            // 「←」ボタン
+            _toGeneralButton.onClick.AsObservable().Subscribe(_ => {
+                _snapScrollView.Page = 0;
+                _snapScrollView.RefreshPage();
+            }).AddTo(this);
+
+            // スクロール時のイベント
+            Observable.FromEvent(
+                h => _snapScrollView.OnPageChanged += HandleOnPageChanged,
+                h => _snapScrollView.OnPageChanged -= HandleOnPageChanged
+            ).Subscribe().AddTo(this);
 
             _toGeneralButton.gameObject.SetActive(false);
         }
 
-        private void OnEnable()
-        {
-            _snapScrollView.OnPageChanged += HandleOnPageChanged;
-        }
-
-        private void OnDisable()
-        {
-            _snapScrollView.OnPageChanged -= HandleOnPageChanged;
-        }
-
         private void HandleOnPageChanged()
         {
-            if (_snapScrollView.Page == 0) {
-                _toIndividualButton.gameObject.SetActive(true);
-                _toGeneralButton.gameObject.SetActive(false);
-            } else {
-                _toIndividualButton.gameObject.SetActive(false);
-                _toGeneralButton.gameObject.SetActive(true);
-            }
-        }
-
-        private static void ShareRecord()
-        {
-            Application.OpenURL("https://twitter.com/intent/tweet?hashtags=Treevel");
-        }
-
-        private void MoveToRight()
-        {
-            _snapScrollView.Page = 1;
-            _snapScrollView.RefreshPage();
-        }
-
-        private void MoveToLeft()
-        {
-            _snapScrollView.Page = 0;
-            _snapScrollView.RefreshPage();
+            _toIndividualButton.gameObject.SetActive(_snapScrollView.Page == 0);
+            _toGeneralButton.gameObject.SetActive(_snapScrollView.Page != 0);
         }
     }
 }
