@@ -10,11 +10,11 @@ namespace Treevel.Modules.GamePlayScene
         /// - GamePlayDirector.Instance.GameSucceeded
         /// - GamePlayDirector.Instance.GameFailed
         /// </summary>
-        protected readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
+        protected readonly CompositeDisposable compositeDisposableOnGameEnd = new CompositeDisposable();
 
         protected virtual void OnEnable()
         {
-            GamePlayDirector.Instance.GameEnd.Subscribe(_ => compositeDisposable.Dispose()).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => compositeDisposableOnGameEnd.Dispose()).AddTo(this);
         }
     }
 }

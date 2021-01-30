@@ -73,7 +73,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
                     // ボトルのフリック情報を伝える
                     await BoardManager.Instance.FlickBottle(this, directionInt);
-                }).AddTo(compositeDisposable, this);
+                }).AddTo(compositeDisposableOnGameEnd, this);
 
             // PressGesture の設定
             pressGesture = GetComponent<PressGesture>();

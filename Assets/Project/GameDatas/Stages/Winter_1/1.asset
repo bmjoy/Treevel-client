@@ -146,7 +146,27 @@ MonoBehaviour:
     isSelfish: 0
     isDark: 0
     isReverse: 0
-  gimmicks: []
+  gimmicks:
+  - loop: 0
+    appearTime: 0
+    interval: 0
+    type: 8
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: -1
+    targetColumn: -1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 
   tutorial:
     type: 0

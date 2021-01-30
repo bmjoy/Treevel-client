@@ -15,6 +15,7 @@ namespace Treevel.Common.Entities
         GustWind,
         Fog,
         Powder,
+        Erasable,
     }
 
     public static class GimmickTypeExtension
@@ -34,6 +35,10 @@ namespace Treevel.Common.Entities
                     return EFailureReasonType.SolarBeam;
                 case EGimmickType.Powder:
                     return EFailureReasonType.Powder;
+                case EGimmickType.GustWind:
+                case EGimmickType.Fog:
+                case EGimmickType.Erasable:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, "このギミックで失敗することはない");
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

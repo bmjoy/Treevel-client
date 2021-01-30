@@ -178,6 +178,9 @@ namespace Treevel.Common.Managers
                     case EBottleType.AttackableDummy:
                         LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB);
                         break;
+                    case EBottleType.Erasable:
+                        LoadAsset<GameObject>(Constants.Address.ERASABLE_BOTTLE_PREFAB);
+                        break;
                     default:
                         throw new NotImplementedException();
                 }
@@ -257,6 +260,9 @@ namespace Treevel.Common.Managers
                                 throw new ArgumentOutOfRangeException();
                         }
 
+                        break;
+                    case EGimmickType.Erasable:
+                        LoadAsset<GameObject>(Constants.Address.ERASABLE_PREFAB);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

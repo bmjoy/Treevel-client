@@ -8,6 +8,7 @@ namespace Treevel.Common.Entities
         Static,
         Normal,
         AttackableDummy,
+        Erasable,
     }
 
     public static class BottleTypeExtension
@@ -17,6 +18,7 @@ namespace Treevel.Common.Entities
             switch (type) {
                 case EBottleType.Dynamic:
                 case EBottleType.Static:
+                case EBottleType.Erasable:
                     return false;
                 case EBottleType.Normal:
                 case EBottleType.AttackableDummy:

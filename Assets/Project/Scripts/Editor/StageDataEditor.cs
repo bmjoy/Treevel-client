@@ -193,9 +193,12 @@ namespace Treevel.Editor
 
                 var bottleTypeProp = bottleDataProp.FindPropertyRelative("type");
 
-                var newEnumValueIndex =
-                    (int)(EBottleType)EditorGUILayout.EnumPopup(new GUIContent("Type"),
-                                                                (EBottleType)bottleTypeProp.enumValueIndex);
+                // ErasableBottle は ErasableGimmick のみから生成できるようにする
+                var newEnumValueIndex = (int)(EBottleType)EditorGUILayout.EnumPopup(
+                    label: new GUIContent("Type"),
+                    selected: (EBottleType)bottleTypeProp.enumValueIndex,
+                    checkEnabled: eType => (EBottleType)eType != EBottleType.Erasable,
+                    includeObsolete: false);
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != bottleTypeProp.enumValueIndex) {
@@ -233,6 +236,8 @@ namespace Treevel.Editor
                         break;
                     case EBottleType.Static:
                         break;
+                    case EBottleType.Erasable:
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -243,10 +248,16 @@ namespace Treevel.Editor
 
         private void DrawGimmickList()
         {
-            // Powderギミックが存在するかどうか
-            var isExistPowder = Enumerable.Range(0, _gimmickDatasProp.arraySize)
-                .Select(index => _gimmickDatasProp.GetArrayElementAtIndex(index).FindPropertyRelative("type"))
-                .Any(gimmickTypeData => (EGimmickType)gimmickTypeData.enumValueIndex == EGimmickType.Powder);
+            var gimmickTypeData = Enumerable.Range(0, _gimmickDatasProp.arraySize)
+                .Select(index => _gimmickDatasProp.GetArrayElementAtIndex(index).FindPropertyRelative("type")).ToList();
+
+            // Powder ギミックが存在するかどうか
+            var isExistPowder = gimmickTypeData
+                .Any(data => (EGimmickType)data.enumValueIndex == EGimmickType.Powder);
+
+            // Erasable ギミックが存在するか
+            var isExistErasable = gimmickTypeData
+                .Any(data => (EGimmickType)data.enumValueIndex == EGimmickType.Erasable);
 
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
                 gimmickDataProp.isExpanded =
@@ -260,8 +271,9 @@ namespace Treevel.Editor
                 var newEnumValueIndex = (int)(EGimmickType)EditorGUILayout.EnumPopup(
                     label: new GUIContent("Type"),
                     selected: (EGimmickType)gimmickTypeProp.enumValueIndex,
-                    // Poderギミックは１ステージに１つまで
-                    checkEnabled: (eType) => !isExistPowder || (EGimmickType)eType != EGimmickType.Powder,
+                    // 1 ステージに 1 つまでのギミックは制約を設ける
+                    checkEnabled: (eType) => !(isExistPowder && (EGimmickType)eType == EGimmickType.Powder ||
+                                               isExistErasable && (EGimmickType)eType == EGimmickType.Erasable),
                     includeObsolete: false
                 );
                 // タイプが変わっていたらデータをリセット
@@ -270,7 +282,8 @@ namespace Treevel.Editor
                     ResetData(gimmickDataProp);
                 }
 
-                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder) {
+                if ((EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Powder ||
+                    (EGimmickType)gimmickTypeProp.enumValueIndex == EGimmickType.Erasable) {
                     EditorGUI.indentLevel--;
                     return;
                 }

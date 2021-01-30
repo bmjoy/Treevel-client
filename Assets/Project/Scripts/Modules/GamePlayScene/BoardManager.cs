@@ -203,6 +203,16 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
+        /// x行y列のタイルが NormalTile かどうか
+        /// </summary>
+        public bool IsNormalTile(int x, int y)
+        {
+            if (x < 0 || Constants.StageSize.COLUMN - 1 < x || y < 0 || Constants.StageSize.ROW - 1 < y) return false;
+
+            return _squares[x, y].tile is NormalTileController;
+        }
+
+        /// <summary>
         /// ボトルをフリックする方向に移動する
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
@@ -331,6 +341,32 @@ namespace Treevel.Modules.GamePlayScene
 
                 // 格子に設定
                 _bottlePositions[bottle.gameObject] = new Vector2Int(targetX, targetY);
+                targetSquare.bottle = bottle;
+
+                // 適切な場所に設置
+                targetSquare.bottle.transform.position = targetSquare.worldPosition;
+            }
+        }
+
+        /// <summary>
+        /// [ゲーム中用] ボトルを指定位置に設置する
+        /// </summary>
+        /// <param name="bottle"> 設置するボトル </param>
+        /// <param name="column"> 列 </param>
+        /// <param name="row"> 行 </param>
+        public void PutBottle(AbstractBottleController bottle, int column, int row)
+        {
+            // 盤面外を指定した場合、何もしない
+            if (column < 0 || Constants.StageSize.COLUMN - 1 < column || row < 0 || Constants.StageSize.ROW - 1 < row) return;
+
+            lock (_squares) {
+                var targetSquare = _squares[column, row];
+
+                // 置こうとしている tile に既に bottle がある場合には何もしない
+                if (targetSquare.bottle != null) return;
+
+                // 格子に設定
+                _bottlePositions[bottle.gameObject] = new Vector2Int(column, row);
                 targetSquare.bottle = bottle;
 
                 // 適切な場所に設置
