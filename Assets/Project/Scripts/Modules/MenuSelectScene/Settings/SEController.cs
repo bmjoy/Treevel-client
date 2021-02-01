@@ -12,7 +12,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             var slider = GetComponent<Slider>();
 
             // ユーザ設定が別のところで変えられた場合スライダーに反映
-            UserSettings.BGMVolume.Subscribe(volume => slider.value = volume).AddTo(this);
+            UserSettings.SEVolume.Subscribe(volume => slider.value = volume).AddTo(this);
 
             // SEスライダーが変化した場合の処理
             slider.onValueChanged.AsObservable()
