@@ -1,5 +1,6 @@
 ﻿using System;
 using Treevel.Common.Entities;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,11 +30,16 @@ namespace Treevel.Common.Components.UIs
         /// </summary>
         [SerializeField] private Button _backgroundButton;
 
+        /// <summary>
+        /// ok button のクリックイベントを破棄するための disposable
+        /// </summary>
+        private IDisposable _disposable;
+
         private void Awake()
         {
-            _cancelButton.onClick.AddListener(() => {
-                gameObject.SetActive(false);
-            });
+            _cancelButton.onClick.AsObservable()
+                .Subscribe(_ => gameObject.SetActive(false))
+                .AddTo(this);
         }
 
         public void Initialize(EDialogType dialogType, ETextIndex message, ETextIndex okText, Action okCallBack)
@@ -44,14 +50,16 @@ namespace Treevel.Common.Components.UIs
             // OKボタンの文字
             _okButtonText.TextIndex = okText;
 
-            // コールバック設定
-            _okButton.onClick.RemoveAllListeners();
-            _okButton.onClick.AddListener(() => {
-                // 設定したコールバックを実行
-                okCallBack?.Invoke();
-                // クリックした後閉じる
-                gameObject.SetActive(false);
-            });
+            // 以前の disposable は破棄する
+            _disposable?.Dispose();
+            _disposable = _okButton.onClick.AsObservable()
+                .Subscribe(_ => {
+                    // 設定したコールバックを実行
+                    okCallBack?.Invoke();
+                    // クリックした後閉じる
+                    gameObject.SetActive(false);
+                })
+                .AddTo(this);
 
             // OKボタンの位置設定
             if (dialogType == EDialogType.Ok_Cancel) {
