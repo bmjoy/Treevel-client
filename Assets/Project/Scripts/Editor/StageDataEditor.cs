@@ -436,7 +436,7 @@ namespace Treevel.Editor
 
                             colProp.intValue = Mathf.Clamp(colProp.intValue, 0, Constants.StageSize.COLUMN - 1);
                             colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                label: new GUIContent("EColumn"),
+                                label: new GUIContent("Column"),
                                 selected: (EColumn)colProp.intValue,
                                 //ランダムは選択不能にする
                                 checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
@@ -604,7 +604,7 @@ namespace Treevel.Editor
 
                             colProp.intValue = Mathf.Clamp(colProp.intValue, 0, Constants.StageSize.COLUMN - 1);
                             colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
-                                label: new GUIContent("EColumn"),
+                                label: new GUIContent("Column"),
                                 selected: (EColumn)colProp.intValue,
                                 //ランダムは選択不能にする
                                 checkEnabled: (eType) => (EColumn)eType != EColumn.Random,
