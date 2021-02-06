@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using Treevel.Modules.MenuSelectScene.Settings;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Common.Entities
@@ -73,18 +75,15 @@ namespace Treevel.Common.Entities
         private void Awake()
         {
             Initialize();
-        }
 
-        /// <summary>
-        /// 記録情報のリセット
-        /// </summary>
-        public void Reset()
-        {
-            // 最終起動日だけはリセットしない
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
+            ResetController.DataReset.Subscribe(_ => {
 
-            Initialize();
+                // 最終起動日だけはリセットしない
+                PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
+                PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
+
+                Initialize();
+            }).AddTo(this);
         }
 
         private void Initialize()
