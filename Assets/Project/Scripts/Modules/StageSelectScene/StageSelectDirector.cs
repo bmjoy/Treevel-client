@@ -88,7 +88,7 @@ namespace Treevel.Modules.StageSelectScene
             // ページ遷移時のイベント登録
             _snapScrollView.OnPageChanged += () => {
                 // 木IDを更新
-                treeId = (ETreeId)(_snapScrollView.Page + 1 + (int)treeId / Constants.MAX_TREE_NUM_IN_SEASON);
+                treeId = (ETreeId)(_snapScrollView.Page + 1 + (int)seasonId * Constants.MAX_TREE_NUM_IN_SEASON);
 
                 // ボタン表示/非表示
                 _leftButton.SetActive(_snapScrollView.Page != 0);
