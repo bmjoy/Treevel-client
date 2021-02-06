@@ -495,8 +495,8 @@ namespace Treevel.Editor
                             var buffer = new int[] { xProp.intValue, yProp.intValue };
                             EditorGUI.MultiIntField(rect, subLabels, buffer);
 
-                            xProp.intValue = Mathf.Clamp(buffer[0], 1, Constants.StageSize.ROW);
-                            yProp.intValue = Mathf.Clamp(buffer[1], 1, Constants.StageSize.COLUMN);
+                            xProp.intValue = Mathf.Clamp(buffer[0], 0, Constants.StageSize.ROW - 1);
+                            yProp.intValue = Mathf.Clamp(buffer[1], 0, Constants.StageSize.COLUMN - 1);
                         });
                         break;
                     }
