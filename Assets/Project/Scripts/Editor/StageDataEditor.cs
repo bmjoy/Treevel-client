@@ -328,7 +328,6 @@ namespace Treevel.Editor
                                         // デフォルト値設定
                                         lineElem.intValue =
                                             Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.COLUMN - 1);
-
                                         lineElem.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Target Column"),
                                             selected: (EColumn)lineElem.intValue,
@@ -343,7 +342,6 @@ namespace Treevel.Editor
                                         // デフォルト値設定
                                         lineElem.intValue =
                                             Mathf.Clamp(lineElem.intValue, 0, Constants.StageSize.ROW - 1);
-
                                         lineElem.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
                                             label: new GUIContent("Target Row"),
                                             selected: (ERow)lineElem.intValue,
@@ -427,8 +425,7 @@ namespace Treevel.Editor
                                                              new GUIContent("Random Column"));
                             }
                         } else {
-                            if (rowProp.intValue < 1 || rowProp.intValue > Constants.StageSize.ROW) rowProp.intValue = 1;
-
+                            rowProp.intValue = Mathf.Clamp(rowProp.intValue, 0, Constants.StageSize.ROW - 1);
                             rowProp.intValue = (int)(ERow)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("Row"),
                                 selected: (ERow)rowProp.intValue,
@@ -437,7 +434,7 @@ namespace Treevel.Editor
                                 includeObsolete: false
                             );
 
-                            if (colProp.intValue < 1 || colProp.intValue > Constants.StageSize.COLUMN) colProp.intValue = 1;
+                            colProp.intValue = Mathf.Clamp(colProp.intValue, 0, Constants.StageSize.COLUMN - 1);
                             colProp.intValue = (int)(EColumn)EditorGUILayout.EnumPopup(
                                 label: new GUIContent("EColumn"),
                                 selected: (EColumn)colProp.intValue,
@@ -617,12 +614,12 @@ namespace Treevel.Editor
                             // 横幅、縦幅の設定
                             var widthProp = gimmickDataProp.FindPropertyRelative("width");
                             if (widthProp.intValue < 1 || widthProp.intValue >
-                                Mathf.Min(FogController.WIDTH_MAX, Constants.StageSize.COLUMN + 1 - colProp.intValue))
+                                Mathf.Min(FogController.WIDTH_MAX, Constants.StageSize.COLUMN - colProp.intValue))
                                 widthProp.intValue = 1;
                             EditorGUILayout.PropertyField(widthProp);
                             var heightProp = gimmickDataProp.FindPropertyRelative("height");
                             if (heightProp.intValue < 1 || heightProp.intValue >
-                                Mathf.Min(FogController.HEIGHT_MAX, Constants.StageSize.ROW + 1 - rowProp.intValue))
+                                Mathf.Min(FogController.HEIGHT_MAX, Constants.StageSize.ROW - rowProp.intValue))
                                 heightProp.intValue = 1;
                             EditorGUILayout.PropertyField(heightProp);
                         }
