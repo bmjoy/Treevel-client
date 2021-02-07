@@ -59,12 +59,6 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: aa840bcf4d2f9449fa15a87b0e4adf35
-    m_Address: BGM_Playing
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: bc5b2bb6f567248d99077e4108b390d0
     m_Address: Tutorials/1_2
     m_ReadOnly: 0
