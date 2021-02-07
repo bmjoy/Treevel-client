@@ -26,7 +26,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 移動速度
         /// </summary>
-        [SerializeField] private float _moveSpeed = 1.5f;
+        [SerializeField] private float _moveSpeed = 150f;
 
         /// <summary>
         /// 目標タイル
