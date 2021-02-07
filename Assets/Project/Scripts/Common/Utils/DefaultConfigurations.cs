@@ -1,4 +1,5 @@
-﻿using Treevel.Common.Components.UIs;
+﻿using System.Collections.Generic;
+using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using UnityEngine;
 
@@ -56,6 +57,19 @@ namespace Treevel.Common.Utils
                 return new Vector2(0, RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
             }
         }
+
+        /// <summary>
+        /// 各失敗原因に対する失敗回数
+        /// </summary>
+        public static readonly Dictionary<EFailureReasonType, int> FAILURE_REASON_COUNT = new Dictionary<EFailureReasonType, int> {
+            { EFailureReasonType.Others, 0 },
+            { EFailureReasonType.Tornado, 0 },
+            { EFailureReasonType.Meteorite, 0 },
+            { EFailureReasonType.AimingMeteorite, 0 },
+            { EFailureReasonType.Thunder, 0 },
+            { EFailureReasonType.SolarBeam, 0 },
+            { EFailureReasonType.Powder, 0 },
+        };
 
         /// <summary>
         /// 起動日数

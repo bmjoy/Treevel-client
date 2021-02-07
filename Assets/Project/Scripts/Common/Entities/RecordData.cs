@@ -14,7 +14,8 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 各失敗原因に対する失敗回数
         /// </summary>
-        private Dictionary<EFailureReasonType, int> _failureReasonCount;
+        private Dictionary<EFailureReasonType, int> _failureReasonCount
+            = PlayerPrefsUtility.GetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, Default.FAILURE_REASON_COUNT);
 
         public Dictionary<EFailureReasonType, int> FailureReasonCount {
             get => _failureReasonCount;
@@ -52,7 +53,7 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 最終起動日
         /// </summary>
-        private DateTime? _lastStartupDate;
+        private DateTime? _lastStartupDate = PlayerPrefsUtility.GetDateTime(Constants.PlayerPrefsKeys.LAST_STARTUP_DATE);
 
         public DateTime? LastStartupDate {
             get => _lastStartupDate;
@@ -67,8 +68,6 @@ namespace Treevel.Common.Entities
 
         private void Awake()
         {
-            Initialize();
-
             _startupDays
                 .Subscribe(startupDays => PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, startupDays))
                 .AddTo(this);
@@ -79,24 +78,9 @@ namespace Treevel.Common.Entities
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
 
+                _failureReasonCount = Default.FAILURE_REASON_COUNT;
                 _startupDays.Value = Default.STARTUP_DAYS;
-
-                Initialize();
             }).AddTo(this);
-        }
-
-        private void Initialize()
-        {
-            _failureReasonCount = PlayerPrefsUtility.GetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT,
-                                                                   new Dictionary<EFailureReasonType, int> {
-                                                                       { EFailureReasonType.Others, 0 },
-                                                                       { EFailureReasonType.Tornado, 0 },
-                                                                       { EFailureReasonType.Meteorite, 0 },
-                                                                       { EFailureReasonType.AimingMeteorite, 0 },
-                                                                       { EFailureReasonType.Thunder, 0 },
-                                                                       { EFailureReasonType.SolarBeam, 0 },
-                                                                   });
-            _lastStartupDate = PlayerPrefsUtility.GetDateTime(Constants.PlayerPrefsKeys.LAST_STARTUP_DATE);
         }
     }
 }
