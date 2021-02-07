@@ -56,5 +56,10 @@ namespace Treevel.Common.Utils
                 return new Vector2(0, RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
             }
         }
+
+        /// <summary>
+        /// 起動日数
+        /// </summary>
+        public const int STARTUP_DAYS = 1;
     }
 }
