@@ -21,22 +21,20 @@ MonoBehaviour:
     m_Address: SummerStageSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 102900000, guid: 2e3f7758a15714f3795287619f50fc82, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: 2e3f7758a15714f3795287619f50fc82, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 41a230da5ace4418e9330e52fd7cad7e
     m_Address: MessageDialog
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1689859668980507649, guid: 41a230da5ace4418e9330e52fd7cad7e,
-      type: 3}
-    m_TargetAsset: {fileID: 1689859668980507649, guid: 41a230da5ace4418e9330e52fd7cad7e,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 47c09d9777db0433eab6b66eac0abee4
     m_Address: MenuSelectScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 102900000, guid: 47c09d9777db0433eab6b66eac0abee4, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: 47c09d9777db0433eab6b66eac0abee4, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 6cb6fca6a4b44457bb8a9762f4238b0b
     m_Address: AutumnStageSelectScene
     m_ReadOnly: 0
@@ -47,28 +45,26 @@ MonoBehaviour:
     m_Address: ErrorMessageBox
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
-      type: 3}
-    m_TargetAsset: {fileID: 7956675395439376299, guid: 891ff3f27a82b4ee1bdc3c86e8605fb6,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 97e600818a87948bbbd2823502624fb4
     m_Address: SE_Failure
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: a14d6b98f708440f2bc2826d29e996ca
     m_Address: SE_Success
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: aa840bcf4d2f9449fa15a87b0e4adf35
     m_Address: BGM_Playing
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: bc5b2bb6f567248d99077e4108b390d0
     m_Address: Tutorials/1_2
     m_ReadOnly: 0
@@ -97,8 +93,8 @@ MonoBehaviour:
     m_Address: Tutorials/1_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 2800000, guid: e6bd58f298b5d4f4491f43a49b5f2f22, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: e6bd58f298b5d4f4491f43a49b5f2f22, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: ef461da11be2d452db392699e49179bd
     m_Address: WinterStageSelectScene
     m_ReadOnly: 0
