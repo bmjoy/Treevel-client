@@ -355,7 +355,7 @@ namespace Treevel.Modules.GamePlayScene
                 GimmickGenerator.Instance.FireGimmick();
 
                 // BGMの再生
-                SoundManager.Instance.PlayBGM(EBGMKey.BGM_Gameplay, 2.0f);
+                SoundManager.Instance.PlayBGM(EBGMKey.GamePlay_Spring, 2.0f);
             }
 
             /// <summary>

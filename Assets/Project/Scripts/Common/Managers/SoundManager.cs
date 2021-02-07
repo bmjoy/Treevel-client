@@ -10,7 +10,18 @@ namespace Treevel.Common.Managers
 {
     public enum EBGMKey
     {
-        BGM_Gameplay,
+        StartUp,
+        MenuSelect,
+        StageSelect_Spring,
+        StageSelect_Summer,
+        StageSelect_Autumn,
+        StageSelect_Winter,
+        GamePlay_Tutorial,
+        GamePlay_Spring,
+        GamePlay_Summer,
+        GamePlay_Autumn,
+        GamePlay_Winter,
+        GamePlay_Difficult,
     }
 
     public enum ESEKey
