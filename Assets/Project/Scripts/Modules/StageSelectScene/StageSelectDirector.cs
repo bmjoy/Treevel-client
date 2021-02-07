@@ -110,6 +110,8 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         private void OnEnable()
         {
+            SoundManager.Instance.PlayBGM(seasonId.GetStageSelectBGM());
+
             _branches.ForEach(branch => branch.UpdateState());
             _trees.ForEach(tree => tree.UpdateState());
         }
@@ -203,6 +205,7 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public void BackButtonDown()
         {
+            SoundManager.Instance.PlayBGM(EBGMKey.MenuSelect);
             AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE);
         }
     }
