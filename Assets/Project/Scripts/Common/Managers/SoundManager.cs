@@ -80,12 +80,14 @@ namespace Treevel.Common.Managers
             // BGM再生用のAudioSourceをアタッチする
             _bgmPlayer = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
             _bgmPlayer.loop = true;
+            _bgmPlayer.playOnAwake = false;
 
             // SE再生用のAudioSourceをアタッチする
             _sePlayers = new AudioSource[_MAX_SE_NUM];
             for (var i = 0; i < _MAX_SE_NUM; i++) {
                 var player = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
                 player.loop = false;
+                player.playOnAwake = false;
 
                 _sePlayers[i] = player;
             }
