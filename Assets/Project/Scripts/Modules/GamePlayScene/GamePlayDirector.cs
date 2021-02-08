@@ -592,6 +592,7 @@ namespace Treevel.Modules.GamePlayScene
                 stageStatus.SetTutorialChecked(true);
                 _tutorialWindow.SetActive(false);
 
+                // OpeningState はBGMを流さないため止めとく
                 SoundManager.Instance.StopBGM();
             }
         }
