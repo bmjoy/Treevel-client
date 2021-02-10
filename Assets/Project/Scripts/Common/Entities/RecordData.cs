@@ -75,7 +75,6 @@ namespace Treevel.Common.Entities
                 .AddTo(this);
 
             ResetController.DataReset.Subscribe(_ => {
-
                 // 最終起動日だけはリセットしない
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
