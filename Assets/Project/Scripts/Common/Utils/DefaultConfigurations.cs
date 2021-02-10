@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using UnityEngine;
@@ -70,6 +72,13 @@ namespace Treevel.Common.Utils
             { EFailureReasonType.SolarBeam, 0 },
             { EFailureReasonType.Powder, 0 },
         };
+
+        /// <summary>
+        /// 各失敗原因に対する失敗回数
+        /// </summary>
+        public static readonly Dictionary<EFailureReasonType, int> FAILURE_REASON_COUNT2 = Enum.GetValues(typeof(EFailureReasonType))
+            .OfType<EFailureReasonType>()
+            .ToDictionary(type => type, _ => 0);
 
         /// <summary>
         /// 起動日数
