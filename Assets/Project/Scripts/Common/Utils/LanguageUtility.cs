@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Treevel.Common.Entities;
+using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Callbacks;
-using UnityEngine;
+#endif
 
 namespace Treevel.Common.Utils
 {
