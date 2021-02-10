@@ -31,14 +31,25 @@ namespace Treevel.Common.Components.UIs
         [SerializeField] private Button _backgroundButton;
 
         /// <summary>
-        /// ok button のクリックイベントを破棄するための disposable
+        /// OK ボタンがクリックされた時に実行される Action
         /// </summary>
-        private IDisposable _disposable;
+        private Action _okCallBack;
 
         private void Awake()
         {
             _cancelButton.onClick.AsObservable()
                 .Subscribe(_ => gameObject.SetActive(false))
+                .AddTo(this);
+
+            _okButton.onClick.AsObservable()
+                .Subscribe(_ => {
+                    // コールバックが設定されていたら実行する
+                    _okCallBack?.Invoke();
+                    // ユースケース的には必要ないが、安全のために null に戻しておく
+                    _okCallBack = null;
+                    // クリックした後閉じる
+                    gameObject.SetActive(false);
+                })
                 .AddTo(this);
         }
 
@@ -50,16 +61,8 @@ namespace Treevel.Common.Components.UIs
             // OKボタンの文字
             _okButtonText.TextIndex = okText;
 
-            // 以前の disposable は破棄する
-            _disposable?.Dispose();
-            _disposable = _okButton.onClick.AsObservable()
-                .Subscribe(_ => {
-                    // 設定したコールバックを実行
-                    okCallBack?.Invoke();
-                    // クリックした後閉じる
-                    gameObject.SetActive(false);
-                })
-                .AddTo(this);
+            // コールバックの設定
+            _okCallBack = okCallBack;
 
             // OKボタンの位置設定
             if (dialogType == EDialogType.Ok_Cancel) {
