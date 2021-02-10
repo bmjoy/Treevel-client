@@ -13,6 +13,8 @@ namespace Treevel.Modules.StartUpScene
 
         private async void Start()
         {
+            SoundManager.Instance.PlayBGM(EBGMKey.StartUp);
+
             // Don't destroy EventSystem
             var eventSystem = FindObjectOfType<EventSystem>();
             if (eventSystem != null) DontDestroyOnLoad(eventSystem.gameObject);
@@ -46,6 +48,9 @@ namespace Treevel.Modules.StartUpScene
 
         public void OnStartButtonClicked()
         {
+            // MenuSelectSceneのBGMを流す
+            SoundManager.Instance.PlayBGM(EBGMKey.MenuSelect);
+
             // Unload Startup Scene
             SceneManager.UnloadSceneAsync(Constants.SceneName.START_UP_SCENE);
         }

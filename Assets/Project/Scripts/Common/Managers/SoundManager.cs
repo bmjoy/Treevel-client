@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Treevel.Common.Managers
 {
     public enum EBGMKey
     {
-        BGM_Gameplay,
+        StartUp,
+        MenuSelect,
+        StageSelect_Spring,
+        StageSelect_Summer,
+        StageSelect_Autumn,
+        StageSelect_Winter,
+        GamePlay_Tutorial,
+        GamePlay_Spring,
+        GamePlay_Summer,
+        GamePlay_Autumn,
+        GamePlay_Winter,
+        GamePlay_Difficult,
     }
 
     public enum ESEKey
@@ -67,12 +80,14 @@ namespace Treevel.Common.Managers
             // BGM再生用のAudioSourceをアタッチする
             _bgmPlayer = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
             _bgmPlayer.loop = true;
+            _bgmPlayer.playOnAwake = false;
 
             // SE再生用のAudioSourceをアタッチする
             _sePlayers = new AudioSource[_MAX_SE_NUM];
             for (var i = 0; i < _MAX_SE_NUM; i++) {
                 var player = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
                 player.loop = false;
+                player.playOnAwake = false;
 
                 _sePlayers[i] = player;
             }

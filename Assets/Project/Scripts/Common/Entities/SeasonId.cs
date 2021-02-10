@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UnityEngine;
 
@@ -92,6 +93,16 @@ namespace Treevel.Common.Entities
                 default:
                     throw new ArgumentOutOfRangeException(nameof(seasonId), seasonId, null);
             }
+        }
+
+        public static EBGMKey GetStageSelectBGM(this ESeasonId seasonId)
+        {
+            return EBGMKey.StageSelect_Spring + (int)seasonId;
+        }
+
+        public static EBGMKey GetGamePlayBGM(this ESeasonId seasonId)
+        {
+            return EBGMKey.GamePlay_Spring + (int)seasonId;
         }
     }
 }

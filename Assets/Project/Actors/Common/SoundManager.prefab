@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4726161914754366473}
   - component: {fileID: 4726161914754366474}
+  - component: {fileID: 1835023510}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -44,8 +45,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bgmClipList:
-  - key: BGM_Gameplay
-    clip: {fileID: 8300000, guid: aa840bcf4d2f9449fa15a87b0e4adf35, type: 3}
+  - key: StartUp
+    clip: {fileID: 8300000, guid: 8b87d88e103da4e3aa62b42f0c69aa6c, type: 3}
+  - key: MenuSelect
+    clip: {fileID: 8300000, guid: f120d17b287174885a2f4236eefce4a2, type: 3}
+  - key: StageSelect_Spring
+    clip: {fileID: 8300000, guid: 9401413272092485694385fa21b6535f, type: 3}
+  - key: StageSelect_Summer
+    clip: {fileID: 8300000, guid: a8b849cb89ac24f24a41518158f3e679, type: 3}
+  - key: StageSelect_Autumn
+    clip: {fileID: 8300000, guid: 42ad310814bee48c482ce92687ccd760, type: 3}
+  - key: StageSelect_Winter
+    clip: {fileID: 8300000, guid: b85db55e534704b8c8cc5af8bb3cd250, type: 3}
+  - key: GamePlay_Tutorial
+    clip: {fileID: 8300000, guid: 2aa9d2c100d50463ea3a6c1dc9e38200, type: 3}
+  - key: GamePlay_Spring
+    clip: {fileID: 8300000, guid: a177119c94cc0444eb759017ecc3448e, type: 3}
+  - key: GamePlay_Summer
+    clip: {fileID: 8300000, guid: 163b412967a1840f4ab92e37c7802478, type: 3}
+  - key: GamePlay_Autumn
+    clip: {fileID: 8300000, guid: 2577a738e15ce48cd8a11293b3dfc559, type: 3}
+  - key: GamePlay_Winter
+    clip: {fileID: 8300000, guid: 23abc637ff4cc41a385d5203dd6c58f0, type: 3}
+  - key: GamePlay_Difficult
+    clip: {fileID: 8300000, guid: 15038fe8963ac4c33a7dcb6df7aecacd, type: 3}
   _seClipList:
   - key: SE_Success
     clip: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
@@ -55,3 +78,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e141eba38ef494fe38b49ad437137deb, type: 3}
   _INITIAL_BGM_VOLUME: 0.25
   _INITIAL_SE_VOLUME: 1
+--- !u!81 &1835023510
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4726161914754366475}
+  m_Enabled: 1

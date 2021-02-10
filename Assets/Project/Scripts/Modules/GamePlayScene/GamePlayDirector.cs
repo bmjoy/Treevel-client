@@ -355,7 +355,7 @@ namespace Treevel.Modules.GamePlayScene
                 GimmickGenerator.Instance.FireGimmick();
 
                 // BGMの再生
-                SoundManager.Instance.PlayBGM(EBGMKey.BGM_Gameplay, 2.0f);
+                SoundManager.Instance.PlayBGM(EBGMKey.GamePlay_Spring, 2.0f);
             }
 
             /// <summary>
@@ -382,7 +382,14 @@ namespace Treevel.Modules.GamePlayScene
                 _customTimer = caller.gameObject.GetComponent<CustomTimer>();
             }
 
-            public override void OnEnter(State from = null) { }
+            public override void OnEnter(State from = null)
+            {
+                // todo: 暫定で10が難しいステージのBGMを流す
+                if (stageNumber == 10)
+                    SoundManager.Instance.PlayBGM(EBGMKey.GamePlay_Difficult);
+                else
+                    SoundManager.Instance.PlayBGM(seasonId.GetGamePlayBGM());
+            }
 
             public override void OnExit(State to)
             {
@@ -552,6 +559,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(State from = null)
             {
+                SoundManager.Instance.PlayBGM(EBGMKey.GamePlay_Tutorial);
+
                 var stageData = GameDataManager.GetStage(treeId, stageNumber);
                 var tutorialData = stageData.Tutorial;
                 if (tutorialData.type == ETutorialType.None) return;
@@ -582,6 +591,9 @@ namespace Treevel.Modules.GamePlayScene
                 var stageStatus = StageStatus.Get(treeId, stageNumber);
                 stageStatus.SetTutorialChecked(true);
                 _tutorialWindow.SetActive(false);
+
+                // OpeningState はBGMを流さないため止めとく
+                SoundManager.Instance.StopBGM();
             }
         }
     }
