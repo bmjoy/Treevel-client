@@ -28,8 +28,6 @@ namespace Treevel.Modules.MenuSelectScene.Settings
                     ResetData
                 );
             }).AddTo(this);
-
-            _dataResetSubject.AddTo(this);
         }
 
         private static void ResetData()
