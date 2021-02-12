@@ -39,3 +39,8 @@ Assets/StreamingAssets/*
 
 # Do not igonore .gitkeep
 !.gitkeep
+
+# For PlayFab
+Assets/PlayFabSDK/Shared/Public/Resources/*
+Assets/PlayFabSDK/Shared/Public/Resources.meta
+
