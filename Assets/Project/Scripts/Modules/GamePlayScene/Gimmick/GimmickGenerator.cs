@@ -33,7 +33,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 { EGimmickType.GustWind, Constants.Address.GUST_WIND_PREFAB },
                 { EGimmickType.Fog, Constants.Address.FOG_PREFAB },
                 { EGimmickType.Powder, Constants.Address.POWDER_PREFAB },
-                { EGimmickType.Erasable, Constants.Address.ERASABLE_PREFAB},
+                { EGimmickType.Erasable, Constants.Address.ERASABLE_PREFAB },
             };
 
         public UniTask Initialize(List<GimmickData> gimmicks)
