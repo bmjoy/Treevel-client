@@ -70,7 +70,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 目標とするタイルのスプライトを設定
             var finalTile = BoardManager.Instance.GetTile(finalPos);
             finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
-            finalTile.GetComponent<SpriteRendererUnifier>().Unify();
         }
 
         /// <summary>

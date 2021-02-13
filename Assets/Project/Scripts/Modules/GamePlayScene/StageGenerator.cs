@@ -33,9 +33,9 @@ namespace Treevel.Modules.GamePlayScene
             if (stageData != null) {
                 await UniTask.WhenAll(
                     TileGenerator.Instance.CreateTiles(stageData.TileDatas),
-                    BottleGenerator.CreateBottles(stageData.BottleDatas),
                     GimmickGenerator.Instance.Initialize(stageData.GimmickDatas)
                 );
+                await BottleGenerator.CreateBottles(stageData.BottleDatas);
             } else {
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageNumber + ".");
