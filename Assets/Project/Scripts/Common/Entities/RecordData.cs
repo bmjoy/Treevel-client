@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
+using Treevel.Modules.MenuSelectScene.Settings;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Common.Entities
@@ -25,15 +27,9 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 起動日数
         /// </summary>
-        private int _startupDays;
+        private ReactiveProperty<int> _startupDays;
 
-        public int StartupDays {
-            get => _startupDays;
-            private set {
-                _startupDays = value;
-                PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, _startupDays);
-            }
-        }
+        public IObservable<int> StartupDaysObservable => _startupDays;
 
         /// <summary>
         /// 最終起動日に応じて，起動日数を更新する
@@ -45,9 +41,7 @@ namespace Treevel.Common.Entities
             if (lastStartupDate is DateTime date) {
                 if (date < DateTime.Today) {
                     // 起動日数を加算する
-                    var startupDays = StartupDays + 1;
-                    // 起動日数を保存する
-                    StartupDays = startupDays;
+                    _startupDays.Value++;
                 }
             }
 
@@ -72,34 +66,22 @@ namespace Treevel.Common.Entities
 
         private void Awake()
         {
-            Initialize();
-        }
-
-        /// <summary>
-        /// 記録情報のリセット
-        /// </summary>
-        public void Reset()
-        {
-            // 最終起動日だけはリセットしない
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
-
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            _failureReasonCount = PlayerPrefsUtility.GetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT,
-                                                                   new Dictionary<EFailureReasonType, int> {
-                                                                       { EFailureReasonType.Others, 0 },
-                                                                       { EFailureReasonType.Tornado, 0 },
-                                                                       { EFailureReasonType.Meteorite, 0 },
-                                                                       { EFailureReasonType.AimingMeteorite, 0 },
-                                                                       { EFailureReasonType.Thunder, 0 },
-                                                                       { EFailureReasonType.SolarBeam, 0 },
-                                                                   });
-            _startupDays = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, 1);
+            _failureReasonCount = PlayerPrefsUtility.GetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, Default.FAILURE_REASON_COUNT);
+            _startupDays = new ReactiveProperty<int>(PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, Default.STARTUP_DAYS));
             _lastStartupDate = PlayerPrefsUtility.GetDateTime(Constants.PlayerPrefsKeys.LAST_STARTUP_DATE);
+
+            _startupDays
+                .Subscribe(startupDays => PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, startupDays))
+                .AddTo(this);
+
+            ResetController.DataReset.Subscribe(_ => {
+                // 最終起動日だけはリセットしない
+                PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
+                PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
+
+                _failureReasonCount = Default.FAILURE_REASON_COUNT;
+                _startupDays.Value = Default.STARTUP_DAYS;
+            }).AddTo(this);
         }
     }
 }

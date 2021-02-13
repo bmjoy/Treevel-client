@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UniRx;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Treevel.Common.Components.UIs
@@ -16,10 +17,12 @@ namespace Treevel.Common.Components.UIs
 
         private void Awake()
         {
-            _scrollRect.onValueChanged.AddListener(_ => {
-                _synchronizedObject.transform.localPosition = gameObject.transform.localPosition;
-                _synchronizedObject.transform.localScale = gameObject.transform.localScale;
-            });
+            _scrollRect.onValueChanged.AsObservable()
+                .Subscribe(_ => {
+                    _synchronizedObject.transform.localPosition = gameObject.transform.localPosition;
+                    _synchronizedObject.transform.localScale = gameObject.transform.localScale;
+                })
+                .AddTo(this);
         }
 
         private void OnEnable()

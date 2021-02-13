@@ -67,15 +67,12 @@ namespace Treevel.Common.Managers
         /// エラーメッセージを表示
         /// </summary>
         /// <param name="errorCode">対応するエラーコード</param>
-        public void ShowErrorMessage(EErrorCode errorCode)
+        public async void ShowErrorMessage(EErrorCode errorCode)
         {
             var canvas = GetComponentInChildren<Canvas>().transform;
-            _errorMessageBoxRef.InstantiateAsync(canvas).Completed += op => {
-                var messageBoxObj = op.Result;
-
-                // テキスト、エラーコードを設定
-                messageBoxObj.GetComponent<ErrorMessageBox>().ErrorCode = errorCode;
-            };
+            var messageBoxObj = await _errorMessageBoxRef.InstantiateAsync(canvas);
+            // テキスト、エラーコードを設定
+            messageBoxObj.GetComponent<ErrorMessageBox>().ErrorCode = errorCode;
         }
 
         /// <summary>

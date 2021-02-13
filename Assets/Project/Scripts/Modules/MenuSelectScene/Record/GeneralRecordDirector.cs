@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -102,6 +103,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private readonly List<GameObject> _shouldDestroyPrefabsOnDisable = new List<GameObject>();
 
+        private void Awake()
+        {
+            RecordData.Instance.StartupDaysObservable
+                .Subscribe(startupDays => _playDays.text = startupDays.ToString())
+                .AddTo(this);
+        }
+
         private void OnEnable()
         {
             var stageStatuses = GameDataManager.GetAllStages()
@@ -113,7 +121,6 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
 
             _playNum.text = stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
-            _playDays.text = RecordData.Instance.StartupDays.ToString();
             _flickNum.text = stageStatuses.Select(stageStatus => stageStatus.flickNum).Sum().ToString();
             _failureNum.text = stageStatuses.Select(stageStatus => stageStatus.failureNum).Sum().ToString();
 
