@@ -10,6 +10,6 @@ namespace Treevel.Common.Entities.GameDatas
         [Range(1, 15)] public short number;
 
         // for warp tile
-        [Range(1, 15)] public int pairNumber;
+        [Range(1, 15)] public short pairNumber;
     }
 }
