@@ -6,7 +6,6 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
-using Unity.UNetWeaver;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile

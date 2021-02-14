@@ -26,7 +26,6 @@ namespace Treevel.Modules.GamePlayScene
         public static async void CreateStages(ETreeId treeId, int stageNumber)
         {
             CreatedFinished = false;
-            var tasks = new List<UniTask>();
 
             // ステージデータ読み込む
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
