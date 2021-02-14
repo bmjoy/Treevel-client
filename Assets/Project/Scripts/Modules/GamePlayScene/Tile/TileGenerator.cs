@@ -31,7 +31,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 .Concat(
                     // WarpTile以外の特殊Tileの生成
                     tileDatas
-                        .Where(tileData => tileData.type == ETileType.Holy || tileData.type == ETileType.Spiderweb || tileData.type == ETileType.Ice)
+                        .Where(tileData => tileData.type != ETileType.Warp && tileData.type != ETileType.Normal)
                         .Select(tileData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask()
                                     .ContinueWith(tileObj => {
                                         tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
