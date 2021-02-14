@@ -35,6 +35,7 @@ namespace Treevel.Modules.GamePlayScene
                     TileGenerator.Instance.CreateTiles(stageData.TileDatas),
                     GimmickGenerator.Instance.Initialize(stageData.GimmickDatas)
                 );
+                // Tile生成後にBottleを生成する
                 await BottleGenerator.CreateBottles(stageData.BottleDatas);
             } else {
                 // 存在しないステージ
