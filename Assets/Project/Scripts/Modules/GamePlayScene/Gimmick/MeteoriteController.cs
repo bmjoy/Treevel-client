@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -56,7 +55,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 .Where(_ => transform.position.z >= 0)
                 .Subscribe(other => {
                     var bottle = other.GetComponent<AbstractBottleController>();
-                    if (bottle != null && bottle.IsAttackable && !bottle.Invincible) {
+                    if (bottle != null && bottle.IsAttackable && !bottle.isInvincible.Value) {
                         // 数字ボトルとの衝突
                         // 衝突したオブジェクトは赤色に変える
                         gameObject.GetComponent<SpriteRenderer>().color = Color.red;

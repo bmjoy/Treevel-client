@@ -74,7 +74,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 .Select(other => other.GetComponent<AbstractBottleController>())
                 .Where(bottle => bottle != null)
                 .Where(bottle => bottle.IsAttackable)
-                .Where(bottle => !bottle.Invincible)
+                .Where(bottle => !bottle.isInvincible.Value)
                 .Subscribe(_ => {
                     // 衝突したオブジェクトは赤色に変える
                     gameObject.GetComponent<SpriteRenderer>().color = Color.red;
