@@ -1,0 +1,38 @@
+name: CI
+on:
+  pull_request:
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+jobs:
+  testAllmodes:
+    name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2020.1.7f1
+        testMode:
+          - playmode
+          - editmode
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+      - name: Cache
+        uses: actions/cache@v2.1.4
+        with:
+          path: Library
+          key: ${{ runner.os }}-Library-${{ hashFiles('**/packages-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-Library-
+      - name: Unity - Test runner
+        id: tests
+        uses: game-ci/unity-test-runner@v2.0-alpha-2
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          testMode: ${{ matrix.testMode }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
+      - uses: actions/upload-artifact@v2.2.2
+        with:
+          name: Test results for ${{ matrix.testMode }}
+          path: ${{ steps.tests.outputs.artifactsPath }}
