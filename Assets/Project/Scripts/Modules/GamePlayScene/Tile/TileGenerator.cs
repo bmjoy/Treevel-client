@@ -22,42 +22,28 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         public UniTask CreateTiles(ICollection<TileData> tileDatas)
         {
-            // シーンに配置したノーマルタイルを初期化
-            for (var tileNum = 1; tileNum <= Constants.StageSize.ROW * Constants.StageSize.COLUMN; ++tileNum) {
-                var currTileObj = transform.Find($"NormalTile{tileNum}");
-                if (currTileObj == null) continue;
-
-                var currTile = currTileObj.GetComponent<NormalTileController>();
-                if (currTile == null) continue;
-
-                // initialize tile
-                BoardManager.Instance.SetTile(currTile, tileNum);
-                currTile.Initialize(tileNum);
-
-                // show sprite
-                currTile.GetComponent<SpriteRenderer>().enabled = true;
-            }
+            // 生成する特殊Tileの番号リスト
+            var tileNumList = tileDatas.Select(tileData => tileData.number).Concat(tileDatas.Select(tileData => tileData.pairNumber));
 
             var tasks = tileDatas
                 .Where(tileData => tileData.type == ETileType.Warp)
                 .Select(tileData => CreateWarpTiles(tileData.number, tileData.pairNumber))
                 .Concat(
-                    tileDatas
-                        .Where(tileData => tileData.type == ETileType.Holy || tileData.type == ETileType.Spiderweb || tileData.type == ETileType.Ice)
-                        .Select(tileData => AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask()
-                                    .ContinueWith(tileObj => {
-                                        tileObj.GetComponent<AbstractTileController>().Initialize(tileData.number);
-                                        BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
-                                        tileObj.GetComponent<SpriteRenderer>().enabled = true;
-                                    })
-                        )
+                    // WarpTile以外の特殊Tileの生成
+                    tileDatas.Where(tileData => tileData.type != ETileType.Warp && tileData.type != ETileType.Normal)
+                        .Select(tileData => CreateTile(tileData.type, tileData.number))
+                )
+                .Concat(
+                    // NormalTileの生成
+                    Enumerable.Range(1, Constants.StageSize.ROW * Constants.StageSize.COLUMN).ToArray()
+                        .Where(tileNum => !tileNumList.Contains((short)tileNum))
+                        .Select(tileNum => CreateTile(ETileType.Normal, tileNum))
                 );
-
             return UniTask.WhenAll(tasks);
         }
 
         /// <summary>
-        /// ワープタイルの作成 (2つで1組)
+        /// WarpTileを生成する (2つで1組)
         /// </summary>
         /// <param name="firstTileNum"> ワープタイル1 </param>
         /// <param name="secondTileNum"> ワープタイル2 </param>
@@ -77,6 +63,22 @@ namespace Treevel.Modules.GamePlayScene.Tile
             });
 
             return firstTask;
+        }
+
+        /// <summary>
+        /// WarpTile以外を生成する
+        /// </summary>
+        /// <param name="type"> Tileの種類 </param>
+        /// <param name="tileNum"> Tileの番号 </param>
+        /// <returns></returns>
+        private UniTask CreateTile(ETileType type, int tileNum)
+        {
+            return AddressableAssetManager.Instantiate(_prefabAddressableKeys[type]).ToUniTask()
+                .ContinueWith(tileObj => {
+                    tileObj.GetComponent<AbstractTileController>().Initialize(tileNum);
+                    BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileNum);
+                    tileObj.GetComponent<SpriteRenderer>().enabled = true;
+                });
         }
     }
 }

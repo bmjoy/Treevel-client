@@ -83,7 +83,6 @@ namespace Treevel.Common.Managers
             return default;
         }
 
-
         /// <summary>
         /// シーンをロードする
         /// </summary>
@@ -188,6 +187,12 @@ namespace Treevel.Common.Managers
                 // 対応するTileのSpriteを先に読み込む
                 if (bottleData.targetTileSprite.RuntimeKeyIsValid()) tasks.Add(LoadAsset<Sprite>(bottleData.targetTileSprite));
             });
+
+            // NormalTileのSpriteを読み込む
+            // シーンに配置したノーマルタイルを初期化
+            for (var tileNum = 1; tileNum <= Constants.StageSize.ROW * Constants.StageSize.COLUMN; ++tileNum) {
+                tasks.Add(LoadAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileNum));
+            }
 
             stage.TileDatas.ForEach(tileData => {
                 switch (tileData.type) {
