@@ -5,11 +5,9 @@ namespace Treevel.Common.Networks.Requests
     /// <summary>
     /// リモートサーバへログイン用のリクエスト
     /// </summary>
-    public class LoginRequest : GetServerRequestBase<bool>
+    public class LoginRequest : ServerRequestBase<bool>
     {
-        public LoginRequest() : base("") { }
-
-        public override UniTask<bool> GetData()
+        public override UniTask<bool> Execute()
         {
             return remoteDatabaseService.Login();
         }

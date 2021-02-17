@@ -4,7 +4,7 @@ using Treevel.Common.Networks.Database;
 
 namespace Treevel.Common.Networks.Requests
 {
-    public abstract class ServerRequestBase
+    public abstract class ServerRequestBase<T>
     {
         /// <summary>
         /// リモートサーバへ問い合わせするためのサービスクラスのインスタンス
@@ -15,9 +15,15 @@ namespace Treevel.Common.Networks.Requests
         /// ローカルサーバへ問い合わせするためのサービクラスのインスタンス
         /// </summary>
         protected static DatabaseService localDatabaseService = new LocalDatabaseService();
+
+        /// <summary>
+        /// リクエストを実行
+        /// </summary>
+        /// <returns>機能に応じて返す型を定義</returns>
+        public abstract UniTask<T> Execute();
     }
 
-    public abstract class GetServerRequestBase<TResult> : ServerRequestBase
+    public abstract class GetServerRequestBase<TResult> : ServerRequestBase<TResult>
     {
         protected string key;
 
@@ -26,7 +32,7 @@ namespace Treevel.Common.Networks.Requests
             this.key = key;
         }
 
-        public virtual async UniTask<TResult> GetData()
+        public override async UniTask<TResult> Execute()
         {
             try {
                 // リモートサーバから取得
@@ -38,7 +44,7 @@ namespace Treevel.Common.Networks.Requests
         }
     }
 
-    public abstract class UpdateServerRequestBase<TDataType> : ServerRequestBase
+    public abstract class UpdateServerRequestBase<TDataType> : ServerRequestBase<bool>
     {
         protected string key;
         protected TDataType data;
@@ -49,7 +55,7 @@ namespace Treevel.Common.Networks.Requests
             this.data = data;
         }
 
-        public virtual async UniTask<bool> Update()
+        public override async UniTask<bool> Execute()
         {
             try {
                 // リモートサーバに送信
