@@ -1,5 +1,8 @@
 using Cysharp.Threading.Tasks;
+using PlayFab;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,6 +37,11 @@ namespace Treevel.Modules.StartUpScene
             // AASを初期化
             await AddressableAssetManager.Initialize();
 
+            // リモートサーバへ接続（ログイン）
+            if (await NetworkService.Execute(new LoginRequest())) {
+                Debug.Log($"PlayFabID[{PlayFabSettings.staticPlayer.PlayFabId}] Login Success");
+            }
+
             // MenuSelectSceneを読み込み
             var loadSceneTask = AddressableAssetManager
                 .LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
@@ -42,6 +50,10 @@ namespace Treevel.Modules.StartUpScene
 
             // 全部完了したら開始ボタンを表示
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
+
+            // TODO: DELETE DEBUG CODE
+            // var stageStats = await NetworkService.Execute(new GetStageRecordRequest("Spring-1-1"));
+            // Debug.Log(stageStats);
 
             _startButton.SetActive(true);
         }

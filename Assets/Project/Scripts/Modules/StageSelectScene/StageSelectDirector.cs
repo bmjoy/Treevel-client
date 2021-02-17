@@ -7,7 +7,6 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Objects;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene;
@@ -146,15 +145,20 @@ namespace Treevel.Modules.StageSelectScene
 
         public void ShowOverPopup(ETreeId treeId, int stageNumber)
         {
-            NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)))
-                .ToObservable()
-                .Subscribe(data => {
-                    // ポップアップを初期化する
-                    _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
-                    // ポップアップを表示する
-                    _overviewPopup.gameObject.SetActive(true);
-                })
-                .AddTo(this);
+            // TODO: implement PlayFab version
+            // NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)))
+            //     .ToObservable()
+            //     .Subscribe(data => {
+            //         // ポップアップを初期化する
+            //         _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, (StageStats)data);
+            //         // ポップアップを表示する
+            //         _overviewPopup.gameObject.SetActive(true);
+            //     })
+            //     .AddTo(this);
+            // ポップアップを初期化する
+            _overviewPopup.GetComponent<OverviewPopup>().Initialize(treeId, stageNumber, new StageStats());
+            // ポップアップを表示する
+            _overviewPopup.gameObject.SetActive(true);
         }
 
         /// <summary>

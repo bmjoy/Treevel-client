@@ -2,7 +2,6 @@ using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Objects;
-using Treevel.Common.Networks.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -88,7 +87,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
             lineRectTransform.sizeDelta = new Vector2(lineRectTransform.rect.width, linePosition.y - graphPosition.y);
             lineRectTransform.position = linePosition;
 
-            var stageStats = (StageStats)await NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)));
+            // TODO: implement PlayFab version
+            var stageStats = new StageStats();
+            // var stageStats = (StageStats)await NetworkService.Execute(new GetStageStatsRequest(StageData.EncodeStageIdKey(treeId, stageNumber)));
 
             _clearRateText.text = $"{stageStats.ClearRate * 100f:n2}";
 
