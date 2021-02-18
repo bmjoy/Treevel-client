@@ -54,7 +54,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                     return;
                 }
 
-                BoardManager.Instance.Move(dynamicBottleController, targetTileNum, direction);
+                BoardManager.Instance.Move(dynamicBottleController, targetTileNum, direction.Value);
             }
         }
     }

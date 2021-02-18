@@ -236,15 +236,59 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
-        /// ボトルを特定のタイルに移動する
+        /// ボトルを特定のタイルに移動する（アニメーション付き）
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
-        /// <param name="immediately"> 瞬間移動か </param>
-        /// <returns> ボトルが移動したかどうか </returns>
-        public async UniTask<bool> Move(DynamicBottleController bottle, int tileNum, Vector2Int? direction = null)
+        /// <returns> ボトルが移動できたかどうか </returns>
+        public async UniTask<bool> Move(DynamicBottleController bottle, int tileNum, Vector2Int direction)
         {
+            if (!MoveBottleInSquares(bottle, tileNum, out var targetSquare)) return false;
+
+            var bottleObject = bottle.gameObject;
+
+            // ボトルを移動する
+            await bottle.Move(targetSquare.worldPosition, _tokenSource.Token)
+                .ContinueWith(() => {
+                    targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+                    targetSquare.tile.OnBottleEnter(bottleObject, direction);
+                });
+
+            return true;
+        }
+
+        /// <summary>
+        /// ボトルを特定のタイルに移動する（瞬間移動）
+        /// </summary>
+        /// <param name="bottle"> 移動するボトル </param>
+        /// <param name="tileNum"> 移動先のタイル番号 </param>
+        /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
+        /// <returns> ボトルが移動できたかどうか </returns>
+        public bool Move(DynamicBottleController bottle, int tileNum)
+        {
+            if (!MoveBottleInSquares(bottle, tileNum, out var targetSquare)) return false;
+
+            var bottleObject = bottle.gameObject;
+            // ボトルを瞬間移動させる
+            bottle.transform.position = targetSquare.worldPosition;
+            targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
+            targetSquare.tile.OnBottleEnter(bottleObject, null);
+
+            return true;
+        }
+
+        /// <summary>
+        /// ボトル移動(BoardManager内部)
+        /// </summary>
+        /// <param name="bottle">ボトルインスタンス</param>
+        /// <param name="tileNum">目標タイル番号</param>
+        /// <param name="targetSquare">移動できた場合移動先のマスインスタンスを返す</param>
+        /// <returns></returns>
+        private bool MoveBottleInSquares(DynamicBottleController bottle, int tileNum, out Square targetSquare)
+        {
+            targetSquare = null;
+
             // 移動するボトルが null の場合は移動しない
             if (bottle == null) return false;
 
@@ -254,18 +298,14 @@ namespace Treevel.Modules.GamePlayScene
 
             var (x, y) = xy.Value;
 
-            var targetSquare = _squares[x, y];
+            targetSquare = _squares[x, y];
 
             // すでにボトルが置かれているタイルが指定された場合には何もしない
             if (targetSquare.bottle != null) return false;
 
-
             var bottleObject = bottle.gameObject;
 
             lock (targetSquare) {
-                // 移動先に既にボトルがある場合は移動しない
-                if (targetSquare.bottle != null) return false;
-
                 // 移動元からボトルを無くす
                 var from = _bottlePositions[bottleObject];
                 bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
@@ -275,20 +315,6 @@ namespace Treevel.Modules.GamePlayScene
                 // 移動先へボトルを登録する
                 _bottlePositions[bottleObject] = new Vector2Int(x, y);
                 targetSquare.bottle = bottle;
-            }
-
-            if (direction != null) {
-                // ボトルを移動する
-                await bottle.Move(targetSquare.worldPosition, _tokenSource.Token)
-                    .ContinueWith(() => {
-                        targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                        targetSquare.tile.OnBottleEnter(bottleObject, direction);
-                    });
-            } else {
-                // ボトルを瞬間移動させる
-                bottle.transform.position = targetSquare.worldPosition;
-                targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-                targetSquare.tile.OnBottleEnter(bottleObject, null);
             }
 
             return true;
