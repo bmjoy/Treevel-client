@@ -18,7 +18,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 無敵状態かどうか
         /// </summary>
-        public ReactiveProperty<bool> isInvincible = new ReactiveProperty<bool>(false);
+        public ReactiveProperty<bool> isInvincible = new ReactiveProperty<bool>();
 
         private readonly Subject<GameObject> _enterTileSubject = new Subject<GameObject>();
 
