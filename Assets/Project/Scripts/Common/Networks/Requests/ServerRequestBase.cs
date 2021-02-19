@@ -12,7 +12,7 @@ namespace Treevel.Common.Networks.Requests
         protected static DatabaseService remoteDatabaseService = new PlayFabDatabaseService();
 
         /// <summary>
-        /// ローカルサーバへ問い合わせするためのサービクラスのインスタンス
+        /// ローカルサーバへ問い合わせするためのサービスクラスのインスタンス
         /// </summary>
         protected static DatabaseService localDatabaseService = new LocalDatabaseService();
 
