@@ -47,6 +47,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             _bottleController.EndMove.Subscribe(_ => {
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_TRIGGER, true);
             }).AddTo(compositeDisposableOnGameEnd, this);
+            // 無敵状態の処理
+            _bottleController.isInvincible.Subscribe(isInvincible => {
+                GetComponent<SpriteRenderer>().enabled = !isInvincible;
+                _animator.enabled = !isInvincible;
+            }).AddTo(compositeDisposableOnGameEnd, this);
         }
 
         public override IEnumerator Trigger()

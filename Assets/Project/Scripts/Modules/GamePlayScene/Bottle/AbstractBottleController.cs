@@ -18,7 +18,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 無敵状態かどうか
         /// </summary>
-        public bool Invincible;
+        public ReactiveProperty<bool> isInvincible = new ReactiveProperty<bool>();
 
         private readonly Subject<GameObject> _enterTileSubject = new Subject<GameObject>();
 
@@ -64,7 +64,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             this.OnTriggerEnter2DAsObservable()
                 .Where(other => other.gameObject.CompareTag(Constants.TagName.GIMMICK))
                 .Where(other => other.gameObject.transform.position.z >= 0)
-                .Where(_ => !Invincible)
+                .Where(_ => !isInvincible.Value)
                 .Subscribe(other => _getDamagedSubject.OnNext(other.gameObject)).AddTo(this);
         }
 
