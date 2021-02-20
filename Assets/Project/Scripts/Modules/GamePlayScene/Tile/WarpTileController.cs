@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TouchScript.Gestures;
 using Treevel.Common.Attributes;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
@@ -26,6 +28,11 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// </summary>
         private bool _warpEnabled = true;
 
+        /// <summary>
+        /// ワープするボトルの情報を保存用
+        /// </summary>
+        private WarpBottleInfo _warpBottleInfo;
+
         private const string _ANIMATOR_PARAM_TRIGGER_BOTTLEIN = "BottleIn";
         private const string _ANIMATOR_PARAM_TRIGGER_BOTTLEOUT = "BottleOut";
         private static readonly int _ANIMATOR_NAME_HASH_BOTTLEIN = Animator.StringToHash("WarpTile@bottle_in");
@@ -39,6 +46,24 @@ namespace Treevel.Modules.GamePlayScene.Tile
             bottleHandler = new WarpTileBottleHandler(this);
             _warpTarget = transform.Find("WarpTarget").gameObject;
             _animator = GetComponent<Animator>();
+
+            // ボトルが入るアニメーション再生終了後の処理
+            _animator.GetBehaviour<ObservableStateMachineTrigger>()
+                .OnStateExitAsObservable()
+                .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_NAME_HASH_BOTTLEIN)
+                .Subscribe(_ => {
+                    OnExitBottleInAnimation();
+                })
+                .AddTo(this);
+
+            // ボトルが出てくるアニメーション再生終了後の処理
+            _animator.GetBehaviour<ObservableStateMachineTrigger>()
+                .OnStateExitAsObservable()
+                .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_NAME_HASH_BOTTLEOUT)
+                .Subscribe(_ => {
+                    OnExitBottleOutAnimation();
+                })
+                .AddTo(this);
         }
 
         /// <summary>
@@ -68,6 +93,70 @@ namespace Treevel.Modules.GamePlayScene.Tile
             GetComponent<ParticleSystem>().Clear();
             // warpTileEffectを止める
             _animator.speed = 0;
+        }
+
+        private void WarpIn(GameObject bottle)
+        {
+            var pairTileController = _pairTile.GetComponent<WarpTileController>();
+
+            // ワープするボトルの情報設定
+            var parent = bottle.transform.parent;
+            _warpBottleInfo = new WarpBottleInfo {
+                gameObject = bottle,
+                originalParent = parent,
+            };
+
+            // 相方にも情報を渡す
+            pairTileController._warpBottleInfo = new WarpBottleInfo {
+                gameObject = bottle,
+                originalParent = parent,
+            };
+
+            // bottleをフリックできないようにする
+            bottle.GetComponent<FlickGesture>().enabled = false;
+
+            // 相方を一時的にワープ不能にする
+            pairTileController._warpEnabled = false;
+
+            // warpTileの粒子アニメーション
+            GetComponent<ParticleSystem>().Play();
+
+            // ボトルをWarpTargetの子オブジェクトに
+            bottle.transform.SetParent(_warpTarget.transform);
+
+            // bottleがワープに入るアニメーション
+            _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEIN);
+        }
+
+        void OnExitBottleInAnimation()
+        {
+            var pairTileController = _pairTile.GetComponent<WarpTileController>();
+            var bottle = _warpBottleInfo.gameObject;
+
+            // ボトルを移動する
+            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber);
+
+            // 相方のWarpTargetの子オブジェクトに
+            var pairTileWarpObject = _pairTile.transform.Find("WarpTarget");
+            bottle.transform.SetParent(pairTileWarpObject, false);
+
+            // bottleがワープから戻るアニメーション
+            var pairAnimator = _pairTile.GetComponent<Animator>();
+            pairAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEOUT);
+        }
+
+        void OnExitBottleOutAnimation()
+        {
+            var bottle = _warpBottleInfo.gameObject;
+
+            // ボトルの親オブジェクトを戻す
+            bottle.transform.SetParent(_warpBottleInfo.originalParent);
+
+            // 相方のワープ状態を戻す
+            _warpEnabled = true;
+
+            // bottleをフリックできるようにする
+            bottle.GetComponent<FlickGesture>().enabled = true;
         }
 
         private IEnumerator WarpBottle(GameObject bottle)
@@ -146,9 +235,16 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 // pair tileに子ボトルがないならワープさせる
                 if (_parent.CanWarp()) {
                     // ワープ演出
-                    _parent.StartWarp(bottle);
+                    // _parent.StartWarp(bottle);
+                    _parent.WarpIn(bottle);
                 }
             }
+        }
+
+        private struct WarpBottleInfo
+        {
+            public GameObject gameObject;
+            public Transform originalParent;
         }
     }
 }
