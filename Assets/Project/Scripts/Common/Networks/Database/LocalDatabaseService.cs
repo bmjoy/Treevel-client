@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -9,20 +10,17 @@ namespace Treevel.Common.Networks.Database
         {
             Debug.Log($"Get data for Key:{key} from local database");
 
-            // TODO: Local database implementation
-            var source = new UniTaskCompletionSource<T>();
-            source.TrySetResult(default);
-            return source.Task;
+            throw new NotImplementedException();
         }
 
         public override UniTask<bool> UpdateData<T>(string key, T data)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override UniTask<bool> Login()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
