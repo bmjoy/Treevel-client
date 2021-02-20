@@ -138,7 +138,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             // 相方のWarpTargetの子オブジェクトに
             var pairTileWarpObject = _pairTile.transform.Find("WarpTarget");
-            bottle.transform.SetParent(pairTileWarpObject, false);
+            bottle.transform.SetParent(pairTileWarpObject);
 
             // bottleがワープから戻るアニメーション
             var pairAnimator = _pairTile.GetComponent<Animator>();
@@ -189,7 +189,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             // 相方のWarpTargetの子オブジェクトに
             var pairTileWarpObject = _pairTile.transform.Find("WarpTarget");
-            bottle.transform.SetParent(pairTileWarpObject, false);
+            bottle.transform.SetParent(pairTileWarpObject);
 
             // bottleがワープから戻るアニメーション
             var pairAnimator = _pairTile.GetComponent<Animator>();
