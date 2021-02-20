@@ -9,7 +9,8 @@ using UnityEngine;
 namespace Treevel.Common.Networks.Database
 {
     /// <summary>
-    /// PlayFabのエラーハンドリングは PlayFabClientAPI に ErrorCallBack を渡すことしかないため、
+    /// PlayFabは仕様上、API呼び出す時に渡すエラーコールバック以外、エラーの検知はできない（リザルト構造体には成功状態が含まれていない）。
+    /// そのため、taskの状態でAPI呼び出しの成功判定を行います。
     /// </summary>
     public class PlayFabDatabaseService : DatabaseService
     {
