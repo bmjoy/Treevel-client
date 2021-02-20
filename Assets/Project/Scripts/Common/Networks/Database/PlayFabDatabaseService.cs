@@ -29,11 +29,10 @@ namespace Treevel.Common.Networks.Database
                 }
 
                 return JsonUtility.FromJson<T>(result.Data[key].Value);
-            } catch (PlayFabException e) {
-                // ローカルに切り替えるため呼び出し先に投げる
-                throw;
             } catch (Exception e) {
-                throw new NetworkErrorException("Unknown Exception");
+                // ローカルに切り替えるため呼び出し先に投げる
+                Debug.LogError(e.Message + e.StackTrace);
+                throw;
             }
         }
 
@@ -55,11 +54,10 @@ namespace Treevel.Common.Networks.Database
 
                 // 成功状態を返す
                 return task.Status == UniTaskStatus.Succeeded;
-            } catch (PlayFabException e) {
+            } catch(Exception e) {
                 // ローカルに切り替えるため呼び出し先に投げる
+                Debug.LogError(e.Message + e.StackTrace);
                 throw;
-            } catch (Exception e) {
-                throw new NetworkErrorException("Unknown Exception");
             }
         }
 
