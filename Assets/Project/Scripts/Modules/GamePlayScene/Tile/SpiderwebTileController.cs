@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
@@ -20,9 +21,9 @@ namespace Treevel.Modules.GamePlayScene.Tile
             bottleHandler = new SpiderwebTileBottleHandler();
         }
 
-        public override void Initialize(int tileNum)
+        public override void Initialize(TileData tileData)
         {
-            base.Initialize(tileNum);
+            base.Initialize(tileData);
 
             #if UNITY_EDITOR
             name = Constants.TileName.SPIDERWEB_TILE;

@@ -107,13 +107,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // ボトルをボードに設定
             BoardManager.Instance.InitializeBottle(this, Id);
 
-            // sprite が設定されている場合読み込む
-            if (bottleData.bottleSprite.RuntimeKeyIsValid()) {
-                await InitializeSprite(bottleData.bottleSprite);
-            } else {
-                GetComponent<SpriteRendererUnifier>().Unify();
-                GetComponent<SpriteRenderer>().enabled = true;
-            }
+            GetComponent<SpriteRendererUnifier>().Unify();
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
 ﻿using Treevel.Common.Components;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UnityEngine;
@@ -9,23 +11,23 @@ namespace Treevel.Modules.GamePlayScene.Tile
     {
         public override bool RunOnBottleEnterAtInit => false;
 
-        public override void Initialize(int tileNum)
+        public override void Initialize(TileData tileData)
         {
-            base.Initialize(tileNum);
-            SetSprite(AddressableAssetManager.GetAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileNum));
+            base.Initialize(tileData);
+            GoalColor = tileData.goalColor;
+            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(tileData.goalColor.GetTileAddress()));
             #if UNITY_EDITOR
-            name = Constants.TileName.NORMAL_TILE + tileNum;
+            name = Constants.TileName.GOAL_TILE + tileData.number;
             #endif
         }
 
-        /// <summary>
-        /// タイルの画像を設定する
-        /// </summary>
-        /// <param name="sprite">タイル画像</param>
-        public void SetSprite(Sprite sprite)
+        public override void Initialize(int tileNum)
         {
-            GetComponent<SpriteRenderer>().sprite = sprite;
-            GetComponent<SpriteRendererUnifier>().Unify();
+            base.Initialize(tileNum);
+            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileNum));
+            #if UNITY_EDITOR
+            name = Constants.TileName.NORMAL_TILE + tileNum;
+            #endif
         }
     }
 }

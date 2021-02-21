@@ -1,4 +1,5 @@
-﻿using Treevel.Common.Utils;
+﻿using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ namespace Treevel.Modules.GamePlayScene.Tile
     {
         public override bool RunOnBottleEnterAtInit => false;
 
-        public override void Initialize(int tileNum)
+        public override void Initialize(TileData tileData)
         {
-            base.Initialize(tileNum);
+            base.Initialize(tileData);
 
             #if UNITY_EDITOR
             name = Constants.TileName.ICE_TILE;

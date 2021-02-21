@@ -412,6 +412,16 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
+        ///
+        /// </summary>
+        /// <param name="bottle"></param>
+        /// <returns></returns>
+        public EGoalColor GetTileColor(NormalBottleController bottle)
+        {
+            return GetTile(XYToTileNum(_bottlePositions[bottle.gameObject]).Value).GetComponent<AbstractTileController>().GoalColor;
+        }
+
+        /// <summary>
         /// ボード上の格子単位のデータを格納するクラス
         /// </summary>
         private class Square

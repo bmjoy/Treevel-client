@@ -36,6 +36,7 @@ namespace Treevel.Common.Utils
         public static class TileName
         {
             public const string NORMAL_TILE = "NormalTile";
+            public const string GOAL_TILE = "GoalTile";
             public const string WARP_TILE = "WarpTile";
             public const string HOLY_TILE = "HolyTile";
             public const string SPIDERWEB_TILE = "SpiderwebTile";
