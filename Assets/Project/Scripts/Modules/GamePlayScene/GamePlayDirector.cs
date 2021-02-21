@@ -267,21 +267,20 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         private static void CleanObject()
         {
-            // ボトルを破壊
+            // ボトルを削除
             var bottles = FindObjectsOfType<AbstractBottleController>();
             foreach (var bottle in bottles) {
-                // ボトルの削除
                 DestroyImmediate(bottle.gameObject);
             }
 
+            // ギミックを削除
             var gimmicks = GameObject.FindGameObjectsWithTag(Constants.TagName.GIMMICK);
             foreach (var gimmick in gimmicks) {
-                // 銃弾の削除
                 DestroyImmediate(gimmick);
             }
 
-            // ノーマルタイル以外のタイルを削除
-            var specialTiles = FindObjectsOfType<AbstractTileController>().Where(t => !(t is NormalTileController));
+            // タイルを削除
+            var specialTiles = FindObjectsOfType<AbstractTileController>();
             foreach (var tile in specialTiles) {
                 DestroyImmediate(tile.gameObject);
             }
