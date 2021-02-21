@@ -162,7 +162,16 @@ namespace Treevel.Editor
                 }
 
                 switch ((ETileType)tileTypeProp.enumValueIndex) {
-                    case ETileType.Normal:
+                    case ETileType.Normal: {
+                        var goalColorElem = tileDataProp.FindPropertyRelative("goalColor");
+                        goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
+                            label: new GUIContent("GoalColor"),
+                            selected: (EGoalColor)goalColorElem.intValue,
+                            // Noneは選択不能にする
+                            checkEnabled: (eType) => (EGoalColor)eType != EGoalColor.None,
+                            includeObsolete: false
+                        );
+                    }
                         break;
                     case ETileType.Warp: {
                         EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
@@ -216,9 +225,14 @@ namespace Treevel.Editor
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
+                        var goalColorElem = bottleDataProp.FindPropertyRelative("goalColor");
+                        goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
+                            label: new GUIContent("GoalColor"),
+                            selected: (EGoalColor)goalColorElem.intValue,
+                            // Noneは選択不能にする
+                            checkEnabled: (eType) => (EGoalColor)eType != EGoalColor.None,
+                            includeObsolete: false
+                        );
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isDark"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
@@ -229,7 +243,6 @@ namespace Treevel.Editor
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                         break;
                     case EBottleType.AttackableDummy: {
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                     }
@@ -460,7 +473,7 @@ namespace Treevel.Editor
                             // 現在あるボトルのIDから選択するように
                             var bottleIds = GetAttackableBottles().Select(bottle => bottle.initPos).ToList();
 
-                            var selectedIdx = bottleIds.Contains(targetBottleProp.intValue)
+                            var selectedIdx = bottleIds.Contains((short)targetBottleProp.intValue)
                                 ? bottleIds.Select((id, idx) => new {
                                     id, idx,
                                 }).First(t => t.id == targetBottleProp.intValue).idx

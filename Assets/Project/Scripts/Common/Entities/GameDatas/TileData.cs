@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Treevel.Common.Entities.GameDatas
 {
@@ -7,6 +8,7 @@ namespace Treevel.Common.Entities.GameDatas
     public class TileData
     {
         public ETileType type;
+        public EGoalColor goalColor;
         [Range(1, 15)] public short number;
 
         // for warp tile

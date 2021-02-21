@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Serialization;
 
 namespace Treevel.Common.Entities.GameDatas
 {
@@ -8,10 +9,8 @@ namespace Treevel.Common.Entities.GameDatas
     public class BottleData
     {
         public EBottleType type;
-        [Range(1, 15)] public int initPos;
-        [Range(1, 15)] public short targetPos;
-        public AssetReferenceSprite bottleSprite;
-        public AssetReferenceSprite targetTileSprite;
+        [Range(1, 15)] public short initPos;
+        public EGoalColor goalColor;
         public short life;
         public bool isSelfish;
         public bool isDark;
