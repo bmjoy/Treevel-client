@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 namespace Treevel.Common.Entities.GameDatas
 {

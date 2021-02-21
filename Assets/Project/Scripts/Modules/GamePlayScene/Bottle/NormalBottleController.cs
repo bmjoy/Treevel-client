@@ -6,7 +6,6 @@ using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
-using Treevel.Modules.GamePlayScene.Tile;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;

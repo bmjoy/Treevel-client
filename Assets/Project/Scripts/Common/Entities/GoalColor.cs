@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using Treevel.Common.Managers;
 using Treevel.Common.Utils;
-using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
