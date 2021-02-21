@@ -188,7 +188,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                     _parent.WarpIn(bottle);
                 }
 
-                // 相方のタイルからボトルを渡らせた場合
+                // 相方のタイルからボトルを渡された場合
                 if (!_parent._warpEnabled && _parent._warpBottleInfo.gameObject == bottle) {
                     _parent.WarpOut();
                 }
