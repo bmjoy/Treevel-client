@@ -57,13 +57,13 @@ namespace Treevel.Common.Networks.Requests
 
         public override async UniTask<bool> Execute()
         {
-            try {
-                // リモートサーバに送信
-                return await remoteDatabaseService.UpdateData(key, data);
-            } catch (PlayFabException e) {
-                // リモートサーバから取得失敗
+            // リモートサーバに送信
+            if (await remoteDatabaseService.UpdateData(key, data)) {
+                // 成功したらローカルも更新
                 return await localDatabaseService.UpdateData(key, data);
             }
+
+            return false;
         }
     }
 }
