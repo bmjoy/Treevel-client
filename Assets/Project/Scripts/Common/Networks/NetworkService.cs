@@ -1,47 +1,17 @@
 ﻿using Cysharp.Threading.Tasks;
+using Treevel.Common.Networks.Requests;
 
 namespace Treevel.Common.Networks
 {
     public static class NetworkService
     {
-        #if DEV // ローカルデバッグ用サーバーIP
-        private const string _serverIp = "localhost";
-        #elif PROD // TODO 本番サーバーIP
-        private const string _serverIp = "";
-        #else // ERROR
-        private const string _serverIp = "";
-        #endif
-
-        #if DEV // ローカルデバッグ用サーバーポート番号
-        private const string _serverPort = "8080";
-        #elif PROD // TODO 本番サーバーポート番号
-        private const string _serverPort = "";
-        #else // ERROR
-        private const string _serverPort = "";
-        #endif
-
         /// <summary>
-        /// APIサーバーの接続口
+        /// サーバーと問い合わせするためのヘルパーメソッド
         /// </summary>
-        public static readonly string HOST = $"{_serverIp}:{_serverPort}";
-
-        /// <summary>
-        /// データ取得用のヘルパーメソッド
-        /// </summary>
-        /// <param name="command"> `GetServerCommandBasic`を継承したコマンド </param>
-        public static async UniTask<object> Execute(GetServerRequest command)
+        /// <param name="request"> `ServerRequestBase`を継承したリクエストのインスタンス </param>
+        public static UniTask<T> Execute<T>(ServerRequestBase<T> request)
         {
-            return await command.GetData();
-        }
-
-        /// <summary>
-        /// データ更新用ヘルパーメソッド
-        /// </summary>
-        /// <param name="command"> `UpdateServerCommand` </param>
-        /// <returns></returns>
-        public static async UniTask<object> Execute(UpdateServerRequest command)
-        {
-            return await command.Update();
+            return request.Execute();
         }
     }
 }

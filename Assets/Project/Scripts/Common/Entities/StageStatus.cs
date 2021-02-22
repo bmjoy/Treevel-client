@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using UnityEngine;
 
@@ -176,6 +178,8 @@ namespace Treevel.Common.Entities
             } else {
                 IncFailureNum(_treeId, _stageNumber);
             }
+
+            NetworkService.Execute(new UpdateStageRecordRequest(StageData.EncodeStageIdKey(_treeId, _stageNumber), this));
         }
 
         public void Dump()
