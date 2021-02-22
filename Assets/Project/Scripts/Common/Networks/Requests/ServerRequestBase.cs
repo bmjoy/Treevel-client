@@ -36,10 +36,10 @@ namespace Treevel.Common.Networks.Requests
         {
             try {
                 // リモートサーバから取得
-                return await remoteDatabaseService.GetData<TResult>(key);;
+                return await remoteDatabaseService.GetData<TResult>(key);
             } catch (PlayFabException e) {
                 // リモートサーバから取得失敗
-                return await localDatabaseService.GetData<TResult>(key);;
+                return await localDatabaseService.GetData<TResult>(key);
             }
         }
     }
@@ -59,7 +59,7 @@ namespace Treevel.Common.Networks.Requests
         {
             try {
                 // リモートサーバに送信
-                return await remoteDatabaseService.UpdateData(key, data);;
+                return await remoteDatabaseService.UpdateData(key, data);
             } catch (PlayFabException e) {
                 // リモートサーバから取得失敗
                 return await localDatabaseService.UpdateData(key, data);
