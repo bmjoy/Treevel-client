@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using PlayFab;
 using PlayFab.ClientModels;
 using Treevel.Common.Networks.PlayFab;
+using Treevel.Common.Utils;
 using UnityEngine;
 
 namespace Treevel.Common.Networks.Database
@@ -64,20 +65,70 @@ namespace Treevel.Common.Networks.Database
 
         public override async UniTask<bool> Login()
         {
-            // 色々オプション付けれるやつ
+            // TODO 引き継ぎ行った場合の処理
+
+            // 引き継ぎ行っていない場合：発行したGUID or GUIDを新規発行 でログイン
+            var createAccount = false;
+            string customId;
+            if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.DATABASE_LOGIN_ID)) {
+                customId = PlayerPrefs.GetString(Constants.PlayerPrefsKeys.DATABASE_LOGIN_ID);
+            } else {
+                createAccount = true;
+                customId = Guid.NewGuid().ToString();
+            }
+
+            // ログインと同時に取得したいデータを指定できます
             var infoRequestParams = new GetPlayerCombinedInfoRequestParams();
 
+            #if UNITY_IOS || UNITY_IPHONE
+            var request = new LoginWithIOSDeviceIDRequest() {
+                TitleId = PlayFabSettings.TitleId,
+                DeviceId = customId,
+                DeviceModel = SystemInfo.deviceModel,
+                OS = SystemInfo.operatingSystem,
+                CreateAccount = createAccount,
+            };
+            var task = PlayFabClientAPIAsync.LoginWithIOSDeviceIDAsync(request);
+            #elif UNITY_ANDROID
+            // Get the device id from native android
+            var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            var currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            var contentResolver = currentActivity.Call<AndroidJavaObject>("getContentResolver");
+            var secure = new AndroidJavaClass("android.provider.Settings$Secure");
+            var deviceId = secure.CallStatic<string>("getString", contentResolver, "android_id");
+
+            // Login with the android device ID
+            var request = new LoginWithAndroidDeviceIDRequest()
+            {
+                TitleId = PlayFabSettings.TitleId,
+                AndroidDevice = SystemInfo.deviceModel,
+                OS = SystemInfo.operatingSystem,
+                AndroidDeviceId = customId,
+                CreateAccount = createAccount,
+                InfoRequestParameters = infoRequestParams
+            };
+            var task = PlayFabClientAPIAsync.LoginWithAndroidDeviceIDAsync(request);
+            #else
             var request = new LoginWithCustomIDRequest {
                 TitleId = PlayFabSettings.TitleId,
-                CustomId = SystemInfo.deviceUniqueIdentifier,
-                CreateAccount = true,
+                CustomId = customId,
+                CreateAccount = createAccount,
                 InfoRequestParameters = infoRequestParams,
             };
             var task = PlayFabClientAPIAsync.LoginWithCustomIDAsync(request);
+            #endif
+
             // LoginResultは現状使いところがないが、念の為変数で保存しておく
             var result = await task;
 
-            return task.Status == UniTaskStatus.Succeeded;
+            var success = task.Status == UniTaskStatus.Succeeded;
+
+            // 新規作成の場合PlayerPrefsに保存
+            if (success && createAccount) {
+                PlayerPrefs.SetString(Constants.PlayerPrefsKeys.DATABASE_LOGIN_ID, customId);
+            }
+
+            return success;
         }
     }
 }
