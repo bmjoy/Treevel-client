@@ -138,8 +138,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
             var pairTileController = _pairTile.GetComponent<WarpTileController>();
             var bottle = _warpBottleInfo.gameObject;
 
-            // ボトルワープ先に移動する
-            BoardManager.Instance.Move(bottle.GetComponent<DynamicBottleController>(), pairTileController.TileNumber);
+            // ボードマネージャーにワープ先のタイルを登録する。登録したらOnBottleEnterでワープ先でのアニメーションを発動する
+            BoardManager.Instance.RegisterBottle(bottle.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
         }
 
         private void WarpOut()
@@ -147,7 +147,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             var bottle = _warpBottleInfo.gameObject;
 
             // WarpTargetの子オブジェクトに
-            bottle.transform.SetParent(_warpTarget.transform);
+            bottle.transform.SetParent(_warpTarget.transform, false);
 
             // bottleがワープから戻るアニメーション再生
             _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEOUT);

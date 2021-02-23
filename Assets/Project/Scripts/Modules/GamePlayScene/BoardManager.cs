@@ -321,6 +321,43 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
+        /// ボトルを指定のタイルに登録する。
+        /// WorldPositionの指定は伴わない。
+        /// </summary>
+        /// <param name="bottle">登録するボトル</param>
+        /// <param name="tileNum">登録したいタイル番号</param>
+        public void RegisterBottle(AbstractBottleController bottle, int tileNum)
+        {
+            if (bottle == null)
+                return;
+
+            var xy = TileNumToXY(tileNum);
+            if (!xy.HasValue || !IsEmptyTile(xy.Value.Item1, xy.Value.Item2))
+                return;
+
+            if (_bottlePositions.ContainsKey(bottle.gameObject)) {
+                var bottleObject = bottle.gameObject;
+                var (x, y) = xy.Value;
+                var targetSquare = _squares[x, y];
+
+                var from = _bottlePositions[bottleObject];
+                // Exit Events
+                bottle.OnExitTile(_squares[from.x, from.y].tile.gameObject);
+                _squares[from.x, from.y].bottle = null;
+                _squares[from.x, from.y].tile.OnBottleExit(bottleObject);
+
+                // 移動先へボトルを登録する
+                _bottlePositions[bottleObject] = new Vector2Int(x, y);
+                targetSquare.bottle = bottle;
+
+                // Enter Events
+                var targetTile = _squares[x, y].tile;
+                targetTile.OnBottleEnter(bottleObject, null);
+                bottle.OnEnterTile(targetTile.gameObject);
+            }
+        }
+
+        /// <summary>
         /// [初期化用] タイル`tile`をタイル番号`tileNum`の格子に設置する
         /// </summary>
         /// <param name="tile">設置するタイル</param>
