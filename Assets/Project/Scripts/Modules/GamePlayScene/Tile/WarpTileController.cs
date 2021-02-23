@@ -1,4 +1,5 @@
-﻿using TouchScript.Gestures;
+﻿using Cysharp.Threading.Tasks;
+using TouchScript.Gestures;
 using Treevel.Common.Attributes;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
@@ -129,8 +130,11 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <summary>
         /// ボトルを吸い込むアニメーション完了後の処理
         /// </summary>
-        void OnExitBottleInAnimation()
+        private async void OnExitBottleInAnimation()
         {
+            // 呼ばれたタイミングは僅かですがまだ再生終わっていないので待つ
+            await UniTask.WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEIN);
+
             var pairTileController = _pairTile.GetComponent<WarpTileController>();
             var bottle = _warpBottleInfo.gameObject;
 
@@ -152,8 +156,11 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <summary>
         /// ボトルを放り出すアニメーション完了後の処理
         /// </summary>
-        void OnExitBottleOutAnimation()
+        private async void OnExitBottleOutAnimation()
         {
+            // 呼ばれたタイミングは僅かですがまだ再生終わっていない
+            await UniTask.WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEOUT);
+
             var bottle = _warpBottleInfo.gameObject;
 
             // ボトルの親オブジェクトを戻す
