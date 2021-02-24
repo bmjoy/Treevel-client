@@ -121,14 +121,14 @@ namespace Treevel.Common.Networks.Database
             // LoginResultは現状使いところがないが、念の為変数で保存しておく
             var result = await task;
 
-            var success = task.Status == UniTaskStatus.Succeeded;
+            var isSuccess = task.Status == UniTaskStatus.Succeeded;
 
             // 新規作成の場合PlayerPrefsに保存
-            if (success && createAccount) {
+            if (isSuccess && createAccount) {
                 PlayerPrefs.SetString(Constants.PlayerPrefsKeys.DATABASE_LOGIN_ID, customId);
             }
 
-            return success;
+            return isSuccess;
         }
     }
 }
