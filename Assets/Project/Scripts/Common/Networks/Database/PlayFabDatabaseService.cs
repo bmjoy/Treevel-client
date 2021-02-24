@@ -80,7 +80,7 @@ namespace Treevel.Common.Networks.Database
             // ログインと同時に取得したいデータを指定できます
             var infoRequestParams = new GetPlayerCombinedInfoRequestParams();
 
-            #if UNITY_IOS || UNITY_IPHONE
+            #if UNITY_IOS
             var request = new LoginWithIOSDeviceIDRequest() {
                 TitleId = PlayFabSettings.TitleId,
                 DeviceId = customId,
