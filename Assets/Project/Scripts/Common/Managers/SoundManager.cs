@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
 using UnityEngine;
@@ -151,7 +152,7 @@ namespace Treevel.Common.Managers
         /// </summary>
         /// <param name="key"> 再生するBGMのキー </param>
         /// <param name="playback"></param>
-        public void PlayBGM(EBGMKey key, float playback = 0f)
+        public void PlayBGM(EBGMKey key, float playback = 0f, float fadeInTime = 2.0f)
         {
             var clip = GetBGMClip(key);
             if (clip == null) return;
@@ -161,7 +162,37 @@ namespace Treevel.Common.Managers
 
             _bgmPlayer.clip = clip;
             _bgmPlayer.time = playback;
+            PlayBgmFadeIn(fadeInTime);
+        }
+
+        private async UniTask PlayBgmFadeIn(float fadeInTime)
+        {
+            var targetVolume = _bgmPlayer.volume;
+            _bgmPlayer.volume = 0;
             _bgmPlayer.Play();
+            var elapsed = 0f;
+            while (fadeInTime - elapsed > 0) {
+                elapsed += Time.deltaTime;
+                _bgmPlayer.volume = Mathf.Lerp(0, targetVolume, elapsed / fadeInTime);
+                await UniTask.WaitForEndOfFrame();
+            }
+        }
+
+        private async UniTask StopBgmFadeOut(float fadeOutTime)
+        {
+            var initVolume = _bgmPlayer.volume;
+            var elapsed = 0f;
+            while (fadeOutTime - elapsed > 0) {
+                elapsed += Time.deltaTime;
+                _bgmPlayer.volume = Mathf.Lerp(initVolume, 0, elapsed / fadeOutTime);
+                await UniTask.WaitForEndOfFrame();
+            }
+
+            // BGM を停止
+            _bgmPlayer.Stop();
+
+            // 音量を戻す
+            _bgmPlayer.volume = initVolume;
         }
 
         /// <summary>
@@ -179,9 +210,9 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// 再生中のBGMを停止する
         /// </summary>
-        public void StopBGM()
+        public void StopBGM(float fadeOutTime = 2.0f)
         {
-            _bgmPlayer.Stop();
+            StopBgmFadeOut(fadeOutTime);
         }
 
         private AudioClip GetSEClip(ESEKey key)
