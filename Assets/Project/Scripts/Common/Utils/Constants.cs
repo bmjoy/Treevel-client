@@ -19,6 +19,7 @@ namespace Treevel.Common.Utils
             public const string FAILURE_REASONS_COUNT = "FAILURE_REASONS_COUNT";
             public const string STARTUP_DAYS = "STARTUP_DAYS";
             public const string LAST_STARTUP_DATE = "LAST_STARTUP_DATE";
+            public const string DATABASE_LOGIN_ID = "DATABASE_LOGIN_ID";
         }
 
         /// <summary>
