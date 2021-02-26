@@ -14,8 +14,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
         public override void Initialize(TileData tileData)
         {
             base.Initialize(tileData);
-            GoalColor = tileData.goalColor;
-            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(tileData.goalColor.GetTileAddress()));
+            color = tileData.color;
+            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(tileData.color.GetTileAddress()));
             #if UNITY_EDITOR
             name = Constants.TileName.GOAL_TILE + tileData.number;
             #endif

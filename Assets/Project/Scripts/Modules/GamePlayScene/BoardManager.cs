@@ -418,7 +418,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <returns></returns>
         public EGoalColor GetTileColor(NormalBottleController bottle)
         {
-            return GetTile(XYToTileNum(_bottlePositions[bottle.gameObject]).Value).GetComponent<AbstractTileController>().GoalColor;
+            return GetTile(XYToTileNum(_bottlePositions[bottle.gameObject]).Value).GetComponent<AbstractTileController>().color;
         }
 
         /// <summary>

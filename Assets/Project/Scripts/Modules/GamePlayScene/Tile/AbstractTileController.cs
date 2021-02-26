@@ -16,7 +16,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <summary>
         /// タイルの色
         /// </summary>
-        public EGoalColor GoalColor { get; protected set; }
+        public EGoalColor color { get; protected set; }
 
         /// <summary>
         /// 初期配置された際に `OnBottleEnter` を実行するかどうか
