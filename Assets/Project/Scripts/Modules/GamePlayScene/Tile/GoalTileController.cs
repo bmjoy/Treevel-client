@@ -12,15 +12,15 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <summary>
         /// タイルの色
         /// </summary>
-        public EGoalColor color { get; private set; }
+        public EGoalColor GoalColor { get; private set; }
 
         public override void Initialize(TileData tileData)
         {
             base.Initialize(tileData);
-            color = tileData.color;
+            GoalColor = tileData.goalColor;
             // colorがNoneではないことを保証する
-            if (color == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
-            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(tileData.color.GetTileAddress()));
+            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
+            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(tileData.goalColor.GetTileAddress()));
             #if UNITY_EDITOR
             name = Constants.TileName.GOAL_TILE + tileData.number;
             #endif

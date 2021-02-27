@@ -7,7 +7,7 @@ namespace Treevel.Common.Entities.GameDatas
     public class TileData
     {
         public ETileType type;
-        public EGoalColor color;
+        public EGoalColor goalColor;
         [Range(1, 15)] public short number;
 
         // for warp tile

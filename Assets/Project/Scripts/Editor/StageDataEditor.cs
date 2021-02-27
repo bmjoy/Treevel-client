@@ -170,10 +170,10 @@ namespace Treevel.Editor
                     case ETileType.Normal:
                         break;
                     case ETileType.Goal: {
-                        var colorElem = tileDataProp.FindPropertyRelative("color");
-                        colorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
-                            label: new GUIContent("Color"),
-                            selected: (EGoalColor)colorElem.intValue,
+                        var goalColorElem = tileDataProp.FindPropertyRelative("goalColor");
+                        goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
+                            label: new GUIContent("GoalColor"),
+                            selected: (EGoalColor)goalColorElem.intValue,
                             // Noneは選択不能にする
                             checkEnabled: (eType) => (EGoalColor)eType != EGoalColor.None,
                             includeObsolete: false

@@ -422,7 +422,7 @@ namespace Treevel.Modules.GamePlayScene
             if (tile == null) return EGoalColor.None;
             var tileController = tile.GetComponent<GoalTileController>();
             if (tileController == null) return EGoalColor.None;
-            return tileController.color;
+            return tileController.GoalColor;
         }
 
         /// <summary>
