@@ -50,8 +50,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // parse data
             _goalColor = bottleData.goalColor;
-            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetTileAddress());
-
             // GoalColorがNoneではないことを保証する
             if (_goalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
             
