@@ -152,8 +152,13 @@ namespace Treevel.Editor
                 var tileTypeProp = tileDataProp.FindPropertyRelative("type");
 
                 var newEnumValueIndex =
-                    (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"),
-                                                              (ETileType)tileTypeProp.enumValueIndex);
+                    (int)(ETileType)EditorGUILayout.EnumPopup(
+                        new GUIContent("Type"),
+                        (ETileType)tileTypeProp.enumValueIndex,
+                        // Normalは選択不能にする
+                        (eType) => (ETileType)eType != ETileType.Normal,
+                        false
+                        );
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != tileTypeProp.enumValueIndex) {
@@ -162,7 +167,9 @@ namespace Treevel.Editor
                 }
 
                 switch ((ETileType)tileTypeProp.enumValueIndex) {
-                    case ETileType.Normal: {
+                    case ETileType.Normal:
+                        break;
+                    case ETileType.Goal: {
                         var colorElem = tileDataProp.FindPropertyRelative("color");
                         colorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
                             label: new GUIContent("Color"),

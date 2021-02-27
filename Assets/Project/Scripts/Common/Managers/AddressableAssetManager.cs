@@ -201,6 +201,9 @@ namespace Treevel.Common.Managers
                     case ETileType.Normal:
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.NORMAL_TILE_PREFAB));
                         break;
+                    case ETileType.Goal:
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.GOAL_TILE_PREFAB));
+                        break;
                     case ETileType.Warp:
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.WARP_TILE_PREFAB));
                         break;

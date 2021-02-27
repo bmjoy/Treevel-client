@@ -13,6 +13,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
     {
         private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string> {
             { ETileType.Normal, Constants.Address.NORMAL_TILE_PREFAB },
+            { ETileType.Goal, Constants.Address.GOAL_TILE_PREFAB },
             { ETileType.Warp, Constants.Address.WARP_TILE_PREFAB },
             { ETileType.Ice, Constants.Address.ICE_TILE_PREFAB },
             { ETileType.Holy, Constants.Address.HOLY_TILE_PREFAB },

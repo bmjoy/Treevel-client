@@ -412,13 +412,17 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
-        ///
+        /// タイルの色を取得する
         /// </summary>
         /// <param name="bottle"></param>
         /// <returns></returns>
         public EGoalColor GetTileColor(NormalBottleController bottle)
         {
-            return GetTile(XYToTileNum(_bottlePositions[bottle.gameObject]).Value).GetComponent<AbstractTileController>().color;
+            var tile = GetTile(GetBottlePos(bottle));
+            if (tile == null) return EGoalColor.None;
+            var tileController = tile.GetComponent<GoalTileController>();
+            if (tileController == null) return EGoalColor.None;
+            return tileController.color;
         }
 
         /// <summary>

@@ -14,11 +14,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
         public int TileNumber { get; private set; }
 
         /// <summary>
-        /// タイルの色
-        /// </summary>
-        public EGoalColor color { get; protected set; }
-
-        /// <summary>
         /// 初期配置された際に `OnBottleEnter` を実行するかどうか
         /// </summary>
         public abstract bool RunOnBottleEnterAtInit { get; }

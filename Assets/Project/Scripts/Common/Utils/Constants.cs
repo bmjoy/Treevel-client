@@ -145,6 +145,7 @@ namespace Treevel.Common.Utils
             // タイル関連
             public const string NORMAL_TILE_PREFAB = "NormalTilePrefab";
             public const string NORMAL_TILE_SPRITE_PREFIX = "normalTile_";
+            public const string GOAL_TILE_PREFAB = "GoalTilePrefab";
             public const string WARP_TILE_PREFAB = "WarpTilePrefab";
             public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
             public const string SPIDERWEB_TILE_PREFAB = "SpiderwebTilePrefab";

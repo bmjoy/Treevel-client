@@ -11,16 +11,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
     {
         public override bool RunOnBottleEnterAtInit => false;
 
-        public override void Initialize(TileData tileData)
-        {
-            base.Initialize(tileData);
-            color = tileData.color;
-            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(tileData.color.GetTileAddress()));
-            #if UNITY_EDITOR
-            name = Constants.TileName.GOAL_TILE + tileData.number;
-            #endif
-        }
-
         public override void Initialize(int tileNum)
         {
             base.Initialize(tileNum);
