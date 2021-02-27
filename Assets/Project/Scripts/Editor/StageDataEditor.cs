@@ -61,6 +61,8 @@ namespace Treevel.Editor
 
             DrawGimmickList();
 
+            CheckGoalColorConsistency();
+
             if (!EditorGUI.EndChangeCheck()) return;
 
             ClearConsole();
@@ -236,8 +238,8 @@ namespace Treevel.Editor
                         goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
                             label: new GUIContent("GoalColor"),
                             selected: (EGoalColor)goalColorElem.intValue,
-                            // Noneは選択不能にする
-                            checkEnabled: (eType) => (EGoalColor)eType != EGoalColor.None,
+                            // GoalTileが指定しているGoalColorのみ選択可能にする
+                            checkEnabled: (eType) => GetTileGoalColors().Contains((EGoalColor)eType),
                             includeObsolete: false
                         );
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
@@ -672,6 +674,47 @@ namespace Treevel.Editor
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
+        }
+
+        /// <summary>
+        /// GoalTileが指定しているGoalColorのみを取得する
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<EGoalColor> GetTileGoalColors()
+        {
+            return _src.TileDatas?.Where(tile => tile.type == ETileType.Goal).Select(tile => tile.goalColor);
+        }
+
+        /// <summary>
+        /// TileとBottleが指定しているGoalColorの整合性を検証する
+        /// </summary>
+        private void CheckGoalColorConsistency()
+        {
+           var goalColorNum = Enum.GetValues(typeof(EGoalColor))
+               .OfType<EGoalColor>()
+               .ToDictionary(type => type, _ => 0);
+
+           // タイルがしているGoalColorを数える
+           _src.TileDatas?.Where(tile => tile.type == ETileType.Goal)
+               .ToList().ForEach(tile => {
+                   goalColorNum[tile.goalColor] += 1;
+               });
+
+           // ボトルが指定しているGoalColorを数える
+           _src.BottleDatas?.Where(bottle => bottle.type == EBottleType.Normal)
+               .ToList().ForEach(bottle => {
+                   goalColorNum[bottle.goalColor] -= 1;
+               });
+
+           // それぞれのGoalColorの個数を検証する
+           goalColorNum.ToList().ForEach(pair => {
+               if (pair.Value > 0) {
+                   Debug.LogWarning($"{pair.Value} <b>{pair.Key}</b> bottle are missing.");
+               }
+               if (pair.Value < 0) {
+                   Debug.LogWarning($"There are {(-1) * pair.Value} extra <b>{pair.Key}</b> bottles.");
+               }
+           });
         }
 
         /// <summary>
