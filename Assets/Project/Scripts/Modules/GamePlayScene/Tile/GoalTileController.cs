@@ -19,7 +19,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             base.Initialize(tileData);
             GoalColor = tileData.goalColor;
             // colorがNoneではないことを保証する
-            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
+            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidTileColor);
             GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(tileData.goalColor.GetTileAddress()));
             #if UNITY_EDITOR
             name = Constants.TileName.GOAL_TILE + tileData.number;
