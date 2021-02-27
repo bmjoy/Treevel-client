@@ -15,36 +15,36 @@ MonoBehaviour:
   treeId: 1
   stageNumber: 1
   tiles:
-  - type: 0
+  - type: 1
     goalColor: 1
     number: 4
     pairNumber: 0
-  - type: 0
-    goalColor: 2
+  - type: 1
+    goalColor: 1
     number: 5
     pairNumber: 0
-  - type: 0
-    goalColor: 3
+  - type: 1
+    goalColor: 1
     number: 6
     pairNumber: 0
-  - type: 0
-    goalColor: 4
+  - type: 1
+    goalColor: 1
     number: 7
     pairNumber: 0
-  - type: 0
-    goalColor: 5
+  - type: 1
+    goalColor: 7
     number: 8
     pairNumber: 0
-  - type: 0
-    goalColor: 6
+  - type: 1
+    goalColor: 1
     number: 9
     pairNumber: 0
-  - type: 0
-    goalColor: 7
+  - type: 1
+    goalColor: 1
     number: 10
     pairNumber: 0
-  - type: 0
-    goalColor: 8
+  - type: 1
+    goalColor: 1
     number: 11
     pairNumber: 0
   bottles:
@@ -64,57 +64,50 @@ MonoBehaviour:
     isReverse: 0
   - type: 2
     initPos: 5
-    goalColor: 2
+    goalColor: 1
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 6
-    goalColor: 3
+    goalColor: 1
     life: 1
     isSelfish: 1
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 7
-    goalColor: 4
+    goalColor: 1
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 8
-    goalColor: 5
+    goalColor: 7
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 9
-    goalColor: 6
+    goalColor: 1
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 10
-    goalColor: 7
+    goalColor: 1
     life: 3
     isSelfish: 0
-    isDark: 1
+    isDark: 0
     isReverse: 0
   - type: 2
     initPos: 14
-    goalColor: 8
+    goalColor: 1
     life: 5
-    isSelfish: 1
-    isDark: 1
-    isReverse: 0
-  - type: 1
-    initPos: 15
-    goalColor: 0
-    life: 0
     isSelfish: 0
     isDark: 0
     isReverse: 0
