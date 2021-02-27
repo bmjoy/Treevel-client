@@ -8,7 +8,9 @@
     public enum EErrorCode
     {
         UnknownError,
-        LoadDataError,   // データの読み込みに失敗
-        InvalidBottleID, // ボトルIDが不正
+        LoadDataError,      // データの読み込みに失敗
+        InvalidBottleID,    // ボトルIDが不正
+        InvalidBottleColor, // ボトルの色が不適当
+        InvalidTileColor,   // タイルの色が不適当
     }
 }
