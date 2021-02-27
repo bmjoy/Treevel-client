@@ -30,7 +30,7 @@ namespace Treevel.Common.Entities
         public static string GetTileAddress(this EGoalColor goalColor)
         {
             if (goalColor == EGoalColor.None) throw new Exception("GoalColor should not be None");
-            return Constants.Address.NUMBER_TILE_SPRITE_PREFIX + goalColor;
+            return Constants.Address.GOAL_TILE_SPRITE_PREFIX + goalColor;
         }
     }
 }
