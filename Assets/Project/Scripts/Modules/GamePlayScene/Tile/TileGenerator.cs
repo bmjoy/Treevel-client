@@ -35,7 +35,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 )
                 .Concat(
                     // NormalTileの生成
-                    Enumerable.Range(1, Constants.StageSize.ROW * Constants.StageSize.COLUMN).ToArray()
+                    Enumerable.Range(1, Constants.StageSize.ROW * Constants.StageSize.COLUMN)
                         .Where(tileNum => !tileNumList.Contains((short)tileNum))
                         .Select(tileNum => CreateNormalTile(tileNum))
                 );
