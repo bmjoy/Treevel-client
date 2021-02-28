@@ -3,6 +3,7 @@
     public enum ETileType
     {
         Normal,
+        Goal,
         Warp,
         Holy,
         Spiderweb,

@@ -40,10 +40,18 @@ namespace Treevel.Common.Components
             var heightEfficient = widthEfficient * ImageRatio;
             transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight);
 
+            _renderer.enabled = true;
+
             var collider = GetComponent<BoxCollider2D>();
             if (collider == null) return;
 
             collider.size = new Vector2(originalWidth, originalHeight);
+        }
+
+        public void SetSprite(Sprite sprite)
+        {
+            _renderer.sprite = sprite;
+            Unify();
         }
     }
 }

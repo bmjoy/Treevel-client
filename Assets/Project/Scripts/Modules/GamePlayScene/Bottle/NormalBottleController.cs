@@ -2,10 +2,10 @@
 using SpriteGlow;
 using TouchScript.Gestures;
 using Treevel.Common.Components;
+using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
-using Treevel.Modules.GamePlayScene.Tile;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -20,9 +20,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public LongPressGesture longPressGesture;
 
         /// <summary>
-        /// 目標位置
+        /// 目標の色
         /// </summary>
-        private int _targetPos;
+        private EGoalColor _goalColor;
 
         /// <summary>
         /// 光らせるエフェクト
@@ -49,9 +49,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _spriteGlowEffect.enabled = false;
 
             // parse data
-            var finalPos = bottleData.targetPos;
-            _targetPos = finalPos;
-            var targetTileSprite = AddressableAssetManager.GetAsset<Sprite>(bottleData.targetTileSprite);
+            _goalColor = bottleData.goalColor;
+            // GoalColorがNoneではないことを保証する
+            if (_goalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
 
             await base.Initialize(bottleData);
 
@@ -67,9 +67,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             name = Constants.BottleName.NORMAL_BOTTLE + Id;
             #endif
 
-            // 目標とするタイルのスプライトを設定
-            var finalTile = BoardManager.Instance.GetTile(finalPos);
-            finalTile.GetComponent<NormalTileController>().SetSprite(targetTileSprite);
+            // ボトルのスプライトを設定
+            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
         }
 
         /// <summary>
@@ -89,7 +88,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <returns></returns>
         public bool IsSuccess()
         {
-            return _targetPos != 0 && BoardManager.Instance.GetBottlePos(this) == _targetPos;
+            return _goalColor != EGoalColor.None && BoardManager.Instance.GetTileColor(this) == _goalColor;
         }
     }
 }

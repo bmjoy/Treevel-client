@@ -6,7 +6,6 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
-using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
@@ -14,6 +13,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
     {
         private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string> {
             { ETileType.Normal, Constants.Address.NORMAL_TILE_PREFAB },
+            { ETileType.Goal, Constants.Address.GOAL_TILE_PREFAB },
             { ETileType.Warp, Constants.Address.WARP_TILE_PREFAB },
             { ETileType.Ice, Constants.Address.ICE_TILE_PREFAB },
             { ETileType.Holy, Constants.Address.HOLY_TILE_PREFAB },
@@ -30,14 +30,14 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 .Select(tileData => CreateWarpTiles(tileData.number, tileData.pairNumber))
                 .Concat(
                     // WarpTile以外の特殊Tileの生成
-                    tileDatas.Where(tileData => tileData.type != ETileType.Warp && tileData.type != ETileType.Normal)
-                        .Select(tileData => CreateTile(tileData.type, tileData.number))
+                    tileDatas.Where(tileData => tileData.type != ETileType.Warp)
+                        .Select(tileData => CreateTile(tileData))
                 )
                 .Concat(
                     // NormalTileの生成
                     Enumerable.Range(1, Constants.StageSize.ROW * Constants.StageSize.COLUMN).ToArray()
                         .Where(tileNum => !tileNumList.Contains((short)tileNum))
-                        .Select(tileNum => CreateTile(ETileType.Normal, tileNum))
+                        .Select(tileNum => CreateNormalTile(tileNum))
                 );
             return UniTask.WhenAll(tasks);
         }
@@ -56,9 +56,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
                     secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
                     BoardManager.Instance.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);
                     BoardManager.Instance.SetTile(secondTile.GetComponent<AbstractTileController>(), secondTileNum);
-
-                    firstTile.GetComponent<SpriteRenderer>().enabled = true;
-                    secondTile.GetComponent<SpriteRenderer>().enabled = true;
                 });
             });
 
@@ -66,18 +63,32 @@ namespace Treevel.Modules.GamePlayScene.Tile
         }
 
         /// <summary>
-        /// WarpTile以外を生成する
+        /// WarpTile以外の特殊Tileを生成する
         /// </summary>
         /// <param name="type"> Tileの種類 </param>
         /// <param name="tileNum"> Tileの番号 </param>
         /// <returns></returns>
-        private UniTask CreateTile(ETileType type, int tileNum)
+        private UniTask CreateTile(TileData tileData)
         {
-            return AddressableAssetManager.Instantiate(_prefabAddressableKeys[type]).ToUniTask()
+            return AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask()
+                .ContinueWith(tileObj => {
+                    tileObj.GetComponent<AbstractTileController>().Initialize(tileData);
+                    BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
+                });
+        }
+
+        /// <summary>
+        /// NormalTileを生成する
+        /// </summary>
+        /// <param name="type"> Tileの種類 </param>
+        /// <param name="tileNum"> Tileの番号 </param>
+        /// <returns></returns>
+        private UniTask CreateNormalTile(int tileNum)
+        {
+            return AddressableAssetManager.Instantiate(_prefabAddressableKeys[ETileType.Normal]).ToUniTask()
                 .ContinueWith(tileObj => {
                     tileObj.GetComponent<AbstractTileController>().Initialize(tileNum);
                     BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileNum);
-                    tileObj.GetComponent<SpriteRenderer>().enabled = true;
                 });
         }
     }

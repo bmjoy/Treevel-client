@@ -61,6 +61,8 @@ namespace Treevel.Editor
 
             DrawGimmickList();
 
+            CheckGoalColorConsistency();
+
             if (!EditorGUI.EndChangeCheck()) return;
 
             ClearConsole();
@@ -152,8 +154,13 @@ namespace Treevel.Editor
                 var tileTypeProp = tileDataProp.FindPropertyRelative("type");
 
                 var newEnumValueIndex =
-                    (int)(ETileType)EditorGUILayout.EnumPopup(new GUIContent("Type"),
-                                                              (ETileType)tileTypeProp.enumValueIndex);
+                    (int)(ETileType)EditorGUILayout.EnumPopup(
+                        new GUIContent("Type"),
+                        (ETileType)tileTypeProp.enumValueIndex,
+                        // Normalは選択不能にする
+                        (eType) => (ETileType)eType != ETileType.Normal,
+                        false
+                        );
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != tileTypeProp.enumValueIndex) {
@@ -163,6 +170,17 @@ namespace Treevel.Editor
 
                 switch ((ETileType)tileTypeProp.enumValueIndex) {
                     case ETileType.Normal:
+                        break;
+                    case ETileType.Goal: {
+                        var goalColorElem = tileDataProp.FindPropertyRelative("goalColor");
+                        goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
+                            label: new GUIContent("GoalColor"),
+                            selected: (EGoalColor)goalColorElem.intValue,
+                            // Noneは選択不能にする
+                            checkEnabled: (eType) => (EGoalColor)eType != EGoalColor.None,
+                            includeObsolete: false
+                        );
+                    }
                         break;
                     case ETileType.Warp: {
                         EditorGUILayout.PropertyField(tileDataProp.FindPropertyRelative("pairNumber"));
@@ -216,9 +234,14 @@ namespace Treevel.Editor
 
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetPos"));
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("targetTileSprite"));
+                        var goalColorElem = bottleDataProp.FindPropertyRelative("goalColor");
+                        goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
+                            label: new GUIContent("GoalColor"),
+                            selected: (EGoalColor)goalColorElem.intValue,
+                            // GoalTileが指定しているGoalColorのみ選択可能にする
+                            checkEnabled: (eType) => GetTileGoalColors().Contains((EGoalColor)eType),
+                            includeObsolete: false
+                        );
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isDark"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
@@ -229,7 +252,6 @@ namespace Treevel.Editor
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                         break;
                     case EBottleType.AttackableDummy: {
-                        EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("bottleSprite"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isSelfish"));
                         EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("isReverse"));
                     }
@@ -460,7 +482,7 @@ namespace Treevel.Editor
                             // 現在あるボトルのIDから選択するように
                             var bottleIds = GetAttackableBottles().Select(bottle => bottle.initPos).ToList();
 
-                            var selectedIdx = bottleIds.Contains(targetBottleProp.intValue)
+                            var selectedIdx = bottleIds.Contains((short)targetBottleProp.intValue)
                                 ? bottleIds.Select((id, idx) => new {
                                     id, idx,
                                 }).First(t => t.id == targetBottleProp.intValue).idx
@@ -652,6 +674,47 @@ namespace Treevel.Editor
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
+        }
+
+        /// <summary>
+        /// GoalTileが指定しているGoalColorのみを取得する
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<EGoalColor> GetTileGoalColors()
+        {
+            return _src.TileDatas?.Where(tile => tile.type == ETileType.Goal).Select(tile => tile.goalColor);
+        }
+
+        /// <summary>
+        /// TileとBottleが指定しているGoalColorの整合性を検証する
+        /// </summary>
+        private void CheckGoalColorConsistency()
+        {
+           var goalColorNum = Enum.GetValues(typeof(EGoalColor))
+               .OfType<EGoalColor>()
+               .ToDictionary(type => type, _ => 0);
+
+           // タイルがしているGoalColorを数える
+           _src.TileDatas?.Where(tile => tile.type == ETileType.Goal)
+               .ToList().ForEach(tile => {
+                   goalColorNum[tile.goalColor] += 1;
+               });
+
+           // ボトルが指定しているGoalColorを数える
+           _src.BottleDatas?.Where(bottle => bottle.type == EBottleType.Normal)
+               .ToList().ForEach(bottle => {
+                   goalColorNum[bottle.goalColor] -= 1;
+               });
+
+           // それぞれのGoalColorの個数を検証する
+           goalColorNum.ToList().ForEach(pair => {
+               if (pair.Value > 0) {
+                   Debug.LogWarning($"{pair.Value} <b>{pair.Key}</b> bottle are missing.");
+               }
+               if (pair.Value < 0) {
+                   Debug.LogWarning($"There are {(-1) * pair.Value} extra <b>{pair.Key}</b> bottles.");
+               }
+           });
         }
 
         /// <summary>

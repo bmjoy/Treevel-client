@@ -65,7 +65,7 @@ namespace Treevel.Common.Entities.GameDatas
         /// <summary>
         /// ＜隕石＞追従するボトル
         /// </summary>
-        public int targetBottle;
+        public short targetBottle;
 
         /// <summary>
         /// ＜隕石＞ランダムに追従するボトルの重み行列

@@ -183,9 +183,11 @@ namespace Treevel.Common.Managers
                         throw new NotImplementedException();
                 }
 
-                if (bottleData.bottleSprite.RuntimeKeyIsValid()) tasks.Add(LoadAsset<Sprite>(bottleData.bottleSprite));
-                // 対応するTileのSpriteを先に読み込む
-                if (bottleData.targetTileSprite.RuntimeKeyIsValid()) tasks.Add(LoadAsset<Sprite>(bottleData.targetTileSprite));
+                // ボトルの色に対応したボトル画像、タイル画像を読み込む
+                if (bottleData.goalColor != EGoalColor.None) {
+                    tasks.Add(LoadAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
+                    tasks.Add(LoadAsset<Sprite>(bottleData.goalColor.GetTileAddress()));
+                }
             });
 
             // NormalTileのSpriteを読み込む
@@ -198,6 +200,9 @@ namespace Treevel.Common.Managers
                 switch (tileData.type) {
                     case ETileType.Normal:
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.NORMAL_TILE_PREFAB));
+                        break;
+                    case ETileType.Goal:
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.GOAL_TILE_PREFAB));
                         break;
                     case ETileType.Warp:
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.WARP_TILE_PREFAB));

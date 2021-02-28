@@ -37,6 +37,7 @@ namespace Treevel.Common.Utils
         public static class TileName
         {
             public const string NORMAL_TILE = "NormalTile";
+            public const string GOAL_TILE = "GoalTile";
             public const string WARP_TILE = "WarpTile";
             public const string HOLY_TILE = "HolyTile";
             public const string SPIDERWEB_TILE = "SpiderwebTile";
@@ -134,7 +135,7 @@ namespace Treevel.Common.Utils
             public const string ATTACKABLE_DUMMY_BOTTLE_PREFAB = "AttackableDummyBottlePrefab";
             public const string DYNAMIC_DUMMY_BOTTLE_SPRITE = "dynamicDummyBottle";
             public const string STATIC_DUMMY_BOTTLE_SPRITE = "staticDummyBottle";
-            public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle";
+            public const string NORMAL_BOTTLE_SPRITE_PREFIX = "normalBottle_";
 
             // ボトル関連のエフェクト
             public const string SELFISH_EFFECT_PREFAB = "SelfishEffectPrefab";
@@ -145,11 +146,12 @@ namespace Treevel.Common.Utils
             // タイル関連
             public const string NORMAL_TILE_PREFAB = "NormalTilePrefab";
             public const string NORMAL_TILE_SPRITE_PREFIX = "normalTile_";
+            public const string GOAL_TILE_PREFAB = "GoalTilePrefab";
             public const string WARP_TILE_PREFAB = "WarpTilePrefab";
             public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
             public const string SPIDERWEB_TILE_PREFAB = "SpiderwebTilePrefab";
             public const string ICE_TILE_PREFAB = "IceTilePrefab";
-            public const string NUMBER_TILE_SPRITE_PREFIX = "numberTile";
+            public const string GOAL_TILE_SPRITE_PREFIX = "numberTile_";
 
             // 銃弾関連
             public const string NORMAL_HOLE_GENERATOR_PREFAB = "NormalHoleGeneratorPrefab";

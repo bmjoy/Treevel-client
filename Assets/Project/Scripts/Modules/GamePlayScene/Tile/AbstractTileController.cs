@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Treevel.Common.Components;
+using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
@@ -23,9 +26,15 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// 初期化
         /// </summary>
         /// <param name="tileNum"> タイルの番号 </param>
+        public virtual void Initialize(TileData tileData)
+        {
+            Initialize(tileData.number);
+        }
+
         public virtual void Initialize(int tileNum)
         {
             TileNumber = tileNum;
+            GetComponent<SpriteRendererUnifier>().Unify();
         }
 
         /// <summary>

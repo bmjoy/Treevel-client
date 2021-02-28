@@ -72,7 +72,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <param name="pairTile"> 相方の WarpTile </param>
         public void Initialize(int tileNum, GameObject pairTile)
         {
-            base.Initialize(tileNum);
+            Initialize(tileNum);
             #if UNITY_EDITOR
             name = Constants.TileName.WARP_TILE;
             #endif

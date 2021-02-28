@@ -36,7 +36,9 @@ ErrorUnknown,不明なエラー,Unknwon Error
 ReturnToTitle,タイトルに戻る,Return to title
 ErrorLoadDataFailed,データの読み込みが失敗しました。,Failed to load data
 StartGame,スタート！,Tap to Start
-ErrorInavlidBottleAccess,ボトルの不正アクセスが発生しました。,Invalid bottle access.
+ErrorInvalidBottleAccess,ボトルの不正アクセスが発生しました。,Invalid bottle access.
+ErrorInvalidBottleColor,ボトルの色が正しく設定されていません。,Invalid bottle color.
+ErrorInvalidTileColor,タイルの色が正しく設定されていません。,Invalid tile color.
 RecordShareButton,共有,Share
 RecordToIndividualButton,個別記録へ,Individual
 RecordToGeneralButton,総合記録へ,General
