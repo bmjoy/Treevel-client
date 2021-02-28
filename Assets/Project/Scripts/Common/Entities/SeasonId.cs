@@ -67,7 +67,7 @@ namespace Treevel.Common.Entities
             }
         }
 
-        private static readonly Dictionary<ESeasonId, List<ETreeId>> _TREES = new Dictionary<ESeasonId, List<ETreeId>>() {
+        private static readonly Dictionary<ESeasonId, List<ETreeId>> _TREES = new Dictionary<ESeasonId, List<ETreeId>> {
             { ESeasonId.Spring, new List<ETreeId> { ETreeId.Spring_1, ETreeId.Spring_2, ETreeId.Spring_3 } },
             { ESeasonId.Summer, new List<ETreeId> { ETreeId.Summer_1, ETreeId.Summer_2, ETreeId.Summer_3 } },
             { ESeasonId.Autumn, new List<ETreeId> { ETreeId.Autumn_1, ETreeId.Autumn_2, ETreeId.Autumn_3 } },

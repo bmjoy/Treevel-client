@@ -60,7 +60,7 @@ namespace Treevel.Editor
         private static void ReplaceCanvasScalerInAllScene()
         {
             // 現在のシーン
-            var currentScene = EditorSceneManager.GetActiveScene().path;
+            var currentScene = SceneManager.GetActiveScene().path;
             // プロジェクト内の全てのシーン名を取得
             var sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Project" });
             for (var i = 0; i < sceneGuids.Length; i++) {
