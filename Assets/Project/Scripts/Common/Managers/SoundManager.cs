@@ -162,37 +162,24 @@ namespace Treevel.Common.Managers
 
             _bgmPlayer.clip = clip;
             _bgmPlayer.time = playback;
-            PlayBgmFadeIn(fadeInTime);
-        }
-
-        private async UniTask PlayBgmFadeIn(float fadeInTime)
-        {
-            var targetVolume = _bgmPlayer.volume;
-            _bgmPlayer.volume = 0;
             _bgmPlayer.Play();
-            var elapsed = 0f;
-            while (fadeInTime - elapsed > 0) {
-                elapsed += Time.deltaTime;
-                _bgmPlayer.volume = Mathf.Lerp(0, targetVolume, elapsed / fadeInTime);
-                await UniTask.WaitForEndOfFrame();
-            }
+            FadeBGMVolume(0, _bgmPlayer.volume, fadeInTime);
         }
 
-        private async UniTask StopBgmFadeOut(float fadeOutTime)
+        /// <summary>
+        /// BGMの音量をフェイドさせる
+        /// </summary>
+        /// <param name="from">初期値</param>
+        /// <param name="to">終値</param>
+        /// <param name="time">変化する時間</param>
+        private async UniTask FadeBGMVolume(float from, float to, float time)
         {
-            var initVolume = _bgmPlayer.volume;
             var elapsed = 0f;
-            while (fadeOutTime - elapsed > 0) {
-                elapsed += Time.deltaTime;
-                _bgmPlayer.volume = Mathf.Lerp(initVolume, 0, elapsed / fadeOutTime);
+            while (elapsed < time) {
+                _bgmPlayer.volume = Mathf.Lerp(from, to, elapsed / time);
                 await UniTask.WaitForEndOfFrame();
+                elapsed += Time.deltaTime;
             }
-
-            // BGM を停止
-            _bgmPlayer.Stop();
-
-            // 音量を戻す
-            _bgmPlayer.volume = initVolume;
         }
 
         /// <summary>
@@ -212,7 +199,10 @@ namespace Treevel.Common.Managers
         /// </summary>
         public void StopBGM(float fadeOutTime = 2.0f)
         {
-            StopBgmFadeOut(fadeOutTime);
+            FadeBGMVolume(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
+                _bgmPlayer.Stop();
+                ResetVolume();
+            });
         }
 
         private AudioClip GetSEClip(ESEKey key)
