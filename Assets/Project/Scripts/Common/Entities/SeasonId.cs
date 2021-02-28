@@ -74,7 +74,7 @@ namespace Treevel.Common.Entities
             { ESeasonId.Winter, new List<ETreeId> { ETreeId.Winter_1, ETreeId.Winter_2, ETreeId.Winter_3 } },
         };
 
-        public static List<ETreeId> GetTrees(this ESeasonId seasonId)
+        public static IEnumerable<ETreeId> GetTrees(this ESeasonId seasonId)
         {
             return _TREES[seasonId];
         }

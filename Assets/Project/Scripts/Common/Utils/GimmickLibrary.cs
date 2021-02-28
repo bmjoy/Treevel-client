@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 
@@ -11,9 +12,9 @@ namespace Treevel.Common.Utils
         /// </summary>
         /// <param name="arrayLength"> 配列の要素数 </param>
         /// <returns> 初期化された配列 </returns>
-        public static int[] GetInitialArray(int arrayLength, int value = 100)
+        public static IEnumerable<int> GetInitialArray(int arrayLength, int value = 100)
         {
-            return Enumerable.Repeat(arrayLength, value).ToArray();
+            return Enumerable.Repeat(arrayLength, value);
         }
 
         /// <summary>

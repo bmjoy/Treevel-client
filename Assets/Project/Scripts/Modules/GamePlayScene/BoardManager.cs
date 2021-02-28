@@ -102,7 +102,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 指定した行上の全てのボトルオブジェクトを取得
         /// </summary>
-        public GameObject[] GetBottlesOnRow(ERow row)
+        public IEnumerable<GameObject> GetBottlesOnRow(ERow row)
         {
             var ret = new List<GameObject>();
 
@@ -113,13 +113,13 @@ namespace Treevel.Modules.GamePlayScene
                 }
             }
 
-            return ret.ToArray();
+            return ret;
         }
 
         /// <summary>
         /// 指定した列上の全てのボトルオブジェクトを取得する
         /// </summary>
-        public GameObject[] GetBottlesOnColumn(EColumn column)
+        public IEnumerable<GameObject> GetBottlesOnColumn(EColumn column)
         {
             var ret = new List<GameObject>();
 
@@ -130,7 +130,7 @@ namespace Treevel.Modules.GamePlayScene
                 }
             }
 
-            return ret.ToArray();
+            return ret;
         }
 
         /// <summary>

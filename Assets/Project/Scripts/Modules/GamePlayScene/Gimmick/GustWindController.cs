@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -154,7 +155,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 目標ボトルを取得
             var targetBottles = GetTargetBottles();
             // 目標行・列上のタイルを取得
-            var destinationTiles = GetDestinationTiles();
+            var destinationTiles = GetDestinationTiles().ToArray();
             foreach (var bottle in targetBottles) {
                 // ボトルが今いるタイルのインデックスを探す
                 var currTileIdx =
@@ -178,16 +179,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// ボトルの移動先配列
         /// </summary>
-        private int[] GetDestinationTiles()
+        private IEnumerable<int> GetDestinationTiles()
         {
             switch (_targetDirection) {
                 case EDirection.ToLeft: {
                     var start = _targetLine * Constants.StageSize.COLUMN + 1;
-                    return Enumerable.Range(start, Constants.StageSize.COLUMN).Reverse().ToArray();
+                    return Enumerable.Range(start, Constants.StageSize.COLUMN).Reverse();
                 }
                 case EDirection.ToRight: {
                     var start = _targetLine * Constants.StageSize.COLUMN + 1;
-                    return Enumerable.Range(start, Constants.StageSize.COLUMN).ToArray();
+                    return Enumerable.Range(start, Constants.StageSize.COLUMN);
                 }
                 case EDirection.ToUp: {
                     var ret = new int[Constants.StageSize.ROW];
@@ -195,7 +196,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                         ret[i] = _targetLine + 1 + Constants.StageSize.COLUMN * i;
                     }
 
-                    return ret.Reverse().ToArray();
+                    return ret.Reverse();
                 }
                 case EDirection.ToDown: {
                     var ret = new int[Constants.StageSize.ROW];
@@ -213,7 +214,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 目標行・列上の全てのボトルを取得し、攻撃方向から移動する順序を決めてソートする
         /// </summary>
-        private DynamicBottleController[] GetTargetBottles()
+        private IEnumerable<DynamicBottleController> GetTargetBottles()
         {
             var bottleObjsOnTargetLine = GimmickLibrary.IsHorizontal(_targetDirection)
                 ? BoardManager.Instance.GetBottlesOnRow((ERow)_targetLine)
@@ -227,14 +228,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EDirection.ToLeft:
                 case EDirection.ToUp:
                     return targetBottles
-                        .OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()))
-                        .ToArray();
+                        .OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()));
                 case EDirection.ToDown:
                 case EDirection.ToRight:
                     return targetBottles
-                        .OrderByDescending(
-                            go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()))
-                        .ToArray();
+                        .OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()));
                 default:
                     throw new NotImplementedException();
             }

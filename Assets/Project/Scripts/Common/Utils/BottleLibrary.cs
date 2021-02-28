@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
 
@@ -18,14 +19,14 @@ namespace Treevel.Common.Utils
             return bottles.Single(bottle => bottle.Id == bottleId).gameObject;
         }
 
-        private static AbstractBottleController[] _orderedBottles;
+        private static IEnumerable<AbstractBottleController> _orderedBottles;
 
-        public static AbstractBottleController[] OrderedAttackableBottles {
+        public static IEnumerable<AbstractBottleController> OrderedAttackableBottles {
             get {
                 if (_orderedBottles == null) {
                     _orderedBottles = GameObject.FindObjectsOfType<AbstractBottleController>()
                         .Where(bottle => bottle.IsAttackable)
-                        .OrderBy(bottle => bottle.Id).ToArray();
+                        .OrderBy(bottle => bottle.Id);
                 }
 
                 return _orderedBottles;
