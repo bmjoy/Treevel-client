@@ -5,6 +5,7 @@ using Treevel.Common.Components.UIs;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Treevel.Editor
@@ -26,7 +27,7 @@ namespace Treevel.Editor
         private static void CheckTextInAllScene()
         {
             // 現在のシーン
-            var currentScene = EditorSceneManager.GetActiveScene().path;
+            var currentScene = SceneManager.GetActiveScene().path;
             // プロジェクト内の全てのシーン名を取得
             var sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Project" });
             for (var i = 0; i < sceneGuids.Length; i++) {

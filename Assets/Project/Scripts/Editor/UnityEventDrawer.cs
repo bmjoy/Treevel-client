@@ -14,10 +14,10 @@ namespace Treevel.Editor
 {
     [CustomPropertyDrawer(typeof(UnityEvent), true)]
     [CustomPropertyDrawer(typeof(UnityEvent<bool>), true)]
-    [CustomPropertyDrawer(typeof(UnityEvent<Int32>), true)]
+    [CustomPropertyDrawer(typeof(UnityEvent<int>), true)]
     public class UnityEventDrawer : PropertyDrawer
     {
-        private Dictionary<string, State> m_States = new Dictionary<string, State>();
+        private readonly Dictionary<string, State> m_States = new Dictionary<string, State>();
 
         // Find internal methods with reflection
         private static readonly MethodInfo findMethod = typeof(UnityEventBase).GetMethod(
@@ -59,8 +59,7 @@ namespace Treevel.Editor
         private State GetState(SerializedProperty prop)
         {
             var propertyPath = prop.propertyPath;
-            State state;
-            m_States.TryGetValue(propertyPath, out state);
+            m_States.TryGetValue(propertyPath, out var state);
             if (state == null) {
                 state = new State();
                 var propertyRelative = prop.FindPropertyRelative("m_PersistentCalls.m_Calls");
@@ -109,7 +108,7 @@ namespace Treevel.Editor
             return num;
         }
 
-        public void OnGUI(Rect position)
+        private void OnGUI(Rect position)
         {
             if (m_ListenersArray == null || !m_ListenersArray.isArray) return;
             m_DummyEvent = GetDummyEvent(m_Prop);
@@ -134,7 +133,7 @@ namespace Treevel.Editor
             return (PersistentListenerMode)mode.enumValueIndex;
         }
 
-        private void DrawEventListener(Rect rect, int index, bool isactive, bool isfocused)
+        private void DrawEventListener(Rect rect, int index, bool isActive, bool isFocused)
         {
             var arrayElementAtIndex = m_ListenersArray.GetArrayElementAtIndex(index);
             ++rect.y;
@@ -220,7 +219,7 @@ namespace Treevel.Editor
                     var str = "UnknownComponent";
                     var objectReferenceValue = propertyRelative4.objectReferenceValue;
                     if (objectReferenceValue != null) str = objectReferenceValue.GetType().Name;
-                    stringBuilder.Append(string.Format("<Missing {0}.{1}>", str, propertyRelative5.stringValue));
+                    stringBuilder.Append($"<Missing {str}.{propertyRelative5.stringValue}>");
                 } else {
                     stringBuilder.Append(propertyRelative4.objectReferenceValue.GetType().Name);
                     if (!string.IsNullOrEmpty(propertyRelative5.stringValue)) {
@@ -245,7 +244,7 @@ namespace Treevel.Editor
             GUI.backgroundColor = backgroundColor;
         }
 
-        private Rect[] GetRowRects(Rect rect)
+        private static Rect[] GetRowRects(Rect rect)
         {
             var rectArray = new Rect[4];
             rect.height = 16f;
@@ -321,7 +320,7 @@ namespace Treevel.Editor
             return Activator.CreateInstance(type) as UnityEventBase;
         }
 
-        private static IEnumerable<ValidMethodMap> CalculateMethodMap(Object target, Type[] t,
+        private static IEnumerable<ValidMethodMap> CalculateMethodMap(Object target, IReadOnlyList<Type> t,
                                                                       bool allowSubclasses)
         {
             var validMethodMapList = new List<ValidMethodMap>();
@@ -337,11 +336,11 @@ namespace Treevel.Editor
                 while (enumerator.MoveNext()) {
                     var current = enumerator.Current;
                     var parameters = current.GetParameters();
-                    if (parameters.Length == t.Length &&
+                    if (parameters.Length == t.Count &&
                         current.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length <= 0 &&
                         current.ReturnType == typeof(void)) {
                         var flag = true;
-                        for (var index = 0; index < t.Length; ++index) {
+                        for (var index = 0; index < t.Count; ++index) {
                             if (!parameters[index].ParameterType.IsAssignableFrom(t[index])) flag = false;
                             if (allowSubclasses && t[index].IsAssignableFrom(parameters[index].ParameterType)) flag = true;
                         }
@@ -358,9 +357,9 @@ namespace Treevel.Editor
             return validMethodMapList;
         }
 
-        public static bool IsPersistantListenerValid(UnityEventBase dummyEvent, string methodName,
-                                                     Object uObject, PersistentListenerMode modeEnum,
-                                                     Type argumentType)
+        private static bool IsPersistantListenerValid(UnityEventBase dummyEvent, string methodName,
+                                                      Object uObject, PersistentListenerMode modeEnum,
+                                                      Type argumentType)
         {
             if (uObject == null || string.IsNullOrEmpty(methodName)) return false;
             return GetMethod(dummyEvent, methodName, uObject, modeEnum, argumentType) != null;
@@ -401,12 +400,12 @@ namespace Treevel.Editor
         }
 
         private static void GeneratePopUpForType(GenericMenu menu, Object target, bool useFullTargetName,
-                                                 SerializedProperty listener, Type[] delegateArgumentsTypes)
+                                                 SerializedProperty listener, IReadOnlyList<Type> delegateArgumentsTypes)
         {
             var methods = new List<ValidMethodMap>();
             var targetName = !useFullTargetName ? target.GetType().Name : target.GetType().FullName;
             var flag = false;
-            if (delegateArgumentsTypes.Length != 0) {
+            if (delegateArgumentsTypes.Count != 0) {
                 GetMethodsForTargetAndMode(target, delegateArgumentsTypes, methods,
                                            PersistentListenerMode.EventDefined);
                 if (methods.Count > 0) {
@@ -414,7 +413,7 @@ namespace Treevel.Editor
                                                         string.Join(
                                                             ", ",
                                                             delegateArgumentsTypes
-                                                                .Select(e => GetTypeName(e)).ToArray())));
+                                                                .Select(GetTypeName).ToArray())));
                     AddMethodsToMenu(menu, listener, methods, targetName);
                     flag = true;
                 }
@@ -430,7 +429,7 @@ namespace Treevel.Editor
             GetMethodsForTargetAndMode(target, new Type[0], methods, PersistentListenerMode.Void);
             if (methods.Count <= 0) return;
             if (flag) menu.AddItem(new GUIContent(targetName + "/ "), false, null);
-            if (delegateArgumentsTypes.Length != 0) menu.AddDisabledItem(new GUIContent(targetName + "/Static Parameters"));
+            if (delegateArgumentsTypes.Count != 0) menu.AddDisabledItem(new GUIContent(targetName + "/Static Parameters"));
             AddMethodsToMenu(menu, listener, methods, targetName);
         }
 
@@ -443,8 +442,8 @@ namespace Treevel.Editor
             }
         }
 
-        private static void GetMethodsForTargetAndMode(Object target, Type[] delegateArgumentsTypes,
-                                                       List<ValidMethodMap> methods, PersistentListenerMode mode,
+        private static void GetMethodsForTargetAndMode(Object target, IReadOnlyList<Type> delegateArgumentsTypes,
+                                                       ICollection<ValidMethodMap> methods, PersistentListenerMode mode,
                                                        bool allowSubclasses = false)
         {
             var methodMaps = CalculateMethodMap(target, delegateArgumentsTypes, allowSubclasses).ToArray();
@@ -467,7 +466,7 @@ namespace Treevel.Editor
             var length = method.methodInfo.GetParameters().Length;
             for (var index = 0; index < length; ++index) {
                 var parameter = method.methodInfo.GetParameters()[index];
-                stringBuilder.Append(string.Format("{0}", GetTypeName(parameter.ParameterType)));
+                stringBuilder.Append($"{GetTypeName(parameter.ParameterType)}");
                 if (index < length - 1) stringBuilder.Append(", ");
             }
 
@@ -494,12 +493,12 @@ namespace Treevel.Editor
         private static string GetFormattedMethodName(string targetName, string methodName, string args, bool dynamic)
         {
             if (dynamic) {
-                if (methodName.StartsWith("set_")) return string.Format("{0}/{1}", targetName, methodName.Substring(4));
-                return string.Format("{0}/{1}", targetName, methodName);
+                if (methodName.StartsWith("set_")) return $"{targetName}/{methodName.Substring(4)}";
+                return $"{targetName}/{methodName}";
             }
 
             if (methodName.StartsWith("set_")) return string.Format("{0}/{2} {1}", targetName, methodName.Substring(4), args);
-            return string.Format("{0}/{1} ({2})", targetName, methodName, args);
+            return $"{targetName}/{methodName} ({args})";
         }
 
         private static void SetEventFunction(object source)
@@ -512,7 +511,7 @@ namespace Treevel.Editor
             ((UnityEventFunction)source).Clear();
         }
 
-        protected class State
+        private class State
         {
             internal ReorderableList m_ReorderableList;
             public int lastSelectedIndex;
@@ -532,7 +531,7 @@ namespace Treevel.Editor
             public PersistentListenerMode mode;
         }
 
-        private struct UnityEventFunction
+        private readonly struct UnityEventFunction
         {
             private readonly SerializedProperty m_Listener;
             private readonly Object m_Target;
@@ -567,11 +566,11 @@ namespace Treevel.Editor
                             : parameters[0].ParameterType.AssemblyQualifiedName;
                 }
 
-                ValidateObjectParamater(propertyRelative4, m_Mode);
+                ValidateObjectParameter(propertyRelative4, m_Mode);
                 m_Listener.serializedObject.ApplyModifiedProperties();
             }
 
-            private void ValidateObjectParamater(SerializedProperty arguments, PersistentListenerMode mode)
+            private static void ValidateObjectParameter(SerializedProperty arguments, PersistentListenerMode mode)
             {
                 var propertyRelative1 = arguments.FindPropertyRelative("m_ObjectArgumentAssemblyTypeName");
                 var propertyRelative2 = arguments.FindPropertyRelative("m_ObjectArgument");

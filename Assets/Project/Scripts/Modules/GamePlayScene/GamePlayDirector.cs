@@ -123,7 +123,7 @@ namespace Treevel.Modules.GamePlayScene
 
             var startState = ShouldShowTutorial() ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
-            _stateMachine = new StateMachine(startState, _stateList.Values.ToArray());
+            _stateMachine = new StateMachine(startState, _stateList.Values);
 
             // 可能の状態遷移を設定
             foreach (var state in Enum.GetValues(typeof(EGameState))) {

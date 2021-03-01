@@ -330,7 +330,7 @@ namespace Treevel.Editor
                                                       new GUIContent("Number Of Target"));
 
                         var targetNum = linesProp.arraySize = directionsProp.arraySize;
-                        var showRandomFiledsFlag = useRandomProp.boolValue;
+                        var showRandomFieldsFlag = useRandomProp.boolValue;
                         for (var i = 0; i < targetNum; i++) {
                             var directionElem = directionsProp.GetArrayElementAtIndex(i);
                             var lineElem = linesProp.GetArrayElementAtIndex(i);
@@ -382,7 +382,7 @@ namespace Treevel.Editor
                             }
                         }
 
-                        if (showRandomFiledsFlag) {
+                        if (showRandomFieldsFlag) {
                             {
                                 var randomDirectionProp = gimmickDataProp.FindPropertyRelative("randomDirection");
                                 randomDirectionProp.arraySize = 4;
@@ -514,7 +514,7 @@ namespace Treevel.Editor
                                 new GUIContent("Row"),
                                 new GUIContent("Column"),
                             };
-                            var buffer = new int[] { xProp.intValue, yProp.intValue };
+                            var buffer = new[] { xProp.intValue, yProp.intValue };
                             EditorGUI.MultiIntField(rect, subLabels, buffer);
 
                             xProp.intValue = Mathf.Clamp(buffer[0], 0, Constants.StageSize.ROW - 1);

@@ -26,7 +26,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// </summary>
         /// <param name="startState">ステートマシンの最初状態</param>
         /// <param name="allStates">遷移可能の状態集合</param>
-        public StateMachine(State startState, State[] allStates)
+        public StateMachine(State startState, IEnumerable<State> allStates)
         {
             _states = new HashSet<State>(allStates);
             CurrentState = startState;

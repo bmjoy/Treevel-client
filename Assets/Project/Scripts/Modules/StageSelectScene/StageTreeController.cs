@@ -49,7 +49,7 @@ namespace Treevel.Modules.StageSelectScene
             // 非解放状態の時、自身を制約する木の解放状態に応じて自身の解放状態を更新する
             if (state == ETreeState.Unreleased) {
                 var released = false;
-                if (_constraintTrees.Count() == 0) {
+                if (!_constraintTrees.Any()) {
                     // 初期状態で解放されている道
                     released = true;
                 } else {
