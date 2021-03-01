@@ -589,9 +589,11 @@ namespace TouchScript.Core
         }
 
         // target <- child*
-        private IEnumerable<Gesture> getHierarchyBeginningWith(Transform target)
+        private List<Gesture> getHierarchyBeginningWith(Transform target)
         {
-            if (hierarchyBeginningWithCache.TryGetValue(target, out var list)) {
+            List<Gesture> list;
+
+            if (hierarchyBeginningWithCache.TryGetValue(target, out list)) {
                 return list;
             }
 
