@@ -175,7 +175,7 @@ namespace Treevel.Common.Managers
             if (_bgmPlayer.isPlaying) _bgmPlayer.Stop();
 
             // フェイド中などで音量が変わった場合があるので一度リセットする
-            ResetVolume();
+            ResetBGMVolume();
 
             _bgmPlayer.clip = clip;
             _bgmPlayer.time = playback;
@@ -230,7 +230,7 @@ namespace Treevel.Common.Managers
         {
             FadeBGMVolume(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
                 _bgmPlayer.Stop();
-                ResetVolume();
+                ResetBGMVolume();
             });
         }
 
@@ -262,12 +262,22 @@ namespace Treevel.Common.Managers
             }
         }
 
-        public void ResetVolume()
+        private void ResetBGMVolume()
         {
             _bgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume.Value;
+        }
+
+        private void ResetSEVolume()
+        {
             foreach (var sePlayer in _sePlayers) {
                 sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume.Value;
             }
+        }
+
+        public void ResetVolume()
+        {
+            ResetBGMVolume();
+            ResetSEVolume();
         }
 
         /// <summary>
