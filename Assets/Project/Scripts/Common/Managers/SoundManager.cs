@@ -182,13 +182,15 @@ namespace Treevel.Common.Managers
             _bgmPlayer.Play();
             FadeBGMVolume(0, _bgmPlayer.volume, fadeInTime);
 
-            // ループ終わるところでフェイドアウトフェイドインするようにタイマーを設置する
-            var clipLength = clip.length;
-            _loopVolumeController = Observable.Timer(TimeSpan.FromSeconds(clipLength - _BGM_LOOP_FADE_TIME), TimeSpan.FromSeconds(clipLength)).Subscribe(_ => {
-                Debug.Log("Start FadeIn/FadeOut");
-                var initVolume = _bgmPlayer.volume;
-                FadeBGMVolume(_bgmPlayer.volume, 0, _BGM_LOOP_FADE_TIME).ContinueWith(() => FadeBGMVolume(0, initVolume, _BGM_LOOP_FADE_TIME));
-            }).AddTo(this);
+            if (_bgmPlayer.loop) {
+                // ループ終わるところでフェイドアウトフェイドインするようにタイマーを設置する
+                var clipLength = clip.length;
+                _loopVolumeController = Observable.Timer(TimeSpan.FromSeconds(clipLength - _BGM_LOOP_FADE_TIME), TimeSpan.FromSeconds(clipLength)).Subscribe(_ => {
+                    Debug.Log("Start FadeIn/FadeOut");
+                    var initVolume = _bgmPlayer.volume;
+                    FadeBGMVolume(_bgmPlayer.volume, 0, _BGM_LOOP_FADE_TIME).ContinueWith(() => FadeBGMVolume(0, initVolume, _BGM_LOOP_FADE_TIME));
+                }).AddTo(this);
+            }
         }
 
         /// <summary>
