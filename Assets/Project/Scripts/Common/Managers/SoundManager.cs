@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
+using UniRx;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -69,6 +71,16 @@ namespace Treevel.Common.Managers
         /// 初期SEボリューム
         /// </summary>
         [SerializeField] [Range(0, 1)] private float _INITIAL_SE_VOLUME = 1.0f;
+
+        /// <summary>
+        /// BGMループでフェイドインフェイドアウトする時間（秒）
+        /// </summary>
+        private const float _BGM_LOOP_FADE_TIME = 2.0f;
+
+        /// <summary>
+        /// ループの音量を制御するタイマー用
+        /// </summary>
+        private IDisposable _loopVolumeController;
 
         private void Awake()
         {
@@ -151,17 +163,54 @@ namespace Treevel.Common.Managers
         /// </summary>
         /// <param name="key"> 再生するBGMのキー </param>
         /// <param name="playback"></param>
-        public void PlayBGM(EBGMKey key, float playback = 0f)
+        public void PlayBGM(EBGMKey key, float playback = 0f, float fadeInTime = 2.0f)
         {
             var clip = GetBGMClip(key);
             if (clip == null) return;
 
+            // 実行中のタイマーを取り消し
+            _loopVolumeController?.Dispose();
+
             // BGM再生中であれば停止しておく
             if (_bgmPlayer.isPlaying) _bgmPlayer.Stop();
+
+            // フェイド中などで音量が変わった場合があるので一度リセットする
+            ResetBGMVolume();
 
             _bgmPlayer.clip = clip;
             _bgmPlayer.time = playback;
             _bgmPlayer.Play();
+            FadeBGMVolume(0, _bgmPlayer.volume, fadeInTime);
+
+            if (_bgmPlayer.loop) {
+                // ループ終わるところでフェイドアウトフェイドインするようにタイマーを設置する
+                var clipLength = clip.length;
+                _loopVolumeController = Observable.Timer(TimeSpan.FromSeconds(clipLength - _BGM_LOOP_FADE_TIME), TimeSpan.FromSeconds(clipLength)).Subscribe(_ => {
+                    Debug.Log("Start FadeIn/FadeOut");
+                    var initVolume = _bgmPlayer.volume;
+                    FadeBGMVolume(_bgmPlayer.volume, 0, _BGM_LOOP_FADE_TIME).ContinueWith(() => FadeBGMVolume(0, initVolume, _BGM_LOOP_FADE_TIME));
+                }).AddTo(this);
+            }
+        }
+
+        /// <summary>
+        /// BGMの音量をフェイドさせる
+        /// </summary>
+        /// <param name="from">初期値(0.0 to 1.0)</param>
+        /// <param name="to">終値(0.0 to 1.0)</param>
+        /// <param name="time">変化する時間(>0)</param>
+        private async UniTask FadeBGMVolume(float from, float to, float time)
+        {
+            Debug.Assert(time > 0);
+
+            var elapsed = 0f;
+            while (elapsed < time) {
+                _bgmPlayer.volume = Mathf.Lerp(from, to, elapsed / time);
+                await UniTask.WaitForEndOfFrame();
+                elapsed += Time.deltaTime;
+            }
+
+            _bgmPlayer.volume = to;
         }
 
         /// <summary>
@@ -179,9 +228,12 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// 再生中のBGMを停止する
         /// </summary>
-        public void StopBGM()
+        public void StopBGM(float fadeOutTime = 2.0f)
         {
-            _bgmPlayer.Stop();
+            FadeBGMVolume(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
+                _bgmPlayer.Stop();
+                ResetBGMVolume();
+            });
         }
 
         private AudioClip GetSEClip(ESEKey key)
@@ -212,12 +264,22 @@ namespace Treevel.Common.Managers
             }
         }
 
-        public void ResetVolume()
+        private void ResetBGMVolume()
         {
             _bgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume.Value;
+        }
+
+        private void ResetSEVolume()
+        {
             foreach (var sePlayer in _sePlayers) {
                 sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume.Value;
             }
+        }
+
+        public void ResetVolume()
+        {
+            ResetBGMVolume();
+            ResetSEVolume();
         }
 
         /// <summary>
