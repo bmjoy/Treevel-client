@@ -194,11 +194,13 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// BGMの音量をフェイドさせる
         /// </summary>
-        /// <param name="from">初期値</param>
-        /// <param name="to">終値</param>
-        /// <param name="time">変化する時間</param>
+        /// <param name="from">初期値(0.0 to 1.0)</param>
+        /// <param name="to">終値(0.0 to 1.0)</param>
+        /// <param name="time">変化する時間(>0)</param>
         private async UniTask FadeBGMVolume(float from, float to, float time)
         {
+            Debug.Assert(time > 0);
+
             var elapsed = 0f;
             while (elapsed < time) {
                 _bgmPlayer.volume = Mathf.Lerp(from, to, elapsed / time);
