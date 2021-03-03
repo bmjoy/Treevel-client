@@ -209,6 +209,8 @@ namespace Treevel.Common.Managers
                 await UniTask.WaitForEndOfFrame();
                 elapsed += Time.deltaTime;
             }
+
+            _bgmPlayer.volume = to;
         }
 
         /// <summary>
