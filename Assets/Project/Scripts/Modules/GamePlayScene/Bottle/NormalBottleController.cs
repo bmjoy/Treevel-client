@@ -22,7 +22,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 目標の色
         /// </summary>
-        private EGoalColor _goalColor;
+        public EGoalColor GoalColor { get; private set; }
 
         /// <summary>
         /// 光らせるエフェクト
@@ -49,9 +49,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _spriteGlowEffect.enabled = false;
 
             // parse data
-            _goalColor = bottleData.goalColor;
+            GoalColor = bottleData.goalColor;
             // GoalColorがNoneではないことを保証する
-            if (_goalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
+            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
 
             await base.Initialize(bottleData);
 
@@ -88,7 +88,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <returns></returns>
         public bool IsSuccess()
         {
-            return _goalColor != EGoalColor.None && BoardManager.Instance.GetTileColor(this) == _goalColor;
+            return GoalColor != EGoalColor.None && BoardManager.Instance.GetTileColor(this) == GoalColor;
         }
     }
 }
