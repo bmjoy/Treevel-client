@@ -8,8 +8,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class SpiderwebTileController : AbstractTileController
     {
-        public override bool RunOnBottleEnterAtInit => true;
-
         /// <summary>
         /// 蜘蛛の巣によってボトルが止まる秒数
         /// </summary>
@@ -32,6 +30,11 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         private sealed class SpiderwebTileBottleHandler : DefaultBottleHandler
         {
+            public override void OnGameStart(GameObject bottle)
+            {
+                OnBottleEnter(bottle, null);
+            }
+
             public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
                 if (bottle.GetComponent<DynamicBottleController>() == null) return;

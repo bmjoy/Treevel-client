@@ -48,7 +48,7 @@ namespace Treevel.Modules.GamePlayScene
                     foreach (var square in _squares) {
                         if (square.bottle == null) continue;
                         square.bottle.OnEnterTile(square.tile.gameObject);
-                        if (square.tile.RunOnBottleEnterAtInit) square.tile.OnBottleEnter(square.bottle.gameObject, null);
+                        square.tile.OnGameStart(square.bottle.gameObject);
                     }
                 }).AddTo(this);
         }

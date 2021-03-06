@@ -13,11 +13,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// </summary>
         public int TileNumber { get; private set; }
 
-        /// <summary>
-        /// 初期配置された際に `OnBottleEnter` を実行するかどうか
-        /// </summary>
-        public abstract bool RunOnBottleEnterAtInit { get; }
-
         protected IBottleHandler bottleHandler = new DefaultBottleHandler();
 
         protected virtual void Awake() { }
@@ -52,8 +47,14 @@ namespace Treevel.Modules.GamePlayScene.Tile
             bottleHandler.OnBottleExit(bottle);
         }
 
+        public void OnGameStart(GameObject bottle)
+        {
+            bottleHandler.OnGameStart(bottle);
+        }
+
         protected interface IBottleHandler
         {
+            void OnGameStart(GameObject bottle);
             void OnBottleEnter(GameObject bottle, Vector2Int? direction);
             void OnBottleExit(GameObject bottle);
         }
@@ -61,6 +62,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
         // 何もしないボトルハンドラー
         protected class DefaultBottleHandler : IBottleHandler
         {
+            public virtual void OnGameStart(GameObject bottle) { }
+
             public virtual void OnBottleEnter(GameObject bottle, Vector2Int? direction) { }
 
             public virtual void OnBottleExit(GameObject bottle) { }
