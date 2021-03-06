@@ -26,6 +26,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             public override void OnGameStart(GameObject bottle)
             {
+                if (bottle == null) return;
                 OnBottleEnter(bottle, null);
             }
 

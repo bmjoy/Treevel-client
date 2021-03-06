@@ -53,12 +53,13 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             public override void OnGameStart(GameObject bottle)
             {
-                OnBottleEnter(bottle, null);
+                if (bottle != null) OnBottleEnter(bottle, null);
                 _animator.SetBool(_ANIMATOR_PARAM_BOOL_IS_GAME_STARTED, true);
             }
 
             public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
+                if (bottle == null) return;
                 var bottleController = bottle.GetComponent<NormalBottleController>();
                 if (bottleController == null) return;
                 // 成功状態の演出

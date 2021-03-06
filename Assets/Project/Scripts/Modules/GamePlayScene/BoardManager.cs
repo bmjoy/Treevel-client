@@ -46,7 +46,10 @@ namespace Treevel.Modules.GamePlayScene
             GamePlayDirector.Instance.GameStart
                 .Subscribe(_ => {
                     foreach (var square in _squares) {
-                        if (square.bottle == null) continue;
+                        if (square.bottle == null) {
+                            square.tile.OnGameStart(null);
+                            continue;
+                        };
                         square.bottle.OnEnterTile(square.tile.gameObject);
                         square.tile.OnGameStart(square.bottle.gameObject);
                     }
