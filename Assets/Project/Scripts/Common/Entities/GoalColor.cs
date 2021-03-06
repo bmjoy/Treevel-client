@@ -36,15 +36,15 @@ namespace Treevel.Common.Entities
         }
 
         private static readonly Dictionary<EGoalColor, Color> _MAIN_COLORS = new Dictionary<EGoalColor, Color> {
-            { EGoalColor.None, Color.white},
-            { EGoalColor.Red, new Color(1f, 0.6f, 0.6f)},
-            { EGoalColor.Pink, new Color(1f, 0.6f, 0.95f)},
-            { EGoalColor.Orange, new Color(1f, 0.7f, 0.4f)},
-            { EGoalColor.Yellow, new Color(1f, 1f, 0.35f)},
-            { EGoalColor.Green, new Color(0.5f, 0.95f, 0.45f)},
-            { EGoalColor.LightBlue, new Color(0.45f, 0.85f, 1f)},
-            { EGoalColor.Blue, new Color(0.5f, 0.6f, 1f)},
-            { EGoalColor.Purple, new Color(0.5f, 0.2f, 1f)},
+            { EGoalColor.None, Color.white },
+            { EGoalColor.Red, new Color(1f, 0.6f, 0.6f) },
+            { EGoalColor.Pink, new Color(1f, 0.6f, 0.95f) },
+            { EGoalColor.Orange, new Color(1f, 0.7f, 0.4f) },
+            { EGoalColor.Yellow, new Color(1f, 1f, 0.35f) },
+            { EGoalColor.Green, new Color(0.5f, 0.95f, 0.45f) },
+            { EGoalColor.LightBlue, new Color(0.45f, 0.85f, 1f) },
+            { EGoalColor.Blue, new Color(0.5f, 0.6f, 1f) },
+            { EGoalColor.Purple, new Color(0.5f, 0.2f, 1f) },
         };
 
         public static Color GetMainColor(this EGoalColor goalColor)
