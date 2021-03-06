@@ -20,31 +20,31 @@ MonoBehaviour:
     number: 4
     pairNumber: 0
   - type: 1
-    goalColor: 1
+    goalColor: 2
     number: 5
     pairNumber: 0
   - type: 1
-    goalColor: 1
+    goalColor: 3
     number: 6
     pairNumber: 0
   - type: 1
-    goalColor: 1
+    goalColor: 4
     number: 7
     pairNumber: 0
   - type: 1
-    goalColor: 7
+    goalColor: 5
     number: 8
     pairNumber: 0
   - type: 1
-    goalColor: 1
+    goalColor: 6
     number: 9
     pairNumber: 0
   - type: 1
-    goalColor: 1
+    goalColor: 7
     number: 10
     pairNumber: 0
   - type: 1
-    goalColor: 1
+    goalColor: 8
     number: 11
     pairNumber: 0
   bottles:
@@ -64,49 +64,49 @@ MonoBehaviour:
     isReverse: 0
   - type: 2
     initPos: 5
-    goalColor: 1
+    goalColor: 2
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 6
-    goalColor: 1
+    goalColor: 3
     life: 1
-    isSelfish: 1
+    isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 7
-    goalColor: 1
+    goalColor: 4
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 8
-    goalColor: 7
+    goalColor: 5
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 9
-    goalColor: 1
+    goalColor: 6
     life: 1
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 10
-    goalColor: 1
+    goalColor: 7
     life: 3
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 14
-    goalColor: 1
+    goalColor: 8
     life: 5
     isSelfish: 0
     isDark: 0
