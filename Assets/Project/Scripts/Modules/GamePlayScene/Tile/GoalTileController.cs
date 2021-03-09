@@ -28,7 +28,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         public override void Initialize(TileData tileData)
         {
-            base.Initialize(tileData.number);
+            Initialize(tileData.number);
             GoalColor = tileData.goalColor;
             // colorがNoneではないことを保証する
             if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidTileColor);
