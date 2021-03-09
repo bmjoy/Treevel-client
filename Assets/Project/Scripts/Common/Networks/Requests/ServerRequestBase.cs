@@ -14,7 +14,7 @@ namespace Treevel.Common.Networks.Requests
         /// <summary>
         /// ローカルサーバへ問い合わせするためのサービスクラスのインスタンス
         /// </summary>
-        protected static DatabaseService localDatabaseService = new LocalDatabaseService();
+        protected static DatabaseService localDatabaseService = new PlayerPrefsDatabaseService();
 
         /// <summary>
         /// リクエストを実行
