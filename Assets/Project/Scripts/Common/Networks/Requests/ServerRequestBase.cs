@@ -29,13 +29,8 @@ namespace Treevel.Common.Networks.Requests
 
         public override async UniTask<TResult> Execute()
         {
-            try {
-                // リモートサーバから取得
-                return await remoteDatabaseService.GetData<TResult>(key);
-            } catch (PlayFabException e) {
-                // リモートサーバから取得失敗
-                return await localDatabaseService.GetData<TResult>(key);
-            }
+            // TODO: リクエスト数を減らせるようになったら、リモートにもアクセスするようにする
+            return await localDatabaseService.GetData<TResult>(key);
         }
     }
 
@@ -47,13 +42,8 @@ namespace Treevel.Common.Networks.Requests
 
         public override async UniTask<bool> Execute()
         {
-            // リモートサーバに送信
-            if (await remoteDatabaseService.UpdateData(key, data)) {
-                // 成功したらローカルも更新
-                return await localDatabaseService.UpdateData(key, data);
-            }
-
-            return false;
+            // TODO: リクエスト数を減らせるようになったら、リモートにもアクセスするようにする
+            return await localDatabaseService.UpdateData(key, data);
         }
     }
 }
