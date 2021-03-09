@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 3191877913524096823}
   - component: {fileID: -8491268406887753677}
   m_Layer: 8
-  m_Name: NormalBottlePrefab
+  m_Name: GoalBottlePrefab
   m_TagString: Bottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
