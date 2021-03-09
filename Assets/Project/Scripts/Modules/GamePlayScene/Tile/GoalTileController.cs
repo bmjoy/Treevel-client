@@ -34,7 +34,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidTileColor);
             _wound.sprite = AddressableAssetManager.GetAsset<Sprite>(tileData.goalColor.GetTileAddress());
             _wound.color = GoalColor.GetMainColor();
-            _mainColorLayer.color = GoalColor.GetMainColor(0.4f);
+            _mainColorLayer.color = GoalColor.GetMainColor(_mainColorLayer.color.a);
             bottleHandler = new GoalTileBottleHandler(this);
             #if UNITY_EDITOR
             name = Constants.TileName.GOAL_TILE + tileData.number;
