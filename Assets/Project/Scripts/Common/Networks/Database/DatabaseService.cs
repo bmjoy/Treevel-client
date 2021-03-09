@@ -6,7 +6,7 @@ namespace Treevel.Common.Networks.Database
 {
     public abstract class DatabaseService
     {
-        public abstract UniTask<T> GetData<T>(string key);
+        public abstract UniTask<T> GetData<T>(string key) where T: new();
 
         public abstract UniTask<bool> UpdateData<T>(string key, T data);
 

@@ -23,7 +23,7 @@ namespace Treevel.Common.Networks.Requests
         public abstract UniTask<T> Execute();
     }
 
-    public abstract class GetServerRequestBase<TResult> : ServerRequestBase<TResult>
+    public abstract class GetServerRequestBase<TResult> : ServerRequestBase<TResult> where TResult: new()
     {
         protected string key;
 
