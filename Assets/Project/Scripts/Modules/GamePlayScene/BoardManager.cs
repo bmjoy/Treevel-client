@@ -482,7 +482,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="bottle"></param>
         /// <returns></returns>
-        public EGoalColor GetTileColor(NormalBottleController bottle)
+        public EGoalColor GetTileColor(GoalBottleController bottle)
         {
             var tile = GetTile(GetBottlePos(bottle));
             if (tile == null) return EGoalColor.None;

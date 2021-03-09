@@ -8,7 +8,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 {
     public class PiledUpPowderController : AbstractGimmickController
     {
-        private NormalBottleController _bottleController;
+        private GoalBottleController _bottleController;
 
         private Animator _animator;
         private Animator _bottleAnimator;
@@ -29,7 +29,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                 .Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
         }
 
-        public void Initialize(NormalBottleController bottleController)
+        public void Initialize(GoalBottleController bottleController)
         {
             // ボトル上に配置
             transform.parent = bottleController.transform;

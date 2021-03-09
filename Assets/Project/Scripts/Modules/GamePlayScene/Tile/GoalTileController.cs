@@ -21,6 +21,9 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// </summary>
         [SerializeField] private SpriteRenderer _wound;
 
+        /// <summary>
+        /// タイル画像に重ねる色画像
+        /// </summary>
         [SerializeField] private SpriteRenderer _mainColorLayer;
 
         public override void Initialize(TileData tileData)
@@ -60,7 +63,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
                 if (bottle == null) return;
-                var bottleController = bottle.GetComponent<NormalBottleController>();
+                var bottleController = bottle.GetComponent<GoalBottleController>();
                 if (bottleController == null) return;
                 // 成功状態の演出
                 if (bottleController.GoalColor == _goalColor) _animator.SetBool(_ANIMATOR_PARAM_BOOL_IS_SUCCEEDED, true);

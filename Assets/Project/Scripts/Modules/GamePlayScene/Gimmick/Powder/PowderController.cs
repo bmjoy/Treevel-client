@@ -137,7 +137,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
                     throw new ArgumentOutOfRangeException();
             }
 
-            var bottles = FindObjectsOfType<NormalBottleController>();
+            var bottles = FindObjectsOfType<GoalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
             for (var i = 0; i < bottles.Length; i++) {
                 var piledUpPowder = await AddressableAssetManager.Instantiate(address).Task;

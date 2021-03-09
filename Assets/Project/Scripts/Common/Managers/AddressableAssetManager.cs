@@ -174,7 +174,7 @@ namespace Treevel.Common.Managers
                         tasks.Add(LoadAsset<Sprite>(Constants.Address.STATIC_DUMMY_BOTTLE_SPRITE));
                         break;
                     case EBottleType.Normal:
-                        tasks.Add(LoadAsset<GameObject>(Constants.Address.NORMAL_BOTTLE_PREFAB));
+                        tasks.Add(LoadAsset<GameObject>(Constants.Address.GOAL_BOTTLE_PREFAB));
                         break;
                     case EBottleType.AttackableDummy:
                         tasks.Add(LoadAsset<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB));

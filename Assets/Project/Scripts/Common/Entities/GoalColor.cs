@@ -26,7 +26,7 @@ namespace Treevel.Common.Entities
         public static string GetBottleAddress(this EGoalColor goalColor)
         {
             if (goalColor == EGoalColor.None) throw new Exception("GoalColor should not be None");
-            return Constants.Address.NORMAL_BOTTLE_SPRITE_PREFIX + goalColor;
+            return Constants.Address.GOAL_BOTTLE_SPRITE_PREFIX + goalColor;
         }
 
         public static string GetTileAddress(this EGoalColor goalColor)

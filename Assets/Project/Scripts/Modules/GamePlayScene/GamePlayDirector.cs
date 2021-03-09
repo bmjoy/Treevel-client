@@ -225,7 +225,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             if (!StageGenerator.CreatedFinished) return;
 
-            var bottles = FindObjectsOfType<NormalBottleController>();
+            var bottles = FindObjectsOfType<GoalBottleController>();
             if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
 
             // 全ての成功判定が付くボトルが成功の場合，成功状態に遷移

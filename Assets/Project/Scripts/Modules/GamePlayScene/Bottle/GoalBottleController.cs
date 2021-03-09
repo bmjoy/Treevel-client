@@ -15,7 +15,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(PostProcessVolume))]
     [RequireComponent(typeof(SpriteGlowEffect))]
     [RequireComponent(typeof(LongPressGesture))]
-    public class NormalBottleController : DynamicBottleController
+    public class GoalBottleController : DynamicBottleController
     {
         public LongPressGesture longPressGesture;
 
