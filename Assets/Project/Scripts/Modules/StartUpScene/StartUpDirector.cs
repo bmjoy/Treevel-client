@@ -51,10 +51,6 @@ namespace Treevel.Modules.StartUpScene
             // 全部完了したら開始ボタンを表示
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
 
-            // TODO: DELETE DEBUG CODE
-            // var stageStats = await NetworkService.Execute(new GetStageRecordRequest("Spring-1-9"));
-            // Debug.Log(JsonUtility.ToJson(stageStats));
-
             _startButton.SetActive(true);
         }
 

@@ -179,7 +179,7 @@ namespace Treevel.Common.Entities
                 IncFailureNum(_treeId, _stageNumber);
             }
 
-            NetworkService.Execute(new UpdateStageRecordRequest(StageData.EncodeStageIdKey(_treeId, _stageNumber), this));
+            NetworkService.Execute(new UpdateStageStatusRequest(_treeId, _stageNumber, this));
         }
 
         public void Dump()

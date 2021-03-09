@@ -27,11 +27,6 @@ namespace Treevel.Common.Networks.Requests
     {
         protected string key;
 
-        protected GetServerRequestBase(string key)
-        {
-            this.key = key;
-        }
-
         public override async UniTask<TResult> Execute()
         {
             try {
@@ -49,11 +44,6 @@ namespace Treevel.Common.Networks.Requests
         protected string key;
         protected TDataType data;
 
-        protected UpdateServerRequestBase(string key, TDataType data)
-        {
-            this.key = key;
-            this.data = data;
-        }
 
         public override async UniTask<bool> Execute()
         {
