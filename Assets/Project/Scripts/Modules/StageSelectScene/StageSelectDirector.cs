@@ -3,7 +3,9 @@ using System.Linq;
 using SnapScroll;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks;
 using Treevel.Common.Networks.Objects;
+using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene;
@@ -163,8 +165,9 @@ namespace Treevel.Modules.StageSelectScene
         public async void GoToGame(ETreeId treeId, int stageNumber)
         {
             // 挑戦回数をインクリメント
-            var ss = StageStatus.Get(treeId, stageNumber);
-            ss.IncChallengeNum(treeId, stageNumber);
+            // FIXME: Get をせずに Post だけするようにしたい、もしくは Get 部分は隠蔽したい
+            var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
+            stageStatus.IncChallengeNum(treeId, stageNumber);
             // ステージ情報を渡す
             GamePlayDirector.seasonId = seasonId;
             GamePlayDirector.treeId = treeId;

@@ -53,30 +53,6 @@ namespace Treevel.Common.Entities
         public bool tutorialChecked = false;
 
         /// <summary>
-        /// オブジェクトの保存
-        /// </summary>
-        /// <param name="treeId"></param>
-        /// <param name="stageNumber"></param>
-        private void Set(ETreeId treeId, int stageNumber)
-        {
-            PlayerPrefsUtility.SetObject(StageData.EncodeStageIdKey(treeId, stageNumber), this);
-        }
-
-        /// <summary>
-        /// オブジェクトの取得
-        /// </summary>
-        /// <param name="treeId"></param>
-        /// <param name="stageNumber"></param>
-        /// <returns></returns>
-        public static StageStatus Get(ETreeId treeId, int stageNumber)
-        {
-            var data = PlayerPrefsUtility.GetObject<StageStatus>(StageData.EncodeStageIdKey(treeId, stageNumber));
-            data._treeId = treeId;
-            data._stageNumber = stageNumber;
-            return data;
-        }
-
-        /// <summary>
         /// オブジェクト情報のリセット
         /// </summary>
         public static void Reset()
@@ -97,7 +73,7 @@ namespace Treevel.Common.Entities
         public void ReleaseStage(ETreeId treeId, int stageNumber)
         {
             state = EStageState.Released;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -113,7 +89,7 @@ namespace Treevel.Common.Entities
             }
 
             state = EStageState.Cleared;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -124,7 +100,7 @@ namespace Treevel.Common.Entities
         public void IncChallengeNum(ETreeId treeId, int stageNumber)
         {
             challengeNum++;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -135,7 +111,7 @@ namespace Treevel.Common.Entities
         public void IncSuccessNum(ETreeId treeId, int stageNumber)
         {
             successNum++;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -146,7 +122,7 @@ namespace Treevel.Common.Entities
         public void IncFailureNum(ETreeId treeId, int stageNumber)
         {
             failureNum++;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -158,7 +134,7 @@ namespace Treevel.Common.Entities
         public void AddFlickNum(ETreeId treeId, int stageNumber, int flickNum)
         {
             this.flickNum += flickNum;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         public void Update(ETreeId treeId, int stageNumber, bool success)
@@ -169,14 +145,12 @@ namespace Treevel.Common.Entities
             } else {
                 IncFailureNum(treeId, stageNumber);
             }
-
-            NetworkService.Execute(new UpdateStageStatusRequest(_treeId, _stageNumber, this));
         }
 
         public void SetTutorialChecked(ETreeId treeId, int stageNumber, bool isChecked)
         {
             tutorialChecked = isChecked;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
     }
 }

@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -110,14 +113,15 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .AddTo(this);
         }
 
-        private void OnEnable()
+        private async void OnEnable()
         {
-            var stageStatuses = GameDataManager.GetAllStages()
-                .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
-                .ToList();
+            var tasks = GameDataManager.GetAllStages()
+                // FIXME: 呼ばれるたびに 全ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
+                .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
+            var stageStatuses = await UniTask.WhenAll(tasks);
 
             var clearStageNum = stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
-            var totalStageNum = stageStatuses.Count;
+            var totalStageNum = stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
 
             _playNum.text = stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();

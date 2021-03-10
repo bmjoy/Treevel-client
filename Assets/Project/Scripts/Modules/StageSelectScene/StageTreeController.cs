@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
@@ -39,7 +42,7 @@ namespace Treevel.Modules.StageSelectScene
             _constraintTreeClearHandlers = _constraintTrees.Select(id => id.GetClearTreeHandler()).ToList();
         }
 
-        public override void UpdateState()
+        public override async void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
             state = (ETreeState)Enum.ToObject(typeof(ETreeState),
@@ -73,8 +76,11 @@ namespace Treevel.Modules.StageSelectScene
                 case ETreeState.Cleared: {
                     // 全クリアかどうかをチェックする
                     var stageNum = treeId.GetStageNum();
-                    var clearStageNum = Enumerable.Range(1, stageNum)
-                        .Count(s => StageStatus.Get(treeId, s).state == EStageState.Cleared);
+                    var tasks = Enumerable.Range(1, stageNum)
+                        // FIXME: 呼ばれるたびに ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
+                        .Select(s => NetworkService.Execute(new GetStageStatusRequest(treeId, s)));
+                    var stageStatuses = await UniTask.WhenAll(tasks);
+                    var clearStageNum = stageStatuses.Count(status => status.state == EStageState.Cleared);
                     state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                     break;
                 }

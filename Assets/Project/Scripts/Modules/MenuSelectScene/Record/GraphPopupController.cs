@@ -2,6 +2,7 @@ using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Objects;
+using Treevel.Common.Networks.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,7 +61,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         public async void Initialize(Color seasonColor, ETreeId treeId, int stageNumber, Vector3 graphPosition)
         {
-            var stageStatus = StageStatus.Get(treeId, stageNumber);
+            var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
 
             var challengeNum = stageStatus.challengeNum;
             if (challengeNum <= _MAX_CHALLENGE_NUM_DISPLAYED) {

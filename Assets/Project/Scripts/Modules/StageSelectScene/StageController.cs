@@ -1,6 +1,8 @@
 ﻿using System;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,8 +36,10 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         [SerializeField] private Button _button;
 
-        private void Awake()
+        private async void Awake()
         {
+            _stageStatus = await NetworkService.Execute(new GetStageStatusRequest(_treeId, stageNumber));
+
             UpdateState();
         }
 
@@ -47,7 +51,6 @@ namespace Treevel.Modules.StageSelectScene
             var stageData = GameDataManager.GetStage(_treeId, stageNumber);
             if (stageData == null) return;
 
-            _stageStatus = StageStatus.Get(_treeId, stageNumber);
             state = _stageStatus.state;
 
             // 状態の反映

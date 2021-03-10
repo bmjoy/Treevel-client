@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using Treevel.Modules.StageSelectScene;
 using UniRx;
 using UniRx.Triggers;
@@ -155,11 +158,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
             SetupBarGraph();
         }
 
-        private void SetStageStatuses()
+        private async void SetStageStatuses()
         {
-            _stageStatuses = GameDataManager.GetStages(_currentTree.Value)
-                .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
-                .ToArray();
+            var tasks = GameDataManager.GetStages(_currentTree.Value)
+                // FIXME: 呼ばれるたびに ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
+                .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
+            _stageStatuses = await UniTask.WhenAll(tasks);
 
             var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
             var totalStageNum = _stageStatuses.Length;
