@@ -46,7 +46,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// ステージの状態の更新
         /// </summary>
-        public void UpdateState()
+        private void UpdateState()
         {
             var stageData = GameDataManager.GetStage(_treeId, stageNumber);
             if (stageData == null) return;
@@ -86,7 +86,7 @@ namespace Treevel.Modules.StageSelectScene
         public void ReleaseStage()
         {
             state = EStageState.Released;
-            if (_stageStatus != null) _stageStatus.ReleaseStage(_treeId, stageNumber);
+            _stageStatus?.ReleaseStage(_treeId, stageNumber);
         }
 
         /// <summary>
