@@ -476,7 +476,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnEnter(State from = null)
             {
                 // 記録更新
-                StageStatus.Get(treeId, stageNumber).Update(success: true);
+                StageStatus.Get(treeId, stageNumber).Update(treeId, stageNumber, true);
 
                 SoundManager.Instance.PlaySE(ESEKey.SE_Success);
 
@@ -510,7 +510,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnEnter(State from = null)
             {
                 // 記録更新
-                StageStatus.Get(treeId, stageNumber).Update(success: false);
+                StageStatus.Get(treeId, stageNumber).Update(treeId, stageNumber, false);
 
                 // 失敗原因を保存
                 var dic = RecordData.Instance.FailureReasonCount;
@@ -585,7 +585,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnExit(State to)
             {
                 var stageStatus = StageStatus.Get(treeId, stageNumber);
-                stageStatus.SetTutorialChecked(true);
+                stageStatus.SetTutorialChecked(treeId, stageNumber, true);
                 _tutorialWindow.SetActive(false);
 
                 // OpeningState はBGMを流さないため止めとく

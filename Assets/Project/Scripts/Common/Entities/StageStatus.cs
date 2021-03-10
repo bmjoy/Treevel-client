@@ -11,13 +11,6 @@ namespace Treevel.Common.Entities
     [Serializable]
     public class StageStatus
     {
-        private ETreeId _treeId;
-
-        /// <summary>
-        /// ステージID
-        /// </summary>
-        private int _stageNumber;
-
         /// <summary>
         /// ステージの状態
         /// </summary>
@@ -168,34 +161,22 @@ namespace Treevel.Common.Entities
             Set(treeId, stageNumber);
         }
 
-        public void Update(bool success)
+        public void Update(ETreeId treeId, int stageNumber, bool success)
         {
             if (success) {
-                // クリア済みにする
-                ClearStage(_treeId, _stageNumber);
-
-                IncSuccessNum(_treeId, _stageNumber);
+                ClearStage(treeId, stageNumber);
+                IncSuccessNum(treeId, stageNumber);
             } else {
-                IncFailureNum(_treeId, _stageNumber);
+                IncFailureNum(treeId, stageNumber);
             }
 
             NetworkService.Execute(new UpdateStageStatusRequest(_treeId, _stageNumber, this));
         }
 
-        public void Dump()
-        {
-            #if UNITY_EDITOR
-            Debug.Log($"Stage: {_stageNumber}");
-            Debug.Log($"  挑戦回数：{challengeNum}");
-            Debug.Log($"  成功回数：{successNum}");
-            Debug.Log($"  失敗回数：{failureNum}");
-            #endif
-        }
-
-        public void SetTutorialChecked(bool isChecked)
+        public void SetTutorialChecked(ETreeId treeId, int stageNumber, bool isChecked)
         {
             tutorialChecked = isChecked;
-            Set(_treeId, _stageNumber);
+            Set(treeId, stageNumber);
         }
     }
 }
