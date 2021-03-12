@@ -7,8 +7,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class IceTileController : AbstractTileController
     {
-        public override bool RunOnBottleEnterAtInit => false;
-
         public override void Initialize(TileData tileData)
         {
             base.Initialize(tileData);

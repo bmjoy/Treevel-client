@@ -160,7 +160,7 @@ namespace Treevel.Editor
                         // Normalは選択不能にする
                         (eType) => (ETileType)eType != ETileType.Normal,
                         false
-                        );
+                    );
 
                 // タイプが変わっていたらデータをリセット
                 if (newEnumValueIndex != tileTypeProp.enumValueIndex) {
@@ -690,31 +690,32 @@ namespace Treevel.Editor
         /// </summary>
         private void CheckGoalColorConsistency()
         {
-           var goalColorNum = Enum.GetValues(typeof(EGoalColor))
-               .OfType<EGoalColor>()
-               .ToDictionary(type => type, _ => 0);
+            var goalColorNum = Enum.GetValues(typeof(EGoalColor))
+                .OfType<EGoalColor>()
+                .ToDictionary(type => type, _ => 0);
 
-           // タイルがしているGoalColorを数える
-           _src.TileDatas?.Where(tile => tile.type == ETileType.Goal)
-               .ToList().ForEach(tile => {
-                   goalColorNum[tile.goalColor] += 1;
-               });
+            // タイルがしているGoalColorを数える
+            _src.TileDatas?.Where(tile => tile.type == ETileType.Goal)
+                .ToList().ForEach(tile => {
+                    goalColorNum[tile.goalColor] += 1;
+                });
 
-           // ボトルが指定しているGoalColorを数える
-           _src.BottleDatas?.Where(bottle => bottle.type == EBottleType.Normal)
-               .ToList().ForEach(bottle => {
-                   goalColorNum[bottle.goalColor] -= 1;
-               });
+            // ボトルが指定しているGoalColorを数える
+            _src.BottleDatas?.Where(bottle => bottle.type == EBottleType.Normal)
+                .ToList().ForEach(bottle => {
+                    goalColorNum[bottle.goalColor] -= 1;
+                });
 
-           // それぞれのGoalColorの個数を検証する
-           goalColorNum.ToList().ForEach(pair => {
-               if (pair.Value > 0) {
-                   Debug.LogWarning($"{pair.Value} <b>{pair.Key}</b> bottle are missing.");
-               }
-               if (pair.Value < 0) {
-                   Debug.LogWarning($"There are {(-1) * pair.Value} extra <b>{pair.Key}</b> bottles.");
-               }
-           });
+            // それぞれのGoalColorの個数を検証する
+            goalColorNum.ToList().ForEach(pair => {
+                if (pair.Value > 0) {
+                    Debug.LogWarning($"{pair.Value} <b>{pair.Key}</b> bottle are missing.");
+                }
+
+                if (pair.Value < 0) {
+                    Debug.LogWarning($"There are {(-1) * pair.Value} extra <b>{pair.Key}</b> bottles.");
+                }
+            });
         }
 
         /// <summary>

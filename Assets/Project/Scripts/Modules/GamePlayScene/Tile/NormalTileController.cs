@@ -9,8 +9,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class NormalTileController : AbstractTileController
     {
-        public override bool RunOnBottleEnterAtInit => false;
-
         public override void Initialize(int tileNum)
         {
             base.Initialize(tileNum);

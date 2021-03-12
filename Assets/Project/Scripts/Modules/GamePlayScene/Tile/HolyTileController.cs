@@ -7,8 +7,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class HolyTileController : AbstractTileController
     {
-        public override bool RunOnBottleEnterAtInit => true;
-
         protected override void Awake()
         {
             base.Awake();
@@ -26,6 +24,12 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         private sealed class HolyTileBottleHandler : DefaultBottleHandler
         {
+            public override void OnGameStart(GameObject bottle)
+            {
+                if (bottle == null) return;
+                OnBottleEnter(bottle, null);
+            }
+
             public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
                 if (bottle.GetComponent<AbstractBottleController>() == null) return;

@@ -13,7 +13,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private static readonly Dictionary<EBottleType, string> _prefabAddressableKeys = new Dictionary<EBottleType, string> {
             { EBottleType.Dynamic, Constants.Address.DYNAMIC_DUMMY_BOTTLE_PREFAB },
             { EBottleType.Static, Constants.Address.STATIC_DUMMY_BOTTLE_PREFAB },
-            { EBottleType.Normal, Constants.Address.NORMAL_BOTTLE_PREFAB },
+            { EBottleType.Normal, Constants.Address.GOAL_BOTTLE_PREFAB },
             { EBottleType.AttackableDummy, Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB },
             { EBottleType.Erasable, Constants.Address.ERASABLE_BOTTLE_PREFAB }
         };

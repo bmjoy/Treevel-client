@@ -12,8 +12,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
     [RequireComponent(typeof(Animator))]
     public class WarpTileController : AbstractTileController
     {
-        public override bool RunOnBottleEnterAtInit => false;
-
         // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
 

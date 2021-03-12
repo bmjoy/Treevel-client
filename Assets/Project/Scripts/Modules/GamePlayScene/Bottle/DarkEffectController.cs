@@ -7,7 +7,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(Animator))]
     public class DarkEffectController : AbstractGameObjectController
     {
-        private NormalBottleController _bottleController;
+        private GoalBottleController _bottleController;
 
         /// <summary>
         /// 成功状態かどうか
@@ -23,7 +23,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _animator = GetComponent<Animator>();
         }
 
-        public void Initialize(NormalBottleController bottleController)
+        public void Initialize(GoalBottleController bottleController)
         {
             transform.parent = bottleController.transform;
             transform.localPosition = Vector3.zero;
