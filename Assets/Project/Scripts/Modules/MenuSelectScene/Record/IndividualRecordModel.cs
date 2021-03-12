@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using UniRx;
 
 namespace Treevel.Modules.MenuSelectScene.Record
@@ -23,7 +24,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// <summary>
         /// 木に対応するステージの情報
         /// </summary>
-        public readonly ReactiveProperty<List<StageStatus>> stageStatusList = new ReactiveProperty<List<StageStatus>>();
+        public readonly ReactiveProperty<StageStatus[]> stageStatusArray = new ReactiveProperty<StageStatus[]>();
 
         public IndividualRecordModel()
         {
@@ -36,11 +37,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
             }).AddTo(_disposable);
         }
 
-        public void FetchStageStatusList()
+        public async void FetchStageStatusList()
         {
-            stageStatusList.Value = GameDataManager.GetStages(currentTree.Value)
-                .Select(stage => StageStatus.Get(stage.TreeId, stage.StageNumber))
-                .ToList();
+            var tasks = GameDataManager.GetStages(currentTree.Value)
+                .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
+
+            stageStatusArray.Value = await UniTask.WhenAll(tasks);
         }
 
         public void Dispose()
