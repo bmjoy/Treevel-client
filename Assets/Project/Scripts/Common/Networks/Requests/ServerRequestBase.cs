@@ -29,7 +29,7 @@ namespace Treevel.Common.Networks.Requests
 
         public override async UniTask<TResult> Execute()
         {
-            // TODO: リクエスト数を減らせるようになったら、リモートにもアクセスするようにする
+            // TODO: リクエスト数を減らして、リモートにアクセスする
             return await localDatabaseService.GetData<TResult>(key);
         }
     }
@@ -37,12 +37,12 @@ namespace Treevel.Common.Networks.Requests
     public abstract class UpdateServerRequestBase<TDataType> : ServerRequestBase<bool>
     {
         protected string key;
-        protected TDataType data;
 
+        protected TDataType data;
 
         public override async UniTask<bool> Execute()
         {
-            // TODO: リクエスト数を減らせるようになったら、リモートにもアクセスするようにする
+            // TODO: リクエスト数を減らして、リモートにアクセスする
             return await localDatabaseService.UpdateData(key, data);
         }
     }
