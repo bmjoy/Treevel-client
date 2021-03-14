@@ -120,13 +120,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
             var stageStatuses = await UniTask.WhenAll(tasks);
 
-            var clearStageNum = stageStatuses.Count(stageStatus => stageStatus.state == EStageState.Cleared);
+            var clearStageNum = stageStatuses.Count(stageStatus => stageStatus.State == EStageState.Cleared);
             var totalStageNum = stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
 
-            _playNum.text = stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
-            _flickNum.text = stageStatuses.Select(stageStatus => stageStatus.flickNum).Sum().ToString();
-            _failureNum.text = stageStatuses.Select(stageStatus => stageStatus.failureNum).Sum().ToString();
+            _playNum.text = stageStatuses.Select(stageStatus => stageStatus.ChallengeNum).Sum().ToString();
+            _flickNum.text = stageStatuses.Select(stageStatus => stageStatus.FlickNum).Sum().ToString();
+            _failureNum.text = stageStatuses.Select(stageStatus => stageStatus.FailureNum).Sum().ToString();
 
             SetupFailureReasonGraph();
         }

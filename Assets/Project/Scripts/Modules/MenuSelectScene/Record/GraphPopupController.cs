@@ -63,14 +63,14 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
 
-            var challengeNum = stageStatus.challengeNum;
+            var challengeNum = stageStatus.ChallengeNum;
             if (challengeNum <= _MAX_CHALLENGE_NUM_DISPLAYED) {
                 _challengeNumText.text = challengeNum + " 回プレイ";
             } else {
                 _challengeNumText.text = $"{_MAX_CHALLENGE_NUM_DISPLAYED}+ 回プレイ";
             }
 
-            var isClear = stageStatus.state == EStageState.Cleared;
+            var isClear = stageStatus.State == EStageState.Cleared;
             gameObject.GetComponent<Image>().color = isClear ? seasonColor : Color.gray;
 
             // ポップアップが表示される位置を、該当する棒グラフの位置に合わせて変える

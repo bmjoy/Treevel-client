@@ -51,7 +51,7 @@ namespace Treevel.Modules.StageSelectScene
             var stageData = GameDataManager.GetStage(_treeId, stageNumber);
             if (stageData == null) return;
 
-            state = _stageStatus.state;
+            state = _stageStatus.State;
 
             // 状態の反映
             ReflectTreeState();
