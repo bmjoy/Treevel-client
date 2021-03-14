@@ -165,7 +165,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
             _stageStatuses = await UniTask.WhenAll(tasks);
 
-            var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
+            var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.state == EStageState.Cleared);
             var totalStageNum = _stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumController>()
                 .SetUp(clearStageNum, totalStageNum, _currentSeason.Value.GetColor());
@@ -187,13 +187,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 : maxAxisLabelNum + "+";
 
             _stageStatuses
-                .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
+                .Select((stageStatus, index) => (_graphBars[index], stageStatus.state == EStageState.Cleared, stageStatus.ChallengeNum))
                 .ToList()
                 .ForEach(args => {
-                    var (graphBar, successNum, challengeNum) = args;
+                    var (graphBar, isClear, challengeNum) = args;
 
                     graphBar.GetComponent<Image>().color =
-                        successNum > 0 ? _currentSeason.Value.GetColor() : Color.gray;
+                        isClear ? _currentSeason.Value.GetColor() : Color.gray;
 
                     var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
                     var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);

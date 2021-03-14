@@ -22,25 +22,9 @@ namespace Treevel.Common.Entities
         public int challengeNum = 0;
 
         /// <summary>
-        /// 成功回数
-        /// </summary>
-        public int successNum = 0;
-
-        /// <summary>
         /// 失敗回数
         /// </summary>
         public int failureNum = 0;
-
-        /// <summary>
-        /// 初成功にかかった挑戦回数
-        /// </summary>
-        public int firstSuccessNum = 0;
-
-        /// <summary>
-        /// 初成功した日付
-        /// yyyy/MM/dd HH:mm:ss 形式
-        /// </summary>
-        public string firstSuccessAt;
 
         /// <summary>
         /// フリック回数
@@ -83,11 +67,6 @@ namespace Treevel.Common.Entities
         /// <param name="stageNumber"> ステージ番号 </param>
         public void ClearStage(ETreeId treeId, int stageNumber)
         {
-            if (state != EStageState.Cleared) {
-                firstSuccessNum = challengeNum;
-                firstSuccessAt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            }
-
             state = EStageState.Cleared;
             NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
@@ -100,17 +79,6 @@ namespace Treevel.Common.Entities
         public void IncChallengeNum(ETreeId treeId, int stageNumber)
         {
             challengeNum++;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
-        }
-
-        /// <summary>
-        /// 成功回数を 1 加算する
-        /// </summary>
-        /// <param name="treeId"> 木のID </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void IncSuccessNum(ETreeId treeId, int stageNumber)
-        {
-            successNum++;
             NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
@@ -141,7 +109,6 @@ namespace Treevel.Common.Entities
         {
             if (success) {
                 ClearStage(treeId, stageNumber);
-                IncSuccessNum(treeId, stageNumber);
             } else {
                 IncFailureNum(treeId, stageNumber);
             }
