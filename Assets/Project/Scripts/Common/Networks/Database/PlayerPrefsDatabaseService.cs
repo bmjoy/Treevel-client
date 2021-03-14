@@ -1,21 +1,22 @@
 using System;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
+using Treevel.Common.Utils;
 
 namespace Treevel.Common.Networks.Database
 {
-    public class LocalDatabaseService : DatabaseService
+    public class PlayerPrefsDatabaseService : DatabaseService
     {
         public override UniTask<T> GetData<T>(string key)
         {
-            Debug.Log($"Get data for Key:{key} from local database");
-
-            throw new NotImplementedException();
+            return new UniTask<T>(PlayerPrefsUtility.GetObject<T>(key));
         }
 
         public override UniTask<bool> UpdateData<T>(string key, T data)
         {
-            throw new NotImplementedException();
+            PlayerPrefsUtility.SetObject(key, data);
+
+            // 現時点では、必ず成功する
+            return new UniTask<bool>(true);
         }
 
         public override UniTask<bool> Login()

@@ -30,6 +30,10 @@ namespace Treevel.Common.Networks.Database
                     throw new NetworkErrorException();
                 }
 
+                if (!result.Data.ContainsKey(key)) {
+                    return new T();
+                }
+
                 return JsonUtility.FromJson<T>(result.Data[key].Value);
             } catch (Exception e) {
                 // ローカルに切り替えるため呼び出し先に投げる

@@ -11,13 +11,6 @@ namespace Treevel.Common.Entities
     [Serializable]
     public class StageStatus
     {
-        private ETreeId _treeId;
-
-        /// <summary>
-        /// ステージID
-        /// </summary>
-        private int _stageNumber;
-
         /// <summary>
         /// ステージの状態
         /// </summary>
@@ -60,30 +53,6 @@ namespace Treevel.Common.Entities
         public bool tutorialChecked = false;
 
         /// <summary>
-        /// オブジェクトの保存
-        /// </summary>
-        /// <param name="treeId"></param>
-        /// <param name="stageNumber"></param>
-        private void Set(ETreeId treeId, int stageNumber)
-        {
-            PlayerPrefsUtility.SetObject(StageData.EncodeStageIdKey(treeId, stageNumber), this);
-        }
-
-        /// <summary>
-        /// オブジェクトの取得
-        /// </summary>
-        /// <param name="treeId"></param>
-        /// <param name="stageNumber"></param>
-        /// <returns></returns>
-        public static StageStatus Get(ETreeId treeId, int stageNumber)
-        {
-            var data = PlayerPrefsUtility.GetObject<StageStatus>(StageData.EncodeStageIdKey(treeId, stageNumber));
-            data._treeId = treeId;
-            data._stageNumber = stageNumber;
-            return data;
-        }
-
-        /// <summary>
         /// オブジェクト情報のリセット
         /// </summary>
         public static void Reset()
@@ -104,7 +73,7 @@ namespace Treevel.Common.Entities
         public void ReleaseStage(ETreeId treeId, int stageNumber)
         {
             state = EStageState.Released;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -120,7 +89,7 @@ namespace Treevel.Common.Entities
             }
 
             state = EStageState.Cleared;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -131,7 +100,7 @@ namespace Treevel.Common.Entities
         public void IncChallengeNum(ETreeId treeId, int stageNumber)
         {
             challengeNum++;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -142,7 +111,7 @@ namespace Treevel.Common.Entities
         public void IncSuccessNum(ETreeId treeId, int stageNumber)
         {
             successNum++;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -153,7 +122,7 @@ namespace Treevel.Common.Entities
         public void IncFailureNum(ETreeId treeId, int stageNumber)
         {
             failureNum++;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
@@ -165,37 +134,23 @@ namespace Treevel.Common.Entities
         public void AddFlickNum(ETreeId treeId, int stageNumber, int flickNum)
         {
             this.flickNum += flickNum;
-            Set(treeId, stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
-        public void Update(bool success)
+        public void Update(ETreeId treeId, int stageNumber, bool success)
         {
             if (success) {
-                // クリア済みにする
-                ClearStage(_treeId, _stageNumber);
-
-                IncSuccessNum(_treeId, _stageNumber);
+                ClearStage(treeId, stageNumber);
+                IncSuccessNum(treeId, stageNumber);
             } else {
-                IncFailureNum(_treeId, _stageNumber);
+                IncFailureNum(treeId, stageNumber);
             }
-
-            NetworkService.Execute(new UpdateStageRecordRequest(StageData.EncodeStageIdKey(_treeId, _stageNumber), this));
         }
 
-        public void Dump()
-        {
-            #if UNITY_EDITOR
-            Debug.Log($"Stage: {_stageNumber}");
-            Debug.Log($"  挑戦回数：{challengeNum}");
-            Debug.Log($"  成功回数：{successNum}");
-            Debug.Log($"  失敗回数：{failureNum}");
-            #endif
-        }
-
-        public void SetTutorialChecked(bool isChecked)
+        public void SetTutorialChecked(ETreeId treeId, int stageNumber, bool isChecked)
         {
             tutorialChecked = isChecked;
-            Set(_treeId, _stageNumber);
+            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
     }
 }
