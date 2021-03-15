@@ -42,17 +42,17 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 一時停止中の背景
         /// </summary>
-        public GameObject pauseBackground;
+        [SerializeField] private GameObject pauseBackground;
 
         /// <summary>
         /// 一時停止ボタン
         /// </summary>
-        public GameObject pauseButton;
+        [SerializeField] private GameObject pauseButton;
 
         /// <summary>
         /// 一時停止ポップアップ
         /// </summary>
-        public GameObject pauseWindow;
+        [SerializeField] private GameObject pauseWindow;
 
         /// <summary>
         /// ゲーム開始時のイベント
