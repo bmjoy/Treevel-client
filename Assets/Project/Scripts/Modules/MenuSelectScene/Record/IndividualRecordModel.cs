@@ -33,11 +33,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
             }).AddTo(_disposable);
 
             currentTree.Subscribe(tree => {
-                FetchStageStatusList();
+                FetchStageStatusArray();
             }).AddTo(_disposable);
         }
 
-        public async void FetchStageStatusList()
+        public async void FetchStageStatusArray()
         {
             var tasks = GameDataManager.GetStages(currentTree.Value)
                 .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));

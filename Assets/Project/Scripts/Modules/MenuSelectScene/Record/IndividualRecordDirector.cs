@@ -75,7 +75,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _model = new IndividualRecordModel();
 
             /*
-             * Input From Model
+             * Model -> View
              */
 
             _model.currentSeason.Subscribe(season => {
@@ -83,14 +83,14 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 SetDropdownOptions(season);
             }).AddTo(this);
 
-            _model.currentTree.Subscribe(tree => {
+            _model.currentTree.Subscribe(_ => {
                 _graphPopup.SetActive(false);
             }).AddTo(this);
 
             _model.stageStatusArray
-                .Subscribe(stageStatusList => {
-                    var clearStageNum = stageStatusList.Count(stageStatus => stageStatus.successNum > 0);
-                    var totalStageNum = stageStatusList.Length;
+                .Subscribe(stageStatusArray => {
+                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.successNum > 0);
+                    var totalStageNum = stageStatusArray.Length;
 
                     _clearStageNum.GetComponent<ClearStageNumController>()
                         .SetUp(clearStageNum, totalStageNum, _model.currentSeason.Value.GetColor());
@@ -99,7 +99,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 }).AddTo(this);
 
             /*
-             * Input From View
+             * View -> Model
              */
 
             _dropdown.onValueChanged.AsObservable()
@@ -149,7 +149,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _model.FetchStageStatusList();
+            _model.FetchStageStatusArray();
         }
 
         private void OnDestroy()
