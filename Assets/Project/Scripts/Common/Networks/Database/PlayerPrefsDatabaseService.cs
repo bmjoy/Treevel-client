@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Utils;
+using UnityEngine;
 
 namespace Treevel.Common.Networks.Database
 {
@@ -14,8 +15,9 @@ namespace Treevel.Common.Networks.Database
         public override UniTask<bool> UpdateData<T>(string key, T data)
         {
             PlayerPrefsUtility.SetObject(key, data);
+            Debug.Log($"key: {key} で PlayerPrefs に保存しました");
 
-            // 現時点では、必ず成功する
+            // 現時点では、必ず成功することにする
             return new UniTask<bool>(true);
         }
 
