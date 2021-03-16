@@ -67,7 +67,6 @@ namespace Treevel.Common.Entities
         public void ReleaseStage(ETreeId treeId, int stageNumber)
         {
             _state = EStageState.Released;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
