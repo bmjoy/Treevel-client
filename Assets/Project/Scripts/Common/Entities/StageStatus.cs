@@ -11,30 +11,40 @@ namespace Treevel.Common.Entities
     [Serializable]
     public class StageStatus
     {
+        [SerializeField] private EStageState _state = EStageState.Unreleased;
+
         /// <summary>
         /// ステージの状態
         /// </summary>
-        public EStageState State { get; private set; } = EStageState.Unreleased;
+        public EStageState State => _state;
+
+        [SerializeField] private int _challengeNum;
 
         /// <summary>
         /// 挑戦回数
         /// </summary>
-        public int ChallengeNum { get; private set; }
+        public int ChallengeNum => _challengeNum;
+
+        [SerializeField] private int _failureNum;
 
         /// <summary>
         /// 失敗回数
         /// </summary>
-        public int FailureNum { get; private set; }
+        public int FailureNum => _failureNum;
+
+        [SerializeField] private int _flickNum;
 
         /// <summary>
         /// フリック回数
         /// </summary>
-        public int FlickNum { get; private set; }
+        public int FlickNum => _flickNum;
+
+        [SerializeField] private bool _tutorialChecked;
 
         /// <summary>
         /// チュートリアルを見たかどうか
         /// </summary>
-        public bool TutorialChecked { get; private set; }
+        public bool TutorialChecked => _tutorialChecked;
 
         /// <summary>
         /// オブジェクト情報のリセット
@@ -56,7 +66,7 @@ namespace Treevel.Common.Entities
         /// <param name="stageNumber"> ステージ番号 </param>
         public void ReleaseStage(ETreeId treeId, int stageNumber)
         {
-            State = EStageState.Released;
+            _state = EStageState.Released;
             NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
@@ -65,7 +75,7 @@ namespace Treevel.Common.Entities
         /// </summary>
         public void Succeed()
         {
-            State = EStageState.Cleared;
+            _state = EStageState.Cleared;
         }
 
         /// <summary>
@@ -73,7 +83,7 @@ namespace Treevel.Common.Entities
         /// </summary>
         public void Fail()
         {
-            FailureNum++;
+            _failureNum++;
         }
 
         /// <summary>
@@ -81,7 +91,7 @@ namespace Treevel.Common.Entities
         /// </summary>
         public void IncChallengeNum()
         {
-            ChallengeNum++;
+            _challengeNum++;
         }
 
         /// <summary>
@@ -90,7 +100,7 @@ namespace Treevel.Common.Entities
         /// <param name="flickNum"> 加算するフリック回数 </param>
         public void AddFlickNum(int flickNum)
         {
-            FlickNum += flickNum;
+            _flickNum += flickNum;
         }
 
         /// <summary>
@@ -98,7 +108,7 @@ namespace Treevel.Common.Entities
         /// </summary>
         public void CheckTutorial()
         {
-            TutorialChecked = true;
+            _tutorialChecked = true;
         }
 
         /// <summary>
