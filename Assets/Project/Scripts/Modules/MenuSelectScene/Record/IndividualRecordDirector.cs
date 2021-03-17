@@ -1,10 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using Treevel.Modules.StageSelectScene;
 using UniRx;
 using UniRx.Triggers;
@@ -16,33 +14,46 @@ namespace Treevel.Modules.MenuSelectScene.Record
     public class IndividualRecordDirector : MonoBehaviour
     {
         /// <summary>
-        /// [UI] グラフのポップアップ
+        /// Model
+        /// </summary>
+        private IndividualRecordModel _model;
+
+        /// <summary>
+        /// [View] グラフのポップアップ
         /// </summary>
         [SerializeField] private GameObject _graphPopup;
 
         /// <summary>
-        /// [UI] "ステージクリア数" の prefab
+        /// [View] "ステージクリア数" の prefab
         /// </summary>
         [SerializeField] private GameObject _clearStageNum;
 
         /// <summary>
-        /// [UI] 棒グラフの prefab
+        /// [View] 棒グラフの prefab
         /// 現状，グラフの数は 10 で決めうち
         /// </summary>
         [SerializeField] private GameObject[] _graphBars = new GameObject[10];
 
         /// <summary>
-        /// [UI] 棒グラフの y 軸ラベルの text
+        /// [View] 棒グラフの y 軸ラベルの text
         /// 一番下のラベルは 0 で確定なので 3 つを考慮
         /// </summary>
         [SerializeField] private Text[] _graphAxisLabels = new Text[3];
 
         /// <summary>
-        /// [UI] "ステージ一覧へ"
+        /// [View] "ステージ一覧へ"
         /// </summary>
         [SerializeField] private Button _toStageSelectSceneButton;
 
-        private StageStatus[] _stageStatuses;
+        /// <summary>
+        /// [View] ドロップダウン
+        /// </summary>
+        [SerializeField] private Dropdown _dropdown;
+
+        /// <summary>
+        /// [View] ドロップダウンテンプレート
+        /// </summary>
+        [SerializeField] private GameObject _dropdownTemplate;
 
         /// <summary>
         /// y 軸ラベルの最小値
@@ -59,60 +70,58 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// </summary>
         private const int _AXIS_LABEL_MARGIN = 30;
 
-        [SerializeField] private Dropdown _dropdown;
-
-        [SerializeField] private GameObject _dropdownTemplate;
-
-        /// <summary>
-        /// 現在表示している季節
-        /// </summary>
-        private readonly ReactiveProperty<ESeasonId> _currentSeason = new ReactiveProperty<ESeasonId>(ESeasonId.Spring);
-
-        /// <summary>
-        /// 現在表示している木
-        /// </summary>
-        private readonly ReactiveProperty<ETreeId> _currentTree = new ReactiveProperty<ETreeId>();
-
         private void Awake()
         {
-            _currentTree.Value = _currentSeason.Value.GetFirstTree();
+            _model = new IndividualRecordModel();
 
-            // 季節変更時の処理
-            _currentSeason.Subscribe(season => {
+            /*
+             * Model -> View
+             */
+
+            _model.currentSeason.Subscribe(season => {
                 _graphPopup.SetActive(false);
                 SetDropdownOptions(season);
-                _currentTree.Value = season.GetFirstTree();
             }).AddTo(this);
 
-            // 木変更時の処理
-            _currentTree.Subscribe(tree => {
+            _model.currentTree.Subscribe(_ => {
                 _graphPopup.SetActive(false);
-                SetStageStatuses();
-                SetupBarGraph();
             }).AddTo(this);
 
-            // 木UI制御
-            _dropdown.onValueChanged.AsObservable()
-                .Subscribe(selected => {
-                    _currentTree.Value = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+            _model.stageStatusArray
+                .Subscribe(stageStatusArray => {
+                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.successNum > 0);
+                    var totalStageNum = stageStatusArray.Length;
+
+                    _clearStageNum.GetComponent<ClearStageNumController>()
+                        .SetUp(clearStageNum, totalStageNum, _model.currentSeason.Value.GetColor());
+
+                    SetupBarGraph();
                 }).AddTo(this);
 
-            // 季節制御
-            var seasonToggles = FindObjectsOfType<SeasonSelectButton>();
-            foreach (var seasonToggle in seasonToggles) {
+            /*
+             * View -> Model
+             */
+
+            _dropdown.onValueChanged.AsObservable()
+                .Subscribe(selected => {
+                    _model.currentTree.Value = (ETreeId)Enum.Parse(typeof(ETreeId), _dropdown.options[selected].text);
+                }).AddTo(this);
+
+            foreach (var seasonToggle in FindObjectsOfType<SeasonSelectButton>()) {
                 var toggle = seasonToggle.GetComponent<Toggle>();
                 toggle.OnValueChangedAsObservable()
                     .Where(isOn => isOn)
-                    .Subscribe(isOn => {
-                        _currentSeason.Value = seasonToggle.SeasonId;
+                    .Subscribe(_ => {
+                        _model.currentSeason.Value = seasonToggle.SeasonId;
                     }).AddTo(this);
             }
 
             _toStageSelectSceneButton.onClick.AsObservable()
                 .Subscribe(_ => {
-                    StageSelectDirector.seasonId = _currentSeason.Value;
-                    StageSelectDirector.treeId = _currentTree.Value;
-                    AddressableAssetManager.LoadScene(_currentSeason.Value.GetSceneName());
+                    StageSelectDirector.seasonId = _model.currentSeason.Value;
+                    StageSelectDirector.treeId = _model.currentTree.Value;
+
+                    AddressableAssetManager.LoadScene(_model.currentSeason.Value.GetSceneName());
                 }).AddTo(this);
 
             _graphBars
@@ -131,11 +140,21 @@ namespace Treevel.Modules.MenuSelectScene.Record
                             } else {
                                 var graphPosition = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position;
                                 _graphPopup.SetActive(true);
-                                graphPopupController.Initialize(_currentSeason.Value.GetColor(), _currentTree.Value, stageNumber, graphPosition);
+                                graphPopupController.Initialize(_model.currentSeason.Value.GetColor(), _model.currentTree.Value, stageNumber, graphPosition);
                             }
                         })
                         .AddTo(this);
                 });
+        }
+
+        private void OnEnable()
+        {
+            _model.FetchStageStatusArray();
+        }
+
+        private void OnDestroy()
+        {
+            _model.Dispose();
         }
 
         private void SetDropdownOptions(ESeasonId seasonId)
@@ -152,28 +171,10 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _dropdown.RefreshShownValue();
         }
 
-        private void OnEnable()
-        {
-            SetStageStatuses();
-            SetupBarGraph();
-        }
-
-        private async void SetStageStatuses()
-        {
-            var tasks = GameDataManager.GetStages(_currentTree.Value)
-                // FIXME: 呼ばれるたびに ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
-                .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
-            _stageStatuses = await UniTask.WhenAll(tasks);
-
-            var clearStageNum = _stageStatuses.Count(stageStatus => stageStatus.successNum > 0);
-            var totalStageNum = _stageStatuses.Length;
-            _clearStageNum.GetComponent<ClearStageNumController>()
-                .SetUp(clearStageNum, totalStageNum, _currentSeason.Value.GetColor());
-        }
-
         private void SetupBarGraph()
         {
-            var challengeNumMax = (float)_stageStatuses.Select(stageStatus => stageStatus.challengeNum).Max();
+            var challengeNumMax = (float)_model.stageStatusArray.Value
+                .Select(stageStatus => stageStatus.challengeNum).Max();
 
             // 1~30 は 30、31~60 は 60 にするために Ceiling を使用
             var maxAxisLabelNum =
@@ -186,14 +187,14 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 ? maxAxisLabelNum.ToString()
                 : maxAxisLabelNum + "+";
 
-            _stageStatuses
+            _model.stageStatusArray.Value
                 .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
                 .ToList()
                 .ForEach(args => {
                     var (graphBar, successNum, challengeNum) = args;
 
                     graphBar.GetComponent<Image>().color =
-                        successNum > 0 ? _currentSeason.Value.GetColor() : Color.gray;
+                        successNum > 0 ? _model.currentSeason.Value.GetColor() : Color.gray;
 
                     var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
                     var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);
