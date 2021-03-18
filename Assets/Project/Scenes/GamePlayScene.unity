@@ -1320,9 +1320,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tutorialWindow: {fileID: 580887584}
-  pauseBackground: {fileID: 1453285405}
-  pauseButton: {fileID: 1704684606}
-  pauseWindow: {fileID: 3798100570565638191}
+  _pauseBackground: {fileID: 1453285405}
+  _pauseButton: {fileID: 1704684606}
+  _pauseWindow: {fileID: 3798100570565638191}
   failureReason: 0
 --- !u!4 &1638029897
 Transform:

@@ -42,17 +42,17 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 一時停止中の背景
         /// </summary>
-        [SerializeField] private GameObject pauseBackground;
+        [SerializeField] private GameObject _pauseBackground;
 
         /// <summary>
         /// 一時停止ボタン
         /// </summary>
-        [SerializeField] private GameObject pauseButton;
+        [SerializeField] private GameObject _pauseButton;
 
         /// <summary>
         /// 一時停止ポップアップ
         /// </summary>
-        [SerializeField] private GameObject pauseWindow;
+        [SerializeField] private GameObject _pauseWindow;
 
         /// <summary>
         /// ゲーム開始時のイベント
@@ -405,7 +405,7 @@ namespace Treevel.Modules.GamePlayScene
                     SoundManager.Instance.PlayBGM(seasonId.GetGamePlayBGM());
 
                 // 一時停止ボタンを表示する
-                Instance.pauseButton.SetActive(true);
+                Instance._pauseButton.SetActive(true);
             }
 
             public override void OnExit(State to)
@@ -425,7 +425,7 @@ namespace Treevel.Modules.GamePlayScene
                 _customTimer.StopTimer();
                 SoundManager.Instance.StopBGM();
                 // 一時停止ボタンを非表示にする
-                Instance.pauseButton.SetActive(false);
+                Instance._pauseButton.SetActive(false);
 
                 // フリック回数の取得
                 var bottles = FindObjectsOfType<DynamicBottleController>();
@@ -449,10 +449,10 @@ namespace Treevel.Modules.GamePlayScene
                 // ポーズ中は BGM を少し下げる
                 SoundManager.Instance.ChangeBGMVolume(_BGM_VOLUME_RATIO_ON_PAUSE);
                 // 一時停止ポップアップ表示
-                Instance.pauseWindow.SetActive(true);
-                Instance.pauseBackground.SetActive(true);
+                Instance._pauseWindow.SetActive(true);
+                Instance._pauseBackground.SetActive(true);
                 // 一時停止ボタン非表示
-                Instance.pauseButton.SetActive(false);
+                Instance._pauseButton.SetActive(false);
             }
 
             public override void OnExit(State to)
@@ -463,10 +463,10 @@ namespace Treevel.Modules.GamePlayScene
                 SoundManager.Instance.ChangeBGMVolume(1 / _BGM_VOLUME_RATIO_ON_PAUSE);
                 if (!(to is FailureState)) {
                     // 一時停止ウィンドウを非表示にする
-                    Instance.pauseWindow.SetActive(false);
-                    Instance.pauseBackground.SetActive(false);
+                    Instance._pauseWindow.SetActive(false);
+                    Instance._pauseBackground.SetActive(false);
                     // 一時停止ボタンを表示する
-                    Instance.pauseButton.SetActive(true);
+                    Instance._pauseButton.SetActive(true);
                 }
             }
         }
