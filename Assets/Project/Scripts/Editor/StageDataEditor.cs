@@ -150,7 +150,7 @@ namespace Treevel.Editor
         private static bool DrawObjectHeader(SerializedProperty arrayProp, SerializedProperty elementProp, int index)
         {
             GUILayout.BeginHorizontal();
-            elementProp.isExpanded = EditorGUILayout.Foldout(elementProp.isExpanded, $"{arrayProp.displayName} {index + 1}");
+            elementProp.isExpanded = EditorGUILayout.Foldout(elementProp.isExpanded, $"{arrayProp.displayName} {index + 1}", toggleOnLabelClick:true);
 
             if (GUILayout.Button("Delete", GUILayout.Width(80))) {
                 arrayProp.DeleteArrayElementAtIndex(index);
