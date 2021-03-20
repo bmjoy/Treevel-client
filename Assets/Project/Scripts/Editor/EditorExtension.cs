@@ -21,7 +21,7 @@ namespace Treevel.Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
             if (GUILayout.Button("-", GUILayout.Width(30))) {
-                if (property.arraySize > 0) {
+                if (property.arraySize > 0 && EditorUtility.DisplayDialog("削除確認", "まじで消すの？？復元できないぞ！？", "まじで消す", "やめとこう")) {
                     property.DeleteArrayElementAtIndex(property.arraySize - 1);
                     return;
                 }
