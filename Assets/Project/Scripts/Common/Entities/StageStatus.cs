@@ -52,9 +52,7 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 解放する
         /// </summary>
-        /// <param name="treeId"> 木のID </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void ReleaseStage(ETreeId treeId, int stageNumber)
+        public void ReleaseStage()
         {
             state = EStageState.Released;
         }
