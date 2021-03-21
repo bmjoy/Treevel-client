@@ -86,7 +86,7 @@ namespace Treevel.Modules.StageSelectScene
         public void ReleaseStage()
         {
             state = EStageState.Released;
-            _stageStatus?.ReleaseStage(_treeId, stageNumber);
+            _stageStatus?.ReleaseStage();
         }
 
         /// <summary>
