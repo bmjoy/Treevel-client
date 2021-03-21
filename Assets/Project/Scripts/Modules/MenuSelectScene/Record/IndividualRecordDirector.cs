@@ -89,7 +89,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             _model.stageStatusArray
                 .Subscribe(stageStatusArray => {
-                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.State == EStageState.Cleared);
+                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.state == EStageState.Cleared);
                     var totalStageNum = stageStatusArray.Length;
 
                     _clearStageNum.GetComponent<ClearStageNumController>()
@@ -174,7 +174,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void SetupBarGraph()
         {
             var challengeNumMax = (float)_model.stageStatusArray.Value
-                .Select(stageStatus => stageStatus.ChallengeNum).Max();
+                .Select(stageStatus => stageStatus.challengeNum).Max();
 
             // 1~30 は 30、31~60 は 60 にするために Ceiling を使用
             var maxAxisLabelNum =
@@ -188,7 +188,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 : maxAxisLabelNum + "+";
 
             _model.stageStatusArray.Value
-                .Select((stageStatus, index) => (_graphBars[index], stageStatus.State == EStageState.Cleared, stageStatus.ChallengeNum))
+                .Select((stageStatus, index) => (_graphBars[index], stageStatus.state == EStageState.Cleared, ChallengeNum: stageStatus.challengeNum))
                 .ToList()
                 .ForEach(args => {
                     var (graphBar, isClear, challengeNum) = args;

@@ -137,7 +137,7 @@ namespace Treevel.Modules.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageStatus.TutorialChecked;
+            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageStatus.tutorialChecked;
             var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
             _stateMachine = new StateMachine(startState, _stateList.Values);

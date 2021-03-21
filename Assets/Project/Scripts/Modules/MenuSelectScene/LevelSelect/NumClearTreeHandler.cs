@@ -70,7 +70,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         public ETreeState GetTreeState()
         {
             var clearStageNum = _stageStatuses
-                .Count(status => status.State == EStageState.Cleared);
+                .Count(status => status.state == EStageState.Cleared);
 
             // クリア数に応じた木の状態を返す
             if (clearStageNum == _stageNum) {
