@@ -119,6 +119,16 @@ namespace Treevel.Modules.GamePlayScene
         private readonly Dictionary<EGameState, State> _stateList = new Dictionary<EGameState, State>();
 
         /// <summary>
+        /// ステージの記録を保持
+        /// </summary>
+        private StageStatus _stageStatus;
+
+        /// <summary>
+        /// ステージの情報を保持
+        /// </summary>
+        private StageData _stageData;
+
+        /// <summary>
         /// ゲームの現状態
         /// </summary>
         public EGameState State {
@@ -132,12 +142,15 @@ namespace Treevel.Modules.GamePlayScene
 
         private async void Awake()
         {
+            _stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
+            _stageData = GameDataManager.GetStage(treeId, stageNumber);
+
             // ステートマシン初期化
             foreach (var state in Enum.GetValues(typeof(EGameState))) {
                 AddState((EGameState)state);
             }
 
-            var shouldShowTutorial = await ShouldShowTutorial();
+            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageStatus.tutorialChecked;
             var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
             _stateMachine = new StateMachine(startState, _stateList.Values);
@@ -303,25 +316,6 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        /// <summary>
-        /// チュートリアルを表示するかどうか
-        /// </summary>
-        /// <returns>
-        /// チュートリアルがない -> `false`
-        /// チュートリアルがある
-        ///     -> 見たことある -> `false`
-        ///     -> 見たことない -> `true`
-        /// </returns>
-        private async UniTask<bool> ShouldShowTutorial()
-        {
-            var stageData = GameDataManager.GetStage(treeId, stageNumber);
-            if (stageData.Tutorial.type == ETutorialType.None) return false;
-
-            // FIXME: tutorialChecked はローカルのみにあれば良いデータなので、移行する
-            var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
-            return !stageStatus.tutorialChecked;
-        }
-
         private class OpeningState : State
         {
             /// <summary>
@@ -398,6 +392,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(State from = null)
             {
+                Instance._stageStatus.challengeNum++;
+
                 // todo: 暫定で10が難しいステージのBGMを流す
                 if (stageNumber == 10)
                     SoundManager.Instance.PlayBGM(EBGMKey.GamePlay_Difficult);
@@ -420,7 +416,7 @@ namespace Treevel.Modules.GamePlayScene
             /// <summary>
             /// ゲーム終了時の共通処理
             /// </summary>
-            private async void EndProcess()
+            private void EndProcess()
             {
                 _customTimer.StopTimer();
                 SoundManager.Instance.StopBGM();
@@ -431,10 +427,7 @@ namespace Treevel.Modules.GamePlayScene
                 var bottles = FindObjectsOfType<DynamicBottleController>();
                 var flickNum = bottles.Select(bottle => bottle.flickNum).Sum();
 
-                // フリック回数の保存
-                // FIXME: Get をせずに Post だけするようにしたい、もしくは Get 部分は隠蔽したい
-                var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
-                stageStatus.AddFlickNum(treeId, stageNumber, flickNum);
+                Instance._stageStatus.flickNum += flickNum;
             }
         }
 
@@ -485,11 +478,10 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(false);
             }
 
-            public override async void OnEnter(State from = null)
+            public override void OnEnter(State from = null)
             {
-                // FIXME: Get をせずに Post だけするようにしたい、もしくは Get 部分は隠蔽したい
-                var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
-                stageStatus.Update(treeId, stageNumber, false);
+                Instance._stageStatus.Succeed();
+                Instance._stageStatus.Save(treeId, stageNumber);
 
                 SoundManager.Instance.PlaySE(ESEKey.SE_Success);
 
@@ -520,11 +512,10 @@ namespace Treevel.Modules.GamePlayScene
                 _failurePopup.SetActive(false);
             }
 
-            public override async void OnEnter(State from = null)
+            public override void OnEnter(State from = null)
             {
-                // FIXME: Get をせずに Post だけするようにしたい、もしくは Get 部分は隠蔽したい
-                var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
-                stageStatus.Update(treeId, stageNumber, false);
+                Instance._stageStatus.Fail();
+                Instance._stageStatus.Save(treeId, stageNumber);
 
                 // 失敗原因を保存
                 var dic = RecordData.Instance.FailureReasonCount;
@@ -596,11 +587,9 @@ namespace Treevel.Modules.GamePlayScene
                 }
             }
 
-            public override async void OnExit(State to)
+            public override void OnExit(State to)
             {
-                // FIXME: Get をせずに Post だけするようにしたい、もしくは Get 部分は隠蔽したい
-                var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
-                stageStatus.SetTutorialChecked(treeId, stageNumber, true);
+                Instance._stageStatus.tutorialChecked = true;
                 _tutorialWindow.SetActive(false);
 
                 // OpeningState はBGMを流さないため止めとく

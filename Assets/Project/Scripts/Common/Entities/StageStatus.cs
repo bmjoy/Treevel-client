@@ -14,43 +14,42 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// ステージの状態
         /// </summary>
-        public EStageState state = EStageState.Unreleased;
+        public EStageState state;
 
         /// <summary>
         /// 挑戦回数
         /// </summary>
-        public int challengeNum = 0;
+        public int challengeNum;
+
+        /// <summary>
+        /// 初成功時の挑戦回数
+        /// </summary>
+        public int challengeNumAtFirstSuccess;
+
+        /// <summary>
+        /// 初成功時の日付
+        /// </summary>
+        public DateTime firstSuccessDate;
 
         /// <summary>
         /// 成功回数
         /// </summary>
-        public int successNum = 0;
+        public int successNum;
 
         /// <summary>
         /// 失敗回数
         /// </summary>
-        public int failureNum = 0;
-
-        /// <summary>
-        /// 初成功にかかった挑戦回数
-        /// </summary>
-        public int firstSuccessNum = 0;
-
-        /// <summary>
-        /// 初成功した日付
-        /// yyyy/MM/dd HH:mm:ss 形式
-        /// </summary>
-        public string firstSuccessAt;
+        public int failureNum;
 
         /// <summary>
         /// フリック回数
         /// </summary>
-        public int flickNum = 0;
+        public int flickNum;
 
         /// <summary>
         /// チュートリアルを見たかどうか
         /// </summary>
-        public bool tutorialChecked = false;
+        public bool tutorialChecked;
 
         /// <summary>
         /// オブジェクト情報のリセット
@@ -68,88 +67,40 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 解放する
         /// </summary>
-        /// <param name="treeId"> 木のID </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void ReleaseStage(ETreeId treeId, int stageNumber)
+        public void ReleaseStage()
         {
             state = EStageState.Released;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
-        /// クリア済みにする
+        /// 成功した時の処理をする
         /// </summary>
-        /// <param name="treeId"> 木のID </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void ClearStage(ETreeId treeId, int stageNumber)
+        public void Succeed()
         {
             if (state != EStageState.Cleared) {
-                firstSuccessNum = challengeNum;
-                firstSuccessAt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                challengeNumAtFirstSuccess = challengeNum;
+                firstSuccessDate = DateTime.Now;
             }
 
-            state = EStageState.Cleared;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
-        }
-
-        /// <summary>
-        /// 挑戦回数を 1 加算する
-        /// </summary>
-        /// <param name="treeId"> 木のID </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void IncChallengeNum(ETreeId treeId, int stageNumber)
-        {
-            challengeNum++;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
-        }
-
-        /// <summary>
-        /// 成功回数を 1 加算する
-        /// </summary>
-        /// <param name="treeId"> 木のID </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void IncSuccessNum(ETreeId treeId, int stageNumber)
-        {
             successNum++;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
+            state = EStageState.Cleared;
         }
 
         /// <summary>
-        /// 失敗回数を 1 加算する
+        /// 失敗した時の処理をする
         /// </summary>
-        /// <param name="treeId"> 木のID </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void IncFailureNum(ETreeId treeId, int stageNumber)
+        public void Fail()
         {
             failureNum++;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
 
         /// <summary>
-        /// フリック回数の加算
+        /// 自身を外部に保存する
         /// </summary>
-        /// <param name="treeId"> 木の ID </param>
+        /// <param name="treeId"> 木の id </param>
         /// <param name="stageNumber"> ステージ番号 </param>
-        /// <param name="flickNum"> 加算するフリック回数 </param>
-        public void AddFlickNum(ETreeId treeId, int stageNumber, int flickNum)
+        public void Save(ETreeId treeId, int stageNumber)
         {
-            this.flickNum += flickNum;
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
-        }
-
-        public void Update(ETreeId treeId, int stageNumber, bool success)
-        {
-            if (success) {
-                ClearStage(treeId, stageNumber);
-                IncSuccessNum(treeId, stageNumber);
-            } else {
-                IncFailureNum(treeId, stageNumber);
-            }
-        }
-
-        public void SetTutorialChecked(ETreeId treeId, int stageNumber, bool isChecked)
-        {
-            tutorialChecked = isChecked;
             NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
     }

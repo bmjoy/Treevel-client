@@ -59,7 +59,12 @@ namespace Treevel.Common.Networks.Database
                 var result = await task;
 
                 // 成功状態を返す
-                return task.Status == UniTaskStatus.Succeeded;
+                if (task.Status == UniTaskStatus.Succeeded) {
+                    Debug.Log($"key: {key} で PlayFab に保存しました");
+                    return true;
+                }
+
+                return false;
             } catch(Exception e) {
                 // ローカルに切り替えるため呼び出し先に投げる
                 Debug.LogError(e.Message + e.StackTrace);

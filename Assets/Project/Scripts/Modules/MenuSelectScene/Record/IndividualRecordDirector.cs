@@ -89,7 +89,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             _model.stageStatusArray
                 .Subscribe(stageStatusArray => {
-                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.successNum > 0);
+                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.state == EStageState.Cleared);
                     var totalStageNum = stageStatusArray.Length;
 
                     _clearStageNum.GetComponent<ClearStageNumController>()
@@ -188,13 +188,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 : maxAxisLabelNum + "+";
 
             _model.stageStatusArray.Value
-                .Select((stageStatus, index) => (_graphBars[index], stageStatus.successNum, stageStatus.challengeNum))
+                .Select((stageStatus, index) => (_graphBars[index], stageStatus.state == EStageState.Cleared, ChallengeNum: stageStatus.challengeNum))
                 .ToList()
                 .ForEach(args => {
-                    var (graphBar, successNum, challengeNum) = args;
+                    var (graphBar, isClear, challengeNum) = args;
 
-                    graphBar.GetComponent<Image>().color =
-                        successNum > 0 ? _model.currentSeason.Value.GetColor() : Color.gray;
+                    graphBar.GetComponent<Image>().color = isClear ? _model.currentSeason.Value.GetColor() : Color.gray;
 
                     var anchorMinY = graphBar.GetComponent<RectTransform>().anchorMin.y;
                     var anchorMaxY = Mathf.Min(anchorMinY + (1.0f - anchorMinY) * challengeNum / maxAxisLabelNum, 1.0f);

@@ -164,10 +164,6 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public async void GoToGame(ETreeId treeId, int stageNumber)
         {
-            // 挑戦回数をインクリメント
-            // FIXME: Get をせずに Post だけするようにしたい、もしくは Get 部分は隠蔽したい
-            var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
-            stageStatus.IncChallengeNum(treeId, stageNumber);
             // ステージ情報を渡す
             GamePlayDirector.seasonId = seasonId;
             GamePlayDirector.treeId = treeId;

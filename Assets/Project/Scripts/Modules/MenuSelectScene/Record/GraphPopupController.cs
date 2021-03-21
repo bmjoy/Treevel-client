@@ -70,7 +70,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 _challengeNumText.text = $"{_MAX_CHALLENGE_NUM_DISPLAYED}+ 回プレイ";
             }
 
-            var isClear = stageStatus.successNum > 0;
+            var isClear = stageStatus.state == EStageState.Cleared;
             gameObject.GetComponent<Image>().color = isClear ? seasonColor : Color.gray;
 
             // ポップアップが表示される位置を、該当する棒グラフの位置に合わせて変える
