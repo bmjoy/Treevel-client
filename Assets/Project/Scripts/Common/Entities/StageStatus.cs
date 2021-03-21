@@ -76,31 +76,6 @@ namespace Treevel.Common.Entities
         }
 
         /// <summary>
-        /// 挑戦回数を 1 加算する
-        /// </summary>
-        public void IncChallengeNum()
-        {
-            challengeNum++;
-        }
-
-        /// <summary>
-        /// フリック回数を加算する
-        /// </summary>
-        /// <param name="flickNum"> 加算するフリック回数 </param>
-        public void AddFlickNum(int flickNum)
-        {
-            this.flickNum += flickNum;
-        }
-
-        /// <summary>
-        /// チュートリアルをチェック済みにする
-        /// </summary>
-        public void CheckTutorial()
-        {
-            tutorialChecked = true;
-        }
-
-        /// <summary>
         /// 自身を外部に保存する
         /// </summary>
         /// <param name="treeId"> 木の id </param>

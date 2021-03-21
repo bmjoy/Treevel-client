@@ -379,7 +379,7 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(State from = null)
             {
-                Instance._stageStatus.IncChallengeNum();
+                Instance._stageStatus.challengeNum++;
 
                 // todo: 暫定で10が難しいステージのBGMを流す
                 if (stageNumber == 10)
@@ -409,7 +409,7 @@ namespace Treevel.Modules.GamePlayScene
                 var bottles = FindObjectsOfType<DynamicBottleController>();
                 var flickNum = bottles.Select(bottle => bottle.flickNum).Sum();
 
-                Instance._stageStatus.AddFlickNum(flickNum);
+                Instance._stageStatus.flickNum += flickNum;
             }
         }
 
@@ -583,7 +583,7 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnExit(State to)
             {
-                Instance._stageStatus.CheckTutorial();
+                Instance._stageStatus.tutorialChecked = true;
                 _tutorialWindow.SetActive(false);
 
                 // OpeningState はBGMを流さないため止めとく
