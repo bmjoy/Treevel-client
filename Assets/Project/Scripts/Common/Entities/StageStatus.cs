@@ -22,6 +22,21 @@ namespace Treevel.Common.Entities
         public int challengeNum;
 
         /// <summary>
+        /// 初成功時の挑戦回数
+        /// </summary>
+        public int challengeNumAtFirstSuccess;
+
+        /// <summary>
+        /// 初成功時の日付
+        /// </summary>
+        public DateTime firstSuccessDate;
+
+        /// <summary>
+        /// 成功回数
+        /// </summary>
+        public int successNum;
+
+        /// <summary>
         /// 失敗回数
         /// </summary>
         public int failureNum;
@@ -62,6 +77,12 @@ namespace Treevel.Common.Entities
         /// </summary>
         public void Succeed()
         {
+            if (state != EStageState.Cleared) {
+                challengeNumAtFirstSuccess = challengeNum;
+                firstSuccessDate = DateTime.Now;
+            }
+
+            successNum++;
             state = EStageState.Cleared;
         }
 
