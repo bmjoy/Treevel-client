@@ -9,12 +9,12 @@ namespace Treevel.Common.Networks.Requests
         /// <summary>
         /// リモートサーバへ問い合わせするためのサービスクラスのインスタンス
         /// </summary>
-        protected static DatabaseService remoteDatabaseService = new PlayFabDatabaseService();
+        protected static IDatabaseService remoteDatabaseService = new PlayFabDatabaseService();
 
         /// <summary>
         /// ローカルサーバへ問い合わせするためのサービスクラスのインスタンス
         /// </summary>
-        protected static DatabaseService localDatabaseService = new PlayerPrefsDatabaseService();
+        protected static IDatabaseService localDatabaseService = new PlayerPrefsDatabaseService();
 
         /// <summary>
         /// リクエストを実行

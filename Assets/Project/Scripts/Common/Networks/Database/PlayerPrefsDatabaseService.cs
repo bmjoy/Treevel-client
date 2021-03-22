@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Treevel.Common.Networks.Database
 {
-    public class PlayerPrefsDatabaseService : DatabaseService
+    public class PlayerPrefsDatabaseService : IDatabaseService
     {
-        public override UniTask<T> GetData<T>(string key)
+        public UniTask<T> GetData<T>(string key) where T : new()
         {
             return new UniTask<T>(PlayerPrefsUtility.GetObject<T>(key));
         }
 
-        public override UniTask<bool> UpdateData<T>(string key, T data)
+        public UniTask<bool> UpdateData<T>(string key, T data)
         {
             PlayerPrefsUtility.SetObject(key, data);
             Debug.Log($"key: {key} で PlayerPrefs に保存しました");
@@ -21,7 +21,7 @@ namespace Treevel.Common.Networks.Database
             return new UniTask<bool>(true);
         }
 
-        public override UniTask<bool> Login()
+        public UniTask<bool> Login()
         {
             throw new NotImplementedException();
         }
