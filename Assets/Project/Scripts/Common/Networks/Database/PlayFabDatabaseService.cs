@@ -15,7 +15,7 @@ namespace Treevel.Common.Networks.Database
     /// </summary>
     public class PlayFabDatabaseService : IDatabaseService
     {
-        public async UniTask<T> GetData<T>(string key) where T : new()
+        public async UniTask<T> GetDataAsync<T>(string key) where T : new()
         {
             var request = new GetUserDataRequest
             {
@@ -42,7 +42,7 @@ namespace Treevel.Common.Networks.Database
             }
         }
 
-        public async UniTask<bool> UpdateData<T>(string key, T data)
+        public async UniTask<bool> UpdateDataAsync<T>(string key, T data)
         {
             Debug.Assert(typeof(T).IsSerializable, $"type {typeof(T)} should be serializable");
 
@@ -72,7 +72,7 @@ namespace Treevel.Common.Networks.Database
             }
         }
 
-        public async UniTask<bool> Login()
+        public async UniTask<bool> LoginAsync()
         {
             // TODO 引き継ぎ行った場合の処理
 

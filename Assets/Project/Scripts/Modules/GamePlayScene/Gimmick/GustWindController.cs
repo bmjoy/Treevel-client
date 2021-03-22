@@ -170,7 +170,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     }
                 }
 
-                BoardManager.Instance.Move(bottle, destinationTiles[currTileIdx], _targetDirection.GetVectorInt());
+                BoardManager.Instance.MoveAsync(bottle, destinationTiles[currTileIdx], _targetDirection.GetVectorInt());
                 // 移動完了のボトルがいるタイル以降は次のボトルの選択肢から外す
                 destinationTiles = destinationTiles.Take(currTileIdx).ToArray();
             }

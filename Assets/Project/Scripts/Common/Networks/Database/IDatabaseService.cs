@@ -6,11 +6,11 @@ namespace Treevel.Common.Networks.Database
 {
     public interface IDatabaseService
     {
-        UniTask<T> GetData<T>(string key) where T: new();
+        UniTask<T> GetDataAsync<T>(string key) where T: new();
 
-        UniTask<bool> UpdateData<T>(string key, T data);
+        UniTask<bool> UpdateDataAsync<T>(string key, T data);
 
-        UniTask<bool> Login();
+        UniTask<bool> LoginAsync();
     }
 
     public class NetworkErrorException : Exception

@@ -97,7 +97,7 @@ namespace Treevel.Modules.StageSelectScene
             if (UserSettings.StageDetails == 1) {
                 StageSelectDirector.Instance.ShowOverPopup(_treeId, stageNumber);
             } else {
-                StageSelectDirector.Instance.GoToGame(_treeId, stageNumber);
+                StageSelectDirector.Instance.GoToGameAsync(_treeId, stageNumber);
             }
         }
     }

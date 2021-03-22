@@ -109,8 +109,8 @@ namespace Treevel.Modules.StageSelectScene
         {
             SoundManager.Instance.PlayBGM(seasonId.GetStageSelectBGM());
 
-            _branches.ForEach(branch => branch.UpdateState());
-            _trees.ForEach(tree => tree.UpdateState());
+            _branches.ForEach(branch => branch.UpdateStateAsync());
+            _trees.ForEach(tree => tree.UpdateStateAsync());
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// ステージ選択画面からゲーム選択画面へ移動する
         /// </summary>
-        public async void GoToGame(ETreeId treeId, int stageNumber)
+        public async void GoToGameAsync(ETreeId treeId, int stageNumber)
         {
             // ステージ情報を渡す
             GamePlayDirector.seasonId = seasonId;
@@ -175,7 +175,7 @@ namespace Treevel.Modules.StageSelectScene
             // ロード中のアニメーションを開始する
             _loading.SetActive(true);
 
-            await AddressableAssetManager.LoadStageDependencies(treeId, stageNumber);
+            await AddressableAssetManager.LoadStageDependenciesAsync(treeId, stageNumber);
 
             // シーン遷移
             AddressableAssetManager.LoadScene(Constants.SceneName.GAME_PLAY_SCENE);

@@ -23,7 +23,7 @@ namespace Treevel.Modules.StartUpScene
             if (eventSystem != null) DontDestroyOnLoad(eventSystem.gameObject);
 
             // UIManager Initialize
-            await UIManager.Instance.Initialize();
+            await UIManager.Instance.InitializeAsync();
 
             // AppManager Initialize
             AppManager.OnApplicationStart();
@@ -46,7 +46,7 @@ namespace Treevel.Modules.StartUpScene
             var loadSceneTask = AddressableAssetManager
                 .LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
             // GameDataManager初期化
-            var dataManagerInitTask = GameDataManager.Initialize();
+            var dataManagerInitTask = GameDataManager.InitializeAsync();
 
             // 全部完了したら開始ボタンを表示
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);

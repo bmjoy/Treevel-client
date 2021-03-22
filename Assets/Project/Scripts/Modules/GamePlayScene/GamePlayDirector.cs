@@ -374,7 +374,7 @@ namespace Treevel.Modules.GamePlayScene
                 // BoardManagerの初期化
                 BoardManager.Instance.Initialize();
                 // 番号に合わせたステージの作成
-                StageGenerator.CreateStages(treeId, stageNumber);
+                StageGenerator.CreateStagesAsync(treeId, stageNumber);
             }
         }
 

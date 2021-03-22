@@ -11,7 +11,7 @@ namespace Treevel.Common.Managers
     {
         private static readonly Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
 
-        public static async UniTask Initialize()
+        public static async UniTask InitializeAsync()
         {
             // Stageラベルがついてる全てのアセットのアドレスを取得
             var locations = await Addressables.LoadResourceLocationsAsync("Stage").ToUniTask();

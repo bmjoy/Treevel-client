@@ -40,7 +40,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             SetBackground();
 
             // 堆積Powderギミックを作成する
-            InstantiatePiledUpPowder();
+            InstantiatePiledUpPowderAsync();
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// 堆積Powderギミックを作成する
         /// </summary>
         /// <returns></returns>
-        private async void InstantiatePiledUpPowder()
+        private async void InstantiatePiledUpPowderAsync()
         {
             string address;
             switch (GamePlayDirector.treeId.GetSeasonId()) {

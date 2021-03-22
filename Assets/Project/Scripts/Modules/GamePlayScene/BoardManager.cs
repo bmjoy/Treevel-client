@@ -149,7 +149,7 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             Debug.LogError($"Cannot find bottle of ID[{bottleId}]");
-            UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleID);
+            UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidBottleID);
             return Vector2.zero;
         }
 
@@ -220,7 +220,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="bottle"> 移動するボトル </param>
         /// <param name="directionInt"> フリックする方向 </param>
-        public async UniTask FlickBottle(DynamicBottleController bottle, Vector2Int directionInt)
+        public async UniTask FlickBottleAsync(DynamicBottleController bottle, Vector2Int directionInt)
         {
             // tileNum は原点が左上だが，方向ベクトルは原点が左下なので，加工する
             directionInt.y = -directionInt.y;
@@ -235,7 +235,7 @@ namespace Treevel.Modules.GamePlayScene
             if (targetTileNum == null) return;
 
             bottle.flickNum++;
-            await Move(bottle, targetTileNum.Value, directionInt);
+            await MoveAsync(bottle, targetTileNum.Value, directionInt);
         }
 
         /// <summary>
@@ -245,14 +245,14 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
         /// <returns> ボトルが移動できたかどうか </returns>
-        public async UniTask<bool> Move(DynamicBottleController bottle, int tileNum, Vector2Int direction)
+        public async UniTask<bool> MoveAsync(DynamicBottleController bottle, int tileNum, Vector2Int direction)
         {
             if (!MoveBottleInSquares(bottle, tileNum, out var targetSquare)) return false;
 
             var bottleObject = bottle.gameObject;
 
             // ボトルを移動する
-            await bottle.Move(targetSquare.worldPosition, _tokenSource.Token)
+            await bottle.MoveAsync(targetSquare.worldPosition, _tokenSource.Token)
                 .ContinueWith(() => {
                     targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
                     targetSquare.tile.OnBottleEnter(bottleObject, direction);
@@ -268,7 +268,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="tileNum"> 移動先のタイル番号 </param>
         /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
         /// <returns> ボトルが移動できたかどうか </returns>
-        public bool Move(DynamicBottleController bottle, int tileNum)
+        public bool MoveAsync(DynamicBottleController bottle, int tileNum)
         {
             if (!MoveBottleInSquares(bottle, tileNum, out var targetSquare)) return false;
 

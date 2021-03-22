@@ -30,7 +30,7 @@ namespace Treevel.Common.Networks.Requests
         public override async UniTask<TResult> Execute()
         {
             // TODO: リクエスト数を減らして、リモートにアクセスする
-            return await localDatabaseService.GetData<TResult>(key);
+            return await localDatabaseService.GetDataAsync<TResult>(key);
         }
     }
 
@@ -42,9 +42,9 @@ namespace Treevel.Common.Networks.Requests
 
         public override async UniTask<bool> Execute()
         {
-            if (await remoteDatabaseService.UpdateData(key, data)) {
+            if (await remoteDatabaseService.UpdateDataAsync(key, data)) {
                 // 成功したらローカルも更新する
-                return await localDatabaseService.UpdateData(key, data);
+                return await localDatabaseService.UpdateDataAsync(key, data);
             }
 
             return false;

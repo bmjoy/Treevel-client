@@ -43,7 +43,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// 初期化
         /// </summary>
         /// <param name="bottleData">ボトルデータ</param>
-        public override async UniTask Initialize(BottleData bottleData)
+        public override async UniTask InitializeAsync(BottleData bottleData)
         {
             _spriteGlowEffect = GetComponent<SpriteGlowEffect>();
             _spriteGlowEffect.enabled = false;
@@ -51,9 +51,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // parse data
             GoalColor = bottleData.goalColor;
             // GoalColorがNoneではないことを保証する
-            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
+            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidBottleColor);
 
-            await base.Initialize(bottleData);
+            await base.InitializeAsync(bottleData);
 
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);

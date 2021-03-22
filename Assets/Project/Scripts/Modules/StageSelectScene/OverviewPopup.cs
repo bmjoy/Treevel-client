@@ -26,7 +26,7 @@ namespace Treevel.Modules.StageSelectScene
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             if (stageData == null) {
-                UIManager.Instance.ShowErrorMessage(EErrorCode.UnknownError);
+                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.UnknownError);
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace Treevel.Modules.StageSelectScene
             // ゲームを開始するボタン
             goToGameButton = transform.Find("PanelBackground/GoToGame").GetComponent<Button>();
             goToGameButton.OnClickAsObservable()
-                .Subscribe(_ => StageSelectDirector.Instance.GoToGame(treeId, stageNumber))
+                .Subscribe(_ => StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber))
                 .AddTo(this);
         }
     }

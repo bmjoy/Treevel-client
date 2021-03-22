@@ -68,14 +68,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 .Subscribe(other => _getDamagedSubject.OnNext(other.gameObject)).AddTo(this);
         }
 
-        private async UniTask InitializeSprite(AssetReferenceSprite spriteAsset)
+        private async UniTask InitializeSpriteAsync(AssetReferenceSprite spriteAsset)
         {
             // 無限ループを防ぐためにタイムアウトを設ける
             const float timeOut = 2f;
             var elapsedTime = 0f;
             while (true) {
                 if (elapsedTime >= timeOut) {
-                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadDataError);
+                    UIManager.Instance.ShowErrorMessageAsync(EErrorCode.LoadDataError);
                     throw new ArgumentNullException("ボトル画像の読み込みが失敗しました");
                 }
 
@@ -99,7 +99,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// 初期化
         /// </summary>
         /// <param name="bottleData"> ボトルのデータ </param>
-        public virtual async UniTask Initialize(BottleData bottleData)
+        public virtual async UniTask InitializeAsync(BottleData bottleData)
         {
             Id = bottleData.initPos;
             bottleType = bottleData.type;

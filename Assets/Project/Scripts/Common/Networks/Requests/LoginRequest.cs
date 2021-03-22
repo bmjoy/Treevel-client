@@ -9,7 +9,7 @@ namespace Treevel.Common.Networks.Requests
     {
         public override UniTask<bool> Execute()
         {
-            return remoteDatabaseService.Login();
+            return remoteDatabaseService.LoginAsync();
         }
     }
 }

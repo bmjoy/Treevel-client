@@ -30,7 +30,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木の状態の更新
         /// </summary>
-        public abstract void UpdateState();
+        public abstract void UpdateStateAsync();
 
         /// <summary>
         /// 木の状態を見た目や動作に反映

@@ -23,7 +23,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
-        public static async void CreateStages(ETreeId treeId, int stageNumber)
+        public static async void CreateStagesAsync(ETreeId treeId, int stageNumber)
         {
             CreatedFinished = false;
 
