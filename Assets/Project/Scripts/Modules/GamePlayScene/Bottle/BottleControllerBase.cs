@@ -75,7 +75,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             var elapsedTime = 0f;
             while (true) {
                 if (elapsedTime >= timeOut) {
-                    UIManager.Instance.ShowErrorMessageAsync(EErrorCode.LoadDataError);
+                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadDataError);
                     throw new ArgumentNullException("ボトル画像の読み込みが失敗しました");
                 }
 

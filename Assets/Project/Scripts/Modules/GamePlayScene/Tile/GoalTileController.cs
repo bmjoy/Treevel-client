@@ -31,7 +31,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             Initialize(tileData.number);
             GoalColor = tileData.goalColor;
             // colorがNoneではないことを保証する
-            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidTileColor);
+            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidTileColor);
             _wound.sprite = AddressableAssetManager.GetAsset<Sprite>(tileData.goalColor.GetTileAddress());
             _wound.color = GoalColor.GetMainColor();
             _mainColorLayer.color = GoalColor.GetMainColor(_mainColorLayer.color.a);

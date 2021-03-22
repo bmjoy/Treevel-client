@@ -85,7 +85,7 @@ namespace Treevel.Common.Managers
         private void Awake()
         {
             if (!gameObject) {
-                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.UnknownError);
+                UIManager.Instance.ShowErrorMessage(EErrorCode.UnknownError);
                 return;
             }
 

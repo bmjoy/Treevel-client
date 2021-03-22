@@ -149,7 +149,7 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             Debug.LogError($"Cannot find bottle of ID[{bottleId}]");
-            UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidBottleID);
+            UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleID);
             return Vector2.zero;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
@@ -40,7 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             SetBackground();
 
             // 堆積Powderギミックを作成する
-            InstantiatePiledUpPowderAsync();
+            InstantiatePiledUpPowder();
         }
 
         /// <summary>
@@ -122,7 +123,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// 堆積Powderギミックを作成する
         /// </summary>
         /// <returns></returns>
-        private async void InstantiatePiledUpPowderAsync()
+        private void InstantiatePiledUpPowder()
         {
             string address;
             switch (GamePlayDirector.treeId.GetSeasonId()) {
@@ -140,10 +141,15 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             var bottles = FindObjectsOfType<GoalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
             for (var i = 0; i < bottles.Length; i++) {
-                var piledUpPowder = await AddressableAssetManager.Instantiate(address).Task;
-                var piledUpPowderController = piledUpPowder.GetComponent<PiledUpPowderController>();
-                _piledUpPowders[i] = piledUpPowderController;
-                piledUpPowderController.Initialize(bottles[i]);
+                // see https://www.jetbrains.com/help/rider/AccessToModifiedClosure.html
+                var i1 = i;
+                AddressableAssetManager.Instantiate(address)
+                    .ToUniTask()
+                    .ContinueWith(powderObj => {
+                        var powderController = powderObj.GetComponent<PiledUpPowderController>();
+                        _piledUpPowders[i1] = powderController;
+                        powderController.Initialize(bottles[i1]);
+                    });
             }
         }
     }
