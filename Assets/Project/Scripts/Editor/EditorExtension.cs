@@ -18,7 +18,19 @@ namespace Treevel.Editor
             if (!property.isArray) return;
 
             property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, property.displayName);
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(property.FindPropertyRelative("Array.size"));
+            if (GUILayout.Button("-", GUILayout.Width(30))) {
+                if (property.arraySize > 0 && EditorUtility.DisplayDialog("削除確認", "まじで消すの？？復元できないぞ！？", "まじで消す", "やめとこう")) {
+                    property.DeleteArrayElementAtIndex(property.arraySize - 1);
+                    return;
+                }
+            }
+
+            if (GUILayout.Button("+", GUILayout.Width(30))) {
+                property.arraySize++;
+            }
+            EditorGUILayout.EndHorizontal();
             DrawArrayPropertyImpl(property, action);
         }
 

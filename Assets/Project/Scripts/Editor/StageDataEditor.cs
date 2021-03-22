@@ -140,11 +140,32 @@ namespace Treevel.Editor
             this.DrawArrayProperty(serializedObject.FindProperty("overviewGimmicks"));
         }
 
+        /// <summary>
+        /// ギミック、ボトル、タイルのヘッダーを削除ボタン込みで描画する
+        /// </summary>
+        /// <param name="arrayProp">対象のリストのプロパティ</param>
+        /// <param name="elementProp">描画対象のプロパティ</param>
+        /// <param name="index">描画対象のインデックス</param>
+        /// <returns>削除されたかどうかを返す</returns>
+        private static bool DrawObjectHeader(SerializedProperty arrayProp, SerializedProperty elementProp, int index)
+        {
+            GUILayout.BeginHorizontal();
+            elementProp.isExpanded = EditorGUILayout.Foldout(elementProp.isExpanded, $"{arrayProp.displayName} {index + 1}", toggleOnLabelClick:true);
+
+            if (GUILayout.Button("Delete", GUILayout.Width(80)) &&
+                !EditorUtility.DisplayDialog("削除確認", "まじで消すの？？復元できないぞ！？", "やめとこう", "まじで消す")) {
+                arrayProp.DeleteArrayElementAtIndex(index);
+                return true;
+            }
+
+            GUILayout.EndHorizontal();
+            return false;
+        }
+
         private void DrawTileList()
         {
             this.DrawArrayProperty(_tileDatasProp, (tileDataProp, index) => {
-                tileDataProp.isExpanded = EditorGUILayout.Foldout(tileDataProp.isExpanded, $"Tile {index + 1}");
-
+                if (DrawObjectHeader(_tileDatasProp, tileDataProp, index)) return;
                 if (!tileDataProp.isExpanded) return;
 
                 EditorGUI.indentLevel++;
@@ -203,8 +224,7 @@ namespace Treevel.Editor
         private void DrawBottleList()
         {
             this.DrawArrayProperty(_bottleDatasProp, (bottleDataProp, index) => {
-                bottleDataProp.isExpanded = EditorGUILayout.Foldout(bottleDataProp.isExpanded, $"Bottle {index + 1}");
-
+                if (DrawObjectHeader(_bottleDatasProp, bottleDataProp, index)) return;
                 if (!bottleDataProp.isExpanded) return;
 
                 EditorGUI.indentLevel++;
@@ -282,9 +302,7 @@ namespace Treevel.Editor
                 .Any(data => (EGimmickType)data.enumValueIndex == EGimmickType.Erasable);
 
             this.DrawArrayProperty(_gimmickDatasProp, (gimmickDataProp, index) => {
-                gimmickDataProp.isExpanded =
-                    EditorGUILayout.Foldout(gimmickDataProp.isExpanded, $"Gimmick {index + 1}");
-
+                if (DrawObjectHeader(_gimmickDatasProp, gimmickDataProp, index)) return;
                 if (!gimmickDataProp.isExpanded) return;
 
                 EditorGUI.indentLevel++;
