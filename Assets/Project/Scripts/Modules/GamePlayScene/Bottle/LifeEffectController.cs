@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class LifeEffectController : GameObjectController
+    public class LifeEffectController : GameObjectControllerBase
     {
         private DynamicBottleController _bottleController;
 

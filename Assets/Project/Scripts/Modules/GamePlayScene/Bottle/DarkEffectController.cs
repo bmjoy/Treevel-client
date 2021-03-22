@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class DarkEffectController : GameObjectController
+    public class DarkEffectController : GameObjectControllerBase
     {
         private GoalBottleController _bottleController;
 

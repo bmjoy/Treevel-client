@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Tile
 {
     [RequireComponent(typeof(GameSpriteRendererUnifier))]
-    public abstract class TileControllerBase : GameObjectController
+    public abstract class TileControllerBase : GameObjectControllerBase
     {
         /// <summary>
         /// タイルの番号
