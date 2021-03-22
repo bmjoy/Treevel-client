@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class SelfishEffectController : AbstractGameObjectController
+    public class SelfishEffectController : GameObjectController
     {
         private DynamicBottleController _bottleController;
 

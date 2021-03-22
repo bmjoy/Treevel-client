@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
-    public abstract class GimmickControllerBase : AbstractGameObjectController
+    public abstract class GimmickControllerBase : GameObjectController
     {
         /// <summary>
         /// 警告の表示秒数

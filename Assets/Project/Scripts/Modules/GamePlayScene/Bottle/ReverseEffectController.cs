@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class ReverseEffectController : AbstractGameObjectController
+    public class ReverseEffectController : GameObjectController
     {
         private DynamicBottleController _bottleController;
 
