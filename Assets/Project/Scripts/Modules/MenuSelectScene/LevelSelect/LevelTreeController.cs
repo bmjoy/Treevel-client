@@ -14,7 +14,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Button))]
-    public class LevelTreeController : TreeController
+    public class LevelTreeController : TreeControllerBase
     {
         /// <summary>
         /// 木のレベル

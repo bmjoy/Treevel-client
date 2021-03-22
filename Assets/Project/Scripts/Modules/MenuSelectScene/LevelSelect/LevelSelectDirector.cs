@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
-    public class LevelSelectDirector : SingletonObject<LevelSelectDirector>
+    public class LevelSelectDirector : SingletonObjectBase<LevelSelectDirector>
     {
         /// <summary>
         /// 木

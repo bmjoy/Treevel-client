@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
-    public class HolyTileController : AbstractTileController
+    public class HolyTileController : TileControllerBase
     {
         protected override void Awake()
         {
@@ -32,16 +32,16 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             public override void OnBottleEnter(GameObject bottle, Vector2Int? direction)
             {
-                if (bottle.GetComponent<AbstractBottleController>() == null) return;
+                if (bottle.GetComponent<BottleControllerBase>() == null) return;
 
                 // 親ボトルを無敵状態にする
-                bottle.GetComponent<AbstractBottleController>().isInvincible.Value = true;
+                bottle.GetComponent<BottleControllerBase>().isInvincible.Value = true;
             }
 
             public override void OnBottleExit(GameObject bottle)
             {
                 // 親ボトルを無敵状態から元に戻す
-                bottle.GetComponent<AbstractBottleController>().isInvincible.Value = false;
+                bottle.GetComponent<BottleControllerBase>().isInvincible.Value = false;
             }
         }
     }

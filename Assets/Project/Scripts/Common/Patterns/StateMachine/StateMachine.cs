@@ -9,26 +9,26 @@ namespace Treevel.Common.Patterns.StateMachine
         /// <summary>
         /// 現在の状態
         /// </summary>
-        public State CurrentState { get; private set; }
+        public StateBase CurrentState { get; private set; }
 
         /// <summary>
         /// このステートマシンで制御できるステートの集合
         /// </summary>
-        private readonly HashSet<State> _states;
+        private readonly HashSet<StateBase> _states;
 
         /// <summary>
         /// 合法的状態遷移の集合
         /// </summary>
-        private readonly Dictionary<State, HashSet<State>> _validTransitions = new Dictionary<State, HashSet<State>>();
+        private readonly Dictionary<StateBase, HashSet<StateBase>> _validTransitions = new Dictionary<StateBase, HashSet<StateBase>>();
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="startState">ステートマシンの最初状態</param>
         /// <param name="allStates">遷移可能の状態集合</param>
-        public StateMachine(State startState, IEnumerable<State> allStates)
+        public StateMachine(StateBase startState, IEnumerable<StateBase> allStates)
         {
-            _states = new HashSet<State>(allStates);
+            _states = new HashSet<StateBase>(allStates);
             CurrentState = startState;
         }
 
@@ -45,7 +45,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// </summary>
         /// <param name="from"> 遷移の始点状態 </param>
         /// <param name="to"> 遷移の終点状態 </param>
-        public void AddTransition(State from, State to)
+        public void AddTransition(StateBase from, StateBase to)
         {
             if (!IsValidState(from) || !IsValidState(to)) {
                 throw new ArgumentException($"Invalid States: from {from} to {to}");
@@ -53,7 +53,7 @@ namespace Treevel.Common.Patterns.StateMachine
 
             // fromからの遷移がなければ新しいセットを作成
             if (!_validTransitions.ContainsKey(from)) {
-                _validTransitions.Add(from, new HashSet<State>());
+                _validTransitions.Add(from, new HashSet<StateBase>());
             }
 
             // from から to の遷移を追加
@@ -65,7 +65,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// </summary>
         /// <param name="to">次の状態</param>
         /// <returns>遷移成功かどうか</returns>
-        public bool SetState(State to)
+        public bool SetState(StateBase to)
         {
             if (!IsValidState(to)) return false;
 
@@ -94,7 +94,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// </summary>
         /// <param name="state">確認対象</param>
         /// <returns>合法的な状態かどうか</returns>
-        private bool IsValidState(State state)
+        private bool IsValidState(StateBase state)
         {
             return _states.Contains(state);
         }
@@ -104,7 +104,7 @@ namespace Treevel.Common.Patterns.StateMachine
         /// </summary>
         /// <param name="to">次の状態</param>
         /// <returns>合法的な遷移かどうか</returns>
-        private bool IsTransitionValid(State to)
+        private bool IsTransitionValid(StateBase to)
         {
             return _validTransitions.ContainsKey(CurrentState) && _validTransitions[CurrentState].Contains(to);
         }

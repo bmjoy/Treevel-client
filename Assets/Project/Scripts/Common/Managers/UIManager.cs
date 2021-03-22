@@ -12,7 +12,7 @@ namespace Treevel.Common.Managers
     /// 全体ゲームに出現するUI（プログレスバー、メッセージダイアログ等）
     /// を制御するマネージャークラス
     /// </summary>
-    public class UIManager : SingletonObject<UIManager>
+    public class UIManager : SingletonObjectBase<UIManager>
     {
         /// <summary>
         /// プログレスバーのプレハブ

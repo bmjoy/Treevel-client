@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.StageSelectScene
 {
-    public class StageSelectDirector : SingletonObject<StageSelectDirector>
+    public class StageSelectDirector : SingletonObjectBase<StageSelectDirector>
     {
         /// <summary>
         /// 概要を表示するポップアップ

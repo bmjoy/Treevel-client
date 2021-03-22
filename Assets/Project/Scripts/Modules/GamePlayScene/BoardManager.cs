@@ -15,7 +15,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene
 {
     [DefaultExecutionOrder(1)]
-    public class BoardManager : SingletonObject<BoardManager>
+    public class BoardManager : SingletonObjectBase<BoardManager>
     {
         /// <summary>
         /// タイル、ボトルとそれぞれのワールド座標を保持する square の二次元配列
@@ -329,7 +329,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="bottle">登録するボトル</param>
         /// <param name="tileNum">登録したいタイル番号</param>
-        public void RegisterBottle(AbstractBottleController bottle, int tileNum)
+        public void RegisterBottle(BottleControllerBase bottle, int tileNum)
         {
             if (bottle == null)
                 return;
@@ -365,7 +365,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="tile">設置するタイル</param>
         /// <param name="tileNum">タイル番号</param>
-        public void SetTile(AbstractTileController tile, int tileNum)
+        public void SetTile(TileControllerBase tile, int tileNum)
         {
             lock (_squares) {
                 var xy = TileNumToXY(tileNum);
@@ -394,7 +394,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="bottle">設置するボトル</param>
         /// <param name="tileNum">目標タイル番号</param>
-        public void InitializeBottle(AbstractBottleController bottle, int tileNum)
+        public void InitializeBottle(BottleControllerBase bottle, int tileNum)
         {
             lock (_squares) {
                 var xy = TileNumToXY(tileNum);
@@ -420,7 +420,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="bottle"> 設置するボトル </param>
         /// <param name="column"> 列 </param>
         /// <param name="row"> 行 </param>
-        public void PutBottle(AbstractBottleController bottle, int column, int row)
+        public void PutBottle(BottleControllerBase bottle, int column, int row)
         {
             // 盤面外を指定した場合、何もしない
             if (column < 0 || Constants.StageSize.COLUMN - 1 < column || row < 0 || Constants.StageSize.ROW - 1 < row) return;
@@ -445,7 +445,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         /// <param name="bottle"> ボトル </param>
         /// <returns> タイル番号 </returns>
-        public int GetBottlePos(AbstractBottleController bottle)
+        public int GetBottlePos(BottleControllerBase bottle)
         {
             // ボトルは必ず盤面内に収まっているので，強制アンラップ
             return XYToTileNum(_bottlePositions[bottle.gameObject]).Value;
@@ -504,12 +504,12 @@ namespace Treevel.Modules.GamePlayScene
             /// <summary>
             /// 格子にあるボトル
             /// </summary>
-            [CanBeNull] public AbstractBottleController bottle;
+            [CanBeNull] public BottleControllerBase bottle;
 
             /// <summary>
             /// 格子のワールド座標
             /// </summary>
-            public AbstractTileController tile;
+            public TileControllerBase tile;
 
             public Square(float x, float y)
             {

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(ParticleSystem))]
-    public class FogController : AbstractGimmickController
+    public class FogController : GimmickControllerBase
     {
         public const int WIDTH_MAX = 2;
         public const int HEIGHT_MAX = 2;

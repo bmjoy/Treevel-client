@@ -2,7 +2,7 @@
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
-    public class StaticBottleController : AbstractBottleController
+    public class StaticBottleController : BottleControllerBase
     {
         protected override void Awake()
         {

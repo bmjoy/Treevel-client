@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 namespace Treevel.Modules.StageSelectScene
 {
-    public class StageTreeController : TreeController
+    public class StageTreeController : TreeControllerBase
     {
         [SerializeField] private Image _treeImage;
 

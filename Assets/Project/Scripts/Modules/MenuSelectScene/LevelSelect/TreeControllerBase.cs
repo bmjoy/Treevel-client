@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
-    public abstract class TreeController : MonoBehaviour
+    public abstract class TreeControllerBase : MonoBehaviour
     {
         /// <summary>
         /// 現在の木の状態

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
-    public class IceTileController : AbstractTileController
+    public class IceTileController : TileControllerBase
     {
         public override void Initialize(TileData tileData)
         {

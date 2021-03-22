@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.StageSelectScene
 {
-    public class BranchController : LineController
+    public class BranchController : LineControllerBase
     {
         /// <summary>
         /// ステージが属する木

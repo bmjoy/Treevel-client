@@ -13,7 +13,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
-    public class GimmickGenerator : SingletonObject<GimmickGenerator>
+    public class GimmickGenerator : SingletonObjectBase<GimmickGenerator>
     {
         // ゲーム中の一時停止を用意に実装するためにCoroutineを採用する
         private List<IEnumerator> _coroutines = new List<IEnumerator>();
@@ -72,7 +72,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     yield break;
                 }
 
-                var gimmick = gimmickObject.GetComponent<AbstractGimmickController>();
+                var gimmick = gimmickObject.GetComponent<GimmickControllerBase>();
                 if (gimmick == null) {
                     Debug.LogError($"ギミックコントローラが{gimmickObject.name}にアタッチされていません。");
                     yield break;

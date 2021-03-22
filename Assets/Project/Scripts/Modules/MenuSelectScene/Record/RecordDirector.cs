@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Treevel.Modules.MenuSelectScene.Record
 {
-    public class RecordDirector : SingletonObject<RecordDirector>
+    public class RecordDirector : SingletonObjectBase<RecordDirector>
     {
         /// <summary>
         /// [UI] "Share" ボタン

@@ -35,7 +35,7 @@ namespace Treevel.Common.Managers
         SE_ThunderAttack,
     }
 
-    public class SoundManager : SingletonObject<SoundManager>
+    public class SoundManager : SingletonObjectBase<SoundManager>
     {
         /// <summary>
         /// 同時再生できるSEの数

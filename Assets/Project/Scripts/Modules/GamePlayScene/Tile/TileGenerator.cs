@@ -9,7 +9,7 @@ using Treevel.Common.Utils;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
-    public class TileGenerator : SingletonObject<TileGenerator>
+    public class TileGenerator : SingletonObjectBase<TileGenerator>
     {
         private readonly Dictionary<ETileType, string> _prefabAddressableKeys = new Dictionary<ETileType, string> {
             { ETileType.Normal, Constants.Address.NORMAL_TILE_PREFAB },
@@ -54,8 +54,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 secondTask.ContinueWith(secondTile => {
                     firstTile.GetComponent<WarpTileController>().Initialize(firstTileNum, secondTile);
                     secondTile.GetComponent<WarpTileController>().Initialize(secondTileNum, firstTile);
-                    BoardManager.Instance.SetTile(firstTile.GetComponent<AbstractTileController>(), firstTileNum);
-                    BoardManager.Instance.SetTile(secondTile.GetComponent<AbstractTileController>(), secondTileNum);
+                    BoardManager.Instance.SetTile(firstTile.GetComponent<TileControllerBase>(), firstTileNum);
+                    BoardManager.Instance.SetTile(secondTile.GetComponent<TileControllerBase>(), secondTileNum);
                 });
             });
 
@@ -72,8 +72,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             return AddressableAssetManager.Instantiate(_prefabAddressableKeys[tileData.type]).ToUniTask()
                 .ContinueWith(tileObj => {
-                    tileObj.GetComponent<AbstractTileController>().Initialize(tileData);
-                    BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileData.number);
+                    tileObj.GetComponent<TileControllerBase>().Initialize(tileData);
+                    BoardManager.Instance.SetTile(tileObj.GetComponent<TileControllerBase>(), tileData.number);
                 });
         }
 
@@ -87,8 +87,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             return AddressableAssetManager.Instantiate(_prefabAddressableKeys[ETileType.Normal]).ToUniTask()
                 .ContinueWith(tileObj => {
-                    tileObj.GetComponent<AbstractTileController>().Initialize(tileNum);
-                    BoardManager.Instance.SetTile(tileObj.GetComponent<AbstractTileController>(), tileNum);
+                    tileObj.GetComponent<TileControllerBase>().Initialize(tileNum);
+                    BoardManager.Instance.SetTile(tileObj.GetComponent<TileControllerBase>(), tileNum);
                 });
         }
     }
