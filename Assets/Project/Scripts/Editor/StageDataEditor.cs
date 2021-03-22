@@ -153,7 +153,7 @@ namespace Treevel.Editor
             elementProp.isExpanded = EditorGUILayout.Foldout(elementProp.isExpanded, $"{arrayProp.displayName} {index + 1}", toggleOnLabelClick:true);
 
             if (GUILayout.Button("Delete", GUILayout.Width(80)) &&
-                EditorUtility.DisplayDialog("削除確認", "まじで消すの？？復元できないぞ！？", "まじで消す", "やめとこう")) {
+                !EditorUtility.DisplayDialog("削除確認", "まじで消すの？？復元できないぞ！？", "やめとこう", "まじで消す")) {
                 arrayProp.DeleteArrayElementAtIndex(index);
                 return true;
             }
