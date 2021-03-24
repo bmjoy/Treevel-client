@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
-    public class ErasableController : AbstractGimmickController
+    public class ErasableController : GimmickControllerBase
     {
         /// <summary>
         /// ErasableBottle を生成する間隔（秒数）

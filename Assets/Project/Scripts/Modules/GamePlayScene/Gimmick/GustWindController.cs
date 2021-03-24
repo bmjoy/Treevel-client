@@ -13,7 +13,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(Animator))]
-    public class GustWindController : AbstractGimmickController
+    public class GustWindController : GimmickControllerBase
     {
         /// <summary>
         /// 攻撃方向
@@ -228,11 +228,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EDirection.ToLeft:
                 case EDirection.ToUp:
                     return targetBottles
-                        .OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()));
+                        .OrderBy(go => BoardManager.Instance.GetBottlePos(go.GetComponent<BottleControllerBase>()));
                 case EDirection.ToDown:
                 case EDirection.ToRight:
                     return targetBottles
-                        .OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<AbstractBottleController>()));
+                        .OrderByDescending(go => BoardManager.Instance.GetBottlePos(go.GetComponent<BottleControllerBase>()));
                 default:
                     throw new NotImplementedException();
             }

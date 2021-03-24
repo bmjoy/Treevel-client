@@ -13,7 +13,7 @@ using UnityEngine.AddressableAssets;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(GameSpriteRendererUnifier))]
-    public abstract class AbstractBottleController : AbstractGameObjectController
+    public abstract class BottleControllerBase : GameObjectControllerBase
     {
         /// <summary>
         /// 無敵状態かどうか

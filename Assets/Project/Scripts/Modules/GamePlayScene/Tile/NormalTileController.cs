@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
-    public class NormalTileController : AbstractTileController
+    public class NormalTileController : TileControllerBase
     {
         public override void Initialize(int tileNum)
         {

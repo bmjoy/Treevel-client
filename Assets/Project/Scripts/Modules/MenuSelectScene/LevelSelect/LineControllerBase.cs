@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     [RequireComponent(typeof(LineRenderer))]
-    public abstract class LineController : MonoBehaviour
+    public abstract class LineControllerBase : MonoBehaviour
     {
         /// <summary>
         /// 開始地点のGameObject

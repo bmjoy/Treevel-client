@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 {
-    public class PowderController : AbstractGimmickController
+    public class PowderController : GimmickControllerBase
     {
         /// <summary>
         /// 背景上部分のParticleSystem

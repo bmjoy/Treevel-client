@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(Animator))]
-    public class SolarBeamController : AbstractGimmickController
+    public class SolarBeamController : GimmickControllerBase
     {
         [SerializeField] private GameObject _sunObject;
 

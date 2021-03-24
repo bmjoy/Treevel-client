@@ -13,9 +13,9 @@ namespace Treevel.Common.Networks.Database
     /// PlayFabは仕様上、API呼び出す時に渡すエラーコールバック以外、エラーの検知はできない（リザルト構造体には成功状態が含まれていない）。
     /// そのため、taskの状態でAPI呼び出しの成功判定を行います。
     /// </summary>
-    public class PlayFabDatabaseService : DatabaseService
+    public class PlayFabDatabaseService : IDatabaseService
     {
-        public override async UniTask<T> GetData<T>(string key)
+        public async UniTask<T> GetData<T>(string key) where T : new()
         {
             var request = new GetUserDataRequest
             {
@@ -42,7 +42,7 @@ namespace Treevel.Common.Networks.Database
             }
         }
 
-        public override async UniTask<bool> UpdateData<T>(string key, T data)
+        public async UniTask<bool> UpdateData<T>(string key, T data)
         {
             Debug.Assert(typeof(T).IsSerializable, $"type {typeof(T)} should be serializable");
 
@@ -72,7 +72,7 @@ namespace Treevel.Common.Networks.Database
             }
         }
 
-        public override async UniTask<bool> Login()
+        public async UniTask<bool> Login()
         {
             // TODO 引き継ぎ行った場合の処理
 

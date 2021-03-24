@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Tile
 {
     [RequireComponent(typeof(Animator))]
-    public class WarpTileController : AbstractTileController
+    public class WarpTileController : TileControllerBase
     {
         // 相方のWarpTile
         [SerializeField, NonEditable] private GameObject _pairTile;
@@ -137,7 +137,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             var bottle = _warpBottleInfo.gameObject;
 
             // ボードマネージャーにワープ先のタイルを登録する。登録したらOnBottleEnterでワープ先でのアニメーションを発動する
-            BoardManager.Instance.RegisterBottle(bottle.GetComponent<AbstractBottleController>(), pairTileController.TileNumber);
+            BoardManager.Instance.RegisterBottle(bottle.GetComponent<BottleControllerBase>(), pairTileController.TileNumber);
         }
 
         private void WarpOut()
@@ -174,7 +174,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         private bool CanWarp()
         {
             return _warpEnabled &&
-                   BoardManager.Instance.GetBottle(_pairTile.GetComponent<AbstractTileController>().TileNumber) == null;
+                   BoardManager.Instance.GetBottle(_pairTile.GetComponent<TileControllerBase>().TileNumber) == null;
         }
 
         private sealed class WarpTileBottleHandler : DefaultBottleHandler

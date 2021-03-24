@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
-    public class AbstractGameObjectController : MonoBehaviour
+    public abstract class GameObjectControllerBase : MonoBehaviour
     {
         /// <summary>
         /// 以下を除き、ゲーム終了時に解除したい購読にAddする

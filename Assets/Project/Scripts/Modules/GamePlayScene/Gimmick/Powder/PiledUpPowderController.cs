@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 {
-    public class PiledUpPowderController : AbstractGimmickController
+    public class PiledUpPowderController : GimmickControllerBase
     {
         private GoalBottleController _bottleController;
 

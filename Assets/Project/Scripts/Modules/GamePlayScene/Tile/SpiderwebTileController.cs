@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
-    public class SpiderwebTileController : AbstractTileController
+    public class SpiderwebTileController : TileControllerBase
     {
         /// <summary>
         /// 蜘蛛の巣によってボトルが止まる秒数

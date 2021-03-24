@@ -11,7 +11,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
-    public class ThunderController : AbstractGimmickController
+    public class ThunderController : GimmickControllerBase
     {
         /// <summary>
         /// 雲をタイルの比率でオフセットさせる

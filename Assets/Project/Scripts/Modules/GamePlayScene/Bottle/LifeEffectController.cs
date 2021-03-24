@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class LifeEffectController : AbstractGameObjectController
+    public class LifeEffectController : GameObjectControllerBase
     {
         private DynamicBottleController _bottleController;
 
@@ -53,8 +53,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     _isDead = true;
 
                     // 失敗原因を保持する
-                    var controller = gimmick.GetComponent<AbstractGimmickController>();
-                    if (controller == null) controller = gimmick.GetComponentInParent<AbstractGimmickController>();
+                    var controller = gimmick.GetComponent<GimmickControllerBase>();
+                    if (controller == null) controller = gimmick.GetComponentInParent<GimmickControllerBase>();
 
                     var gimmickType = controller.GimmickType;
                     GamePlayDirector.Instance.failureReason = gimmickType.GetFailureReason();

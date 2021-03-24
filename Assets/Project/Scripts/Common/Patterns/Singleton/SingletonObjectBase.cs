@@ -7,7 +7,7 @@ namespace Treevel.Common.Patterns.Singleton
     /// </summary>
     /// <see c-ref="http://wiki.unity3d.com/index.php/Singleton" />
     /// <typeparam name="T">継承するクラス名</typeparam>
-    public abstract class SingletonObject<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class SingletonObjectBase<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
 

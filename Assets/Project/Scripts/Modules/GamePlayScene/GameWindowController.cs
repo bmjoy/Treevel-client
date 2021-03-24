@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene
 {
-    public class GameWindowController : SingletonObject<GameWindowController>
+    public class GameWindowController : SingletonObjectBase<GameWindowController>
     {
         /// <summary>
         /// ゲーム画面以外を埋める背景

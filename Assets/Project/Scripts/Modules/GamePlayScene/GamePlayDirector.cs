@@ -23,7 +23,7 @@ using UnityEngine.Video;
 
 namespace Treevel.Modules.GamePlayScene
 {
-    public class GamePlayDirector : SingletonObject<GamePlayDirector>
+    public class GamePlayDirector : SingletonObjectBase<GamePlayDirector>
     {
         /// <summary>
         /// FPS
@@ -116,7 +116,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 各状態に対応するステートのインスタンス
         /// </summary>
-        private readonly Dictionary<EGameState, State> _stateList = new Dictionary<EGameState, State>();
+        private readonly Dictionary<EGameState, StateBase> _stateList = new Dictionary<EGameState, StateBase>();
 
         /// <summary>
         /// ステージの記録を保持
@@ -179,7 +179,7 @@ namespace Treevel.Modules.GamePlayScene
             var stateType = parentType.GetNestedType($"{state.ToString()}State", BindingFlags.NonPublic);
 
             // ステートのインスタンス生成
-            var stateInstance = (State)Activator.CreateInstance(stateType, new object[] { this });
+            var stateInstance = (StateBase)Activator.CreateInstance(stateType, new object[] { this });
 
             _stateList.Add(state, stateInstance);
         }
@@ -298,7 +298,7 @@ namespace Treevel.Modules.GamePlayScene
         private static void CleanObject()
         {
             // ボトルを削除
-            var bottles = FindObjectsOfType<AbstractBottleController>();
+            var bottles = FindObjectsOfType<BottleControllerBase>();
             foreach (var bottle in bottles) {
                 DestroyImmediate(bottle.gameObject);
             }
@@ -310,13 +310,13 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             // タイルを削除
-            var specialTiles = FindObjectsOfType<AbstractTileController>();
+            var specialTiles = FindObjectsOfType<TileControllerBase>();
             foreach (var tile in specialTiles) {
                 DestroyImmediate(tile.gameObject);
             }
         }
 
-        private class OpeningState : State
+        private class OpeningState : StateBase
         {
             /// <summary>
             /// ステージID表示用テキスト
@@ -346,14 +346,14 @@ namespace Treevel.Modules.GamePlayScene
                 _customTimer.Initialize(_timerText);
             }
 
-            public override void OnEnter(State from = null)
+            public override void OnEnter(StateBase from = null)
             {
                 // TODO: ステージ準備中のアニメーションを用意する
                 CleanObject();
                 StageInitialize();
             }
 
-            public override void OnExit(State to)
+            public override void OnExit(StateBase to)
             {
                 // TODO: ステージ準備中のアニメーションを停止する
                 // 時間の計測
@@ -378,7 +378,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class PlayingState : State
+        private class PlayingState : StateBase
         {
             /// <summary>
             /// ゲーム時間を計測するタイマー
@@ -390,7 +390,7 @@ namespace Treevel.Modules.GamePlayScene
                 _customTimer = caller.gameObject.GetComponent<CustomTimer>();
             }
 
-            public override void OnEnter(State from = null)
+            public override void OnEnter(StateBase from = null)
             {
                 Instance._stageStatus.challengeNum++;
 
@@ -404,7 +404,7 @@ namespace Treevel.Modules.GamePlayScene
                 Instance._pauseButton.SetActive(true);
             }
 
-            public override void OnExit(State to)
+            public override void OnExit(StateBase to)
             {
                 // 一時停止だったらそのまま処理終わる
                 if (to is PausingState) return;
@@ -431,11 +431,11 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class PausingState : State
+        private class PausingState : StateBase
         {
             public PausingState(GamePlayDirector caller) { }
 
-            public override void OnEnter(State from = null)
+            public override void OnEnter(StateBase from = null)
             {
                 // ゲーム内の時間を一時停止する
                 Time.timeScale = 0.0f;
@@ -448,7 +448,7 @@ namespace Treevel.Modules.GamePlayScene
                 Instance._pauseButton.SetActive(false);
             }
 
-            public override void OnExit(State to)
+            public override void OnExit(StateBase to)
             {
                 // ゲーム内の時間を元に戻す
                 Time.timeScale = 1.0f;
@@ -464,7 +464,7 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class SuccessState : State
+        private class SuccessState : StateBase
         {
             /// <summary>
             /// 成功ポップアップ
@@ -478,7 +478,7 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(false);
             }
 
-            public override void OnEnter(State from = null)
+            public override void OnEnter(StateBase from = null)
             {
                 Instance._stageStatus.Succeed();
                 Instance._stageStatus.Save(treeId, stageNumber);
@@ -492,13 +492,13 @@ namespace Treevel.Modules.GamePlayScene
                 Instance._gameSucceededSubject.OnNext(Unit.Default);
             }
 
-            public override void OnExit(State to)
+            public override void OnExit(StateBase to)
             {
                 _successPopup.SetActive(false);
             }
         }
 
-        private class FailureState : State
+        private class FailureState : StateBase
         {
             /// <summary>
             /// 失敗ポップアップ
@@ -512,7 +512,7 @@ namespace Treevel.Modules.GamePlayScene
                 _failurePopup.SetActive(false);
             }
 
-            public override void OnEnter(State from = null)
+            public override void OnEnter(StateBase from = null)
             {
                 Instance._stageStatus.Fail();
                 Instance._stageStatus.Save(treeId, stageNumber);
@@ -543,13 +543,13 @@ namespace Treevel.Modules.GamePlayScene
                 }
             }
 
-            public override void OnExit(State to)
+            public override void OnExit(StateBase to)
             {
                 _failurePopup.SetActive(false);
             }
         }
 
-        private class TutorialState : State
+        private class TutorialState : StateBase
         {
             private readonly GameObject _tutorialWindow;
 
@@ -558,7 +558,7 @@ namespace Treevel.Modules.GamePlayScene
                 _tutorialWindow = caller._tutorialWindow;
             }
 
-            public override void OnEnter(State from = null)
+            public override void OnEnter(StateBase from = null)
             {
                 SoundManager.Instance.PlayBGM(EBGMKey.GamePlay_Tutorial);
 
@@ -587,7 +587,7 @@ namespace Treevel.Modules.GamePlayScene
                 }
             }
 
-            public override void OnExit(State to)
+            public override void OnExit(StateBase to)
             {
                 Instance._stageStatus.tutorialChecked = true;
                 _tutorialWindow.SetActive(false);

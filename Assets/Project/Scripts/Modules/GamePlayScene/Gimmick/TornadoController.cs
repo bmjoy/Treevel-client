@@ -17,7 +17,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Rigidbody2D))]
-    public class TornadoController : AbstractGimmickController
+    public class TornadoController : GimmickControllerBase
     {
         /// <summary>
         /// 竜巻の移動速度(ワールド座標単位/秒)
@@ -71,7 +71,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             _rigidBody = GetComponent<Rigidbody2D>();
             this.OnTriggerEnter2DAsObservable()
-                .Select(other => other.GetComponent<AbstractBottleController>())
+                .Select(other => other.GetComponent<BottleControllerBase>())
                 .Where(bottle => bottle != null)
                 .Where(bottle => bottle.IsAttackable)
                 .Where(bottle => !bottle.isInvincible.Value)

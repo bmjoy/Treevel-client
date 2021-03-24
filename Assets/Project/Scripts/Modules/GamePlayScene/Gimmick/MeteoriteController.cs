@@ -14,7 +14,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 {
     [RequireComponent(typeof(GameSpriteRendererUnifier))]
     [RequireComponent(typeof(Collider2D))]
-    public class MeteoriteController : AbstractGimmickController
+    public class MeteoriteController : GimmickControllerBase
     {
         /// <summary>
         /// 目標座標
@@ -54,7 +54,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => transform.position.z >= 0)
                 .Subscribe(other => {
-                    var bottle = other.GetComponent<AbstractBottleController>();
+                    var bottle = other.GetComponent<BottleControllerBase>();
                     if (bottle != null && bottle.IsAttackable && !bottle.isInvincible.Value) {
                         // 数字ボトルとの衝突
                         // 衝突したオブジェクトは赤色に変える

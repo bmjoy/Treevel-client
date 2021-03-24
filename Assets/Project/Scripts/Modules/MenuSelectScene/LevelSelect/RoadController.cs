@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
-    public class RoadController : LineController
+    public class RoadController : LineControllerBase
     {
         private LevelTreeController _endObjectController;
 

@@ -19,12 +19,12 @@ namespace Treevel.Common.Utils
             return bottles.Single(bottle => bottle.Id == bottleId).gameObject;
         }
 
-        private static IEnumerable<AbstractBottleController> _orderedBottles;
+        private static IEnumerable<BottleControllerBase> _orderedBottles;
 
-        public static IEnumerable<AbstractBottleController> OrderedAttackableBottles {
+        public static IEnumerable<BottleControllerBase> OrderedAttackableBottles {
             get {
                 if (_orderedBottles == null) {
-                    _orderedBottles = GameObject.FindObjectsOfType<AbstractBottleController>()
+                    _orderedBottles = GameObject.FindObjectsOfType<BottleControllerBase>()
                         .Where(bottle => bottle.IsAttackable)
                         .OrderBy(bottle => bottle.Id);
                 }
