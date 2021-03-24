@@ -10,9 +10,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     /// </summary>
     public class AttackableDummyBottleController : DynamicBottleController
     {
-        public override async UniTask Initialize(BottleData bottleData)
+        public override async UniTask InitializeAsync(BottleData bottleData)
         {
-            await base.Initialize(bottleData);
+            await base.InitializeAsync(bottleData);
 
             #if UNITY_EDITOR
             name = Constants.BottleName.ATTACKABLE_DUMMY_BOTTLE;

@@ -42,11 +42,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 yield return new WaitForSeconds(_GENERATING_INTERVAL);
 
                 // ErasableBottle を生成する
-                InstantiateErasableBottle();
+                InstantiateErasableBottleAsync();
             }
         }
 
-        private async void InstantiateErasableBottle()
+        private async void InstantiateErasableBottleAsync()
         {
             var puttableTilePositions = new List<(int, int)>();
 

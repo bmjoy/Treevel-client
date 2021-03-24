@@ -72,7 +72,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     if (_isReverse) directionInt *= -1;
 
                     // ボトルのフリック情報を伝える
-                    await BoardManager.Instance.FlickBottle(this, directionInt);
+                    await BoardManager.Instance.FlickBottleAsync(this, directionInt);
                 }).AddTo(compositeDisposableOnGameEnd, this);
 
             // PressGesture の設定
@@ -83,9 +83,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             releaseGesture.UseUnityEvents = true;
         }
 
-        public override async UniTask Initialize(BottleData bottleData)
+        public override async UniTask InitializeAsync(BottleData bottleData)
         {
-            await base.Initialize(bottleData);
+            await base.InitializeAsync(bottleData);
 
             // set handlers
             if (bottleData.isSelfish) {
@@ -114,7 +114,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             releaseGesture.enabled = isEnable;
         }
 
-        public async UniTask Move(Vector3 targetPosition, CancellationToken token)
+        public async UniTask MoveAsync(Vector3 targetPosition, CancellationToken token)
         {
             try {
                 SetGesturesEnabled(false);

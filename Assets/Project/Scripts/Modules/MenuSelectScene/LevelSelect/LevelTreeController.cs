@@ -25,7 +25,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         [SerializeField] private Button _button;
 
-        public override async void UpdateState()
+        public override async void UpdateStateAsync()
         {
             // 現在状態をPlayerPrefsから得る
             state = (ETreeState)Enum.ToObject(typeof(ETreeState),

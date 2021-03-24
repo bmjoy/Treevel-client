@@ -56,7 +56,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 道の状態の更新
         /// </summary>
-        public override async void UpdateState()
+        public override async void UpdateStateAsync()
         {
             released = PlayerPrefs.GetInt(saveKey, Default.ROAD_RELEASED) == 1;
 
@@ -83,7 +83,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                             .AddTo(cancelTokenSource.Token);
 
                         // 道が非解放状態から解放状態に変わった時
-                        await ReleaseEndObject(cancelTokenSource.Token);
+                        await ReleaseEndObjectAsync(cancelTokenSource.Token);
                     }
 
                     lineRenderer.startColor = lineRenderer.endColor = released ? _ROAD_RELEASED_COLOR : _ROAD_UNRELEASED_COLOR;
@@ -97,7 +97,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// 道が非解放状態から解放状態に変わった時のアニメーション(100フレームで色を変化させる)
         /// </summary>
         /// <returns></returns>
-        private async UniTask ReleaseEndObject(CancellationToken cancelToken)
+        private async UniTask ReleaseEndObjectAsync(CancellationToken cancelToken)
         {
             // 終点の木の状態の更新
             _endObjectController.state = ETreeState.Released;

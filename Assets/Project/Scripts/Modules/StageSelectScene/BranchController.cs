@@ -33,7 +33,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override void UpdateState()
+        public override void UpdateStateAsync()
         {
             if (branchStates.ContainsKey(saveKey)) {
                 released = branchStates[saveKey];

@@ -118,16 +118,16 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
             switch (direction) {
                 case EDirection.ToLeft:
-                    BoardManager.Instance.Move(_bottleController, tileNum - 1, Vector2Int.left);
+                    BoardManager.Instance.MoveAsync(_bottleController, tileNum - 1, Vector2Int.left);
                     break;
                 case EDirection.ToRight:
-                    BoardManager.Instance.Move(_bottleController, tileNum + 1, Vector2Int.right);
+                    BoardManager.Instance.MoveAsync(_bottleController, tileNum + 1, Vector2Int.right);
                     break;
                 case EDirection.ToUp:
-                    BoardManager.Instance.Move(_bottleController, tileNum - Constants.StageSize.COLUMN, Vector2Int.up);
+                    BoardManager.Instance.MoveAsync(_bottleController, tileNum - Constants.StageSize.COLUMN, Vector2Int.up);
                     break;
                 case EDirection.ToDown:
-                    BoardManager.Instance.Move(_bottleController, tileNum + Constants.StageSize.COLUMN,
+                    BoardManager.Instance.MoveAsync(_bottleController, tileNum + Constants.StageSize.COLUMN,
                                                Vector2Int.down);
                     break;
                 default:

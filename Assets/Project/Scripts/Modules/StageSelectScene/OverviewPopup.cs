@@ -61,7 +61,7 @@ namespace Treevel.Modules.StageSelectScene
             // ゲームを開始するボタン
             goToGameButton = transform.Find("PanelBackground/GoToGame").GetComponent<Button>();
             goToGameButton.OnClickAsObservable()
-                .Subscribe(_ => StageSelectDirector.Instance.GoToGame(treeId, stageNumber))
+                .Subscribe(_ => StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber))
                 .AddTo(this);
         }
     }

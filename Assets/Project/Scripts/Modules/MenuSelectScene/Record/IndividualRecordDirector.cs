@@ -140,7 +140,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                             } else {
                                 var graphPosition = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position;
                                 _graphPopup.SetActive(true);
-                                graphPopupController.Initialize(_model.currentSeason.Value.GetColor(), _model.currentTree.Value, stageNumber, graphPosition);
+                                graphPopupController.InitializeAsync(_model.currentSeason.Value.GetColor(), _model.currentTree.Value, stageNumber, graphPosition);
                             }
                         })
                         .AddTo(this);
@@ -149,7 +149,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _model.FetchStageStatusArray();
+            _model.FetchStageStatusArrayAsync();
         }
 
         private void OnDestroy()

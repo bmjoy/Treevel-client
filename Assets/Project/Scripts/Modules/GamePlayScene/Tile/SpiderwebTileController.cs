@@ -40,10 +40,10 @@ namespace Treevel.Modules.GamePlayScene.Tile
             {
                 if (bottle.GetComponent<DynamicBottleController>() == null) return;
 
-                StopBottle(bottle);
+                StopBottleAsync(bottle);
             }
 
-            private static async void StopBottle(GameObject bottle)
+            private static async void StopBottleAsync(GameObject bottle)
             {
                 Debug.Log("蜘蛛の巣タイルで拘束");
                 bottle.GetComponent<DynamicBottleController>().IsMovable = false;

@@ -36,8 +36,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnEnable()
         {
-            _trees.ForEach(tree => tree.UpdateState());
-            _roads.ForEach(road => road.UpdateState());
+            _trees.ForEach(tree => tree.UpdateStateAsync());
+            _roads.ForEach(road => road.UpdateStateAsync());
         }
 
         /// <summary>

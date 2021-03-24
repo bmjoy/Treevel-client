@@ -180,7 +180,7 @@ namespace Treevel.Common.Managers
             _bgmPlayer.clip = clip;
             _bgmPlayer.time = playback;
             _bgmPlayer.Play();
-            FadeBGMVolume(0, _bgmPlayer.volume, fadeInTime);
+            FadeBGMVolumeAsync(0, _bgmPlayer.volume, fadeInTime);
 
             if (_bgmPlayer.loop) {
                 // ループ終わるところでフェイドアウトフェイドインするようにタイマーを設置する
@@ -188,7 +188,7 @@ namespace Treevel.Common.Managers
                 _loopVolumeController = Observable.Timer(TimeSpan.FromSeconds(clipLength - _BGM_LOOP_FADE_TIME), TimeSpan.FromSeconds(clipLength)).Subscribe(_ => {
                     Debug.Log("Start FadeIn/FadeOut");
                     var initVolume = _bgmPlayer.volume;
-                    FadeBGMVolume(_bgmPlayer.volume, 0, _BGM_LOOP_FADE_TIME).ContinueWith(() => FadeBGMVolume(0, initVolume, _BGM_LOOP_FADE_TIME));
+                    FadeBGMVolumeAsync(_bgmPlayer.volume, 0, _BGM_LOOP_FADE_TIME).ContinueWith(() => FadeBGMVolumeAsync(0, initVolume, _BGM_LOOP_FADE_TIME));
                 }).AddTo(this);
             }
         }
@@ -199,7 +199,7 @@ namespace Treevel.Common.Managers
         /// <param name="from">初期値(0.0 to 1.0)</param>
         /// <param name="to">終値(0.0 to 1.0)</param>
         /// <param name="time">変化する時間(>0)</param>
-        private async UniTask FadeBGMVolume(float from, float to, float time)
+        private async UniTask FadeBGMVolumeAsync(float from, float to, float time)
         {
             Debug.Assert(time > 0);
 
@@ -230,7 +230,7 @@ namespace Treevel.Common.Managers
         /// </summary>
         public void StopBGM(float fadeOutTime = 2.0f)
         {
-            FadeBGMVolume(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
+            FadeBGMVolumeAsync(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
                 _bgmPlayer.Stop();
                 ResetBGMVolume();
             });

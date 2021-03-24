@@ -37,7 +37,7 @@ namespace Treevel.Common.Managers
 
         private MessageDialog _messageDialog;
 
-        public async UniTask Initialize()
+        public async UniTask InitializeAsync()
         {
             DontDestroyOnLoad(gameObject);
 
@@ -67,12 +67,12 @@ namespace Treevel.Common.Managers
         /// エラーメッセージを表示
         /// </summary>
         /// <param name="errorCode">対応するエラーコード</param>
-        public async void ShowErrorMessage(EErrorCode errorCode)
+        public void ShowErrorMessage(EErrorCode errorCode)
         {
             var canvas = GetComponentInChildren<Canvas>().transform;
-            var messageBoxObj = await _errorMessageBoxRef.InstantiateAsync(canvas);
-            // テキスト、エラーコードを設定
-            messageBoxObj.GetComponent<ErrorMessageBox>().ErrorCode = errorCode;
+            _errorMessageBoxRef.InstantiateAsync(canvas)
+                .ToUniTask()
+                .ContinueWith(obj => obj.GetComponent<ErrorMessageBox>().ErrorCode = errorCode);
         }
 
         /// <summary>
