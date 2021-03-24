@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -140,17 +141,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
             var bottles = FindObjectsOfType<GoalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
-            for (var i = 0; i < bottles.Length; i++) {
-                // see https://www.jetbrains.com/help/rider/AccessToModifiedClosure.html
-                var i1 = i;
-                AddressableAssetManager.Instantiate(address)
-                    .ToUniTask()
-                    .ContinueWith(powderObj => {
-                        var powderController = powderObj.GetComponent<PiledUpPowderController>();
-                        _piledUpPowders[i1] = powderController;
-                        powderController.Initialize(bottles[i1]);
-                    });
-            }
+
+            Enumerable.Range(0, bottles.Length).ToList()
+                .ForEach(i => AddressableAssetManager.Instantiate(address).ToUniTask()
+                             .ContinueWith(powderObj => {
+                                 var powderController = powderObj.GetComponent<PiledUpPowderController>();
+                                 _piledUpPowders[i] = powderController;
+                                 powderController.Initialize(bottles[i]);
+                             }));
         }
     }
 }
