@@ -55,6 +55,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             await base.InitializeAsync(bottleData);
 
+            // ボトルのスプライトを設定
+            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
+
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
@@ -66,9 +69,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             #if UNITY_EDITOR
             name = Constants.BottleName.NORMAL_BOTTLE + Id;
             #endif
-
-            // ボトルのスプライトを設定
-            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
         }
 
         /// <summary>
