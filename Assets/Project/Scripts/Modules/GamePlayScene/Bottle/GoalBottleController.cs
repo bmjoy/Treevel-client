@@ -90,5 +90,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             return GoalColor != EGoalColor.None && BoardManager.Instance.GetTileColor(this) == GoalColor;
         }
+
+        public override void SetCrackSprite(int life)
+        {
+            // lifeが1, 2に変わる時のみ画像を替える
+            if (life == 1 || life == 2) GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(GoalColor.GetBottleAddress() + Constants.Address.LIFE_CRACK_SPRITE_INFIX + life));
+        }
     }
 }
