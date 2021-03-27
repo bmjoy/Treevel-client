@@ -25,11 +25,6 @@ namespace Treevel.Modules.GamePlayScene
 {
     public class GamePlayDirector : SingletonObject<GamePlayDirector>
     {
-        /// <summary>
-        /// FPS
-        /// </summary>
-        public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime);
-
         private const float _BGM_VOLUME_RATIO_ON_PAUSE = 0.5f;
 
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";

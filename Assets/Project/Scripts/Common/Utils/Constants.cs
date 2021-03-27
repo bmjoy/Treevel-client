@@ -1,7 +1,11 @@
+using UnityEngine;
+
 namespace Treevel.Common.Utils
 {
     public class Constants
     {
+        public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime);
+
         /// <summary>
         /// PlayerPrefs で使うキー群
         /// </summary>

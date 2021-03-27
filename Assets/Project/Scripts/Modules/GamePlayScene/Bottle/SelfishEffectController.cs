@@ -42,7 +42,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private void Awake()
         {
-            _framesToMove = (int)(GamePlayDirector.FRAME_RATE * _SECONDS_TO_MOVE);
+            _framesToMove = (int)(Constants.FRAME_RATE * _SECONDS_TO_MOVE);
             _animator = GetComponent<Animator>();
         }
 
