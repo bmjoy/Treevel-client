@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
+#if UNITY_IOS
 using UnityEngine.iOS;
+
+#endif
 
 namespace Treevel.Common.Components.UIs
 {
@@ -47,7 +50,7 @@ namespace Treevel.Common.Components.UIs
         /// <returns> ステータスバーの高さを取得する</returns>
         public static float GetStatusBarBottomAnchor()
         {
-            #if UNITY_IOS || UNITY_EDITOR
+            #if UNITY_IOS
             var safeArea = Screen.safeArea;
             if (Screen.height == Screen.safeArea.height) {
                 // iPhone X以前の機種
