@@ -8,6 +8,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(Animator))]
     public class LifeEffectController : GameObjectControllerBase
     {
+        public const int MAX_LIFE = 3;
+
         private DynamicBottleController _bottleController;
 
         /// <summary>
