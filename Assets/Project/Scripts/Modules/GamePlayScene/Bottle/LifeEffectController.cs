@@ -34,10 +34,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private Animator _animator;
         private Animator _bottleAnimator;
-        private const string _ANIMATOR_PARAM_TRIGGER_ATTACKED = "LifeAttacked";
-        public const string ANIMATOR_PARAM_TRIGGER_DEAD = "LifeDead";
-        private const string _ANIMATOR_PARAM_FLOAT_SPEED = "LifeSpeed";
-        private const string _ANIMATOR_PARAM_BOOL_ATTACKED_LOOP = "LifeAttackedLoop";
+        private static readonly int _ANIMATOR_PARAM_TRIGGER_ATTACKED = Animator.StringToHash("LifeAttacked");
+        public static readonly int ANIMATOR_PARAM_TRIGGER_DEAD = Animator.StringToHash("LifeDead");
+        private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("LifeSpeed");
+        private static readonly int _ANIMATOR_PARAM_BOOL_ATTACKED_LOOP = Animator.StringToHash("LifeAttackedLoop");
 
         private void Awake()
         {

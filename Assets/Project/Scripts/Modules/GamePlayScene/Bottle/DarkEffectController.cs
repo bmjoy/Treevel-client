@@ -15,8 +15,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private bool _isSuccess;
 
         private Animator _animator;
-        private const string _ANIMATOR_IS_DARK = "IsDark";
-        private const string _ANIMATOR_PARAM_FLOAT_SPEED = "DarkSpeed";
+        private static readonly int _ANIMATOR_IS_DARK = Animator.StringToHash("IsDark");
+        private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("DarkSpeed");
 
         private void Awake()
         {
