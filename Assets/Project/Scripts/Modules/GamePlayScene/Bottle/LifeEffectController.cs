@@ -39,6 +39,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             transform.localPosition = Vector3.zero;
             _bottleController = bottleController;
             _bottleAnimator = bottleController.GetComponent<Animator>();
+            if (_life < 1 || 3 < _life) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidLifeValue);
 
             // イベントに処理を登録する
             _bottleController.GetDamaged.Subscribe(gimmick => {

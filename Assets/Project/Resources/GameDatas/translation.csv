@@ -38,6 +38,7 @@ ErrorLoadDataFailed,データの読み込みが失敗しました。,Failed to l
 StartGame,スタート！,Tap to Start
 ErrorInvalidBottleAccess,ボトルの不正アクセスが発生しました。,Invalid bottle access.
 ErrorInvalidBottleColor,ボトルの色が正しく設定されていません。,Invalid bottle color.
+ErrorInvalidLifeValue,ライフの値が正しく設定されいません。,Invalid life value.
 ErrorInvalidTileColor,タイルの色が正しく設定されていません。,Invalid tile color.
 RecordShareButton,共有,Share
 RecordToIndividualButton,個別記録へ,Individual

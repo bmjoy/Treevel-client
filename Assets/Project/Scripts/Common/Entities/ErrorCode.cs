@@ -11,6 +11,7 @@
         LoadDataError,      // データの読み込みに失敗
         InvalidBottleID,    // ボトルIDが不正
         InvalidBottleColor, // ボトルの色が不適当
+        InvalidLifeValue,   // lifeの値が不適当
         InvalidTileColor,   // タイルの色が不適当
     }
 }
