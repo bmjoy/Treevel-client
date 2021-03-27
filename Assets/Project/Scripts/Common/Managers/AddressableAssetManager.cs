@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -175,6 +176,11 @@ namespace Treevel.Common.Managers
                         break;
                     case EBottleType.Normal:
                         tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.GOAL_BOTTLE_PREFAB));
+                        for (var life = 1; life <= LifeEffectController.MAX_LIFE; life++) {
+                            // 残りライフの数字画像
+                            tasks.Add(LoadAssetAsync<Sprite>(Constants.Address.LIFE_VALUE_SPRITE_PREFIX + life));
+                        }
+
                         break;
                     case EBottleType.AttackableDummy:
                         tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.ATTACKABLE_DUMMY_BOTTLE_PREFAB));
@@ -186,6 +192,8 @@ namespace Treevel.Common.Managers
                 // ボトルの色に対応したボトル画像、タイル画像を読み込む
                 if (bottleData.goalColor != EGoalColor.None) {
                     tasks.Add(LoadAssetAsync<Sprite>(bottleData.goalColor.GetBottleAddress()));
+                    tasks.Add(LoadAssetAsync<Sprite>(bottleData.goalColor.GetBottleAddress() + Constants.Address.LIFE_CRACK_SPRITE_INFIX + "1"));
+                    tasks.Add(LoadAssetAsync<Sprite>(bottleData.goalColor.GetBottleAddress() + Constants.Address.LIFE_CRACK_SPRITE_INFIX + "2"));
                     tasks.Add(LoadAssetAsync<Sprite>(bottleData.goalColor.GetTileAddress()));
                 }
             });
