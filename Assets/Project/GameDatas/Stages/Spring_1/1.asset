@@ -107,7 +107,7 @@ MonoBehaviour:
   - type: 2
     initPos: 14
     goalColor: 8
-    life: 5
+    life: 3
     isSelfish: 0
     isDark: 0
     isReverse: 0
