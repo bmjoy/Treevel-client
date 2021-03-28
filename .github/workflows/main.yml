@@ -6,7 +6,7 @@ env:
 jobs:
   testAllmodes:
     name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
