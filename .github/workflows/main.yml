@@ -8,6 +8,7 @@ jobs:
     name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         unityVersion:
           - 2020.1.7f1
