@@ -83,6 +83,8 @@ namespace Treevel.Common.Components.UIs
                     }
                 }
             }
+            #else
+            return 0;
             #endif
         }
     }
