@@ -4,6 +4,9 @@ namespace Treevel.Common.Utils
 {
     public class Constants
     {
+        /// <summary>
+        /// FPS
+        /// </summary>
         public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime);
 
         /// <summary>
