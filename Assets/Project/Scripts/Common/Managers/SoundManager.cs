@@ -6,6 +6,7 @@ using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -125,6 +126,16 @@ namespace Treevel.Common.Managers
             } else {
                 Debug.LogWarning($"Failed to Play SE: {key} because audio sources are fully assigned");
             }
+        }
+
+        /// <summary>
+        /// 与えられたSEのリストからランダムで一つを再生
+        /// </summary>
+        /// <param name="keys">SEリスト</param>
+        public void PlaySERandom(ESEKey[] keys)
+        {
+            var playIndex = Random.Range(0, keys.Length);
+            PlaySE(keys[playIndex]);
         }
 
         /// <summary>
