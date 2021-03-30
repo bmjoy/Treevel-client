@@ -154,6 +154,17 @@ namespace Treevel.Common.Managers
         }
 
         /// <summary>
+        /// 複数のSEを停止する
+        /// </summary>
+        /// <param name="keys">停止したいSEのリスト</param>
+        public void StopSE(IEnumerable<ESEKey> keys)
+        {
+            foreach (var key in keys) {
+                StopSE(key);
+            }
+        }
+
+        /// <summary>
         /// SE再生中かどうか
         /// </summary>
         /// <param name="key"> 確認したいSEのキー </param>
