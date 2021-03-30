@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using SnapScroll;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
@@ -109,8 +110,8 @@ namespace Treevel.Modules.StageSelectScene
         {
             SoundManager.Instance.PlayBGM(seasonId.GetStageSelectBGM());
 
-            _branches.ForEach(branch => branch.UpdateStateAsync());
-            _trees.ForEach(tree => tree.UpdateStateAsync());
+            _branches.ForEach(branch => branch.UpdateStateAsync().Forget());
+            _trees.ForEach(tree => tree.UpdateStateAsync().Forget());
         }
 
         /// <summary>
@@ -162,7 +163,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// ステージ選択画面からゲーム選択画面へ移動する
         /// </summary>
-        public async void GoToGameAsync(ETreeId treeId, int stageNumber)
+        public async UniTask GoToGameAsync(ETreeId treeId, int stageNumber)
         {
             // ステージ情報を渡す
             GamePlayDirector.seasonId = seasonId;

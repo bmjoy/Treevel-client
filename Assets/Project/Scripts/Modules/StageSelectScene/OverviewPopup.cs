@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks.Objects;
@@ -61,7 +62,7 @@ namespace Treevel.Modules.StageSelectScene
             // ゲームを開始するボタン
             goToGameButton = transform.Find("PanelBackground/GoToGame").GetComponent<Button>();
             goToGameButton.OnClickAsObservable()
-                .Subscribe(_ => StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber))
+                .Subscribe(_ => StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber).Forget())
                 .AddTo(this);
         }
     }

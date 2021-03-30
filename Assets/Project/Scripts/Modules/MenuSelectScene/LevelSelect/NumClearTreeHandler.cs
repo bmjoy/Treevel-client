@@ -51,10 +51,10 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             }
 
             // コンストラクタは async にできないので、関数に分離
-            InitializeAsync();
+            InitializeAsync().Forget();
         }
 
-        private async void InitializeAsync()
+        private async UniTask InitializeAsync()
         {
             // FIXME: GetTreeState の時に値が入っている保証がない
             var tasks = Enumerable.Range(1, _stageNum)

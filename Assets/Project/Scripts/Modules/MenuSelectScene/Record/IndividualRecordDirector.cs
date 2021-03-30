@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Modules.StageSelectScene;
@@ -140,7 +141,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                             } else {
                                 var graphPosition = _graphBars[stageNumber - 1].GetComponent<RectTransform>().position;
                                 _graphPopup.SetActive(true);
-                                graphPopupController.InitializeAsync(_model.currentSeason.Value.GetColor(), _model.currentTree.Value, stageNumber, graphPosition);
+                                graphPopupController.InitializeAsync(_model.currentSeason.Value.GetColor(), _model.currentTree.Value, stageNumber, graphPosition).Forget();
                             }
                         })
                         .AddTo(this);

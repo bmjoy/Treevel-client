@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -82,7 +83,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected abstract void SetSaveKey();
 
-        public abstract void UpdateStateAsync();
+        public abstract UniTask UpdateStateAsync();
 
         public abstract void SaveState();
 
