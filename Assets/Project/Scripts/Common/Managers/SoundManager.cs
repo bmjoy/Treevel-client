@@ -31,9 +31,25 @@ namespace Treevel.Common.Managers
 
     public enum ESEKey
     {
-        SE_Success,
-        SE_Failure,
-        SE_ThunderAttack,
+        UI_Dropdown_close,
+        UI_Button_Click1,
+        UI_Button_Click2,
+        UI_Button_Invalid,
+        UI_SnapScrollView,
+        LevelSelect_River,
+        GamePlay_Failed_1,
+        GamePlay_Failed_2,
+        GamePlay_Success,
+        Bottle_Move,
+        Bottle_Break,
+        Bottle_Destroy,
+        Tile_Warp,
+        Gimmick_Powder,
+        Gimmick_Gust,
+        Gimmick_Thunder_1,
+        Gimmick_Thunder_2,
+        Gimmick_Meteorite_Collide,
+        Gimmick_Meteorite_Drop,
     }
 
     public class SoundManager : SingletonObjectBase<SoundManager>
