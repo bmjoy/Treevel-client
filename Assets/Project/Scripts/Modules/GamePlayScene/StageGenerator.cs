@@ -31,11 +31,11 @@ namespace Treevel.Modules.GamePlayScene
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
             if (stageData != null) {
                 await UniTask.WhenAll(
-                    TileGenerator.Instance.CreateTiles(stageData.TileDatas),
-                    GimmickGenerator.Instance.Initialize(stageData.GimmickDatas)
+                    TileGenerator.Instance.CreateTilesAsync(stageData.TileDatas),
+                    GimmickGenerator.Instance.InitializeAsync(stageData.GimmickDatas)
                 );
                 // Tile生成後にBottleを生成する
-                await BottleGenerator.CreateBottles(stageData.BottleDatas);
+                await BottleGenerator.CreateBottlesAsync(stageData.BottleDatas);
             } else {
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageNumber + ".");
