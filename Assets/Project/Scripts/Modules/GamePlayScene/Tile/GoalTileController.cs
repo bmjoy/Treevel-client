@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks.Triggers;
+﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
@@ -31,7 +32,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             Initialize(tileData.number);
             GoalColor = tileData.goalColor;
             // colorがNoneではないことを保証する
-            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidTileColor);
+            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidTileColor).Forget();
             _wound.sprite = AddressableAssetManager.GetAsset<Sprite>(tileData.goalColor.GetTileAddress());
             _wound.color = GoalColor.GetMainColor();
             _mainColorLayer.color = GoalColor.GetMainColor(_mainColorLayer.color.a);

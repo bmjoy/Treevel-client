@@ -42,7 +42,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             SetBackground();
 
             // 堆積Powderギミックを作成する
-            InstantiatePiledUpPowder();
+            InstantiatePiledUpPowderAsync().Forget();
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
         /// 堆積Powderギミックを作成する
         /// </summary>
         /// <returns></returns>
-        private void InstantiatePiledUpPowder()
+        private UniTask InstantiatePiledUpPowderAsync()
         {
             string address;
             switch (GamePlayDirector.treeId.GetSeasonId()) {
@@ -142,13 +142,15 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             var bottles = FindObjectsOfType<GoalBottleController>();
             _piledUpPowders = new PiledUpPowderController[bottles.Length];
 
-            Enumerable.Range(0, bottles.Length).ToList()
-                .ForEach(i => AddressableAssetManager.Instantiate(address).ToUniTask()
+            var tasks = Enumerable.Range(0, bottles.Length).ToList()
+                .Select(i => AddressableAssetManager.Instantiate(address).ToUniTask()
                              .ContinueWith(powderObj => {
                                  var powderController = powderObj.GetComponent<PiledUpPowderController>();
                                  _piledUpPowders[i] = powderController;
                                  powderController.Initialize(bottles[i]);
                              }));
+
+            return UniTask.WhenAll(tasks);
         }
     }
 }

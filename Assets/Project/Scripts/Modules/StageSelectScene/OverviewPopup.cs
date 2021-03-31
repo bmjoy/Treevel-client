@@ -27,7 +27,7 @@ namespace Treevel.Modules.StageSelectScene
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             if (stageData == null) {
-                UIManager.Instance.ShowErrorMessage(EErrorCode.UnknownError);
+                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.UnknownError).Forget();
                 return;
             }
 
