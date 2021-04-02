@@ -31,7 +31,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
 
         private void Awake()
         {
-            GamePlayDirector.Instance.GameEnd.Subscribe(_ => Destroy(gameObject)).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                Destroy(gameObject);
+                SoundManager.Instance.StopSE(ESEKey.Gimmick_Powder);
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
@@ -112,6 +115,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick.Powder
             // 粒子を発生させる
             _upperParticleSystem.Play();
             _lowerParticleSystem.Play();
+            SoundManager.Instance.PlaySE(ESEKey.Gimmick_Powder);
             // 堆積Powderギミックを開始する
             foreach (var piledUpPowder in _piledUpPowders) {
                 StartCoroutine(piledUpPowder.Trigger());
