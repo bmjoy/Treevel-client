@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
@@ -125,6 +126,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _ATTACK_STATE_NAME_HASH);
 
             transform.position = _attackStartPos;
+            SoundManager.Instance.PlaySE(ESEKey.Gimmick_Gust);
             yield return MoveDuringAttack();
 
             Destroy(gameObject);
