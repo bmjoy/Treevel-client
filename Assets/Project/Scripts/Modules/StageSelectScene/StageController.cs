@@ -94,6 +94,8 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public void StageButtonDown()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click2);
+
             if (UserSettings.StageDetails == 1) {
                 StageSelectDirector.Instance.ShowOverPopup(_treeId, stageNumber);
             } else {

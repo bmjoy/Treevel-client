@@ -56,6 +56,8 @@ namespace Treevel.Modules.StartUpScene
 
         public void OnStartButtonClicked()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click1);
+
             // MenuSelectSceneのBGMを流す
             SoundManager.Instance.PlayBGM(EBGMKey.MenuSelect);
 
