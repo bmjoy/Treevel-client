@@ -57,7 +57,7 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// 同時再生できるSEの数
         /// </summary>
-        private const int _MAX_SE_NUM = 8;
+        private const int _MAX_SE_NUM = 16;
 
         /// <summary>
         /// 複数SE同時再生を考慮し、SE用のAudioSourceを複数用意する
