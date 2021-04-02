@@ -138,6 +138,7 @@ namespace Treevel.Common.Managers
                 // 再生していないAudioSourceを探す
                 var player = _sePlayers.First(source => !source.isPlaying);
 
+                player.clip = clip;
                 player.PlayOneShot(clip);
             } else {
                 Debug.LogWarning($"Failed to Play SE: {key} because audio sources are fully assigned");
@@ -166,7 +167,10 @@ namespace Treevel.Common.Managers
             var player = _sePlayers
                 .Where(src => src.clip != null)
                 .SingleOrDefault(src => src.clip.name == clip.name);
-            player?.Stop();
+            if (player != null) {
+                player.Stop();
+                player.clip = null;
+            }
         }
 
         /// <summary>
