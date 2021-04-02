@@ -56,7 +56,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 _rigidBody.velocity = Vector2.zero;
                 // アニメーション、SEを止める
                 _animator.speed = 0;
-                SoundManager.Instance.StopSE(ESEKey.SE_ThunderAttack);
+                SoundManager.Instance.StopSE(new [] { ESEKey.Gimmick_Thunder_1 , ESEKey.Gimmick_Thunder_2});
             }).AddTo(this);
         }
 
@@ -108,7 +108,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _IDLE_STATE_NAME_HASH);
 
                 // 攻撃アニメーション終わるまで待つ
-                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH && !SoundManager.Instance.IsPlayingSE(ESEKey.SE_ThunderAttack));
+                yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _IDLE_STATE_NAME_HASH &&
+                                                 !SoundManager.Instance.IsPlayingSE(ESEKey.Gimmick_Thunder_1) &&
+                                                 !SoundManager.Instance.IsPlayingSE(ESEKey.Gimmick_Thunder_2));
             }
 
             // TODO:退場演出
@@ -120,7 +122,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private void Attack()
         {
-            SoundManager.Instance.PlaySE(ESEKey.SE_ThunderAttack);
+            SoundManager.Instance.PlaySERandom(new[] { ESEKey.Gimmick_Thunder_1 , ESEKey.Gimmick_Thunder_2} );
         }
     }
 }
