@@ -16,6 +16,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private DynamicBottleController _bottleController;
 
         /// <summary>
+        /// 付与されるGoalBottleの色
+        /// </summary>
+        private string _goalBottleAddress;
+
+        private SpriteRendererUnifier _bottleSpriteRendererUnifier;
+
+        /// <summary>
         /// 自身のライフが0になったかどうか
         /// </summary>
         private bool _isDead;
@@ -51,6 +58,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _lifeSpriteRenderer = _lifeObject.GetComponent<SpriteRenderer>();
         }
 
+        public void Initialize(GoalBottleController bottleController, int life)
+        {
+            _goalBottleAddress = bottleController.GoalColor.GetBottleAddress();
+            _bottleSpriteRendererUnifier = bottleController.spriteRendererUnifier;
+            Initialize((DynamicBottleController)bottleController, life);
+        }
+
         public void Initialize(DynamicBottleController bottleController, int life)
         {
             _life = life;
@@ -67,7 +81,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             } else {
                 if (_life == 2) {
                     // lifeの初期値が2ならボトル画像にヒビを入れる
-                    _bottleController.SetCrackSprite(_life);
+                    SetCrackSprite(_life);
                 }
 
                 // Bottleの左上に配置する
@@ -80,7 +94,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.GetDamaged.Subscribe(gimmick => {
                 _life--;
                 SetLifeValueSprite();
-                _bottleController.SetCrackSprite(_life);
+                SetCrackSprite(_life);
                 if (_life < 0) {
                     Debug.LogError("_currentLife が負の値になっている");
                 } else if (_life == 0) {
@@ -125,6 +139,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private void SetLifeValueSprite()
         {
             if (1 <= _life && _life <= MAX_LIFE) _lifeSpriteRenderer.sprite = AddressableAssetManager.GetAsset<Sprite>(Constants.Address.LIFE_VALUE_SPRITE_PREFIX + _life);
+        }
+
+        private void SetCrackSprite(int life)
+        {
+            // lifeが1, 2に変わる時のみ画像を替える
+            if (life == 1 || life == 2) _bottleSpriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(_goalBottleAddress + Constants.Address.LIFE_CRACK_SPRITE_INFIX + life));
         }
     }
 }

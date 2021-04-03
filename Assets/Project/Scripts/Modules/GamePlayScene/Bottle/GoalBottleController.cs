@@ -29,12 +29,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private SpriteGlowEffect _spriteGlowEffect;
 
+        public SpriteRendererUnifier spriteRendererUnifier;
+
         protected override void Awake()
         {
             base.Awake();
             longPressGesture = GetComponent<LongPressGesture>();
             longPressGesture.UseUnityEvents = true;
             longPressGesture.TimeToPress = 0.15f;
+            spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
             EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(this);
             ExitTile.Subscribe(_ => _spriteGlowEffect.enabled = false).AddTo(this);
         }
@@ -56,7 +59,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             await base.InitializeAsync(bottleData);
 
             // ボトルのスプライトを設定
-            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
+            spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
 
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);
@@ -89,12 +92,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public bool IsSuccess()
         {
             return GoalColor != EGoalColor.None && BoardManager.Instance.GetTileColor(this) == GoalColor;
-        }
-
-        public override void SetCrackSprite(int life)
-        {
-            // lifeが1, 2に変わる時のみ画像を替える
-            if (life == 1 || life == 2) GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(GoalColor.GetBottleAddress() + Constants.Address.LIFE_CRACK_SPRITE_INFIX + life));
         }
     }
 }

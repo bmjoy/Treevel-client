@@ -129,11 +129,5 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 SetGesturesEnabled(true);
             } catch (OperationCanceledException) { }
         }
-
-        /// <summary>
-        /// ボトル画像をヒビ画像に替える
-        /// </summary>
-        /// <param name="life"></param>
-        public virtual void SetCrackSprite(int life) { }
     }
 }
