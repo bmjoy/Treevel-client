@@ -32,6 +32,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private SpriteRenderer _lifeSpriteRenderer;
 
+        /// <summary>
+        /// Life画像をBottleの中心からどれくらいずらすか
+        /// </summary>
+        private static readonly Vector3 _POSITION = new Vector3(-75f, 85f);
+
         private Animator _animator;
         private Animator _bottleAnimator;
         private static readonly int _ANIMATOR_PARAM_TRIGGER_ATTACKED = Animator.StringToHash("LifeAttacked");
@@ -66,7 +71,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }
 
                 // Bottleの左上に配置する
-                transform.localPosition = new Vector3(-75f, 85f);
+                transform.localPosition = _POSITION;
                 SetLifeValueSprite();
             }
 
