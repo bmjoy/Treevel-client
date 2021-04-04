@@ -228,9 +228,9 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// 再生中のBGMを停止する
         /// </summary>
-        public UniTask StopBGMAsync(float fadeOutTime = 2.0f)
+        public void StopBGMAsync(float fadeOutTime = 2.0f)
         {
-            return FadeBGMVolumeAsync(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
+            FadeBGMVolumeAsync(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
                 _bgmPlayer.Stop();
                 ResetBGMVolume();
             });
