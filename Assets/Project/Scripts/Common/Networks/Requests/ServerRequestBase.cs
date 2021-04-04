@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using PlayFab;
 using Treevel.Common.Networks.Database;
+using Treevel.Common.Utils;
 
 namespace Treevel.Common.Networks.Requests
 {
@@ -10,11 +11,6 @@ namespace Treevel.Common.Networks.Requests
         /// リモートサーバへ問い合わせするためのサービスクラスのインスタンス
         /// </summary>
         protected static IDatabaseService remoteDatabaseService = new PlayFabDatabaseService();
-
-        /// <summary>
-        /// ローカルサーバへ問い合わせするためのサービスクラスのインスタンス
-        /// </summary>
-        protected static IDatabaseService localDatabaseService = new PlayerPrefsDatabaseService();
 
         /// <summary>
         /// リクエストを実行
@@ -30,7 +26,7 @@ namespace Treevel.Common.Networks.Requests
         public override async UniTask<TResult> Execute()
         {
             // TODO: リクエスト数を減らして、リモートにアクセスする
-            return await localDatabaseService.GetDataAsync<TResult>(key);
+            return PlayerPrefsUtility.GetObject<TResult>(key);
         }
     }
 
@@ -44,7 +40,7 @@ namespace Treevel.Common.Networks.Requests
         {
             if (await remoteDatabaseService.UpdateDataAsync(key, data)) {
                 // 成功したらローカルも更新する
-                return await localDatabaseService.UpdateDataAsync(key, data);
+                PlayerPrefsUtility.SetObject(key, data);
             }
 
             return false;
