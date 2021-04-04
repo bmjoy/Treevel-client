@@ -23,7 +23,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="treeId"> 木のID </param>
         /// <param name="stageNumber"> ステージ番号 </param>
         /// <exception cref="NotImplementedException"> 実装されていないステージ id を指定した場合 </exception>
-        public static async void CreateStagesAsync(ETreeId treeId, int stageNumber)
+        public static async UniTask CreateStagesAsync(ETreeId treeId, int stageNumber)
         {
             CreatedFinished = false;
 
@@ -31,11 +31,11 @@ namespace Treevel.Modules.GamePlayScene
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
             if (stageData != null) {
                 await UniTask.WhenAll(
-                    TileGenerator.Instance.CreateTiles(stageData.TileDatas),
-                    GimmickGenerator.Instance.Initialize(stageData.GimmickDatas)
+                    TileGenerator.Instance.CreateTilesAsync(stageData.TileDatas),
+                    GimmickGenerator.Instance.InitializeAsync(stageData.GimmickDatas)
                 );
                 // Tile生成後にBottleを生成する
-                await BottleGenerator.CreateBottles(stageData.BottleDatas);
+                await BottleGenerator.CreateBottlesAsync(stageData.BottleDatas);
             } else {
                 // 存在しないステージ
                 Debug.LogError("Unable to create a stage whose stageId is " + stageNumber + ".");

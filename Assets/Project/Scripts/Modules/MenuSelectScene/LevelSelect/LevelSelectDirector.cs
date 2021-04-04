@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.Settings;
@@ -36,8 +37,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnEnable()
         {
-            _trees.ForEach(tree => tree.UpdateStateAsync());
-            _roads.ForEach(road => road.UpdateStateAsync());
+            _trees.ForEach(tree => tree.UpdateStateAsync().Forget());
+            _roads.ForEach(road => road.UpdateStateAsync().Forget());
         }
 
         /// <summary>

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Networks;
@@ -59,7 +60,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             GetComponent<RectTransform>().sizeDelta = new Vector2(_width, _height);
         }
 
-        public async void InitializeAsync(Color seasonColor, ETreeId treeId, int stageNumber, Vector3 graphPosition)
+        public async UniTask InitializeAsync(Color seasonColor, ETreeId treeId, int stageNumber, Vector3 graphPosition)
         {
             var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
 

@@ -36,7 +36,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 { EGimmickType.Erasable, Constants.Address.ERASABLE_PREFAB },
             };
 
-        public UniTask Initialize(IEnumerable<GimmickData> gimmicks)
+        public UniTask InitializeAsync(IEnumerable<GimmickData> gimmicks)
         {
             _coroutines = gimmicks.Select(CreateGimmickCoroutine).ToList();
             return UniTask.CompletedTask;

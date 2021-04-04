@@ -369,7 +369,7 @@ namespace Treevel.Modules.GamePlayScene
                 // BoardManagerの初期化
                 BoardManager.Instance.Initialize();
                 // 番号に合わせたステージの作成
-                StageGenerator.CreateStagesAsync(treeId, stageNumber);
+                StageGenerator.CreateStagesAsync(treeId, stageNumber).Forget();
             }
         }
 
@@ -414,7 +414,7 @@ namespace Treevel.Modules.GamePlayScene
             private void EndProcess()
             {
                 _customTimer.StopTimer();
-                SoundManager.Instance.StopBGM();
+                SoundManager.Instance.StopBGMAsync();
                 // 一時停止ボタンを非表示にする
                 Instance._pauseButton.SetActive(false);
 
@@ -588,7 +588,7 @@ namespace Treevel.Modules.GamePlayScene
                 _tutorialWindow.SetActive(false);
 
                 // OpeningState はBGMを流さないため止めとく
-                SoundManager.Instance.StopBGM();
+                SoundManager.Instance.StopBGMAsync();
             }
         }
     }
