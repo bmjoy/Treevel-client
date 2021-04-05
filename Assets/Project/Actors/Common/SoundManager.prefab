@@ -70,7 +70,7 @@ MonoBehaviour:
   - key: GamePlay_Difficult
     clip: {fileID: 8300000, guid: 15038fe8963ac4c33a7dcb6df7aecacd, type: 3}
   _seClipList:
-  - key: UI_Dropdown_close
+  - key: UI_Dropdown_Close
     clip: {fileID: 8300000, guid: 52de34578b0f245b19b8740e6b984f9c, type: 3}
   - key: UI_Button_Click_Start_App
     clip: {fileID: 8300000, guid: 4e1675f9869a54816adacf8513b139e8, type: 3}

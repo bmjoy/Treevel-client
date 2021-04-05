@@ -11,7 +11,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public void PauseBackButtonDown()
         {
-            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_close);
+            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Playing);
         }
 
@@ -20,7 +20,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public void PauseQuitButtonDown()
         {
-            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_close);
+            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
             GamePlayDirector.Instance.failureReason = EFailureReasonType.Others;
             GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
         }

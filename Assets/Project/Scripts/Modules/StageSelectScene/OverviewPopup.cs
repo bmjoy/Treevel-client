@@ -20,7 +20,7 @@ namespace Treevel.Modules.StageSelectScene
 
         public void OnPopupClose()
         {
-            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_close);
+            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
             _disposableOnClosed.Dispose();
             gameObject.SetActive(false);
         }

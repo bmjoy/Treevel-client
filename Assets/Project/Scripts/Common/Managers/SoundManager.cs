@@ -31,7 +31,7 @@ namespace Treevel.Common.Managers
 
     public enum ESEKey
     {
-        UI_Dropdown_close,
+        UI_Dropdown_Close,
         UI_Button_Click_Start_App,
         UI_Button_Click_Start_Game,
         UI_Button_Click_General,
