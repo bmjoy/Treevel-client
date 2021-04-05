@@ -56,7 +56,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 _rigidBody.velocity = Vector2.zero;
                 // アニメーション、SEを止める
                 _animator.speed = 0;
-                SoundManager.Instance.StopSE(new [] { ESEKey.Gimmick_Thunder_1 , ESEKey.Gimmick_Thunder_2});
+                SoundManager.Instance.StopSE(new[] { ESEKey.Gimmick_Thunder_1, ESEKey.Gimmick_Thunder_2 });
             }).AddTo(this);
         }
 
@@ -122,7 +122,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private void Attack()
         {
-            SoundManager.Instance.PlaySERandom(new[] { ESEKey.Gimmick_Thunder_1 , ESEKey.Gimmick_Thunder_2} );
+            SoundManager.Instance.PlaySERandom(new[] { ESEKey.Gimmick_Thunder_1, ESEKey.Gimmick_Thunder_2 });
         }
     }
 }
