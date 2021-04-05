@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
-using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,89 +12,89 @@ namespace Treevel.Modules.MenuSelectScene.Record
     public class GeneralRecordDirector : MonoBehaviour
     {
         /// <summary>
-        /// [UI] "ステージクリア数" の prefab
+        /// Model
+        /// </summary>
+        private GeneralRecordModel _model;
+
+        /// <summary>
+        /// [View] "ステージクリア数" の prefab
         /// </summary>
         [SerializeField] private GameObject _clearStageNum;
 
         /// <summary>
-        /// [UI] "プレイ回数" テキスト
+        /// [View] "プレイ回数" テキスト
         /// </summary>
         [SerializeField] private Text _playNum;
 
         /// <summary>
-        /// [UI] "起動日数" テキスト
+        /// [View] "起動日数" テキスト
         /// </summary>
         [SerializeField] private Text _playDays;
 
         /// <summary>
-        /// [UI] "フリック回数" テキスト
+        /// [View] "フリック回数" テキスト
         /// </summary>
         [SerializeField] private Text _flickNum;
 
         /// <summary>
-        /// [UI] "失敗回数" テキスト
+        /// [View] "失敗回数" テキスト
         /// </summary>
         [SerializeField] private Text _failureNum;
 
         /// <summary>
-        /// [UI] 失敗理由グラフの背景
+        /// [View] 失敗理由グラフの背景
         /// </summary>
         [SerializeField] private GameObject _failureReasonGraphBackground;
 
         /// <summary>
-        /// [UI] 失敗理由グラフの "No Data" テキスト
+        /// [View] 失敗理由グラフの "No Data" テキスト
         /// </summary>
         [SerializeField] private Text _failureReasonGraphNoData;
 
         /// <summary>
-        /// [UI] 失敗理由グラフの要素（Prefab）
+        /// [View] 失敗理由グラフの要素（Prefab）
         /// </summary>
         [SerializeField] private GameObject _failureReasonGraphElementPrefab;
 
         /// <summary>
-        /// [UI] 失敗理由グラフのアイコン（Prefab）
+        /// [View] 失敗理由グラフのアイコン（Prefab）
         /// </summary>
         [SerializeField] private GameObject _failureReasonGraphIconPrefab;
 
         /// <summary>
-        /// [UI] Others のアイコン（Sprite）
+        /// [View] Others のアイコン（Sprite）
         /// </summary>
         [SerializeField] private Sprite _failureReasonOthersIconSprite;
 
         /// <summary>
-        /// [UI] Tornado のアイコン（Sprite）
+        /// [View] Tornado のアイコン（Sprite）
         /// </summary>
         [SerializeField] private Sprite _failureReasonTornadoIconSprite;
 
         /// <summary>
-        /// [UI] Meteorite のアイコン（Sprite）
+        /// [View] Meteorite のアイコン（Sprite）
         /// </summary>
         [SerializeField] private Sprite _failureReasonMeteoriteIconSprite;
 
         /// <summary>
-        /// [UI] AimingMeteorite のアイコン（Sprite）
+        /// [View] AimingMeteorite のアイコン（Sprite）
         /// </summary>
         [SerializeField] private Sprite _failureReasonAimingMeteoriteIconSprite;
 
         /// <summary>
-        /// [UI] Thunder のアイコン（Sprite）
+        /// [View] Thunder のアイコン（Sprite）
         /// </summary>
         [SerializeField] private Sprite _failureReasonThunderIconSprite;
 
         /// <summary>
-        /// [UI] SolarBeam のアイコン（Sprite）
+        /// [View] SolarBeam のアイコン（Sprite）
         /// </summary>
         [SerializeField] private Sprite _failureReasonSolarBeamIconSprite;
 
         /// <summary>
-        /// [UI] Powder のアイコン（Sprite）
+        /// [View] Powder のアイコン（Sprite）
         /// </summary>
         [SerializeField] private Sprite _failureReasonPowderIconSprite;
-
-        /// <summary>
-        /// 全ステージの記録情報
-        /// </summary>
-        private List<StageStatus> _stageStatuses;
 
         /// <summary>
         /// 失敗理由を表示する最低割合
@@ -108,27 +105,36 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void Awake()
         {
-            RecordData.Instance.StartupDaysObservable
+            _model = new GeneralRecordModel();
+
+            /**
+             * Model -> View
+             */
+
+            _model.stageStatusArray
+                .Subscribe(stageStatusArray => {
+                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.state == EStageState.Cleared);
+                    var totalStageNum = stageStatusArray.Length;
+                    _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
+
+                    _playNum.text = stageStatusArray.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
+                    _flickNum.text = stageStatusArray.Select(stageStatus => stageStatus.flickNum).Sum().ToString();
+                    _failureNum.text = stageStatusArray.Select(stageStatus => stageStatus.failureNum).Sum().ToString();
+                })
+                .AddTo(this);
+
+            _model.startupDays
                 .Subscribe(startupDays => _playDays.text = startupDays.ToString())
+                .AddTo(this);
+
+            _model.failureReasonCount
+                .Subscribe(SetupFailureReasonGraph)
                 .AddTo(this);
         }
 
-        private async void OnEnable()
+        private void OnEnable()
         {
-            var tasks = GameDataManager.GetAllStages()
-                // FIXME: 呼ばれるたびに 全ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
-                .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
-            var stageStatuses = await UniTask.WhenAll(tasks);
-
-            var clearStageNum = stageStatuses.Count(stageStatus => stageStatus.state == EStageState.Cleared);
-            var totalStageNum = stageStatuses.Length;
-            _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
-
-            _playNum.text = stageStatuses.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
-            _flickNum.text = stageStatuses.Select(stageStatus => stageStatus.flickNum).Sum().ToString();
-            _failureNum.text = stageStatuses.Select(stageStatus => stageStatus.failureNum).Sum().ToString();
-
-            SetupFailureReasonGraph();
+            _model.FetchStageStatusArrayAsync().Forget();
         }
 
         private void OnDisable()
@@ -137,10 +143,15 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _shouldDestroyPrefabsOnDisable.Clear();
         }
 
-        private void SetupFailureReasonGraph()
+        private void OnDestroy()
+        {
+            _model.Dispose();
+        }
+
+        private void SetupFailureReasonGraph(Dictionary<EFailureReasonType, int> failureReasonCount)
         {
             // 失敗回数の合計
-            var sum = RecordData.Instance.FailureReasonCount.Sum(pair => pair.Value);
+            var sum = failureReasonCount.Sum(pair => pair.Value);
 
             if (sum == 0) {
                 _failureReasonGraphNoData.gameObject.SetActive(true);
@@ -149,12 +160,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             float startPoint = 0;
 
-            var showOthers = RecordData.Instance.FailureReasonCount
+            var showOthers = failureReasonCount
                 .Where(pair => pair.Key == EFailureReasonType.Others)
                 .Select(pair => pair.Value != 0)
                 .First();
 
-            foreach (var pair in RecordData.Instance.FailureReasonCount) {
+            foreach (var pair in failureReasonCount) {
                 // Others は別途扱う
                 if (pair.Key.Equals(EFailureReasonType.Others)) continue;
                 // 0 の場合は無視する

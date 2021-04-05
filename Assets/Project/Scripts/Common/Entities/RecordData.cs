@@ -14,15 +14,7 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 各失敗原因に対する失敗回数
         /// </summary>
-        private Dictionary<EFailureReasonType, int> _failureReasonCount;
-
-        public Dictionary<EFailureReasonType, int> FailureReasonCount {
-            get => _failureReasonCount;
-            set {
-                _failureReasonCount = value;
-                PlayerPrefsUtility.SetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, _failureReasonCount);
-            }
-        }
+        public ReactiveProperty<Dictionary<EFailureReasonType, int>> failureReasonCount;
 
         /// <summary>
         /// 起動日数
@@ -66,9 +58,13 @@ namespace Treevel.Common.Entities
 
         private void Awake()
         {
-            _failureReasonCount = PlayerPrefsUtility.GetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, Default.FAILURE_REASON_COUNT);
+            failureReasonCount = new ReactiveProperty<Dictionary<EFailureReasonType, int>>(PlayerPrefsUtility.GetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, Default.FAILURE_REASON_COUNT));
             _startupDays = new ReactiveProperty<int>(PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, Default.STARTUP_DAYS));
             _lastStartupDate = PlayerPrefsUtility.GetDateTime(Constants.PlayerPrefsKeys.LAST_STARTUP_DATE);
+
+            failureReasonCount
+                .Subscribe(failureReasonCount => PlayerPrefsUtility.SetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, failureReasonCount))
+                .AddTo(this);
 
             _startupDays
                 .Subscribe(startupDays => PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, startupDays))
@@ -79,7 +75,7 @@ namespace Treevel.Common.Entities
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
 
-                _failureReasonCount = Default.FAILURE_REASON_COUNT;
+                failureReasonCount.Value = Default.FAILURE_REASON_COUNT;
                 _startupDays.Value = Default.STARTUP_DAYS;
             }).AddTo(this);
         }
