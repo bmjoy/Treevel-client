@@ -529,7 +529,7 @@ namespace Treevel.Modules.GamePlayScene
                     AddressableAssetManager.LoadScene(seasonId.GetSceneName());
                 } else {
                     // 失敗SE
-                    SoundManager.Instance.PlaySERandom(new []{ ESEKey.GamePlay_Failed_1, ESEKey.GamePlay_Failed_2});
+                    SoundManager.Instance.PlaySERandom(new[] { ESEKey.GamePlay_Failed_1, ESEKey.GamePlay_Failed_2 });
 
                     // 失敗ポップアップを表示
                     _failurePopup.SetActive(true);
