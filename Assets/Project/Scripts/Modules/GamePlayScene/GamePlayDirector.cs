@@ -586,6 +586,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnExit(StateBase to)
             {
                 Instance._stageStatus.tutorialChecked = true;
+                SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
                 _tutorialWindow.SetActive(false);
 
                 // OpeningState はBGMを流さないため止めとく

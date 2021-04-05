@@ -1,4 +1,5 @@
 using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,6 +15,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             UserSettings.CurrentLanguage.Value = language;
         }
     }
