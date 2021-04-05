@@ -284,7 +284,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public void PauseButtonDown()
         {
-            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click2);
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             Dispatch(EGameState.Pausing);
         }
 

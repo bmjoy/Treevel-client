@@ -207,7 +207,7 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public void BackButtonDown()
         {
-            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click2);
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             SoundManager.Instance.PlayBGM(EBGMKey.MenuSelect);
             AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE);
         }

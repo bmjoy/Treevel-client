@@ -30,7 +30,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             base.Awake();
             _button.onClick.AsObservable()
-                .Subscribe(_ => SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click2))
+                .Subscribe(_ => SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General))
                 .AddTo(this);
         }
 

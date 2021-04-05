@@ -72,9 +72,11 @@ MonoBehaviour:
   _seClipList:
   - key: UI_Dropdown_close
     clip: {fileID: 8300000, guid: 52de34578b0f245b19b8740e6b984f9c, type: 3}
-  - key: UI_Button_Click1
+  - key: UI_Button_Click_Start_App
     clip: {fileID: 8300000, guid: 4e1675f9869a54816adacf8513b139e8, type: 3}
-  - key: UI_Button_Click2
+  - key: UI_Button_Click_Start_Game
+    clip: {fileID: 8300000, guid: 4e1675f9869a54816adacf8513b139e8, type: 3}
+  - key: UI_Button_Click_General
     clip: {fileID: 8300000, guid: e267267398d5248fb88e6ed41e959dd0, type: 3}
   - key: UI_Button_Invalid
     clip: {fileID: 8300000, guid: fe2774f7e0f734a7893fa9e56aadffc4, type: 3}

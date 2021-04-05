@@ -73,7 +73,7 @@ namespace Treevel.Modules.StageSelectScene
             goToGameButton = transform.Find("PanelBackground/GoToGame").GetComponent<Button>();
             goToGameButton.OnClickAsObservable()
                 .Subscribe(_ => {
-                    SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click1);
+                    SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_Start_Game);
                     StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber).Forget();
                 })
                 .AddTo(_disposableOnClosed, this);
