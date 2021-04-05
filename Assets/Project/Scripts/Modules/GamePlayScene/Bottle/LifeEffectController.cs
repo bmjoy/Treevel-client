@@ -45,6 +45,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private static readonly Vector3 _POSITION = new Vector3(-75f, 85f);
 
         private Animator _animator;
+        private static readonly int _ANIMATOR_PARAM_BOOL_LAST_LIFE = Animator.StringToHash("LifeLast");
         private Animator _bottleAnimator;
         private static readonly int _ANIMATOR_PARAM_TRIGGER_ATTACKED = Animator.StringToHash("LifeAttacked");
         public static readonly int ANIMATOR_PARAM_TRIGGER_DEAD = Animator.StringToHash("LifeDead");
@@ -117,6 +118,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     // 失敗状態に移行する
                     GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
                 } else if (_life == 1) {
+                    _animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_LIFE, true);
                     // 演出をループさせる
                     _bottleAnimator.SetBool(_ANIMATOR_PARAM_BOOL_ATTACKED_LOOP, true);
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
