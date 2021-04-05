@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
@@ -33,7 +34,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override void UpdateStateAsync()
+        public override UniTask UpdateStateAsync()
         {
             if (branchStates.ContainsKey(saveKey)) {
                 released = branchStates[saveKey];
@@ -62,6 +63,8 @@ namespace Treevel.Modules.StageSelectScene
                 lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
                 lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
+
+            return UniTask.CompletedTask;
         }
 
         /// <summary>

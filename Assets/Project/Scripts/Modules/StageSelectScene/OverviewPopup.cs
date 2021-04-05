@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks.Objects;
@@ -35,7 +36,7 @@ namespace Treevel.Modules.StageSelectScene
             var stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             if (stageData == null) {
-                UIManager.Instance.ShowErrorMessage(EErrorCode.UnknownError);
+                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.UnknownError).Forget();
                 return;
             }
 
@@ -73,8 +74,7 @@ namespace Treevel.Modules.StageSelectScene
             goToGameButton.OnClickAsObservable()
                 .Subscribe(_ => {
                     SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click1);
-                    Debug.Log("GOTO GAME");
-                    StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber);
+                    StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber).Forget();
                 })
                 .AddTo(_disposableOnClosed, this);
         }

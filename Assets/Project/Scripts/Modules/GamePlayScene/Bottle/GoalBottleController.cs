@@ -51,7 +51,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // parse data
             GoalColor = bottleData.goalColor;
             // GoalColorがNoneではないことを保証する
-            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidBottleColor);
+            if (GoalColor == EGoalColor.None) UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidBottleColor).Forget();
 
             await base.InitializeAsync(bottleData);
 

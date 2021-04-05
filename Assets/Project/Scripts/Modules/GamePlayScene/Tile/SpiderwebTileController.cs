@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
@@ -40,16 +41,16 @@ namespace Treevel.Modules.GamePlayScene.Tile
             {
                 if (bottle.GetComponent<DynamicBottleController>() == null) return;
 
-                StopBottleAsync(bottle);
+                StopBottleAsync(bottle).Forget();
             }
 
-            private static async void StopBottleAsync(GameObject bottle)
+            private static async UniTask StopBottleAsync(GameObject bottle)
             {
                 Debug.Log("蜘蛛の巣タイルで拘束");
                 bottle.GetComponent<DynamicBottleController>().IsMovable = false;
 
                 // 引数は milliseconds
-                await Task.Delay(_BIND_TIME * 1000);
+                await UniTask.Delay(_BIND_TIME * 1000);
 
                 bottle.GetComponent<DynamicBottleController>().IsMovable = true;
                 Debug.Log("蜘蛛の巣タイルから解放");

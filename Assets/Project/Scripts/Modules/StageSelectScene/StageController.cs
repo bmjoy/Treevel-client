@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
@@ -99,7 +100,7 @@ namespace Treevel.Modules.StageSelectScene
             if (UserSettings.StageDetails == 1) {
                 StageSelectDirector.Instance.ShowOverPopup(_treeId, stageNumber);
             } else {
-                StageSelectDirector.Instance.GoToGameAsync(_treeId, stageNumber);
+                StageSelectDirector.Instance.GoToGameAsync(_treeId, stageNumber).Forget();
             }
         }
     }

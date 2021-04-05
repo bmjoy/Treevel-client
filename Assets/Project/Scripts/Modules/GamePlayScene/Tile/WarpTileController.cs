@@ -50,7 +50,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 .OnStateExitAsObservable()
                 .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_NAME_HASH_BOTTLEIN)
                 .Subscribe(_ => {
-                    OnExitBottleInAnimationAsync();
+                    OnExitBottleInAnimationAsync().Forget();
                 })
                 .AddTo(this);
 
@@ -59,7 +59,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 .OnStateExitAsObservable()
                 .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_NAME_HASH_BOTTLEOUT)
                 .Subscribe(_ => {
-                    OnExitBottleOutAnimationAsync();
+                    OnExitBottleOutAnimationAsync().Forget();
                 })
                 .AddTo(this);
         }
@@ -131,7 +131,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <summary>
         /// ボトルを吸い込むアニメーション完了後の処理
         /// </summary>
-        private async void OnExitBottleInAnimationAsync()
+        private async UniTask OnExitBottleInAnimationAsync()
         {
             // 呼ばれたタイミングは僅かですがまだ再生終わっていないので待つ
             await UniTask.WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEIN);
@@ -159,7 +159,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         /// <summary>
         /// ボトルを放り出すアニメーション完了後の処理
         /// </summary>
-        private async void OnExitBottleOutAnimationAsync()
+        private async UniTask OnExitBottleOutAnimationAsync()
         {
             // 呼ばれたタイミングは僅かですがまだ再生終わっていない
             await UniTask.WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLEOUT);

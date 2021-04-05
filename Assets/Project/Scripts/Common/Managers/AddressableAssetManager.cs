@@ -132,7 +132,7 @@ namespace Treevel.Common.Managers
                     // アンロード終了後、辞書から削除
                     _loadedAssets.Remove(sceneName);
                 } else {
-                    UIManager.Instance.ShowErrorMessage(EErrorCode.LoadDataError);
+                    UIManager.Instance.ShowErrorMessageAsync(EErrorCode.LoadDataError).Forget();
                 }
             };
 

@@ -18,7 +18,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             { EBottleType.Erasable, Constants.Address.ERASABLE_BOTTLE_PREFAB }
         };
 
-        public static UniTask CreateBottles(List<BottleData> bottleDatas)
+        public static UniTask CreateBottlesAsync(List<BottleData> bottleDatas)
         {
             var tasks = bottleDatas
                 .Where(bottleData => _prefabAddressableKeys.ContainsKey(bottleData.type))

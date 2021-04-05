@@ -34,7 +34,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 .AddTo(this);
         }
 
-        public override async void UpdateStateAsync()
+        public override async UniTask UpdateStateAsync()
         {
             // 現在状態をPlayerPrefsから得る
             state = (ETreeState)Enum.ToObject(typeof(ETreeState),

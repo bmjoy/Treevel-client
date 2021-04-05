@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木の状態の更新
         /// </summary>
-        public abstract void UpdateStateAsync();
+        public abstract UniTask UpdateStateAsync();
 
         /// <summary>
         /// 木の状態を見た目や動作に反映

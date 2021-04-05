@@ -102,7 +102,7 @@ namespace Treevel.Common.Managers
         private void Awake()
         {
             if (!gameObject) {
-                UIManager.Instance.ShowErrorMessage(EErrorCode.UnknownError);
+                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.UnknownError).Forget();
                 return;
             }
 
@@ -222,7 +222,7 @@ namespace Treevel.Common.Managers
             _bgmPlayer.clip = clip;
             _bgmPlayer.time = playback;
             _bgmPlayer.Play();
-            FadeBGMVolumeAsync(0, _bgmPlayer.volume, fadeInTime);
+            FadeBGMVolumeAsync(0, _bgmPlayer.volume, fadeInTime).Forget();
 
             if (_bgmPlayer.loop) {
                 // ループ終わるところでフェイドアウトフェイドインするようにタイマーを設置する
@@ -270,7 +270,7 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// 再生中のBGMを停止する
         /// </summary>
-        public void StopBGM(float fadeOutTime = 2.0f)
+        public void StopBGMAsync(float fadeOutTime = 2.0f)
         {
             FadeBGMVolumeAsync(_bgmPlayer.volume, 0, fadeOutTime).ContinueWith(() => {
                 _bgmPlayer.Stop();
