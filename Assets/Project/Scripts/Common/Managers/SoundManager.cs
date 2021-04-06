@@ -195,10 +195,9 @@ namespace Treevel.Common.Managers
             var clip = GetSEClip(key);
             if (clip == null) return false;
 
-            var player = _sePlayers
+            return _sePlayers
                 .Where(src => src.clip != null)
-                .SingleOrDefault(src => src.clip.name == clip.name);
-            return player != null && player.isPlaying;
+                .Any(src => (src.clip.name == clip.name) && src.isPlaying);
         }
 
         /// <summary>
