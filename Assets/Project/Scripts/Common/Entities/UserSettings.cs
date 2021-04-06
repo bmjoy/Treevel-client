@@ -64,8 +64,14 @@ namespace Treevel.Common.Entities
             }
 
             CurrentLanguage.Subscribe(language => PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, language));
-            BGMVolume.Merge(SEVolume)
-                .Subscribe(_ => SoundManager.Instance.ResetVolume());
+            BGMVolume.Subscribe(value => {
+                PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, value);
+                SoundManager.Instance.ResetVolume();
+            });
+            SEVolume.Subscribe(value => {
+                PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, value);
+                SoundManager.Instance.ResetVolume();
+            });
 
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION)) {
                 _levelSelectScrollPosition =
