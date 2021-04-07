@@ -54,6 +54,8 @@ namespace Treevel.Editor
 
             DrawTutorialData();
 
+            DrawConstraintStages();
+
             DrawOverviewGimmicks();
 
             DrawTileList();
@@ -83,6 +85,33 @@ namespace Treevel.Editor
 
             _numOfGimmicks = _src.GimmickDatas?.Count ?? 0;
             ValidateTiles();
+        }
+
+        private void DrawConstraintStages()
+        {
+            // get serialized property
+            var constraintsProp = serializedObject.FindProperty("constraintStages");
+
+            this.DrawArrayProperty(constraintsProp, (property, idx) => {
+                GUILayout.BeginHorizontal();
+                EditorGUILayout.PrefixLabel($"Stage{idx + 1}");
+
+                var treeId = ETreeId.Spring_1;
+                var stageNum = 1;
+                if (property.stringValue != "") {
+                    (treeId, stageNum) = StageData.DecodeStageIdKey(property.stringValue);
+                }
+
+                var rect = EditorGUILayout.GetControlRect();
+                rect.width = 125.0f;
+                var selectedTree = (ETreeId)EditorGUI.EnumPopup(rect, treeId);
+
+                rect.x += rect.width;
+                var selectedStageNum = EditorGUI.IntField(rect, stageNum);
+
+                property.stringValue = StageData.EncodeStageIdKey(selectedTree, selectedStageNum);
+                GUILayout.EndHorizontal();
+            });
         }
 
         /// <summary>

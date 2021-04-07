@@ -16,6 +16,7 @@ namespace Treevel.Common.Entities.GameDatas
         [SerializeField] private List<GimmickData> gimmicks;
         [SerializeField] private List<EGimmickType> overviewGimmicks;
         [SerializeField] private TutorialData tutorial;
+        [SerializeField] private List<string> constraintStages;
 
         public ETreeId TreeId => treeId;
 
@@ -30,6 +31,8 @@ namespace Treevel.Common.Entities.GameDatas
         public List<EGimmickType> OverviewGimmicks => overviewGimmicks;
 
         public TutorialData Tutorial => tutorial;
+
+        public List<string> ConstraintStages => constraintStages;
 
         /// <summary>
         /// ステージのkeyを生成する
