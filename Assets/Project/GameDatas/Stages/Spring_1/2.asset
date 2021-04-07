@@ -58,14 +58,14 @@ MonoBehaviour:
   - type: 2
     initPos: 5
     goalColor: 1
-    life: 1
+    life: 2
     isSelfish: 0
     isDark: 0
     isReverse: 0
   - type: 2
     initPos: 6
     goalColor: 1
-    life: 1
+    life: 3
     isSelfish: 0
     isDark: 0
     isReverse: 0
@@ -104,8 +104,35 @@ MonoBehaviour:
     isSelfish: 0
     isDark: 0
     isReverse: 0
-  gimmicks: []
-  overviewGimmicks:
+  - type: 3
+    initPos: 12
+    goalColor: 0
+    life: 0
+    isSelfish: 0
+    isDark: 0
+    isReverse: 0
+  gimmicks:
+  - loop: 1
+    appearTime: 3
+    interval: 5
+    type: 0
+    targetDirections: 00000000
+    targetLines: 00000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
+  overviewGimmicks: 
   tutorial:
     type: 2
     image:

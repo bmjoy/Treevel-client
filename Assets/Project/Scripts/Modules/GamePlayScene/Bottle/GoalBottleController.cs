@@ -29,12 +29,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private SpriteGlowEffect _spriteGlowEffect;
 
+        public SpriteRendererUnifier spriteRendererUnifier;
+
         protected override void Awake()
         {
             base.Awake();
             longPressGesture = GetComponent<LongPressGesture>();
             longPressGesture.UseUnityEvents = true;
             longPressGesture.TimeToPress = 0.15f;
+            spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
             EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(this);
             ExitTile.Subscribe(_ => _spriteGlowEffect.enabled = false).AddTo(this);
         }
@@ -55,6 +58,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             await base.InitializeAsync(bottleData);
 
+            // ボトルのスプライトを設定
+            spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
+
             // set handler
             var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);
             lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
@@ -66,9 +72,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             #if UNITY_EDITOR
             name = Constants.BottleName.NORMAL_BOTTLE + Id;
             #endif
-
-            // ボトルのスプライトを設定
-            GetComponent<SpriteRendererUnifier>().SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
         }
 
         /// <summary>

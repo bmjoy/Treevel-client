@@ -63,6 +63,7 @@ namespace Treevel.Common.Entities
         ErrorLoadDataFailed,             // データの読み込みが失敗しました
         ErrorInvalidBottleAccess,        // ボトルの不正アクセスが発生しました。
         ErrorInvalidBottleColor,         // ボトルの色が正しく設定されていません。
+        ErrorInvalidLifeValue,           // ライフの値が正しく設定されていません。
         ErrorInvalidTileColor,           // タイルの色が正しく設定されていません。
     }
 }

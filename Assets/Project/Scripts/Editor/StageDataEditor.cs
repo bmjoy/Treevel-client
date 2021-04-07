@@ -5,6 +5,7 @@ using System.Reflection;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
+using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using UnityEditor;
 using UnityEngine;
@@ -150,7 +151,7 @@ namespace Treevel.Editor
         private static bool DrawObjectHeader(SerializedProperty arrayProp, SerializedProperty elementProp, int index)
         {
             GUILayout.BeginHorizontal();
-            elementProp.isExpanded = EditorGUILayout.Foldout(elementProp.isExpanded, $"{arrayProp.displayName} {index + 1}", toggleOnLabelClick:true);
+            elementProp.isExpanded = EditorGUILayout.Foldout(elementProp.isExpanded, $"{arrayProp.displayName} {index + 1}", toggleOnLabelClick: true);
 
             if (GUILayout.Button("Delete", GUILayout.Width(80)) &&
                 !EditorUtility.DisplayDialog("削除確認", "まじで消すの？？復元できないぞ！？", "やめとこう", "まじで消す")) {
@@ -246,14 +247,11 @@ namespace Treevel.Editor
 
                 EditorGUILayout.PropertyField(bottleDataProp.FindPropertyRelative("initPos"));
 
-                if (((EBottleType)bottleTypeProp.enumValueIndex).IsAttackable()) {
-                    var lifeProp = bottleDataProp.FindPropertyRelative("life");
-                    lifeProp.intValue = Mathf.Max(1, lifeProp.intValue);
-                    EditorGUILayout.PropertyField(lifeProp);
-                }
-
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
+                        var lifeProp = bottleDataProp.FindPropertyRelative("life");
+                        lifeProp.intValue = Mathf.Clamp(lifeProp.intValue, 1, LifeEffectController.MAX_LIFE);
+                        EditorGUILayout.PropertyField(lifeProp);
                         var goalColorElem = bottleDataProp.FindPropertyRelative("goalColor");
                         goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(
                             label: new GUIContent("GoalColor"),

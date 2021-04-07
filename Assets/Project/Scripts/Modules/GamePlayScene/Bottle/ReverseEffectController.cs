@@ -10,7 +10,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private DynamicBottleController _bottleController;
 
         private Animator _animator;
-        private const string _ANIMATOR_PARAM_FLOAT_SPEED = "ReverseSpeed";
+        private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("ReverseSpeed");
 
         private void Awake()
         {
