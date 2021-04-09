@@ -73,7 +73,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
             transform.parent = bottleController.transform;
 
-            if (_life < 1 || MAX_LIFE < _life) UIManager.Instance.ShowErrorMessage(EErrorCode.InvalidLifeValue);
+            if (_life < 1 || MAX_LIFE < _life) UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidLifeValue);
 
             if (_life == 1) {
                 // lifeの初期値が1ならハートを表示しない
