@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
@@ -41,18 +43,29 @@ namespace Treevel.Modules.StageSelectScene
         {
             _stageStatus = await NetworkService.Execute(new GetStageStatusRequest(_treeId, stageNumber));
 
-            UpdateState();
+            UpdateState().Forget();
         }
 
         /// <summary>
         /// ステージの状態の更新
         /// </summary>
-        private void UpdateState()
+        private async UniTask UpdateState()
         {
             var stageData = GameDataManager.GetStage(_treeId, stageNumber);
             if (stageData == null) return;
 
-            state = _stageStatus.state;
+            if (_stageStatus.successNum > 0) {
+                state = EStageState.Cleared;
+            } else if (stageData.ConstraintStages.Count == 0) {
+                state = EStageState.Released;
+            } else {
+                state = (await UniTask.WhenAll(stageData.ConstraintStages.Select(constraintStage => {
+                    var (treeId, stageNum) = StageData.DecodeStageIdKey(constraintStage);
+                    return NetworkService.Execute(new GetStageStatusRequest(treeId, stageNum));
+                }))).All(stageStatus => stageStatus.successNum > 0)
+                    ? EStageState.Released
+                    : EStageState.Unreleased;
+            }
 
             // 状態の反映
             ReflectTreeState();
