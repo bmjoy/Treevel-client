@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Treevel.Common.Managers;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
@@ -37,6 +38,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnEnable()
         {
+            SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
             _trees.ForEach(tree => tree.UpdateStateAsync().Forget());
             _roads.ForEach(road => road.UpdateStateAsync().Forget());
         }
@@ -46,6 +48,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnDisable()
         {
+            SoundManager.Instance.StopSE(ESEKey.LevelSelect_River);
             _trees.ForEach(tree => tree.SaveState());
             _roads.ForEach(road => road.SaveState());
         }

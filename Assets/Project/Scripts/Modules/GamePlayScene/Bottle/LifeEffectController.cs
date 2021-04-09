@@ -1,7 +1,8 @@
-﻿using Treevel.Common.Components;
+using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
+using Treevel.Common.Managers;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using UniRx;
 using UnityEngine;
@@ -104,6 +105,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     _lifeObject.SetActive(false);
 
                     _bottleAnimator.SetTrigger(ANIMATOR_PARAM_TRIGGER_DEAD);
+                    SoundManager.Instance.PlaySE(ESEKey.Bottle_Destroy);
 
                     // ボトルを死んだ状態にする
                     _isDead = true;
@@ -122,8 +124,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     // 演出をループさせる
                     _bottleAnimator.SetBool(_ANIMATOR_PARAM_BOOL_ATTACKED_LOOP, true);
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
+                    SoundManager.Instance.PlaySE(ESEKey.Bottle_Break);
                 } else {
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
+                    SoundManager.Instance.PlaySE(ESEKey.Bottle_Break);
                 }
             }).AddTo(this);
             GamePlayDirector.Instance.GameEnd.Where(_ => !_isDead)

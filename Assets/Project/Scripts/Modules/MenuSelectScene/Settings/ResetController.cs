@@ -22,6 +22,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         {
             _resetButton = GetComponent<Button>();
             _resetButton.onClick.AsObservable().Subscribe(_ => {
+                SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
                 UIManager.Instance.CreateOkCancelMessageDialog(
                     ETextIndex.RecordResetConfirmDialogMessage,
                     ETextIndex.MessageDlgOkBtnText,

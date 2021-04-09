@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using TouchScript.Gestures;
 using Treevel.Common.Attributes;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
@@ -123,6 +124,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             // bottleがワープに入るアニメーション
             _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEIN);
+
+            SoundManager.Instance.PlaySE(ESEKey.Tile_Warp);
         }
 
         /// <summary>
@@ -149,6 +152,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             // bottleがワープから戻るアニメーション再生
             _animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BOTTLEOUT);
+
+            SoundManager.Instance.PlaySE(ESEKey.Tile_Warp);
         }
 
         /// <summary>

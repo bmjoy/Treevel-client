@@ -129,6 +129,8 @@ namespace Treevel.Modules.StageSelectScene
         /// <param name="displacement"> ページ数の増減量 </param>
         private void MovePage(int displacement)
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_SnapScrollView);
+
             _snapScrollView.Page += displacement;
             _snapScrollView.Page = Mathf.Clamp(_snapScrollView.Page, 0, _snapScrollView.MaxPage);
             _snapScrollView.RefreshPage();
@@ -205,6 +207,7 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public void BackButtonDown()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             SoundManager.Instance.PlayBGM(EBGMKey.MenuSelect);
             AddressableAssetManager.LoadScene(Constants.SceneName.MENU_SELECT_SCENE);
         }

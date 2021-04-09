@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Treevel.Common.Managers;
+using UnityEngine;
 using UnityEngine.iOS;
 
 #if UNITY_IOS
@@ -22,6 +23,8 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// </summary>
         public void ReviewButtonDown()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
+
             // iOS の場合
             #if UNITY_IOS
             if (!Device.RequestStoreReview()) {

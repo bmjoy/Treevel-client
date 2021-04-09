@@ -120,6 +120,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 SetGesturesEnabled(false);
                 _startMoveSubject.OnNext(Unit.Default);
 
+                SoundManager.Instance.PlaySE(ESEKey.Bottle_Move);
                 while (transform.position != targetPosition) {
                     transform.position = Vector2.MoveTowards(transform.position, targetPosition, _SPEED);
                     await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);

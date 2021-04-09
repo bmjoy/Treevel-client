@@ -16,6 +16,15 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public Button goToGameButton;
 
+        private CompositeDisposable _disposableOnClosed;
+
+        public void OnPopupClose()
+        {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
+            _disposableOnClosed.Dispose();
+            gameObject.SetActive(false);
+        }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -60,10 +69,14 @@ namespace Treevel.Modules.StageSelectScene
             }
 
             // ゲームを開始するボタン
+            _disposableOnClosed = new CompositeDisposable();
             goToGameButton = transform.Find("PanelBackground/GoToGame").GetComponent<Button>();
             goToGameButton.OnClickAsObservable()
-                .Subscribe(_ => StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber).Forget())
-                .AddTo(this);
+                .Subscribe(_ => {
+                    SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_Start_Game);
+                    StageSelectDirector.Instance.GoToGameAsync(treeId, stageNumber).Forget();
+                })
+                .AddTo(_disposableOnClosed, this);
         }
     }
 }

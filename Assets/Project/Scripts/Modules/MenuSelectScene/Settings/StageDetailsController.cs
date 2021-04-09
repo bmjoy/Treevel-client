@@ -1,4 +1,5 @@
 ﻿using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.Settings
@@ -10,6 +11,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// </summary>
         public void OnButtonDown()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             UserSettings.StageDetails = 1;
         }
 
@@ -18,6 +20,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         /// </summary>
         public void OffButtonDown()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             UserSettings.StageDetails = 0;
         }
     }
