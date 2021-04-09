@@ -36,9 +36,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private Animator _animator;
         private Animator _bottleAnimator;
-        private const string _ANIMATOR_PARAM_INT_SELFISH_TIME = "SelfishTime";
-        private const string _ANIMATOR_PARAM_TRIGGER_IDLE = "SelfishIdle";
-        private const string _ANIMATOR_PARAM_FLOAT_SPEED = "SelfishSpeed";
+        private static readonly int _ANIMATOR_PARAM_INT_SELFISH_TIME = Animator.StringToHash("SelfishTime");
+        private static readonly int _ANIMATOR_PARAM_TRIGGER_IDLE = Animator.StringToHash("SelfishIdle");
+        private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("SelfishSpeed");
 
         private void Awake()
         {
