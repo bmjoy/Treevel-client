@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using PlayFab;
 using Treevel.Common.Networks.Database;
 using Treevel.Common.Utils;
 
@@ -27,6 +27,16 @@ namespace Treevel.Common.Networks.Requests
         {
             // TODO: リクエスト数を減らして、リモートにアクセスする
             return PlayerPrefsUtility.GetObject<TResult>(key);
+        }
+    }
+
+    public abstract class GetListServerRequestBase<T> : ServerRequestBase<IEnumerable<T>>
+    {
+        protected IEnumerable<string> keys;
+
+        public override async UniTask<IEnumerable<T>> Execute()
+        {
+            return await remoteDatabaseService.GetListDataAsync<T>(keys);
         }
     }
 

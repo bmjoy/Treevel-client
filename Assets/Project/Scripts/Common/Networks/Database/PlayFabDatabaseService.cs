@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -37,6 +38,28 @@ namespace Treevel.Common.Networks.Database
                 return JsonUtility.FromJson<T>(result.Data[key].Value);
             } catch (Exception e) {
                 // ローカルに切り替えるため呼び出し先に投げる
+                Debug.LogError(e.Message + e.StackTrace);
+                throw;
+            }
+        }
+
+        public async UniTask<IEnumerable<T>> GetListDataAsync<T>(IEnumerable<string> keys)
+        {
+            var request = new GetUserDataRequest {
+                Keys = keys.ToList(),
+            };
+
+            try {
+                var task = PlayFabClientAPIAsync.GetUserDataAsync(request);
+                var result = await task;
+
+                if (task.Status != UniTaskStatus.Succeeded) {
+                    throw new NetworkErrorException();
+                }
+
+                return result.Data.Values
+                    .Select(record => JsonUtility.FromJson<T>(record.Value));
+            } catch (Exception e) {
                 Debug.LogError(e.Message + e.StackTrace);
                 throw;
             }

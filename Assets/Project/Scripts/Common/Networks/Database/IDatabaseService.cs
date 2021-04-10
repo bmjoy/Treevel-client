@@ -1,5 +1,5 @@
-
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
 namespace Treevel.Common.Networks.Database
@@ -7,6 +7,8 @@ namespace Treevel.Common.Networks.Database
     public interface IDatabaseService
     {
         UniTask<T> GetDataAsync<T>(string key) where T: new();
+
+        UniTask<IEnumerable<T>> GetListDataAsync<T>(IEnumerable<string> key);
 
         UniTask<bool> UpdateDataAsync<T>(string key, T data);
 
