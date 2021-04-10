@@ -120,7 +120,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
             var stageStatuses = await UniTask.WhenAll(tasks);
 
-            var clearStageNum = stageStatuses.Count(stageStatus => stageStatus.state == EStageState.Cleared);
+            var clearStageNum = stageStatuses.Count(stageStatus => stageStatus.IsCleared);
             var totalStageNum = stageStatuses.Length;
             _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
 

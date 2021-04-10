@@ -12,9 +12,9 @@ namespace Treevel.Common.Entities
     public class StageStatus
     {
         /// <summary>
-        /// ステージの状態
+        /// クリアしたかどうか
         /// </summary>
-        public EStageState state;
+        public bool IsCleared => successNum > 0;
 
         /// <summary>
         /// 挑戦回数
@@ -65,25 +65,16 @@ namespace Treevel.Common.Entities
         }
 
         /// <summary>
-        /// 解放する
-        /// </summary>
-        public void ReleaseStage()
-        {
-            state = EStageState.Released;
-        }
-
-        /// <summary>
         /// 成功した時の処理をする
         /// </summary>
         public void Succeed()
         {
-            if (state != EStageState.Cleared) {
+            if (!IsCleared) {
                 challengeNumAtFirstSuccess = challengeNum;
                 firstSuccessDate = DateTime.Now;
             }
 
             successNum++;
-            state = EStageState.Cleared;
         }
 
         /// <summary>

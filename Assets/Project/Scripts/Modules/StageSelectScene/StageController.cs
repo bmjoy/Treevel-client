@@ -54,7 +54,7 @@ namespace Treevel.Modules.StageSelectScene
             var stageData = GameDataManager.GetStage(_treeId, stageNumber);
             if (stageData == null) return;
 
-            if (_stageStatus.successNum > 0) {
+            if (_stageStatus.IsCleared) {
                 state = EStageState.Cleared;
             } else if (stageData.ConstraintStages.Count == 0) {
                 state = EStageState.Released;
@@ -62,7 +62,7 @@ namespace Treevel.Modules.StageSelectScene
                 state = (await UniTask.WhenAll(stageData.ConstraintStages.Select(constraintStage => {
                     var (treeId, stageNum) = StageData.DecodeStageIdKey(constraintStage);
                     return NetworkService.Execute(new GetStageStatusRequest(treeId, stageNum));
-                }))).All(stageStatus => stageStatus.successNum > 0)
+                }))).All(stageStatus => stageStatus.IsCleared)
                     ? EStageState.Released
                     : EStageState.Unreleased;
             }
@@ -71,7 +71,7 @@ namespace Treevel.Modules.StageSelectScene
             ReflectTreeState();
         }
 
-        public void ReflectTreeState()
+        private void ReflectTreeState()
         {
             switch (state) {
                 case EStageState.Unreleased:
@@ -92,15 +92,6 @@ namespace Treevel.Modules.StageSelectScene
                 default:
                     throw new NotImplementedException();
             }
-        }
-
-        /// <summary>
-        /// ステージを解放状態にする
-        /// </summary>
-        public void ReleaseStage()
-        {
-            state = EStageState.Released;
-            _stageStatus?.ReleaseStage();
         }
 
         /// <summary>

@@ -90,7 +90,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
             _model.stageStatusArray
                 .Subscribe(stageStatusArray => {
-                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.state == EStageState.Cleared);
+                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.IsCleared);
                     var totalStageNum = stageStatusArray.Length;
 
                     _clearStageNum.GetComponent<ClearStageNumController>()
@@ -189,7 +189,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 : maxAxisLabelNum + "+";
 
             _model.stageStatusArray.Value
-                .Select((stageStatus, index) => (_graphBars[index], stageStatus.state == EStageState.Cleared, ChallengeNum: stageStatus.challengeNum))
+                .Select((stageStatus, index) => (_graphBars[index], stageStatus.IsCleared, ChallengeNum: stageStatus.challengeNum))
                 .ToList()
                 .ForEach(args => {
                     var (graphBar, isClear, challengeNum) = args;
