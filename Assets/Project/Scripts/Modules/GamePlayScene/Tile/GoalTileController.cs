@@ -1,11 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
-using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
@@ -37,6 +36,11 @@ namespace Treevel.Modules.GamePlayScene.Tile
             _wound.color = GoalColor.GetMainColor();
             _mainColorLayer.color = GoalColor.GetMainColor(_mainColorLayer.color.a);
             bottleHandler = new GoalTileBottleHandler(this);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+                // 表示
+                _wound.GetComponent<SpriteRenderer>().enabled = true;
+                _mainColorLayer.GetComponent<SpriteRenderer>().enabled = true;
+            }).AddTo(compositeDisposableOnGameEnd, this);
             #if UNITY_EDITOR
             name = Constants.TileName.GOAL_TILE + tileData.number;
             #endif
