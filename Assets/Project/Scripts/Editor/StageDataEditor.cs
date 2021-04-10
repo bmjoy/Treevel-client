@@ -87,6 +87,9 @@ namespace Treevel.Editor
             ValidateTiles();
         }
 
+        /// <summary>
+        /// ステージの解放条件を描画する
+        /// </summary>
         private void DrawConstraintStages()
         {
             // get serialized property
