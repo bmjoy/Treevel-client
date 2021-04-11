@@ -6,6 +6,7 @@ using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -30,9 +31,26 @@ namespace Treevel.Common.Managers
 
     public enum ESEKey
     {
-        SE_Success,
-        SE_Failure,
-        SE_ThunderAttack,
+        UI_Dropdown_Close,
+        UI_Button_Click_Start_App,
+        UI_Button_Click_Start_Game,
+        UI_Button_Click_General,
+        UI_Button_Invalid,
+        UI_SnapScrollView,
+        LevelSelect_River,
+        GamePlay_Failed_1,
+        GamePlay_Failed_2,
+        GamePlay_Success,
+        Bottle_Move,
+        Bottle_Break,
+        Bottle_Destroy,
+        Tile_Warp,
+        Gimmick_Powder,
+        Gimmick_Gust,
+        Gimmick_Thunder_1,
+        Gimmick_Thunder_2,
+        Gimmick_Meteorite_Collide,
+        Gimmick_Meteorite_Drop,
     }
 
     public class SoundManager : SingletonObjectBase<SoundManager>
@@ -40,7 +58,7 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// 同時再生できるSEの数
         /// </summary>
-        private const int _MAX_SE_NUM = 8;
+        private const int _MAX_SE_NUM = 16;
 
         /// <summary>
         /// 複数SE同時再生を考慮し、SE用のAudioSourceを複数用意する
@@ -121,10 +139,21 @@ namespace Treevel.Common.Managers
                 // 再生していないAudioSourceを探す
                 var player = _sePlayers.First(source => !source.isPlaying);
 
+                player.clip = clip;
                 player.PlayOneShot(clip);
             } else {
                 Debug.LogWarning($"Failed to Play SE: {key} because audio sources are fully assigned");
             }
+        }
+
+        /// <summary>
+        /// 与えられたSEのリストからランダムで一つを再生
+        /// </summary>
+        /// <param name="keys">SEリスト</param>
+        public void PlaySERandom(ESEKey[] keys)
+        {
+            var playIndex = Random.Range(0, keys.Length);
+            PlaySE(keys[playIndex]);
         }
 
         /// <summary>
@@ -136,10 +165,23 @@ namespace Treevel.Common.Managers
             var clip = GetSEClip(key);
             if (clip == null) return;
 
-            var player = _sePlayers
-                .Where(src => src.clip != null)
-                .SingleOrDefault(src => src.clip.name == clip.name);
-            player?.Stop();
+            var players = _sePlayers
+                .Where(src => src.clip != null && (src.clip.name == clip.name));
+            foreach (var player in players) {
+                player.Stop();
+                player.clip = null;
+            }
+        }
+
+        /// <summary>
+        /// 複数のSEを停止する
+        /// </summary>
+        /// <param name="keys">停止したいSEのリスト</param>
+        public void StopSE(IEnumerable<ESEKey> keys)
+        {
+            foreach (var key in keys) {
+                StopSE(key);
+            }
         }
 
         /// <summary>
@@ -152,10 +194,9 @@ namespace Treevel.Common.Managers
             var clip = GetSEClip(key);
             if (clip == null) return false;
 
-            var player = _sePlayers
+            return _sePlayers
                 .Where(src => src.clip != null)
-                .SingleOrDefault(src => src.clip.name == clip.name);
-            return player != null && player.isPlaying;
+                .Any(src => (src.clip.name == clip.name) && src.isPlaying);
         }
 
         /// <summary>

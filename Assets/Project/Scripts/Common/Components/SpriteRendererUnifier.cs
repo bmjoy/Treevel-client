@@ -29,6 +29,9 @@ namespace Treevel.Common.Components
             baseWidth = Constants.WindowSize.WIDTH;
         }
 
+        /// <summary>
+        /// SpriteおよびColliderのサイズを画面に対する比率で調整する
+        /// </summary>
         public void Unify()
         {
             if (_renderer.sprite == null) return;
@@ -40,14 +43,16 @@ namespace Treevel.Common.Components
             var heightEfficient = widthEfficient * ImageRatio;
             transform.localScale = new Vector3(widthEfficient / originalWidth, heightEfficient / originalHeight);
 
-            _renderer.enabled = true;
-
             var collider = GetComponent<BoxCollider2D>();
             if (collider == null) return;
 
             collider.size = new Vector2(originalWidth, originalHeight);
         }
 
+        /// <summary>
+        /// Spriteを設定し、サイズを調整する
+        /// </summary>
+        /// <param name="sprite"></param>
         public void SetSprite(Sprite sprite)
         {
             _renderer.sprite = sprite;

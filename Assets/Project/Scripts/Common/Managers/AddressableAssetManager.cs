@@ -274,6 +274,10 @@ namespace Treevel.Common.Managers
                         }
 
                         break;
+                    case EGimmickType.Erasable:
+                        tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.ERASABLE_PREFAB));
+                        tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.ERASABLE_BOTTLE_PREFAB));
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

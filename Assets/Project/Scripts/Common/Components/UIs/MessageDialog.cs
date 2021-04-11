@@ -1,5 +1,6 @@
 ﻿using System;
 using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,11 +39,16 @@ namespace Treevel.Common.Components.UIs
         private void Awake()
         {
             _cancelButton.onClick.AsObservable()
-                .Subscribe(_ => gameObject.SetActive(false))
+                .Subscribe(_ => {
+                    SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
+                    gameObject.SetActive(false);
+                })
                 .AddTo(this);
 
             _okButton.onClick.AsObservable()
                 .Subscribe(_ => {
+                    SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
+
                     // コールバックが設定されていたら実行する
                     _okCallBack?.Invoke();
                     // ユースケース的には必要ないが、安全のために null に戻しておく

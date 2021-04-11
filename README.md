@@ -1,4 +1,4 @@
 # Treevel-client
 
 ## Requirements
-- `Unity`: `2020.1.7f1`  
+- `Unity`: `2021.1.2f1`  

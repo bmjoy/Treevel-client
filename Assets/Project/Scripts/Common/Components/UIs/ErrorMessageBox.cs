@@ -54,6 +54,8 @@ namespace Treevel.Common.Components.UIs
         /// </summary>
         public void OnReturnToTitleButtonClicked()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
+
             // スプラッシュ画面に変える
             AddressableAssetManager.LoadScene(Constants.SceneName.START_UP_SCENE);
 

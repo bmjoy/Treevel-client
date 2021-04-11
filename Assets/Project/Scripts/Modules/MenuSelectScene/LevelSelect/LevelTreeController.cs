@@ -7,6 +7,7 @@ using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using Treevel.Modules.StageSelectScene;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,14 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         [SerializeField] private Material _material;
 
         [SerializeField] private Button _button;
+
+        public override void Awake()
+        {
+            base.Awake();
+            _button.onClick.AsObservable()
+                .Subscribe(_ => SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General))
+                .AddTo(this);
+        }
 
         public override async UniTask UpdateStateAsync()
         {

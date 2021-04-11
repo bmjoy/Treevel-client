@@ -284,6 +284,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public void PauseButtonDown()
         {
+            SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             Dispatch(EGameState.Pausing);
         }
 
@@ -478,7 +479,7 @@ namespace Treevel.Modules.GamePlayScene
                 Instance._stageStatus.Succeed();
                 Instance._stageStatus.Save(treeId, stageNumber);
 
-                SoundManager.Instance.PlaySE(ESEKey.SE_Success);
+                SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
                 // 成功ポップアップ表示
                 _successPopup.SetActive(true);
@@ -528,7 +529,7 @@ namespace Treevel.Modules.GamePlayScene
                     AddressableAssetManager.LoadScene(seasonId.GetSceneName());
                 } else {
                     // 失敗SE
-                    SoundManager.Instance.PlaySE(ESEKey.SE_Failure);
+                    SoundManager.Instance.PlaySERandom(new[] { ESEKey.GamePlay_Failed_1, ESEKey.GamePlay_Failed_2 });
 
                     // 失敗ポップアップを表示
                     _failurePopup.SetActive(true);
@@ -585,6 +586,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnExit(StateBase to)
             {
                 Instance._stageStatus.tutorialChecked = true;
+                SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
                 _tutorialWindow.SetActive(false);
 
                 // OpeningState はBGMを流さないため止めとく

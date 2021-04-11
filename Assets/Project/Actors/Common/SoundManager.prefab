@@ -70,12 +70,46 @@ MonoBehaviour:
   - key: GamePlay_Difficult
     clip: {fileID: 8300000, guid: 15038fe8963ac4c33a7dcb6df7aecacd, type: 3}
   _seClipList:
-  - key: SE_Success
-    clip: {fileID: 8300000, guid: a14d6b98f708440f2bc2826d29e996ca, type: 3}
-  - key: SE_Failure
-    clip: {fileID: 8300000, guid: 97e600818a87948bbbd2823502624fb4, type: 3}
-  - key: SE_ThunderAttack
-    clip: {fileID: 8300000, guid: e141eba38ef494fe38b49ad437137deb, type: 3}
+  - key: UI_Dropdown_Close
+    clip: {fileID: 8300000, guid: 52de34578b0f245b19b8740e6b984f9c, type: 3}
+  - key: UI_Button_Click_Start_App
+    clip: {fileID: 8300000, guid: 4e1675f9869a54816adacf8513b139e8, type: 3}
+  - key: UI_Button_Click_Start_Game
+    clip: {fileID: 8300000, guid: 4e1675f9869a54816adacf8513b139e8, type: 3}
+  - key: UI_Button_Click_General
+    clip: {fileID: 8300000, guid: e267267398d5248fb88e6ed41e959dd0, type: 3}
+  - key: UI_Button_Invalid
+    clip: {fileID: 8300000, guid: fe2774f7e0f734a7893fa9e56aadffc4, type: 3}
+  - key: UI_SnapScrollView
+    clip: {fileID: 8300000, guid: 43e7678ea0d594d4592b39a241284992, type: 3}
+  - key: LevelSelect_River
+    clip: {fileID: 8300000, guid: f3f272c157dec4908a8f55a4475b4127, type: 3}
+  - key: GamePlay_Failed_1
+    clip: {fileID: 8300000, guid: 2599b21a5a8d24bc6aaf48fd2b4325c4, type: 3}
+  - key: GamePlay_Failed_2
+    clip: {fileID: 8300000, guid: 3cd62fa6ea8e5458fa18e73fd1b8d7ea, type: 3}
+  - key: GamePlay_Success
+    clip: {fileID: 8300000, guid: c227702d09db9477886cbdc72d08e26c, type: 3}
+  - key: Bottle_Move
+    clip: {fileID: 8300000, guid: ae5588d5f8f464668b28b0ea81f901dd, type: 3}
+  - key: Bottle_Break
+    clip: {fileID: 8300000, guid: 56fdc71433e334cb7b433370baffa365, type: 3}
+  - key: Bottle_Destroy
+    clip: {fileID: 8300000, guid: 0880b31069d6241778f5857fc512bf81, type: 3}
+  - key: Tile_Warp
+    clip: {fileID: 8300000, guid: ecf72e4bdbe7c40c58c1b3f6749bf8db, type: 3}
+  - key: Gimmick_Powder
+    clip: {fileID: 8300000, guid: 9e5267eb39c2c4c77aa61caaf948357b, type: 3}
+  - key: Gimmick_Gust
+    clip: {fileID: 8300000, guid: 6e4ee6fb9c2cc4503b099e7a22d651e7, type: 3}
+  - key: Gimmick_Thunder_1
+    clip: {fileID: 8300000, guid: 9b9e605d6a8d043cdbfe545a04543aff, type: 3}
+  - key: Gimmick_Thunder_2
+    clip: {fileID: 8300000, guid: 321a7535daaef4b8c96de7fc1a0913e2, type: 3}
+  - key: Gimmick_Meteorite_Collide
+    clip: {fileID: 8300000, guid: 07ea17bb31c1a4e54bf55d023a2e5631, type: 3}
+  - key: Gimmick_Meteorite_Drop
+    clip: {fileID: 8300000, guid: ea1901f8359f640dca12203a7a35bdc3, type: 3}
   _INITIAL_BGM_VOLUME: 0.25
   _INITIAL_SE_VOLUME: 1
 --- !u!81 &1835023510
