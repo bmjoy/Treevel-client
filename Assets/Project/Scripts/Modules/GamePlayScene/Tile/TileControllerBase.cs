@@ -1,6 +1,6 @@
 ﻿using Treevel.Common.Components;
-using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
@@ -30,6 +30,10 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             TileNumber = tileNum;
             GetComponent<SpriteRendererUnifier>().Unify();
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+                // 表示
+                GetComponent<SpriteRenderer>().enabled = true;
+            }).AddTo(compositeDisposableOnGameEnd, this);
         }
 
         /// <summary>

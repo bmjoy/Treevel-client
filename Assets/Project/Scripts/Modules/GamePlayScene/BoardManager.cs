@@ -437,6 +437,8 @@ namespace Treevel.Modules.GamePlayScene
 
                 // 適切な場所に設置
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
+                // 表示
+                bottle.GetComponent<SpriteRenderer>().enabled = true;
             }
         }
 
