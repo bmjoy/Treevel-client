@@ -48,7 +48,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnDisable()
         {
-            SoundManager.Instance.StopSE(ESEKey.LevelSelect_River);
+            if (SoundManager.Instance)
+                SoundManager.Instance.StopSE(ESEKey.LevelSelect_River);
             _trees.ForEach(tree => tree.SaveState());
             _roads.ForEach(road => road.SaveState());
         }
