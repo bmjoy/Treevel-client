@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class SelfishEffectController : GameObjectControllerBase
+    public class SelfishAttributeController : GameObjectControllerBase
     {
         private DynamicBottleController _bottleController;
 
@@ -71,7 +71,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }).AddTo(this);
 
             // 描画順序の設定
-            GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Selfish.GetOrderInLayer();
+            GetComponent<SpriteRenderer>().sortingOrder = EBottleAttributeType.Selfish.GetOrderInLayer();
         }
 
         private void FixedUpdate()

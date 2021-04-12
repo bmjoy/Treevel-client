@@ -89,10 +89,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // set handlers
             if (bottleData.isSelfish) {
-                var selfishEffect =
-                    await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_EFFECT_PREFAB).ToUniTask();
+                var selfishAttribute =
+                    await AddressableAssetManager.Instantiate(Constants.Address.SELFISH_ATTRIBUTE_PREFAB).ToUniTask();
 
-                selfishEffect.GetComponent<SelfishEffectController>().Initialize(this);
+                selfishAttribute.GetComponent<SelfishAttributeController>().Initialize(this);
             }
 
             if (bottleData.isReverse) {

@@ -145,7 +145,7 @@ namespace Treevel.Common.Utils
             public const string GOAL_BOTTLE_SPRITE_PREFIX = "goalBottle_";
 
             // ボトル関連のエフェクト
-            public const string SELFISH_EFFECT_PREFAB = "SelfishEffectPrefab";
+            public const string SELFISH_ATTRIBUTE_PREFAB = "SelfishAttributePrefab";
             public const string LIFE_ATTRIBUTE_PREFAB = "LifeAttributePrefab";
             public const string LIFE_VALUE_SPRITE_PREFIX = "life_";
             public const string LIFE_CRACK_SPRITE_INFIX = "_life_";
