@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class LifeEffectController : GameObjectControllerBase
+    public class LifeAttributeController : GameObjectControllerBase
     {
         public const int MAX_LIFE = 3;
 
@@ -55,7 +55,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
         private void Awake()
         {
-            // 現状、LifeEffectについてのアニメーション演出はない
+            // 現状、LifeAttributeについてのアニメーション演出はない
             _animator = GetComponent<Animator>();
             _lifeSpriteRenderer = _lifeObject.GetComponent<SpriteRenderer>();
         }

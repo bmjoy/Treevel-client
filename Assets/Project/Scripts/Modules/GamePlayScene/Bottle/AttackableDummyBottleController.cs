@@ -19,8 +19,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             #endif
 
             // set handler
-            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);
-            lifeEffect.GetComponent<LifeEffectController>().Initialize(this, 1);
+            var lifeAttribute = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_ATTRIBUTE_PREFAB);
+            lifeAttribute.GetComponent<LifeAttributeController>().Initialize(this, 1);
         }
     }
 }

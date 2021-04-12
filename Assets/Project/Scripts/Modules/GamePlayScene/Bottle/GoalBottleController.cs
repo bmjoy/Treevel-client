@@ -62,8 +62,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(bottleData.goalColor.GetBottleAddress()));
 
             // set handler
-            var lifeEffect = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_EFFECT_PREFAB);
-            lifeEffect.GetComponent<LifeEffectController>().Initialize(this, bottleData.life);
+            var lifeAttribute = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_ATTRIBUTE_PREFAB);
+            lifeAttribute.GetComponent<LifeAttributeController>().Initialize(this, bottleData.life);
             if (bottleData.isDark) {
                 var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB);
                 darkEffect.GetComponent<DarkEffectController>().Initialize(this);

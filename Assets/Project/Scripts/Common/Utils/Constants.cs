@@ -146,7 +146,7 @@ namespace Treevel.Common.Utils
 
             // ボトル関連のエフェクト
             public const string SELFISH_EFFECT_PREFAB = "SelfishEffectPrefab";
-            public const string LIFE_EFFECT_PREFAB = "LifeEffectPrefab";
+            public const string LIFE_ATTRIBUTE_PREFAB = "LifeAttributePrefab";
             public const string LIFE_VALUE_SPRITE_PREFIX = "life_";
             public const string LIFE_CRACK_SPRITE_INFIX = "_life_";
             public const string DARK_EFFECT_PREFAB = "DarkEffectPrefab";
