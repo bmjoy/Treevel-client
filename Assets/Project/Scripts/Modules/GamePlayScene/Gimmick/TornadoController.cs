@@ -28,7 +28,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// <summary>
         /// 警告のプレハブ
         /// </summary>
-        [SerializeField] protected AssetReferenceGameObject _warningPrefab;
+        [SerializeField] private AssetReferenceGameObject _warningPrefab;
 
         /// <summary>
         /// 竜巻の移動方向

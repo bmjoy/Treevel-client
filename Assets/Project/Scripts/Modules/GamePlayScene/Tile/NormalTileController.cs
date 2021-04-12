@@ -1,6 +1,4 @@
 ﻿using Treevel.Common.Components;
-using Treevel.Common.Entities;
-using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UnityEngine;
