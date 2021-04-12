@@ -54,7 +54,6 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         public override void SaveState()
         {
-            // branchStates[saveKey] = released;
         }
     }
 }
