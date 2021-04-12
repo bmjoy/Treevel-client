@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class ReverseEffectController : GameObjectControllerBase
+    public class ReverseAttributeController : GameObjectControllerBase
     {
         private DynamicBottleController _bottleController;
 
@@ -27,7 +27,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // 描画順序の設定
-            GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Reverse.GetOrderInLayer();
+            GetComponent<SpriteRenderer>().sortingOrder = EBottleAttributeType.Reverse.GetOrderInLayer();
         }
     }
 }

@@ -96,9 +96,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             }
 
             if (bottleData.isReverse) {
-                var reverseEffect =
-                    await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_EFFECT_PREFAB).ToUniTask();
-                reverseEffect.GetComponent<ReverseEffectController>().Initialize(this);
+                var reverseAttribute =
+                    await AddressableAssetManager.Instantiate(Constants.Address.REVERSE_ATTRIBUTE_PREFAB).ToUniTask();
+                reverseAttribute.GetComponent<ReverseAttributeController>().Initialize(this);
                 _isReverse = true;
             }
         }
