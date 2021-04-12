@@ -12,7 +12,7 @@ namespace Treevel.Common.Entities
     {
         /// <summary>
         /// レイヤー内の描画順序を取得する
-        /// 0番目はBottleの描画順序なので、Effectの順序は1番以降
+        /// 0番目はBottleの描画順序なので、Attributeの順序は1番以降
         /// </summary>
         public static int GetOrderInLayer(this EBottleAttributeType type)
         {
