@@ -30,7 +30,8 @@ namespace Treevel.Modules.StageSelectScene
         {
             if (constraintObjects.Length == 0) return UniTask.CompletedTask;
 
-            if (constraintObjects.Select(go => go.GetComponent<StageController>()).All(x => x.state == EStageState.Cleared)) {
+            if (constraintObjects.Select(gameObj => gameObj.GetComponent<StageController>())
+                    .All(stageController => stageController.state == EStageState.Cleared)) {
                 if (!animationPlayedBranches.Contains(saveKey)) {
                     // TODO 枝解放時演出
                     Debug.Log($"{saveKey}が解放された");
