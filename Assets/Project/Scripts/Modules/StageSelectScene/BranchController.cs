@@ -15,6 +15,9 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
+        /// <summary>
+        /// 演出再生済みのブランチリスト
+        /// </summary>
         public static List<string> animationPlayedBranches;
 
         protected override void SetSaveKey()
