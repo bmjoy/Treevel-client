@@ -43,6 +43,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         public async UniTask FetchStageStatusArrayAsync()
         {
             var tasks = GameDataManager.GetAllStages()
+                // FIXME: 呼ばれるたびに 全ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
                 .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
 
             stageStatusArray.Value = await UniTask.WhenAll(tasks);
