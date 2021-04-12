@@ -65,8 +65,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             var lifeAttribute = await AddressableAssetManager.Instantiate(Constants.Address.LIFE_ATTRIBUTE_PREFAB);
             lifeAttribute.GetComponent<LifeAttributeController>().Initialize(this, bottleData.life);
             if (bottleData.isDark) {
-                var darkEffect = await AddressableAssetManager.Instantiate(Constants.Address.DARK_EFFECT_PREFAB);
-                darkEffect.GetComponent<DarkEffectController>().Initialize(this);
+                var darkAttribute = await AddressableAssetManager.Instantiate(Constants.Address.DARK_ATTRIBUTE_PREFAB);
+                darkAttribute.GetComponent<DarkAttributeController>().Initialize(this);
             }
 
             #if UNITY_EDITOR

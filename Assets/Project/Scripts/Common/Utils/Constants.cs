@@ -149,8 +149,8 @@ namespace Treevel.Common.Utils
             public const string LIFE_ATTRIBUTE_PREFAB = "LifeAttributePrefab";
             public const string LIFE_VALUE_SPRITE_PREFIX = "life_";
             public const string LIFE_CRACK_SPRITE_INFIX = "_life_";
-            public const string DARK_EFFECT_PREFAB = "DarkEffectPrefab";
             public const string REVERSE_EFFECT_PREFAB = "ReverseEffectPrefab";
+            public const string DARK_ATTRIBUTE_PREFAB = "DarkAttributePrefab";
 
             // タイル関連
             public const string NORMAL_TILE_PREFAB = "NormalTilePrefab";

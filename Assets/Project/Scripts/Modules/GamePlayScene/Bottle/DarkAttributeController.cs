@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
     [RequireComponent(typeof(Animator))]
-    public class DarkEffectController : GameObjectControllerBase
+    public class DarkAttributeController : GameObjectControllerBase
     {
         private GoalBottleController _bottleController;
 
@@ -41,7 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
 
             // 描画順序の設定
-            GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Dark.GetOrderInLayer();
+            GetComponent<SpriteRenderer>().sortingOrder = EBottleAttributeType.Dark.GetOrderInLayer();
 
             // 初期状態の登録
             _isSuccess = _bottleController.IsSuccess();
