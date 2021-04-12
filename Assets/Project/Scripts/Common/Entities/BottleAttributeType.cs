@@ -1,6 +1,6 @@
 namespace Treevel.Common.Entities
 {
-    public enum EBottleEffectType
+    public enum EBottleAttributeType
     {
         Dark,
         Reverse,
@@ -8,13 +8,13 @@ namespace Treevel.Common.Entities
         Life,
     }
 
-    public static class BottleEffectTypeExtension
+    public static class BottleAttributeTypeExtension
     {
         /// <summary>
         /// レイヤー内の描画順序を取得する
         /// 0番目はBottleの描画順序なので、Effectの順序は1番以降
         /// </summary>
-        public static int GetOrderInLayer(this EBottleEffectType type)
+        public static int GetOrderInLayer(this EBottleAttributeType type)
         {
             return (int)type + 1;
         }

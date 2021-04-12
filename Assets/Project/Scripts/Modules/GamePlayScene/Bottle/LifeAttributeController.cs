@@ -138,7 +138,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }).AddTo(this);
 
             // 描画順序の設定
-            GetComponent<SpriteRenderer>().sortingOrder = EBottleEffectType.Life.GetOrderInLayer();
+            GetComponent<SpriteRenderer>().sortingOrder = EBottleAttributeType.Life.GetOrderInLayer();
         }
 
         // 数字画像を設定する
