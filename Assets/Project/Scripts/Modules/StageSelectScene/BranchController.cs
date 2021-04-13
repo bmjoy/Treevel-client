@@ -48,12 +48,5 @@ namespace Treevel.Modules.StageSelectScene
 
             return UniTask.CompletedTask;
         }
-
-        /// <summary>
-        /// 枝の状態の保存
-        /// </summary>
-        public override void SaveState()
-        {
-        }
     }
 }
