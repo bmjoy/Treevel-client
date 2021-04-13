@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
@@ -100,6 +101,11 @@ namespace Treevel.Common.Managers
         /// </summary>
         private IDisposable _loopVolumeController;
 
+        /// <summary>
+        /// Fade中のタスクをキャンセル用トークン
+        /// </summary>
+        private CancellationTokenSource _fadeCancellationToken;
+
         private void Awake()
         {
             if (!gameObject) {
@@ -121,6 +127,9 @@ namespace Treevel.Common.Managers
 
                 _sePlayers[i] = player;
             }
+
+            _fadeCancellationToken = new CancellationTokenSource();
+            _fadeCancellationToken.RegisterRaiseCancelOnDestroy(this);
 
             ResetVolume();
             DontDestroyOnLoad(gameObject);
@@ -246,6 +255,9 @@ namespace Treevel.Common.Managers
 
             var elapsed = 0f;
             while (elapsed < time) {
+                if (_fadeCancellationToken.Token.IsCancellationRequested)
+                    return;
+
                 _bgmPlayer.volume = Mathf.Lerp(from, to, elapsed / time);
                 await UniTask.WaitForEndOfFrame();
                 elapsed += Time.deltaTime;
