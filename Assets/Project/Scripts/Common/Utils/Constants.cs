@@ -187,6 +187,15 @@ namespace Treevel.Common.Utils
         }
 
         /// <summary>
+        /// 理想的なデバイス(iPhone X/XS)のサイズ
+        /// </summary>
+        public static class DeviceSize
+        {
+            public const int WIDTH = 1125;
+            public const int HEIGHT = 2236;
+        }
+
+        /// <summary>
         /// ゲーム画面のウィンドウサイズ
         /// </summary>
         public static class WindowSize
