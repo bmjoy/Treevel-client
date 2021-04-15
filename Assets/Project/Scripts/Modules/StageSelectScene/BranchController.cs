@@ -2,6 +2,10 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
@@ -29,12 +33,16 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override UniTask UpdateStateAsync()
+        public override async UniTask UpdateStateAsync()
         {
-            if (constraintObjects.Length == 0) return UniTask.CompletedTask;
+            var constraintStageData = GameDataManager.GetStage(_treeId, endObject.GetComponent<StageController>().stageNumber);
+            var constraintStages = constraintStageData.ConstraintStages;
+            if (constraintStages.Count == 0) return;
 
-            if (constraintObjects.Select(gameObj => gameObj.GetComponent<StageController>())
-                    .All(stageController => stageController.state == EStageState.Cleared)) {
+            if ((await UniTask.WhenAll(constraintStages.Select(stageId => {
+                    var (treeId, stageNum) = StageData.DecodeStageIdKey(stageId);
+                    return NetworkService.Execute(new GetStageStatusRequest(treeId, stageNum));
+            }))).All(stageData => stageData.IsCleared)) {
                 if (!animationPlayedBranches.Contains(saveKey)) {
                     // TODO 枝解放時演出
                     Debug.Log($"{saveKey}が解放された");
@@ -45,8 +53,6 @@ namespace Treevel.Modules.StageSelectScene
                 lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
                 lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
-
-            return UniTask.CompletedTask;
         }
     }
 }
