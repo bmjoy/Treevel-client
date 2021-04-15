@@ -22,6 +22,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private List<RoadController> _roads;
 
+        /// <summary>
+        /// アプリ閉じているかどうか（#837の回避策）
+        /// </summary>
+        private bool _isQuitApplication;
+
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList();
@@ -43,12 +48,18 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _roads.ForEach(road => road.UpdateStateAsync().Forget());
         }
 
+        private void OnApplicationQuit()
+        {
+            _isQuitApplication = true;
+        }
+
         /// <summary>
         /// 木と道の状態の保存
         /// </summary>
         private void OnDisable()
         {
-            SoundManager.Instance.StopSE(ESEKey.LevelSelect_River);
+            if (!_isQuitApplication)
+                SoundManager.Instance.StopSE(ESEKey.LevelSelect_River);
             _trees.ForEach(tree => tree.SaveState());
             _roads.ForEach(road => road.SaveState());
         }

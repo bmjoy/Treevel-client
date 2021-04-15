@@ -287,7 +287,7 @@ namespace Treevel.Editor
                 switch ((EBottleType)bottleTypeProp.enumValueIndex) {
                     case EBottleType.Normal: {
                         var lifeProp = bottleDataProp.FindPropertyRelative("life");
-                        lifeProp.intValue = Mathf.Clamp(lifeProp.intValue, 1, LifeEffectController.MAX_LIFE);
+                        lifeProp.intValue = Mathf.Clamp(lifeProp.intValue, 1, LifeAttributeController.MAX_LIFE);
                         EditorGUILayout.PropertyField(lifeProp);
                         var goalColorElem = bottleDataProp.FindPropertyRelative("goalColor");
                         goalColorElem.intValue = (int)(EGoalColor)EditorGUILayout.EnumPopup(

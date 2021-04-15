@@ -176,7 +176,7 @@ namespace Treevel.Common.Managers
                         break;
                     case EBottleType.Normal:
                         tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.GOAL_BOTTLE_PREFAB));
-                        for (var life = 1; life <= LifeEffectController.MAX_LIFE; life++) {
+                        for (var life = 1; life <= LifeAttributeController.MAX_LIFE; life++) {
                             // 残りライフの数字画像
                             tasks.Add(LoadAssetAsync<Sprite>(Constants.Address.LIFE_VALUE_SPRITE_PREFIX + life));
                         }
