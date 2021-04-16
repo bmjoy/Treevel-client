@@ -9,9 +9,7 @@ namespace Treevel.Common.Utils
         /// </summary>
         public static class ScaledCanvasSize
         {
-            public static readonly Vector2 SIZE_DELTA = GameObject.Find("UIManager/Canvas") ?
-                GameObject.Find("UIManager/Canvas").GetComponent<RectTransform>().sizeDelta :
-                new Vector2(Constants.DeviceSize.WIDTH, Constants.DeviceSize.HEIGHT);
+            public static readonly Vector2 SIZE_DELTA = GameObject.Find("UIManager/Canvas")?.GetComponent<RectTransform>().sizeDelta ?? new Vector2();
         }
     }
 }
