@@ -72,8 +72,7 @@ namespace Treevel.Modules.StageSelectScene
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE)
                 .Select(tree => tree.GetComponent<StageTreeController>()).ToList();
-            BranchController.branchStates =
-                PlayerPrefsUtility.GetDictionary<string, bool>(Constants.PlayerPrefsKeys.BRANCH_STATE);
+            BranchController.animationPlayedBranches = PlayerPrefsUtility.GetList<string>(Constants.PlayerPrefsKeys.BRANCH_STATE);
             _branches = GameObject.FindGameObjectsWithTag(Constants.TagName.BRANCH)
                 .Select(branch => branch.GetComponent<BranchController>()).ToList();
 
@@ -120,7 +119,7 @@ namespace Treevel.Modules.StageSelectScene
         private void OnDisable()
         {
             _branches.ForEach(branch => branch.SaveState());
-            PlayerPrefsUtility.SetDictionary(Constants.PlayerPrefsKeys.BRANCH_STATE, BranchController.branchStates);
+            PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.BRANCH_STATE, BranchController.animationPlayedBranches);
         }
 
         /// <summary>

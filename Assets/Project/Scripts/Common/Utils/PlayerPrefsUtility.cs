@@ -36,6 +36,18 @@ namespace Treevel.Common.Utils
         }
 
         /// <summary>
+        /// 指定されたリスト型オブジェクト情報を保存
+        /// </summary>
+        /// <param name="key">キー</param>
+        /// <param name="list">保存するリストオブジェクト</param>
+        /// <typeparam name="T">リストの要素の型</typeparam>
+        public static void SetList<T>(string key, List<T> list)
+        {
+            var serializedList = Serialize(list);
+            PlayerPrefs.SetString(key, serializedList);
+        }
+
+        /// <summary>
         /// DateTime 型を PlayerPrefs に保存する
         /// </summary>
         /// <param name="key"> PlayerPrefs のキー </param>
@@ -80,6 +92,22 @@ namespace Treevel.Common.Utils
 
             var serizlizedDictionary = PlayerPrefs.GetString(key);
             return Deserialize<Dictionary<TKey, TValue>>(serizlizedDictionary);
+        }
+
+        /// <summary>
+        /// 指定されたリスト型オブジェクト情報を読み込む
+        /// </summary>
+        /// <param name="key">キー</param>
+        /// <typeparam name="T">リストの要素の型</typeparam>
+        /// <returns></returns>
+        public static List<T> GetList<T>(string key)
+        {
+            if (!PlayerPrefs.HasKey(key)) {
+                return new List<T>();
+            }
+
+            var serializedList = PlayerPrefs.GetString(key);
+            return Deserialize<List<T>>(serializedList);
         }
 
         /// <summary>

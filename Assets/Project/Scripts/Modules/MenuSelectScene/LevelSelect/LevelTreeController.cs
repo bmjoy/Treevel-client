@@ -55,7 +55,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                         // FIXME: 呼ばれるたびに ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
                         .Select(s => NetworkService.Execute(new GetStageStatusRequest(treeId, s)));
                     var stageStatuses = await UniTask.WhenAll(tasks);
-                    var clearStageNum = stageStatuses.Count(status => status.state == EStageState.Cleared);
+                    var clearStageNum = stageStatuses.Count(status => status.IsCleared);
                     state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                     break;
                 case ETreeState.AllCleared:

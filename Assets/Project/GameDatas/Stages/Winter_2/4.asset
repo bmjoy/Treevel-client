@@ -105,7 +105,7 @@ MonoBehaviour:
     isDark: 0
     isReverse: 0
   gimmicks: []
-  overviewGimmicks:
+  overviewGimmicks: 
   tutorial:
     type: 0
     image:
@@ -114,3 +114,4 @@ MonoBehaviour:
     video:
       m_AssetGUID: 
       m_SubObjectName: 
+  constraintStages: []

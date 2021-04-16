@@ -85,7 +85,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         public abstract UniTask UpdateStateAsync();
 
-        public abstract void SaveState();
+        public virtual void SaveState() { }
 
         /// <summary>
         /// 曲線の通過点の位置を求める

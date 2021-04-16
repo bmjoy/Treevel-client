@@ -16,6 +16,7 @@ namespace Treevel.Common.Entities.GameDatas
         [SerializeField] private List<GimmickData> gimmicks;
         [SerializeField] private List<EGimmickType> overviewGimmicks;
         [SerializeField] private TutorialData tutorial;
+        [SerializeField] private List<string> constraintStages;
 
         public ETreeId TreeId => treeId;
 
@@ -30,6 +31,8 @@ namespace Treevel.Common.Entities.GameDatas
         public List<EGimmickType> OverviewGimmicks => overviewGimmicks;
 
         public TutorialData Tutorial => tutorial;
+
+        public List<string> ConstraintStages => constraintStages;
 
         /// <summary>
         /// ステージのkeyを生成する
@@ -56,10 +59,11 @@ namespace Treevel.Common.Entities.GameDatas
         public static (ETreeId, int) DecodeStageIdKey(string stageId)
         {
             var retValues = stageId.Split(Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR);
-            if (retValues.Length != 2) throw new Exception("Wrong key format");
+            if (retValues.Length != 3) throw new Exception("Wrong key format");
             try {
-                var treeId = (ETreeId)Enum.ToObject(typeof(ETreeId), retValues[0]);
-                var stageNumber = int.Parse(retValues[1]);
+                var treeIdStr = $"{retValues[0]}_{retValues[1]}";
+                var treeId = (ETreeId)Enum.Parse(typeof(ETreeId), treeIdStr);
+                var stageNumber = int.Parse(retValues[2]);
                 return (treeId, stageNumber);
             } catch (Exception e) {
                 throw e;

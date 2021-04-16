@@ -2,6 +2,10 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
+using Treevel.Common.Networks;
+using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
@@ -15,15 +19,10 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         [SerializeField] private ETreeId _treeId;
 
-        private StageController _endObjectController;
-
-        public static Dictionary<string, bool> branchStates;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _endObjectController = endObject.GetComponent<StageController>();
-        }
+        /// <summary>
+        /// 演出再生済みのブランチリスト
+        /// </summary>
+        public static List<string> animationPlayedBranches;
 
         protected override void SetSaveKey()
         {
@@ -34,45 +33,26 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override UniTask UpdateStateAsync()
+        public override async UniTask UpdateStateAsync()
         {
-            if (branchStates.ContainsKey(saveKey)) {
-                released = branchStates[saveKey];
+            var constraintStageData = GameDataManager.GetStage(_treeId, endObject.GetComponent<StageController>().stageNumber);
+            var constraintStages = constraintStageData.ConstraintStages;
+            if (constraintStages.Count == 0) return;
+
+            if ((await UniTask.WhenAll(constraintStages.Select(stageId => {
+                    var (treeId, stageNum) = StageData.DecodeStageIdKey(stageId);
+                    return NetworkService.Execute(new GetStageStatusRequest(treeId, stageNum));
+            }))).All(stageData => stageData.IsCleared)) {
+                if (!animationPlayedBranches.Contains(saveKey)) {
+                    // TODO 枝解放時演出
+                    Debug.Log($"{saveKey}が解放された");
+                    animationPlayedBranches.Add(saveKey);
+                }
             } else {
-                released = false;
-            }
-
-            if (!released) {
-                if (constraintObjects.Length == 0) {
-                    // 初期状態で解放されている枝
-                    released = true;
-                } else {
-                    released = constraintObjects.All(stage => stage.GetComponent<StageController>().state >=
-                                                              EStageState.Cleared);
-                }
-
-                if (released) {
-                    // 終点のステージの状態の更新
-                    _endObjectController.ReleaseStage();
-                    _endObjectController.ReflectTreeState();
-                }
-            }
-
-            if (!released) {
-                // 非解放時
+                // 未解放
                 lineRenderer.startColor = new Color(0.2f, 0.2f, 0.7f);
                 lineRenderer.endColor = new Color(0.2f, 0.2f, 0.7f);
             }
-
-            return UniTask.CompletedTask;
-        }
-
-        /// <summary>
-        /// 枝の状態の保存
-        /// </summary>
-        public override void SaveState()
-        {
-            branchStates[saveKey] = released;
         }
     }
 }
