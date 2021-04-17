@@ -11,6 +11,15 @@ namespace Treevel.Common.Entities
     [Serializable]
     public class StageStatus
     {
+        /// 木の Id
+        /// </summary>
+        public ETreeId treeId;
+
+        /// <summary>
+        /// ステージ番号
+        /// </summary>
+        public int stageNumber;
+
         /// <summary>
         /// クリアしたかどうか
         /// </summary>
@@ -51,6 +60,12 @@ namespace Treevel.Common.Entities
         /// </summary>
         public bool tutorialChecked;
 
+        public StageStatus(ETreeId treeId, int stageNumber)
+        {
+            this.treeId = treeId;
+            this.stageNumber = stageNumber;
+        }
+
         /// <summary>
         /// オブジェクト情報のリセット
         /// </summary>
@@ -83,16 +98,6 @@ namespace Treevel.Common.Entities
         public void Fail()
         {
             failureNum++;
-        }
-
-        /// <summary>
-        /// 自身を外部に保存する
-        /// </summary>
-        /// <param name="treeId"> 木の id </param>
-        /// <param name="stageNumber"> ステージ番号 </param>
-        public void Save(ETreeId treeId, int stageNumber)
-        {
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, this));
         }
     }
 }
