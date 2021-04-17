@@ -388,6 +388,9 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
+                // 一時停止だったらそのまま処理終わる
+                if (from is PausingState) return;
+
                 Instance._stageStatus.challengeNum++;
 
                 // todo: 暫定で10が難しいステージのBGMを流す
