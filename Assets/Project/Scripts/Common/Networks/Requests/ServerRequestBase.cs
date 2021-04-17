@@ -19,14 +19,14 @@ namespace Treevel.Common.Networks.Requests
         public abstract UniTask<T> Execute();
     }
 
-    public abstract class GetServerRequestBase<TResult> : ServerRequestBase<TResult> where TResult: new()
+    // 今は使っていないが、今後使う可能性があるので、残しておく
+    public abstract class GetServerRequestBase<TResult> : ServerRequestBase<TResult>
     {
         protected string key;
 
         public override async UniTask<TResult> Execute()
         {
-            // TODO: リクエスト数を減らして、リモートにアクセスする
-            return PlayerPrefsUtility.GetObject<TResult>(key);
+            return await remoteDatabaseService.GetDataAsync<TResult>(key);
         }
     }
 

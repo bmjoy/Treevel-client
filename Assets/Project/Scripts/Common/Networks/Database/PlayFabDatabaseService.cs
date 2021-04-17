@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using PlayFab;
@@ -16,7 +17,7 @@ namespace Treevel.Common.Networks.Database
     /// </summary>
     public class PlayFabDatabaseService : IDatabaseService
     {
-        public async UniTask<T> GetDataAsync<T>(string key) where T : new()
+        public async UniTask<T> GetDataAsync<T>(string key)
         {
             var request = new GetUserDataRequest
             {
@@ -32,7 +33,8 @@ namespace Treevel.Common.Networks.Database
                 }
 
                 if (!result.Data.ContainsKey(key)) {
-                    return new T();
+                    // FIXME: PlayFab にデータがない場合、暫定的に Exception とする
+                    throw new DataException();
                 }
 
                 return JsonUtility.FromJson<T>(result.Data[key].Value);

@@ -6,7 +6,7 @@ namespace Treevel.Common.Networks.Database
 {
     public interface IDatabaseService
     {
-        UniTask<T> GetDataAsync<T>(string key) where T: new();
+        UniTask<T> GetDataAsync<T>(string key);
 
         UniTask<IEnumerable<T>> GetListDataAsync<T>(IEnumerable<string> key);
 
