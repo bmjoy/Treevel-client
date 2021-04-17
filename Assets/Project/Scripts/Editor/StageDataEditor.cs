@@ -107,13 +107,7 @@ namespace Treevel.Editor
 
                 var rect = EditorGUILayout.GetControlRect();
                 rect.width = 125.0f;
-                var selectedTree = (ETreeId)EditorGUI.EnumPopup(
-                    position: rect,
-                    new GUIContent(""),
-                    selected: treeId,
-                    checkEnabled: (eType) => (ETreeId)eType != ETreeId.Dummy,
-                    includeObsolete: false
-                );
+                var selectedTree = (ETreeId)EditorGUI.EnumPopup(position: rect, selected: treeId);
                 rect.x += rect.width;
                 var selectedStageNum = EditorGUI.IntField(rect, stageNum);
 
