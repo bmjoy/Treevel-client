@@ -31,7 +31,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// ステージ情報
         /// </summary>
-        private StageStatus[] _stageStatuses;
+        private readonly StageStatus[] _stageStatuses;
 
         /// <summary>
         /// クリアに必要なステージ数を設定するコンストラクタ
