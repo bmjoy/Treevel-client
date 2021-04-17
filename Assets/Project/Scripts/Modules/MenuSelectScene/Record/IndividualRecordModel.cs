@@ -1,8 +1,10 @@
 using Cysharp.Threading.Tasks;
+using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
+using Treevel.Common.Utils;
 using UniRx;
 
 namespace Treevel.Modules.MenuSelectScene.Record
@@ -33,16 +35,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
             }).AddTo(_disposable);
 
             currentTree.Subscribe(tree => {
-                FetchStageStatusArrayAsync().Forget();
+                FetchStageStatusArray();
             }).AddTo(_disposable);
         }
 
-        public async UniTask FetchStageStatusArrayAsync()
+        public void FetchStageStatusArray()
         {
-            var tasks = GameDataManager.GetStages(currentTree.Value)
-                .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
-
-            stageStatusArray.Value = await UniTask.WhenAll(tasks);
+            stageStatusArray.Value = StageStatusService.INSTANCE.Get(currentTree.Value).ToArray();
         }
 
         public void Dispose()

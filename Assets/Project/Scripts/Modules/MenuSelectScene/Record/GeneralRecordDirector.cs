@@ -134,7 +134,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _model.FetchStageStatusArrayAsync().Forget();
+            _model.FetchStageStatusArray();
         }
 
         private void OnDisable()
