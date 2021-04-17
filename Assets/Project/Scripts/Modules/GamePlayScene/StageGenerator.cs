@@ -42,7 +42,10 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             CreatedFinished = true;
-            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Playing);
+            if (GamePlayDirector.Instance.IsRetry)
+                GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Playing);
+            else
+                GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.CountDown);
         }
     }
 }

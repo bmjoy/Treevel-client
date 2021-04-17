@@ -17,6 +17,7 @@ using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using Treevel.Modules.GamePlayScene.Tile;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -48,6 +49,11 @@ namespace Treevel.Modules.GamePlayScene
         /// 一時停止ポップアップ
         /// </summary>
         [SerializeField] private GameObject _pauseWindow;
+
+        /// <summary>
+        /// カウントダウン演出用オブジェクト
+        /// </summary>
+        [SerializeField] private GameObject _countDownObject;
 
         /// <summary>
         /// ゲーム開始時のイベント
@@ -82,6 +88,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             Tutorial,
             Opening,
+            CountDown,
             Playing,
             Success,
             Failure,
@@ -134,6 +141,11 @@ namespace Treevel.Modules.GamePlayScene
         /// 状態遷移を管理するステートマシン
         /// </summary>
         private StateMachine _stateMachine;
+
+        /// <summary>
+        /// リトライしているか
+        /// </summary>
+        public bool IsRetry { get; private set; }
 
         private async void Awake()
         {
@@ -193,6 +205,12 @@ namespace Treevel.Modules.GamePlayScene
                 case EGameState.Opening:
                     _stateMachine.AddTransition(_stateList[EGameState.Opening],
                                                 _stateList[EGameState.Playing]); // opening -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
+                                                _stateList[EGameState.CountDown]); // opening -> countdown
+                    break;
+                case EGameState.CountDown:
+                    _stateMachine.AddTransition(_stateList[EGameState.CountDown],
+                                                _stateList[EGameState.Playing]); // countdown -> playing
                     break;
                 case EGameState.Playing:
                     _stateMachine.AddTransition(_stateList[EGameState.Playing],
@@ -344,6 +362,7 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
+                Instance.IsRetry = from is FailureState;
                 // TODO: ステージ準備中のアニメーションを用意する
                 CleanObject();
                 StageInitialize();
@@ -591,6 +610,29 @@ namespace Treevel.Modules.GamePlayScene
 
                 // OpeningState はBGMを流さないため止めとく
                 SoundManager.Instance.StopBGMAsync();
+            }
+        }
+
+        private class CountDownState : StateBase
+        {
+            private readonly Animator _animator;
+            private static readonly int _ANIMATOR_PARAM_PLAY_COUNT_DOWN = Animator.StringToHash("PlayCountDown");
+            private static readonly int _ANIMATOR_STATE_COUNT_DOWN = Animator.StringToHash("CountDown");
+            public CountDownState(GamePlayDirector caller)
+            {
+                _animator = caller._countDownObject.GetComponent<Animator>();
+                _animator.GetBehaviour<ObservableStateMachineTrigger>()
+                    .OnStateExitAsObservable()
+                    .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_COUNT_DOWN)
+                    .Subscribe(_ => {
+                        Instance.Dispatch(EGameState.Playing);
+                    }) // アニメーション再生終了後プレイステートに移行
+                    .AddTo(caller);
+            }
+
+            public override void OnEnter(StateBase from = null)
+            {
+                _animator.SetTrigger(_ANIMATOR_PARAM_PLAY_COUNT_DOWN);
             }
         }
     }

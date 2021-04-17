@@ -1212,6 +1212,7 @@ MonoBehaviour:
   _pauseBackground: {fileID: 1453285405}
   _pauseButton: {fileID: 1704684606}
   _pauseWindow: {fileID: 3798100570565638191}
+  _countDownObject: {fileID: 690764897131943413}
   failureReason: 0
 --- !u!4 &1638029897
 Transform:
@@ -2126,6 +2127,12 @@ PrefabInstance:
 --- !u!224 &690764897131943412 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6945572549006055985, guid: 8ccdaacf7e77c42c0a83d17895ac8b37,
+    type: 3}
+  m_PrefabInstance: {fileID: 690764897131943411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &690764897131943413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1281532008673096118, guid: 8ccdaacf7e77c42c0a83d17895ac8b37,
     type: 3}
   m_PrefabInstance: {fileID: 690764897131943411}
   m_PrefabAsset: {fileID: 0}
