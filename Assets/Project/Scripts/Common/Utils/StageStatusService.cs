@@ -33,9 +33,14 @@ namespace Treevel.Common.Utils
             var stageStatusList = stageStatuses as List<StageStatus> ?? stageStatuses.ToList();
 
             foreach (var stageData in GameDataManager.GetAllStages()) {
-                var stageStatus = stageStatusList.FirstOrDefault(stageStatus => stageStatus.treeId == stageData.TreeId
-                                                                                && stageStatus.stageNumber == stageData.StageNumber)
-                                  ?? new StageStatus(stageData.TreeId, stageData.StageNumber);
+                StageStatus stageStatus;
+                try {
+                    stageStatus = stageStatusList.First(stageStatus => stageStatus.treeId == stageData.TreeId
+                                                                       && stageStatus.stageNumber == stageData.StageNumber);
+                } catch {
+                    stageStatus = PlayerPrefsUtility.GetObjectOrDefault(StageData.EncodeStageIdKey(stageData.TreeId, stageData.StageNumber),
+                                                                        new StageStatus(stageData.TreeId, stageData.StageNumber));
+                }
 
                 _cachedStageStatusDic[StageData.EncodeStageIdKey(stageData.TreeId, stageData.StageNumber)] = stageStatus;
             }

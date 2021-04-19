@@ -76,6 +76,21 @@ namespace Treevel.Common.Utils
         }
 
         /// <summary>
+        /// 指定されたオブジェクト情報を読み込む
+        /// </summary>
+        /// <param name="key"> キー </param>
+        /// <param name="defaultValue"> デフォルト値 </param>
+        /// <typeparam name="T"> オブジェクトの型 </typeparam>
+        /// <returns> 読み込みたいオブジェクト </returns>
+        public static T GetObjectOrDefault<T>(string key, T defaultValue)
+        {
+            var json = PlayerPrefs.GetString(key);
+            if (json == "") return defaultValue;
+            var obj = JsonUtility.FromJson<T>(json);
+            return obj;
+        }
+
+        /// <summary>
         /// 指定された辞書型オブジェクト情報を読み込む
         /// </summary>
         /// <param name="key"> キー </param>
