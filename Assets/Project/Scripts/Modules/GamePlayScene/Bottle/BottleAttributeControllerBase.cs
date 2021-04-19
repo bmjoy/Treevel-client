@@ -16,7 +16,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// ゲーム開始時に描画する
+        /// ゲーム開始時に描画するイベントを購読する
         /// </summary>
         protected void Initialize()
         {
