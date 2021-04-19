@@ -48,12 +48,7 @@ namespace Treevel.Common.Networks.Requests
 
         public override async UniTask<bool> Execute()
         {
-            if (await remoteDatabaseService.UpdateDataAsync(key, data)) {
-                // 成功したらローカルも更新する
-                PlayerPrefsUtility.SetObject(key, data);
-            }
-
-            return false;
+            return await remoteDatabaseService.UpdateDataAsync(key, data);
         }
     }
 }

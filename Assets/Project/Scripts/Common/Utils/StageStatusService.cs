@@ -6,7 +6,6 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
-using UnityEngine;
 
 namespace Treevel.Common.Utils
 {
@@ -80,10 +79,14 @@ namespace Treevel.Common.Utils
         /// <param name="stageStatus"> 保存する StageStatus </param>
         public void Set(ETreeId treeId, int stageNumber, StageStatus stageStatus)
         {
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, stageStatus))
+            var key = StageData.EncodeStageIdKey(treeId, stageNumber);
+
+            NetworkService.Execute(new UpdateStageStatusRequest(key, stageStatus))
                 .ContinueWith(isSuccess => {
                     if (isSuccess) {
-                        _cachedStageStatusDic[StageData.EncodeStageIdKey(treeId, stageNumber)] = stageStatus;
+                        // データの保存に成功したら、PlayerPrefs とオンメモリにも保存する
+                        PlayerPrefsUtility.SetObject(key, stageStatus);
+                        _cachedStageStatusDic[key] = stageStatus;
                     }
                 });
         }

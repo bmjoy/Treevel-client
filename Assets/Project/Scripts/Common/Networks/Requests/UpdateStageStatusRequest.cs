@@ -5,9 +5,9 @@ namespace Treevel.Common.Networks.Requests
 {
     public class UpdateStageStatusRequest : UpdateServerRequestBase<StageStatus>
     {
-        public UpdateStageStatusRequest(ETreeId treeId, int stageNumber, StageStatus data)
+        public UpdateStageStatusRequest(string key, StageStatus data)
         {
-            key = StageData.EncodeStageIdKey(treeId, stageNumber);
+            this.key = key;
             this.data = data;
         }
     }
