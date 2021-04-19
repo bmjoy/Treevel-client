@@ -364,10 +364,13 @@ namespace Treevel.Editor
                 }
 
                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
-                var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
-                EditorGUILayout.PropertyField(intervalProp);
                 var loopProp = gimmickDataProp.FindPropertyRelative("loop");
                 EditorGUILayout.PropertyField(loopProp);
+
+                var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
+                if (loopProp.boolValue) {
+                    EditorGUILayout.PropertyField(intervalProp);
+                }
 
                 switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {
