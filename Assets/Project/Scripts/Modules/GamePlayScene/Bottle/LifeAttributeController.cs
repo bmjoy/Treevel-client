@@ -9,8 +9,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Bottle
 {
-    [RequireComponent(typeof(Animator))]
-    public class LifeAttributeController : GameObjectControllerBase
+    public class LifeAttributeController : BottleAttributeControllerBase
     {
         public const int MAX_LIFE = 3;
 
@@ -45,7 +44,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         private static readonly Vector3 _POSITION = new Vector3(-75f, 85f);
 
-        private Animator _animator;
         private static readonly int _ANIMATOR_PARAM_BOOL_LAST_LIFE = Animator.StringToHash("LifeLast");
         private Animator _bottleAnimator;
         private static readonly int _ANIMATOR_PARAM_TRIGGER_ATTACKED = Animator.StringToHash("LifeAttacked");
@@ -53,10 +51,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("LifeSpeed");
         private static readonly int _ANIMATOR_PARAM_BOOL_ATTACKED_LOOP = Animator.StringToHash("LifeAttackedLoop");
 
-        private void Awake()
+        protected override void Awake()
         {
-            // 現状、LifeAttributeについてのアニメーション演出はない
-            _animator = GetComponent<Animator>();
+            base.Awake();
             _lifeSpriteRenderer = _lifeObject.GetComponent<SpriteRenderer>();
         }
 
@@ -78,9 +75,14 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             if (_life == 1) {
                 // lifeの初期値が1ならハートを表示しない
-                GetComponent<SpriteRenderer>().enabled = false;
+                spriteRenderer.enabled = false;
                 _lifeObject.SetActive(false);
             } else {
+                // ゲーム開始時に描画する
+                Initialize();
+                GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+                    _lifeSpriteRenderer.enabled = true;
+                }).AddTo(compositeDisposableOnGameEnd, this);
                 if (_life == 2) {
                     // lifeの初期値が2ならボトル画像にヒビを入れる
                     SetCrackSprite(_life);
@@ -90,7 +92,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 transform.localPosition = _POSITION;
                 SetLifeValueSprite();
             }
-
 
             // イベントに処理を登録する
             _bottleController.GetDamaged.Subscribe(gimmick => {
@@ -120,7 +121,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     // 失敗状態に移行する
                     GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Failure);
                 } else if (_life == 1) {
-                    _animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_LIFE, true);
+                    animator.SetBool(_ANIMATOR_PARAM_BOOL_LAST_LIFE, true);
                     // 演出をループさせる
                     _bottleAnimator.SetBool(_ANIMATOR_PARAM_BOOL_ATTACKED_LOOP, true);
                     _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_ATTACKED);
@@ -133,12 +134,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             GamePlayDirector.Instance.GameEnd.Where(_ => !_isDead)
                 .Subscribe(_ => {
                     // 自身が破壊されていない場合はアニメーションを止める
-                    _animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                    animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                     _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                 }).AddTo(this);
 
             // 描画順序の設定
-            GetComponent<SpriteRenderer>().sortingOrder = EBottleAttributeType.Life.GetOrderInLayer();
+            spriteRenderer.sortingOrder = EBottleAttributeType.Life.GetOrderInLayer();
         }
 
         // 数字画像を設定する
