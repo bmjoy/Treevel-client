@@ -63,7 +63,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         public async UniTask InitializeAsync(Color seasonColor, ETreeId treeId, int stageNumber, Vector3 graphPosition)
         {
-            var stageStatus = StageStatusService.INSTANCE.Get(treeId, stageNumber);
+            var stageStatus = StageStatusService.Instance.Get(treeId, stageNumber);
 
             var challengeNum = stageStatus.challengeNum;
             if (challengeNum <= _MAX_CHALLENGE_NUM_DISPLAYED) {

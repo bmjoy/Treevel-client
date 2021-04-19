@@ -18,7 +18,7 @@ namespace Treevel.Common.Utils
         /// <summary>
         /// インスタンス
         /// </summary>
-        public static readonly StageStatusService INSTANCE = new StageStatusService();
+        public static readonly StageStatusService Instance = new StageStatusService();
 
         /// <summary>
         /// オンメモリに StageStatus を保持する

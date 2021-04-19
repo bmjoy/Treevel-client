@@ -42,7 +42,7 @@ namespace Treevel.Modules.StageSelectScene
 
         private async void Awake()
         {
-            _stageStatus = StageStatusService.INSTANCE.Get(_treeId, stageNumber);
+            _stageStatus = StageStatusService.Instance.Get(_treeId, stageNumber);
 
             UpdateState().Forget();
         }
@@ -62,7 +62,7 @@ namespace Treevel.Modules.StageSelectScene
             } else {
                 state = stageData.ConstraintStages.Select(constraintStage => {
                     var (treeId, stageNum) = StageData.DecodeStageIdKey(constraintStage);
-                    return StageStatusService.INSTANCE.Get(treeId, stageNum);
+                    return StageStatusService.Instance.Get(treeId, stageNum);
                 }).All(stageStatus => stageStatus.IsCleared)
                     ? EStageState.Released
                     : EStageState.Unreleased;

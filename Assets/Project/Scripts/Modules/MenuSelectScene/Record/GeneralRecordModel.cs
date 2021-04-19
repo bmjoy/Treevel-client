@@ -40,7 +40,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         public void FetchStageStatusArray()
         {
-            stageStatusArray.Value = StageStatusService.INSTANCE.Get().ToArray();
+            stageStatusArray.Value = StageStatusService.Instance.Get().ToArray();
         }
 
         public void Dispose()

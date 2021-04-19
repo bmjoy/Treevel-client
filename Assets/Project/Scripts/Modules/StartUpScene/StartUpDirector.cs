@@ -51,7 +51,7 @@ namespace Treevel.Modules.StartUpScene
             // 全部完了したら開始ボタンを表示
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
 
-            await StageStatusService.INSTANCE.PreloadAllStageStatusesAsync();
+            await StageStatusService.Instance.PreloadAllStageStatusesAsync();
 
             _startButton.SetActive(true);
         }

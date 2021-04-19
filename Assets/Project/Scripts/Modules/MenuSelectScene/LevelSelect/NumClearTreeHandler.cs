@@ -51,7 +51,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be larger than the number of stages");
             }
 
-            _stageStatuses = StageStatusService.INSTANCE.Get(_treeId).ToArray();
+            _stageStatuses = StageStatusService.Instance.Get(_treeId).ToArray();
         }
 
         /// <summary>
