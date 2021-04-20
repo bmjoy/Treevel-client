@@ -150,7 +150,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _model.FetchStageStatusArrayAsync();
+            _model.FetchStageStatusArray();
         }
 
         private void OnDestroy()
@@ -189,7 +189,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 : maxAxisLabelNum + "+";
 
             _model.stageStatusArray.Value
-                .Select((stageStatus, index) => (_graphBars[index], stageStatus.IsCleared, ChallengeNum: stageStatus.challengeNum))
+                .Select((stageStatus, index) => (_graphBars[stageStatus.stageNumber - 1], stageStatus.IsCleared, ChallengeNum: stageStatus.challengeNum))
                 .ToList()
                 .ForEach(args => {
                     var (graphBar, isClear, challengeNum) = args;

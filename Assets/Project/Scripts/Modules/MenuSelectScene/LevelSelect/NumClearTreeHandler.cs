@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
+using Treevel.Common.Utils;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
@@ -30,7 +31,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// ステージ情報
         /// </summary>
-        private StageStatus[] _stageStatuses;
+        private readonly StageStatus[] _stageStatuses;
 
         /// <summary>
         /// クリアに必要なステージ数を設定するコンストラクタ
@@ -50,17 +51,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be larger than the number of stages");
             }
 
-            // コンストラクタは async にできないので、関数に分離
-            InitializeAsync().Forget();
-        }
-
-        private async UniTask InitializeAsync()
-        {
-            // FIXME: GetTreeState の時に値が入っている保証がない
-            var tasks = Enumerable.Range(1, _stageNum)
-                // FIXME: 呼ばれるたびに ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
-                .Select(s => NetworkService.Execute(new GetStageStatusRequest(_treeId, s)));
-            _stageStatuses = await UniTask.WhenAll(tasks);
+            _stageStatuses = StageStatusService.Instance.Get(_treeId).ToArray();
         }
 
         /// <summary>

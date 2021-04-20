@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using PlayFab;
 using Treevel.Common.Networks.Database;
+using Treevel.Common.Utils;
 
 namespace Treevel.Common.Networks.Requests
 {
@@ -12,25 +13,30 @@ namespace Treevel.Common.Networks.Requests
         protected static IDatabaseService remoteDatabaseService = new PlayFabDatabaseService();
 
         /// <summary>
-        /// ローカルサーバへ問い合わせするためのサービスクラスのインスタンス
-        /// </summary>
-        protected static IDatabaseService localDatabaseService = new PlayerPrefsDatabaseService();
-
-        /// <summary>
         /// リクエストを実行
         /// </summary>
         /// <returns>機能に応じて返す型を定義</returns>
         public abstract UniTask<T> Execute();
     }
 
-    public abstract class GetServerRequestBase<TResult> : ServerRequestBase<TResult> where TResult: new()
+    // 今は使っていないが、今後使う可能性があるので、残しておく
+    public abstract class GetServerRequestBase<TResult> : ServerRequestBase<TResult>
     {
         protected string key;
 
         public override async UniTask<TResult> Execute()
         {
-            // TODO: リクエスト数を減らして、リモートにアクセスする
-            return await localDatabaseService.GetDataAsync<TResult>(key);
+            return await remoteDatabaseService.GetDataAsync<TResult>(key);
+        }
+    }
+
+    public abstract class GetListServerRequestBase<T> : ServerRequestBase<IEnumerable<T>>
+    {
+        protected IEnumerable<string> keys;
+
+        public override async UniTask<IEnumerable<T>> Execute()
+        {
+            return await remoteDatabaseService.GetListDataAsync<T>(keys);
         }
     }
 
@@ -44,7 +50,7 @@ namespace Treevel.Common.Networks.Requests
         {
             if (await remoteDatabaseService.UpdateDataAsync(key, data)) {
                 // 成功したらローカルも更新する
-                return await localDatabaseService.UpdateDataAsync(key, data);
+                PlayerPrefsUtility.SetObject(key, data);
             }
 
             return false;

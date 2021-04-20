@@ -135,9 +135,9 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         private StateMachine _stateMachine;
 
-        private async void Awake()
+        private void Awake()
         {
-            _stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
+            _stageStatus = StageStatusService.Instance.Get(treeId, stageNumber);
             _stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             // ステートマシン初期化
@@ -480,7 +480,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnEnter(StateBase from = null)
             {
                 Instance._stageStatus.Succeed();
-                Instance._stageStatus.Save(treeId, stageNumber);
+                StageStatusService.Instance.Set(treeId, stageNumber, Instance._stageStatus);
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
@@ -514,7 +514,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnEnter(StateBase from = null)
             {
                 Instance._stageStatus.Fail();
-                Instance._stageStatus.Save(treeId, stageNumber);
+                StageStatusService.Instance.Set(treeId, stageNumber, Instance._stageStatus);
 
                 // 失敗原因を保存
                 var dic = RecordData.Instance.failureReasonCount.Value;

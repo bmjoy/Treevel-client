@@ -48,9 +48,11 @@ namespace Treevel.Modules.StartUpScene
             // GameDataManager初期化
             var dataManagerInitTask = GameDataManager.InitializeAsync();
 
-            // 全部完了したら開始ボタンを表示
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
 
+            await StageStatusService.Instance.PreloadAllStageStatusesAsync();
+
+            // 全部完了したら開始ボタンを表示
             _startButton.SetActive(true);
         }
 
