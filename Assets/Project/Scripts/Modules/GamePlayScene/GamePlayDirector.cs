@@ -526,14 +526,14 @@ namespace Treevel.Modules.GamePlayScene
                 StageRecordService.Instance.Set(treeId, stageNumber, Instance.stageRecord);
 
                 // 失敗原因を保存
-                var dic = RecordData.Instance.failureReasonCount.Value;
+                var dic = UserRecord.Instance.failureReasonCount.Value;
                 if (dic.ContainsKey(Instance.failureReason)) {
                     dic[Instance.failureReason]++;
                 } else {
                     dic[Instance.failureReason] = 1;
                 }
 
-                RecordData.Instance.failureReasonCount.Value = dic;
+                UserRecord.Instance.failureReasonCount.Value = dic;
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
-    public class RecordData : SingletonObjectBase<RecordData>
+    public class UserRecord : SingletonObjectBase<UserRecord>
     {
         /// <summary>
         /// 各失敗原因に対する失敗回数

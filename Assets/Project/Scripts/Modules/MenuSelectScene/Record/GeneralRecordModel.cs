@@ -29,11 +29,11 @@ namespace Treevel.Modules.MenuSelectScene.Record
         {
             FetchStageRecordArray();
 
-            RecordData.Instance.StartupDaysObservable
+            UserRecord.Instance.StartupDaysObservable
                 .Subscribe(startupDays => this.startupDays.Value = startupDays)
                 .AddTo(_disposable);
 
-            RecordData.Instance.failureReasonCount
+            UserRecord.Instance.failureReasonCount
                 .Subscribe(failureReasonCount => this.failureReasonCount.Value = failureReasonCount)
                 .AddTo(_disposable);
         }
