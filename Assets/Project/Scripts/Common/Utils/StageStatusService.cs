@@ -6,7 +6,6 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
-using UnityEngine;
 
 namespace Treevel.Common.Utils
 {
@@ -34,9 +33,14 @@ namespace Treevel.Common.Utils
             var stageStatusList = stageStatuses as List<StageStatus> ?? stageStatuses.ToList();
 
             foreach (var stageData in GameDataManager.GetAllStages()) {
-                var stageStatus = stageStatusList.FirstOrDefault(stageStatus => stageStatus.treeId == stageData.TreeId
-                                                                                && stageStatus.stageNumber == stageData.StageNumber)
-                                  ?? new StageStatus(stageData.TreeId, stageData.StageNumber);
+                StageStatus stageStatus;
+                try {
+                    stageStatus = stageStatusList.First(stageStatus => stageStatus.treeId == stageData.TreeId
+                                                                       && stageStatus.stageNumber == stageData.StageNumber);
+                } catch {
+                    stageStatus = PlayerPrefsUtility.GetObjectOrDefault(StageData.EncodeStageIdKey(stageData.TreeId, stageData.StageNumber),
+                                                                        new StageStatus(stageData.TreeId, stageData.StageNumber));
+                }
 
                 _cachedStageStatusDic[StageData.EncodeStageIdKey(stageData.TreeId, stageData.StageNumber)] = stageStatus;
             }
@@ -79,10 +83,14 @@ namespace Treevel.Common.Utils
         /// <param name="stageStatus"> 保存する StageStatus </param>
         public void Set(ETreeId treeId, int stageNumber, StageStatus stageStatus)
         {
-            NetworkService.Execute(new UpdateStageStatusRequest(treeId, stageNumber, stageStatus))
+            var key = StageData.EncodeStageIdKey(treeId, stageNumber);
+
+            NetworkService.Execute(new UpdateStageStatusRequest(key, stageStatus))
                 .ContinueWith(isSuccess => {
                     if (isSuccess) {
-                        _cachedStageStatusDic[StageData.EncodeStageIdKey(treeId, stageNumber)] = stageStatus;
+                        // データの保存に成功したら、PlayerPrefs とオンメモリにも保存する
+                        PlayerPrefsUtility.SetObject(key, stageStatus);
+                        _cachedStageStatusDic[key] = stageStatus;
                     }
                 });
         }
