@@ -62,6 +62,7 @@ namespace Treevel.Modules.StartUpScene
 
             // MenuSelectSceneのBGMを流す
             SoundManager.Instance.PlayBGM(EBGMKey.MenuSelect);
+            SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
 
             // Unload Startup Scene
             SceneManager.UnloadSceneAsync(Constants.SceneName.START_UP_SCENE);
