@@ -71,8 +71,14 @@ namespace Treevel.Common.Utils
         {
             var json = PlayerPrefs.GetString(key);
             if (json == "") return new T();
-            var obj = JsonUtility.FromJson<T>(json);
-            return obj;
+
+            try {
+                var obj = JsonUtility.FromJson<T>(json);
+                return obj;
+            } catch (Exception e) {
+                Debug.LogError(e);
+                return new T();
+            }
         }
 
         /// <summary>
@@ -86,8 +92,14 @@ namespace Treevel.Common.Utils
         {
             var json = PlayerPrefs.GetString(key);
             if (json == "") return defaultValue;
-            var obj = JsonUtility.FromJson<T>(json);
-            return obj;
+
+            try {
+                var obj = JsonUtility.FromJson<T>(json);
+                return obj;
+            } catch (Exception e) {
+                Debug.LogError(e);
+                return defaultValue;
+            }
         }
 
         /// <summary>
