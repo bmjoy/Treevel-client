@@ -50,8 +50,7 @@ namespace Treevel.Common.Utils
         /// <returns> StageStatus </returns>
         public StageStatus Get(ETreeId treeId, int stageNumber)
         {
-            return _cachedStageStatusDic.Values.ToList()
-                    .First(stageStatus => stageStatus.treeId == treeId && stageStatus.stageNumber == stageNumber);
+            return _cachedStageStatusDic[StageData.EncodeStageIdKey(treeId, stageNumber)];
         }
 
         /// <summary>
