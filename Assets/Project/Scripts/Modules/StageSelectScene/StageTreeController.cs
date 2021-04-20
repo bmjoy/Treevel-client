@@ -76,8 +76,8 @@ namespace Treevel.Modules.StageSelectScene
                 case ETreeState.Cleared: {
                     // 全クリアかどうかをチェックする
                     var stageNum = treeId.GetStageNum();
-                    var stageStatuses = StageStatusService.Instance.Get(treeId);
-                    var clearStageNum = stageStatuses.Count(status => status.IsCleared);
+                    var stageRecords = StageRecordService.Instance.Get(treeId);
+                    var clearStageNum = stageRecords.Count(stageRecord => stageRecord.IsCleared);
                     state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
                     break;
                 }

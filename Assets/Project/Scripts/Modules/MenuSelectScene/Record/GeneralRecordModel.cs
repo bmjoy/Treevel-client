@@ -13,7 +13,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// <summary>
         /// ステージの情報
         /// </summary>
-        public readonly ReactiveProperty<StageStatus[]> stageStatusArray = new ReactiveProperty<StageStatus[]>();
+        public readonly ReactiveProperty<StageRecord[]> stageRecordArray = new ReactiveProperty<StageRecord[]>();
 
         /// <summary>
         /// 起動日数
@@ -27,7 +27,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         public GeneralRecordModel()
         {
-            FetchStageStatusArray();
+            FetchStageRecordArray();
 
             RecordData.Instance.StartupDaysObservable
                 .Subscribe(startupDays => this.startupDays.Value = startupDays)
@@ -38,9 +38,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .AddTo(_disposable);
         }
 
-        public void FetchStageStatusArray()
+        public void FetchStageRecordArray()
         {
-            stageStatusArray.Value = StageStatusService.Instance.Get().ToArray();
+            stageRecordArray.Value = StageRecordService.Instance.Get().ToArray();
         }
 
         public void Dispose()

@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Treevel.Common.Entities
 {
     [Serializable]
-    public class StageStatus
+    public class StageRecord
     {
         /// 木の Id
         /// </summary>
@@ -60,7 +60,7 @@ namespace Treevel.Common.Entities
         /// </summary>
         public bool tutorialChecked;
 
-        public StageStatus(ETreeId treeId, int stageNumber)
+        public StageRecord(ETreeId treeId, int stageNumber)
         {
             this.treeId = treeId;
             this.stageNumber = stageNumber;

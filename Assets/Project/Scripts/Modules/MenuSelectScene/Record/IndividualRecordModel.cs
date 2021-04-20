@@ -22,7 +22,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// <summary>
         /// 木に対応するステージの情報
         /// </summary>
-        public readonly ReactiveProperty<StageStatus[]> stageStatusArray = new ReactiveProperty<StageStatus[]>();
+        public readonly ReactiveProperty<StageRecord[]> stageRecordArray = new ReactiveProperty<StageRecord[]>();
 
         public IndividualRecordModel()
         {
@@ -31,13 +31,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
             }).AddTo(_disposable);
 
             currentTree.Subscribe(tree => {
-                FetchStageStatusArray();
+                FetchStageRecordArray();
             }).AddTo(_disposable);
         }
 
-        public void FetchStageStatusArray()
+        public void FetchStageRecordArray()
         {
-            stageStatusArray.Value = StageStatusService.Instance.Get(currentTree.Value).ToArray();
+            stageRecordArray.Value = StageRecordService.Instance.Get(currentTree.Value).ToArray();
         }
 
         public void Dispose()

@@ -111,15 +111,15 @@ namespace Treevel.Modules.MenuSelectScene.Record
              * Model -> View
              */
 
-            _model.stageStatusArray
-                .Subscribe(stageStatusArray => {
-                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.IsCleared);
-                    var totalStageNum = stageStatusArray.Length;
+            _model.stageRecordArray
+                .Subscribe(stageRecordArray => {
+                    var clearStageNum = stageRecordArray.Count(stageRecord => stageRecord.IsCleared);
+                    var totalStageNum = stageRecordArray.Length;
                     _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
 
-                    _playNum.text = stageStatusArray.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
-                    _flickNum.text = stageStatusArray.Select(stageStatus => stageStatus.flickNum).Sum().ToString();
-                    _failureNum.text = stageStatusArray.Select(stageStatus => stageStatus.failureNum).Sum().ToString();
+                    _playNum.text = stageRecordArray.Select(stageRecord => stageRecord.challengeNum).Sum().ToString();
+                    _flickNum.text = stageRecordArray.Select(stageRecord => stageRecord.flickNum).Sum().ToString();
+                    _failureNum.text = stageRecordArray.Select(stageRecord => stageRecord.failureNum).Sum().ToString();
                 })
                 .AddTo(this);
 
@@ -134,7 +134,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _model.FetchStageStatusArray();
+            _model.FetchStageRecordArray();
         }
 
         private void OnDisable()
