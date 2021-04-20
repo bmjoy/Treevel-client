@@ -10,7 +10,6 @@ namespace Treevel.Common.Entities
     /// </summary>
     public enum ETreeId
     {
-        Dummy = 0,                                                          // ダミー
         Spring_1 = ESeasonId.Spring * Constants.MAX_TREE_NUM_IN_SEASON + 1, // 春の木
         Spring_2 = ESeasonId.Spring * Constants.MAX_TREE_NUM_IN_SEASON + 2,
         Spring_3 = ESeasonId.Spring * Constants.MAX_TREE_NUM_IN_SEASON + 3,
@@ -40,8 +39,6 @@ namespace Treevel.Common.Entities
         public static int GetStageNum(this ETreeId treeId)
         {
             switch (treeId) {
-                case ETreeId.Dummy:
-                    return 0;
                 case ETreeId.Spring_1:
                 case ETreeId.Spring_2:
                 case ETreeId.Spring_3:
@@ -62,7 +59,6 @@ namespace Treevel.Common.Entities
 
         private static readonly Dictionary<ETreeId, IClearTreeHandler> _CLEAR_TREE_HANDLER =
             new Dictionary<ETreeId, IClearTreeHandler> {
-                { ETreeId.Dummy, null },
                 { ETreeId.Spring_1, new NumClearTreeHandler(ETreeId.Spring_1, 1) },
                 { ETreeId.Spring_2, new NumClearTreeHandler(ETreeId.Spring_2, 1) },
                 { ETreeId.Spring_3, new NumClearTreeHandler(ETreeId.Spring_3, 1) },

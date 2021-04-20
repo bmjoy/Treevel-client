@@ -147,9 +147,9 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public bool IsRetry { get; private set; }
 
-        private async void Awake()
+        private void Awake()
         {
-            _stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
+            _stageStatus = StageStatusService.Instance.Get(treeId, stageNumber);
             _stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             // ステートマシン初期化
@@ -407,6 +407,9 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
+                // 一時停止だったらそのまま処理終わる
+                if (from is PausingState) return;
+
                 Instance._stageStatus.challengeNum++;
 
                 // todo: 暫定で10が難しいステージのBGMを流す
@@ -496,7 +499,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnEnter(StateBase from = null)
             {
                 Instance._stageStatus.Succeed();
-                Instance._stageStatus.Save(treeId, stageNumber);
+                StageStatusService.Instance.Set(treeId, stageNumber, Instance._stageStatus);
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
@@ -530,7 +533,7 @@ namespace Treevel.Modules.GamePlayScene
             public override void OnEnter(StateBase from = null)
             {
                 Instance._stageStatus.Fail();
-                Instance._stageStatus.Save(treeId, stageNumber);
+                StageStatusService.Instance.Set(treeId, stageNumber, Instance._stageStatus);
 
                 // 失敗原因を保存
                 var dic = RecordData.Instance.failureReasonCount.Value;

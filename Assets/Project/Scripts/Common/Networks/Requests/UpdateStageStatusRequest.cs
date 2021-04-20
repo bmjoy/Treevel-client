@@ -10,5 +10,11 @@ namespace Treevel.Common.Networks.Requests
             key = StageData.EncodeStageIdKey(treeId, stageNumber);
             this.data = data;
         }
+
+        public UpdateStageStatusRequest(string key, StageStatus data)
+        {
+            this.key = key;
+            this.data = data;
+        }
     }
 }

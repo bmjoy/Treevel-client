@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using System.Linq;
 using Treevel.Common.Entities;
-using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
+using Treevel.Common.Utils;
 using UniRx;
 
 namespace Treevel.Modules.MenuSelectScene.Record
@@ -29,7 +27,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         public GeneralRecordModel()
         {
-            FetchStageStatusArrayAsync().Forget();
+            FetchStageStatusArray();
 
             RecordData.Instance.StartupDaysObservable
                 .Subscribe(startupDays => this.startupDays.Value = startupDays)
@@ -40,13 +38,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 .AddTo(_disposable);
         }
 
-        public async UniTask FetchStageStatusArrayAsync()
+        public void FetchStageStatusArray()
         {
-            var tasks = GameDataManager.GetAllStages()
-                // FIXME: 呼ばれるたびに 全ステージ数 分リクエストしてしまうので、リクエストを減らす工夫をする
-                .Select(stage => NetworkService.Execute(new GetStageStatusRequest(stage.TreeId, stage.StageNumber)));
-
-            stageStatusArray.Value = await UniTask.WhenAll(tasks);
+            stageStatusArray.Value = StageStatusService.Instance.Get().ToArray();
         }
 
         public void Dispose()
