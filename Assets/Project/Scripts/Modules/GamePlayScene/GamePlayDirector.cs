@@ -625,6 +625,8 @@ namespace Treevel.Modules.GamePlayScene
                     .OnStateExitAsObservable()
                     .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_COUNT_DOWN)
                     .Subscribe(_ => {
+                        var maskObject = _animator.transform.Find("Panel").gameObject;
+                        maskObject.SetActive(false);
                         Instance.Dispatch(EGameState.Playing);
                     }) // アニメーション再生終了後プレイステートに移行
                     .AddTo(caller);
