@@ -358,10 +358,20 @@ namespace Treevel.Editor
                 }
 
                 EditorGUILayout.PropertyField(gimmickDataProp.FindPropertyRelative("appearTime"));
-                var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
-                EditorGUILayout.PropertyField(intervalProp);
                 var loopProp = gimmickDataProp.FindPropertyRelative("loop");
                 EditorGUILayout.PropertyField(loopProp);
+
+                var intervalProp = gimmickDataProp.FindPropertyRelative("interval");
+                if (loopProp.boolValue) {
+                    // 初期値設定
+                    if (intervalProp.floatValue == 0) {
+                        intervalProp.floatValue = 1.0f;
+                    }
+                    EditorGUILayout.PropertyField(intervalProp);
+
+                    // 0以下にならないように
+                    intervalProp.floatValue = Mathf.Max(0.0001f, intervalProp.floatValue);
+                }
 
                 switch ((EGimmickType)gimmickTypeProp.enumValueIndex) {
                     case EGimmickType.Tornado: {

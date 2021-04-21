@@ -60,6 +60,11 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             // 出現時間経つまで待つ
             yield return new WaitForSeconds(data.appearTime - (Time.time - _startTime));
 
+            if (data.loop && data.interval <= 0) {
+                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.InvalidGimmickData).Forget();
+                yield break;
+            }
+
             do {
                 var instantiateTime = Time.time;
                 // ギミックインスタンス作成
