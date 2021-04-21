@@ -55,6 +55,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             base.Awake();
             _lifeSpriteRenderer = _lifeObject.GetComponent<SpriteRenderer>();
+            // 描画順序の設定
+            spriteRenderer.sortingOrder = EBottleAttributeType.Life.GetOrderInLayer();
         }
 
         public void Initialize(GoalBottleController bottleController, int life)
@@ -75,11 +77,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             if (_life == 1) {
                 // lifeの初期値が1ならハートを表示しない
-                spriteRenderer.enabled = false;
                 _lifeObject.SetActive(false);
             } else {
                 // ゲーム開始時に描画する
-                Initialize();
+                GamePlayDirector.Instance.GameStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
                 GamePlayDirector.Instance.GameStart.Subscribe(_ => {
                     _lifeSpriteRenderer.enabled = true;
                 }).AddTo(compositeDisposableOnGameEnd, this);
@@ -137,9 +138,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                     animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                     _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                 }).AddTo(this);
-
-            // 描画順序の設定
-            spriteRenderer.sortingOrder = EBottleAttributeType.Life.GetOrderInLayer();
         }
 
         // 数字画像を設定する

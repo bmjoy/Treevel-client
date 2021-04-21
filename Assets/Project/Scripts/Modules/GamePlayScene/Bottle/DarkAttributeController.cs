@@ -16,9 +16,17 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private static readonly int _ANIMATOR_IS_DARK = Animator.StringToHash("IsDark");
         private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("DarkSpeed");
 
+        protected override void Awake()
+        {
+            base.Awake();
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
+            // 描画順序の設定
+            spriteRenderer.sortingOrder = EBottleAttributeType.Dark.GetOrderInLayer();
+        }
+
         public void Initialize(GoalBottleController bottleController)
         {
-            Initialize();
             transform.parent = bottleController.transform;
             transform.localPosition = Vector3.zero;
             _bottleController = bottleController;
@@ -31,11 +39,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }).AddTo(this);
             _bottleController.longPressGesture.OnLongPress.AsObservable().Subscribe(_ => animator.SetBool(_ANIMATOR_IS_DARK, false)).AddTo(compositeDisposableOnGameEnd, this);
             _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess)).AddTo(compositeDisposableOnGameEnd, this);
-
-            GamePlayDirector.Instance.GameEnd.Subscribe(_ => animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
-
-            // 描画順序の設定
-            spriteRenderer.sortingOrder = EBottleAttributeType.Dark.GetOrderInLayer();
 
             // 初期状態の登録
             _isSuccess = _bottleController.IsSuccess();

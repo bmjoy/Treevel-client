@@ -42,11 +42,13 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             base.Awake();
             _framesToMove = (int)(Constants.FRAME_RATE * _SECONDS_TO_MOVE);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
+            // 描画順序の設定
+            spriteRenderer.sortingOrder = EBottleAttributeType.Selfish.GetOrderInLayer();
         }
 
         public void Initialize(DynamicBottleController bottleController)
         {
-            Initialize();
             transform.parent = bottleController.transform;
             transform.localPosition = Vector3.zero;
             _bottleController = bottleController;
@@ -68,9 +70,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 // 移動していないフレーム数を数え始める
                 _countCalmFrames = true;
             }).AddTo(this);
-
-            // 描画順序の設定
-            spriteRenderer.sortingOrder = EBottleAttributeType.Selfish.GetOrderInLayer();
         }
 
         private void FixedUpdate()

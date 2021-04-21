@@ -14,13 +14,5 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             animator = GetComponent<Animator>();
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
-
-        /// <summary>
-        /// ゲーム開始時に描画するイベントを購読する
-        /// </summary>
-        protected void Initialize()
-        {
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
-        }
     }
 }
