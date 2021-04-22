@@ -120,15 +120,13 @@ namespace Treevel.Modules.MenuSelectScene.Record
                     _playNum.text = stageRecordArray.Select(stageRecord => stageRecord.challengeNum).Sum().ToString();
                     _flickNum.text = stageRecordArray.Select(stageRecord => stageRecord.flickNum).Sum().ToString();
                     _failureNum.text = stageRecordArray.Select(stageRecord => stageRecord.failureNum).Sum().ToString();
+
+                    SetupFailureReasonGraph(stageRecordArray);
                 })
                 .AddTo(this);
 
             _model.startupDays
                 .Subscribe(startupDays => _playDays.text = startupDays.ToString())
-                .AddTo(this);
-
-            _model.failureReasonCount
-                .Subscribe(SetupFailureReasonGraph)
                 .AddTo(this);
         }
 
@@ -148,8 +146,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _model.Dispose();
         }
 
-        private void SetupFailureReasonGraph(Dictionary<EFailureReasonType, int> failureReasonCount)
+        private void SetupFailureReasonGraph(StageRecord[] stageRecordArray)
         {
+            var failureReasonCount = Enum.GetValues(typeof(EFailureReasonType))
+                .OfType<EFailureReasonType>()
+                .ToDictionary(type => type, type => stageRecordArray.Sum(record => record.failureReasonNum.Get(type)));
+
             // 失敗回数の合計
             var sum = failureReasonCount.Sum(pair => pair.Value);
 

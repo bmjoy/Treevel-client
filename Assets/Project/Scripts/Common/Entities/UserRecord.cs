@@ -12,11 +12,6 @@ namespace Treevel.Common.Entities
     public class UserRecord : SingletonObjectBase<UserRecord>
     {
         /// <summary>
-        /// 各失敗原因に対する失敗回数
-        /// </summary>
-        public ReactiveProperty<Dictionary<EFailureReasonType, int>> failureReasonCount;
-
-        /// <summary>
         /// 起動日数
         /// </summary>
         private ReactiveProperty<int> _startupDays;
@@ -58,13 +53,8 @@ namespace Treevel.Common.Entities
 
         private void Awake()
         {
-            failureReasonCount = new ReactiveProperty<Dictionary<EFailureReasonType, int>>(PlayerPrefsUtility.GetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, Default.FAILURE_REASON_COUNT));
             _startupDays = new ReactiveProperty<int>(PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, Default.STARTUP_DAYS));
             _lastStartupDate = PlayerPrefsUtility.GetDateTime(Constants.PlayerPrefsKeys.LAST_STARTUP_DATE);
-
-            failureReasonCount
-                .Subscribe(failureReasonCount => PlayerPrefsUtility.SetDictionary(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT, failureReasonCount))
-                .AddTo(this);
 
             _startupDays
                 .Subscribe(startupDays => PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.STARTUP_DAYS, startupDays))
@@ -75,7 +65,6 @@ namespace Treevel.Common.Entities
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.FAILURE_REASONS_COUNT);
                 PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.STARTUP_DAYS);
 
-                failureReasonCount.Value = Default.FAILURE_REASON_COUNT;
                 _startupDays.Value = Default.STARTUP_DAYS;
             }).AddTo(this);
         }
