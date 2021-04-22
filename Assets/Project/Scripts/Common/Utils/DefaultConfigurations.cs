@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Treevel.Common.Components.UIs;
+﻿using Treevel.Common.Components.UIs;
 using Treevel.Common.Entities;
 using UnityEngine;
 

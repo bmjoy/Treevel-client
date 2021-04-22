@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Treevel.Common.Entities.GameDatas;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
-using Treevel.Common.Utils;
 using UnityEngine;
 
 namespace Treevel.Common.Entities
