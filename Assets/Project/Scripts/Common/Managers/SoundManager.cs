@@ -281,10 +281,9 @@ namespace Treevel.Common.Managers
         /// <param name="ratio"> 音量への倍率 </param>
         public void ChangeBGMVolume(float ratio)
         {
-            // BGM が再生中ではないなら，何もしない
-            if (!_bgmPlayer.isPlaying) return;
-
-            _bgmPlayer.volume *= ratio;
+            // 倍率からdBに変換する
+            var dB = 10 * Mathf.Log10(ratio);
+            _bgmMixer.audioMixer.SetFloat("BGMVolume", dB);
         }
 
         /// <summary>

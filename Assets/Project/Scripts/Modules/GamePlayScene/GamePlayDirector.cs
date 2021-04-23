@@ -461,7 +461,7 @@ namespace Treevel.Modules.GamePlayScene
                 // ゲーム内の時間を元に戻す
                 Time.timeScale = 1.0f;
                 // BGM を元に戻す
-                SoundManager.Instance.ChangeBGMVolume(1 / _BGM_VOLUME_RATIO_ON_PAUSE);
+                SoundManager.Instance.ChangeBGMVolume(1.0f);
                 if (!(to is FailureState)) {
                     // 一時停止ウィンドウを非表示にする
                     Instance._pauseWindow.SetActive(false);
