@@ -8,8 +8,6 @@ using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Patterns.StateMachine;
 using Treevel.Common.Utils;
@@ -17,6 +15,7 @@ using Treevel.Modules.GamePlayScene.Bottle;
 using Treevel.Modules.GamePlayScene.Gimmick;
 using Treevel.Modules.GamePlayScene.Tile;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -48,6 +47,11 @@ namespace Treevel.Modules.GamePlayScene
         /// 一時停止ポップアップ
         /// </summary>
         [SerializeField] private GameObject _pauseWindow;
+
+        /// <summary>
+        /// カウントダウン演出用オブジェクト
+        /// </summary>
+        [SerializeField] private GameObject _countDownObject;
 
         /// <summary>
         /// ゲーム開始時のイベント
@@ -82,6 +86,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             Tutorial,
             Opening,
+            CountDown,
             Playing,
             Success,
             Failure,
@@ -116,7 +121,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// ステージの記録を保持
         /// </summary>
-        private StageStatus _stageStatus;
+        private StageRecord _stageRecord;
 
         /// <summary>
         /// ステージの情報を保持
@@ -135,9 +140,14 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         private StateMachine _stateMachine;
 
-        private async void Awake()
+        /// <summary>
+        /// リトライしているか
+        /// </summary>
+        public bool IsRetry { get; private set; }
+
+        private void Awake()
         {
-            _stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
+            _stageRecord = StageRecordService.Instance.Get(treeId, stageNumber);
             _stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             // ステートマシン初期化
@@ -145,7 +155,7 @@ namespace Treevel.Modules.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageStatus.tutorialChecked;
+            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageRecord.tutorialChecked;
             var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
             _stateMachine = new StateMachine(startState, _stateList.Values);
@@ -193,6 +203,12 @@ namespace Treevel.Modules.GamePlayScene
                 case EGameState.Opening:
                     _stateMachine.AddTransition(_stateList[EGameState.Opening],
                                                 _stateList[EGameState.Playing]); // opening -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
+                                                _stateList[EGameState.CountDown]); // opening -> countdown
+                    break;
+                case EGameState.CountDown:
+                    _stateMachine.AddTransition(_stateList[EGameState.CountDown],
+                                                _stateList[EGameState.Playing]); // countdown -> playing
                     break;
                 case EGameState.Playing:
                     _stateMachine.AddTransition(_stateList[EGameState.Playing],
@@ -319,47 +335,26 @@ namespace Treevel.Modules.GamePlayScene
             /// </summary>
             private readonly Text _stageNumberText;
 
-            /// <summary>
-            /// ゲーム時間を計測するタイマー
-            /// </summary>
-            private readonly CustomTimer _customTimer;
-
-            /// <summary>
-            /// タイマー用テキスト
-            /// </summary>
-            private readonly Text _timerText;
-
             public OpeningState(GamePlayDirector caller)
             {
                 // TODO: ステージTextを適切に配置する
                 // ステージID表示
                 _stageNumberText = GameObject.Find(_STAGE_NUMBER_TEXT_NAME).GetComponent<Text>();
                 _stageNumberText.text = seasonId + "_" + treeId + "_" + stageNumber;
-
-                // タイマー設定
-                _timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
-                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
-                _customTimer.Initialize(_timerText);
             }
 
             public override void OnEnter(StateBase from = null)
             {
-                // TODO: ステージ準備中のアニメーションを用意する
+                Instance.IsRetry = from is FailureState;
+
                 CleanObject();
                 StageInitialize();
             }
 
             public override void OnExit(StateBase to)
             {
-                // TODO: ステージ準備中のアニメーションを停止する
-                // 時間の計測
-                _customTimer.StartTimer();
-
                 // ゲーム開始時のイベント
                 Instance._gameStartSubject.OnNext(Unit.Default);
-
-                // ギミックの発火
-                GimmickGenerator.Instance.FireGimmick();
             }
 
             /// <summary>
@@ -384,6 +379,11 @@ namespace Treevel.Modules.GamePlayScene
             public PlayingState(GamePlayDirector caller)
             {
                 _customTimer = caller.gameObject.GetComponent<CustomTimer>();
+
+                // タイマー設定
+                var timerText = GameObject.Find(_TIMER_TEXT_NAME).GetComponent<Text>();
+                _customTimer = caller.gameObject.AddComponent<CustomTimer>();
+                _customTimer.Initialize(timerText);
             }
 
             public override void OnEnter(StateBase from = null)
@@ -391,7 +391,14 @@ namespace Treevel.Modules.GamePlayScene
                 // 一時停止だったらそのまま処理終わる
                 if (from is PausingState) return;
 
-                Instance._stageStatus.challengeNum++;
+                // TODO: ステージ準備中のアニメーションを停止する
+                // 時間の計測
+                _customTimer.StartTimer();
+
+                // ギミックの発火
+                GimmickGenerator.Instance.FireGimmick();
+
+                Instance._stageRecord.challengeNum++;
 
                 // todo: 暫定で10が難しいステージのBGMを流す
                 if (stageNumber == 10)
@@ -426,7 +433,7 @@ namespace Treevel.Modules.GamePlayScene
                 var bottles = FindObjectsOfType<DynamicBottleController>();
                 var flickNum = bottles.Select(bottle => bottle.flickNum).Sum();
 
-                Instance._stageStatus.flickNum += flickNum;
+                Instance._stageRecord.flickNum += flickNum;
             }
         }
 
@@ -479,8 +486,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
-                Instance._stageStatus.Succeed();
-                Instance._stageStatus.Save(treeId, stageNumber);
+                Instance._stageRecord.Succeed();
+                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
@@ -513,18 +520,9 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
-                Instance._stageStatus.Fail();
-                Instance._stageStatus.Save(treeId, stageNumber);
-
-                // 失敗原因を保存
-                var dic = RecordData.Instance.failureReasonCount.Value;
-                if (dic.ContainsKey(Instance.failureReason)) {
-                    dic[Instance.failureReason]++;
-                } else {
-                    dic[Instance.failureReason] = 1;
-                }
-
-                RecordData.Instance.failureReasonCount.Value = dic;
+                Instance._stageRecord.Fail();
+                Instance._stageRecord.failureReasonNum.Increment(Instance.failureReason);
+                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
@@ -588,12 +586,37 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnExit(StateBase to)
             {
-                Instance._stageStatus.tutorialChecked = true;
+                Instance._stageRecord.tutorialChecked = true;
                 SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
                 _tutorialWindow.SetActive(false);
 
                 // OpeningState はBGMを流さないため止めとく
                 SoundManager.Instance.StopBGMAsync();
+            }
+        }
+
+        private class CountDownState : StateBase
+        {
+            private readonly Animator _animator;
+            private static readonly int _ANIMATOR_PARAM_PLAY_COUNT_DOWN = Animator.StringToHash("PlayCountDown");
+            private static readonly int _ANIMATOR_STATE_COUNT_DOWN = Animator.StringToHash("CountDown");
+            public CountDownState(GamePlayDirector caller)
+            {
+                _animator = caller._countDownObject.GetComponent<Animator>();
+                _animator.GetBehaviour<ObservableStateMachineTrigger>()
+                    .OnStateExitAsObservable()
+                    .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_COUNT_DOWN)
+                    .Subscribe(_ => {
+                        var maskObject = _animator.transform.Find("Panel").gameObject;
+                        maskObject.SetActive(false);
+                        Instance.Dispatch(EGameState.Playing);
+                    }) // アニメーション再生終了後プレイステートに移行
+                    .AddTo(caller);
+            }
+
+            public override void OnEnter(StateBase from = null)
+            {
+                _animator.SetTrigger(_ANIMATOR_PARAM_PLAY_COUNT_DOWN);
             }
         }
     }

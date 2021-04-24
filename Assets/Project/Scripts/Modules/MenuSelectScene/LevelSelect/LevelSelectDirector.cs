@@ -7,6 +7,7 @@ using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.Settings;
 using UniRx;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
@@ -43,7 +44,9 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private void OnEnable()
         {
-            SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
+            if (SceneManager.GetActiveScene().name == Constants.SceneName.MENU_SELECT_SCENE) {
+                SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
+            }
             _trees.ForEach(tree => tree.UpdateStateAsync().Forget());
             _roads.ForEach(road => road.UpdateStateAsync().Forget());
         }

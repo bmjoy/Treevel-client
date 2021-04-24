@@ -13,8 +13,8 @@ namespace Treevel.Common.Managers
         /// </summary>
         public static void OnApplicationStart()
         {
-            RecordData.Instance.UpdateStartupDays();
-            RecordData.Instance.LastStartupDate = DateTime.Today;
+            UserRecord.Instance.UpdateStartupDays();
+            UserRecord.Instance.LastStartupDate = DateTime.Today;
         }
     }
 }

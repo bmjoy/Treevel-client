@@ -48,9 +48,11 @@ namespace Treevel.Modules.StartUpScene
             // GameDataManager初期化
             var dataManagerInitTask = GameDataManager.InitializeAsync();
 
-            // 全部完了したら開始ボタンを表示
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
 
+            await StageRecordService.Instance.PreloadAllStageRecordsAsync();
+
+            // 全部完了したら開始ボタンを表示
             _startButton.SetActive(true);
         }
 
@@ -60,6 +62,7 @@ namespace Treevel.Modules.StartUpScene
 
             // MenuSelectSceneのBGMを流す
             SoundManager.Instance.PlayBGM(EBGMKey.MenuSelect);
+            SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
 
             // Unload Startup Scene
             SceneManager.UnloadSceneAsync(Constants.SceneName.START_UP_SCENE);

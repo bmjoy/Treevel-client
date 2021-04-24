@@ -4,6 +4,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Objects;
 using Treevel.Common.Networks.Requests;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,16 +63,16 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         public async UniTask InitializeAsync(Color seasonColor, ETreeId treeId, int stageNumber, Vector3 graphPosition)
         {
-            var stageStatus = await NetworkService.Execute(new GetStageStatusRequest(treeId, stageNumber));
+            var stageRecord = StageRecordService.Instance.Get(treeId, stageNumber);
 
-            var challengeNum = stageStatus.challengeNum;
+            var challengeNum = stageRecord.challengeNum;
             if (challengeNum <= _MAX_CHALLENGE_NUM_DISPLAYED) {
                 _challengeNumText.text = challengeNum + " 回プレイ";
             } else {
                 _challengeNumText.text = $"{_MAX_CHALLENGE_NUM_DISPLAYED}+ 回プレイ";
             }
 
-            gameObject.GetComponent<Image>().color = stageStatus.IsCleared ? seasonColor : Color.gray;
+            gameObject.GetComponent<Image>().color = stageRecord.IsCleared ? seasonColor : Color.gray;
 
             // ポップアップが表示される位置を、該当する棒グラフの位置に合わせて変える
             var rectTransform = GetComponent<RectTransform>();

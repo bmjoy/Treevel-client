@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using UniRx;
 using UnityEngine;
@@ -111,30 +110,28 @@ namespace Treevel.Modules.MenuSelectScene.Record
              * Model -> View
              */
 
-            _model.stageStatusArray
-                .Subscribe(stageStatusArray => {
-                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.IsCleared);
-                    var totalStageNum = stageStatusArray.Length;
+            _model.stageRecordArray
+                .Subscribe(stageRecordArray => {
+                    var clearStageNum = stageRecordArray.Count(stageRecord => stageRecord.IsCleared);
+                    var totalStageNum = stageRecordArray.Length;
                     _clearStageNum.GetComponent<ClearStageNumController>().SetUp(clearStageNum, totalStageNum, Color.blue);
 
-                    _playNum.text = stageStatusArray.Select(stageStatus => stageStatus.challengeNum).Sum().ToString();
-                    _flickNum.text = stageStatusArray.Select(stageStatus => stageStatus.flickNum).Sum().ToString();
-                    _failureNum.text = stageStatusArray.Select(stageStatus => stageStatus.failureNum).Sum().ToString();
+                    _playNum.text = stageRecordArray.Select(stageRecord => stageRecord.challengeNum).Sum().ToString();
+                    _flickNum.text = stageRecordArray.Select(stageRecord => stageRecord.flickNum).Sum().ToString();
+                    _failureNum.text = stageRecordArray.Select(stageRecord => stageRecord.failureNum).Sum().ToString();
+
+                    SetupFailureReasonGraph(stageRecordArray);
                 })
                 .AddTo(this);
 
             _model.startupDays
                 .Subscribe(startupDays => _playDays.text = startupDays.ToString())
                 .AddTo(this);
-
-            _model.failureReasonCount
-                .Subscribe(SetupFailureReasonGraph)
-                .AddTo(this);
         }
 
         private void OnEnable()
         {
-            _model.FetchStageStatusArrayAsync().Forget();
+            _model.FetchStageRecordArray();
         }
 
         private void OnDisable()
@@ -148,8 +145,12 @@ namespace Treevel.Modules.MenuSelectScene.Record
             _model.Dispose();
         }
 
-        private void SetupFailureReasonGraph(Dictionary<EFailureReasonType, int> failureReasonCount)
+        private void SetupFailureReasonGraph(StageRecord[] stageRecordArray)
         {
+            var failureReasonCount = Enum.GetValues(typeof(EFailureReasonType))
+                .OfType<EFailureReasonType>()
+                .ToDictionary(type => type, type => stageRecordArray.Sum(record => record.failureReasonNum.Get(type)));
+
             // 失敗回数の合計
             var sum = failureReasonCount.Sum(pair => pair.Value);
 

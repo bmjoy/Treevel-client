@@ -6,6 +6,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,7 +28,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// ステージ情報
         /// </summary>
-        private StageStatus _stageStatus;
+        private StageRecord _stageRecord;
 
         /// <summary>
         /// ステージの状態
@@ -41,7 +42,7 @@ namespace Treevel.Modules.StageSelectScene
 
         private async void Awake()
         {
-            _stageStatus = await NetworkService.Execute(new GetStageStatusRequest(_treeId, stageNumber));
+            _stageRecord = StageRecordService.Instance.Get(_treeId, stageNumber);
 
             UpdateState().Forget();
         }
@@ -54,15 +55,15 @@ namespace Treevel.Modules.StageSelectScene
             var stageData = GameDataManager.GetStage(_treeId, stageNumber);
             if (stageData == null) return;
 
-            if (_stageStatus.IsCleared) {
+            if (_stageRecord.IsCleared) {
                 state = EStageState.Cleared;
             } else if (stageData.ConstraintStages.Count == 0) {
                 state = EStageState.Released;
             } else {
-                state = (await UniTask.WhenAll(stageData.ConstraintStages.Select(constraintStage => {
+                state = stageData.ConstraintStages.Select(constraintStage => {
                     var (treeId, stageNum) = StageData.DecodeStageIdKey(constraintStage);
-                    return NetworkService.Execute(new GetStageStatusRequest(treeId, stageNum));
-                }))).All(stageStatus => stageStatus.IsCleared)
+                    return StageRecordService.Instance.Get(treeId, stageNum);
+                }).All(stageRecord => stageRecord.IsCleared)
                     ? EStageState.Released
                     : EStageState.Unreleased;
             }

@@ -65,5 +65,6 @@ namespace Treevel.Common.Entities
         ErrorInvalidBottleColor,         // ボトルの色が正しく設定されていません。
         ErrorInvalidLifeValue,           // ライフの値が正しく設定されていません。
         ErrorInvalidTileColor,           // タイルの色が正しく設定されていません。
+        ErrorInvalidGimmickData,         // ギミックデータが正しく設定されていません。
     }
 }
