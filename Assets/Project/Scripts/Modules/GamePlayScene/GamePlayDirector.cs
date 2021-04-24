@@ -448,7 +448,7 @@ namespace Treevel.Modules.GamePlayScene
                 // ゲーム内の時間を一時停止する
                 Time.timeScale = 0.0f;
                 // ポーズ中は BGM を少し下げる
-                SoundManager.Instance.ChangeBGMVolume(_BGM_VOLUME_RATIO_ON_PAUSE);
+                SoundManager.Instance.SetMasterBGMVolume(_BGM_VOLUME_RATIO_ON_PAUSE);
                 // 一時停止ポップアップ表示
                 Instance._pauseWindow.SetActive(true);
                 Instance._pauseBackground.SetActive(true);
@@ -461,7 +461,7 @@ namespace Treevel.Modules.GamePlayScene
                 // ゲーム内の時間を元に戻す
                 Time.timeScale = 1.0f;
                 // BGM を元に戻す
-                SoundManager.Instance.ChangeBGMVolume(1.0f);
+                SoundManager.Instance.SetMasterBGMVolume(1.0f);
                 if (!(to is FailureState)) {
                     // 一時停止ウィンドウを非表示にする
                     Instance._pauseWindow.SetActive(false);

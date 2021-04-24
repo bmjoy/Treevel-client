@@ -278,11 +278,11 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// BGM の音量を変更する
         /// </summary>
-        /// <param name="ratio"> 音量への倍率 </param>
-        public void ChangeBGMVolume(float ratio)
+        /// <param name="volume"></param>
+        public void SetMasterBGMVolume(float volume)
         {
             // 倍率からdBに変換する
-            var dB = 10 * Mathf.Log10(ratio);
+            var dB = 10 * Mathf.Log10(volume);
             _bgmMixer.audioMixer.SetFloat("BGMVolume", dB);
         }
 
