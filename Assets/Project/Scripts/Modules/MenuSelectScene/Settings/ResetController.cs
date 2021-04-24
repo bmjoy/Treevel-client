@@ -36,7 +36,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             _dataResetSubject.OnNext(Unit.Default);
 
             // 全ステージをリセット
-            StageStatus.Reset();
+            StageRecord.Reset();
 
             // ステージ選択画面のブランチをリセット
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);

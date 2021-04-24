@@ -88,10 +88,10 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 _graphPopup.SetActive(false);
             }).AddTo(this);
 
-            _model.stageStatusArray
-                .Subscribe(stageStatusArray => {
-                    var clearStageNum = stageStatusArray.Count(stageStatus => stageStatus.IsCleared);
-                    var totalStageNum = stageStatusArray.Length;
+            _model.stageRecordArray
+                .Subscribe(stageRecordArray => {
+                    var clearStageNum = stageRecordArray.Count(stageRecord => stageRecord.IsCleared);
+                    var totalStageNum = stageRecordArray.Length;
 
                     _clearStageNum.GetComponent<ClearStageNumController>()
                         .SetUp(clearStageNum, totalStageNum, _model.currentSeason.Value.GetColor());
@@ -150,7 +150,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void OnEnable()
         {
-            _model.FetchStageStatusArray();
+            _model.FetchStageRecordArray();
         }
 
         private void OnDestroy()
@@ -174,8 +174,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void SetupBarGraph()
         {
-            var challengeNumMax = (float)_model.stageStatusArray.Value
-                .Select(stageStatus => stageStatus.challengeNum).Max();
+            var challengeNumMax = (float)_model.stageRecordArray.Value
+                .Select(stageRecord => stageRecord.challengeNum).Max();
 
             // 1~30 は 30、31~60 は 60 にするために Ceiling を使用
             var maxAxisLabelNum =
@@ -188,8 +188,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 ? maxAxisLabelNum.ToString()
                 : maxAxisLabelNum + "+";
 
-            _model.stageStatusArray.Value
-                .Select((stageStatus, index) => (_graphBars[stageStatus.stageNumber - 1], stageStatus.IsCleared, ChallengeNum: stageStatus.challengeNum))
+            _model.stageRecordArray.Value
+                .Select((stageRecord, index) => (_graphBars[stageRecord.stageNumber - 1], stageRecord.IsCleared, ChallengeNum: stageRecord.challengeNum))
                 .ToList()
                 .ForEach(args => {
                     var (graphBar, isClear, challengeNum) = args;

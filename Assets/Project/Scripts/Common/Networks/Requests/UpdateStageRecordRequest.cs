@@ -3,15 +3,15 @@ using Treevel.Common.Entities.GameDatas;
 
 namespace Treevel.Common.Networks.Requests
 {
-    public class UpdateStageStatusRequest : UpdateServerRequestBase<StageStatus>
+    public class UpdateStageRecordRequest : UpdateServerRequestBase<StageRecord>
     {
-        public UpdateStageStatusRequest(ETreeId treeId, int stageNumber, StageStatus data)
+        public UpdateStageRecordRequest(ETreeId treeId, int stageNumber, StageRecord data)
         {
             key = StageData.EncodeStageIdKey(treeId, stageNumber);
             this.data = data;
         }
 
-        public UpdateStageStatusRequest(string key, StageStatus data)
+        public UpdateStageRecordRequest(string key, StageRecord data)
         {
             this.key = key;
             this.data = data;

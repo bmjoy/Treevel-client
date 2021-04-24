@@ -5,9 +5,9 @@ using Treevel.Common.Managers;
 
 namespace Treevel.Common.Networks.Requests
 {
-    public class GetAllStageStatusListRequest : GetListServerRequestBase<StageStatus>
+    public class GetAllStageRecordListRequest : GetListServerRequestBase<StageRecord>
     {
-        public GetAllStageStatusListRequest()
+        public GetAllStageRecordListRequest()
         {
             keys = GameDataManager.GetAllStages()
                 .Select(stage => StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber));

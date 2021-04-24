@@ -8,8 +8,6 @@ using Treevel.Common.Components;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Patterns.StateMachine;
 using Treevel.Common.Utils;
@@ -123,7 +121,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// ステージの記録を保持
         /// </summary>
-        private StageStatus _stageStatus;
+        private StageRecord _stageRecord;
 
         /// <summary>
         /// ステージの情報を保持
@@ -149,7 +147,7 @@ namespace Treevel.Modules.GamePlayScene
 
         private void Awake()
         {
-            _stageStatus = StageStatusService.Instance.Get(treeId, stageNumber);
+            _stageRecord = StageRecordService.Instance.Get(treeId, stageNumber);
             _stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             // ステートマシン初期化
@@ -157,7 +155,7 @@ namespace Treevel.Modules.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageStatus.tutorialChecked;
+            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageRecord.tutorialChecked;
             var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
             _stateMachine = new StateMachine(startState, _stateList.Values);
@@ -400,7 +398,7 @@ namespace Treevel.Modules.GamePlayScene
                 // ギミックの発火
                 GimmickGenerator.Instance.FireGimmick();
 
-                Instance._stageStatus.challengeNum++;
+                Instance._stageRecord.challengeNum++;
 
                 // todo: 暫定で10が難しいステージのBGMを流す
                 if (stageNumber == 10)
@@ -435,7 +433,7 @@ namespace Treevel.Modules.GamePlayScene
                 var bottles = FindObjectsOfType<DynamicBottleController>();
                 var flickNum = bottles.Select(bottle => bottle.flickNum).Sum();
 
-                Instance._stageStatus.flickNum += flickNum;
+                Instance._stageRecord.flickNum += flickNum;
             }
         }
 
@@ -488,8 +486,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
-                Instance._stageStatus.Succeed();
-                StageStatusService.Instance.Set(treeId, stageNumber, Instance._stageStatus);
+                Instance._stageRecord.Succeed();
+                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
@@ -522,18 +520,9 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
-                Instance._stageStatus.Fail();
-                StageStatusService.Instance.Set(treeId, stageNumber, Instance._stageStatus);
-
-                // 失敗原因を保存
-                var dic = RecordData.Instance.failureReasonCount.Value;
-                if (dic.ContainsKey(Instance.failureReason)) {
-                    dic[Instance.failureReason]++;
-                } else {
-                    dic[Instance.failureReason] = 1;
-                }
-
-                RecordData.Instance.failureReasonCount.Value = dic;
+                Instance._stageRecord.Fail();
+                Instance._stageRecord.failureReasonNum.Increment(Instance.failureReason);
+                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
@@ -597,7 +586,7 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnExit(StateBase to)
             {
-                Instance._stageStatus.tutorialChecked = true;
+                Instance._stageRecord.tutorialChecked = true;
                 SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
                 _tutorialWindow.SetActive(false);
 

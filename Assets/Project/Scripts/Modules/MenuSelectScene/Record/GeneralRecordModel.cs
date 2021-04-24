@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
@@ -13,34 +12,25 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// <summary>
         /// ステージの情報
         /// </summary>
-        public readonly ReactiveProperty<StageStatus[]> stageStatusArray = new ReactiveProperty<StageStatus[]>();
+        public readonly ReactiveProperty<StageRecord[]> stageRecordArray = new ReactiveProperty<StageRecord[]>();
 
         /// <summary>
         /// 起動日数
         /// </summary>
         public readonly ReactiveProperty<int> startupDays = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 各ギミックの失敗回数
-        /// </summary>
-        public readonly ReactiveProperty<Dictionary<EFailureReasonType, int>> failureReasonCount = new ReactiveProperty<Dictionary<EFailureReasonType, int>>();
-
         public GeneralRecordModel()
         {
-            FetchStageStatusArray();
+            FetchStageRecordArray();
 
-            RecordData.Instance.StartupDaysObservable
+            UserRecord.Instance.StartupDaysObservable
                 .Subscribe(startupDays => this.startupDays.Value = startupDays)
-                .AddTo(_disposable);
-
-            RecordData.Instance.failureReasonCount
-                .Subscribe(failureReasonCount => this.failureReasonCount.Value = failureReasonCount)
                 .AddTo(_disposable);
         }
 
-        public void FetchStageStatusArray()
+        public void FetchStageRecordArray()
         {
-            stageStatusArray.Value = StageStatusService.Instance.Get().ToArray();
+            stageRecordArray.Value = StageRecordService.Instance.Get().ToArray();
         }
 
         public void Dispose()

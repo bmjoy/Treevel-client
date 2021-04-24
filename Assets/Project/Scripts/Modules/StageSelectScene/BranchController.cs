@@ -41,7 +41,7 @@ namespace Treevel.Modules.StageSelectScene
 
             if (constraintStages.Select(stageId => {
                 var (treeId, stageNum) = StageData.DecodeStageIdKey(stageId);
-                return StageStatusService.Instance.Get(treeId, stageNum);
+                return StageRecordService.Instance.Get(treeId, stageNum);
             }).All(stageData => stageData.IsCleared)) {
                 if (!animationPlayedBranches.Contains(saveKey)) {
                     // TODO 枝解放時演出

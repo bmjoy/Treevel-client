@@ -31,7 +31,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// ステージ情報
         /// </summary>
-        private readonly StageStatus[] _stageStatuses;
+        private readonly StageRecord[] _stageRecords;
 
         /// <summary>
         /// クリアに必要なステージ数を設定するコンストラクタ
@@ -51,7 +51,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be larger than the number of stages");
             }
 
-            _stageStatuses = StageStatusService.Instance.Get(_treeId).ToArray();
+            _stageRecords = StageRecordService.Instance.Get(_treeId).ToArray();
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <returns> 木の状態 </returns>
         public ETreeState GetTreeState()
         {
-            var clearStageNum = _stageStatuses
-                .Count(status => status.IsCleared);
+            var clearStageNum = _stageRecords
+                .Count(stageRecord => stageRecord.IsCleared);
 
             // クリア数に応じた木の状態を返す
             if (clearStageNum == _stageNum) {
