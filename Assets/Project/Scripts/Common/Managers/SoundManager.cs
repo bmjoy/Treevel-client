@@ -7,6 +7,7 @@ using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -92,6 +93,12 @@ namespace Treevel.Common.Managers
         [SerializeField] [Range(0, 1)] private float _INITIAL_SE_VOLUME = 1.0f;
 
         /// <summary>
+        /// オーディオミキサー
+        /// </summary>
+        [SerializeField] private AudioMixerGroup _bgmMixer;
+        [SerializeField] private AudioMixerGroup _seMixer;
+
+        /// <summary>
         /// BGMループでフェイドインフェイドアウトする時間（秒）
         /// </summary>
         private const float _BGM_LOOP_FADE_TIME = 2.0f;
@@ -117,6 +124,7 @@ namespace Treevel.Common.Managers
             _bgmPlayer = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
             _bgmPlayer.loop = true;
             _bgmPlayer.playOnAwake = false;
+            _bgmPlayer.outputAudioMixerGroup = _bgmMixer;
 
             // SE再生用のAudioSourceをアタッチする
             _sePlayers = new AudioSource[_MAX_SE_NUM];
@@ -124,6 +132,7 @@ namespace Treevel.Common.Managers
                 var player = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
                 player.loop = false;
                 player.playOnAwake = false;
+                player.outputAudioMixerGroup = _seMixer;
 
                 _sePlayers[i] = player;
             }
@@ -269,13 +278,12 @@ namespace Treevel.Common.Managers
         /// <summary>
         /// BGM の音量を変更する
         /// </summary>
-        /// <param name="ratio"> 音量への倍率 </param>
-        public void ChangeBGMVolume(float ratio)
+        /// <param name="volume"></param>
+        public void SetMasterBGMVolume(float volume)
         {
-            // BGM が再生中ではないなら，何もしない
-            if (!_bgmPlayer.isPlaying) return;
-
-            _bgmPlayer.volume *= ratio;
+            // 倍率からdBに変換する
+            var dB = 10 * Mathf.Log10(volume);
+            _bgmMixer.audioMixer.SetFloat("BGMVolume", dB);
         }
 
         /// <summary>
@@ -383,6 +391,9 @@ namespace Treevel.Common.Managers
             public override void OnInspectorGUI()
             {
                 EditorGUI.BeginChangeCheck();
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_bgmMixer"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_seMixer"));
 
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("_INITIAL_BGM_VOLUME"),
                                               new GUIContent("Initial BGM Volume"));
