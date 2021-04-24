@@ -1,15 +1,30 @@
-﻿using Treevel.Common.Entities.GameDatas;
+﻿using Treevel.Common.Components;
+using Treevel.Common.Entities.GameDatas;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class IceTileController : TileControllerBase
     {
+        private SpriteRendererUnifier _spriteRendererUnifier;
+        [SerializeField] private SpriteRenderer _iceLayer;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
+        }
+
         public override void Initialize(TileData tileData)
         {
             base.Initialize(tileData);
+
+            _spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileData.number));
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
 
             #if UNITY_EDITOR
             name = Constants.TileName.ICE_TILE;
