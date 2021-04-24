@@ -121,7 +121,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// ステージの記録を保持
         /// </summary>
-        private StageRecord stageRecord;
+        private StageRecord _stageRecord;
 
         /// <summary>
         /// ステージの情報を保持
@@ -147,7 +147,7 @@ namespace Treevel.Modules.GamePlayScene
 
         private void Awake()
         {
-            stageRecord = StageRecordService.Instance.Get(treeId, stageNumber);
+            _stageRecord = StageRecordService.Instance.Get(treeId, stageNumber);
             _stageData = GameDataManager.GetStage(treeId, stageNumber);
 
             // ステートマシン初期化
@@ -155,7 +155,7 @@ namespace Treevel.Modules.GamePlayScene
                 AddState((EGameState)state);
             }
 
-            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !stageRecord.tutorialChecked;
+            var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageRecord.tutorialChecked;
             var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
 
             _stateMachine = new StateMachine(startState, _stateList.Values);
@@ -398,7 +398,7 @@ namespace Treevel.Modules.GamePlayScene
                 // ギミックの発火
                 GimmickGenerator.Instance.FireGimmick();
 
-                Instance.stageRecord.challengeNum++;
+                Instance._stageRecord.challengeNum++;
 
                 // todo: 暫定で10が難しいステージのBGMを流す
                 if (stageNumber == 10)
@@ -433,7 +433,7 @@ namespace Treevel.Modules.GamePlayScene
                 var bottles = FindObjectsOfType<DynamicBottleController>();
                 var flickNum = bottles.Select(bottle => bottle.flickNum).Sum();
 
-                Instance.stageRecord.flickNum += flickNum;
+                Instance._stageRecord.flickNum += flickNum;
             }
         }
 
@@ -486,8 +486,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
-                Instance.stageRecord.Succeed();
-                StageRecordService.Instance.Set(treeId, stageNumber, Instance.stageRecord);
+                Instance._stageRecord.Succeed();
+                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
@@ -520,9 +520,9 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnEnter(StateBase from = null)
             {
-                Instance.stageRecord.Fail();
-                Instance.stageRecord.failureReasonNum.Increment(Instance.failureReason);
-                StageRecordService.Instance.Set(treeId, stageNumber, Instance.stageRecord);
+                Instance._stageRecord.Fail();
+                Instance._stageRecord.failureReasonNum.Increment(Instance.failureReason);
+                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
@@ -586,7 +586,7 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnExit(StateBase to)
             {
-                Instance.stageRecord.tutorialChecked = true;
+                Instance._stageRecord.tutorialChecked = true;
                 SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
                 _tutorialWindow.SetActive(false);
 
