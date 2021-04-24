@@ -11,7 +11,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
             // 描画順序の設定
             spriteRenderer.sortingOrder = EBottleAttributeType.Reverse.GetOrderInLayer();

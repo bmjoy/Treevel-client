@@ -108,7 +108,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             BoardManager.Instance.InitializeBottle(this, Id);
 
             GetComponent<SpriteRendererUnifier>().Unify();
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
                 // 表示
                 GetComponent<SpriteRenderer>().enabled = true;
             }).AddTo(compositeDisposableOnGameEnd, this);
