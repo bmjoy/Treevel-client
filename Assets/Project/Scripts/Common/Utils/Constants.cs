@@ -160,6 +160,7 @@ namespace Treevel.Common.Utils
             public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
             public const string SPIDERWEB_TILE_PREFAB = "SpiderwebTilePrefab";
             public const string ICE_TILE_PREFAB = "IceTilePrefab";
+            public const string ICE_LAYER_MATERIAL = "IceLayerMaterial";
             public const string GOAL_TILE_SPRITE_PREFIX = "goalTile_";
 
             // 銃弾関連

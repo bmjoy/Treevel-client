@@ -17,6 +17,18 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             base.Awake();
             _spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
+            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
+                _spriteRendererUnifier.enabled = true;
+                _iceLayer.enabled = true;
+            }).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.material = AddressableAssetManager.GetAsset<Material>(Constants.Address.ICE_LAYER_MATERIAL)).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                #if UNITY_EDITOR
+                _iceLayer.material = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Material>("Sprites-Default.mat");
+                #else
+                _iceLayer.material = Resources.GetBuiltinResource<Material>("Sprites-Default.mat");
+                #endif
+            }).AddTo(this);
         }
 
         public override void Initialize(TileData tileData)
@@ -24,7 +36,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
             base.Initialize(tileData);
 
             _spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileData.number));
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
 
             #if UNITY_EDITOR
             name = Constants.TileName.ICE_TILE;
