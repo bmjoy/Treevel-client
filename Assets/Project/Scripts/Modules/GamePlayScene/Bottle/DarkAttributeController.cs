@@ -19,8 +19,12 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         protected override void Awake()
         {
             base.Awake();
-            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
-            GamePlayDirector.Instance.GameEnd.Subscribe(_ => animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f)).AddTo(this);
+            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
+                spriteRenderer.enabled = true;
+                animator.enabled = false;
+            }).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => animator.enabled = true).AddTo(compositeDisposableOnGameEnd,this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => animator.enabled = false).AddTo(this);
             // 描画順序の設定
             spriteRenderer.sortingOrder = EBottleAttributeType.Dark.GetOrderInLayer();
         }
@@ -39,10 +43,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 }).AddTo(this);
             _bottleController.longPressGesture.OnLongPress.AsObservable().Subscribe(_ => animator.SetBool(_ANIMATOR_IS_DARK, false)).AddTo(compositeDisposableOnGameEnd, this);
             _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess)).AddTo(compositeDisposableOnGameEnd, this);
-
-            // 初期状態の登録
-            _isSuccess = _bottleController.IsSuccess();
-            animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
         }
     }
 }

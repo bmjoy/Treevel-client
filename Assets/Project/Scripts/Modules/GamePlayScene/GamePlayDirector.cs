@@ -402,6 +402,9 @@ namespace Treevel.Modules.GamePlayScene
                 // 時間の計測
                 _customTimer.StartTimer();
 
+                // ゲーム開始時のイベント
+                Instance._gameStartSubject.OnNext(Unit.Default);
+
                 // ギミックの発火
                 GimmickGenerator.Instance.FireGimmick();
 

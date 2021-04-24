@@ -42,7 +42,20 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             base.Awake();
             _framesToMove = (int)(Constants.FRAME_RATE * _SECONDS_TO_MOVE);
-            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
+                spriteRenderer.enabled = true;
+                animator.enabled = false;
+            }).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+                // 移動していないフレーム数を数え始める
+                _countCalmFrames = true;
+                animator.enabled = true;
+            }).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                _countCalmFrames = false;
+                _calmFrames = 0;
+                animator.enabled = false;
+            }).AddTo(this);
             // 描画順序の設定
             spriteRenderer.sortingOrder = EBottleAttributeType.Selfish.GetOrderInLayer();
         }
@@ -59,16 +72,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController.EndMove.Subscribe(_ => SetIsStopping(true)).AddTo(this);
             _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposableOnGameEnd, this);
             _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposableOnGameEnd, this);
-
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
-                _countCalmFrames = false;
-                _calmFrames = 0;
-                animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            }).AddTo(this);
-            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
-                // 移動していないフレーム数を数え始める
-                _countCalmFrames = true;
             }).AddTo(this);
         }
 
