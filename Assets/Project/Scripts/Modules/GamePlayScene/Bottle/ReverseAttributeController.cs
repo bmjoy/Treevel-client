@@ -6,8 +6,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 {
     public class ReverseAttributeController : BottleAttributeControllerBase
     {
-        private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("ReverseSpeed");
-
         protected override void Awake()
         {
             base.Awake();
