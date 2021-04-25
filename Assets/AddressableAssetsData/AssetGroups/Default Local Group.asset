@@ -120,31 +120,31 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: f2f1df9ae35ec4b0d801da6b6c8b7c1d
-    m_Address: spiderwebTile
+    m_Address: SpiderwebTile
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 4b3e1745307b74252bf32e550cc2da36
-    m_Address: spiderwebTile_bottom_left
+    m_Address: SpiderwebTile_bottom_left
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: e0af976b75d1540f7952262960a18959
-    m_Address: spiderwebTile_top_right
+    m_Address: SpiderwebTile_top_right
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 33d49357a33444a4e82dd82bc5579e68
-    m_Address: spiderwebTile_bottom_right
+    m_Address: SpiderwebTile_bottom_right
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: dc3f5590ff180434bb48bc80d01707c7
-    m_Address: spiderwebTile_top_left
+    m_Address: SpiderwebTile_top_left
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
