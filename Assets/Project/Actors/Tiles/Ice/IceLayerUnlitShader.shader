@@ -1,6 +1,4 @@
-// Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
-
-Shader "IceLayerShader"
+Shader "IceLayerUnlitShader"
 {
     Properties
     {
@@ -33,7 +31,7 @@ Shader "IceLayerShader"
         {
         CGPROGRAM
             #pragma vertex SpriteVert
-            #pragma fragment SpriteFrag_Custom
+            #pragma fragment IceLayerFrag
             #pragma target 2.0
             #pragma multi_compile_instancing
             #pragma multi_compile_local _ PIXELSNAP_ON
@@ -49,7 +47,7 @@ Shader "IceLayerShader"
             // 輝きの強さ
             static const float shine_max_value = 0.85;
         
-            fixed4 SpriteFrag_Custom (v2f i) : SV_Target
+            fixed4 IceLayerFrag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.texcoord);
                 // 輝きの傾き
