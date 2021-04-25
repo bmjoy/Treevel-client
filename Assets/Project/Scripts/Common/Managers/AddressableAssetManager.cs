@@ -220,6 +220,11 @@ namespace Treevel.Common.Managers
                         break;
                     case ETileType.Spiderweb:
                         tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.SPIDERWEB_TILE_PREFAB));
+                        tasks.Add(LoadAssetAsync<Sprite>(Constants.Address.SPIDERWEB_TILE_SPRITE));
+                        tasks.Add(LoadAssetAsync<Sprite>(Constants.Address.SPIDERWEB_TILE_BOTTOM_LEFT_SPRITE));
+                        tasks.Add(LoadAssetAsync<Sprite>(Constants.Address.SPIDERWEB_TILE_BOTTOM_RIGHT_SPRITE));
+                        tasks.Add(LoadAssetAsync<Sprite>(Constants.Address.SPIDERWEB_TILE_TOP_LEFT_SPRITE));
+                        tasks.Add(LoadAssetAsync<Sprite>(Constants.Address.SPIDERWEB_TILE_TOP_RIGHT_SPRITE));
                         break;
                     case ETileType.Ice:
                         tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.ICE_TILE_PREFAB));

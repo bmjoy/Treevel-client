@@ -162,6 +162,11 @@ namespace Treevel.Common.Utils
             public const string WARP_TILE_PREFAB = "WarpTilePrefab";
             public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
             public const string SPIDERWEB_TILE_PREFAB = "SpiderwebTilePrefab";
+            public const string SPIDERWEB_TILE_SPRITE = "SpiderwebTile";
+            public const string SPIDERWEB_TILE_BOTTOM_LEFT_SPRITE = SPIDERWEB_TILE_SPRITE + "_bottom_left";
+            public const string SPIDERWEB_TILE_BOTTOM_RIGHT_SPRITE = SPIDERWEB_TILE_SPRITE +"_bottom_right";
+            public const string SPIDERWEB_TILE_TOP_LEFT_SPRITE = SPIDERWEB_TILE_SPRITE + "_top_left";
+            public const string SPIDERWEB_TILE_TOP_RIGHT_SPRITE = SPIDERWEB_TILE_SPRITE + "_top_right";
             public const string ICE_TILE_PREFAB = "IceTilePrefab";
             public const string ICE_LAYER_MATERIAL = "IceLayerMaterial";
             public const string GOAL_TILE_SPRITE_PREFIX = "goalTile_";
