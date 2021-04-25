@@ -45,7 +45,18 @@ Shader "IceLayerUnlitShader"
             // 輝きの閾値
             static const float shine_min_threshold = 0.90;
             // 輝きの強さ
-            static const float shine_max_value = 0.85;
+            static const float shine_max_value = 0.15;
+
+            // 輝度に対応するRGB値を返す
+            fixed4 GetLuminance(float luminance)
+            {
+                fixed4 col;
+                col.x = 0.299 * luminance;
+                col.y = 0.587 * luminance;
+                col.z = 0.114 * luminance;
+                col.a = 1;
+                return col;
+            }
         
             fixed4 IceLayerFrag (v2f i) : SV_Target
             {
@@ -55,7 +66,7 @@ Shader "IceLayerUnlitShader"
                 // 輝きの速さ
                 const float speed = -3 * _Time.y;
                 // 輝きの基となる関数
-                fixed4 shine = cos(shine_frequency * UNITY_PI * angle + speed + shine_initial_phase);
+                float shine = cos(shine_frequency * UNITY_PI * angle + speed + shine_initial_phase);
                 // 強度が弱い部分を0にする
                 shine -= shine_min_threshold;
                 shine = max(shine, 0);
@@ -63,10 +74,10 @@ Shader "IceLayerUnlitShader"
                 // 輝きの強さを調整
                 shine *= shine_max_value;
                 // 輝度に変換してテクスチャに重ねる
-                shine.r = clamp(col.x+0.299*shine.x, 0, 1);
-                shine.g = clamp(col.y+0.587*shine.y, 0, 1);
-                shine.b = clamp(col.z+0.114*shine.z, 0, 1);
-                col.rgb = shine;
+                const fixed4 shine_color = GetLuminance(shine);
+                col.r = clamp(col.x+shine_color.x, 0, 1);
+                col.g = clamp(col.y+shine_color.y, 0, 1);
+                col.b = clamp(col.z+shine_color.z, 0, 1);
                 
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
