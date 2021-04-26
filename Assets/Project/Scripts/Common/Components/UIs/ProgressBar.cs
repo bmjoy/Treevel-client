@@ -56,7 +56,10 @@ namespace Treevel.Common.Components.UIs
             // アセットロードするイベントを購読
             AddressableAssetManager.OnAssetStartLoad.Subscribe(op => {
                 _loadingOps.Add(op);
-                op.Completed += op1 => _loadingOps.Remove(op1);
+                op.Completed += op1 => {
+                    var idx = _loadingOps.FindIndex(h => h.GetHashCode() == op1.GetHashCode());
+                    _loadingOps.RemoveAt(idx);
+                };
 
                 if (!gameObject.activeSelf) {
                     gameObject.SetActive(true);
