@@ -168,7 +168,7 @@ namespace Treevel.Common.Networks.Database
         public async UniTask<bool> DeleteDataAsync(IEnumerable<string> keys)
         {
             var request = new UpdateUserDataRequest {
-                KeysToRemove = keys.ToList()
+                KeysToRemove = keys.ToList(),
             };
 
             try {
