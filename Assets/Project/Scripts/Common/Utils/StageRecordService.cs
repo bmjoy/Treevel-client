@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -6,6 +7,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
+using UnityEngine;
 
 namespace Treevel.Common.Utils
 {
@@ -93,6 +95,29 @@ namespace Treevel.Common.Utils
                         _cachedStageRecordDic[key] = stageRecord;
                     }
                 });
+        }
+
+        /// <summary>
+        /// 全ステージの記録を削除
+        /// </summary>
+        public async UniTask ResetAsync()
+        {
+            if (await NetworkService.Execute(new DeleteAllStageRecordRequest())) {
+                _cachedStageRecordDic.Clear();
+
+                foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
+                    var stageNum = treeId.GetStageNum();
+
+                    Enumerable.Range(1, stageNum).ToList()
+                        .ForEach(stageId => {
+                            PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageId));
+                            _cachedStageRecordDic[StageData.EncodeStageIdKey(treeId, stageId)] = new StageRecord(treeId, stageId);
+                        });
+                }
+            } else {
+                // 途中で失敗する可能性を考慮してリモートと同期を取る
+                await PreloadAllStageRecordsAsync();
+            }
         }
     }
 }
