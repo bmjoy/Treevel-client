@@ -92,7 +92,7 @@ namespace Treevel.Modules.GamePlayScene
         public enum EGameState
         {
             Tutorial,
-            Opening,
+            Preparing,
             CountDown,
             Playing,
             Success,
@@ -163,7 +163,7 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageRecord.tutorialChecked;
-            var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
+            var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Preparing];
 
             _stateMachine = new StateMachine(startState, _stateList.Values);
 
@@ -205,13 +205,13 @@ namespace Treevel.Modules.GamePlayScene
             switch (state) {
                 case EGameState.Tutorial:
                     _stateMachine.AddTransition(_stateList[EGameState.Tutorial],
-                                                _stateList[EGameState.Opening]); // tutorial -> opening
+                                                _stateList[EGameState.Preparing]); // tutorial -> preparing
                     break;
-                case EGameState.Opening:
-                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
-                                                _stateList[EGameState.Playing]); // opening -> playing
-                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
-                                                _stateList[EGameState.CountDown]); // opening -> countdown
+                case EGameState.Preparing:
+                    _stateMachine.AddTransition(_stateList[EGameState.Preparing],
+                                                _stateList[EGameState.Playing]); // preparing -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Preparing],
+                                                _stateList[EGameState.CountDown]); // preparing -> countdown
                     break;
                 case EGameState.CountDown:
                     _stateMachine.AddTransition(_stateList[EGameState.CountDown],
@@ -233,7 +233,7 @@ namespace Treevel.Modules.GamePlayScene
                     break;
                 case EGameState.Failure:
                     _stateMachine.AddTransition(_stateList[EGameState.Failure],
-                                                _stateList[EGameState.Opening]); // failure -> opening
+                                                _stateList[EGameState.Preparing]); // failure -> preparing
                     break;
                 case EGameState.Success:
                     break;
@@ -335,14 +335,14 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class OpeningState : StateBase
+        private class PreparingState : StateBase
         {
             /// <summary>
             /// ステージID表示用テキスト
             /// </summary>
             private readonly Text _stageNumberText;
 
-            public OpeningState(GamePlayDirector caller)
+            public PreparingState(GamePlayDirector caller)
             {
                 // TODO: ステージTextを適切に配置する
                 // ステージID表示
@@ -600,7 +600,7 @@ namespace Treevel.Modules.GamePlayScene
                 SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
                 _tutorialWindow.SetActive(false);
 
-                // OpeningState はBGMを流さないため止めとく
+                // PreparingState はBGMを流さないため止めとく
                 SoundManager.Instance.StopBGMAsync();
             }
         }
