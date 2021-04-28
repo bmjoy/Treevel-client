@@ -93,7 +93,7 @@ namespace Treevel.Modules.GamePlayScene
         {
             Tutorial,
             Preparing,
-            CountDown,
+            Opening,
             Playing,
             Success,
             Failure,
@@ -211,11 +211,11 @@ namespace Treevel.Modules.GamePlayScene
                     _stateMachine.AddTransition(_stateList[EGameState.Preparing],
                                                 _stateList[EGameState.Playing]); // preparing -> playing
                     _stateMachine.AddTransition(_stateList[EGameState.Preparing],
-                                                _stateList[EGameState.CountDown]); // preparing -> countdown
+                                                _stateList[EGameState.Opening]); // preparing -> opening
                     break;
-                case EGameState.CountDown:
-                    _stateMachine.AddTransition(_stateList[EGameState.CountDown],
-                                                _stateList[EGameState.Playing]); // countdown -> playing
+                case EGameState.Opening:
+                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
+                                                _stateList[EGameState.Playing]); // opening -> playing
                     break;
                 case EGameState.Playing:
                     _stateMachine.AddTransition(_stateList[EGameState.Playing],
@@ -605,17 +605,17 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class CountDownState : StateBase
+        private class OpeningState : StateBase
         {
             private readonly Animator _animator;
             private static readonly int _ANIMATOR_PARAM_PLAY_COUNT_DOWN = Animator.StringToHash("PlayCountDown");
-            private static readonly int _ANIMATOR_STATE_COUNT_DOWN = Animator.StringToHash("CountDown");
-            public CountDownState(GamePlayDirector caller)
+            private static readonly int _ANIMATOR_STATE_OPENING = Animator.StringToHash("Opening");
+            public OpeningState(GamePlayDirector caller)
             {
                 _animator = caller._countDownObject.GetComponent<Animator>();
                 _animator.GetBehaviour<ObservableStateMachineTrigger>()
                     .OnStateExitAsObservable()
-                    .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_COUNT_DOWN)
+                    .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_OPENING)
                     .Subscribe(_ => {
                         var maskObject = _animator.transform.Find("Panel").gameObject;
                         maskObject.SetActive(false);
