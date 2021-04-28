@@ -54,11 +54,11 @@ namespace Treevel.Modules.GamePlayScene
         [SerializeField] private GameObject _countDownObject;
 
         /// <summary>
-        /// オープニングアニメーション開始時のイベント
+        /// ステージ準備完了時のイベント
         /// </summary>
-        public IObservable<Unit> OpeningAnimationStart => _openingAnimationStartSubject;
+        public IObservable<Unit> StagePrepared => _stagePreparedSubject;
 
-        private readonly Subject<Unit> _openingAnimationStartSubject = new Subject<Unit>();
+        private readonly Subject<Unit> _stagePreparedSubject = new Subject<Unit>();
 
         /// <summary>
         /// ゲーム開始時のイベント
@@ -360,8 +360,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnExit(StateBase to)
             {
-                // オープニングアニメーション開始時のイベント
-                Instance._openingAnimationStartSubject.OnNext(Unit.Default);
+                // ステージ準備完了時のイベント
+                Instance._stagePreparedSubject.OnNext(Unit.Default);
             }
 
             /// <summary>

@@ -42,7 +42,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         {
             base.Awake();
             _framesToMove = (int)(Constants.FRAME_RATE * _SECONDS_TO_MOVE);
-            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.StagePrepared.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameStart.Subscribe(_ => {
                 // 移動していないフレーム数を数え始める
                 _countCalmFrames = true;

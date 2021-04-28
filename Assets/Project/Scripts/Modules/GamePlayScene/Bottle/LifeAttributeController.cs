@@ -80,7 +80,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _lifeObject.SetActive(false);
             } else {
                 // ゲーム開始時に描画する
-                GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
+                GamePlayDirector.Instance.StagePrepared.Subscribe(_ => {
                     spriteRenderer.enabled = true;
                     _lifeSpriteRenderer.enabled = true;
                 }).AddTo(compositeDisposableOnGameEnd, this);

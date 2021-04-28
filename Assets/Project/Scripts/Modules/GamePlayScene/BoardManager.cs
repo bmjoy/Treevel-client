@@ -43,7 +43,7 @@ namespace Treevel.Modules.GamePlayScene
                 }
             }
 
-            GamePlayDirector.Instance.OpeningAnimationStart
+            GamePlayDirector.Instance.StagePrepared
                 .Subscribe(_ => {
                     foreach (var square in _squares) {
                         if (square.bottle == null) {
