@@ -124,8 +124,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
                 })
                 .AddTo(this);
 
-            _model.startupDays
-                .Subscribe(startupDays => _playDays.text = startupDays.ToString())
+            _model.userRecord
+                .Subscribe(userRecord => _playDays.text = userRecord.startupDays.ToString())
                 .AddTo(this);
         }
 

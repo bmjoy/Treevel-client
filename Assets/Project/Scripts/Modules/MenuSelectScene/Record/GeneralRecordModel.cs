@@ -17,20 +17,22 @@ namespace Treevel.Modules.MenuSelectScene.Record
         /// <summary>
         /// 起動日数
         /// </summary>
-        public readonly ReactiveProperty<int> startupDays = new ReactiveProperty<int>();
+        public readonly ReactiveProperty<UserRecord> userRecord = new ReactiveProperty<UserRecord>();
 
         public GeneralRecordModel()
         {
             FetchStageRecordArray();
-
-            UserRecord.Instance.StartupDaysObservable
-                .Subscribe(startupDays => this.startupDays.Value = startupDays)
-                .AddTo(_disposable);
+            FetchUserRecord();
         }
 
         public void FetchStageRecordArray()
         {
             stageRecordArray.Value = StageRecordService.Instance.Get().ToArray();
+        }
+
+        public void FetchUserRecord()
+        {
+            userRecord.Value = UserRecordService.Instance.Get();
         }
 
         public void Dispose()
