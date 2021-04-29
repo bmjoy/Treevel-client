@@ -24,25 +24,19 @@ namespace Treevel.Common.Networks.Database
                 Keys = new List<string>{ key },
             };
 
-            try {
-                var task = PlayFabClientAPIAsync.GetUserDataAsync(request);
-                var result = await task;
+            var task = PlayFabClientAPIAsync.GetUserDataAsync(request);
+            var result = await task;
 
-                if (task.Status != UniTaskStatus.Succeeded) {
-                    throw new NetworkErrorException();
-                }
-
-                if (!result.Data.ContainsKey(key)) {
-                    // FIXME: PlayFab にデータがない場合、暫定的に Exception とする
-                    throw new DataException();
-                }
-
-                return JsonUtility.FromJson<T>(result.Data[key].Value);
-            } catch (Exception e) {
-                // ローカルに切り替えるため呼び出し先に投げる
-                Debug.LogError(e.Message + e.StackTrace);
-                throw;
+            if (task.Status != UniTaskStatus.Succeeded) {
+                throw new NetworkErrorException();
             }
+
+            if (!result.Data.ContainsKey(key)) {
+                // PlayFab にデータがない場合、DataException とする
+                throw new DataException();
+            }
+
+            return JsonUtility.FromJson<T>(result.Data[key].Value);
         }
 
         public async UniTask<IEnumerable<T>> GetListDataAsync<T>(IEnumerable<string> keys)
