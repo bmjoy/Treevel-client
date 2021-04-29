@@ -11,7 +11,7 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 起動日数
         /// </summary>
-        public ReactiveProperty<int> startupDays;
+        public int startupDays;
 
         /// <summary>
         /// 最終起動日（String）
@@ -30,7 +30,7 @@ namespace Treevel.Common.Entities
 
         public UserRecord()
         {
-            startupDays = new ReactiveProperty<int>(1);
+            startupDays = 1;
             LastStartupDate = DateTime.Today;
         }
     }

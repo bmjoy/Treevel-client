@@ -70,7 +70,7 @@ namespace Treevel.Common.Utils
 
             if (lastStartupDate < DateTime.Today) {
                 var newUserRecord = _cachedUserRecord;
-                newUserRecord.startupDays.Value++;
+                newUserRecord.startupDays++;
                 newUserRecord.LastStartupDate = DateTime.Today;
 
                 await SaveAsync(newUserRecord);
