@@ -115,8 +115,18 @@ namespace Treevel.Common.Utils
                         });
                 }
             } else {
+                var stageIds = GameDataManager.GetAllStages().Select(data => data.StageId);
+                PlayerPrefsUtility.DeleteKeys(stageIds);
+
                 // 途中で失敗する可能性を考慮してリモートと同期を取る
                 await PreloadAllStageRecordsAsync();
+
+                // PlayerPrefsも同期する
+                foreach (var stageRecord in _cachedStageRecordDic.Values) {
+                    if (stageRecord.challengeNum > 0) {
+                        PlayerPrefsUtility.SetObject(StageData.EncodeStageIdKey(stageRecord.treeId, stageRecord.stageNumber), stageRecord);
+                    }
+                }
             }
         }
     }
