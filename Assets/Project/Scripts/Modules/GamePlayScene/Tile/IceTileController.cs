@@ -37,23 +37,25 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 // 移動できるボトルではなかったら何もしない
                 if (dynamicBottleController == null) return;
 
-                var x = direction.Value.x;
-                var y = direction.Value.y;
+                var currPos = BoardManager.Instance.TileNumToXY(_tileNumber);
+                if (currPos == null) return;
 
-                int targetTileNum;
+                var targetX = currPos.Value.Item1;
+                var targetY = currPos.Value.Item2;
 
-                if (x == 0) {
-                    // 縦方向の移動の場合
-                    targetTileNum = _tileNumber + 3 * y;
-                } else if (y == 0) {
-                    // 横方向の移動の場合
-                    targetTileNum = _tileNumber + x;
+                if (direction.Value.x == 0) { // 縦方向の移動の場合
+                    targetY += direction.Value.y;
+                } else if (direction.Value.y == 0) { // 横方向の移動の場合
+                    targetX += direction.Value.x;
                 } else {
                     Debug.LogError("invalid direction");
                     return;
                 }
 
-                BoardManager.Instance.MoveAsync(dynamicBottleController, targetTileNum, direction.Value);
+                var targetTileNum = BoardManager.Instance.XYToTileNum(targetX, targetY);
+                if (targetTileNum == null) return;
+
+                BoardManager.Instance.MoveAsync(dynamicBottleController, targetTileNum.Value, direction.Value);
             }
         }
     }
