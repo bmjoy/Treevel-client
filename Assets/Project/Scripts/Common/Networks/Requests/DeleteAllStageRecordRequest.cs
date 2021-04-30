@@ -10,8 +10,8 @@ namespace Treevel.Common.Networks.Requests
         {
             // 遊んだことがあるステージのみ削除
             keys = StageRecordService.Instance.Get()
-                .Where(s => s.challengeNum > 0)
-                .Select(s => StageData.EncodeStageIdKey(s.treeId, s.stageNumber));
+                .Where(stageRecord => stageRecord.challengeNum > 0)
+                .Select(stageRecord => StageData.EncodeStageIdKey(stageRecord.treeId, stageRecord.stageNumber));
         }
     }
 }
