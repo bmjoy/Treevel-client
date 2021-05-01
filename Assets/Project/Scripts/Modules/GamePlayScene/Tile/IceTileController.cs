@@ -17,7 +17,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             base.Awake();
             _spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
-            GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
+            GamePlayDirector.Instance.StagePrepared.Subscribe(_ => {
                 _spriteRendererUnifier.enabled = true;
                 _iceLayer.enabled = true;
             }).AddTo(compositeDisposableOnGameEnd, this);
