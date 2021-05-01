@@ -80,10 +80,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _lifeObject.SetActive(false);
             } else {
                 // ゲーム開始時に描画する
-                GamePlayDirector.Instance.OpeningAnimationStart.Subscribe(_ => {
+                GamePlayDirector.Instance.StagePrepared.Subscribe(_ => {
                     spriteRenderer.enabled = true;
                     _lifeSpriteRenderer.enabled = true;
                 }).AddTo(compositeDisposableOnGameEnd, this);
+                GamePlayDirector.Instance.GameStart.Subscribe(_ => animator.enabled = true).AddTo(this);
                 if (_life == 2) {
                     // lifeの初期値が2ならボトル画像にヒビを入れる
                     SetCrackSprite(_life);
@@ -135,7 +136,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             GamePlayDirector.Instance.GameEnd.Where(_ => !_isDead)
                 .Subscribe(_ => {
                     // 自身が破壊されていない場合はアニメーションを止める
-                    animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+                    animator.enabled = false;
                     _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
                 }).AddTo(this);
         }

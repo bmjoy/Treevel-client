@@ -112,6 +112,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ea1901f8359f640dca12203a7a35bdc3, type: 3}
   _INITIAL_BGM_VOLUME: 0.25
   _INITIAL_SE_VOLUME: 1
+  _bgmMixer: {fileID: 5587728878416907349, guid: 29b40342b690845b993e9bacc177dd10,
+    type: 2}
+  _seMixer: {fileID: -6485719781099264269, guid: 29b40342b690845b993e9bacc177dd10,
+    type: 2}
 --- !u!81 &1835023510
 AudioListener:
   m_ObjectHideFlags: 0

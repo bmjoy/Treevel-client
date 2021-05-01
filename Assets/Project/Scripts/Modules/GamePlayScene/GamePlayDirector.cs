@@ -54,11 +54,11 @@ namespace Treevel.Modules.GamePlayScene
         [SerializeField] private GameObject _countDownObject;
 
         /// <summary>
-        /// オープニングアニメーション開始時のイベント
+        /// ステージ準備完了時のイベント
         /// </summary>
-        public IObservable<Unit> OpeningAnimationStart => _openingAnimationStartSubject;
+        public IObservable<Unit> StagePrepared => _stagePreparedSubject;
 
-        private readonly Subject<Unit> _openingAnimationStartSubject = new Subject<Unit>();
+        private readonly Subject<Unit> _stagePreparedSubject = new Subject<Unit>();
 
         /// <summary>
         /// ゲーム開始時のイベント
@@ -92,8 +92,8 @@ namespace Treevel.Modules.GamePlayScene
         public enum EGameState
         {
             Tutorial,
+            Preparing,
             Opening,
-            CountDown,
             Playing,
             Success,
             Failure,
@@ -163,7 +163,7 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             var shouldShowTutorial = _stageData.Tutorial.type != ETutorialType.None && !_stageRecord.tutorialChecked;
-            var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Opening];
+            var startState = shouldShowTutorial ? _stateList[EGameState.Tutorial] : _stateList[EGameState.Preparing];
 
             _stateMachine = new StateMachine(startState, _stateList.Values);
 
@@ -205,17 +205,17 @@ namespace Treevel.Modules.GamePlayScene
             switch (state) {
                 case EGameState.Tutorial:
                     _stateMachine.AddTransition(_stateList[EGameState.Tutorial],
-                                                _stateList[EGameState.Opening]); // tutorial -> opening
+                                                _stateList[EGameState.Preparing]); // tutorial -> preparing
+                    break;
+                case EGameState.Preparing:
+                    _stateMachine.AddTransition(_stateList[EGameState.Preparing],
+                                                _stateList[EGameState.Playing]); // preparing -> playing
+                    _stateMachine.AddTransition(_stateList[EGameState.Preparing],
+                                                _stateList[EGameState.Opening]); // preparing -> opening
                     break;
                 case EGameState.Opening:
                     _stateMachine.AddTransition(_stateList[EGameState.Opening],
                                                 _stateList[EGameState.Playing]); // opening -> playing
-                    _stateMachine.AddTransition(_stateList[EGameState.Opening],
-                                                _stateList[EGameState.CountDown]); // opening -> countdown
-                    break;
-                case EGameState.CountDown:
-                    _stateMachine.AddTransition(_stateList[EGameState.CountDown],
-                                                _stateList[EGameState.Playing]); // countdown -> playing
                     break;
                 case EGameState.Playing:
                     _stateMachine.AddTransition(_stateList[EGameState.Playing],
@@ -233,7 +233,7 @@ namespace Treevel.Modules.GamePlayScene
                     break;
                 case EGameState.Failure:
                     _stateMachine.AddTransition(_stateList[EGameState.Failure],
-                                                _stateList[EGameState.Opening]); // failure -> opening
+                                                _stateList[EGameState.Preparing]); // failure -> preparing
                     break;
                 case EGameState.Success:
                     break;
@@ -335,14 +335,14 @@ namespace Treevel.Modules.GamePlayScene
             }
         }
 
-        private class OpeningState : StateBase
+        private class PreparingState : StateBase
         {
             /// <summary>
             /// ステージID表示用テキスト
             /// </summary>
             private readonly Text _stageNumberText;
 
-            public OpeningState(GamePlayDirector caller)
+            public PreparingState(GamePlayDirector caller)
             {
                 // TODO: ステージTextを適切に配置する
                 // ステージID表示
@@ -360,8 +360,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnExit(StateBase to)
             {
-                // オープニングアニメーション開始時のイベント
-                Instance._openingAnimationStartSubject.OnNext(Unit.Default);
+                // ステージ準備完了時のイベント
+                Instance._stagePreparedSubject.OnNext(Unit.Default);
             }
 
             /// <summary>
@@ -456,7 +456,7 @@ namespace Treevel.Modules.GamePlayScene
                 // ゲーム内の時間を一時停止する
                 Time.timeScale = 0.0f;
                 // ポーズ中は BGM を少し下げる
-                SoundManager.Instance.ChangeBGMVolume(_BGM_VOLUME_RATIO_ON_PAUSE);
+                SoundManager.Instance.SetMasterBGMVolume(_BGM_VOLUME_RATIO_ON_PAUSE);
                 // 一時停止ポップアップ表示
                 Instance._pauseWindow.SetActive(true);
                 Instance._pauseBackground.SetActive(true);
@@ -469,7 +469,7 @@ namespace Treevel.Modules.GamePlayScene
                 // ゲーム内の時間を元に戻す
                 Time.timeScale = 1.0f;
                 // BGM を元に戻す
-                SoundManager.Instance.ChangeBGMVolume(1 / _BGM_VOLUME_RATIO_ON_PAUSE);
+                SoundManager.Instance.SetMasterBGMVolume(1.0f);
                 if (!(to is FailureState)) {
                     // 一時停止ウィンドウを非表示にする
                     Instance._pauseWindow.SetActive(false);
@@ -600,22 +600,22 @@ namespace Treevel.Modules.GamePlayScene
                 SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
                 _tutorialWindow.SetActive(false);
 
-                // OpeningState はBGMを流さないため止めとく
+                // PreparingState はBGMを流さないため止めとく
                 SoundManager.Instance.StopBGMAsync();
             }
         }
 
-        private class CountDownState : StateBase
+        private class OpeningState : StateBase
         {
             private readonly Animator _animator;
             private static readonly int _ANIMATOR_PARAM_PLAY_COUNT_DOWN = Animator.StringToHash("PlayCountDown");
-            private static readonly int _ANIMATOR_STATE_COUNT_DOWN = Animator.StringToHash("CountDown");
-            public CountDownState(GamePlayDirector caller)
+            private static readonly int _ANIMATOR_STATE_OPENING = Animator.StringToHash("Opening");
+            public OpeningState(GamePlayDirector caller)
             {
                 _animator = caller._countDownObject.GetComponent<Animator>();
                 _animator.GetBehaviour<ObservableStateMachineTrigger>()
                     .OnStateExitAsObservable()
-                    .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_COUNT_DOWN)
+                    .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_OPENING)
                     .Subscribe(_ => {
                         var maskObject = _animator.transform.Find("Panel").gameObject;
                         maskObject.SetActive(false);
