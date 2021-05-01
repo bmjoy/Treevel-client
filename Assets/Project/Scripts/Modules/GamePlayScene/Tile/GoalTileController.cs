@@ -36,7 +36,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
             _wound.color = GoalColor.GetMainColor();
             _mainColorLayer.color = GoalColor.GetMainColor(_mainColorLayer.color.a);
             bottleHandler = new GoalTileBottleHandler(this);
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+            GamePlayDirector.Instance.StagePrepared.Subscribe(_ => {
                 // 表示
                 _wound.GetComponent<SpriteRenderer>().enabled = true;
                 _mainColorLayer.GetComponent<SpriteRenderer>().enabled = true;

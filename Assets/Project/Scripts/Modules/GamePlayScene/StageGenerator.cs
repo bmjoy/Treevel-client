@@ -45,7 +45,7 @@ namespace Treevel.Modules.GamePlayScene
             if (GamePlayDirector.Instance.IsRetry)
                 GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Playing);
             else
-                GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.CountDown);
+                GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Opening);
         }
     }
 }
