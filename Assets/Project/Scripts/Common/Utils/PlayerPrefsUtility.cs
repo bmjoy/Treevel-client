@@ -182,5 +182,15 @@ namespace Treevel.Common.Utils
             var memoryStream = new MemoryStream(Convert.FromBase64String(str));
             return (T)binaryFormatter.Deserialize(memoryStream);
         }
+
+        /// <summary>
+        /// PlayerPrefsから複数キーを同時に削除する
+        /// </summary>
+        public static void DeleteKeys(IEnumerable<string> keys)
+        {
+            foreach (var key in keys) {
+                PlayerPrefs.DeleteKey(key);
+            }
+        }
     }
 }

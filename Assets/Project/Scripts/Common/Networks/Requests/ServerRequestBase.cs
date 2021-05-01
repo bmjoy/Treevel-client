@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Networks.Database;
-using Treevel.Common.Utils;
 
 namespace Treevel.Common.Networks.Requests
 {
@@ -49,6 +49,21 @@ namespace Treevel.Common.Networks.Requests
         public override async UniTask<bool> Execute()
         {
             return await remoteDatabaseService.UpdateDataAsync(key, data);
+        }
+    }
+
+    public abstract class DeleteServerRequestBase : ServerRequestBase<bool>
+    {
+        protected IEnumerable<string> keys;
+
+        public override async UniTask<bool> Execute()
+        {
+            var allSuccess = true;
+            // PlayFabの仕様上一回のリクエストにつき10個の値しか消せないので分けてリクエストを送る
+            for (var i = 0 ; i <= keys.Count() / 10 ; i++) {
+                allSuccess &= await remoteDatabaseService.DeleteDataAsync(keys.Skip(i * 10).Take(10));
+            }
+            return allSuccess;
         }
     }
 }

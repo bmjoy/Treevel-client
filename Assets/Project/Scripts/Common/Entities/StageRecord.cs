@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using Treevel.Common.Entities.GameDatas;
-using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
@@ -66,19 +63,6 @@ namespace Treevel.Common.Entities
         {
             this.treeId = treeId;
             this.stageNumber = stageNumber;
-        }
-
-        /// <summary>
-        /// オブジェクト情報のリセット
-        /// </summary>
-        public static void Reset()
-        {
-            foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
-                var stageNum = treeId.GetStageNum();
-
-                Enumerable.Range(1, stageNum).ToList()
-                    .ForEach(stageId => PlayerPrefs.DeleteKey(StageData.EncodeStageIdKey(treeId, stageId)));
-            }
         }
 
         /// <summary>
