@@ -9,6 +9,7 @@ Shader "IceLayerUnlitShader"
         [HideInInspector] _Flip ("Flip", Vector) = (1,1,1,1)
         [PerRendererData] _AlphaTex ("External Alpha", 2D) = "white" {}
         [PerRendererData] _EnableExternalAlpha ("Enable External Alpha", Float) = 0
+        [PerRendererData] _ShineIntensity ("輝きの強さ", Float) = 0
     }
 
     SubShader
@@ -45,7 +46,7 @@ Shader "IceLayerUnlitShader"
             // 輝きの閾値
             static const float shine_min_threshold = 0.90;
             // 輝きの強さ
-            static const float shine_max_value = 0.15;
+            float _ShineIntensity;
 
             // 輝度に対応するRGB値を返す
             fixed4 GetLuminance(float luminance)
@@ -72,7 +73,7 @@ Shader "IceLayerUnlitShader"
                 shine = max(shine, 0);
                 shine /= (1 - shine_min_threshold);
                 // 輝きの強さを調整
-                shine *= shine_max_value;
+                shine *= _ShineIntensity;
                 // 輝度に変換してテクスチャに重ねる
                 const fixed4 shine_color = GetLuminance(shine);
                 col.r = clamp(col.x+shine_color.x, 0, 1);

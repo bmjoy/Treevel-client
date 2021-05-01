@@ -12,6 +12,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
     {
         private SpriteRendererUnifier _spriteRendererUnifier;
         [SerializeField] private SpriteRenderer _iceLayer;
+        private static readonly int _SHADER_PARAM_SHINE_INTENSITY = Shader.PropertyToID("_ShineIntensity");
+        private const float _SHADER_VALUE_SHINE_INTENSITY = 0.15f;
 
         protected override void Awake()
         {
@@ -21,16 +23,10 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 _spriteRendererUnifier.enabled = true;
                 _iceLayer.enabled = true;
             }).AddTo(compositeDisposableOnGameEnd, this);
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.material = AddressableAssetManager.GetAsset<Material>(Constants.Address.ICE_LAYER_MATERIAL))
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.material.SetFloat(_SHADER_PARAM_SHINE_INTENSITY, _SHADER_VALUE_SHINE_INTENSITY))
                 .AddTo(compositeDisposableOnGameEnd, this);
-            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
-                // Spriteのデフォルトのマテリアルを取得(実機、エディタ上両対応)
-                #if UNITY_EDITOR
-                _iceLayer.material = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Material>("Sprites-Default.mat");
-                #else
-                _iceLayer.material = Resources.GetBuiltinResource<Material>("Sprites-Default.mat");
-                #endif
-            }).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _iceLayer.material.SetFloat(_SHADER_PARAM_SHINE_INTENSITY, 0f))
+                .AddTo(this);
         }
 
         public override void Initialize(TileData tileData)
