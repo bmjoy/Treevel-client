@@ -21,7 +21,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 _spriteRendererUnifier.enabled = true;
                 _iceLayer.enabled = true;
             }).AddTo(compositeDisposableOnGameEnd, this);
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.material = AddressableAssetManager.GetAsset<Material>(Constants.Address.ICE_LAYER_MATERIAL)).AddTo(compositeDisposableOnGameEnd, this);
+            GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.material = AddressableAssetManager.GetAsset<Material>(Constants.Address.ICE_LAYER_MATERIAL))
+                .AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                 // Spriteのデフォルトのマテリアルを取得(実機、エディタ上両対応)
                 #if UNITY_EDITOR
