@@ -56,6 +56,8 @@ MonoBehaviour:
   secondControlPoint: {x: 0, y: 0}
   _middlePointNum: 0
   width: 0
+  Scale:
+    value: 1
   lineRenderer: {fileID: 3838137885523574259}
 --- !u!120 &3838137885523574259
 LineRenderer:
@@ -68,10 +70,12 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
