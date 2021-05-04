@@ -54,7 +54,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void Awake()
         {
-            _width = Screen.width * 0.5f;
+            _width = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x * 0.5f;
             _height = _width * 0.5f;
             _margin = Screen.width * 0.05f;
 
@@ -77,7 +77,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // ポップアップが表示される位置を、該当する棒グラフの位置に合わせて変える
             var rectTransform = GetComponent<RectTransform>();
             // pivot が 0.5 なので、ポップアップの横幅も考慮する
-            var margin = _margin + _width / 2;
+            var margin = _margin + _width / 2 * (Screen.width / RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x);
             var position = rectTransform.position;
             position.x = Mathf.Clamp(graphPosition.x, margin, Screen.width - margin);
             rectTransform.position = position;
@@ -86,7 +86,9 @@ namespace Treevel.Modules.MenuSelectScene.Record
             var lineRectTransform = _indicatorLine.GetComponent<RectTransform>();
             var linePosition = lineRectTransform.position;
             linePosition.x = graphPosition.x;
-            lineRectTransform.sizeDelta = new Vector2(lineRectTransform.rect.width, linePosition.y - graphPosition.y);
+            // 補助線の高さを計算する
+            var lineHeight = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y / Screen.height * (linePosition.y - graphPosition.y);
+            lineRectTransform.sizeDelta = new Vector2(lineRectTransform.rect.width, lineHeight);
             lineRectTransform.position = linePosition;
 
             // TODO: implement PlayFab version
