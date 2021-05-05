@@ -193,12 +193,8 @@ namespace Treevel.Modules.MenuSelectScene.Record
 
         private void CreateFailureReasonGraphElement(EFailureReasonType type, float startPoint, float fillAmount)
         {
-            var element = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform, true);
+            var element = Instantiate(_failureReasonGraphElementPrefab, _failureReasonGraphBackground.transform);
             _shouldDestroyPrefabsOnDisable.Add(element);
-
-            // 親を指定すると，localPosition や sizeDelta が prefab の時と変わるので調整する
-            element.transform.localPosition = Vector3.zero;
-            element.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
 
             element.GetComponent<Image>().fillAmount = fillAmount;
 
