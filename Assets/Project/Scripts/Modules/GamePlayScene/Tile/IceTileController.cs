@@ -1,4 +1,5 @@
-﻿using Treevel.Common.Entities.GameDatas;
+﻿using Cysharp.Threading.Tasks;
+using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UnityEngine;
@@ -55,7 +56,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 var targetTileNum = BoardManager.Instance.XYToTileNum(targetX, targetY);
                 if (targetTileNum == null) return;
 
-                BoardManager.Instance.MoveAsync(dynamicBottleController, targetTileNum.Value, direction.Value);
+                BoardManager.Instance.MoveAsync(dynamicBottleController, targetTileNum.Value, direction.Value).Forget();
             }
         }
     }
