@@ -16,7 +16,6 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 最終起動日（String）
         /// </summary>
-        [FormerlySerializedAs("lastStartupDate")]
         [SerializeField]
         private string stringLastStartupDate;
 
