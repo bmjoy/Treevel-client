@@ -30,7 +30,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             TileNumber = tileNum;
             GetComponent<SpriteRendererUnifier>().Unify();
-            GamePlayDirector.Instance.GameStart.Subscribe(_ => {
+            GamePlayDirector.Instance.StagePrepared.Subscribe(_ => {
                 // 表示
                 GetComponent<SpriteRenderer>().enabled = true;
             }).AddTo(compositeDisposableOnGameEnd, this);

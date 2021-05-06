@@ -35,6 +35,11 @@ namespace Treevel.Common.Entities.GameDatas
         public List<string> ConstraintStages => constraintStages;
 
         /// <summary>
+        /// ステージIDを取得
+        /// </summary>
+        public string StageId => EncodeStageIdKey(treeId, stageNumber);
+
+        /// <summary>
         /// ステージのkeyを生成する
         /// </summary>
         /// <param name="treeId"></param>
