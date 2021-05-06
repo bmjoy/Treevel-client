@@ -230,6 +230,9 @@ namespace Treevel.Common.Managers
             // 実行中のタイマーを取り消し
             _loopVolumeController?.Dispose();
 
+            // Fade out タスクを止める
+            _fadeCancellationToken.Cancel();
+
             // BGM再生中であれば停止しておく
             if (_bgmPlayer.isPlaying) _bgmPlayer.Stop();
 
