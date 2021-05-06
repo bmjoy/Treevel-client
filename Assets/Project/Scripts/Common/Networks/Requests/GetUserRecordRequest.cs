@@ -7,7 +7,7 @@ namespace Treevel.Common.Networks.Requests
     {
         public GetUserRecordRequest()
         {
-            key = Constants.PlayerPrefsKeys.USER_RECORD;
+            key = Constants.PlayFabKeys.USER_RECORD;
         }
     }
 }

@@ -23,8 +23,13 @@ namespace Treevel.Common.Utils
             public const string LEVEL_SELECT_CANVAS_SCALE = "LEVEL_SELECT_CANVAS_SCALE";
             public const string LEVEL_SELECT_SCROLL_POSITION = "LEVEL_SELECT_SCROLL_POSITION";
             public const char KEY_CONNECT_CHAR = '-';
-            public const string USER_RECORD = "user_record";
+            public const string USER_RECORD = PlayFabKeys.USER_RECORD;
             public const string DATABASE_LOGIN_ID = "DATABASE_LOGIN_ID";
+        }
+
+        public static class PlayFabKeys
+        {
+            public const string USER_RECORD = "user_record";
         }
 
         /// <summary>
