@@ -11,7 +11,7 @@ namespace Treevel.Modules.GamePlayScene
         /// </summary>
         public void RetryButtonDown()
         {
-            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Opening);
+            GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Preparing);
         }
 
         /// <summary>

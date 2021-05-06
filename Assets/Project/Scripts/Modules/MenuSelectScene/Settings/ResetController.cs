@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
@@ -36,7 +37,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             _dataResetSubject.OnNext(Unit.Default);
 
             // 全ステージをリセット
-            StageRecord.Reset();
+            StageRecordService.Instance.ResetAsync().Forget();
 
             // ステージ選択画面のブランチをリセット
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);
