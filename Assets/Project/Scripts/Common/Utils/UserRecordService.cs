@@ -64,7 +64,7 @@ namespace Treevel.Common.Utils
         /// <summary>
         /// 最終起動日に応じて，起動日数を更新する
         /// </summary>
-        public async void UpdateStartupDays()
+        public async UniTask UpdateStartupDays()
         {
             var lastStartupDate = _cachedUserRecord.LastStartupDate;
 
