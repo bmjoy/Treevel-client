@@ -49,7 +49,7 @@ namespace Treevel.Modules.StartUpScene
 
             await StageRecordService.Instance.PreloadAllStageRecordsAsync();
             await UserRecordService.Instance.PreloadUserRecordAsync()
-                .ContinueWith(UserRecordService.Instance.UpdateStartupDays);
+                .ContinueWith(UserRecordService.Instance.UpdateStartupDaysAsync);
 
             // 全部完了したら開始ボタンを表示
             _startButton.SetActive(true);
