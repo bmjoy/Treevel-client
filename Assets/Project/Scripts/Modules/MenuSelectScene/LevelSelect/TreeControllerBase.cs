@@ -31,7 +31,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <summary>
         /// 木の状態の更新
         /// </summary>
-        public abstract UniTask UpdateStateAsync();
+        public abstract void UpdateState();
 
         /// <summary>
         /// 木の状態を見た目や動作に反映

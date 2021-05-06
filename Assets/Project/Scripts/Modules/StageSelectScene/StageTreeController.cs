@@ -42,7 +42,7 @@ namespace Treevel.Modules.StageSelectScene
             _constraintTreeClearHandlers = _constraintTrees.Select(id => id.GetClearTreeHandler()).ToList();
         }
 
-        public override async UniTask UpdateStateAsync()
+        public override void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
             state = (ETreeState)Enum.ToObject(typeof(ETreeState),

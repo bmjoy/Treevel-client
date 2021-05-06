@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using Treevel.Modules.StageSelectScene;
 using UniRx;
@@ -34,7 +31,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 .AddTo(this);
         }
 
-        public override async UniTask UpdateStateAsync()
+        public override void UpdateState()
         {
             // 現在状態をPlayerPrefsから得る
             state = (ETreeState)Enum.ToObject(typeof(ETreeState),

@@ -47,7 +47,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             if (SceneManager.GetActiveScene().name == Constants.SceneName.MENU_SELECT_SCENE) {
                 SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
             }
-            _trees.ForEach(tree => tree.UpdateStateAsync().Forget());
+            _trees.ForEach(tree => tree.UpdateState());
             _roads.ForEach(road => road.UpdateStateAsync().Forget());
         }
 
