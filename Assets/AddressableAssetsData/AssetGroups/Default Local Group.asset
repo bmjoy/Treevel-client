@@ -149,6 +149,36 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: c25ddde5a527643f7af2990e44cbb2ef
+    m_Address: SpiderwebTile_bottom_left_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8939965f0ef7f45e2ae827db350a2216
+    m_Address: SpiderwebTile_bottom_right_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 51121b6b331c94e76840931939d8df1f
+    m_Address: SpiderwebTile_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 78e4fcc93678142a59bcd030f3b3b3e3
+    m_Address: SpiderwebTile_top_left_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 61830904b639a4b83866637b702fe70f
+    m_Address: SpiderwebTile_top_right_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:
