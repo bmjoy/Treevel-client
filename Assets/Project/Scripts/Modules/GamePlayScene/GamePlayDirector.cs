@@ -34,6 +34,11 @@ namespace Treevel.Modules.GamePlayScene
         [SerializeField] private GameObject _tutorialWindow;
 
         /// <summary>
+        /// ゲーム画面の手前のマスクオブジェクト
+        /// </summary>
+        [SerializeField] private GameObject _gameMask;
+
+        /// <summary>
         /// 一時停止中の背景
         /// </summary>
         [SerializeField] private GameObject _pauseBackground;
@@ -399,6 +404,9 @@ namespace Treevel.Modules.GamePlayScene
                 if (from is PausingState) return;
 
                 // TODO: ステージ準備中のアニメーションを停止する
+                // ゲーム画面のマスクを非表示にする
+                Instance._gameMask.SetActive(false);
+
                 // 時間の計測
                 _customTimer.StartTimer();
 
@@ -617,8 +625,6 @@ namespace Treevel.Modules.GamePlayScene
                     .OnStateExitAsObservable()
                     .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_OPENING)
                     .Subscribe(_ => {
-                        var maskObject = _animator.transform.Find("Panel").gameObject;
-                        maskObject.SetActive(false);
                         Instance.Dispatch(EGameState.Playing);
                     }) // アニメーション再生終了後プレイステートに移行
                     .AddTo(caller);
