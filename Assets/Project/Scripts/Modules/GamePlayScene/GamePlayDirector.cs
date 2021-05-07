@@ -403,7 +403,6 @@ namespace Treevel.Modules.GamePlayScene
                 // 一時停止だったらそのまま処理終わる
                 if (from is PausingState) return;
 
-                // TODO: ステージ準備中のアニメーションを停止する
                 // ゲーム画面のマスクを非表示にする
                 Instance._gameMask.SetActive(false);
 
