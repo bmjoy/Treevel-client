@@ -1,7 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Components;
-using Treevel.Common.Managers;using Treevel.Common.Utils;
+using Treevel.Common.Managers;
+using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
 using UniRx;
 using UnityEngine;
