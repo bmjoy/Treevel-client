@@ -169,7 +169,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <param name="x"> 行 </param>
         /// <param name="y"> 列 </param>
         /// <returns> タイル番号 </returns>
-        private int? XYToTileNum(int x, int y)
+        public int? XYToTileNum(int x, int y)
         {
             if (x < 0 || Constants.StageSize.COLUMN - 1 < x || y < 0 || Constants.StageSize.ROW - 1 < y) return null;
 
