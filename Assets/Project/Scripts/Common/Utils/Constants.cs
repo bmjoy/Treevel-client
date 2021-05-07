@@ -23,10 +23,13 @@ namespace Treevel.Common.Utils
             public const string LEVEL_SELECT_CANVAS_SCALE = "LEVEL_SELECT_CANVAS_SCALE";
             public const string LEVEL_SELECT_SCROLL_POSITION = "LEVEL_SELECT_SCROLL_POSITION";
             public const char KEY_CONNECT_CHAR = '-';
-            public const string FAILURE_REASONS_COUNT = "FAILURE_REASONS_COUNT";
-            public const string STARTUP_DAYS = "STARTUP_DAYS";
-            public const string LAST_STARTUP_DATE = "LAST_STARTUP_DATE";
+            public const string USER_RECORD = PlayFabKeys.USER_RECORD;
             public const string DATABASE_LOGIN_ID = "DATABASE_LOGIN_ID";
+        }
+
+        public static class PlayFabKeys
+        {
+            public const string USER_RECORD = "user_record";
         }
 
         /// <summary>
@@ -160,6 +163,7 @@ namespace Treevel.Common.Utils
             public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
             public const string SPIDERWEB_TILE_PREFAB = "SpiderwebTilePrefab";
             public const string ICE_TILE_PREFAB = "IceTilePrefab";
+            public const string ICE_LAYER_MATERIAL = "IceLayerMaterial";
             public const string GOAL_TILE_SPRITE_PREFIX = "goalTile_";
 
             // 銃弾関連

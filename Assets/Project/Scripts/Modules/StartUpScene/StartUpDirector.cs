@@ -25,9 +25,6 @@ namespace Treevel.Modules.StartUpScene
             // UIManager Initialize
             await UIManager.Instance.InitializeAsync();
 
-            // AppManager Initialize
-            AppManager.OnApplicationStart();
-
             #if ENV_DEV
             Debug.Log("DEV");
             #else
@@ -51,6 +48,8 @@ namespace Treevel.Modules.StartUpScene
             await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
 
             await StageRecordService.Instance.PreloadAllStageRecordsAsync();
+            await UserRecordService.Instance.PreloadUserRecordAsync()
+                .ContinueWith(UserRecordService.Instance.UpdateStartupDaysAsync);
 
             // 全部完了したら開始ボタンを表示
             _startButton.SetActive(true);
