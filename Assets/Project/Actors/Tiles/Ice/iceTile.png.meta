@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 725d5274000694b53aa64550ef15bccd
+guid: 42ba2714bf72a4a55b693ca0a5c504af
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -55,11 +55,13 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform

@@ -93,8 +93,8 @@ MonoBehaviour:
     m_Address: GamePlayScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 102900000, guid: dcec7563bff464223b7c21f17f5902f5, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: dcec7563bff464223b7c21f17f5902f5, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e6bd58f298b5d4f4491f43a49b5f2f22
     m_Address: Tutorials/1_1
     m_ReadOnly: 0
@@ -109,6 +109,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: ef461da11be2d452db392699e49179bd
     m_Address: WinterStageSelectScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f6d9e869efd3b44dcad8fb0a81944718
+    m_Address: IceLayerMaterial
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

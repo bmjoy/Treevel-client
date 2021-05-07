@@ -223,6 +223,7 @@ namespace Treevel.Common.Managers
                         break;
                     case ETileType.Ice:
                         tasks.Add(LoadAssetAsync<GameObject>(Constants.Address.ICE_TILE_PREFAB));
+                        tasks.Add(LoadAssetAsync<Material>(Constants.Address.ICE_LAYER_MATERIAL));
                         break;
                     default:
                         throw new NotImplementedException();
