@@ -17,6 +17,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         [SerializeField] private SpriteRenderer _spiderwebLayer;
 
+        private string _spriteName;
         protected override void Awake()
         {
             base.Awake();
@@ -29,23 +30,25 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileData.number));
             // 場所に応じて画像を変更する
-            _spiderwebLayer.sprite = tileData.number switch {
+            _spriteName = tileData.number switch {
                 1 =>
                     // 左上
-                    AddressableAssetManager.GetAsset<Sprite>(Constants.Address.SPIDERWEB_TILE_TOP_LEFT_SPRITE),
+                    Constants.Address.SPIDERWEB_TILE_TOP_LEFT_SPRITE,
                 3 =>
                     // 右上
-                    AddressableAssetManager.GetAsset<Sprite>(Constants.Address.SPIDERWEB_TILE_TOP_RIGHT_SPRITE),
+                    Constants.Address.SPIDERWEB_TILE_TOP_RIGHT_SPRITE,
                 13 =>
                     // 左下
-                    AddressableAssetManager.GetAsset<Sprite>(Constants.Address.SPIDERWEB_TILE_BOTTOM_LEFT_SPRITE),
+                    Constants.Address.SPIDERWEB_TILE_BOTTOM_LEFT_SPRITE,
                 15 =>
                     // 右下
-                    AddressableAssetManager.GetAsset<Sprite>(Constants.Address.SPIDERWEB_TILE_BOTTOM_RIGHT_SPRITE),
+                    Constants.Address.SPIDERWEB_TILE_BOTTOM_RIGHT_SPRITE,
                 _ =>
                     // それ以外
-                    AddressableAssetManager.GetAsset<Sprite>(Constants.Address.SPIDERWEB_TILE_SPRITE)
+                    Constants.Address.SPIDERWEB_TILE_SPRITE,
             };
+
+            _spiderwebLayer.sprite = AddressableAssetManager.GetAsset<Sprite>(_spriteName);
 
             #if UNITY_EDITOR
             name = Constants.TileName.SPIDERWEB_TILE;
