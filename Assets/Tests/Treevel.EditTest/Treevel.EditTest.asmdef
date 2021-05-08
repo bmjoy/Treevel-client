@@ -1,0 +1,9 @@
+{
+    "name": "Treevel.EditTest",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "name": "Treevel.PlayTest",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}
