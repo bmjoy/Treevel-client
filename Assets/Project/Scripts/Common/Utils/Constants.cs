@@ -167,6 +167,7 @@ namespace Treevel.Common.Utils
             public const string SPIDERWEB_TILE_BOTTOM_RIGHT_SPRITE = SPIDERWEB_TILE_SPRITE +"_bottom_right";
             public const string SPIDERWEB_TILE_TOP_LEFT_SPRITE = SPIDERWEB_TILE_SPRITE + "_top_left";
             public const string SPIDERWEB_TILE_TOP_RIGHT_SPRITE = SPIDERWEB_TILE_SPRITE + "_top_right";
+            public const string SPIDERWEB_TILE_ON_BOTTLE_PREFIX = "_on_bottle";
             public const string ICE_TILE_PREFAB = "IceTilePrefab";
             public const string ICE_LAYER_MATERIAL = "IceLayerMaterial";
             public const string GOAL_TILE_SPRITE_PREFIX = "goalTile_";
