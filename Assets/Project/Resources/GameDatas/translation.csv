@@ -51,9 +51,12 @@ RecordFlickNum,フリック回数,Flick Counts
 RecordFailureNum,失敗回数,Failure Counts
 RecordClearRate,成功率,Clear Rate
 RecordResetConfirmDialogMessage,本当にステージデータをリセットしますか,Are you sure to reset stage data?
+ReSendStageRecordDialogMessage,記録の保存に失敗しました。インターネットの接続状況などを確認して再度お試しください,Failed to save the stage record. Please check the internet connection status and then try again.
 SpringShort,春,SPR
 SummerShort,夏,SMR
 AutumnShort,秋,AUT
 WinterShort,冬,WTR
 MessageDlgOkBtnText,確定,OK
 MessageDlgCancelBtnText,キャンセル,Cancel
+MessageDlgOkBtnRetryText,リトライ,Retry
+MessageDlgOkBtnGiveUpText,諦める,Give up

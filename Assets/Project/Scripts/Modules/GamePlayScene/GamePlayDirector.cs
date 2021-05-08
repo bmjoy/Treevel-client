@@ -504,7 +504,15 @@ namespace Treevel.Modules.GamePlayScene
             public override async void OnEnter(StateBase from = null)
             {
                 Instance._stageRecord.Succeed();
-                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                try {
+                    await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                } catch {
+                    UIManager.Instance.CreateOkCancelMessageDialog(
+                        ETextIndex.ReSendStageRecordDialogMessage,
+                        ETextIndex.MessageDlgOkBtnRetryText,
+                        ETextIndex.MessageDlgOkBtnGiveUpText,
+                        async () => await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord));
+                }
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
