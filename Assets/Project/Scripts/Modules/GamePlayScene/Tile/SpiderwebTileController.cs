@@ -30,6 +30,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 .OnStateExitAsObservable()
                 .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_NAME_HASH_GAME_START)
                 .Subscribe(_ => SetOnBottleSprite()).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => animator.enabled = false).AddTo(this);
         }
 
         public override void Initialize(TileData tileData)
@@ -117,7 +118,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 // Animation Stateがidleから変わるのを待つ
                 await Observable.TimerFrame(0);
                 // アニメーション終了まで待つ
-                await UniTask.WaitUntil(() => _parent.animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLE_STOP);
+                await UniTask.WaitUntil(() => _parent.animator != null && _parent.animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _ANIMATOR_NAME_HASH_BOTTLE_STOP);
 
                 bottleController.IsMovable = true;
             }
