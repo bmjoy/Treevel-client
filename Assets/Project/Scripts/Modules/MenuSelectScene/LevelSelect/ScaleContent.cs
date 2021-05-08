@@ -54,7 +54,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _contentRect = GetComponent<ScrollRect>().content;
             _transformGesture = GetComponent<TransformGesture>();
-            _scaledCanvas = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA;
+            _scaledCanvas = RuntimeConstants.SCALED_CANVAS_SIZE;
 
             // 明示的にUnityEvent使用することを宣言
             _transformGesture.UseUnityEvents = true;
