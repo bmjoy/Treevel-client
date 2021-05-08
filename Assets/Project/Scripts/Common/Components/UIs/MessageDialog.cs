@@ -59,13 +59,16 @@ namespace Treevel.Common.Components.UIs
                 .AddTo(this);
         }
 
-        public void Initialize(EDialogType dialogType, ETextIndex message, ETextIndex okText, Action okCallBack)
+        public void Initialize(EDialogType dialogType, ETextIndex message, ETextIndex okText, ETextIndex cancelText, Action okCallBack)
         {
             // メッセージ設定
             _message.TextIndex = message;
 
             // OKボタンの文字
             _okButtonText.TextIndex = okText;
+
+            // キャンセルボタンの文字
+            _cancelButtonText.TextIndex = cancelText;
 
             // コールバックの設定
             _okCallBack = okCallBack;

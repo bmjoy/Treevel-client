@@ -81,10 +81,10 @@ namespace Treevel.Common.Managers
         /// <param name="message"> メッセージインデックス </param>
         /// <param name="okText"> OKボタン用文字 </param>
         /// <param name="okCallback"> OKボタン押した時のコールバック </param>
-        public void CreateOkCancelMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback,
+        public void CreateOkCancelMessageDialog(ETextIndex message, ETextIndex okText, ETextIndex cancelText, Action okCallback,
                                                 bool backgroundBtnActive = true)
         {
-            _messageDialog.Initialize(MessageDialog.EDialogType.Ok_Cancel, message, okText, okCallback);
+            _messageDialog.Initialize(MessageDialog.EDialogType.Ok_Cancel, message, okText, cancelText, okCallback);
             _messageDialog.SetBackgroundButtonActive(backgroundBtnActive);
             _messageDialog.gameObject.SetActive(true);
         }
@@ -98,7 +98,8 @@ namespace Treevel.Common.Managers
         public void CreateOkMessageDialog(ETextIndex message, ETextIndex okText, Action okCallback = null,
                                           bool backgroundBtnActive = true)
         {
-            _messageDialog.Initialize(MessageDialog.EDialogType.Ok, message, okText, okCallback);
+            // FIXME: 今後この関数を使う場合には、cancelText を指定せずに済むように MessageDialog.Initialize をリファクタリングする
+            _messageDialog.Initialize(MessageDialog.EDialogType.Ok, message, okText, ETextIndex.Error, okCallback);
             _messageDialog.SetBackgroundButtonActive(backgroundBtnActive);
             _messageDialog.gameObject.SetActive(true);
         }

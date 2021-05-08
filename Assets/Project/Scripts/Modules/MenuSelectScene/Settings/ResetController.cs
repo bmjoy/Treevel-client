@@ -27,6 +27,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
                 UIManager.Instance.CreateOkCancelMessageDialog(
                     ETextIndex.RecordResetConfirmDialogMessage,
                     ETextIndex.MessageDlgOkBtnText,
+                    ETextIndex.MessageDlgCancelBtnText,
                     ResetData
                 );
             }).AddTo(this);
