@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5612440846642675434}
   - component: {fileID: 6023233291268266555}
   - component: {fileID: 1490116916845845161}
+  - component: {fileID: 7788963662244586979}
   m_Layer: 12
   m_Name: SpiderwebTilePrefab
   m_TagString: Tile
@@ -182,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spiderwebLayer: {fileID: 6342839703379482488}
+  animator: {fileID: 0}
 --- !u!114 &1490116916845845161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,3 +198,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RatioToWindowWidth: 0.22
   ImageRatio: 1
+--- !u!95 &7788963662244586979
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612440846642675437}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f4124596bbc594566858ce095ba5dfe6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
