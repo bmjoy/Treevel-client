@@ -47,12 +47,16 @@ MonoBehaviour:
     goalColor: 1
     number: 11
     pairNumber: 0
+  - type: 2
+    goalColor: 0
+    number: 1
+    pairNumber: 3
   bottles:
   - type: 2
     initPos: 4
     goalColor: 1
     life: 1
-    isSelfish: 0
+    isSelfish: 1
     isDark: 0
     isReverse: 0
   - type: 2
@@ -104,14 +108,56 @@ MonoBehaviour:
     isSelfish: 0
     isDark: 0
     isReverse: 0
-  gimmicks: []
+  gimmicks:
+  - loop: 0
+    appearTime: 0
+    interval: 0
+    type: 7
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: -1
+    targetColumn: -1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 1
+    appearTime: 2
+    interval: 5
+    type: 5
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: -1
+    targetColumn: 0
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 2
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 
   tutorial:
     type: 0
     image:
       m_AssetGUID: 
       m_SubObjectName: 
+      m_SubObjectType: 
     video:
       m_AssetGUID: 
       m_SubObjectName: 
+      m_SubObjectType: 
   constraintStages: []
