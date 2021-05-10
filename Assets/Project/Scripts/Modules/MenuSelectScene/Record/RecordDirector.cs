@@ -33,7 +33,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
             // ページの最大値を設定
             _snapScrollView.MaxPage = 2;
             // ページの横幅の設定
-            _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
+            _snapScrollView.PageSize = RuntimeConstants.SCALED_CANVAS_SIZE.x;
 
             // 共有ボタン
             _shareButton.onClick.AsObservable().Subscribe(_ => {

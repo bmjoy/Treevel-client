@@ -53,7 +53,7 @@ namespace Treevel.Common.Utils
         public static Vector2 LEVEL_SELECT_SCROLL_POSITION {
             get {
                 var (anchorMin, anchorMax) = SafeAreaPanel.GetSafeAreaAnchor();
-                return new Vector2(0, RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.y * (anchorMax.y - anchorMin.y) / 2);
+                return new Vector2(0, RuntimeConstants.SCALED_CANVAS_SIZE.y * (anchorMax.y - anchorMin.y) / 2);
             }
         }
 
