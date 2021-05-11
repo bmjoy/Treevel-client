@@ -10,6 +10,23 @@ namespace Treevel.Common.Utils
         public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime);
 
         /// <summary>
+        /// Google AdMob 関連定数
+        /// </summary>
+        public static class MobileAds
+        {
+            #if UNITY_IOS
+            public const string BANNER_UNIT_ID_GAME_PAUSED = "ca-app-pub-3388557544498929/9549692311";
+            public const string BANNER_UNIT_ID_STAGE_SELECT = "ca-app-pub-3388557544498929/7381913729";
+            #elif UNITY_ANDROID
+            public const string BANNER_UNIT_ID_GAME_PAUSED = "ca-app-pub-3388557544498929/4716453440";
+            public const string BANNER_UNIT_ID_STAGE_SELECT = "ca-app-pub-3388557544498929/3390697828";
+            #else
+            public const string BANNER_UNIT_ID_GAME_PAUSED = "";
+            public const string BANNER_UNIT_ID_STAGE_SELECT = "";
+            #endif
+        }
+
+        /// <summary>
         /// PlayerPrefs で使うキー群
         /// </summary>
         public static class PlayerPrefsKeys
