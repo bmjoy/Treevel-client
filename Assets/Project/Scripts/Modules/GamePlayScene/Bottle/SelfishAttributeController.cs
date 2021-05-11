@@ -12,7 +12,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private DynamicBottleController _bottleController;
 
         private Animator _bottleAnimator;
-        private static readonly int _ANIMATOR_PARAM_TRIGGER_BE_SELFISH = Animator.StringToHash("BeSelfish");
+        private static readonly int _ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE = Animator.StringToHash("BeSelfishIdle");
+        private static readonly int _ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION = Animator.StringToHash("BeSelfishAction");
         private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("SelfishSpeed");
 
         protected override void Awake()
@@ -21,8 +22,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             GamePlayDirector.Instance.StagePrepared.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameStart.Subscribe(_ => {
                 animator.enabled = true;
-                animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH);
-                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH);
+                animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
+                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
             }).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                 animator.enabled = false;
@@ -115,23 +116,23 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// アニメーションを停止する
+        /// Selfishアニメーションを停止する
         /// </summary>
         private void ResetSelfish()
         {
-            animator.enabled = false;
-            _bottleAnimator.enabled = false;
+            animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
+            _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
         }
 
         /// <summary>
-        /// アニメーションを最初から再開する
+        /// Selfishアニメーションを最初から開始する
         /// </summary>
         private void RestartSelfish()
         {
-            animator.enabled = true;
-            animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH);
-            _bottleAnimator.enabled = true;
-            _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH);
+            animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
+            animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
+            _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
+            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
         }
     }
 }
