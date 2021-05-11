@@ -511,7 +511,13 @@ namespace Treevel.Modules.GamePlayScene
                         ETextIndex.ReSendStageRecordDialogMessage,
                         ETextIndex.MessageDlgOkBtnRetryText,
                         ETextIndex.MessageDlgOkBtnGiveUpText,
-                        async () => await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord));
+                        async () => {
+                            try {
+                                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                            } catch {
+                                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.SaveStageRecordError).Forget();
+                            }
+                        });
                 }
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);

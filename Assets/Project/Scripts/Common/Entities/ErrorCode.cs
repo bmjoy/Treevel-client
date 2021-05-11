@@ -14,5 +14,6 @@
         InvalidLifeValue,   // lifeの値が不適当
         InvalidTileColor,   // タイルの色が不適当
         InvalidGimmickData, // 不正のギミックデータ
+        SaveStageRecordError, // StageRecord の保存に失敗
     }
 }
