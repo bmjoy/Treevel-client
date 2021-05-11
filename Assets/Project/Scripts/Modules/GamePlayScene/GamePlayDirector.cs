@@ -517,7 +517,8 @@ namespace Treevel.Modules.GamePlayScene
                             } catch {
                                 UIManager.Instance.ShowErrorMessageAsync(EErrorCode.SaveStageRecordError).Forget();
                             }
-                        });
+                        },
+                        false);
                 }
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
