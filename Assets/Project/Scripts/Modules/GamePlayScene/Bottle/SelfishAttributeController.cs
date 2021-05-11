@@ -41,10 +41,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.StartMove.Subscribe(_ => ResetSelfish()).AddTo(this);
-            _bottleController.EndMove.Subscribe(_ => RestartSelfish()).AddTo(this);
-            _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => PauseSelfish()).AddTo(compositeDisposableOnGameEnd, this);
-            _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => ResumeSelfish()).AddTo(compositeDisposableOnGameEnd, this);
+            _bottleController.StartMove.Subscribe(_ => ResetAnimation()).AddTo(this);
+            _bottleController.EndMove.Subscribe(_ => RestartAnimation()).AddTo(this);
+            _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => PauseAnimation()).AddTo(compositeDisposableOnGameEnd, this);
+            _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => ResumeAnimation()).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
             }).AddTo(this);
@@ -72,8 +72,8 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // 空いている方向からランダムに1方向を選択する
             if (canMoveDirections.Sum() == 0) {
-                ResetSelfish();
-                RestartSelfish();
+                ResetAnimation();
+                RestartAnimation();
                 return;
             }
             var direction =
@@ -100,7 +100,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// アニメーションを一時停止する
         /// </summary>
-        private void PauseSelfish()
+        private void PauseAnimation()
         {
             animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
             _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
@@ -109,7 +109,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// アニメーションを途中から再開する
         /// </summary>
-        private void ResumeSelfish()
+        private void ResumeAnimation()
         {
             animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
             _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
@@ -118,7 +118,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// Selfishアニメーションを停止する
         /// </summary>
-        private void ResetSelfish()
+        private void ResetAnimation()
         {
             animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
             _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
@@ -127,7 +127,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// Selfishアニメーションを最初から開始する
         /// </summary>
-        private void RestartSelfish()
+        private void RestartAnimation()
         {
             animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
             animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
