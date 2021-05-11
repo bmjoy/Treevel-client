@@ -58,5 +58,5 @@ AutumnShort,秋,AUT
 WinterShort,冬,WTR
 MessageDlgOkBtnText,確定,OK
 MessageDlgCancelBtnText,キャンセル,Cancel
-MessageDlgOkBtnRetryText,リトライ,Retry
-MessageDlgOkBtnGiveUpText,諦める,Give up
+MessageDlgOkBtnRetryText,再度保存を試みる,Retry
+MessageDlgOkBtnGiveUpText,保存せずに終わる,Give up
