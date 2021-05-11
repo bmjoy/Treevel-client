@@ -130,5 +130,21 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 SetGesturesEnabled(true);
             } catch (OperationCanceledException) { }
         }
+
+        /// <summary>
+        /// ワープ開始時のイベント発火
+        /// </summary>
+        public void OnStartWarp()
+        {
+            _startMoveSubject.OnNext(Unit.Default);
+        }
+
+        /// <summary>
+        /// ワープ終了時のイベント発火
+        /// </summary>
+        public void OnEndWarp()
+        {
+            _endMoveSubject.OnNext(Unit.Default);
+        }
     }
 }
