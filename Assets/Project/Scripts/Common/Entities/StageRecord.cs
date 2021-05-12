@@ -65,25 +65,61 @@ namespace Treevel.Common.Entities
             this.stageNumber = stageNumber;
         }
 
-        /// <summary>
-        /// 成功した時の処理をする
-        /// </summary>
-        public void Succeed()
+        public StageRecord(ETreeId treeId,
+                           int stageNumber,
+                           int challengeNum,
+                           int challengeNumAtFirstSuccess,
+                           DateTime firstSuccessDate,
+                           int successNum,
+                           int failureNum,
+                           FailureReasonNum failureReasonNum,
+                           int flickNum,
+                           bool tutorialChecked)
         {
-            if (!IsCleared) {
-                challengeNumAtFirstSuccess = challengeNum;
-                firstSuccessDate = DateTime.Now;
-            }
-
-            successNum++;
+            this.treeId = treeId;
+            this.stageNumber = stageNumber;
+            this.challengeNum = challengeNum;
+            this.challengeNumAtFirstSuccess = challengeNumAtFirstSuccess;
+            this.firstSuccessDate = firstSuccessDate;
+            this.successNum = successNum;
+            this.failureNum = failureNum;
+            this.failureReasonNum = failureReasonNum;
+            this.flickNum = flickNum;
+            this.tutorialChecked = tutorialChecked;
         }
 
         /// <summary>
-        /// 失敗した時の処理をする
+        /// 成功した時の処理をし、インスタンスを作り直して返す
         /// </summary>
-        public void Fail()
+        public StageRecord Succeed()
         {
-            failureNum++;
+            return new StageRecord(treeId,
+                                   stageNumber,
+                                   challengeNum,
+                                   IsCleared ? challengeNumAtFirstSuccess : challengeNum,
+                                   IsCleared ? firstSuccessDate : DateTime.Now,
+                                   successNum + 1,
+                                   failureNum,
+                                   failureReasonNum,
+                                   flickNum,
+                                   tutorialChecked);
+        }
+
+        /// <summary>
+        /// 失敗した時の処理をし、インスタンスを作り直して返す
+        /// </summary>
+        public StageRecord Fail()
+        {
+            return new StageRecord(treeId,
+                                   stageNumber,
+                                   challengeNum,
+                                   challengeNumAtFirstSuccess,
+                                   firstSuccessDate,
+                                   successNum,
+                                   failureNum + 1,
+                                   failureReasonNum,
+                                   flickNum,
+                                   tutorialChecked);
         }
     }
 

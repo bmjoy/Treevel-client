@@ -503,9 +503,9 @@ namespace Treevel.Modules.GamePlayScene
 
             public override async void OnEnter(StateBase from = null)
             {
-                Instance._stageRecord.Succeed();
+                var stageRecord = Instance._stageRecord.Succeed();
                 try {
-                    await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                    await StageRecordService.Instance.SaveAsync(treeId, stageNumber, stageRecord);
                 } catch {
                     UIManager.Instance.CreateOkCancelMessageDialog(
                         ETextIndex.ReSendStageRecordDialogMessage,
@@ -513,7 +513,7 @@ namespace Treevel.Modules.GamePlayScene
                         ETextIndex.MessageDlgOkBtnGiveUpText,
                         async () => {
                             try {
-                                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, stageRecord);
                             } catch {
                                 UIManager.Instance.ShowErrorMessageAsync(EErrorCode.SaveStageRecordError).Forget();
                             }
@@ -552,9 +552,9 @@ namespace Treevel.Modules.GamePlayScene
 
             public override async void OnEnter(StateBase from = null)
             {
-                Instance._stageRecord.Fail();
-                Instance._stageRecord.failureReasonNum.Increment(Instance.failureReason);
-                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                var stageRecord = Instance._stageRecord.Fail();
+                stageRecord.failureReasonNum.Increment(Instance.failureReason);
+                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, stageRecord);
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {
