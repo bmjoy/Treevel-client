@@ -1,3 +1,4 @@
+// Modifications Copyright (C) 2021 takesi0627
 // Copyright (C) 2020 Google LLC.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,7 +62,9 @@ namespace GoogleMobileAds.Unity
 
         private void CreateButtonBehavior()
         {
-            buttonBehaviour = new ButtonBehaviour();
+            // modified by takeshi0627: fix warning, Unity don't allow using new keyword for Monobehaviour
+            buttonBehaviour = dummyAd.AddComponent<ButtonBehaviour>();
+            // buttonBehaviour = new ButtonBehaviour();
             buttonBehaviour.OnAdOpening += OnAdOpening;
             buttonBehaviour.OnLeavingApplication += OnAdLeavingApplication;
         }
