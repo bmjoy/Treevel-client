@@ -69,5 +69,6 @@ namespace Treevel.Common.Entities
         ErrorInvalidLifeValue,           // ライフの値が正しく設定されていません。
         ErrorInvalidTileColor,           // タイルの色が正しく設定されていません。
         ErrorInvalidGimmickData,         // ギミックデータが正しく設定されていません。
+        SaveStageRecordError,            // ステージの記録を保存することに失敗しました。
     }
 }

@@ -41,6 +41,7 @@ ErrorInvalidBottleColor,ボトルの色が正しく設定されていません�
 ErrorInvalidLifeValue,ライフの値が正しく設定されいません。,Invalid life value.
 ErrorInvalidTileColor,タイルの色が正しく設定されていません。,Invalid tile color.
 ErrorInvalidGimmickData,ギミックデータが正しく設定されていません。。,Invalid gimmick data.
+SaveStageRecordError,ステージの記録を保存することに失敗しました,Failed to save stage record.
 RecordShareButton,共有,Share
 RecordToIndividualButton,個別記録へ,Individual
 RecordToGeneralButton,総合記録へ,General
