@@ -80,6 +80,7 @@ namespace Treevel.Common.Managers
         /// </summary>
         /// <param name="message"> メッセージインデックス </param>
         /// <param name="okText"> OKボタン用文字 </param>
+        /// <param name="cancelText"> cancelボタン用文字 </param>
         /// <param name="okCallback"> OKボタン押した時のコールバック </param>
         public void CreateOkCancelMessageDialog(ETextIndex message, ETextIndex okText, ETextIndex cancelText, Action okCallback,
                                                 bool backgroundBtnActive = true)
