@@ -12,7 +12,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         public void OnButtonDown()
         {
             SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
-            UserSettings.StageDetails = 1;
+            UserSettings.Instance.StageDetails = 1;
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         public void OffButtonDown()
         {
             SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
-            UserSettings.StageDetails = 0;
+            UserSettings.Instance.StageDetails = 0;
         }
     }
 }

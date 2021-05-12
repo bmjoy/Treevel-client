@@ -13,7 +13,7 @@ namespace Treevel.Modules.MenuSelectScene.Settings
         {
             SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
             // 設定の更新
-            UserSettings.ToDefault();
+            UserSettings.Instance.ToDefault();
         }
     }
 }

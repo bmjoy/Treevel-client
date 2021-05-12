@@ -6,61 +6,62 @@ using UnityEngine;
 
 namespace Treevel.Common.Entities
 {
-    public static class UserSettings
+    public class UserSettings
     {
-        public static readonly ReactiveProperty<ELanguage> CurrentLanguage;
+        public static UserSettings Instance = new UserSettings();
 
-        public static readonly ReactiveProperty<float> BGMVolume =
+        public readonly ReactiveProperty<ELanguage> CurrentLanguage = new ReactiveProperty<ELanguage>(ELanguage.Japanese);
+
+        public readonly ReactiveProperty<float> BGMVolume =
             new ReactiveProperty<float>(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, Default.BGM_VOLUME));
 
-        public static readonly ReactiveProperty<float> SEVolume =
+        public readonly ReactiveProperty<float> SEVolume =
             new ReactiveProperty<float>(PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, Default.SE_VOLUME));
 
-        private static int _stageDetails = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, Default.STAGE_DETAILS);
+        private int _stageDetails = PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, Default.STAGE_DETAILS);
 
-        public static int StageDetails {
-            get => _stageDetails;
+        public int StageDetails {
+            get => Instance._stageDetails;
             set {
-                _stageDetails = value;
-                PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, _stageDetails);
+                Instance._stageDetails = value;
+                PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.STAGE_DETAILS, Instance._stageDetails);
             }
         }
 
-        private static float _levelSelectCanvasScale =
+        private float _levelSelectCanvasScale =
             PlayerPrefs.GetFloat(Constants.PlayerPrefsKeys.LEVEL_SELECT_CANVAS_SCALE,
                                  Default.LEVEL_SELECT_CANVAS_SCALE);
 
-        public static float LevelSelectCanvasScale {
-            get => _levelSelectCanvasScale;
+        public float LevelSelectCanvasScale {
+            get => Instance._levelSelectCanvasScale;
             set {
-                _levelSelectCanvasScale = value;
-                PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.LEVEL_SELECT_CANVAS_SCALE, _levelSelectCanvasScale);
+                Instance._levelSelectCanvasScale = value;
+                PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.LEVEL_SELECT_CANVAS_SCALE, Instance._levelSelectCanvasScale);
             }
         }
 
-        private static Vector2 _levelSelectScrollPosition;
+        private Vector2 _levelSelectScrollPosition;
 
-        public static Vector2 LevelSelectScrollPosition {
-            get => _levelSelectScrollPosition;
+        public Vector2 LevelSelectScrollPosition {
+            get => Instance._levelSelectScrollPosition;
             set {
-                _levelSelectScrollPosition = value;
+                Instance._levelSelectScrollPosition = value;
                 PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION,
-                                             _levelSelectScrollPosition);
+                                             Instance._levelSelectScrollPosition);
             }
         }
 
-        static UserSettings()
+        private UserSettings()
         {
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LANGUAGE)) {
-                CurrentLanguage = new ReactiveProperty<ELanguage>(
-                    PlayerPrefsUtility.GetObject<ELanguage>(Constants.PlayerPrefsKeys.LANGUAGE));
+                CurrentLanguage.Value = PlayerPrefsUtility.GetObject<ELanguage>(Constants.PlayerPrefsKeys.LANGUAGE);
             } else {
                 var systemLanguage = Application.systemLanguage.ToString();
                 if (!Enum.TryParse(systemLanguage, out ELanguage initLanguage)) {
                     initLanguage = Default.LANGUAGE;
                 }
 
-                CurrentLanguage = new ReactiveProperty<ELanguage>(initLanguage);
+                CurrentLanguage.Value = initLanguage;
             }
 
             CurrentLanguage.Subscribe(language => PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, language));
@@ -81,7 +82,7 @@ namespace Treevel.Common.Entities
             }
         }
 
-        public static void ToDefault()
+        public void ToDefault()
         {
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BGM_VOLUME);
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.SE_VOLUME);

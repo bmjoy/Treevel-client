@@ -102,7 +102,7 @@ namespace Treevel.Modules.StageSelectScene
         {
             SoundManager.Instance.PlaySE(ESEKey.UI_Button_Click_General);
 
-            if (UserSettings.StageDetails == 1) {
+            if (UserSettings.Instance.StageDetails == 1) {
                 StageSelectDirector.Instance.ShowOverPopup(_treeId, stageNumber);
             } else {
                 StageSelectDirector.Instance.GoToGameAsync(_treeId, stageNumber).Forget();
