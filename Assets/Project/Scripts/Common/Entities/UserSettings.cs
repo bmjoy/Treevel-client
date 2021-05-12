@@ -8,7 +8,8 @@ namespace Treevel.Common.Entities
 {
     public class UserSettings
     {
-        public static UserSettings Instance = new UserSettings();
+        private readonly CompositeDisposable _disposable = new CompositeDisposable();
+        public static readonly UserSettings Instance = new UserSettings();
 
         public readonly ReactiveProperty<ELanguage> CurrentLanguage = new ReactiveProperty<ELanguage>(ELanguage.Japanese);
 
@@ -51,6 +52,11 @@ namespace Treevel.Common.Entities
             }
         }
 
+        ~UserSettings()
+        {
+            _disposable.Dispose();
+        }
+
         private UserSettings()
         {
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LANGUAGE)) {
@@ -64,15 +70,15 @@ namespace Treevel.Common.Entities
                 CurrentLanguage.Value = initLanguage;
             }
 
-            CurrentLanguage.Subscribe(language => PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, language));
-            BGMVolume.Subscribe(value => {
+            CurrentLanguage.Subscribe(language => PlayerPrefsUtility.SetObject(Constants.PlayerPrefsKeys.LANGUAGE, language)).AddTo(_disposable);
+            BGMVolume.SkipLatestValueOnSubscribe().Subscribe(value => {
                 PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.BGM_VOLUME, value);
                 SoundManager.Instance.ResetVolume();
-            });
-            SEVolume.Subscribe(value => {
+            }).AddTo(_disposable);
+            SEVolume.SkipLatestValueOnSubscribe().Subscribe(value => {
                 PlayerPrefs.SetFloat(Constants.PlayerPrefsKeys.SE_VOLUME, value);
                 SoundManager.Instance.ResetVolume();
-            });
+            }).AddTo(_disposable);
 
             if (PlayerPrefs.HasKey(Constants.PlayerPrefsKeys.LEVEL_SELECT_SCROLL_POSITION)) {
                 _levelSelectScrollPosition =
