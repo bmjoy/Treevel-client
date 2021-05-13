@@ -1,4 +1,6 @@
+using System;
 using Cysharp.Threading.Tasks;
+using GoogleMobileAds.Api;
 using PlayFab;
 using Treevel.Common.Managers;
 using Treevel.Common.Networks;
@@ -50,6 +52,9 @@ namespace Treevel.Modules.StartUpScene
             await StageRecordService.Instance.PreloadAllStageRecordsAsync();
             await UserRecordService.Instance.PreloadUserRecordAsync()
                 .ContinueWith(UserRecordService.Instance.UpdateStartupDaysAsync);
+
+            // Google Mobile Ad 初期化
+            MobileAds.Initialize(initStatus => { });
 
             // 全部完了したら開始ボタンを表示
             _startButton.SetActive(true);

@@ -54,7 +54,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _contentRect = GetComponent<ScrollRect>().content;
             _transformGesture = GetComponent<TransformGesture>();
-            _scaledCanvas = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA;
+            _scaledCanvas = RuntimeConstants.SCALED_CANVAS_SIZE;
 
             // 明示的にUnityEvent使用することを宣言
             _transformGesture.UseUnityEvents = true;
@@ -64,7 +64,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         private void OnEnable()
         {
-            _preScale = UserSettings.LevelSelectCanvasScale;
+            _preScale = UserSettings.Instance.LevelSelectCanvasScale;
             _contentRect.localScale = new Vector2(_preScale, _preScale);
             // 道の拡大縮小
             LevelSelectDirector.Instance.ScaleRoad(_preScale);
@@ -72,7 +72,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         private void OnDisable()
         {
-            UserSettings.LevelSelectCanvasScale = _preScale;
+            UserSettings.Instance.LevelSelectCanvasScale = _preScale;
         }
 
         private void OnTransformStarted(Gesture gesture)

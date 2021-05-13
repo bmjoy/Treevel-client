@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using GoogleMobileAds.Api;
 using SnapScroll;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
 using Treevel.Common.Networks.Objects;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene;
@@ -68,6 +67,11 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         [SerializeField] private GameObject _rightButton;
 
+        /// <summary>
+        /// バナー広告のビュー
+        /// </summary>
+        private BannerView _banner;
+
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE)
@@ -81,7 +85,7 @@ namespace Treevel.Modules.StageSelectScene
             // ページの最大値を設定
             _snapScrollView.MaxPage = seasonId.GetTreeNum() - 1;
             // ページの横幅の設定
-            _snapScrollView.PageSize = RuntimeConstants.ScaledCanvasSize.SIZE_DELTA.x;
+            _snapScrollView.PageSize = RuntimeConstants.SCALED_CANVAS_SIZE.x;
             // ページ遷移時のイベント登録
             _snapScrollView.OnPageChanged += () => {
                 // 木IDを更新
@@ -100,6 +104,15 @@ namespace Treevel.Modules.StageSelectScene
             DrawTreeName();
 
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
+
+            // バナー広告を表示
+            _banner = AdvertiseService.ShowBanner(Constants.MobileAds.BANNER_UNIT_ID_STAGE_SELECT, AdPosition.Bottom);
+        }
+
+        private void OnDestroy()
+        {
+            // バナー広告を削除
+            _banner.Destroy();
         }
 
         /// <summary>
