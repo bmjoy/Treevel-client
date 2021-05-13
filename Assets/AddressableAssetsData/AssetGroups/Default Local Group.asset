@@ -119,6 +119,66 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: f2f1df9ae35ec4b0d801da6b6c8b7c1d
+    m_Address: SpiderwebTile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4b3e1745307b74252bf32e550cc2da36
+    m_Address: SpiderwebTile_bottom_left
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e0af976b75d1540f7952262960a18959
+    m_Address: SpiderwebTile_top_right
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 33d49357a33444a4e82dd82bc5579e68
+    m_Address: SpiderwebTile_bottom_right
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: dc3f5590ff180434bb48bc80d01707c7
+    m_Address: SpiderwebTile_top_left
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c25ddde5a527643f7af2990e44cbb2ef
+    m_Address: SpiderwebTile_bottom_left_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8939965f0ef7f45e2ae827db350a2216
+    m_Address: SpiderwebTile_bottom_right_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 51121b6b331c94e76840931939d8df1f
+    m_Address: SpiderwebTile_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 78e4fcc93678142a59bcd030f3b3b3e3
+    m_Address: SpiderwebTile_top_left_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 61830904b639a4b83866637b702fe70f
+    m_Address: SpiderwebTile_top_right_on_bottle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 86a9d3876e9534cd69e69f31dd11bb5f, type: 2}
   m_SchemaSet:

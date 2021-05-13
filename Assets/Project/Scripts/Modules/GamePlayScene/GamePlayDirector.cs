@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
+using GoogleMobileAds.Api;
 using Treevel.Common.Attributes;
 using Treevel.Common.Components;
 using Treevel.Common.Entities;
@@ -456,10 +457,17 @@ namespace Treevel.Modules.GamePlayScene
 
         private class PausingState : StateBase
         {
+            /// <summary>
+            /// バナー広告のビュー
+            /// </summary>
+            private BannerView _banner;
+
             public PausingState(GamePlayDirector caller) { }
 
             public override void OnEnter(StateBase from = null)
             {
+                // 広告を表示
+                _banner = AdvertiseService.ShowBanner(Constants.MobileAds.BANNER_UNIT_ID_GAME_PAUSED, AdPosition.Top);
                 // ゲーム内の時間を一時停止する
                 Time.timeScale = 0.0f;
                 // ポーズ中は BGM を少し下げる
@@ -473,6 +481,8 @@ namespace Treevel.Modules.GamePlayScene
 
             public override void OnExit(StateBase to)
             {
+                // 広告を削除
+                _banner.Destroy();
                 // ゲーム内の時間を元に戻す
                 Time.timeScale = 1.0f;
                 // BGM を元に戻す

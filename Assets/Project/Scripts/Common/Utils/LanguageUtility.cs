@@ -60,12 +60,12 @@ namespace Treevel.Common.Utils
 
         public static string GetText(ETextIndex index)
         {
-            var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.CurrentLanguage.Value, index);
+            var key = new KeyValuePair<ELanguage, ETextIndex>(UserSettings.Instance.CurrentLanguage.Value, index);
             if (_stringTable.ContainsKey(key)) {
                 return _stringTable[key];
             }
 
-            Debug.LogWarning($"{UserSettings.CurrentLanguage}の{index.ToString()}が存在していない");
+            Debug.LogWarning($"{UserSettings.Instance.CurrentLanguage}の{index.ToString()}が存在していない");
             return "";
         }
     }

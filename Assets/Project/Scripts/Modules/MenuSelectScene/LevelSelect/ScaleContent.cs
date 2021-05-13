@@ -64,7 +64,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         private void OnEnable()
         {
-            _preScale = UserSettings.LevelSelectCanvasScale;
+            _preScale = UserSettings.Instance.LevelSelectCanvasScale;
             _contentRect.localScale = new Vector2(_preScale, _preScale);
             // 道の拡大縮小
             LevelSelectDirector.Instance.ScaleRoad(_preScale);
@@ -72,7 +72,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         private void OnDisable()
         {
-            UserSettings.LevelSelectCanvasScale = _preScale;
+            UserSettings.Instance.LevelSelectCanvasScale = _preScale;
         }
 
         private void OnTransformStarted(Gesture gesture)

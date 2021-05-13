@@ -50,13 +50,13 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             base.OnEnable();
             // 初期位置の調整
-            content.transform.localPosition = UserSettings.LevelSelectScrollPosition;
+            content.transform.localPosition = UserSettings.Instance.LevelSelectScrollPosition;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            UserSettings.LevelSelectScrollPosition = content.transform.localPosition;
+            UserSettings.Instance.LevelSelectScrollPosition = content.transform.localPosition;
         }
     }
 }
