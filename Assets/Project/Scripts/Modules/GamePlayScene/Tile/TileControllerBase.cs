@@ -15,7 +15,12 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
         protected IBottleHandler bottleHandler = new DefaultBottleHandler();
 
-        protected virtual void Awake() { }
+        protected SpriteRendererUnifier spriteRendererUnifier;
+
+        protected virtual void Awake()
+        {
+            spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
+        }
 
         /// <summary>
         /// 初期化
@@ -29,7 +34,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         public virtual void Initialize(int tileNum)
         {
             TileNumber = tileNum;
-            GetComponent<SpriteRendererUnifier>().Unify();
+            spriteRendererUnifier.Unify();
             GamePlayDirector.Instance.StagePrepared.Subscribe(_ => {
                 // 表示
                 GetComponent<SpriteRenderer>().enabled = true;
