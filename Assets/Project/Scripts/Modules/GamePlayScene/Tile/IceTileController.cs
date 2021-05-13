@@ -11,7 +11,6 @@ namespace Treevel.Modules.GamePlayScene.Tile
 {
     public class IceTileController : TileControllerBase
     {
-        private SpriteRendererUnifier _spriteRendererUnifier;
         [SerializeField] private SpriteRenderer _iceLayer;
         private static readonly int _SHADER_PARAM_SHINE_INTENSITY = Shader.PropertyToID("_ShineIntensity");
         private const float _SHADER_VALUE_SHINE_INTENSITY = 0.15f;
@@ -19,9 +18,8 @@ namespace Treevel.Modules.GamePlayScene.Tile
         protected override void Awake()
         {
             base.Awake();
-            _spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
             GamePlayDirector.Instance.StagePrepared.Subscribe(_ => {
-                _spriteRendererUnifier.enabled = true;
+                spriteRendererUnifier.enabled = true;
                 _iceLayer.enabled = true;
             }).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameStart.Subscribe(_ => _iceLayer.material.SetFloat(_SHADER_PARAM_SHINE_INTENSITY, _SHADER_VALUE_SHINE_INTENSITY))
@@ -34,7 +32,7 @@ namespace Treevel.Modules.GamePlayScene.Tile
         {
             base.Initialize(tileData);
 
-            _spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileData.number));
+            spriteRendererUnifier.SetSprite(AddressableAssetManager.GetAsset<Sprite>(Constants.Address.NORMAL_TILE_SPRITE_PREFIX + tileData.number));
 
             #if UNITY_EDITOR
             name = Constants.TileName.ICE_TILE;

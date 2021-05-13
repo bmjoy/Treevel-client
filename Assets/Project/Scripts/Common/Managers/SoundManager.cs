@@ -330,13 +330,13 @@ namespace Treevel.Common.Managers
 
         private void ResetBGMVolume()
         {
-            _bgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.BGMVolume.Value;
+            _bgmPlayer.volume = _INITIAL_BGM_VOLUME * UserSettings.Instance.BGMVolume.Value;
         }
 
         private void ResetSEVolume()
         {
             foreach (var sePlayer in _sePlayers) {
-                sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.SEVolume.Value;
+                sePlayer.volume = _INITIAL_SE_VOLUME * UserSettings.Instance.SEVolume.Value;
             }
         }
 

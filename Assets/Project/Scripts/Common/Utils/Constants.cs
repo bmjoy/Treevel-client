@@ -10,6 +10,23 @@ namespace Treevel.Common.Utils
         public static readonly int FRAME_RATE = (int)Mathf.Round(1.0f / Time.fixedDeltaTime);
 
         /// <summary>
+        /// Google AdMob 関連定数
+        /// </summary>
+        public static class MobileAds
+        {
+            #if UNITY_IOS
+            public const string BANNER_UNIT_ID_GAME_PAUSED = "ca-app-pub-3388557544498929/9549692311";
+            public const string BANNER_UNIT_ID_STAGE_SELECT = "ca-app-pub-3388557544498929/7381913729";
+            #elif UNITY_ANDROID
+            public const string BANNER_UNIT_ID_GAME_PAUSED = "ca-app-pub-3388557544498929/4716453440";
+            public const string BANNER_UNIT_ID_STAGE_SELECT = "ca-app-pub-3388557544498929/3390697828";
+            #else
+            public const string BANNER_UNIT_ID_GAME_PAUSED = "";
+            public const string BANNER_UNIT_ID_STAGE_SELECT = "";
+            #endif
+        }
+
+        /// <summary>
         /// PlayerPrefs で使うキー群
         /// </summary>
         public static class PlayerPrefsKeys
@@ -162,6 +179,12 @@ namespace Treevel.Common.Utils
             public const string WARP_TILE_PREFAB = "WarpTilePrefab";
             public const string HOLY_TILE_PREFAB = "HolyTilePrefab";
             public const string SPIDERWEB_TILE_PREFAB = "SpiderwebTilePrefab";
+            public const string SPIDERWEB_TILE_SPRITE = "SpiderwebTile";
+            public const string SPIDERWEB_TILE_BOTTOM_LEFT_SPRITE = SPIDERWEB_TILE_SPRITE + "_bottom_left";
+            public const string SPIDERWEB_TILE_BOTTOM_RIGHT_SPRITE = SPIDERWEB_TILE_SPRITE +"_bottom_right";
+            public const string SPIDERWEB_TILE_TOP_LEFT_SPRITE = SPIDERWEB_TILE_SPRITE + "_top_left";
+            public const string SPIDERWEB_TILE_TOP_RIGHT_SPRITE = SPIDERWEB_TILE_SPRITE + "_top_right";
+            public const string SPIDERWEB_TILE_ON_BOTTLE_PREFIX = "_on_bottle";
             public const string ICE_TILE_PREFAB = "IceTilePrefab";
             public const string ICE_LAYER_MATERIAL = "IceLayerMaterial";
             public const string GOAL_TILE_SPRITE_PREFIX = "goalTile_";
