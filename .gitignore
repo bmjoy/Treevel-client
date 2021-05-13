@@ -46,3 +46,6 @@ Assets/StreamingAssets/*
 Assets/PlayFabSDK/Shared/Public/Resources/*
 Assets/PlayFabSDK/Shared/Public/Resources.meta
 
+# For GoogleMobileAds
+Assets/GoogleMobileAds/Resources/*
+Assets/GoogleMobileAds/Resources.meta
