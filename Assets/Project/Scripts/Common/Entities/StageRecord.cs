@@ -3,7 +3,7 @@
 namespace Treevel.Common.Entities
 {
     [Serializable]
-    public class StageRecord
+    public struct StageRecord
     {
         /// 木の Id
         /// </summary>
@@ -27,12 +27,12 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 初成功時の挑戦回数
         /// </summary>
-        public int challengeNumAtFirstSuccess;
+        public int? challengeNumAtFirstSuccess;
 
         /// <summary>
         /// 初成功時の日付
         /// </summary>
-        public DateTime firstSuccessDate;
+        public DateTime? firstSuccessDate;
 
         /// <summary>
         /// 成功回数
@@ -47,7 +47,7 @@ namespace Treevel.Common.Entities
         /// <summary>
         /// 各失敗原因における失敗回数
         /// </summary>
-        public FailureReasonNum failureReasonNum = new FailureReasonNum();
+        public FailureReasonNum failureReasonNum;
 
         /// <summary>
         /// フリック回数
@@ -63,6 +63,14 @@ namespace Treevel.Common.Entities
         {
             this.treeId = treeId;
             this.stageNumber = stageNumber;
+            challengeNum = 0;
+            challengeNumAtFirstSuccess = null;
+            firstSuccessDate = null;
+            successNum = 0;
+            failureNum = 0;
+            failureReasonNum = new FailureReasonNum();
+            flickNum = 0;
+            tutorialChecked = false;
         }
 
         /// <summary>
