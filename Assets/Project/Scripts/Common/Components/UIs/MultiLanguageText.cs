@@ -41,7 +41,7 @@ namespace Treevel.Common.Components.UIs
             base.Awake();
 
             // 言語変更する時にテキスト変更するイベントを登録する
-            UserSettings.CurrentLanguage.Subscribe(_ => {
+            UserSettings.Instance.CurrentLanguage.Subscribe(_ => {
                 text = LanguageUtility.GetText(TextIndex);
             }).AddTo(this);
         }
