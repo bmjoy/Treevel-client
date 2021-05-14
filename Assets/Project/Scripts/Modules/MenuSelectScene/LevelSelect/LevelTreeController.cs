@@ -33,29 +33,19 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         public override void UpdateState()
         {
-            // 現在状態をPlayerPrefsから得る
-            state = (ETreeState)Enum.ToObject(typeof(ETreeState),
-                                              PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId.ToString(),
-                                                                 Default.TREE_STATE));
-            // 状態の更新
-            switch (state) {
-                case ETreeState.Unreleased:
-                    break;
-                case ETreeState.Released:
-                    // Implementorに任せる
-                    state = clearHandler.GetTreeState();
-                    break;
-                case ETreeState.Cleared:
-                    // 全クリアかどうかをチェックする
-                    var stageNum = treeId.GetStageNum();
-                    var stageRecords = StageRecordService.Instance.Get(treeId);
-                    var clearStageNum = stageRecords.Count(stageRecord => stageRecord.IsCleared);
-                    state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
-                    break;
-                case ETreeState.AllCleared:
-                    break;
-                default:
-                    throw new NotImplementedException();
+            var treeData = GameDataManager.GetTreeData(treeId);
+
+            // 解放条件達成したか
+            var isReleased = treeData.constraintTree.All(constraint => {
+                var constraintTreeData = GameDataManager.GetTreeData(constraint.treeId);
+                var clearNumber = constraintTreeData.stages.Count(stageData => StageRecordService.Instance.Get(stageData).IsCleared);
+                return clearNumber >= constraint.clearStageNumber;
+            });
+
+            if (!isReleased) {
+                state = ETreeState.Unreleased;
+            } else {
+                state = clearHandler.GetTreeState();
             }
 
             // 状態の反映
