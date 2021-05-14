@@ -60,6 +60,23 @@ namespace Treevel.Common.Utils
         }
 
         /// <summary>
+        /// StageDataから 特定の StageRecord を取得する
+        /// </summary>
+        public StageRecord Get(StageData stageData)
+        {
+            return Get(stageData.TreeId, stageData.StageNumber);
+        }
+
+        /// <summary>
+        /// StageIdから 特定の StageRecord を取得する
+        /// </summary>
+        public StageRecord Get(string stageId)
+        {
+            var (treeId, stageNumber) = StageData.DecodeStageIdKey(stageId);
+            return Get(treeId, stageNumber);
+        }
+
+        /// <summary>
         /// 特定の木の StageRecord を取得する
         /// </summary>
         /// <param name="treeId"> 木の Id </param>
