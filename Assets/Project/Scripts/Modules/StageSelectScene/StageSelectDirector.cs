@@ -131,7 +131,6 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         private void OnDisable()
         {
-            _branches.ForEach(branch => branch.SaveState());
             PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.BRANCH_STATE, BranchController.animationPlayedBranches);
         }
 

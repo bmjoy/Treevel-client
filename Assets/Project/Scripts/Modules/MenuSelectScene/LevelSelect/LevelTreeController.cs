@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
@@ -35,6 +34,13 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             var treeData = GameDataManager.GetTreeData(treeId);
 
+            // 解放条件がない場合、そのまま状態を反映
+            if (treeData.constraintTree.Count == 0) {
+                state = clearHandler.GetTreeState();
+                ReflectTreeState();
+                return;
+            }
+
             // 解放条件達成したか
             var isReleased = treeData.constraintTree.All(constraint => {
                 var constraintTreeData = GameDataManager.GetTreeData(constraint.treeId);
@@ -42,19 +48,22 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 return clearNumber >= constraint.clearStageNumber;
             });
 
+            // 非解放の場合も即反映
             if (!isReleased) {
                 state = ETreeState.Unreleased;
-            } else {
-                state = clearHandler.GetTreeState();
+                ReflectTreeState();
+                return;
             }
 
-            // 状態の反映
-            ReflectTreeState();
-        }
-
-        public void Reset()
-        {
-            PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.TREE + treeId.ToString());
+            state = clearHandler.GetTreeState();
+            // 木の解放演出が再生されたことがあったらそのまま反映する。
+            if (LevelSelectDirector.Instance.releaseAnimationPlayedTrees.Contains(treeId)) {
+                // 状態の反映
+                ReflectTreeState();
+            } else {
+                // RoadControllerからの解放演出を待つ。まずは非解放状態にする
+                ReflectUnreleasedState();
+            }
         }
 
         protected override void ReflectUnreleasedState()
@@ -94,14 +103,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             StageSelectDirector.seasonId = _seasonId;
             StageSelectDirector.treeId = treeId;
             AddressableAssetManager.LoadScene(_seasonId.GetSceneName());
-        }
-
-        /// <summary>
-        /// 木の状態の保存
-        /// </summary>
-        public void SaveState()
-        {
-            PlayerPrefs.SetInt(Constants.PlayerPrefsKeys.TREE + treeId, Convert.ToInt32(state));
         }
     }
 }

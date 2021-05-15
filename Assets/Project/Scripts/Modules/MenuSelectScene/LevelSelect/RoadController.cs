@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UniRx;
 using UniRx.Triggers;
@@ -58,38 +57,35 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public override async UniTask UpdateStateAsync()
         {
-            released = PlayerPrefs.GetInt(saveKey, Default.ROAD_RELEASED) == 1;
+            var endTreeData = GameDataManager.GetTreeData(_endObjectController.treeId);
 
-            switch (released) {
-                // 解放済み
-                case true:
-                    lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
-                    return;
+            if (endTreeData.constraintTree.Count == 0) {
+                // 初期解放
+                lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
+                return;
+            }
 
-                // 初期状態で解放されている道
-                case false when constraintObjects.Length == 0:
-                    released = true;
-                    // 終点の木の状態の更新
-                    _endObjectController.state = ETreeState.Released;
-                    _endObjectController.ReflectTreeState();
-                    break;
-                case false: {
-                    released = constraintObjects.All(tree => tree.GetComponent<LevelTreeController>().state >= ETreeState.Cleared);
-                    if (released) {
-                        // 画面切り替える際に強制的に終わらせる
-                        var cancelTokenSource = new CancellationTokenSource();
-                        this.OnDisableAsObservable()
-                            .Subscribe(_ => cancelTokenSource.Cancel())
-                            .AddTo(cancelTokenSource.Token);
+            if (_endObjectController.state == ETreeState.Unreleased) {
+                // 未解放
+                lineRenderer.startColor = lineRenderer.endColor = _ROAD_UNRELEASED_COLOR;
+            } else if (LevelSelectDirector.Instance.releaseAnimationPlayedRoads.Contains(saveKey)) {
+                // 演出を再生したことがあればそのまま解放
+                lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
+            } else {
+                // 演出開始
+                // 画面切り替える際に強制的に終わらせる
+                var cancelTokenSource = new CancellationTokenSource();
+                this.OnDisableAsObservable()
+                    .Subscribe(_ => {
+                        cancelTokenSource.Cancel();
+                    })
+                    .AddTo(cancelTokenSource.Token);
 
-                        // 道が非解放状態から解放状態に変わった時
-                        await ReleaseEndObjectAsync(cancelTokenSource.Token);
-                    }
+                // 道が非解放状態から解放状態に変わった時
+                await ReleaseEndObjectAsync(cancelTokenSource.Token);
 
-                    lineRenderer.startColor = lineRenderer.endColor = released ? _ROAD_RELEASED_COLOR : _ROAD_UNRELEASED_COLOR;
-
-                    break;
-                }
+                // 再生状態を保存
+                LevelSelectDirector.Instance.releaseAnimationPlayedRoads.Add(saveKey);
             }
         }
 
@@ -114,14 +110,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
             // 終点の木の状態の更新アニメーション
             _endObjectController.ReflectTreeState();
-        }
-
-        /// <summary>
-        /// 道の状態の保存
-        /// </summary>
-        public override void SaveState()
-        {
-            PlayerPrefs.SetInt(saveKey, Convert.ToInt32(released));
+            // 木の解放演出見たことを記録する
+            LevelSelectDirector.Instance.releaseAnimationPlayedTrees.Add(_endObjectController.treeId);
         }
     }
 }
