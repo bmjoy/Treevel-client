@@ -11,7 +11,7 @@ public class StageDataTest
     [UnityTest]
     public IEnumerator TestGoalBottlesEqualsGoalTiles() => UniTask.ToCoroutine(async () =>
     {
-        await GameDataManager.InitializeAsync().ToCoroutine();
+        await GameDataManager.InitializeAsync();
 
         GameDataManager.GetAllStages().ToList().ForEach(data => {
             var goalBottleNum = data.BottleDatas.Count(bottleData => bottleData.type == EBottleType.Normal);
