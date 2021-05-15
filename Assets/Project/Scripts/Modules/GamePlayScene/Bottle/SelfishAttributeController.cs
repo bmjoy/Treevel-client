@@ -41,7 +41,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.StartMove.Subscribe(_ => ResetAnimation()).AddTo(this);
+            _bottleController.StartMove.Subscribe(_ => QuitAnimation()).AddTo(this);
             _bottleController.EndMove.Subscribe(_ => RestartAnimation()).AddTo(this);
             _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => PauseAnimation()).AddTo(compositeDisposableOnGameEnd, this);
             _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => ResumeAnimation()).AddTo(compositeDisposableOnGameEnd, this);
@@ -118,7 +118,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// Selfishアニメーションを停止する
         /// </summary>
-        private void ResetAnimation()
+        private void QuitAnimation()
         {
             animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
             _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
