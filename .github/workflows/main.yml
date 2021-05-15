@@ -26,4 +26,4 @@ jobs:
         uses: game-ci/unity-test-runner@v2
         with:
           unityVersion: ${{ matrix.unityVersion }}
-          githubToken: ${{ secret.GITHUB_TOKEN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
