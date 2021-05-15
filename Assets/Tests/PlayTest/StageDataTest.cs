@@ -16,7 +16,7 @@ public class StageDataTest
         GameDataManager.GetAllStages().ToList().ForEach(data => {
             var goalBottleNum = data.BottleDatas.Count(bottleData => bottleData.type == EBottleType.Normal);
             var goalTileNum = data.TileDatas.Count(tileData => tileData.type == ETileType.Goal);
-            Assert.AreEqual(goalBottleNum, goalTileNum);
+            Assert.AreEqual(goalBottleNum, goalTileNum, $"invalid stage data: [{data.StageId}]");
         });
     });
 }
