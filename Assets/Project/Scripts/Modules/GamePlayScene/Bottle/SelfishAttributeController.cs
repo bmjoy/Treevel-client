@@ -72,7 +72,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // 空いている方向からランダムに1方向を選択する
             if (canMoveDirections.Sum() == 0) {
-                ResetAnimation();
                 RestartAnimation();
                 return;
             }
