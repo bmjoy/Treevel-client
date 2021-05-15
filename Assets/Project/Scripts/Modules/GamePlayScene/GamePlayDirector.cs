@@ -511,10 +511,25 @@ namespace Treevel.Modules.GamePlayScene
                 _successPopup.SetActive(false);
             }
 
-            public override void OnEnter(StateBase from = null)
+            public override async void OnEnter(StateBase from = null)
             {
                 Instance._stageRecord.Succeed();
-                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
+                try {
+                    await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                } catch {
+                    UIManager.Instance.CreateOkCancelMessageDialog(
+                        ETextIndex.ReSendStageRecordDialogMessage,
+                        ETextIndex.MessageDlgOkBtnRetryText,
+                        ETextIndex.MessageDlgOkBtnGiveUpText,
+                        async () => {
+                            try {
+                                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+                            } catch {
+                                UIManager.Instance.ShowErrorMessageAsync(EErrorCode.SaveStageRecordError).Forget();
+                            }
+                        },
+                        false);
+                }
 
                 SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
 
@@ -545,11 +560,11 @@ namespace Treevel.Modules.GamePlayScene
                 _failurePopup.SetActive(false);
             }
 
-            public override void OnEnter(StateBase from = null)
+            public override async void OnEnter(StateBase from = null)
             {
                 Instance._stageRecord.Fail();
                 Instance._stageRecord.failureReasonNum.Increment(Instance.failureReason);
-                StageRecordService.Instance.Set(treeId, stageNumber, Instance._stageRecord);
+                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
 
                 // Pausingから来たらステージ選択画面へ
                 if (from is PausingState) {

@@ -41,6 +41,7 @@ ErrorInvalidBottleColor,ボトルの色が正しく設定されていません�
 ErrorInvalidLifeValue,ライフの値が正しく設定されいません。,Invalid life value.
 ErrorInvalidTileColor,タイルの色が正しく設定されていません。,Invalid tile color.
 ErrorInvalidGimmickData,ギミックデータが正しく設定されていません。。,Invalid gimmick data.
+SaveStageRecordError,ステージの記録を保存することに失敗しました,Failed to save stage record.
 RecordShareButton,共有,Share
 RecordToIndividualButton,個別記録へ,Individual
 RecordToGeneralButton,総合記録へ,General
@@ -51,9 +52,12 @@ RecordFlickNum,フリック回数,Flick Counts
 RecordFailureNum,失敗回数,Failure Counts
 RecordClearRate,成功率,Clear Rate
 RecordResetConfirmDialogMessage,本当にステージデータをリセットしますか,Are you sure to reset stage data?
+ReSendStageRecordDialogMessage,記録の保存に失敗しました。インターネットの接続状況などを確認して再度お試しください,Failed to save the stage record. Please check the internet connection status and then try again.
 SpringShort,春,SPR
 SummerShort,夏,SMR
 AutumnShort,秋,AUT
 WinterShort,冬,WTR
 MessageDlgOkBtnText,確定,OK
 MessageDlgCancelBtnText,キャンセル,Cancel
+MessageDlgOkBtnRetryText,再度保存を試みる,Retry
+MessageDlgOkBtnGiveUpText,保存せずに終わる,Give up
