@@ -115,7 +115,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// Selfishアニメーションを停止する
+        /// Selfishアニメーションを終了する
         /// </summary>
         private void QuitAnimation()
         {
