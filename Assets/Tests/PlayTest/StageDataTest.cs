@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 public class StageDataTest
 {
     [UnityTest]
-    public IEnumerator TestGoalBottlesEqualsGoalTiles() => UniTask.ToCoroutine(async () =>
+    public IEnumerator TestNumOfGoalBottlesEqualsGoalTiles() => UniTask.ToCoroutine(async () =>
     {
         await GameDataManager.InitializeAsync();
 
