@@ -30,7 +30,7 @@ namespace Treevel.Common.Utils
                 _cachedUserRecord = await NetworkService.Execute(new GetUserRecordRequest());
             } catch {
                 _cachedUserRecord = PlayerPrefsUtility.GetObjectOrDefault(Constants.PlayerPrefsKeys.USER_RECORD,
-                                                                          new UserRecord());
+                                                                          new UserRecord(1, DateTime.Today));
                 // リモートにまだデータがない場合には、保存する
                 await SaveAsync(_cachedUserRecord);
             }
