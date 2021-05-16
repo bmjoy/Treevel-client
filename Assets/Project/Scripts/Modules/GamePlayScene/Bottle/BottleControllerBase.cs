@@ -56,6 +56,16 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         public bool IsAttackable => bottleType.IsAttackable();
 
+        /// <summary>
+        /// 攻撃された後の無敵時間
+        /// </summary>
+        private const float _INVINCIBLE_AFTER_DAMAGED_INTERVAL = 1.0f;
+
+        /// <summary>
+        /// 攻撃された後の無敵時間にあるか
+        /// </summary>
+        public bool IsInvincibleAfterDamaged { get; private set; }
+
         protected virtual void Awake()
         {
             Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE,
@@ -65,7 +75,16 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 .Where(other => other.gameObject.CompareTag(Constants.TagName.GIMMICK))
                 .Where(other => other.gameObject.transform.position.z >= 0)
                 .Where(_ => !isInvincible.Value)
-                .Subscribe(other => _getDamagedSubject.OnNext(other.gameObject)).AddTo(this);
+                .Subscribe(other => {
+                    _getDamagedSubject.OnNext(other.gameObject);
+                    IsInvincibleAfterDamaged = true;
+                }).AddTo(this);
+
+            // 攻撃された後に一定時間に無敵状態を外す
+            _getDamagedSubject
+                .Delay(TimeSpan.FromSeconds(_INVINCIBLE_AFTER_DAMAGED_INTERVAL))
+                .Subscribe(_ => IsInvincibleAfterDamaged = false)
+                .AddTo(this);
         }
 
         private async UniTask InitializeSpriteAsync(AssetReferenceSprite spriteAsset)

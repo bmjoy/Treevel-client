@@ -97,6 +97,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             // イベントに処理を登録する
             _bottleController.GetDamaged.Subscribe(gimmick => {
+                // 攻撃された直後の無敵時間にあるならスルー
+                if (_bottleController.IsInvincibleAfterDamaged)
+                    return;
+
                 _life--;
                 SetLifeValueSprite();
                 SetCrackSprite(_life);
