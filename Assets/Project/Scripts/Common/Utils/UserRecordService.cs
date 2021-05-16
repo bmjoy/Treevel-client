@@ -3,19 +3,13 @@ using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
 using Treevel.Common.Networks;
 using Treevel.Common.Networks.Requests;
+using Treevel.Common.Patterns.Singleton;
+using UnityEngine;
 
 namespace Treevel.Common.Utils
 {
-    public sealed class UserRecordService
+    public sealed class UserRecordService : SingletonObjectBase<UserRecordService>
     {
-        // For Singleton
-        private UserRecordService() { }
-
-        /// <summary>
-        /// インスタンス
-        /// </summary>
-        public static readonly UserRecordService Instance = new UserRecordService();
-
         /// <summary>
         /// オンメモリに UserRecord を保持する
         /// </summary>
@@ -30,7 +24,7 @@ namespace Treevel.Common.Utils
                 _cachedUserRecord = await NetworkService.Execute(new GetUserRecordRequest());
             } catch {
                 _cachedUserRecord = PlayerPrefsUtility.GetObjectOrDefault(Constants.PlayerPrefsKeys.USER_RECORD,
-                                                                          new UserRecord());
+                                                                          new UserRecord(1, DateTime.Today));
                 // リモートにまだデータがない場合には、保存する
                 await SaveAsync(_cachedUserRecord);
             }
@@ -74,6 +68,13 @@ namespace Treevel.Common.Utils
                 newUserRecord.LastStartupDate = DateTime.Today;
 
                 await SaveAsync(newUserRecord);
+            }
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if (hasFocus) {
+                UpdateStartupDaysAsync().Forget();
             }
         }
     }
