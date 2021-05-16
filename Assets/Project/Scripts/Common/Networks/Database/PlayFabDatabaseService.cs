@@ -166,6 +166,11 @@ namespace Treevel.Common.Networks.Database
 
         public async UniTask<bool> DeleteDataAsync(IEnumerable<string> keys)
         {
+            if (!keys.Any()) {
+                Debug.LogWarning("Key list cannot be empty");
+                return true;
+            }
+
             var request = new UpdateUserDataRequest {
                 KeysToRemove = keys.ToList(),
             };
