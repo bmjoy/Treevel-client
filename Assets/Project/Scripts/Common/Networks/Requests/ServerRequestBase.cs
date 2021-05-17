@@ -52,6 +52,16 @@ namespace Treevel.Common.Networks.Requests
         }
     }
 
+    public abstract class DeleteServerRequestBase : ServerRequestBase<bool>
+    {
+        protected string key;
+
+        public override async UniTask<bool> Execute()
+        {
+            return await remoteDatabaseService.DeleteDataAsync(key);
+        }
+    }
+
     public abstract class DeleteListServerRequestBase : ServerRequestBase<bool>
     {
         protected IEnumerable<string> keys;

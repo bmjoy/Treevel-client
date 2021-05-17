@@ -159,6 +159,30 @@ namespace Treevel.Common.Networks.Database
             return isSuccess;
         }
 
+        public async UniTask<bool> DeleteDataAsync(string key)
+        {
+            var request = new UpdateUserDataRequest {
+                KeysToRemove = new List<string> { key },
+            };
+
+            try {
+                var task = PlayFabClientAPIAsync.UpdateUserDataAsync(request);
+                // UpdateUserDataResultは現状使いところがないが、念の為変数で保存しておく
+                var result = await task;
+
+                // 成功状態を返す
+                if (task.Status == UniTaskStatus.Succeeded) {
+                    return true;
+                }
+
+                return false;
+            } catch(Exception e) {
+                // ローカルに切り替えるため呼び出し先に投げる
+                Debug.LogError(e.Message + e.StackTrace);
+                throw;
+            }
+        }
+
         public async UniTask<bool> DeleteListDataAsync(IEnumerable<string> keys)
         {
             var request = new UpdateUserDataRequest {

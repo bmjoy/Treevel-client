@@ -14,6 +14,8 @@ namespace Treevel.Common.Networks.Database
 
         UniTask<bool> LoginAsync();
 
+        UniTask<bool> DeleteDataAsync(string key);
+
         UniTask<bool> DeleteListDataAsync(IEnumerable<string> keys);
     }
 
