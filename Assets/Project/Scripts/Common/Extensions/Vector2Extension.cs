@@ -44,6 +44,7 @@ namespace Treevel.Common.Extensions
         /// <returns>四方向の単位ベクトル</returns>
         public static Vector2 NormalizeDirection(this Vector2 v)
         {
+            // FIXME x = y もしくは x = y = 0 の場合の動作について
             if (Math.Abs(v.x) > Math.Abs(v.y)) {
                 // x方向が強い
                 return v.x >= 0 ? Vector2.right : Vector2.left;
