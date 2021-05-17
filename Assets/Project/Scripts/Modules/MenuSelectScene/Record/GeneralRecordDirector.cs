@@ -132,6 +132,7 @@ namespace Treevel.Modules.MenuSelectScene.Record
         private void OnEnable()
         {
             _model.FetchStageRecordArray();
+            _model.FetchUserRecord();
         }
 
         private void OnDisable()
