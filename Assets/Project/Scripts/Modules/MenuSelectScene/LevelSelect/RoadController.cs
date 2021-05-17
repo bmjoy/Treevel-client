@@ -59,7 +59,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             var endTreeData = GameDataManager.GetTreeData(_endObjectController.treeId);
 
-            if (endTreeData.constraintTree.Count == 0) {
+            if (endTreeData.constraintTrees.Count == 0) {
                 // 初期解放
                 lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
                 return;

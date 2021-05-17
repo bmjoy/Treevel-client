@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Spring-1
   m_EditorClassIdentifier: 
   id: 1
-  constraintTree: []
+  constraintTrees: []

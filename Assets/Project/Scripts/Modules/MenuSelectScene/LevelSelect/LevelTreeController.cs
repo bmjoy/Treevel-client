@@ -35,14 +35,14 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var treeData = GameDataManager.GetTreeData(treeId);
 
             // 解放条件がない場合、そのまま状態を反映
-            if (treeData.constraintTree.Count == 0) {
+            if (treeData.constraintTrees.Count == 0) {
                 state = clearHandler.GetTreeState();
                 ReflectTreeState();
                 return;
             }
 
             // 解放条件達成したか
-            var isReleased = treeData.constraintTree.All(constraint => {
+            var isReleased = treeData.constraintTrees.All(constraint => {
                 var constraintTreeData = GameDataManager.GetTreeData(constraint.treeId);
                 var clearNumber = constraintTreeData.stages.Count(stageData => StageRecordService.Instance.Get(stageData).IsCleared);
                 return clearNumber >= constraint.clearStageNumber;

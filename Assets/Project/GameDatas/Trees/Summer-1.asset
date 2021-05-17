@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Summer-1
   m_EditorClassIdentifier: 
   id: 1001
-  constraintTree:
+  constraintTrees:
   - treeId: 1
     clearStageNumber: 1

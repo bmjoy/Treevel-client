@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Treevel.Common.Entities.GameDatas
 {
@@ -15,7 +16,7 @@ namespace Treevel.Common.Entities.GameDatas
         /// <summary>
         /// 木を解放するための条件
         /// </summary>
-        public List<TreeConstraint> constraintTree;
+        public List<ConstraintTree> constraintTrees;
 
         /// <summary>
         /// この木が所有するステージのリスト
@@ -28,7 +29,7 @@ namespace Treevel.Common.Entities.GameDatas
     /// 木を解放するための条件
     /// </summary>
     [Serializable]
-    public class TreeConstraint
+    public class ConstraintTree
     {
         public ETreeId treeId;
         public int clearStageNumber;
