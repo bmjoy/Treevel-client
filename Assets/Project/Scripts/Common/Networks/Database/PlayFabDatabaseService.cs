@@ -63,6 +63,11 @@ namespace Treevel.Common.Networks.Database
 
         public async UniTask<bool> UpdateDataAsync<T>(string key, T data)
         {
+            if (key == string.Empty) {
+                Debug.LogWarning("Key cannot be empty");
+                return true;
+            }
+
             Debug.Assert(typeof(T).IsSerializable, $"type {typeof(T)} should be serializable");
 
             var value = JsonUtility.ToJson(data);
@@ -185,6 +190,11 @@ namespace Treevel.Common.Networks.Database
 
         public async UniTask<bool> DeleteListDataAsync(IEnumerable<string> keys)
         {
+            if (!keys.Any()) {
+                Debug.LogWarning("Key list cannot be empty");
+                return true;
+            }
+
             var request = new UpdateUserDataRequest {
                 KeysToRemove = keys.ToList(),
             };
