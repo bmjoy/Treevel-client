@@ -15,5 +15,16 @@ namespace Treevel.Editor
             // リシアライズ
             AssetDatabase.ForceReserializeAssets(stageDataAssetPaths);
         }
+
+        [MenuItem("Tools/Reserialize Tree Data")]
+        public static void ReserializeTreeData()
+        {
+            // アセット群を取得
+            var treeDataAssets = AssetDatabase.FindAssets("t:TreeData", new[] { "Assets/Project/GameDatas/Trees" });
+            // パスに変換
+            var treeDataAssetPaths = treeDataAssets.Select(AssetDatabase.GUIDToAssetPath);
+            // リシアライズ
+            AssetDatabase.ForceReserializeAssets(treeDataAssetPaths);
+        }
     }
 }
