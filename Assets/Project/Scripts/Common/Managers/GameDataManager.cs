@@ -45,9 +45,7 @@ namespace Treevel.Common.Managers
 
         public static IEnumerable<StageData> GetStages(ETreeId treeId)
         {
-            return StageData.EncodeStageIdKeys(treeId)
-                .Where(stageKey => _stageDataMap.ContainsKey(stageKey))
-                .Select(stageKey => _stageDataMap[stageKey]);
+            return _treeDataMap[treeId].stages;
         }
 
         public static IEnumerable<StageData> GetAllStages()

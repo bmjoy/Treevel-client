@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 
@@ -34,27 +33,6 @@ namespace Treevel.Common.Entities
         public static string GetTreeIdAsKey(this ETreeId treeId)
         {
             return treeId.ToString().Replace("_", "-");
-        }
-
-        public static int GetStageNum(this ETreeId treeId)
-        {
-            switch (treeId) {
-                case ETreeId.Spring_1:
-                case ETreeId.Spring_2:
-                case ETreeId.Spring_3:
-                case ETreeId.Summer_1:
-                case ETreeId.Summer_2:
-                case ETreeId.Summer_3:
-                case ETreeId.Autumn_1:
-                case ETreeId.Autumn_2:
-                case ETreeId.Autumn_3:
-                case ETreeId.Winter_1:
-                case ETreeId.Winter_2:
-                case ETreeId.Winter_3:
-                    return 10;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(treeId), treeId, null);
-            }
         }
 
         private static readonly Dictionary<ETreeId, IClearTreeHandler> _CLEAR_TREE_HANDLER =

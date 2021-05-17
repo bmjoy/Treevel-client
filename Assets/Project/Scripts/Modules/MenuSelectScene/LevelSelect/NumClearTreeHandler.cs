@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -42,7 +40,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _treeId = treeId;
             _clearNumThreshold = clearThreshold;
-            _stageNum = _treeId.GetStageNum();
+            _stageNum = GameDataManager.GetTreeData(treeId).stages.Count;
             if (clearThreshold < 1) {
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be less than 1");
             }

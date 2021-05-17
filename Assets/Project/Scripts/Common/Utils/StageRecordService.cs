@@ -123,7 +123,7 @@ namespace Treevel.Common.Utils
                 _cachedStageRecordDic.Clear();
 
                 foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
-                    var stageNum = treeId.GetStageNum();
+                    var stageNum = GameDataManager.GetTreeData(treeId).stages.Count;
 
                     Enumerable.Range(1, stageNum).ToList()
                         .ForEach(stageId => {
