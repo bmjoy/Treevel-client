@@ -36,7 +36,7 @@ namespace Treevel.Modules.StageSelectScene
         public override void Awake()
         {
             base.Awake();
-            _constraintTreeClearHandlers = _constraintTrees.Select(id => id.GetClearTreeHandler()).ToList();
+            _constraintTreeClearHandlers = _constraintTrees.Select(id => GameDataManager.GetTreeData(id).GetClearTreeHandler()).ToList();
         }
 
         public override void UpdateState()
@@ -51,11 +51,7 @@ namespace Treevel.Modules.StageSelectScene
             }
 
             // 解放条件達成したか
-            var isReleased = treeData.constraintTrees.All(constraint => {
-                var constraintTreeData = GameDataManager.GetTreeData(constraint.treeId);
-                var clearNumber = constraintTreeData.stages.Count(stageData => StageRecordService.Instance.Get(stageData).IsCleared);
-                return clearNumber >= constraint.clearStageNumber;
-            });
+            var isReleased = treeData.constraintTrees.All(constraintTreeId => GameDataManager.GetTreeData(constraintTreeId).GetClearTreeHandler().GetTreeState() >= ETreeState.Cleared);
 
             // 非解放の場合も即反映
             if (!isReleased) {

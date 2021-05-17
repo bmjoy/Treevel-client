@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Autumn-2
   m_EditorClassIdentifier: 
   id: 2002
-  constraintTrees: []
+  constraintTrees: 
+  _clearTreeHandlerType: 0
+  _clearStageNumber: 1

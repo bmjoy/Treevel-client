@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Winter-3
   m_EditorClassIdentifier: 
   id: 3003
-  constraintTrees: []
+  constraintTrees: 
+  _clearTreeHandlerType: 0
+  _clearStageNumber: 1

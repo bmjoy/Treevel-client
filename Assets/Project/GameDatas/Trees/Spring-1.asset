@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Spring-1
   m_EditorClassIdentifier: 
   id: 1
-  constraintTrees: []
+  constraintTrees: 
+  _clearTreeHandlerType: 0
+  _clearStageNumber: 1

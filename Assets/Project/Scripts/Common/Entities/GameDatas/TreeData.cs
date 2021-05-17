@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Treevel.Common.Entities.GameDatas
 {
@@ -16,22 +16,35 @@ namespace Treevel.Common.Entities.GameDatas
         /// <summary>
         /// 木を解放するための条件
         /// </summary>
-        public List<ConstraintTree> constraintTrees;
+        public List<ETreeId> constraintTrees;
+
+        /// <summary>
+        /// 木がクリアしたかの判定を行うハンドラーの種別
+        /// </summary>
+        [SerializeField] private EClearTreeHandlerType _clearTreeHandlerType;
+
+        /// <summary>
+        /// NumClearTreeHandler用パラメータ
+        /// </summary>
+        [SerializeField] private int _clearStageNumber;
+
+        /// <summary>
+        /// クリア判定ハンドラーのインスタンスを取得
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public IClearTreeHandler GetClearTreeHandler()
+        {
+            return _clearTreeHandlerType switch {
+                EClearTreeHandlerType.NumClear => new NumClearTreeHandler(id, _clearStageNumber),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
+        }
 
         /// <summary>
         /// この木が所有するステージのリスト
         /// (GameDataManagerでStageDataを基づいて計算して与える）
         /// </summary>
         [NonSerialized] public List<StageData> stages;
-    }
-
-    /// <summary>
-    /// 木を解放するための条件
-    /// </summary>
-    [Serializable]
-    public class ConstraintTree
-    {
-        public ETreeId treeId;
-        public int clearStageNumber;
     }
 }
