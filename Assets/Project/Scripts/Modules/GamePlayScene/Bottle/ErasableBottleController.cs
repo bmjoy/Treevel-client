@@ -81,7 +81,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_OUT)
                 .Subscribe(_ => {
                     // 退出が終わった後の処理
-                    // SEを止める
                     SoundManager.Instance.StopSE(ESEKey.ErasableBottle_Out);
                     Destroy(gameObject);
                 })
@@ -101,7 +100,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 削除する（アニメーションイベントから呼び出す）
+        /// 退出する（アニメーションイベントから呼び出す）
         /// </summary>
         private void Out()
         {
