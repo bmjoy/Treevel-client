@@ -17,6 +17,16 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         private TapGesture _tapGesture;
 
         /// <summary>
+        /// せりあがり演出のためのマスク
+        /// </summary>
+        private SpriteMask _spriteMask;
+
+        /// <summary>
+        /// 子オブジェクトのSpriteRenderer
+        /// </summary>
+        [SerializeField] private SpriteRenderer _childSpriteRenderer;
+
+        /// <summary>
         /// アニメーター
         /// </summary>
         private Animator _animator;
@@ -44,6 +54,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             name = Constants.BottleName.ERASABLE_BOTTLE;
             #endif
 
+            _spriteMask = GetComponent<SpriteMask>();
             _animator = GetComponent<Animator>();
 
             // TapGesture の設定
@@ -60,7 +71,9 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 .OnStateExitAsObservable()
                 .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_IN)
                 .Subscribe(_ => {
-                    // SEを止める
+                    // 出現が終わった後の処理
+                    _spriteMask.enabled = false;
+                    _childSpriteRenderer.maskInteraction = SpriteMaskInteraction.None;
                     SoundManager.Instance.StopSE(ESEKey.ErasableBottle_In);
                 }).AddTo(this);
             _animator.GetBehaviour<ObservableStateMachineTrigger>()
