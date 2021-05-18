@@ -1,4 +1,5 @@
 ﻿using TouchScript.Gestures;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UniRx;
 using UniRx.Triggers;
@@ -19,6 +20,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// アニメーター
         /// </summary>
         private Animator _animator;
+
+        /// <summary>
+        /// In ステート
+        /// </summary>
+        private static readonly int _ANIMATOR_STATE_IN = Animator.StringToHash("Erasable@in");
 
         /// <summary>
         /// Out パラメーター
@@ -52,9 +58,18 @@ namespace Treevel.Modules.GamePlayScene.Bottle
 
             _animator.GetBehaviour<ObservableStateMachineTrigger>()
                 .OnStateExitAsObservable()
+                .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_IN)
+                .Subscribe(_ => {
+                    // SEを止める
+                    SoundManager.Instance.StopSE(ESEKey.ErasableBottle_In);
+                }).AddTo(this);
+            _animator.GetBehaviour<ObservableStateMachineTrigger>()
+                .OnStateExitAsObservable()
                 .Where(state => state.StateInfo.shortNameHash == _ANIMATOR_STATE_OUT)
                 .Subscribe(_ => {
                     // 退出が終わった後の処理
+                    // SEを止める
+                    SoundManager.Instance.StopSE(ESEKey.ErasableBottle_Out);
                     Destroy(gameObject);
                 })
                 .AddTo(this);
@@ -62,6 +77,22 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             GamePlayDirector.Instance.GameEnd
                 .Subscribe(_ => _animator.enabled = false)
                 .AddTo(this);
+        }
+
+        /// <summary>
+        /// 出現する（アニメーションイベントから呼び出す）
+        /// </summary>
+        private void In()
+        {
+            SoundManager.Instance.PlaySE(ESEKey.ErasableBottle_In);
+        }
+
+        /// <summary>
+        /// 削除する（アニメーションイベントから呼び出す）
+        /// </summary>
+        private void Out()
+        {
+            SoundManager.Instance.PlaySE(ESEKey.ErasableBottle_Out);
         }
     }
 }
