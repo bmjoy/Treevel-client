@@ -11,47 +11,23 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     {
         private DynamicBottleController _bottleController;
 
-        /// <summary>
-        /// 勝手に移動するまでの秒数
-        /// </summary>
-        private const float _SECONDS_TO_MOVE = 2.4f;
-
-        /// <summary>
-        /// 勝手に移動するまでのフレーム数
-        /// </summary>
-        private int _framesToMove;
-
-        /// <summary>
-        /// 勝手に移動していないフレーム数
-        /// </summary>
-        private int _calmFrames = 0;
-
-        /// <summary>
-        /// "勝手に移動していないフレーム数"を数えるかどうか
-        /// ジェスチャー検知時は"勝手に移動していないフレーム数"を数えない
-        /// 初期化が終了するまでは数えないように"false"とする
-        /// </summary>
-        private bool _countCalmFrames = false;
-
         private Animator _bottleAnimator;
-        private static readonly int _ANIMATOR_PARAM_INT_SELFISH_TIME = Animator.StringToHash("SelfishTime");
-        private static readonly int _ANIMATOR_PARAM_TRIGGER_IDLE = Animator.StringToHash("SelfishIdle");
+        private static readonly int _ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE = Animator.StringToHash("BeSelfishIdle");
+        private static readonly int _ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION = Animator.StringToHash("BeSelfishAction");
         private static readonly int _ANIMATOR_PARAM_FLOAT_SPEED = Animator.StringToHash("SelfishSpeed");
 
         protected override void Awake()
         {
             base.Awake();
-            _framesToMove = (int)(Constants.FRAME_RATE * _SECONDS_TO_MOVE);
             GamePlayDirector.Instance.StagePrepared.Subscribe(_ => spriteRenderer.enabled = true).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameStart.Subscribe(_ => {
-                // 移動していないフレーム数を数え始める
-                _countCalmFrames = true;
                 animator.enabled = true;
+                animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
+                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
             }).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
-                _countCalmFrames = false;
-                _calmFrames = 0;
                 animator.enabled = false;
+                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
             }).AddTo(this);
             // 描画順序の設定
             spriteRenderer.sortingOrder = EBottleAttributeType.Selfish.GetOrderInLayer();
@@ -65,37 +41,19 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleAnimator = bottleController.GetComponent<Animator>();
 
             // イベントに処理を登録する
-            _bottleController.StartMove.Subscribe(_ => SetIsStopping(false)).AddTo(this);
-            _bottleController.EndMove.Subscribe(_ => SetIsStopping(true)).AddTo(this);
-            _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => SetIsStopping(false)).AddTo(compositeDisposableOnGameEnd, this);
-            _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => SetIsStopping(true)).AddTo(compositeDisposableOnGameEnd, this);
+            _bottleController.StartMove.Subscribe(_ => QuitAnimation()).AddTo(this);
+            _bottleController.EndMove.Subscribe(_ => RestartAnimation()).AddTo(this);
+            _bottleController.pressGesture.OnPress.AsObservable().Subscribe(_ => PauseAnimation()).AddTo(compositeDisposableOnGameEnd, this);
+            _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => ResumeAnimation()).AddTo(compositeDisposableOnGameEnd, this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                 _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
             }).AddTo(this);
         }
 
-        private void FixedUpdate()
-        {
-            if (!_countCalmFrames) return;
-
-            _calmFrames++;
-            if (_calmFrames == _framesToMove) {
-                // 空いている方向にBottleを移動させる
-                MoveToFreeDirection();
-                _calmFrames = 0;
-                // 通常時アニメーションの起動
-                animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
-                _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_IDLE);
-            }
-
-            animator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
-            _bottleAnimator.SetInteger(_ANIMATOR_PARAM_INT_SELFISH_TIME, _calmFrames);
-        }
-
         /// <summary>
-        /// 空いている方向にBottleを移動させる
+        /// 空いている方向にBottleを移動させる(Animationから呼び出し)
         /// </summary>
-        private void MoveToFreeDirection()
+        public void MoveToFreeDirection()
         {
             // ボトルの位置を取得する
             var tileNum = BoardManager.Instance.GetBottlePos(_bottleController);
@@ -113,7 +71,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (BoardManager.Instance.IsEmptyTile(x, y + 1)) canMoveDirections[(int)EDirection.ToDown] = 1;
 
             // 空いている方向からランダムに1方向を選択する
-            if (canMoveDirections.Sum() == 0) return;
+            if (canMoveDirections.Sum() == 0) {
+                RestartAnimation();
+                return;
+            }
             var direction =
                 (EDirection)Enum.ToObject(typeof(EDirection), GimmickLibrary.SamplingArrayIndex(canMoveDirections));
             switch (direction) {
@@ -136,19 +97,41 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         }
 
         /// <summary>
-        /// 動き出すまでの時間の計測を状態に合わせてアニメーションの再開・停止させる
+        /// アニメーションを一時停止する
         /// </summary>
-        /// <param name="_isStopping"></param>
-        private void SetIsStopping(bool countCalmFrames)
+        private void PauseAnimation()
         {
-            _countCalmFrames = countCalmFrames;
-            if (_countCalmFrames) {
-                animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
-            } else {
-                animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-                _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
-            }
+            animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 0f);
+        }
+
+        /// <summary>
+        /// アニメーションを途中から再開する
+        /// </summary>
+        private void ResumeAnimation()
+        {
+            animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
+            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
+        }
+
+        /// <summary>
+        /// Selfishアニメーションを終了する
+        /// </summary>
+        private void QuitAnimation()
+        {
+            animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
+            _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_IDLE);
+        }
+
+        /// <summary>
+        /// Selfishアニメーションを最初から開始する
+        /// </summary>
+        private void RestartAnimation()
+        {
+            animator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
+            animator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
+            _bottleAnimator.SetTrigger(_ANIMATOR_PARAM_TRIGGER_BE_SELFISH_ACTION);
+            _bottleAnimator.SetFloat(_ANIMATOR_PARAM_FLOAT_SPEED, 1f);
         }
     }
 }

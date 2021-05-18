@@ -100,16 +100,19 @@ namespace Treevel.Common.Utils
         /// <param name="treeId"> 木の Id </param>
         /// <param name="stageNumber"> ステージ番号 </param>
         /// <param name="stageRecord"> 保存する StageRecord </param>
-        public void Set(ETreeId treeId, int stageNumber, StageRecord stageRecord)
+        public async UniTask SaveAsync(ETreeId treeId, int stageNumber, StageRecord stageRecord)
         {
             var key = StageData.EncodeStageIdKey(treeId, stageNumber);
 
-            NetworkService.Execute(new UpdateStageRecordRequest(key, stageRecord))
+            await NetworkService.Execute(new UpdateStageRecordRequest(key, stageRecord))
                 .ContinueWith(isSuccess => {
                     if (isSuccess) {
                         // データの保存に成功したら、PlayerPrefs とオンメモリにも保存する
                         PlayerPrefsUtility.SetObject(key, stageRecord);
                         _cachedStageRecordDic[key] = stageRecord;
+                    } else {
+                        // 例外が出ていなくても、失敗している場合には例外として扱う
+                        throw new Exception();
                     }
                 });
         }

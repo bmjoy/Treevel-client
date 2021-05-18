@@ -52,12 +52,15 @@ namespace Treevel.Common.Entities
         RecordFailureNum,                // 失敗回数
         RecordClearRate,                 // 成功率
         RecordResetConfirmDialogMessage, // リセット確認メッセージダイアログ
+        ReSendStageRecordDialogMessage,  // ステージ記録の再送信ダイアログ
         SpringShort,                     // 春の略記
         SummerShort,                     // 夏の略記
         AutumnShort,                     // 秋の略記
         WinterShort,                     // 冬の略記
         MessageDlgOkBtnText,             // メッセージダイアログーOKボタン
         MessageDlgCancelBtnText,         // メッセージダイアログーCancelボタン
+        MessageDlgOkBtnRetryText,        // メッセージダイアログーリトライボタン
+        MessageDlgOkBtnGiveUpText,       // メッセージダイアログー諦めるボタン
         ErrorTextStart = 10000,          // ここからはエラーメッセージ
         ErrorUnknown = ErrorTextStart,   // 不明なエラー
         ErrorLoadDataFailed,             // データの読み込みが失敗しました
@@ -66,5 +69,6 @@ namespace Treevel.Common.Entities
         ErrorInvalidLifeValue,           // ライフの値が正しく設定されていません。
         ErrorInvalidTileColor,           // タイルの色が正しく設定されていません。
         ErrorInvalidGimmickData,         // ギミックデータが正しく設定されていません。
+        SaveStageRecordError,            // ステージの記録を保存することに失敗しました。
     }
 }

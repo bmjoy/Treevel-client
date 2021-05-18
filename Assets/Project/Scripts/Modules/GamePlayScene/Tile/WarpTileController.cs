@@ -110,6 +110,9 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 originalParent = parent,
             };
 
+            // bottleのWarp開始時のイベント発火
+            bottle.GetComponent<DynamicBottleController>().OnStartWarp();
+
             // bottleをフリックできないようにする
             bottle.GetComponent<FlickGesture>().enabled = false;
 
@@ -174,6 +177,10 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             // bottleをフリックできるようにする
             bottle.GetComponent<FlickGesture>().enabled = true;
+
+            // bottleのWarp終了時のイベント発火
+            bottle.GetComponent<DynamicBottleController>().OnEndWarp();
+
         }
 
         private bool CanWarp()
