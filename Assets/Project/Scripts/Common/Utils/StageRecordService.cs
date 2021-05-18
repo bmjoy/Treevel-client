@@ -56,7 +56,7 @@ namespace Treevel.Common.Utils
         /// <returns> StageRecord </returns>
         public StageRecord Get(ETreeId treeId, int stageNumber)
         {
-            return _cachedStageRecordDic[StageData.EncodeStageIdKey(treeId, stageNumber)];
+            return Get(StageData.EncodeStageIdKey(treeId, stageNumber));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Treevel.Common.Utils
         /// </summary>
         public StageRecord Get(StageData stageData)
         {
-            return Get(stageData.TreeId, stageData.StageNumber);
+            return Get(stageData.StageId);
         }
 
         /// <summary>
@@ -72,8 +72,7 @@ namespace Treevel.Common.Utils
         /// </summary>
         public StageRecord Get(string stageId)
         {
-            var (treeId, stageNumber) = StageData.DecodeStageIdKey(stageId);
-            return Get(treeId, stageNumber);
+            return _cachedStageRecordDic[stageId];
         }
 
         /// <summary>
