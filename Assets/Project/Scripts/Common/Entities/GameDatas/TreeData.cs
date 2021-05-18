@@ -35,11 +35,12 @@ namespace Treevel.Common.Entities.GameDatas
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public IClearTreeHandler GetClearTreeHandler()
         {
-            return _clearTreeHandlerType switch {
+            return _clearTreeHandler ??= _clearTreeHandlerType switch {
                 EClearTreeHandlerType.NumClear => new NumClearTreeHandler(id, _clearStageNumber),
                 _ => throw new ArgumentOutOfRangeException(),
             };
         }
+        private IClearTreeHandler _clearTreeHandler;
 
         /// <summary>
         /// この木が所有するステージのリスト
