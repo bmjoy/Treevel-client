@@ -60,10 +60,7 @@ namespace Treevel.Modules.StageSelectScene
             } else if (stageData.ConstraintStages.Count == 0) {
                 state = EStageState.Released;
             } else {
-                state = stageData.ConstraintStages.Select(constraintStage => {
-                    var (treeId, stageNum) = StageData.DecodeStageIdKey(constraintStage);
-                    return StageRecordService.Instance.Get(treeId, stageNum);
-                }).All(stageRecord => stageRecord.IsCleared)
+                state = stageData.ConstraintStages.Select(constraintStage => StageRecordService.Instance.Get(constraintStage)).All(stageRecord => stageRecord.IsCleared)
                     ? EStageState.Released
                     : EStageState.Unreleased;
             }

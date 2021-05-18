@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -29,11 +27,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         private readonly int _stageNum;
 
         /// <summary>
-        /// ステージ情報
-        /// </summary>
-        private readonly StageRecord[] _stageRecords;
-
-        /// <summary>
         /// クリアに必要なステージ数を設定するコンストラクタ
         /// </summary>
         /// <param name="treeId"> 木のID(ステージ数を取得) </param>
@@ -42,7 +35,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             _treeId = treeId;
             _clearNumThreshold = clearThreshold;
-            _stageNum = _treeId.GetStageNum();
+            _stageNum = GameDataManager.GetTreeData(treeId).stages.Count;
             if (clearThreshold < 1) {
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be less than 1");
             }
@@ -50,8 +43,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             if (clearThreshold > _stageNum) {
                 throw new Exception($"clearThreshold(={clearThreshold}) must not be larger than the number of stages");
             }
-
-            _stageRecords = StageRecordService.Instance.Get(_treeId).ToArray();
         }
 
         /// <summary>
@@ -60,7 +51,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <returns> 木の状態 </returns>
         public ETreeState GetTreeState()
         {
-            var clearStageNum = _stageRecords
+            var clearStageNum = StageRecordService.Instance.Get(_treeId)
                 .Count(stageRecord => stageRecord.IsCleared);
 
             // クリア数に応じた木の状態を返す

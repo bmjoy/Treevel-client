@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
+using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
@@ -39,54 +36,28 @@ namespace Treevel.Modules.StageSelectScene
         public override void Awake()
         {
             base.Awake();
-            _constraintTreeClearHandlers = _constraintTrees.Select(id => id.GetClearTreeHandler()).ToList();
+            _constraintTreeClearHandlers = _constraintTrees.Select(id => GameDataManager.GetTreeData(id).GetClearTreeHandler()).ToList();
         }
 
-        public override async UniTask UpdateStateAsync()
+        public override void UpdateState()
         {
-            // 現在状態をPlayerPrefsから得る
-            state = (ETreeState)Enum.ToObject(typeof(ETreeState),
-                                              PlayerPrefs.GetInt(Constants.PlayerPrefsKeys.TREE + treeId,
-                                                                 Default.TREE_STATE));
+            var treeData = GameDataManager.GetTreeData(treeId);
 
-            // 非解放状態の時、自身を制約する木の解放状態に応じて自身の解放状態を更新する
-            if (state == ETreeState.Unreleased) {
-                var released = false;
-                if (!_constraintTrees.Any()) {
-                    // 初期状態で解放されている道
-                    released = true;
-                } else {
-                    released = _constraintTreeClearHandlers.All(
-                        handler => handler.GetTreeState() >= ETreeState.Cleared);
-                }
-
-                state = released ? ETreeState.Released : ETreeState.Unreleased;
+            // 解放条件がない場合、そのまま状態を反映
+            if (treeData.constraintTrees.Count == 0) {
+                state = clearHandler.GetTreeState();
+                ReflectTreeState();
+                return;
             }
 
-            // 状態の更新
-            switch (state) {
-                case ETreeState.Unreleased: {
-                    break;
-                }
-                case ETreeState.Released: {
-                    // Implementorに任せる
-                    state = clearHandler.GetTreeState();
-                    break;
-                }
-                case ETreeState.Cleared: {
-                    // 全クリアかどうかをチェックする
-                    var stageNum = treeId.GetStageNum();
-                    var stageRecords = StageRecordService.Instance.Get(treeId);
-                    var clearStageNum = stageRecords.Count(stageRecord => stageRecord.IsCleared);
-                    state = clearStageNum == stageNum ? ETreeState.AllCleared : state;
-                    break;
-                }
-                case ETreeState.AllCleared: {
-                    break;
-                }
-                default: {
-                    throw new NotImplementedException();
-                }
+            // 解放条件達成したか
+            var isReleased = treeData.constraintTrees.All(constraintTreeId => GameDataManager.GetTreeData(constraintTreeId).GetClearTreeHandler().GetTreeState() >= ETreeState.Cleared);
+
+            // 非解放の場合も即反映
+            if (!isReleased) {
+                state = ETreeState.Unreleased;
+            } else {
+                state = clearHandler.GetTreeState();
             }
 
             // 状態の反映

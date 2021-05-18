@@ -13,10 +13,17 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: 36fdf415407fc4d90bf691d9413d4847
+  m_CachedHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
   m_DisableCatalogUpdateOnStart: 0
+  m_IgnoreUnsupportedFilesInBuild: 0
   m_UniqueBundleIds: 0
+  m_maxConcurrentWebRequests: 500
+  m_ContiguousBundles: 1
   m_RemoteCatalogBuildPath:
     m_Id: 2d299c530184245d08d5501197a42f3f
   m_RemoteCatalogLoadPath:
@@ -30,6 +37,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a825c317f72f84fa695942cc70013d10, type: 2}
   - {fileID: 11400000, guid: 6fc41474d5cef4c0c930a2e7a2075dc6, type: 2}
   - {fileID: 11400000, guid: 93c41e508d1904f1c82a6aef6658c3f9, type: 2}
+  - {fileID: 11400000, guid: 1b44370a531034007898dc4d53bfb0ab, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -76,6 +84,7 @@ MonoBehaviour:
     - Bottle
     - Gimmick
     - Sound/BGM
+    - Tree
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: ec738e3e12a1445dfb9aa50871201ebc, type: 2}
@@ -102,7 +111,7 @@ MonoBehaviour:
           m_Key: HostingServicePort
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/StreamingAssetsCopy/aa/iOS/iOS
+          m_Data: Library/com.unity.addressables/aa/iOS/iOS
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean

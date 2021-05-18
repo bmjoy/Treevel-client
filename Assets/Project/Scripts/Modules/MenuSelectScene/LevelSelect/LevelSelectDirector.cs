@@ -2,6 +2,7 @@
 using System.Linq;
 using Treevel.Common.Managers;
 using Cysharp.Threading.Tasks;
+using Treevel.Common.Entities;
 using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.Settings;
@@ -28,15 +29,30 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private bool _isQuitApplication;
 
+        /// <summary>
+        /// 解放演出再生完了の道
+        /// </summary>
+        public List<string> releaseAnimationPlayedRoads;
+
+        /// <summary>
+        /// 解放演出再生完了の木
+        /// </summary>
+        public List<ETreeId> releaseAnimationPlayedTrees;
+
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList();
             _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList();
             ResetController.DataReset.Subscribe(_ => {
                 // 木と道の状態のリセット
-                _trees.ForEach(tree => tree.Reset());
-                _roads.ForEach(road => road.Reset());
+                releaseAnimationPlayedRoads.Clear();
+                releaseAnimationPlayedTrees.Clear();
+                PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.TREE_ANIMATION_STATE);
+                PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.ROAD_ANIMATION_STATE);
             }).AddTo(this);
+
+            releaseAnimationPlayedRoads = PlayerPrefsUtility.GetList<string>(Constants.PlayerPrefsKeys.ROAD_ANIMATION_STATE);
+            releaseAnimationPlayedTrees = PlayerPrefsUtility.GetList<ETreeId>(Constants.PlayerPrefsKeys.TREE_ANIMATION_STATE);
         }
 
         /// <summary>
@@ -47,7 +63,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             if (SceneManager.GetActiveScene().name == Constants.SceneName.MENU_SELECT_SCENE) {
                 SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
             }
-            _trees.ForEach(tree => tree.UpdateStateAsync().Forget());
+            _trees.ForEach(tree => tree.UpdateState());
             _roads.ForEach(road => road.UpdateStateAsync().Forget());
         }
 
@@ -63,8 +79,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         {
             if (!_isQuitApplication)
                 SoundManager.Instance.StopSE(ESEKey.LevelSelect_River);
-            _trees.ForEach(tree => tree.SaveState());
-            _roads.ForEach(road => road.SaveState());
+            PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.TREE_ANIMATION_STATE, releaseAnimationPlayedTrees);
+            PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.ROAD_ANIMATION_STATE, releaseAnimationPlayedRoads);
         }
 
         /// <summary>

@@ -10,16 +10,26 @@ namespace Treevel.Common.Managers
     public static class GameDataManager
     {
         private static readonly Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
-
+        private static readonly Dictionary<ETreeId, TreeData> _treeDataMap = new Dictionary<ETreeId, TreeData>();
         public static async UniTask InitializeAsync()
         {
             // Stageラベルがついてる全てのアセットのアドレスを取得
             var locations = await Addressables.LoadResourceLocationsAsync("Stage").ToUniTask();
 
-            var stageDatas =
+            var stageDataList =
                 await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<StageData>(loc).ToUniTask()));
-            foreach (var stage in stageDatas) {
+            foreach (var stage in stageDataList) {
                 _stageDataMap.Add(StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
+            }
+
+            // Treeラベルがついてる全てのアセットのアドレスを取得
+            locations = await Addressables.LoadResourceLocationsAsync("Tree").ToUniTask();
+
+            var treeDataList =
+                await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<TreeData>(loc).ToUniTask()));
+            foreach (var tree in treeDataList) {
+                tree.stages = _stageDataMap.Values.Where(stage => stage.TreeId == tree.id).ToList();
+                _treeDataMap.Add(tree.id, tree);
             }
         }
 
@@ -35,14 +45,17 @@ namespace Treevel.Common.Managers
 
         public static IEnumerable<StageData> GetStages(ETreeId treeId)
         {
-            return StageData.EncodeStageIdKeys(treeId)
-                .Where(stageKey => _stageDataMap.ContainsKey(stageKey))
-                .Select(stageKey => _stageDataMap[stageKey]);
+            return _treeDataMap[treeId].stages;
         }
 
         public static IEnumerable<StageData> GetAllStages()
         {
             return _stageDataMap.Values;
+        }
+
+        public static TreeData GetTreeData(ETreeId treeId)
+        {
+            return _treeDataMap[treeId];
         }
     }
 }

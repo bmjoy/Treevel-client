@@ -39,10 +39,7 @@ namespace Treevel.Modules.StageSelectScene
             var constraintStages = constraintStageData.ConstraintStages;
             if (constraintStages.Count == 0) return;
 
-            if (constraintStages.Select(stageId => {
-                var (treeId, stageNum) = StageData.DecodeStageIdKey(stageId);
-                return StageRecordService.Instance.Get(treeId, stageNum);
-            }).All(stageData => stageData.IsCleared)) {
+            if (constraintStages.Select(stageId => StageRecordService.Instance.Get(stageId)).All(stageData => stageData.IsCleared)) {
                 if (!animationPlayedBranches.Contains(saveKey)) {
                     // TODO 枝解放時演出
                     Debug.Log($"{saveKey}が解放された");
