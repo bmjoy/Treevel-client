@@ -55,6 +55,16 @@ namespace Treevel.Common.Networks.Requests
 
     public abstract class DeleteServerRequestBase : ServerRequestBase<bool>
     {
+        protected string key;
+
+        public override async UniTask<bool> Execute()
+        {
+            return await remoteDatabaseService.DeleteDataAsync(key);
+        }
+    }
+
+    public abstract class DeleteListServerRequestBase : ServerRequestBase<bool>
+    {
         protected IEnumerable<string> keys;
 
         public override async UniTask<bool> Execute()
@@ -62,7 +72,7 @@ namespace Treevel.Common.Networks.Requests
             var allSuccess = true;
             // PlayFabの仕様上一回のリクエストにつき10個の値しか消せないので分けてリクエストを送る
             for (var i = 0 ; i < Mathf.CeilToInt(keys.Count() / 10f) ; i++) {
-                allSuccess &= await remoteDatabaseService.DeleteDataAsync(keys.Skip(i * 10).Take(10));
+                allSuccess &= await remoteDatabaseService.DeleteListDataAsync(keys.Skip(i * 10).Take(10));
             }
             return allSuccess;
         }

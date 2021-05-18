@@ -14,7 +14,9 @@ namespace Treevel.Common.Networks.Database
 
         UniTask<bool> LoginAsync();
 
-        UniTask<bool> DeleteDataAsync(IEnumerable<string> keys);
+        UniTask<bool> DeleteDataAsync(string key);
+
+        UniTask<bool> DeleteListDataAsync(IEnumerable<string> keys);
     }
 
     public class NetworkErrorException : Exception

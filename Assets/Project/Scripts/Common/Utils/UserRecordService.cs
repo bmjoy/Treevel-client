@@ -55,6 +55,18 @@ namespace Treevel.Common.Utils
                 });
         }
 
+        public async UniTask ResetAsync()
+        {
+            await NetworkService.Execute(new DeleteUserRecordRequest())
+                .ContinueWith(isSuccess => {
+                    if (isSuccess) {
+                        // データのリセットに成功したら、PlayerPrefs をリセットし、初期化を行う
+                        PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.USER_RECORD);
+                        SaveAsync(new UserRecord(1, DateTime.Today)).Forget();
+                    }
+                });
+        }
+
         /// <summary>
         /// 最終起動日に応じて，起動日数を更新する
         /// </summary>

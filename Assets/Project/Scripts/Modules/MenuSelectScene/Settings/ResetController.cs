@@ -40,6 +40,9 @@ namespace Treevel.Modules.MenuSelectScene.Settings
             // 全ステージをリセット
             StageRecordService.Instance.ResetAsync().Forget();
 
+            // ユーザ情報をリセット
+            UserRecordService.Instance.ResetAsync().Forget();
+
             // ステージ選択画面のブランチをリセット
             PlayerPrefs.DeleteKey(Constants.PlayerPrefsKeys.BRANCH_STATE);
         }
