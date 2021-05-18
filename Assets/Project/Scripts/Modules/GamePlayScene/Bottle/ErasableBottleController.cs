@@ -87,7 +87,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 .AddTo(this);
 
             GamePlayDirector.Instance.GameEnd
-                .Subscribe(_ => _animator.enabled = false)
+                .Subscribe(_ => {
+                    _animator.enabled = false;
+                    SoundManager.Instance.StopSE(ESEKey.ErasableBottle_In);
+                    SoundManager.Instance.StopSE(ESEKey.ErasableBottle_Out);
+                })
                 .AddTo(this);
         }
 
