@@ -107,7 +107,7 @@ MonoBehaviour:
   gimmicks:
   - loop: 1
     appearTime: 2
-    interval: 0.2
+    interval: 0.8
     type: 0
     targetDirections: 00000000
     targetLines: 00000000
