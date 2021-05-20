@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Treevel.Common.Entities;
 using Treevel.Common.Entities.GameDatas;
+using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Gimmick
@@ -16,6 +20,35 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         public EGimmickType GimmickType { get; private set; }
 
         private static short _gimmickId = short.MinValue;
+
+        /// <summary>
+        /// OnEnterで購読したボトルとOnExitで購読解除するボトルのDisposableの対応関係を保持するための辞書
+        /// </summary>
+        private readonly Dictionary<BottleControllerBase, IDisposable> _invincibleAfterDamagedExpiredDisposables = new Dictionary<BottleControllerBase, IDisposable>();
+
+        protected void Awake()
+        {
+            // 衝突イベントを処理する
+            this.OnTriggerEnter2DAsObservable()
+                .Select(other => other.GetComponent<BottleControllerBase>())
+                .Where(bottle => bottle && bottle.IsInvincibleAfterDamaged)
+                .Subscribe(bottle => {
+                    Debug.Log("Subscribe On InvincibleAfterDamaged Expired");
+                    var disposable = bottle.OnInvincibleAfterDamagedExpired.Subscribe(bottleObject => {
+                        Debug.Log("OnInvincibleAfterDamaged Expired Executed");
+                        bottleObject.GetComponent<BottleControllerBase>().HandleCollision(GetComponent<Collider2D>());
+                    }).AddTo(this);
+                    _invincibleAfterDamagedExpiredDisposables.Add(bottle, disposable);
+                }).AddTo(this);
+
+            this.OnTriggerExit2DAsObservable()
+                .Select(other => other.GetComponent<BottleControllerBase>())
+                .Where(bottle => bottle && _invincibleAfterDamagedExpiredDisposables.ContainsKey(bottle))
+                .Subscribe(bottle => {
+                    _invincibleAfterDamagedExpiredDisposables[bottle].Dispose();
+                    _invincibleAfterDamagedExpiredDisposables.Remove(bottle);
+                }).AddTo(this);
+        }
 
         public virtual void Initialize(GimmickData gimmickData)
         {

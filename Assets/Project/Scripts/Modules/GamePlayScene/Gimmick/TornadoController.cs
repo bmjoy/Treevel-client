@@ -69,6 +69,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void Awake()
         {
+            base.Awake();
             _rigidBody = GetComponent<Rigidbody2D>();
             this.OnTriggerEnter2DAsObservable()
                 .Select(other => other.GetComponent<BottleControllerBase>())

@@ -50,6 +50,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void Awake()
         {
+            base.Awake();
+
             _renderer = GetComponent<SpriteRenderer>();
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => transform.position.z >= 0)
