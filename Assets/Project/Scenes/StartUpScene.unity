@@ -1185,7 +1185,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _seClipList.Array.data[14].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 8a363f4d98ddc42718c8034162bb8363, type: 3}
+      objectReference: {fileID: 8300000, guid: 371755d9539ca4292aa326d722d2aa26, type: 3}
     - target: {fileID: 4726161914754366474, guid: fef6cf6427d2b455fb0a57b5d82e53d8,
         type: 3}
       propertyPath: _seClipList.Array.data[15].clip
