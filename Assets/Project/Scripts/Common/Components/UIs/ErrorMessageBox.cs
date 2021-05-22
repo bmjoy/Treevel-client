@@ -3,6 +3,8 @@ using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace Treevel.Common.Components.UIs
 {
@@ -55,6 +57,11 @@ namespace Treevel.Common.Components.UIs
         public void OnReturnToTitleButtonClicked()
         {
             SoundManager.Instance.PlaySE(ESEKey.UI_Dropdown_Close);
+
+            // StartUpSceneで予め置いているオブジェクトは複数にならないようにDontDestroyOnLoadから今のシーンに置く。そうするとシーンの遷移で自然に消えてくれる
+            SceneManager.MoveGameObjectToScene(FindObjectOfType<EventSystem>().gameObject, SceneManager.GetActiveScene());
+            SceneManager.MoveGameObjectToScene(SoundManager.Instance.gameObject, SceneManager.GetActiveScene());
+            SceneManager.MoveGameObjectToScene(UIManager.Instance.gameObject, SceneManager.GetActiveScene());
 
             // スプラッシュ画面に変える
             AddressableAssetManager.LoadScene(Constants.SceneName.START_UP_SCENE);

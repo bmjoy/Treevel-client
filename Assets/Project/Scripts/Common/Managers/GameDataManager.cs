@@ -9,10 +9,17 @@ namespace Treevel.Common.Managers
 {
     public static class GameDataManager
     {
+        /// <summary>
+        /// 初期化済みか
+        /// </summary>
+        private static bool _initialized;
+
         private static readonly Dictionary<string, StageData> _stageDataMap = new Dictionary<string, StageData>();
         private static readonly Dictionary<ETreeId, TreeData> _treeDataMap = new Dictionary<ETreeId, TreeData>();
         public static async UniTask InitializeAsync()
         {
+            if (_initialized) return;
+
             // Stageラベルがついてる全てのアセットのアドレスを取得
             var locations = await Addressables.LoadResourceLocationsAsync("Stage").ToUniTask();
 
@@ -31,6 +38,8 @@ namespace Treevel.Common.Managers
                 tree.stages = _stageDataMap.Values.Where(stage => stage.TreeId == tree.id).ToList();
                 _treeDataMap.Add(tree.id, tree);
             }
+
+            _initialized = true;
         }
 
         public static StageData GetStage(ETreeId treeId, int stageNumber)
