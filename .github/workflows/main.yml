@@ -31,7 +31,7 @@ jobs:
         with:
           unityVersion: ${{ matrix.unityVersion }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          artifactPath: ${{ matrix.testMode }}-artifacts
+          artifactsPath: ${{ matrix.testMode }}-artifacts
           testMode: ${{ matrix.testMode }}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
