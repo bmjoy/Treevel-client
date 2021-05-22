@@ -5,12 +5,6 @@ using UnityEngine;
 public class CommonTest
 {
     [Test]
-    public void FailTest()
-    {
-        Assert.Fail();
-    }
-
-    [Test]
     public void TestVector2Extension_Abs()
     {
         Assert.AreEqual(new Vector2(-1, -1).Abs(), new Vector2(1, 1));
