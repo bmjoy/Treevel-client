@@ -18,28 +18,28 @@ namespace Treevel.Common.Managers
         private static readonly Dictionary<ETreeId, TreeData> _treeDataMap = new Dictionary<ETreeId, TreeData>();
         public static async UniTask InitializeAsync()
         {
-            if (!_initialized) {
-                // Stageラベルがついてる全てのアセットのアドレスを取得
-                var locations = await Addressables.LoadResourceLocationsAsync("Stage").ToUniTask();
+            if (_initialized) return;
 
-                var stageDataList =
-                    await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<StageData>(loc).ToUniTask()));
-                foreach (var stage in stageDataList) {
-                    _stageDataMap.Add(StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
-                }
+            // Stageラベルがついてる全てのアセットのアドレスを取得
+            var locations = await Addressables.LoadResourceLocationsAsync("Stage").ToUniTask();
 
-                // Treeラベルがついてる全てのアセットのアドレスを取得
-                locations = await Addressables.LoadResourceLocationsAsync("Tree").ToUniTask();
-
-                var treeDataList =
-                    await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<TreeData>(loc).ToUniTask()));
-                foreach (var tree in treeDataList) {
-                    tree.stages = _stageDataMap.Values.Where(stage => stage.TreeId == tree.id).ToList();
-                    _treeDataMap.Add(tree.id, tree);
-                }
-
-                _initialized = true;
+            var stageDataList =
+                await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<StageData>(loc).ToUniTask()));
+            foreach (var stage in stageDataList) {
+                _stageDataMap.Add(StageData.EncodeStageIdKey(stage.TreeId, stage.StageNumber), stage);
             }
+
+            // Treeラベルがついてる全てのアセットのアドレスを取得
+            locations = await Addressables.LoadResourceLocationsAsync("Tree").ToUniTask();
+
+            var treeDataList =
+                await UniTask.WhenAll(locations.Select(loc => Addressables.LoadAssetAsync<TreeData>(loc).ToUniTask()));
+            foreach (var tree in treeDataList) {
+                tree.stages = _stageDataMap.Values.Where(stage => stage.TreeId == tree.id).ToList();
+                _treeDataMap.Add(tree.id, tree);
+            }
+
+            _initialized = true;
         }
 
         public static StageData GetStage(ETreeId treeId, int stageNumber)
