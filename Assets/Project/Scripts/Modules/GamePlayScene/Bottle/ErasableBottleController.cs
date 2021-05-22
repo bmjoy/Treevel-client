@@ -63,7 +63,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _tapGesture.OnTap.AsObservable()
                 .Subscribe(_ => {
                     // 退出させる
-                    _animator.SetBool(_ANIMATOR_PARAM_OUT, true);
+                    _animator.SetTrigger(_ANIMATOR_PARAM_OUT);
                 })
                 .AddTo(compositeDisposableOnGameEnd, this);
 
