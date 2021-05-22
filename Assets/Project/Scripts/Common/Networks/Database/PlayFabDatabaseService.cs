@@ -63,6 +63,11 @@ namespace Treevel.Common.Networks.Database
 
         public async UniTask<bool> UpdateDataAsync<T>(string key, T data)
         {
+            if (key == string.Empty) {
+                Debug.LogWarning("Key cannot be empty");
+                return true;
+            }
+
             Debug.Assert(typeof(T).IsSerializable, $"type {typeof(T)} should be serializable");
 
             var value = JsonUtility.ToJson(data);
@@ -159,8 +164,37 @@ namespace Treevel.Common.Networks.Database
             return isSuccess;
         }
 
-        public async UniTask<bool> DeleteDataAsync(IEnumerable<string> keys)
+        public async UniTask<bool> DeleteDataAsync(string key)
         {
+            var request = new UpdateUserDataRequest {
+                KeysToRemove = new List<string> { key },
+            };
+
+            try {
+                var task = PlayFabClientAPIAsync.UpdateUserDataAsync(request);
+                // UpdateUserDataResultは現状使いところがないが、念の為変数で保存しておく
+                var result = await task;
+
+                // 成功状態を返す
+                if (task.Status == UniTaskStatus.Succeeded) {
+                    return true;
+                }
+
+                return false;
+            } catch(Exception e) {
+                // ローカルに切り替えるため呼び出し先に投げる
+                Debug.LogError(e.Message + e.StackTrace);
+                throw;
+            }
+        }
+
+        public async UniTask<bool> DeleteListDataAsync(IEnumerable<string> keys)
+        {
+            if (!keys.Any()) {
+                Debug.LogWarning("Key list cannot be empty");
+                return true;
+            }
+
             var request = new UpdateUserDataRequest {
                 KeysToRemove = keys.ToList(),
             };

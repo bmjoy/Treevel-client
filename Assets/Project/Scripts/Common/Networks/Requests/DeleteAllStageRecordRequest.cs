@@ -4,7 +4,7 @@ using Treevel.Common.Utils;
 
 namespace Treevel.Common.Networks.Requests
 {
-    public class DeleteAllStageRecordRequest : DeleteServerRequestBase
+    public class DeleteAllStageRecordRequest : DeleteListServerRequestBase
     {
         public DeleteAllStageRecordRequest()
         {

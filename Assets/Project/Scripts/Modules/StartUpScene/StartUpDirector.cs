@@ -41,17 +41,16 @@ namespace Treevel.Modules.StartUpScene
                 Debug.Log($"PlayFabID[{PlayFabSettings.staticPlayer.PlayFabId}] Login Success");
             }
 
-            // MenuSelectSceneを読み込み
-            var loadSceneTask = AddressableAssetManager
-                .LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
             // GameDataManager初期化
-            var dataManagerInitTask = GameDataManager.InitializeAsync();
-
-            await UniTask.WhenAll(loadSceneTask, dataManagerInitTask);
+            await GameDataManager.InitializeAsync();
 
             await StageRecordService.Instance.PreloadAllStageRecordsAsync();
             await UserRecordService.Instance.PreloadUserRecordAsync()
                 .ContinueWith(UserRecordService.Instance.UpdateStartupDaysAsync);
+
+            // MenuSelectSceneを読み込み
+            await AddressableAssetManager
+                .LoadScene(Constants.SceneName.MENU_SELECT_SCENE, LoadSceneMode.Additive).ToUniTask();
 
             // Google Mobile Ad 初期化
             MobileAds.Initialize(initStatus => { });

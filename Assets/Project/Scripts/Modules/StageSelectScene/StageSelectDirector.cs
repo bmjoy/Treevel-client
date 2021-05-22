@@ -123,7 +123,7 @@ namespace Treevel.Modules.StageSelectScene
             SoundManager.Instance.PlayBGM(seasonId.GetStageSelectBGM());
 
             _branches.ForEach(branch => branch.UpdateStateAsync().Forget());
-            _trees.ForEach(tree => tree.UpdateStateAsync().Forget());
+            _trees.ForEach(tree => tree.UpdateState());
         }
 
         /// <summary>
@@ -131,7 +131,6 @@ namespace Treevel.Modules.StageSelectScene
         /// </summary>
         private void OnDisable()
         {
-            _branches.ForEach(branch => branch.SaveState());
             PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.BRANCH_STATE, BranchController.animationPlayedBranches);
         }
 

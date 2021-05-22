@@ -1,12 +1,10 @@
 using System;
-using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Treevel.Common.Entities
 {
     [Serializable]
-    public class UserRecord
+    public struct UserRecord
     {
         /// <summary>
         /// 起動日数
@@ -27,10 +25,10 @@ namespace Treevel.Common.Entities
             set => stringLastStartupDate = $"{value:yyyyMMddHHmmss}";
         }
 
-        public UserRecord()
+        public UserRecord(int startupDays, DateTime lastStartupDate)
         {
-            startupDays = 1;
-            LastStartupDate = DateTime.Today;
+            this.startupDays = startupDays;
+            stringLastStartupDate = $"{lastStartupDate:yyyyMMddHHmmss}";
         }
     }
 }

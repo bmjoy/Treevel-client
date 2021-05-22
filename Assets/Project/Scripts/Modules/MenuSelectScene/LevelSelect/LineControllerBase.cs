@@ -55,11 +55,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         [SerializeField] protected LineRenderer lineRenderer;
 
         /// <summary>
-        /// 解放状態
-        /// </summary>
-        protected bool released = false;
-
-        /// <summary>
         /// データを保存するときのキー
         /// </summary>
         protected string saveKey;
@@ -84,8 +79,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected abstract void SetSaveKey();
 
         public abstract UniTask UpdateStateAsync();
-
-        public virtual void SaveState() { }
 
         /// <summary>
         /// 曲線の通過点の位置を求める

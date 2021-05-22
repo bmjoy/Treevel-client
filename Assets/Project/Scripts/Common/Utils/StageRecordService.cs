@@ -56,7 +56,23 @@ namespace Treevel.Common.Utils
         /// <returns> StageRecord </returns>
         public StageRecord Get(ETreeId treeId, int stageNumber)
         {
-            return _cachedStageRecordDic[StageData.EncodeStageIdKey(treeId, stageNumber)];
+            return Get(StageData.EncodeStageIdKey(treeId, stageNumber));
+        }
+
+        /// <summary>
+        /// StageDataから 特定の StageRecord を取得する
+        /// </summary>
+        public StageRecord Get(StageData stageData)
+        {
+            return Get(stageData.StageId);
+        }
+
+        /// <summary>
+        /// StageIdから 特定の StageRecord を取得する
+        /// </summary>
+        public StageRecord Get(string stageId)
+        {
+            return _cachedStageRecordDic[stageId];
         }
 
         /// <summary>
@@ -109,7 +125,7 @@ namespace Treevel.Common.Utils
                 _cachedStageRecordDic.Clear();
 
                 foreach (ETreeId treeId in Enum.GetValues(typeof(ETreeId))) {
-                    var stageNum = treeId.GetStageNum();
+                    var stageNum = GameDataManager.GetTreeData(treeId).stages.Count;
 
                     Enumerable.Range(1, stageNum).ToList()
                         .ForEach(stageId => {

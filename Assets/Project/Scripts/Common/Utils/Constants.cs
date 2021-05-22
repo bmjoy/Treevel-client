@@ -33,6 +33,8 @@ namespace Treevel.Common.Utils
         {
             public const string TREE = "TREE";
             public const string BRANCH_STATE = "BranchState";
+            public const string ROAD_ANIMATION_STATE = "RoadAnimationState";
+            public const string TREE_ANIMATION_STATE = "TreeAnimationState";
             public const string BGM_VOLUME = "BGM_VOLUME";
             public const string SE_VOLUME = "SE_VOLUME";
             public const string LANGUAGE = "LANGUAGE";

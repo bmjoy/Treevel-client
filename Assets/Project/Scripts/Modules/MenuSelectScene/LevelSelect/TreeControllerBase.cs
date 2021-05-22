@@ -1,6 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
+using Treevel.Common.Managers;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -25,13 +26,13 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         public virtual void Awake()
         {
             // クリア条件を実装するクラスを指定する
-            clearHandler = treeId.GetClearTreeHandler();
+            clearHandler = GameDataManager.GetTreeData(treeId).GetClearTreeHandler();
         }
 
         /// <summary>
         /// 木の状態の更新
         /// </summary>
-        public abstract UniTask UpdateStateAsync();
+        public abstract void UpdateState();
 
         /// <summary>
         /// 木の状態を見た目や動作に反映
