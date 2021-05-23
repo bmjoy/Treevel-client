@@ -83,9 +83,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 .Where(_ => !isInvincible.Value)
                 .Subscribe(HandleCollision).AddTo(this);
 
-            // 攻撃されたら無敵になる
-            _getDamagedSubject.Subscribe(_ => IsInvincibleAfterDamaged = true).AddTo(this);
-
             // 攻撃された後に一定時間に無敵状態を外す
             _getDamagedSubject
                 .Delay(TimeSpan.FromSeconds(_INVINCIBLE_AFTER_DAMAGED_INTERVAL))
@@ -105,6 +102,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             if (IsInvincibleAfterDamaged) return;
 
             _getDamagedSubject.OnNext(other.gameObject);
+            IsInvincibleAfterDamaged = true;
         }
 
         private async UniTask InitializeSpriteAsync(AssetReferenceSprite spriteAsset)
