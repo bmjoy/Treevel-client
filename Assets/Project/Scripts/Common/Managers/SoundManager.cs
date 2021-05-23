@@ -46,6 +46,8 @@ namespace Treevel.Common.Managers
         Bottle_Move,
         Bottle_Break,
         Bottle_Destroy,
+        ErasableBottle_In,
+        ErasableBottle_Out,
         Tile_Warp,
         Gimmick_Powder,
         Gimmick_Gust,
