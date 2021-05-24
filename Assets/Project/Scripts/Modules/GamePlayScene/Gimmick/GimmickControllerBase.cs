@@ -33,9 +33,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 .Select(other => other.GetComponent<BottleControllerBase>())
                 .Where(bottle => bottle && bottle.IsInvincibleAfterDamaged)
                 .Subscribe(bottle => {
-                    Debug.Log("Subscribe On InvincibleAfterDamaged Expired");
                     var disposable = bottle.OnInvincibleAfterDamagedExpired.Subscribe(bottleObject => {
-                        Debug.Log("OnInvincibleAfterDamaged Expired Executed");
+                        HandleCollision(bottleObject);
                         bottleObject.GetComponent<BottleControllerBase>().HandleCollision(GetComponent<Collider2D>());
                     }).AddTo(this);
                     _invincibleAfterDamagedExpiredDisposables.Add(bottle, disposable);
@@ -49,6 +48,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     _invincibleAfterDamagedExpiredDisposables.Remove(bottle);
                 }).AddTo(this);
         }
+
+        protected virtual void HandleCollision(GameObject other) { }
 
         public virtual void Initialize(GimmickData gimmickData)
         {

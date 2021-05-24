@@ -76,15 +76,19 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 .Where(bottle => bottle != null)
                 .Where(bottle => bottle.IsAttackable)
                 .Where(bottle => !bottle.isInvincible.Value)
-                .Subscribe(_ => {
-                    // 衝突したオブジェクトは赤色に変える
-                    gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-                }).AddTo(this);
+                .Subscribe(bottle => HandleCollision(bottle.gameObject))
+                .AddTo(this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
                 _rigidBody.velocity = Vector2.zero;
                 if (_warningObj != null) _warningPrefab.ReleaseInstance(_warningObj);
                 StopAllCoroutines();
             }).AddTo(this);
+        }
+
+        protected override void HandleCollision(GameObject other)
+        {
+            // 衝突したオブジェクトは赤色に変える
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
         /// <summary>

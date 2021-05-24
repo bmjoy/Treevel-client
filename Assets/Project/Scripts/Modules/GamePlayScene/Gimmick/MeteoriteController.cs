@@ -55,21 +55,23 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             _renderer = GetComponent<SpriteRenderer>();
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => transform.position.z >= 0)
-                .Subscribe(other => {
-                    var bottle = other.GetComponent<BottleControllerBase>();
-                    if (bottle != null && bottle.IsAttackable && !bottle.isInvincible.Value) {
-                        // 数字ボトルとの衝突
-                        // 衝突したオブジェクトは赤色に変える
-                        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-
-                        gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
-
-                        // 隕石を衝突したボトルに追従させる
-                        gameObject.transform.SetParent(other.transform);
-                    }
-                }).AddTo(this);
+                .Select(other => other.GetComponent<BottleControllerBase>())
+                .Where(bottle => bottle && bottle.IsAttackable && !bottle.isInvincible.Value)
+                .Subscribe(bottle => HandleCollision(bottle.gameObject))
+                .AddTo(this);
             GamePlayDirector.Instance.GameEnd.Where(_ => _warningObj != null)
                 .Subscribe(_ => _warningPrefab.ReleaseInstance(_warningObj)).AddTo(this);
+        }
+
+        protected override void HandleCollision(GameObject other)
+        {
+            // 衝突したオブジェクトは赤色に変える
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+
+            gameObject.GetComponent<Renderer>().sortingLayerName = Constants.SortingLayerName.GIMMICK;
+
+            // 隕石を衝突したボトルに追従させる
+            gameObject.transform.SetParent(other.transform);
         }
 
         public override void Initialize(GimmickData gimmickData)
