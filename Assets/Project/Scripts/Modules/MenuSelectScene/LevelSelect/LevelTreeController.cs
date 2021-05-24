@@ -27,7 +27,10 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] private Image _field;
 
-        [SerializeField] private Material _material;
+        /// <summary>
+        /// 未解放時のマテリアル
+        /// </summary>
+        [SerializeField] private Material _unreleasedMaterial;
 
         [SerializeField] private Button _button;
 
@@ -74,8 +77,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected override void ReflectUnreleasedState()
         {
             // グレースケール
-            _tree.material = _material;
-            _field.material = _material;
+            _tree.material = _unreleasedMaterial;
+            _field.material = _unreleasedMaterial;
             _button.enabled = false;
         }
 

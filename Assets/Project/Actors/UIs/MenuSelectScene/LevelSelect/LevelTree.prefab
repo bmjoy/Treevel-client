@@ -222,7 +222,7 @@ MonoBehaviour:
   _seasonId: 0
   _tree: {fileID: 9203233915983953470}
   _field: {fileID: 2333044265548075167}
-  _material: {fileID: 2100000, guid: 9d74c72ba7f3b48f484c5c3de3672ecb, type: 2}
+  _unreleasedMaterial: {fileID: 2100000, guid: 9d74c72ba7f3b48f484c5c3de3672ecb, type: 2}
   _button: {fileID: 5891168163236371066}
 --- !u!114 &5891168163236371066
 MonoBehaviour:
