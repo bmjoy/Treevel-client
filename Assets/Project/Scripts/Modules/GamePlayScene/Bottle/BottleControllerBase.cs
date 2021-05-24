@@ -67,6 +67,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         public bool IsInvincibleAfterDamaged { get; private set; }
 
         /// <summary>
+        /// 無敵状態か
+        /// </summary>
+        public bool IsInvincible => IsInvincibleAfterDamaged || isInvincibleByHoly.Value;
+
+        /// <summary>
         /// ギミックに当たった後の無敵時間効果が消えるとき発火するイベント
         /// </summary>
         private readonly Subject<GameObject> _onInvincibleAfterDamagedExpiredSubject = new Subject<GameObject>();
