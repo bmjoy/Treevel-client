@@ -18,7 +18,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 無敵状態かどうか
         /// </summary>
-        public ReactiveProperty<bool> isInvincible = new ReactiveProperty<bool>();
+        public readonly ReactiveProperty<bool> isInvincibleByHoly = new ReactiveProperty<bool>();
 
         private readonly Subject<GameObject> _enterTileSubject = new Subject<GameObject>();
 
@@ -80,7 +80,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             this.OnTriggerEnter2DAsObservable()
                 .Where(other => other.gameObject.CompareTag(Constants.TagName.GIMMICK))
                 .Where(other => other.gameObject.transform.position.z >= 0)
-                .Where(_ => !isInvincible.Value)
+                .Where(_ => !isInvincibleByHoly.Value)
                 .Subscribe(HandleCollision).AddTo(this);
 
             // 攻撃された後に一定時間に無敵状態を外す

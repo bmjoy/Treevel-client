@@ -56,7 +56,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => transform.position.z >= 0)
                 .Select(other => other.GetComponent<BottleControllerBase>())
-                .Where(bottle => bottle && bottle.IsAttackable && !bottle.isInvincible.Value)
+                .Where(bottle => bottle && bottle.IsAttackable && !bottle.isInvincibleByHoly.Value)
                 .Subscribe(bottle => HandleCollision(bottle.gameObject))
                 .AddTo(this);
             GamePlayDirector.Instance.GameEnd.Where(_ => _warningObj != null)

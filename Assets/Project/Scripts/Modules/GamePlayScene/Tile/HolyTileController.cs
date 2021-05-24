@@ -35,13 +35,13 @@ namespace Treevel.Modules.GamePlayScene.Tile
                 if (bottle.GetComponent<BottleControllerBase>() == null) return;
 
                 // 親ボトルを無敵状態にする
-                bottle.GetComponent<BottleControllerBase>().isInvincible.Value = true;
+                bottle.GetComponent<BottleControllerBase>().isInvincibleByHoly.Value = true;
             }
 
             public override void OnBottleExit(GameObject bottle)
             {
                 // 親ボトルを無敵状態から元に戻す
-                bottle.GetComponent<BottleControllerBase>().isInvincible.Value = false;
+                bottle.GetComponent<BottleControllerBase>().isInvincibleByHoly.Value = false;
             }
         }
     }

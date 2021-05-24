@@ -75,7 +75,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 .Select(other => other.GetComponent<BottleControllerBase>())
                 .Where(bottle => bottle != null)
                 .Where(bottle => bottle.IsAttackable)
-                .Where(bottle => !bottle.isInvincible.Value)
+                .Where(bottle => !bottle.isInvincibleByHoly.Value)
                 .Subscribe(bottle => HandleCollision(bottle.gameObject))
                 .AddTo(this);
             GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
