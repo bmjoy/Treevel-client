@@ -104,7 +104,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         public void HandleCollision(Collider2D other)
         {
-            if (IsInvincibleAfterDamaged) return;
+            if (IsInvincible) return;
 
             _getDamagedSubject.OnNext(other.gameObject);
             IsInvincibleAfterDamaged = true;
