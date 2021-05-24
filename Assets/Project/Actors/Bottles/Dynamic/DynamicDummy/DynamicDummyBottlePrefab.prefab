@@ -102,8 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950d269fc9172489aa122df63e8d3008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInvincible:
-    value: 0
   pressGesture: {fileID: 0}
   releaseGesture: {fileID: 0}
   IsMovable: 1
