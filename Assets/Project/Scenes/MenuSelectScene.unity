@@ -581,8 +581,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.3448291, g: 0.38211235, b: 0.5943396, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      minColor: {r: 0.3448291, g: 0.38211235, b: 0.5943396, a: 0.69803923}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.69803923}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5390,7 +5390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -5924,6 +5924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048f304c71be940b6b509426de832f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  releaseAnimationPlayedRoads: []
+  releaseAnimationPlayedTrees: 
 --- !u!1 &146333933
 GameObject:
   m_ObjectHideFlags: 0
@@ -7214,7 +7216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -8666,8 +8668,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.082102165, g: 0.13283193, b: 0.4245283, a: 1}
-      maxColor: {r: 0.16558382, g: 0.26467764, b: 0.5754717, a: 1}
+      minColor: {r: 0.082102165, g: 0.13283193, b: 0.4245283, a: 0.5019608}
+      maxColor: {r: 0.16558382, g: 0.26467764, b: 0.5754717, a: 0.5019608}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19779,7 +19781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -27962,7 +27964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
