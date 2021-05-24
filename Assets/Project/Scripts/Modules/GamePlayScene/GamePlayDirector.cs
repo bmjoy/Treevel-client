@@ -608,21 +608,32 @@ namespace Treevel.Modules.GamePlayScene
                 var content = _tutorialWindow.transform.Find("Content");
                 if (tutorialData.type == ETutorialType.Image) {
                     var imageAssetReference = tutorialData.image;
-                    imageAssetReference.LoadAssetAsync<Texture2D>().Completed += handle => {
-                        var image = content.GetComponent<RawImage>();
-                        image.texture = handle.Result;
+                    var image = content.GetComponent<RawImage>();
+                    if (imageAssetReference.OperationHandle.IsValid()) {
+                        image.texture = imageAssetReference.OperationHandle.Convert<Texture2D>().Result;
                         _tutorialWindow.SetActive(true);
-                    };
+                    } else {
+                        imageAssetReference.LoadAssetAsync<Texture2D>().Completed += handle => {
+                            image.texture = handle.Result;
+                            _tutorialWindow.SetActive(true);
+                        };
+                    }
                 } else if (tutorialData.type == ETutorialType.Video) {
                     var videoAssetReference = tutorialData.video;
-                    videoAssetReference.LoadAssetAsync<VideoClip>().Completed += handle => {
-                        var videoPlayer = content.GetComponent<VideoPlayer>();
-
-                        videoPlayer.clip = handle.Result;
+                    var videoPlayer = content.GetComponent<VideoPlayer>();
+                    if (videoAssetReference.IsValid()) {
+                        videoPlayer.clip = videoAssetReference.OperationHandle.Convert<VideoClip>().Result;
                         videoPlayer.enabled = true;
                         _tutorialWindow.SetActive(true);
                         videoPlayer.Play();
-                    };
+                    } else {
+                        videoAssetReference.LoadAssetAsync<VideoClip>().Completed += handle => {
+                            videoPlayer.clip = handle.Result;
+                            videoPlayer.enabled = true;
+                            _tutorialWindow.SetActive(true);
+                            videoPlayer.Play();
+                        };
+                    }
                 }
             }
 
