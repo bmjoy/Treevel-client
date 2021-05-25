@@ -47,6 +47,14 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     _invincibleAfterDamagedExpiredDisposables[bottle].Dispose();
                     _invincibleAfterDamagedExpiredDisposables.Remove(bottle);
                 }).AddTo(this);
+
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                foreach (var disposable in _invincibleAfterDamagedExpiredDisposables) {
+                    disposable.Value.Dispose();
+                }
+
+                _invincibleAfterDamagedExpiredDisposables.Clear();
+            });
         }
 
         protected virtual void HandleCollision(GameObject other) { }
