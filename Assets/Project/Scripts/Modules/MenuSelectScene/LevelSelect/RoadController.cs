@@ -32,7 +32,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected override void Awake()
         {
             base.Awake();
-            _endObjectController = endObject.GetComponent<LevelTreeController>();
+            _endObjectController = endObject.GetComponentInParent<LevelTreeController>();
         }
 
         protected override void Start()
@@ -44,7 +44,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected override void SetSaveKey()
         {
             saveKey =
-                $"{startObject.GetComponent<LevelTreeController>().treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<LevelTreeController>().treeId}";
+                $"{startObject.GetComponentInParent<LevelTreeController>().treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponentInParent<LevelTreeController>().treeId}";
         }
 
         public void Reset()
