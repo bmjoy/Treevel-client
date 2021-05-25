@@ -91,7 +91,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public void SetPointPosition()
         {
-            if (lineRenderer == null) return;
+            if (lineRenderer == null || startObject == null || endObject == null) return;
             lineRenderer.positionCount = _middlePointNum + 2;
             lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * Scale.Value;
 
