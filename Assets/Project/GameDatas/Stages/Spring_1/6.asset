@@ -65,7 +65,7 @@ MonoBehaviour:
   - type: 2
     initPos: 6
     goalColor: 1
-    life: 1
+    life: 3
     isSelfish: 0
     isDark: 0
     isReverse: 0
@@ -106,16 +106,76 @@ MonoBehaviour:
     isReverse: 0
   gimmicks:
   - loop: 0
-    appearTime: 0
-    interval: 0
-    type: 8
-    targetDirections: 
-    targetLines: 
+    appearTime: 1
+    interval: 0.8
+    type: 0
+    targetDirections: 00000000
+    targetLines: 00000000
     randomDirection: 
     randomRow: 
     randomColumn: 
-    targetRow: -1
-    targetColumn: -1
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 0
+    appearTime: 1.5
+    interval: 0.8
+    type: 0
+    targetDirections: 00000000
+    targetLines: 00000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 0
+    appearTime: 3
+    interval: 0.8
+    type: 0
+    targetDirections: 00000000
+    targetLines: 00000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 0
+    targetColumn: 0
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 0
+    appearTime: 3.8
+    interval: 0.8
+    type: 0
+    targetDirections: 00000000
+    targetLines: 00000000
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 0
+    targetColumn: 0
     targetBottle: 0
     randomAttackableBottles: 
     isRandom: 0

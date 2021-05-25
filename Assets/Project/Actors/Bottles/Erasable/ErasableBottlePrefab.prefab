@@ -262,8 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed40c40ea0c884fd9b3e8eaace06c464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInvincible:
-    value: 0
   _childSpriteRenderer: {fileID: 6659436708170590845}
 --- !u!95 &5393982599534609861
 Animator:

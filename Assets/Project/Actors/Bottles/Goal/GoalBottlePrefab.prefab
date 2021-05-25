@@ -53,6 +53,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -163,13 +164,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e84251c113f49baab52aa39ff49b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInvincible:
-    value: 0
   pressGesture: {fileID: 0}
   releaseGesture: {fileID: 0}
   IsMovable: 1
   flickNum: 0
   longPressGesture: {fileID: 0}
+  spriteRendererUnifier: {fileID: 0}
 --- !u!222 &3899271857394035245
 CanvasRenderer:
   m_ObjectHideFlags: 0
