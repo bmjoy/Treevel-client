@@ -89,15 +89,16 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             lineRenderer.positionCount = _middlePointNum + 2;
             lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * Scale.Value;
 
-            var startPointLocalPosition = startObject.transform.localPosition;
-            var endPointLocalPosition = endObject.transform.localPosition;
+            // 木の下の領域の中心座標は親オブジェクトの相対位置から計算する
+            var startPointPosition = startObject.transform.parent.localPosition + startObject.transform.localPosition;
+            var endPointPosition = endObject.transform.parent.localPosition + endObject.transform.localPosition;
 
             // 点の位置と線の長さを求める
             var preTargetPosition = lineRenderer.GetPosition(0);
             for (var i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                var targetPosition = CalcCubicBezierPointPosition(startPointLocalPosition, firstControlPoint,
-                                                                  secondControlPoint, endPointLocalPosition, ratio);
+                var targetPosition = CalcCubicBezierPointPosition(startPointPosition, firstControlPoint,
+                                                                  secondControlPoint, endPointPosition, ratio);
                 lineRenderer.SetPosition(i, targetPosition);
                 lineLength += Vector2.Distance(targetPosition, preTargetPosition);
                 preTargetPosition = targetPosition;

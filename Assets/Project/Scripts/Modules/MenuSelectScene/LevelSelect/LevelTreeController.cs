@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
-    [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Button))]
     public class LevelTreeController : TreeControllerBase
     {
@@ -18,7 +17,20 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         [SerializeField] private ESeasonId _seasonId;
 
-        [SerializeField] private Material _material;
+        /// <summary>
+        /// 木の画像
+        /// </summary>
+        [SerializeField] private Image _tree;
+
+        /// <summary>
+        /// 木の下の領域の画像
+        /// </summary>
+        [SerializeField] private Image _field;
+
+        /// <summary>
+        /// 未解放時のマテリアル
+        /// </summary>
+        [SerializeField] private Material _unreleasedMaterial;
 
         [SerializeField] private Button _button;
 
@@ -65,19 +77,22 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected override void ReflectUnreleasedState()
         {
             // グレースケール
-            GetComponent<Image>().material = _material;
+            _tree.material = _unreleasedMaterial;
+            _field.material = _unreleasedMaterial;
             _button.enabled = false;
         }
 
         protected override void ReflectReleasedState()
         {
-            GetComponent<Image>().material = null;
+            _tree.material = null;
+            _field.material = null;
             _button.enabled = true;
         }
 
         protected override void ReflectClearedState()
         {
-            GetComponent<Image>().material = null;
+            _tree.material = null;
+            _field.material = null;
             _button.enabled = true;
             // TODO: アニメーション
             Debug.Log($"{treeId} is cleared.");
@@ -85,7 +100,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected override void ReflectAllClearedState()
         {
-            GetComponent<Image>().material = null;
+            _tree.material = null;
+            _field.material = null;
             _button.enabled = true;
             // TODO: アニメーション
             Debug.Log($"{treeId} is all cleared.");

@@ -18,7 +18,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// <summary>
         /// 無敵状態かどうか
         /// </summary>
-        public ReactiveProperty<bool> isInvincible = new ReactiveProperty<bool>();
+        public readonly ReactiveProperty<bool> isInvincibleByHoly = new ReactiveProperty<bool>();
 
         private readonly Subject<GameObject> _enterTileSubject = new Subject<GameObject>();
 
@@ -56,6 +56,27 @@ namespace Treevel.Modules.GamePlayScene.Bottle
         /// </summary>
         public bool IsAttackable => bottleType.IsAttackable();
 
+        /// <summary>
+        /// 攻撃された後の無敵時間
+        /// </summary>
+        private const float _INVINCIBLE_AFTER_DAMAGED_INTERVAL = 1.0f;
+
+        /// <summary>
+        /// 攻撃された後の無敵時間にあるか
+        /// </summary>
+        public bool IsInvincibleAfterDamaged { get; private set; }
+
+        /// <summary>
+        /// 無敵状態か
+        /// </summary>
+        public bool IsInvincible => IsInvincibleAfterDamaged || isInvincibleByHoly.Value;
+
+        /// <summary>
+        /// ギミックに当たった後の無敵時間効果が消えるとき発火するイベント
+        /// </summary>
+        private readonly Subject<GameObject> _onInvincibleAfterDamagedExpiredSubject = new Subject<GameObject>();
+        public IObservable<GameObject> OnInvincibleAfterDamagedExpired => _onInvincibleAfterDamagedExpiredSubject;
+
         protected virtual void Awake()
         {
             Debug.Assert(GetComponent<SpriteRenderer>().sortingLayerName == Constants.SortingLayerName.BOTTLE,
@@ -64,8 +85,29 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             this.OnTriggerEnter2DAsObservable()
                 .Where(other => other.gameObject.CompareTag(Constants.TagName.GIMMICK))
                 .Where(other => other.gameObject.transform.position.z >= 0)
-                .Where(_ => !isInvincible.Value)
-                .Subscribe(other => _getDamagedSubject.OnNext(other.gameObject)).AddTo(this);
+                .Where(_ => !isInvincibleByHoly.Value)
+                .Subscribe(HandleCollision).AddTo(this);
+
+            // 攻撃された後に一定時間に無敵状態を外す
+            _getDamagedSubject
+                .Delay(TimeSpan.FromSeconds(_INVINCIBLE_AFTER_DAMAGED_INTERVAL))
+                .Subscribe(_ => {
+                    IsInvincibleAfterDamaged = false;
+                    _onInvincibleAfterDamagedExpiredSubject.OnNext(gameObject);
+                })
+                .AddTo(this);
+        }
+
+        /// <summary>
+        /// 衝突する時の処理
+        /// UniRxによるフィルタリングをしたいのでMonoBehaviourのOnTriggerEnterを使用しない
+        /// </summary>
+        public void HandleCollision(Collider2D other)
+        {
+            if (IsInvincible) return;
+
+            _getDamagedSubject.OnNext(other.gameObject);
+            IsInvincibleAfterDamaged = true;
         }
 
         private async UniTask InitializeSpriteAsync(AssetReferenceSprite spriteAsset)

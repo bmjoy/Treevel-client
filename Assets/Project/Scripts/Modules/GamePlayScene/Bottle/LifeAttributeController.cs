@@ -100,9 +100,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
                 _life--;
                 SetLifeValueSprite();
                 SetCrackSprite(_life);
-                if (_life < 0) {
-                    Debug.LogError("_currentLife が負の値になっている");
-                } else if (_life == 0) {
+                if (_life == 0) {
                     // 失敗演出
                     GetComponent<SpriteRenderer>().enabled = false;
                     _lifeObject.SetActive(false);

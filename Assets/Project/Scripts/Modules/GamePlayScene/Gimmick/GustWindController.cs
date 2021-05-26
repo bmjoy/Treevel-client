@@ -54,6 +54,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private void Awake()
         {
+            base.Awake();
             _animator = GetComponent<Animator>();
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => !_isBottleMoved)
