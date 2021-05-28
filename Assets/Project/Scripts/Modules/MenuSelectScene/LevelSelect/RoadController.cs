@@ -19,26 +19,20 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         private const int _CLEAR_ANIMATION_FRAMES = 200;
 
         /// <summary>
-        /// 解放時の道の色
+        /// 解放時のテクスチャの占領比率(1.0だと全解放)
         /// </summary>
-        private static readonly Color _ROAD_RELEASED_COLOR = Color.white;
+        private static readonly int _SHADER_PARAM_FILL_AMOUNT = Shader.PropertyToID("_fillAmount");
 
         /// <summary>
-        /// 非解放時の道の色
+        /// LineRendererのマテリアル
         /// </summary>
-        /// <returns></returns>
-        private static readonly Color _ROAD_UNRELEASED_COLOR = new Color(0.2f, 0.2f, 0.7f);
+        private Material _material;
 
         protected override void Awake()
         {
             base.Awake();
             _endObjectController = endObject.GetComponentInParent<LevelTreeController>();
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-            lineRenderer.material.SetTextureScale("_MainTex", new Vector2(8 / lineLength, 1f));
+            _material = lineRenderer.material;
         }
 
         protected override void SetSaveKey()
@@ -60,6 +54,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             PlayerPrefs.DeleteKey(saveKey);
         }
 
+
         /// <summary>
         /// 道の状態の更新
         /// </summary>
@@ -69,16 +64,16 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
             if (endTreeData.constraintTrees.Count == 0) {
                 // 初期解放
-                lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
+                _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, 1.0f);
                 return;
             }
 
             if (_endObjectController.state == ETreeState.Unreleased) {
                 // 未解放
-                lineRenderer.startColor = lineRenderer.endColor = _ROAD_UNRELEASED_COLOR;
+                _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, 0.0f);
             } else if (LevelSelectDirector.Instance.releaseAnimationPlayedRoads.Contains(saveKey)) {
                 // 演出を再生したことがあればそのまま解放
-                lineRenderer.startColor = lineRenderer.endColor = _ROAD_RELEASED_COLOR;
+                _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, 1.0f);
             } else {
                 // 演出開始
                 // 画面切り替える際に強制的に終わらせる
@@ -110,9 +105,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             for (var i = 0; i < _CLEAR_ANIMATION_FRAMES; i++) {
                 if (cancelToken.IsCancellationRequested) break;
 
-                // 非解放状態から解放状態まで線形補間
-                lineRenderer.startColor = lineRenderer.endColor =
-                    Color.Lerp(_ROAD_UNRELEASED_COLOR, _ROAD_RELEASED_COLOR, (float)i / _CLEAR_ANIMATION_FRAMES);
+                // 先端から末端まで明るくなる
+                _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, Mathf.Lerp(0, 1, (float)i / _CLEAR_ANIMATION_FRAMES));
                 await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
             }
 
