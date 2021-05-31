@@ -10,11 +10,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         private LevelTreeController _endObjectController;
 
         /// <summary>
-        /// 道の解放アニメーションのフレーム数
-        /// </summary>
-        private const int _CLEAR_ANIMATION_FRAMES = 200;
-
-        /// <summary>
         /// 解放時のテクスチャの占領比率(1.0だと全解放)
         /// </summary>
         private static readonly int _SHADER_PARAM_FILL_AMOUNT = Shader.PropertyToID("_fillAmount");
