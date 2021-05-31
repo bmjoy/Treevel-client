@@ -95,7 +95,7 @@ namespace Treevel.Modules.StageSelectScene
         {
             SoundManager.Instance.PlayBGM(seasonId.GetStageSelectBGM());
 
-            _branches.ForEach(branch => branch.UpdateStateAsync().Forget());
+            _branches.ForEach(branch => branch.UpdateState());
             _trees.ForEach(tree => tree.UpdateState());
         }
 

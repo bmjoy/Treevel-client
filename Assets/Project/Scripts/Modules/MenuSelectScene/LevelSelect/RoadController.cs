@@ -1,10 +1,6 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using Treevel.Common.Entities;
+﻿using Treevel.Common.Entities;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
-using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -54,11 +50,26 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             PlayerPrefs.DeleteKey(saveKey);
         }
 
+        /// <summary>
+        /// 解放できるか
+        /// </summary>
+        /// <returns>
+        /// 末端の木に解放条件がない(初期解放)ならfalse
+        /// 末端の木に条件がありかつ条件クリアしたらtrue
+        /// </returns>
+        public bool CanBeReleased()
+        {
+            var treeData = GameDataManager.GetTreeData(_endObjectController.treeId);
+            if (treeData.constraintTrees.Count == 0)
+                return false;
+
+            return _endObjectController.state == ETreeState.Released;
+        }
 
         /// <summary>
         /// 道の状態の更新
         /// </summary>
-        public override async UniTask UpdateStateAsync()
+        public override void UpdateState()
         {
             var endTreeData = GameDataManager.GetTreeData(_endObjectController.treeId);
 
@@ -74,21 +85,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             } else if (LevelSelectDirector.Instance.releaseAnimationPlayedRoads.Contains(saveKey)) {
                 // 演出を再生したことがあればそのまま解放
                 _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, 1.0f);
-            } else {
-                // 演出開始
-                // 画面切り替える際に強制的に終わらせる
-                var cancelTokenSource = new CancellationTokenSource();
-                this.OnDisableAsObservable()
-                    .Subscribe(_ => {
-                        cancelTokenSource.Cancel();
-                    })
-                    .AddTo(cancelTokenSource.Token);
-
-                // 道が非解放状態から解放状態に変わった時
-                await ReleaseEndObjectAsync(cancelTokenSource.Token);
-
-                // 再生状態を保存
-                LevelSelectDirector.Instance.releaseAnimationPlayedRoads.Add(saveKey);
             }
         }
 
@@ -96,20 +92,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// 道が非解放状態から解放状態に変わった時のアニメーション(100フレームで色を変化させる)
         /// </summary>
         /// <returns></returns>
-        private async UniTask ReleaseEndObjectAsync(CancellationToken cancelToken)
+        public void ReleaseEndObject()
         {
-            // 終点の木の状態の更新
-            _endObjectController.state = ETreeState.Released;
-
-            // 道の更新アニメーション
-            for (var i = 0; i < _CLEAR_ANIMATION_FRAMES; i++) {
-                if (cancelToken.IsCancellationRequested) break;
-
-                // 先端から末端まで明るくなる
-                _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, Mathf.Lerp(0, 1, (float)i / _CLEAR_ANIMATION_FRAMES));
-                await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
-            }
-
             // 終点の木の状態の更新アニメーション
             _endObjectController.ReflectTreeState();
             // 木の解放演出見たことを記録する
