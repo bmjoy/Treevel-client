@@ -47,6 +47,14 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 $"{startObject.GetComponentInParent<LevelTreeController>().treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponentInParent<LevelTreeController>().treeId}";
         }
 
+        protected override (Vector3, Vector3) GetEdgePointPosition()
+        {
+            // 木の下の領域の中心座標は親オブジェクトの相対位置から計算する
+            var startPointPosition = startObject.transform.parent.localPosition + startObject.transform.localPosition;
+            var endPointPosition = endObject.transform.parent.localPosition + endObject.transform.localPosition;
+            return (startPointPosition, endPointPosition);
+        }
+
         public void Reset()
         {
             PlayerPrefs.DeleteKey(saveKey);
