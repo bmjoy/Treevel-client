@@ -1,3 +1,4 @@
+using Treevel.Common.Utils;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -22,7 +23,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var behaviour = playable.GetBehaviour();
             // 参照を解決する
             bool isValid;
-            behaviour.RoadController = (RoadController) graph.GetResolver().GetReferenceValue("ReleaseRoad", out isValid);
+            behaviour.RoadController = (RoadController) graph.GetResolver().GetReferenceValue(Constants.TimelineReferenceKey.ROAD_TO_RELEASE, out isValid);
 
             return playable;
         }

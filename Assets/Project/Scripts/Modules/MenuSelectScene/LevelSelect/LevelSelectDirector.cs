@@ -98,7 +98,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             while (waitForReleaseRoads.Count > 0) {
                 // 道を解放する演出を再生
                 var releaseRoad = waitForReleaseRoads[0];
-                UnlockLevelDirector.SetReferenceValue("ReleaseRoad", releaseRoad);
+                UnlockLevelDirector.SetReferenceValue(Constants.TimelineReferenceKey.ROAD_TO_RELEASE, releaseRoad);
                 UnlockLevelDirector.Play();
 
                 // 演出終了まで待つ
