@@ -32,6 +32,30 @@ namespace Tests.EditModeTest
             _stageDataList = GameDataManager.GetAllStages().ToList();
         }
 
+        /// <summary>
+        /// トルネードのプロパティが正しく設定されているかの確認
+        /// </summary>
+        [Test]
+        public void TestGimmickProperties_Tornado()
+        {
+            _stageDataList.ForEach(stageData => {
+                stageData.GimmickDatas.Where(data => data.type == EGimmickType.Tornado)
+                    .ToList()
+                    .ForEach(tornadoData => {
+                        Assert.IsNotEmpty(tornadoData.targetDirections, $"[{stageData.StageId}]: target directions should not be empty");
+                        Assert.IsNotEmpty(tornadoData.targetLines, $"[{stageData.StageId}]: target directions should not be empty");
+                        Assert.AreEqual(tornadoData.targetDirections.Count, tornadoData.targetLines.Count, $"[{stageData.StageId}]: length of target directions and target lines should be the same.");
+
+                        // ランダム用のパラメータが入っているか
+                        if (tornadoData.isRandom) {
+                            Assert.NotZero(tornadoData.randomColumn.Sum(), $"[{stageData.StageId}]: random column not valid");
+                            Assert.NotZero(tornadoData.randomDirection.Sum(), $"[{stageData.StageId}]: random direction not valid");
+                            Assert.NotZero(tornadoData.randomRow.Sum(), $"[{stageData.StageId}]: random row not valid");
+                        }
+                    });
+            });
+        }
+
         [Test(ExpectedResult = 120)]
         public int TestStageNum()
         {
