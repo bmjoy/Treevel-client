@@ -22,7 +22,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             // PlayableBehaviourを取得する
             var behaviour = playable.GetBehaviour();
             // 参照を解決する
-            behaviour.RoadController = (RoadController) graph.GetResolver().GetReferenceValue(Constants.TimelineReferenceKey.ROAD_TO_RELEASE, out var isValid);
+            behaviour.roadController = (RoadController) graph.GetResolver().GetReferenceValue(Constants.TimelineReferenceKey.ROAD_TO_RELEASE, out var isValid);
             Debug.Assert(isValid, $"Unable to resolve reference {Constants.TimelineReferenceKey.ROAD_TO_RELEASE}");
 
             return playable;

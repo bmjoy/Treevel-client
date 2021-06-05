@@ -8,7 +8,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
     /// </summary>
     public class RoadPlayableBehaviour : PlayableBehaviour
     {
-        public RoadController RoadController { get; set; }
+        public RoadController roadController;
 
         private Material _material;
 
@@ -21,8 +21,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         // 非ランタイムでも呼ばれるので注意！
         public override void ProcessFrame(Playable playable, FrameData info, object playerData)
         {
-            if (_material == null && RoadController != null) {
-                _material = RoadController.GetComponent<LineRenderer>().sharedMaterial;
+            if (_material == null && roadController != null) {
+                _material = roadController.GetComponent<LineRenderer>().sharedMaterial;
             }
             if (_material == null) {
                 return;
