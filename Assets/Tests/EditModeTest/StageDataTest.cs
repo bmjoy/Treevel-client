@@ -32,6 +32,12 @@ namespace Tests.EditModeTest
             _stageDataList = GameDataManager.GetAllStages().ToList();
         }
 
+        [Test(ExpectedResult = 120)]
+        public int TestStageNum()
+        {
+            return _stageDataList.Count;
+        }
+
         [Test]
         public void TestNumOfGoalBottlesEqualsGoalTiles()
         {
