@@ -30,6 +30,13 @@ namespace Treevel.Modules.StageSelectScene
                 $"{_treeId}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{startObject.GetComponent<StageController>().stageNumber}{Constants.PlayerPrefsKeys.KEY_CONNECT_CHAR}{endObject.GetComponent<StageController>().stageNumber}";
         }
 
+        protected override (Vector3, Vector3) GetEdgePointPosition()
+        {
+            var startPointPosition = startObject.transform.localPosition;
+            var endPointPosition = endObject.transform.localPosition;
+            return (startPointPosition, endPointPosition);
+        }
+
         /// <summary>
         /// 枝の状態の更新
         /// </summary>

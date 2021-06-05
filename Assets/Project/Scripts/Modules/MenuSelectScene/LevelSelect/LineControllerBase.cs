@@ -78,6 +78,12 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         protected abstract void SetSaveKey();
 
+        /// <summary>
+        /// 端点の位置を求める
+        /// </summary>
+        /// <returns> (始点の位置, 終点の位置) </returns>
+        protected abstract (Vector3, Vector3) GetEdgePointPosition();
+
         public abstract UniTask UpdateStateAsync();
 
         /// <summary>
@@ -89,9 +95,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             lineRenderer.positionCount = _middlePointNum + 2;
             lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * Scale.Value;
 
-            // 木の下の領域の中心座標は親オブジェクトの相対位置から計算する
-            var startPointPosition = startObject.transform.parent.localPosition + startObject.transform.localPosition;
-            var endPointPosition = endObject.transform.parent.localPosition + endObject.transform.localPosition;
+            var (startPointPosition, endPointPosition) = GetEdgePointPosition();
 
             // 点の位置と線の長さを求める
             var preTargetPosition = lineRenderer.GetPosition(0);
