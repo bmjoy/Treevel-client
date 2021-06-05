@@ -43,11 +43,6 @@ namespace Treevel.Modules.StageSelectScene
         public static ETreeId treeId;
 
         /// <summary>
-        /// 表示している木の名前
-        /// </summary>
-        [SerializeField] private GameObject _treeName;
-
-        /// <summary>
         /// 木
         /// </summary>
         private static List<StageTreeController> _trees;
@@ -56,16 +51,6 @@ namespace Treevel.Modules.StageSelectScene
         /// 枝
         /// </summary>
         private static List<BranchController> _branches;
-
-        /// <summary>
-        /// 左の木に遷移するボタン
-        /// </summary>
-        [SerializeField] private GameObject _leftButton;
-
-        /// <summary>
-        /// 右の木に遷移するボタン
-        /// </summary>
-        [SerializeField] private GameObject _rightButton;
 
         /// <summary>
         /// バナー広告のビュー
@@ -90,9 +75,6 @@ namespace Treevel.Modules.StageSelectScene
             // ページの設定
             _snapScrollView.Page = (int)treeId % Constants.MAX_TREE_NUM_IN_SEASON - 1;
             _snapScrollView.RefreshPage(false);
-
-            // TODO: 表示している木の名前を描画する
-            DrawTreeName();
 
             _overviewPopup = _overviewPopup ?? FindObjectOfType<OverviewPopup>();
 
@@ -123,14 +105,6 @@ namespace Treevel.Modules.StageSelectScene
         private void OnDisable()
         {
             PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.BRANCH_STATE, BranchController.animationPlayedBranches);
-        }
-
-        /// <summary>
-        /// 表示している木の名前を描画する
-        /// </summary>
-        private void DrawTreeName()
-        {
-            // TODO: 現在表示している木の名前に更新する
         }
 
         public void ShowOverPopup(ETreeId treeId, int stageNumber)
