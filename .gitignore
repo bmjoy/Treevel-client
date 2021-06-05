@@ -49,3 +49,7 @@ Assets/PlayFabSDK/Shared/Public/Resources.meta
 # For GoogleMobileAds
 Assets/GoogleMobileAds/Resources/*
 Assets/GoogleMobileAds/Resources.meta
+
+# For iOS AddressableAssetsData
+Assets/AddressableAssetsData/iOS/*
+Assets/AddressableAssetsData/iOS.meta
