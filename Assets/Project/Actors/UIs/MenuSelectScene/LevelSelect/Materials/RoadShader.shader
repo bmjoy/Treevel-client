@@ -28,10 +28,13 @@ Shader "Unlit/RoadShader"
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                if (i.uv.x < _fillAmount) {
-                    return col;
-                }
-                return col * _UnreleasedColor;
+                // if (i.uv.x < _fillAmount) {
+                //     return col;
+                // }
+                // return col * _UnreleasedColor;
+                // 高速版
+                fixed4 unreleased_color = (1 - step(_fillAmount, i.uv.x)) + step(_fillAmount, i.uv.x) * _UnreleasedColor;
+                return col * unreleased_color;
             }
             ENDCG
         }
