@@ -46,11 +46,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public ReactiveProperty<float> Scale = new ReactiveProperty<float>(1f);
 
-        /// <summary>
-        /// 道の長さ
-        /// </summary>
-        protected float lineLength = 0f;
-
         [SerializeField] protected LineRenderer lineRenderer;
 
         /// <summary>
@@ -97,14 +92,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var (startPointPosition, endPointPosition) = GetEdgePointPosition();
 
             // 点の位置と線の長さを求める
-            var preTargetPosition = lineRenderer.GetPosition(0);
             for (var i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
                 var targetPosition = CalcCubicBezierPointPosition(startPointPosition, firstControlPoint,
                                                                   secondControlPoint, endPointPosition, ratio);
                 lineRenderer.SetPosition(i, targetPosition);
-                lineLength += Vector2.Distance(targetPosition, preTargetPosition);
-                preTargetPosition = targetPosition;
             }
         }
 
