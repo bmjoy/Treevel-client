@@ -100,6 +100,13 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             }
         }
 
+        public Vector3 GetPositionAtRatio(float ratio)
+        {
+            ratio = Mathf.Clamp(ratio, 0, 1);
+            var (startPointPosition, endPointPosition) = GetEdgePointPosition();
+            return CalcCubicBezierPointPosition(startPointPosition, firstControlPoint, secondControlPoint, endPointPosition, ratio);
+        }
+
         /// <summary>
         /// 3次ベジェ曲線上のある点の位置を求める
         /// </summary>

@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
-    [DefaultExecutionOrder(-50)]
     public class ScaleContent : MonoBehaviour
     {
         private TransformGesture _transformGesture;
@@ -120,6 +119,15 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _preScreenDist = newScreenDist;
             _preMeanPoint = newMeanPoint;
             _preScale = newScale;
+        }
+
+        /// <summary>
+        /// 特定の位置を中心までにコンテンツ全体を移動する
+        /// </summary>
+        /// <param name="focusWorldPosition"> 中止にしたい位置 </param>
+        public void FocusAtScreenPosition(Vector3 focusWorldPosition)
+        {
+            TransformContents((focusWorldPosition * -1) - _contentRect.transform.localPosition);
         }
 
         /// <summary>
