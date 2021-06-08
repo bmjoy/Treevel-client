@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4349126909494314989}
   - component: {fileID: 3126369013498768732}
   - component: {fileID: -162704476647970571}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ReverseAttributePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

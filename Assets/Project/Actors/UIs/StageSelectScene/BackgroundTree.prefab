@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5236298760021292509}
   - component: {fileID: 5236298760021292483}
   - component: {fileID: 5236298760021292508}
-  m_Layer: 13
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5236298760411526576}
   - component: {fileID: 5236298760411526582}
   - component: {fileID: 5236298760411526583}
-  m_Layer: 13
+  m_Layer: 6
   m_Name: BackgroundTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 5236298760766947202}
   - component: {fileID: 5236298760766947200}
   - component: {fileID: 5236298760766947201}
-  m_Layer: 13
+  m_Layer: 6
   m_Name: TreeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
