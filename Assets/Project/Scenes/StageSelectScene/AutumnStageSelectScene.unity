@@ -174,7 +174,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7479
+    m_Bits: 16311
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -280,7 +280,7 @@ Camera:
   m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7479
+    m_Bits: 64
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2039,24 +2039,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28c9fd4dd33d84b6b82b268bb586c041, type: 3}
---- !u!1 &1071083819 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1706829439639562984, guid: 28c9fd4dd33d84b6b82b268bb586c041,
-    type: 3}
-  m_PrefabInstance: {fileID: 1071083818}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1071083820 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1706829440555125870, guid: 28c9fd4dd33d84b6b82b268bb586c041,
-    type: 3}
-  m_PrefabInstance: {fileID: 1071083818}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1071083821 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 483595305205046658, guid: 28c9fd4dd33d84b6b82b268bb586c041,
-    type: 3}
-  m_PrefabInstance: {fileID: 1071083818}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1071083822 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6566690580109683887, guid: 28c9fd4dd33d84b6b82b268bb586c041,
@@ -2079,24 +2061,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6932f1a34c024666855c23fc1636104e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1071083825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3591550205515086092, guid: 28c9fd4dd33d84b6b82b268bb586c041,
-    type: 3}
-  m_PrefabInstance: {fileID: 1071083818}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1071083826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071083825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1242689480
@@ -2131,9 +2095,6 @@ MonoBehaviour:
   _overviewPopup: {fileID: 1071083824}
   _loadingBackground: {fileID: 1071083823}
   _loading: {fileID: 1071083822}
-  _treeName: {fileID: 1071083821}
-  _leftButton: {fileID: 1071083820}
-  _rightButton: {fileID: 1071083819}
 --- !u!4 &1242689482
 Transform:
   m_ObjectHideFlags: 0
