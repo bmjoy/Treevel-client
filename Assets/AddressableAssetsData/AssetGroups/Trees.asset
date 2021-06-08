@@ -18,12 +18,12 @@ MonoBehaviour:
   m_GUID: 68e81847d52824f739163f8362c0913a
   m_SerializeEntries:
   - m_GUID: 9e7f743572fbb425fae19c56a677e14d
-    m_Address: Tree_Spring_1
+    m_Address: Assets/Project/GameDatas/Trees/Spring-1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 9e7f743572fbb425fae19c56a677e14d, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 9e7f743572fbb425fae19c56a677e14d, type: 2}
   - m_GUID: 1a2e5236c5c0f4d9fa04e1764c5ef874
     m_Address: Assets/Project/GameDatas/Trees/Autumn-1.asset
     m_ReadOnly: 0
