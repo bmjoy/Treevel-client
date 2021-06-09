@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7378703386771444903}
   - component: {fileID: -5874565732980710310}
   - component: {fileID: 8086853820073038369}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SelfishAttributePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1025009851747015073}
   - component: {fileID: 7924455655039089364}
   - component: {fileID: 8704918159495494997}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: IceTilePrefab
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1704909949277245576}
   - component: {fileID: 3127360171530219873}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: IceLayer
   m_TagString: Tile
   m_Icon: {fileID: 0}

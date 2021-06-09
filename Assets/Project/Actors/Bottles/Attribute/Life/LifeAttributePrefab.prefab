@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8173901480666266857}
   - component: {fileID: 8631500646673489353}
   - component: {fileID: 379948787266167587}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: LifeAttributePrefab
   m_TagString: Bottle
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7764255637428221765}
   - component: {fileID: 8763257028011943386}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Life_Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
