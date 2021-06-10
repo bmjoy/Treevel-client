@@ -13,6 +13,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         private Material _material;
 
         private ScaleContent _scaleContent;
+
         /// <summary>
         /// 解放時のテクスチャの占領比率(1.0だと全解放)
         /// </summary>
