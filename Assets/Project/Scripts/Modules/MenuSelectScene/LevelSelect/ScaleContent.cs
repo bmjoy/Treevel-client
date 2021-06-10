@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
+    [DefaultExecutionOrder(-50)]
     public class ScaleContent : MonoBehaviour
     {
         private TransformGesture _transformGesture;
@@ -150,6 +151,14 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _contentRect.localScale = new Vector2(scale, scale);
             // 道の拡大縮小
             ScaleRoads(scale);
+        }
+
+        /// <summary>
+        /// 現在の拡大率
+        /// </summary>
+        public float GetCurrentScale()
+        {
+            return _contentRect.localScale.x;
         }
 
         /// <summary>

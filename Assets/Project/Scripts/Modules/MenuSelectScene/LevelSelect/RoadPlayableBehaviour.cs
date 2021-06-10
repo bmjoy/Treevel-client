@@ -19,10 +19,30 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         private static readonly int _SHADER_PARAM_FILL_AMOUNT = Shader.PropertyToID("_fillAmount");
 
+        /// <summary>
+        /// 演出中の拡大率
+        /// </summary>
+        private const float _SCALE_IN_ANIMATION = 1.5f;
+
+        /// <summary>
+        /// 演出前の拡大率
+        /// </summary>
+        private float _originalScale;
+
         public override void OnPlayableCreate(Playable playable)
         {
             base.OnPlayableCreate(playable);
             _scaleContent = Object.FindObjectOfType<ScaleContent>();
+            // 拡大させる
+            _originalScale = _scaleContent.GetCurrentScale();
+            _scaleContent.ScaleContents(_SCALE_IN_ANIMATION);
+        }
+
+        public override void OnPlayableDestroy(Playable playable)
+        {
+            base.OnPlayableDestroy(playable);
+            // 拡大率を戻す
+            _scaleContent.ScaleContents(_originalScale);
         }
 
         // フレーム毎の処理
