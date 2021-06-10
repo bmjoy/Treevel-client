@@ -37,7 +37,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var progress = (float)(playable.GetTime() / playable.GetDuration());
 
             _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, Mathf.Lerp(0, 1, progress));
-            // 道の色変化するところを追従する
+            // 道の色が変化するところを追従する
             _scaleContent.FocusAtScreenPosition(roadController.GetPositionAtRatio(progress));
         }
     }
