@@ -514,6 +514,15 @@ namespace Treevel.Modules.GamePlayScene
             public override async void OnEnter(StateBase from = null)
             {
                 Instance._stageRecord.Succeed();
+
+                SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
+
+                // 成功ポップアップ表示
+                _successPopup.SetActive(true);
+
+                // 成功イベント
+                Instance._gameSucceededSubject.OnNext(Unit.Default);
+
                 try {
                     await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
                 } catch {
@@ -530,14 +539,6 @@ namespace Treevel.Modules.GamePlayScene
                         },
                         false);
                 }
-
-                SoundManager.Instance.PlaySE(ESEKey.GamePlay_Success);
-
-                // 成功ポップアップ表示
-                _successPopup.SetActive(true);
-
-                // 成功イベント
-                Instance._gameSucceededSubject.OnNext(Unit.Default);
             }
 
             public override void OnExit(StateBase to)
@@ -564,13 +565,9 @@ namespace Treevel.Modules.GamePlayScene
             {
                 Instance._stageRecord.Fail();
                 Instance._stageRecord.failureReasonNum.Increment(Instance.failureReason);
-                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
-
-                // Pausingから来たらステージ選択画面へ
-                if (from is PausingState) {
-                    // StageSelectSceneに戻る
-                    AddressableAssetManager.LoadScene(seasonId.GetSceneName());
-                } else {
+                
+                // 通常の失敗時
+                if (from is PlayingState) {
                     // 失敗SE
                     SoundManager.Instance.PlaySERandom(new[] { ESEKey.GamePlay_Failed_1, ESEKey.GamePlay_Failed_2 });
 
@@ -579,6 +576,14 @@ namespace Treevel.Modules.GamePlayScene
 
                     // 失敗イベント
                     Instance._gameFailedSubject.OnNext(Unit.Default);
+                }
+
+                await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
+
+                // Pausingから来たらステージ選択画面へ
+                if (from is PausingState) {
+                    // StageSelectSceneに戻る
+                    AddressableAssetManager.LoadScene(seasonId.GetSceneName());
                 }
             }
 
