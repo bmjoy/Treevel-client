@@ -70,6 +70,8 @@ namespace Treevel.Modules.GamePlayScene
         {
             _tokenSource = new CancellationTokenSource();
             _disposable = GamePlayDirector.Instance.GameEnd.Subscribe(_ => EndProcess()).AddTo(this);
+            _numOfGoalBottles = 0;
+            _numOfSuccessBottles = 0;
         }
 
         private void EndProcess()
