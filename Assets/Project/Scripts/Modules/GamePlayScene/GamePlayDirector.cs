@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using GoogleMobileAds.Api;
 using Treevel.Common.Attributes;
@@ -522,6 +523,9 @@ namespace Treevel.Modules.GamePlayScene
                         },
                         false);
                 }
+
+                // 成功盤面を一定時間表示
+                await Task.Delay(500);
                 // 成功ポップアップ表示
                 _successPopup.SetActive(true);
             }
@@ -563,6 +567,8 @@ namespace Treevel.Modules.GamePlayScene
                 await StageRecordService.Instance.SaveAsync(treeId, stageNumber, Instance._stageRecord);
 
                 if (from is PlayingState) {
+                    // 失敗盤面を一定時間表示
+                    await Task.Delay(500);
                     // 失敗ポップアップを表示
                     _failurePopup.SetActive(true);
                 }
