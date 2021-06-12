@@ -273,20 +273,6 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
-        /// ゲームがクリアしているかをチェックする
-        /// </summary>
-        public void CheckClear()
-        {
-            if (!StageGenerator.CreatedFinished) return;
-
-            var bottles = FindObjectsOfType<GoalBottleController>();
-            if (bottles.Any(bottle => bottle.IsSuccess() == false)) return;
-
-            // 全ての成功判定が付くボトルが成功の場合，成功状態に遷移
-            Dispatch(EGameState.Success);
-        }
-
-        /// <summary>
         /// ゲームの状態を変更する
         /// </summary>
         /// <param name="nextState"> 変更したい状態 </param>
