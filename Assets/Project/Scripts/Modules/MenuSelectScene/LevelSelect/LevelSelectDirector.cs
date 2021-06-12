@@ -128,14 +128,5 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.TREE_ANIMATION_STATE, releaseAnimationPlayedTrees);
             PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.ROAD_ANIMATION_STATE, releaseAnimationPlayedRoads);
         }
-
-        /// <summary>
-        /// 道の幅の変更
-        /// </summary>
-        /// <param name="scale"> 拡大率 </param>
-        public void ScaleRoad(float scale)
-        {
-            _roads.ForEach(road => road.Scale.Value = scale);
-        }
     }
 }

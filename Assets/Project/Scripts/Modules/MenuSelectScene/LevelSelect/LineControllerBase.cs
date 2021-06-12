@@ -46,17 +46,22 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public ReactiveProperty<float> Scale = new ReactiveProperty<float>(1f);
 
-        /// <summary>
-        /// 道の長さ
-        /// </summary>
-        protected float lineLength = 0f;
-
         [SerializeField] protected LineRenderer lineRenderer;
 
         /// <summary>
         /// データを保存するときのキー
         /// </summary>
         public string saveKey { get; protected set; }
+
+        /// <summary>
+        /// 先端のポジション
+        /// </summary>
+        private Vector3 _startPointPosition;
+
+        /// <summary>
+        /// 末端のポジション
+        /// </summary>
+        private Vector3 _endPointPosition;
 
         protected virtual void Awake()
         {
@@ -72,6 +77,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             firstControlPoint += SavableScrollRect.CONTENT_MARGIN;
             secondControlPoint *= SavableScrollRect.CONTENT_SCALE;
             secondControlPoint += SavableScrollRect.CONTENT_MARGIN;
+            (_startPointPosition, _endPointPosition) = GetEdgePointPosition();
             SetPointPosition();
         }
 
@@ -94,18 +100,19 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             lineRenderer.positionCount = _middlePointNum + 2;
             lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * Scale.Value;
 
-            var (startPointPosition, endPointPosition) = GetEdgePointPosition();
-
             // 点の位置と線の長さを求める
-            var preTargetPosition = lineRenderer.GetPosition(0);
             for (var i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                var targetPosition = CalcCubicBezierPointPosition(startPointPosition, firstControlPoint,
-                                                                  secondControlPoint, endPointPosition, ratio);
+                var targetPosition = CalcCubicBezierPointPosition(_startPointPosition, firstControlPoint,
+                                                                  secondControlPoint, _endPointPosition, ratio);
                 lineRenderer.SetPosition(i, targetPosition);
-                lineLength += Vector2.Distance(targetPosition, preTargetPosition);
-                preTargetPosition = targetPosition;
             }
+        }
+
+        public Vector3 GetPositionAtRatio(float ratio)
+        {
+            ratio = Mathf.Clamp(ratio, 0, 1);
+            return CalcCubicBezierPointPosition(_startPointPosition, firstControlPoint, secondControlPoint, _endPointPosition, ratio);
         }
 
         /// <summary>
