@@ -18,84 +18,84 @@ MonoBehaviour:
   m_GUID: 68e81847d52824f739163f8362c0913a
   m_SerializeEntries:
   - m_GUID: 9e7f743572fbb425fae19c56a677e14d
-    m_Address: Assets/Project/GameDatas/Trees/Spring-1.asset
+    m_Address: Spring-1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: 9e7f743572fbb425fae19c56a677e14d, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 9e7f743572fbb425fae19c56a677e14d, type: 2}
   - m_GUID: 1a2e5236c5c0f4d9fa04e1764c5ef874
-    m_Address: Assets/Project/GameDatas/Trees/Autumn-1.asset
+    m_Address: Autumn-1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: 1a2e5236c5c0f4d9fa04e1764c5ef874, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 1a2e5236c5c0f4d9fa04e1764c5ef874, type: 2}
   - m_GUID: 9e3c175831b8e49c497a198012d43e0b
-    m_Address: Assets/Project/GameDatas/Trees/Autumn-2.asset
+    m_Address: Autumn-2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: 9e3c175831b8e49c497a198012d43e0b, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 9e3c175831b8e49c497a198012d43e0b, type: 2}
   - m_GUID: d8c43e5711b1448bcb9731281d482520
-    m_Address: Assets/Project/GameDatas/Trees/Autumn-3.asset
+    m_Address: Autumn-3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: d8c43e5711b1448bcb9731281d482520, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: d8c43e5711b1448bcb9731281d482520, type: 2}
   - m_GUID: 1e6504cf76f6c4c00add7b99917ad58c
-    m_Address: Assets/Project/GameDatas/Trees/Spring-2.asset
+    m_Address: Spring-2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: 1e6504cf76f6c4c00add7b99917ad58c, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 1e6504cf76f6c4c00add7b99917ad58c, type: 2}
   - m_GUID: bcc57ff26e5bd46e09b8f01f6168b089
-    m_Address: Assets/Project/GameDatas/Trees/Spring-3.asset
+    m_Address: Spring-3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: bcc57ff26e5bd46e09b8f01f6168b089, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: bcc57ff26e5bd46e09b8f01f6168b089, type: 2}
   - m_GUID: 7147f8fad5475483d8fac7ed30386e3f
-    m_Address: Assets/Project/GameDatas/Trees/Summer-1.asset
+    m_Address: Summer-1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: 7147f8fad5475483d8fac7ed30386e3f, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 7147f8fad5475483d8fac7ed30386e3f, type: 2}
   - m_GUID: f37564722243b47cd836e07cf1b78c84
-    m_Address: Assets/Project/GameDatas/Trees/Summer-2.asset
+    m_Address: Summer-2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: f37564722243b47cd836e07cf1b78c84, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: f37564722243b47cd836e07cf1b78c84, type: 2}
   - m_GUID: f06669457ee82427b8fd80b7d4b6f4bc
-    m_Address: Assets/Project/GameDatas/Trees/Summer-3.asset
+    m_Address: Summer-3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: f06669457ee82427b8fd80b7d4b6f4bc, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: f06669457ee82427b8fd80b7d4b6f4bc, type: 2}
   - m_GUID: 709d33a8540a7431593ded2bfc9ae909
-    m_Address: Assets/Project/GameDatas/Trees/Winter-1.asset
+    m_Address: Winter-1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: 709d33a8540a7431593ded2bfc9ae909, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 709d33a8540a7431593ded2bfc9ae909, type: 2}
   - m_GUID: bf5a9813bbcae4217b70937823784510
-    m_Address: Assets/Project/GameDatas/Trees/Winter-2.asset
+    m_Address: Winter-2
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
     m_MainAsset: {fileID: 11400000, guid: bf5a9813bbcae4217b70937823784510, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: bf5a9813bbcae4217b70937823784510, type: 2}
   - m_GUID: 3c7a08596934543df8dfefb95fc45d47
-    m_Address: Assets/Project/GameDatas/Trees/Winter-3.asset
+    m_Address: Winter-3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Tree
