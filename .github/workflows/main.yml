@@ -6,7 +6,7 @@ env:
 jobs:
   test:
     name: ${{ matrix.testMode }} Test on Unity ${{ matrix.unityVersion }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
