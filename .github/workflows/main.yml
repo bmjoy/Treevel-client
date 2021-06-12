@@ -27,7 +27,7 @@ jobs:
             Library-
       - name: Build Contents
         shell: bash
-        run: /opt/unity -batchmode -quit -projectPath ~/Projects/Unity/Treevel-client -executeMethod Treevel.Editor.AddressableProcessor.BuildContents_iOS
+        run: /opt/unity/Editor/Unity -batchmode -quit -projectPath ~/Projects/Unity/Treevel-client -executeMethod Treevel.Editor.AddressableProcessor.BuildContents_iOS
 #      - name: Unity - Test Runner
 #        id: tests
 #        uses: game-ci/unity-test-runner@v2
