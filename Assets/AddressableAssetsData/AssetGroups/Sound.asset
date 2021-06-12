@@ -18,84 +18,84 @@ MonoBehaviour:
   m_GUID: 27b072720a54542608f471210e52c9cb
   m_SerializeEntries:
   - m_GUID: 15038fe8963ac4c33a7dcb6df7aecacd
-    m_Address: Assets/Project/SoundClips/BGM/12-GamePlayScene-Difficult.mp3
+    m_Address: 12-GamePlayScene-Difficult
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 15038fe8963ac4c33a7dcb6df7aecacd, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 15038fe8963ac4c33a7dcb6df7aecacd, type: 3}
   - m_GUID: 163b412967a1840f4ab92e37c7802478
-    m_Address: Assets/Project/SoundClips/BGM/09-GamePlayScene-Summer.mp3
+    m_Address: 09-GamePlayScene-Summer
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 163b412967a1840f4ab92e37c7802478, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 163b412967a1840f4ab92e37c7802478, type: 3}
   - m_GUID: 23abc637ff4cc41a385d5203dd6c58f0
-    m_Address: Assets/Project/SoundClips/BGM/11-GamePlayScene-Winter.mp3
+    m_Address: 11-GamePlayScene-Winter
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 23abc637ff4cc41a385d5203dd6c58f0, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 23abc637ff4cc41a385d5203dd6c58f0, type: 3}
   - m_GUID: 2577a738e15ce48cd8a11293b3dfc559
-    m_Address: Assets/Project/SoundClips/BGM/10-GamePlayScene-Autumn.mp3
+    m_Address: 10-GamePlayScene-Autumn
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 2577a738e15ce48cd8a11293b3dfc559, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 2577a738e15ce48cd8a11293b3dfc559, type: 3}
   - m_GUID: 2aa9d2c100d50463ea3a6c1dc9e38200
-    m_Address: Assets/Project/SoundClips/BGM/07-GamePlayScene-Tutorial.mp3
+    m_Address: 07-GamePlayScene-Tutorial
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 2aa9d2c100d50463ea3a6c1dc9e38200, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 2aa9d2c100d50463ea3a6c1dc9e38200, type: 3}
   - m_GUID: 42ad310814bee48c482ce92687ccd760
-    m_Address: Assets/Project/SoundClips/BGM/05-StageSelectScene-Autumn.mp3
+    m_Address: 05-StageSelectScene-Autumn
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 42ad310814bee48c482ce92687ccd760, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 42ad310814bee48c482ce92687ccd760, type: 3}
   - m_GUID: 8b87d88e103da4e3aa62b42f0c69aa6c
-    m_Address: Assets/Project/SoundClips/BGM/01-StartUpScene.mp3
+    m_Address: 01-StartUpScene
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 8b87d88e103da4e3aa62b42f0c69aa6c, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 8b87d88e103da4e3aa62b42f0c69aa6c, type: 3}
   - m_GUID: 9401413272092485694385fa21b6535f
-    m_Address: Assets/Project/SoundClips/BGM/03-StageSelectScene-Spring.mp3
+    m_Address: 03-StageSelectScene-Spring
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: 9401413272092485694385fa21b6535f, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 9401413272092485694385fa21b6535f, type: 3}
   - m_GUID: a177119c94cc0444eb759017ecc3448e
-    m_Address: Assets/Project/SoundClips/BGM/08-GamePlayScene-Spring.mp3
+    m_Address: 08-GamePlayScene-Spring
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: a177119c94cc0444eb759017ecc3448e, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: a177119c94cc0444eb759017ecc3448e, type: 3}
   - m_GUID: a8b849cb89ac24f24a41518158f3e679
-    m_Address: Assets/Project/SoundClips/BGM/04-StageSelectScene-Summer.mp3
+    m_Address: 04-StageSelectScene-Summer
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: a8b849cb89ac24f24a41518158f3e679, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: a8b849cb89ac24f24a41518158f3e679, type: 3}
   - m_GUID: b85db55e534704b8c8cc5af8bb3cd250
-    m_Address: Assets/Project/SoundClips/BGM/06-StageSelectScene-Winter.mp3
+    m_Address: 06-StageSelectScene-Winter
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
     m_MainAsset: {fileID: 8300000, guid: b85db55e534704b8c8cc5af8bb3cd250, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: b85db55e534704b8c8cc5af8bb3cd250, type: 3}
   - m_GUID: f120d17b287174885a2f4236eefce4a2
-    m_Address: Assets/Project/SoundClips/BGM/02-MenuSelectScene.mp3
+    m_Address: 02-MenuSelectScene
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound/BGM
