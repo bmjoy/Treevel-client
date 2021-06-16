@@ -6,10 +6,16 @@ namespace Treevel.Common.Components
     [RequireComponent(typeof(ParticleSystem))]
     public class PlaySEParticle : MonoBehaviour
     {
-        private int _particleNum;
+        /// <summary>
+        /// 1フレーム前のParticleの個数
+        /// </summary>
+        private int _preParticleCount;
 
         private ParticleSystem _particleSystem;
 
+        /// <summary>
+        /// 再生するSEのキー
+        /// </summary>
         [SerializeField] private ESEKey _soundKey;
 
         private void Awake()
@@ -19,13 +25,13 @@ namespace Treevel.Common.Components
 
         private void Update()
         {
-            var count = _particleSystem.particleCount;
-            if (count > _particleNum && _particleNum == 0) {
+            var particleCount = _particleSystem.particleCount;
+            if (particleCount > _preParticleCount && _preParticleCount == 0) {
                 // particleが生成された
                 SoundManager.Instance.PlaySE(_soundKey);
             }
 
-            _particleNum = count;
+            _preParticleCount = particleCount;
         }
     }
 }
