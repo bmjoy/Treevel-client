@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8018115131031875109}
   - component: {fileID: 7675137770996352934}
   - component: {fileID: 7687756714731740323}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: DynamicDummyBottlePrefab
   m_TagString: Bottle
   m_Icon: {fileID: 0}

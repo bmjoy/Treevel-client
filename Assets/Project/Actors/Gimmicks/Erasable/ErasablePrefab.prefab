@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4467723264628291897}
   - component: {fileID: -4066585444902256335}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ErasablePrefab
   m_TagString: Gimmick
   m_Icon: {fileID: 0}

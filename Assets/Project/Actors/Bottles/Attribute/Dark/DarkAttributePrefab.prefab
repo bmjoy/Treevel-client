@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1143049788199428512}
   - component: {fileID: 8459921267124050366}
   - component: {fileID: -284567340377621959}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DarkAttributePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

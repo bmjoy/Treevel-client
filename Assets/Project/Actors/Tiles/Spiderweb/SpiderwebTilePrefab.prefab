@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5465598831281009146}
   - component: {fileID: 6342839703379482488}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: SpiderwebLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6023233291268266555}
   - component: {fileID: 1490116916845845161}
   - component: {fileID: 7788963662244586979}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: SpiderwebTilePrefab
   m_TagString: Tile
   m_Icon: {fileID: 0}

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -9013513175073661242}
   - component: {fileID: -7042337766198875321}
   - component: {fileID: -8160892875361653244}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: AttackableDummyBottlePrefab
   m_TagString: Bottle
   m_Icon: {fileID: 0}
@@ -160,8 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7827729b12fc9456cb1fb13b45eb6a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInvincible:
-    value: 0
   pressGesture: {fileID: 0}
   releaseGesture: {fileID: 0}
   IsMovable: 1

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4248486251218223223}
   - component: {fileID: 6659436708170590845}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: ErasableBottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: -1546950672185580045}
   - component: {fileID: 5393982599534609861}
   - component: {fileID: 7463468784555252759}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: ErasableBottlePrefab
   m_TagString: Bottle
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5000076265355128493}
   - component: {fileID: 4304224726560495246}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: Rubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}

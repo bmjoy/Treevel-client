@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6650673804721058915}
   - component: {fileID: 1423629175187906828}
   - component: {fileID: -1656817891040609873}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: HolyTilePrefab
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -44,6 +44,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4853091812657378}
   - component: {fileID: 7818347303455353202}
   - component: {fileID: 8841465545679328930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeteoriteWarningPrefab
   m_TagString: GimmickWarning
   m_Icon: {fileID: 0}
@@ -43,6 +43,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
