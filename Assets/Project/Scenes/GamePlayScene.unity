@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 143239743}
   - component: {fileID: 143239745}
   - component: {fileID: 143239744}
+  - component: {fileID: 143239746}
   m_Layer: 2
   m_Name: FromBottomLeft
   m_TagString: Untagged
@@ -367,7 +368,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143239742}
   serializedVersion: 8
-  lengthInSec: 2.5
+  lengthInSec: 3
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -1353,8 +1354,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 2.5
+      cycleCount: 1
+      repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
       time: 0.05
@@ -1411,8 +1412,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 2.5
+      cycleCount: 1
+      repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
       time: 0.05
@@ -1469,8 +1470,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 2.5
+      cycleCount: 1
+      repeatInterval: 0.01
       probability: 1
   SizeModule:
     enabled: 1
@@ -6228,6 +6229,7 @@ GameObject:
   - component: {fileID: 1285740330}
   - component: {fileID: 1285740332}
   - component: {fileID: 1285740331}
+  - component: {fileID: 1285740333}
   m_Layer: 2
   m_Name: FromBottomRight
   m_TagString: Untagged
@@ -6330,7 +6332,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285740329}
   serializedVersion: 8
-  lengthInSec: 2.5
+  lengthInSec: 3
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -7316,8 +7318,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 2.5
+      cycleCount: 1
+      repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
       time: 0.05
@@ -7374,8 +7376,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 2.5
+      cycleCount: 1
+      repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
       time: 0.05
@@ -7432,8 +7434,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 2.5
+      cycleCount: 1
+      repeatInterval: 0.01
       probability: 1
   SizeModule:
     enabled: 1
