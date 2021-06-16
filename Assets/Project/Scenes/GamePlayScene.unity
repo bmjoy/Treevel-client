@@ -11540,8 +11540,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 9.5
-      minScalar: 8.5
+      scalar: 8.5
+      minScalar: 7.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -11593,8 +11593,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 150
-      minScalar: 100
+      scalar: 200
+      minScalar: 150
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -12898,8 +12898,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 2
-    tilesY: 2
+    tilesX: 1
+    tilesY: 4
     animationType: 1
     rowIndex: 0
     cycles: 1
@@ -13608,7 +13608,7 @@ ParticleSystem:
         m_RotationOrder: 4
     m_Range: {x: 10, y: 100}
   ForceModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -14487,7 +14487,7 @@ ParticleSystem:
     positionAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14807,7 +14807,7 @@ ParticleSystem:
     range: {x: 0, y: 1}
     separateAxes: 0
   RotationBySpeedModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -14917,7 +14917,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7853982
+      scalar: 0.34906584
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
