@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           echo "/Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -logFile $artifactsPath/$testMode.log -projectPath . -runTests -testPlatform $testMode -testResults $artifactsPath/$testMode-result.xml" 
-        with:
+        env:
           unityVersion: ${{ matrix.unityVersion }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
