@@ -29,13 +29,13 @@ jobs:
         id: tests
         shell: bash
         run: |
-          echo "/Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -logFile $artifactsPath/$testMode.log -projectPath . -runTests -testPlatform $testMode -testResults $artifactsPath/$testMode-result.xml" 
+          /Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -logFile $artifactsPath/$testMode.log -projectPath . -runTests -testPlatform $testMode -testResults $artifactsPath/$testMode-result.xml 
         env:
           unityVersion: ${{ matrix.unityVersion }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+#          githubToken: ${{ secrets.GITHUB_TOKEN }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
           testMode: ${{ matrix.testMode }}
-#      - name: Upload Artifacts
-#        uses: actions/upload-artifact@v2
-#        with: 
-#          path: ${{ steps.tests.outputs.artifactsPath }}
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with: 
+          path: ${{ steps.tests.outputs.artifactsPath }}
