@@ -6,7 +6,7 @@ env:
 jobs:
   test:
     name: ${{ matrix.testMode }} Test on Unity ${{ matrix.unityVersion }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
@@ -27,13 +27,15 @@ jobs:
             Library-
       - name: Unity - Test Runner
         id: tests
-        uses: game-ci/unity-test-runner@v2
+        shell: bash
+        run: |
+          echo "/Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -logFile $artifactsPath/$testMode.log -projectPath . -runTests -testPlatform $testMode -testResults $artifactsPath/$testMode-result.xml" 
         with:
           unityVersion: ${{ matrix.unityVersion }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
           testMode: ${{ matrix.testMode }}
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with: 
-          path: ${{ steps.tests.outputs.artifactsPath }}
+#      - name: Upload Artifacts
+#        uses: actions/upload-artifact@v2
+#        with: 
+#          path: ${{ steps.tests.outputs.artifactsPath }}
