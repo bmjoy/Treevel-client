@@ -38,4 +38,4 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with: 
-          path: ${{ steps.tests.outputs.artifactsPath }}
+          path: ${{ matrix.testMode }}-artifacts
