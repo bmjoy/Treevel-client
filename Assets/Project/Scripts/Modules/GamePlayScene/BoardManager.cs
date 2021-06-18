@@ -83,7 +83,7 @@ namespace Treevel.Modules.GamePlayScene
         /// <summary>
         /// 盤面のGoalBottleの成功状態を更新する
         /// </summary>
-        public void UpdateNumOfSuccessBottle(bool isSuccess)
+        public void UpdateNumOfSuccessBottles(bool isSuccess)
         {
             if (!isSuccess) {
                 Interlocked.Decrement(ref _numOfSuccessBottles);
