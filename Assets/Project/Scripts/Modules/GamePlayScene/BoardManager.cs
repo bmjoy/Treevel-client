@@ -86,11 +86,11 @@ namespace Treevel.Modules.GamePlayScene
         public void CheckClear(bool isSuccess)
         {
             if (!isSuccess) {
-                _numOfSuccessBottles--;
+                Interlocked.Decrement(ref _numOfSuccessBottles);
                 return;
             }
 
-            _numOfSuccessBottles++;
+            Interlocked.Increment(ref _numOfSuccessBottles);
             // 成功判定
             if (_numOfSuccessBottles >= _numOfGoalBottles) GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Success);
         }
