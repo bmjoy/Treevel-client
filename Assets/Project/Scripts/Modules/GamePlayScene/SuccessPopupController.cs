@@ -3,7 +3,7 @@ using Treevel.Common.Managers;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Treevel.Modules.GamePlayScene.GameSuccess
+namespace Treevel.Modules.GamePlayScene
 {
     public class SuccessPopupController : MonoBehaviour
     {
