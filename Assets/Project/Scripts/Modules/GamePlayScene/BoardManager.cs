@@ -81,9 +81,9 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
-        /// 盤面の成功判定
+        /// 盤面のGoalBottleの成功状態を更新する
         /// </summary>
-        public void CheckClear(bool isSuccess)
+        public void UpdateNumOfSuccessBottle(bool isSuccess)
         {
             if (!isSuccess) {
                 Interlocked.Decrement(ref _numOfSuccessBottles);
@@ -91,7 +91,7 @@ namespace Treevel.Modules.GamePlayScene
             }
 
             Interlocked.Increment(ref _numOfSuccessBottles);
-            // 成功判定
+            // 盤面の成功判定
             if (_numOfSuccessBottles >= _numOfGoalBottles) GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Success);
         }
 

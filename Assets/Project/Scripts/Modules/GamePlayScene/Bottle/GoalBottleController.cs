@@ -50,7 +50,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             // 状態変化時の処理
             isSuccess.SkipLatestValueOnSubscribe().Subscribe(value => {
                 _spriteGlowEffect.enabled = value;
-                BoardManager.Instance.CheckClear(value);
+                BoardManager.Instance.UpdateNumOfSuccessBottle(value);
             }).AddTo(this);
         }
 
