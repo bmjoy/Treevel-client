@@ -44,7 +44,7 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             longPressGesture.TimeToPress = 0.15f;
             spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
             // 成功判定
-            EnterTile.Subscribe(_ => isSuccess.Value = GoalColor != EGoalColor.None && BoardManager.Instance.GetTileColor(this) == GoalColor).AddTo(this);
+            EnterTile.Where(_ => GoalColor != EGoalColor.None).Subscribe(_ => isSuccess.Value = BoardManager.Instance.GetTileColor(this) == GoalColor).AddTo(this);
             // 移動開始時は非成功に遷移
             ExitTile.Subscribe(_ => isSuccess.Value = false).AddTo(this);
             // 状態変化時の処理
