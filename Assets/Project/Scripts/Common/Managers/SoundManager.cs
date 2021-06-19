@@ -43,6 +43,7 @@ namespace Treevel.Common.Managers
         GamePlay_Failed_1,
         GamePlay_Failed_2,
         GamePlay_Success,
+        GamePlay_Success_Cracker,
         Bottle_Move,
         Bottle_Break,
         Bottle_Destroy,

@@ -29,7 +29,7 @@ namespace Treevel.Modules.GamePlayScene
 
         private const string _STAGE_NUMBER_TEXT_NAME = "StageNumberText";
         private const string _TIMER_TEXT_NAME = "TimerText";
-        private const string _SUCCESS_POPUP_NAME = "SuccessPopup";
+        private const string _SUCCESS_PANEL_NAME = "SuccessPanel";
         private const string _FAILURE_POPUP_NAME = "FailurePopup";
 
         [SerializeField] private GameObject _tutorialWindow;
@@ -507,7 +507,7 @@ namespace Treevel.Modules.GamePlayScene
             public SuccessState(GamePlayDirector caller)
             {
                 // 成功ポップアップ設定
-                _successPopup = GameObject.Find(_SUCCESS_POPUP_NAME);
+                _successPopup = GameObject.Find(_SUCCESS_PANEL_NAME);
                 _successPopup.SetActive(false);
             }
 
