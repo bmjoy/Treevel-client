@@ -82,17 +82,5 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, 1.0f);
             }
         }
-
-        /// <summary>
-        /// 道が非解放状態から解放状態に変わった時のアニメーション(100フレームで色を変化させる)
-        /// </summary>
-        /// <returns></returns>
-        public void ReleaseEndObject()
-        {
-            // 終点の木の状態の更新アニメーション
-            EndObjectController.ReflectTreeState();
-            // 木の解放演出見たことを記録する
-            LevelSelectDirector.Instance.releaseAnimationPlayedTrees.Add(EndObjectController.treeId);
-        }
     }
 }

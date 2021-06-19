@@ -105,8 +105,8 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 // 演出終了まで待つ
                 await UniTask.WaitUntil(() => UnlockLevelDirector.state != PlayState.Playing, cancellationToken: _cancellationTokenSource.Token);
 
-                // TODO 木を解放する演出もタイムラインで実装
-                releaseRoad.ReleaseEndObject();
+                // 木の解放演出見たことを記録する
+                releaseAnimationPlayedTrees.Add(releaseRoad.EndObjectController.treeId);
 
                 // 再生状態を保存
                 releaseAnimationPlayedRoads.Add(releaseRoad.saveKey);
