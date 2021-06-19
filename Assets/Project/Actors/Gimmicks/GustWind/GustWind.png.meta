@@ -1,49 +1,46 @@
 fileFormatVersion: 2
-guid: 75bfa7b0a06e54b25ae6c609aed4f7b0
+guid: d4d49c100786e4278b16263abe6a1e38
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1120134647601564153
-    second: GustWind_0
+      213: -8904810287423145524
+    second: Gustwind_0
   - first:
-      213: 1019384598711159741
-    second: GustWind_1
+      213: 8007327519361138152
+    second: Gustwind_1
   - first:
-      213: 3389907150711117445
-    second: GustWind_2
+      213: 8690161740277538250
+    second: Gustwind_2
   - first:
-      213: 2981912723368842104
-    second: GustWind_3
+      213: 8503470380677544881
+    second: Gustwind_3
   - first:
-      213: 2249907723551369291
-    second: GustWind_4
+      213: -2009020489800118275
+    second: Gustwind_4
   - first:
-      213: -411763978687937426
-    second: GustWind_5
+      213: 5170976868763315249
+    second: Gustwind_5
   - first:
-      213: 2601185604582411462
-    second: GustWind_6
+      213: 2066028176479306299
+    second: Gustwind_6
   - first:
-      213: 7341791681389880566
-    second: GustWind_7
+      213: -6759743101624654971
+    second: Gustwind_7
   - first:
-      213: -284641537938948609
-    second: GustWind_8
+      213: 470031912516270421
+    second: Gustwind_8
   - first:
-      213: -875174359793048558
-    second: GustWind_9
+      213: -208933017077716225
+    second: Gustwind_9
   - first:
-      213: -389767869939365302
-    second: GustWind_10
+      213: 2147983452825733839
+    second: Gustwind_10
   - first:
-      213: -2214395365824834449
-    second: GustWind_11
+      213: -5390625122953899976
+    second: Gustwind_11
   - first:
-      213: -3384685162209500725
-    second: GustWind_12
-  - first:
-      213: -7211767634265321381
-    second: GustWind_13
+      213: 805833973036597891
+    second: Gustwind_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,6 +94,8 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -117,18 +116,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -167,295 +154,274 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GustWind_0
+      name: Gustwind_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 4
-        width: 39
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 706f915097b7470f0800000000000000
-      internalID: -1120134647601564153
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_1
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 4
-        width: 45
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dbbceaf34e4952e00800000000000000
-      internalID: 1019384598711159741
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_2
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 3
-        width: 45
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58651b3d79e5b0f20800000000000000
-      internalID: 3389907150711117445
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_3
-      rect:
-        serializedVersion: 2
-        x: 161
-        y: 3
-        width: 37
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8731e93b2d1e16920800000000000000
-      internalID: 2981912723368842104
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_4
-      rect:
-        serializedVersion: 2
-        x: 202
-        y: 3
-        width: 45
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b48efaf6727493f10800000000000000
-      internalID: 2249907723551369291
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_5
-      rect:
-        serializedVersion: 2
-        x: 252
-        y: 3
-        width: 45
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e64010fc7de194af0800000000000000
-      internalID: -411763978687937426
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_6
-      rect:
-        serializedVersion: 2
-        x: 299
-        y: 3
-        width: 31
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6cc8ef39684491420800000000000000
-      internalID: 2601185604582411462
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_7
-      rect:
-        serializedVersion: 2
-        x: 335
-        y: 3
-        width: 39
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f46920c2a843e560800000000000000
-      internalID: 7341791681389880566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_8
-      rect:
-        serializedVersion: 2
-        x: 381
-        y: 3
-        width: 45
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ffdf3d28700cc0cf0800000000000000
-      internalID: -284641537938948609
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GustWind_9
-      rect:
-        serializedVersion: 2
-        x: 432
+        x: 0
         y: 0
-        width: 26
-        height: 131
+        width: 391
+        height: 2000
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21461008e81cad3f0800000000000000
-      internalID: -875174359793048558
+      spriteID: cc936e92932cb6480800000000000000
+      internalID: -8904810287423145524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GustWind_10
+      name: Gustwind_1
       rect:
         serializedVersion: 2
-        x: 465
+        x: 391
         y: 0
-        width: 26
-        height: 131
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4a4767ff24479af0800000000000000
-      internalID: -389767869939365302
+      spriteID: 8edfab744fdbf1f60800000000000000
+      internalID: 8007327519361138152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GustWind_11
+      name: Gustwind_2
       rect:
         serializedVersion: 2
-        x: 492
-        y: 31
-        width: 25
-        height: 100
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        x: 782
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f645dbba523e441e0800000000000000
-      internalID: -2214395365824834449
+      spriteID: acddee17f08a99870800000000000000
+      internalID: 8690161740277538250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GustWind_12
+      name: Gustwind_3
       rect:
         serializedVersion: 2
-        x: 529
-        y: 67
-        width: 17
-        height: 64
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        x: 1173
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc1a7fd17ce2701d0800000000000000
-      internalID: -3384685162209500725
+      spriteID: 1bb37560245620670800000000000000
+      internalID: 8503470380677544881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GustWind_13
+      name: Gustwind_4
       rect:
         serializedVersion: 2
-        x: 558
-        y: 103
-        width: 12
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        x: 1564
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b50d4f4db87aaeb90800000000000000
-      internalID: -7211767634265321381
+      spriteID: dff8bfe32868e14e0800000000000000
+      internalID: -2009020489800118275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_5
+      rect:
+        serializedVersion: 2
+        x: 1955
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c266ca01003c740800000000000000
+      internalID: 5170976868763315249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_6
+      rect:
+        serializedVersion: 2
+        x: 2346
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b324ff22ea10cac10800000000000000
+      internalID: 2066028176479306299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_7
+      rect:
+        serializedVersion: 2
+        x: 2737
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 583e3c6b6719032a0800000000000000
+      internalID: -6759743101624654971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_8
+      rect:
+        serializedVersion: 2
+        x: 3128
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55931aab883e58600800000000000000
+      internalID: 470031912516270421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_9
+      rect:
+        serializedVersion: 2
+        x: 3519
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffa6b372788b91df0800000000000000
+      internalID: -208933017077716225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_10
+      rect:
+        serializedVersion: 2
+        x: 3910
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fca4811e19b2fcd10800000000000000
+      internalID: 2147983452825733839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_11
+      rect:
+        serializedVersion: 2
+        x: 4301
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 830590de207a035b0800000000000000
+      internalID: -5390625122953899976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gustwind_12
+      rect:
+        serializedVersion: 2
+        x: 4692
+        y: 0
+        width: 391
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 382c9ce9ab5ee2b00800000000000000
+      internalID: 805833973036597891
       vertices: []
       indices: 
       edges: []
