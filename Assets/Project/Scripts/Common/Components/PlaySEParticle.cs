@@ -8,8 +8,9 @@ namespace Treevel.Common.Components
     {
         /// <summary>
         /// 1フレーム前のParticleの個数
+        /// 初期値に0以外を代入することはないので明示的に0を入れる
         /// </summary>
-        private int _preParticleCount;
+        private int _preParticleCount = 0;
 
         private ParticleSystem _particleSystem;
 
