@@ -82,7 +82,9 @@ namespace Treevel.Modules.GamePlayScene
 
         /// <summary>
         /// 盤面のGoalBottleの成功状態を更新する
+        /// GoalBottleの状態が成功->失敗 or 失敗->成功に変化した時のみ呼ぶ
         /// </summary>
+        /// <param name="isSuccess"> 1つのGoalBottleの成功状態 </param>
         public void UpdateNumOfSuccessBottles(bool isSuccess)
         {
             if (!isSuccess) {
