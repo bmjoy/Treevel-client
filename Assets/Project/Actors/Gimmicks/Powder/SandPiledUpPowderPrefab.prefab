@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7640712185948031821}
   - component: {fileID: -1839672642548211350}
   - component: {fileID: 8488855785613460534}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: SandPiledUpPowderPrefab
-  m_TagString: Untagged
+  m_TagString: GimmickWarning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
