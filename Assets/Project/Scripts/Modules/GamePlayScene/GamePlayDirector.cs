@@ -321,6 +321,12 @@ namespace Treevel.Modules.GamePlayScene
                 DestroyImmediate(gimmick);
             }
 
+            // ギミックの警告を削除
+            var gimmickWarnings = GameObject.FindGameObjectsWithTag(Constants.TagName.GIMMICK_WARNING);
+            foreach (var gimmickWarning in gimmickWarnings) {
+                DestroyImmediate(gimmickWarning);
+            }
+
             // タイルを削除
             var specialTiles = FindObjectsOfType<TileControllerBase>();
             foreach (var tile in specialTiles) {
