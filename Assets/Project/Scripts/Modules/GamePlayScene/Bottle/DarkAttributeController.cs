@@ -32,11 +32,10 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             _bottleController = bottleController;
 
             // イベントに処理を登録する
-            _bottleController.EnterTile.Merge(_bottleController.ExitTile)
-                .Subscribe(_ => {
-                    _isSuccess = _bottleController.IsSuccess();
-                    animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
-                }).AddTo(this);
+            _bottleController.isSuccess.Subscribe(value => {
+                _isSuccess = value;
+                animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess);
+            }).AddTo(this);
             _bottleController.longPressGesture.OnLongPress.AsObservable().Subscribe(_ => animator.SetBool(_ANIMATOR_IS_DARK, false)).AddTo(compositeDisposableOnGameEnd, this);
             _bottleController.releaseGesture.OnRelease.AsObservable().Subscribe(_ => animator.SetBool(_ANIMATOR_IS_DARK, !_isSuccess)).AddTo(compositeDisposableOnGameEnd, this);
         }

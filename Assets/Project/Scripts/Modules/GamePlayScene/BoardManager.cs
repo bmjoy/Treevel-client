@@ -30,6 +30,16 @@ namespace Treevel.Modules.GamePlayScene
         private IDisposable _disposable;
         private CancellationTokenSource _tokenSource;
 
+        /// <summary>
+        /// GoalBottleの数
+        /// </summary>
+        private int _numOfGoalBottles;
+
+        /// <summary>
+        /// 成功状態のBottleの数
+        /// </summary>
+        private int _numOfSuccessBottles;
+
         private void Awake()
         {
             // `squares` の初期化
@@ -60,12 +70,31 @@ namespace Treevel.Modules.GamePlayScene
         {
             _tokenSource = new CancellationTokenSource();
             _disposable = GamePlayDirector.Instance.GameEnd.Subscribe(_ => EndProcess()).AddTo(this);
+            _numOfGoalBottles = 0;
+            _numOfSuccessBottles = 0;
         }
 
         private void EndProcess()
         {
             _tokenSource.Cancel();
             _disposable.Dispose();
+        }
+
+        /// <summary>
+        /// 盤面のGoalBottleの成功状態を更新する
+        /// GoalBottleの状態が成功->失敗 or 失敗->成功に変化した時のみ呼ぶ
+        /// </summary>
+        /// <param name="isSuccess"> 1つのGoalBottleの成功状態 </param>
+        public void UpdateNumOfSuccessBottles(bool isSuccess)
+        {
+            if (!isSuccess) {
+                Interlocked.Decrement(ref _numOfSuccessBottles);
+                return;
+            }
+
+            Interlocked.Increment(ref _numOfSuccessBottles);
+            // 盤面の成功判定
+            if (_numOfSuccessBottles >= _numOfGoalBottles) GamePlayDirector.Instance.Dispatch(GamePlayDirector.EGameState.Success);
         }
 
         /// <summary>
@@ -262,26 +291,6 @@ namespace Treevel.Modules.GamePlayScene
         }
 
         /// <summary>
-        /// ボトルを特定のタイルに移動する（瞬間移動）
-        /// </summary>
-        /// <param name="bottle"> 移動するボトル </param>
-        /// <param name="tileNum"> 移動先のタイル番号 </param>
-        /// <param name="direction"> どちら方向から移動してきたか (単位ベクトル) </param>
-        /// <returns> ボトルが移動できたかどうか </returns>
-        public bool MoveAsync(DynamicBottleController bottle, int tileNum)
-        {
-            if (!MoveBottleInSquares(bottle, tileNum, out var targetSquare)) return false;
-
-            var bottleObject = bottle.gameObject;
-            // ボトルを瞬間移動させる
-            bottle.transform.position = targetSquare.worldPosition;
-            targetSquare.bottle.OnEnterTile(targetSquare.tile.gameObject);
-            targetSquare.tile.OnBottleEnter(bottleObject, null);
-
-            return true;
-        }
-
-        /// <summary>
         /// ボトル移動(BoardManager内部)
         /// </summary>
         /// <param name="bottle">ボトルインスタンス</param>
@@ -411,6 +420,9 @@ namespace Treevel.Modules.GamePlayScene
 
                 // 適切な場所に設置
                 targetSquare.bottle.transform.position = targetSquare.worldPosition;
+
+                // GoalBottleの個数を数える
+                if (bottle is GoalBottleController) _numOfGoalBottles++;
             }
         }
 

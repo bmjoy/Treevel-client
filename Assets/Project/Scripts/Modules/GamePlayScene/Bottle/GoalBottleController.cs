@@ -17,6 +17,11 @@ namespace Treevel.Modules.GamePlayScene.Bottle
     [RequireComponent(typeof(LongPressGesture))]
     public class GoalBottleController : DynamicBottleController
     {
+        /// <summary>
+        /// 成功状態かどうか
+        /// </summary>
+        public readonly ReactiveProperty<bool> isSuccess = new ReactiveProperty<bool>(false);
+
         public LongPressGesture longPressGesture;
 
         /// <summary>
@@ -38,8 +43,15 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             longPressGesture.UseUnityEvents = true;
             longPressGesture.TimeToPress = 0.15f;
             spriteRendererUnifier = GetComponent<SpriteRendererUnifier>();
-            EnterTile.Where(_ => IsSuccess()).Subscribe(_ => DoWhenSuccess()).AddTo(this);
-            ExitTile.Subscribe(_ => _spriteGlowEffect.enabled = false).AddTo(this);
+            // 成功判定
+            EnterTile.Where(_ => GoalColor != EGoalColor.None).Subscribe(_ => isSuccess.Value = BoardManager.Instance.GetTileColor(this) == GoalColor).AddTo(this);
+            // 移動開始時は非成功に遷移
+            ExitTile.Subscribe(_ => isSuccess.Value = false).AddTo(this);
+            // 状態変化時の処理
+            isSuccess.SkipLatestValueOnSubscribe().Subscribe(value => {
+                _spriteGlowEffect.enabled = value;
+                BoardManager.Instance.UpdateNumOfSuccessBottles(value);
+            }).AddTo(this);
         }
 
         /// <summary>
@@ -72,26 +84,6 @@ namespace Treevel.Modules.GamePlayScene.Bottle
             #if UNITY_EDITOR
             name = Constants.BottleName.NORMAL_BOTTLE + Id;
             #endif
-        }
-
-        /// <summary>
-        /// 目標タイルにいる時の処理
-        /// </summary>
-        private void DoWhenSuccess()
-        {
-            // 光らせる
-            _spriteGlowEffect.enabled = true;
-            // ステージの成功判定
-            GamePlayDirector.Instance.CheckClear();
-        }
-
-        /// <summary>
-        /// 目標タイルにいるかどうか
-        /// </summary>
-        /// <returns></returns>
-        public bool IsSuccess()
-        {
-            return GoalColor != EGoalColor.None && BoardManager.Instance.GetTileColor(this) == GoalColor;
         }
     }
 }
