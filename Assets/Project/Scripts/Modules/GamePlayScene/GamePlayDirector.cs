@@ -525,6 +525,7 @@ namespace Treevel.Modules.GamePlayScene
                 }
 
                 // 成功盤面を一定時間表示
+                // TODO: アニメーションの終了を待つ
                 await Task.Delay(500);
                 // 成功ポップアップ表示
                 _successPopup.SetActive(true);
@@ -568,6 +569,7 @@ namespace Treevel.Modules.GamePlayScene
 
                 if (from is PlayingState) {
                     // 失敗盤面を一定時間表示
+                    // TODO: アニメーションの終了を待つ
                     await Task.Delay(500);
                     // 失敗ポップアップを表示
                     _failurePopup.SetActive(true);
