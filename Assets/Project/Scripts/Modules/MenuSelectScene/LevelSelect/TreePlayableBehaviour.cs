@@ -55,7 +55,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             if (_isReflectedTreeState) return;
 
             var progress = (float)(playable.GetTime() / playable.GetDuration());
-            if (!_isReflectedTreeState && progress > 0.5f) {
+            if (progress > 0.5f) {
                 releasedTree.ReflectTreeState();
                 _isReflectedTreeState = true;
             }
