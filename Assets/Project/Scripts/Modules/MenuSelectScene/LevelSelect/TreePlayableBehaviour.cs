@@ -63,7 +63,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
         public override void OnBehaviourPlay(Playable playable, FrameData info)
         {
-            // なんか視点ズレてるから修正する
+            // 道の解放の最後で木が見切れてしまうため一回視点を修正する
             _scaleContent.FocusAtScreenPosition(releasedTree.GetTreeWorldPosition());
             _particle.gameObject.SetActive(true);
             _particle.Play();
