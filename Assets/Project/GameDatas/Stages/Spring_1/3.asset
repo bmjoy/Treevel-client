@@ -47,7 +47,7 @@ MonoBehaviour:
     goalColor: 1
     number: 11
     pairNumber: 0
-  - type: 5
+  - type: 3
     goalColor: 0
     number: 1
     pairNumber: 0
