@@ -259,6 +259,7 @@ namespace Treevel.Common.Utils
         public static class TimelineReferenceKey
         {
             public const string ROAD_TO_RELEASE = "RoadToRelease";
+            public const string TREE_TO_RELEASE = "TreeToRelease";
         }
     }
 }

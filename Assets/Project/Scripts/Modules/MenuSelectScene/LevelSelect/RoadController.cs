@@ -7,7 +7,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
     public class RoadController : LineControllerBase
     {
-        private LevelTreeController _endObjectController;
+        public LevelTreeController EndObjectController { get; private set; }
 
         /// <summary>
         /// 解放時のテクスチャの占領比率(1.0だと全解放)
@@ -22,7 +22,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         protected override void Awake()
         {
             base.Awake();
-            _endObjectController = endObject.GetComponentInParent<LevelTreeController>();
+            EndObjectController = endObject.GetComponentInParent<LevelTreeController>();
             _material = lineRenderer.material;
         }
 
@@ -54,11 +54,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </returns>
         public bool CanBeReleased()
         {
-            var treeData = GameDataManager.GetTreeData(_endObjectController.treeId);
+            var treeData = GameDataManager.GetTreeData(EndObjectController.treeId);
             if (treeData.constraintTrees.Count == 0)
                 return false;
 
-            return _endObjectController.state == ETreeState.Released;
+            return EndObjectController.state == ETreeState.Released;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public override void UpdateState()
         {
-            var endTreeData = GameDataManager.GetTreeData(_endObjectController.treeId);
+            var endTreeData = GameDataManager.GetTreeData(EndObjectController.treeId);
 
             if (endTreeData.constraintTrees.Count == 0) {
                 // 初期解放
@@ -74,25 +74,13 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 return;
             }
 
-            if (_endObjectController.state == ETreeState.Unreleased) {
+            if (EndObjectController.state == ETreeState.Unreleased) {
                 // 未解放
                 _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, 0.0f);
             } else if (LevelSelectDirector.Instance.releaseAnimationPlayedRoads.Contains(saveKey)) {
                 // 演出を再生したことがあればそのまま解放
                 _material.SetFloat(_SHADER_PARAM_FILL_AMOUNT, 1.0f);
             }
-        }
-
-        /// <summary>
-        /// 道が非解放状態から解放状態に変わった時のアニメーション(100フレームで色を変化させる)
-        /// </summary>
-        /// <returns></returns>
-        public void ReleaseEndObject()
-        {
-            // 終点の木の状態の更新アニメーション
-            _endObjectController.ReflectTreeState();
-            // 木の解放演出見たことを記録する
-            LevelSelectDirector.Instance.releaseAnimationPlayedTrees.Add(_endObjectController.treeId);
         }
     }
 }
