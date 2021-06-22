@@ -1,4 +1,6 @@
-﻿using TouchScript.Gestures;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using Treevel.Common.Entities;
 using Treevel.Common.Utils;
@@ -8,10 +10,16 @@ using UnityEngine.UI;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
 {
+    [DefaultExecutionOrder(-50)]
     public class ScaleContent : MonoBehaviour
     {
         private TransformGesture _transformGesture;
         private RectTransform _contentRect;
+
+        /// <summary>
+        /// 道
+        /// </summary>
+        private List<RoadController> _roads;
 
         /// <summary>
         /// タッチした2点
@@ -53,6 +61,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         private void Awake()
         {
             _contentRect = GetComponent<ScrollRect>().content;
+            _roads = GameObject.FindGameObjectsWithTag(Constants.TagName.ROAD).Select(road => road.GetComponent<RoadController>()).ToList();
             _transformGesture = GetComponent<TransformGesture>();
             _scaledCanvas = RuntimeConstants.SCALED_CANVAS_SIZE;
 
@@ -65,9 +74,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         private void OnEnable()
         {
             _preScale = UserSettings.Instance.LevelSelectCanvasScale;
-            _contentRect.localScale = new Vector2(_preScale, _preScale);
-            // 道の拡大縮小
-            LevelSelectDirector.Instance.ScaleRoad(_preScale);
+            ScaleContents(_preScale);
         }
 
         private void OnDisable()
@@ -98,19 +105,14 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             var newScale = _preScale * newScreenDist / _preScreenDist;
             // 拡大率を閾値内に抑える
             newScale = Mathf.Clamp(newScale, _SCALE_MIN, _SCALE_MAX);
-            // Contentの拡大縮小
-            _contentRect.localScale = new Vector2(newScale, newScale);
-            // 道の拡大縮小
-            LevelSelectDirector.Instance.ScaleRoad(newScale);
+            ScaleContents(newScale);
 
             // 拡大縮小前の中点を拡大縮小後の中点に合わせるようにContentの平行移動量を求める
             var preContentPoint = ConvertFromScreenToContent(_preMeanPoint, _preScale);
             var newContentPoint = ConvertFromScreenToContent(newMeanPoint, _preScale);
             // Content空間での2点の差分
             var moveAmount = newContentPoint - preContentPoint * newScale / _preScale;
-            moveAmount = KeepInContent(moveAmount, newScale);
-            // Contentの平行移動
-            _contentRect.transform.localPosition += new Vector3(moveAmount.x, moveAmount.y, 0);
+            TransformContents(moveAmount);
 
             // 値の更新
             _prePoint1 = newPoint1;
@@ -118,6 +120,54 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             _preScreenDist = newScreenDist;
             _preMeanPoint = newMeanPoint;
             _preScale = newScale;
+        }
+
+        /// <summary>
+        /// 特定の位置を中心までにコンテンツ全体を移動する
+        /// </summary>
+        /// <param name="focusWorldPosition"> 中止にしたい位置 </param>
+        public void FocusAtScreenPosition(Vector3 focusWorldPosition)
+        {
+            TransformContents((focusWorldPosition * -1) - _contentRect.transform.localPosition);
+        }
+
+        /// <summary>
+        /// コンテンツの平行移動
+        /// </summary>
+        /// <param name="transformVector"> 移動ベクトル </param>
+        private void TransformContents(Vector2 transformVector)
+        {
+            var moveAmount = KeepInContent(transformVector, _contentRect.localScale.x);
+            _contentRect.transform.localPosition += new Vector3(moveAmount.x, moveAmount.y, 0);
+        }
+
+        /// <summary>
+        /// コンテンツを拡大縮小する
+        /// </summary>
+        /// <param name="scale"> 拡大率、縮小率（絶対値）</param>
+        public void ScaleContents(float scale)
+        {
+            // Contentの拡大縮小
+            _contentRect.localScale = new Vector2(scale, scale);
+            // 道の拡大縮小
+            ScaleRoads(scale);
+        }
+
+        /// <summary>
+        /// 現在の拡大率
+        /// </summary>
+        public float GetCurrentScale()
+        {
+            return _contentRect.localScale.x;
+        }
+
+        /// <summary>
+        /// 道の幅の変更
+        /// </summary>
+        /// <param name="scale"> 拡大率 </param>
+        private void ScaleRoads(float scale)
+        {
+            _roads.ForEach(road => road.Scale.Value = scale);
         }
 
         /// <summary>

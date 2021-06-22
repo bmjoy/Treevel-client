@@ -255,5 +255,11 @@ namespace Treevel.Common.Utils
         /// 一季節が許容できる木の数
         /// </summary>
         public const int MAX_TREE_NUM_IN_SEASON = 1000;
+
+        public static class TimelineReferenceKey
+        {
+            public const string ROAD_TO_RELEASE = "RoadToRelease";
+            public const string TREE_TO_RELEASE = "TreeToRelease";
+        }
     }
 }

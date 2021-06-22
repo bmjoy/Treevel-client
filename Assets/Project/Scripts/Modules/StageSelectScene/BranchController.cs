@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
-using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
-using Treevel.Common.Networks;
-using Treevel.Common.Networks.Requests;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.LevelSelect;
 using UnityEngine;
@@ -40,7 +36,7 @@ namespace Treevel.Modules.StageSelectScene
         /// <summary>
         /// 枝の状態の更新
         /// </summary>
-        public override async UniTask UpdateStateAsync()
+        public override void UpdateState()
         {
             var constraintStageData = GameDataManager.GetStage(_treeId, endObject.GetComponent<StageController>().stageNumber);
             var constraintStages = constraintStageData.ConstraintStages;

@@ -116,5 +116,13 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             StageSelectDirector.treeId = treeId;
             AddressableAssetManager.LoadScene(_seasonId.GetSceneName());
         }
+
+        /// <summary>
+        /// ワールド座標を取得
+        /// </summary>
+        public Vector3 GetTreeWorldPosition()
+        {
+            return gameObject.transform.localToWorldMatrix.MultiplyPoint3x4(gameObject.transform.localPosition);
+        }
     }
 }

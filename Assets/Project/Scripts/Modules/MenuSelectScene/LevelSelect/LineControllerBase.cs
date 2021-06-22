@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -47,17 +46,22 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public ReactiveProperty<float> Scale = new ReactiveProperty<float>(1f);
 
-        /// <summary>
-        /// 道の長さ
-        /// </summary>
-        protected float lineLength = 0f;
-
         [SerializeField] protected LineRenderer lineRenderer;
 
         /// <summary>
         /// データを保存するときのキー
         /// </summary>
-        protected string saveKey;
+        public string saveKey { get; protected set; }
+
+        /// <summary>
+        /// 先端のポジション
+        /// </summary>
+        private Vector3 _startPointPosition;
+
+        /// <summary>
+        /// 末端のポジション
+        /// </summary>
+        private Vector3 _endPointPosition;
 
         protected virtual void Awake()
         {
@@ -73,6 +77,7 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             firstControlPoint += SavableScrollRect.CONTENT_MARGIN;
             secondControlPoint *= SavableScrollRect.CONTENT_SCALE;
             secondControlPoint += SavableScrollRect.CONTENT_MARGIN;
+            (_startPointPosition, _endPointPosition) = GetEdgePointPosition();
             SetPointPosition();
         }
 
@@ -84,29 +89,30 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// <returns> (始点の位置, 終点の位置) </returns>
         protected abstract (Vector3, Vector3) GetEdgePointPosition();
 
-        public abstract UniTask UpdateStateAsync();
+        public abstract void UpdateState();
 
         /// <summary>
         /// 曲線の通過点の位置を求める
         /// </summary>
         public void SetPointPosition()
         {
-            if (lineRenderer == null) return;
+            if (lineRenderer == null || startObject == null || endObject == null) return;
             lineRenderer.positionCount = _middlePointNum + 2;
             lineRenderer.startWidth = lineRenderer.endWidth = Screen.width * width * Scale.Value;
 
-            var (startPointPosition, endPointPosition) = GetEdgePointPosition();
-
             // 点の位置と線の長さを求める
-            var preTargetPosition = lineRenderer.GetPosition(0);
             for (var i = 0; i <= _middlePointNum + 1; i++) {
                 var ratio = (float)i / (_middlePointNum + 1);
-                var targetPosition = CalcCubicBezierPointPosition(startPointPosition, firstControlPoint,
-                                                                  secondControlPoint, endPointPosition, ratio);
+                var targetPosition = CalcCubicBezierPointPosition(_startPointPosition, firstControlPoint,
+                                                                  secondControlPoint, _endPointPosition, ratio);
                 lineRenderer.SetPosition(i, targetPosition);
-                lineLength += Vector2.Distance(targetPosition, preTargetPosition);
-                preTargetPosition = targetPosition;
             }
+        }
+
+        public Vector3 GetPositionAtRatio(float ratio)
+        {
+            ratio = Mathf.Clamp(ratio, 0, 1);
+            return CalcCubicBezierPointPosition(_startPointPosition, firstControlPoint, secondControlPoint, _endPointPosition, ratio);
         }
 
         /// <summary>

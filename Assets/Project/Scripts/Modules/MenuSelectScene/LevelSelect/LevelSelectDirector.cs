@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Treevel.Common.Managers;
 using Cysharp.Threading.Tasks;
 using Treevel.Common.Entities;
@@ -7,7 +8,9 @@ using Treevel.Common.Patterns.Singleton;
 using Treevel.Common.Utils;
 using Treevel.Modules.MenuSelectScene.Settings;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 namespace Treevel.Modules.MenuSelectScene.LevelSelect
@@ -39,6 +42,16 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
         /// </summary>
         public List<ETreeId> releaseAnimationPlayedTrees;
 
+        /// <summary>
+        /// 木の解放演出のディレクター
+        /// </summary>
+        public PlayableDirector UnlockLevelDirector;
+
+        /// <summary>
+        /// Disableなどの時に実行中のタスクをキャンセル用
+        /// </summary>
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
         private void Awake()
         {
             _trees = GameObject.FindGameObjectsWithTag(Constants.TagName.TREE).Select(tree => tree.GetComponent<LevelTreeController>()).ToList();
@@ -53,6 +66,11 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
 
             releaseAnimationPlayedRoads = PlayerPrefsUtility.GetList<string>(Constants.PlayerPrefsKeys.ROAD_ANIMATION_STATE);
             releaseAnimationPlayedTrees = PlayerPrefsUtility.GetList<ETreeId>(Constants.PlayerPrefsKeys.TREE_ANIMATION_STATE);
+
+            this.OnDisableAsObservable()
+                .Subscribe(_ => {
+                    _cancellationTokenSource.Cancel();
+                }).AddTo(this);
         }
 
         /// <summary>
@@ -63,8 +81,37 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
             if (SceneManager.GetActiveScene().name == Constants.SceneName.MENU_SELECT_SCENE) {
                 SoundManager.Instance.PlaySE(ESEKey.LevelSelect_River);
             }
+            // 木の状態を更新
             _trees.ForEach(tree => tree.UpdateState());
-            _roads.ForEach(road => road.UpdateStateAsync().Forget());
+            // 道の状態を更新
+            _roads.ForEach(road => road.UpdateState());
+
+            // 解放できる道を計算し、演出を再生
+            CheckReleaseNewLevelAsync().Forget();
+        }
+
+        private async UniTask CheckReleaseNewLevelAsync()
+        {
+            // 解放する道のリストを作成
+            var waitForReleaseRoads = _roads.Where(road => road.CanBeReleased() && !releaseAnimationPlayedRoads.Contains(road.saveKey)).ToList();
+
+            while (waitForReleaseRoads.Count > 0) {
+                // 道を解放する演出を再生
+                var releaseRoad = waitForReleaseRoads[0];
+                UnlockLevelDirector.SetReferenceValue(Constants.TimelineReferenceKey.ROAD_TO_RELEASE, releaseRoad);
+                UnlockLevelDirector.SetReferenceValue(Constants.TimelineReferenceKey.TREE_TO_RELEASE, releaseRoad.EndObjectController);
+                UnlockLevelDirector.Play();
+
+                // 演出終了まで待つ
+                await UniTask.WaitUntil(() => UnlockLevelDirector.state != PlayState.Playing, cancellationToken: _cancellationTokenSource.Token);
+
+                // 木の解放演出見たことを記録する
+                releaseAnimationPlayedTrees.Add(releaseRoad.EndObjectController.treeId);
+
+                // 再生状態を保存
+                releaseAnimationPlayedRoads.Add(releaseRoad.saveKey);
+                waitForReleaseRoads.RemoveAt(0);
+            }
         }
 
         private void OnApplicationQuit()
@@ -81,15 +128,6 @@ namespace Treevel.Modules.MenuSelectScene.LevelSelect
                 SoundManager.Instance.StopSE(ESEKey.LevelSelect_River);
             PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.TREE_ANIMATION_STATE, releaseAnimationPlayedTrees);
             PlayerPrefsUtility.SetList(Constants.PlayerPrefsKeys.ROAD_ANIMATION_STATE, releaseAnimationPlayedRoads);
-        }
-
-        /// <summary>
-        /// 道の幅の変更
-        /// </summary>
-        /// <param name="scale"> 拡大率 </param>
-        public void ScaleRoad(float scale)
-        {
-            _roads.ForEach(road => road.Scale.Value = scale);
         }
     }
 }
