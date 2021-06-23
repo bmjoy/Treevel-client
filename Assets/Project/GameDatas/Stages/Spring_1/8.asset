@@ -132,6 +132,66 @@ MonoBehaviour:
     duration: 0
     width: 0
     height: 0
+  - loop: 1
+    appearTime: 3
+    interval: 5
+    type: 5
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: -1
+    targetColumn: 2
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 3
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 1
+    appearTime: 5.5
+    interval: 5
+    type: 5
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 1
+    targetColumn: -1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 1
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
+  - loop: 1
+    appearTime: 5.5
+    interval: 5
+    type: 5
+    targetDirections: 
+    targetLines: 
+    randomDirection: 
+    randomRow: 
+    randomColumn: 
+    targetRow: 3
+    targetColumn: -1
+    targetBottle: 0
+    randomAttackableBottles: 
+    isRandom: 0
+    targets: []
+    targetDirection: 0
+    attackTimes: 0
+    duration: 0
+    width: 0
+    height: 0
   overviewGimmicks: 
   tutorial:
     type: 0
