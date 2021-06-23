@@ -94,9 +94,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     var sign = _targetDirection == EDirection.ToLeft ? 1 : -1;
                     var centerTilePos = BoardManager.Instance.GetTilePos(gimmickData.targetRow, EColumn.Center);
                     var yPos = centerTilePos.y;
-                    var startX = -sign * (Constants.WindowSize.WIDTH + coreSprite.size.y * transform.localScale.y) *
+                    var startX = sign * (Constants.WindowSize.WIDTH + _coreSpriteRenderer.size.y * transform.localScale.y) *
                                  0.5f;
-                    var endX = startX + sign * _attackMoveDistance;
+                    var endX = startX + -sign * _attackMoveDistance;
 
                     _attackStartPos = new Vector2(startX, yPos);
                     _attackEndPos = new Vector2(endX, yPos);
@@ -112,7 +112,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                 case EDirection.ToUp: {
                     _targetLine = (int)gimmickData.targetColumn;
 
-                    var sign = _targetDirection == EDirection.ToUp ? 1 : -1;
+                    var sign = _targetDirection == EDirection.ToUp ? -1 : 1;
                     var centerTilePos = BoardManager.Instance.GetTilePos(ERow.Third, gimmickData.targetColumn);
                     var xPos = centerTilePos.x;
                     var startY = sign * _attackMoveDistance * 0.5f;
@@ -122,7 +122,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     _attackEndPos = new Vector2(xPos, endY);
 
                     transform.position = centerTilePos;
-                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, sign, 1));
+                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, -sign, 1));
                     break;
                 }
                 default:
