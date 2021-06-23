@@ -75,7 +75,7 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     _isBottleMoved = true;
                     MoveBottles();
                 }).AddTo(this);
-            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.speed = 0).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.enabled = false).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)
