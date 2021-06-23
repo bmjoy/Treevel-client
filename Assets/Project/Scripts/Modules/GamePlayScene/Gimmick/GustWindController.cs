@@ -46,6 +46,16 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         /// </summary>
         private bool _isBottleMoved = false;
 
+        /// <summary>
+        /// GustWind本体のRenderer
+        /// </summary>
+        private SpriteRenderer _coreSpriteRenderer;
+
+        /// <summary>
+        /// GustWind本体の当たり判定
+        /// </summary>
+        private BoxCollider2D _coreBoxCollider2D;
+
         private const string _ANIMATOR_PARAM_TRIGGER_WARNING = "Warning";
         private const string _ATTACK_ANIMATION_CLIP_NAME = "GustWind@attack";
         private static readonly int _ATTACK_STATE_NAME_HASH = Animator.StringToHash("GustWind@attack");
@@ -56,6 +66,9 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             base.Awake();
             _animator = GetComponent<Animator>();
+            var core = transform.Find("Core");
+            _coreSpriteRenderer = core.GetComponent<SpriteRenderer>();
+            _coreBoxCollider2D = core.GetComponent<BoxCollider2D>();
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => !_isBottleMoved)
                 .Subscribe(_ => {
@@ -69,11 +82,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
         {
             base.Initialize(gimmickData);
 
-            var coreSprite = transform.Find("Core").GetComponent<SpriteRenderer>();
             _targetDirection = gimmickData.targetDirection;
             // 縦の時は、ピッタリ画面端の外から画面もう一端の外まで動かせるように、
             // 横の時は、ピッタリ画面端からスタートし、縦と同じ距離を移動する（アニメーションの秒数でスピードを決めているので）
-            _attackMoveDistance = Constants.WindowSize.HEIGHT + coreSprite.size.y * transform.localScale.y;
+            _attackMoveDistance = Constants.WindowSize.HEIGHT + _coreSpriteRenderer.size.y * transform.localScale.y;
             switch (_targetDirection) {
                 case EDirection.ToLeft:
                 case EDirection.ToRight: {
@@ -127,6 +139,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
             yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == _ATTACK_STATE_NAME_HASH);
 
             transform.position = _attackStartPos;
+            _coreSpriteRenderer.enabled = true;
+            _coreBoxCollider2D.enabled = true;
             SoundManager.Instance.PlaySE(ESEKey.Gimmick_Gust);
             yield return MoveDuringAttack();
 
