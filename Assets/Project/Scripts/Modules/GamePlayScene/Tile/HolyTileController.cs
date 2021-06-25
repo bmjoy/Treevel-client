@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
 {
+    [RequireComponent(typeof(Animator))]
     public class HolyTileController : TileControllerBase
     {
         protected override void Awake()
