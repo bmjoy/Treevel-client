@@ -3,6 +3,7 @@ using Treevel.Common.Entities.GameDatas;
 using Treevel.Common.Managers;
 using Treevel.Common.Utils;
 using Treevel.Modules.GamePlayScene.Bottle;
+using UniRx;
 using UnityEngine;
 
 namespace Treevel.Modules.GamePlayScene.Tile
@@ -33,6 +34,9 @@ namespace Treevel.Modules.GamePlayScene.Tile
 
             internal HolyTileBottleHandler(HolyTileController parent)
             {
+                GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                    _animator.speed = 0;
+                }).AddTo(parent);
                 _animator = parent.GetComponent<Animator>();
             }
 
