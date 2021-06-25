@@ -1,4 +1,7 @@
 enum,JP,EN
+FooterHome,ホーム,Home
+FooterRecord,記録,Record
+FooterOthers,その他,Others
 SettingsTitle,設定,Settings
 SettingsReset,リセット,Reset
 SettingsVibration,振動,Vibration

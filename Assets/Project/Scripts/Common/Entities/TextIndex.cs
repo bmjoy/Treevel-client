@@ -6,6 +6,9 @@ namespace Treevel.Common.Entities
     public enum ETextIndex
     {
         Error,                                // ERROR
+        FooterHome,                           // フッターホーム
+        FooterRecord,                         // フッター記録
+        FooterOthers,                          // フッターその他
         SettingsTitle,                        // 設定
         SettingsReset,                        // リセット
         SettingsVibration,                    // 振動
