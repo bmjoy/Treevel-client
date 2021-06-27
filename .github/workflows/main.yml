@@ -29,7 +29,7 @@ jobs:
           restore-keys: |
             Library-
       - name: Build Player Contents
-        run: /Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -quit -projectPath ~/Projects/Unity/Treevel-client -executeMethod Treevel.Editor.AddressableProcessor.BuildContents_iOS
+        run: /opt/Unity/Editor/Unity -batchmode -quit -projectPath ~/Projects/Unity/Treevel-client -executeMethod Treevel.Editor.AddressableProcessor.BuildContents_iOS
 #      - name: Unity - Test Runner
 #        id: tests
 #        shell: bash
