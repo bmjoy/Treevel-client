@@ -8,7 +8,7 @@ namespace Treevel.Common.Entities
         Error,                                // ERROR
         FooterHome,                           // フッターホーム
         FooterRecord,                         // フッター記録
-        FooterOthers,                          // フッターその他
+        FooterOthers,                         // フッターその他
         SettingsTitle,                        // 設定
         SettingsReset,                        // リセット
         SettingsVibration,                    // 振動
