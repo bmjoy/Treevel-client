@@ -6,10 +6,6 @@ env:
 jobs:
   test:
     name: ${{ matrix.testMode }} Test on Unity ${{ matrix.unityVersion }}
-    runs-on: ubuntu-latest
-    container:
-      # with linux-il2cpp. image from https://hub.docker.com/r/gableroux/unity3d/tags
-      image: unityci/editor:ubuntu-${{ matrix.unity }}-ios-0
     strategy:
       fail-fast: false
       matrix:
@@ -18,6 +14,10 @@ jobs:
         testMode:
           - editmode
           - playmode
+    runs-on: ubuntu-latest
+    container:
+      # with linux-il2cpp. image from https://hub.docker.com/r/gableroux/unity3d/tags
+      image: unityci/editor:ubuntu-${{ matrix.unity }}-ios-0
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
