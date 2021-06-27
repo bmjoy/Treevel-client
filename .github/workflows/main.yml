@@ -6,7 +6,10 @@ env:
 jobs:
   test:
     name: ${{ matrix.testMode }} Test on Unity ${{ matrix.unityVersion }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    container:
+      # with linux-il2cpp. image from https://hub.docker.com/r/gableroux/unity3d/tags
+      image: gableroux/unity3d:${{ matrix.unity }}-linux-il2cpp
     strategy:
       fail-fast: false
       matrix:
@@ -25,17 +28,19 @@ jobs:
           key: Library-${{ hashFiles('**/packages-lock.json') }}
           restore-keys: |
             Library-
-      - name: Unity - Test Runner
-        id: tests
-        shell: bash
-        run: |
-          /Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -logFile $artifactsPath/$testMode.log -projectPath . -runTests -testPlatform $testMode -testResults $artifactsPath/$testMode-result.xml 
-        env:
-          unityVersion: ${{ matrix.unityVersion }}
-#          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          artifactsPath: ${{ matrix.testMode }}-artifacts
-          testMode: ${{ matrix.testMode }}
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with: 
-          path: ${{ matrix.testMode }}-artifacts
+      - name: Build Player Contents
+        run: /Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -quit -projectPath ~/Projects/Unity/Treevel-client -executeMethod Treevel.Editor.AddressableProcessor.BuildContents_iOS
+#      - name: Unity - Test Runner
+#        id: tests
+#        shell: bash
+#        run: |
+#          /Applications/Unity/Hub/Editor/$unityVersion/Unity.app/Contents/MacOS/Unity -batchmode -logFile $artifactsPath/$testMode.log -projectPath . -runTests -testPlatform $testMode -testResults $artifactsPath/$testMode-result.xml 
+#        env:
+#          unityVersion: ${{ matrix.unityVersion }}
+##          githubToken: ${{ secrets.GITHUB_TOKEN }}
+#          artifactsPath: ${{ matrix.testMode }}-artifacts
+#          testMode: ${{ matrix.testMode }}
+#      - name: Upload Artifacts
+#        uses: actions/upload-artifact@v2
+#        with: 
+#          path: ${{ matrix.testMode }}-artifacts
