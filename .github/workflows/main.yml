@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       # with linux-il2cpp. image from https://hub.docker.com/r/gableroux/unity3d/tags
-      image: unityci/editor:ubuntu-${{ matrix.unity }}-ios-0
+      image: unityci/editor:ubuntu-${{ matrix.unityVersion }}-ios-0
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
