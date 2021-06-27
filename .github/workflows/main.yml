@@ -29,7 +29,7 @@ jobs:
           restore-keys: |
             Library-
       - name: Activate Unity
-        run: echo -n "$UNITY_LICENSE" > .Unity.ulf && /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .Unity.ulf || exit 0
+        run: echo -n "$UNITY_LICENSE" > .Unity.ulf && /opt/unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .Unity.ulf || exit 0
       - name: Build Player Contents
         run: pwd && ls -al && /opt/unity/Editor/Unity -batchmode -quit -projectPath . -executeMethod Treevel.Editor.AddressableProcessor.BuildContents_iOS
 #      - name: Unity - Test Runner
