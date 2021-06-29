@@ -47,6 +47,14 @@ MonoBehaviour:
     goalColor: 1
     number: 11
     pairNumber: 0
+  - type: 2
+    goalColor: 0
+    number: 1
+    pairNumber: 2
+  - type: 2
+    goalColor: 0
+    number: 2
+    pairNumber: 1
   bottles:
   - type: 2
     initPos: 4
@@ -111,7 +119,9 @@ MonoBehaviour:
     image:
       m_AssetGUID: 
       m_SubObjectName: 
+      m_SubObjectType: 
     video:
       m_AssetGUID: 
       m_SubObjectName: 
+      m_SubObjectType: 
   constraintStages: []
