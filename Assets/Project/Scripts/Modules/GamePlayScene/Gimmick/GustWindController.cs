@@ -62,6 +62,8 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
 
         private Animator _animator;
 
+        [SerializeField] private ParticleSystem _leafParticle;
+
         private void Awake()
         {
             base.Awake();
@@ -75,7 +77,10 @@ namespace Treevel.Modules.GamePlayScene.Gimmick
                     _isBottleMoved = true;
                     MoveBottles();
                 }).AddTo(this);
-            GamePlayDirector.Instance.GameEnd.Subscribe(_ => _animator.enabled = false).AddTo(this);
+            GamePlayDirector.Instance.GameEnd.Subscribe(_ => {
+                _animator.speed = 0;
+                _leafParticle.Pause();
+            }).AddTo(this);
         }
 
         public override void Initialize(GimmickData gimmickData)

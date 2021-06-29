@@ -5090,6 +5090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _warningDisplayTime: 1
+  _leafParticle: {fileID: 8770241754254224182}
 --- !u!95 &6050347131260975815
 Animator:
   serializedVersion: 3
